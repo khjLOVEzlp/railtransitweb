@@ -1,17 +1,20 @@
 import styled from "@emotion/styled";
-import React, {useEffect, useState} from "react";
-import {useHttp} from "./utils/http";
+import React, { useEffect, useState } from "react";
+import { useHttp } from "./utils/http";
 import logo from './icon/logo.png'
-import {Navigate, Route, Routes} from "react-router";
-import {Home} from './views/home';
-import {System} from "./views/system/System";
-import {NavLink} from "react-router-dom";
-import {useAuth} from "./context/auth-context";
-import {Button, Dropdown, Menu} from "antd";
+import { Navigate, Route, Routes } from "react-router";
+import { Home } from './views/home';
+import { System } from "./views/system";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "./context/auth-context";
+import { Button, Dropdown, Menu } from "antd";
+import { useMount } from "./hook";
+import { Plan } from "./views/plan";
+import { Alarm } from "./views/alarm";
+import { Person } from "./views/person";
+import { Hardware } from "./views/hardware";
 
 export const AuthenticatedApp = () => {
-
-  const {user, logout} = useAuth()
   const [menu, setMenu] = useState([])
   const [menuList] = useState([
     {
@@ -24,11 +27,15 @@ export const AuthenticatedApp = () => {
     },
     {
       name: '告警上报',
-      path: '/alert'
+      path: '/alarm'
     },
     {
       name: '人员管理',
       path: '/person'
+    },
+    {
+      name: '设备管理',
+      path: '/hardware'
     },
     {
       name: '系统管理',
@@ -36,7 +43,7 @@ export const AuthenticatedApp = () => {
     },
   ])
   const client = useHttp()
-  useEffect(() => {
+  useMount(() => {
     client(`info?type=1`, {
       method: "POST"
     }).then(res => {
@@ -49,7 +56,7 @@ export const AuthenticatedApp = () => {
       <HeaderStyle>
         <Logo>
           <div className="img">
-            <img src={logo} alt=""/>
+            <img src={logo} alt="" />
           </div>
           <div className="title">
             <p>5G-NB智慧轨行区 数字化维养安全管控系统</p>
@@ -64,18 +71,22 @@ export const AuthenticatedApp = () => {
           } */}
             {
               menuList.map((item: any, index) => (
-                <li key={index}><NavLink activeStyle={{color: '#5A7FFA'}} to={item.path}>{item.name}</NavLink></li>
+                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.path}>{item.name}</NavLink></li>
               ))
             }
           </Nav>
         </Logo>
-        <User/>
+        <User />
       </HeaderStyle>
       <ContentStyle>
         <Routes>
-          <Route path={"/home"} element={<Home/>}/>
-          <Route path={"/system"} element={<System/>}/>
-          <Navigate to={"/home"}/>
+          <Route path={"/home"} element={<Home />} />
+          <Route path={"/plan/*"} element={<Plan />} />
+          <Route path={"/alarm"} element={<Alarm />} />
+          <Route path={"/person"} element={<Person />} />
+          <Route path={"/hardware"} element={<Hardware />} />
+          <Route path={"/system/*"} element={<System />} />
+          <Navigate to={"/home"} />
         </Routes>
       </ContentStyle>
     </Container>
@@ -83,8 +94,11 @@ export const AuthenticatedApp = () => {
 }
 
 const User = () => {
-  const {logout} = useAuth();
-  const user = JSON.parse(sessionStorage.user)
+  const { logout, user } = useAuth();
+
+  useMount(() => {
+    console.log(user?.loginName)
+  })
   return (
     <Dropdown
       overlay={
@@ -97,8 +111,8 @@ const User = () => {
         </Menu>
       }
     >
-      <Button style={{color: '#3A3D44', fontSize: '2rem', fontWeight: 'bold'}} type={"link"}
-              onClick={(e) => e.preventDefault()}>
+      <Button style={{ color: '#3A3D44', fontSize: '2rem', fontWeight: 'bold' }} type={"link"}
+        onClick={(e) => e.preventDefault()}>
         {user?.loginName}
       </Button>
     </Dropdown>

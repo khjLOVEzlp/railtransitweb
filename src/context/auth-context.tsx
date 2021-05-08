@@ -1,7 +1,6 @@
-import {createContext, ReactNode, useContext, useEffect, useState} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import * as auth from '../auth-provider'
-import {User} from "../type/user";
-import {useMount} from "../hook";
+import { User } from "../type/user";
 
 const AuthContext = createContext<| {
   user: User | null;
@@ -15,18 +14,13 @@ interface AuthForm {
   password: string
 }
 
-export const AuthProvider = ({children}: { children: ReactNode }) => {
-  let boostrapUser = null
-  useEffect(() => {
-    boostrapUser = JSON.parse(sessionStorage.user)
-    console.log(boostrapUser)
-  })
-  const [user, setUser] = useState<User | null>(boostrapUser)
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null)
   const login = (form: AuthForm) => auth.login(form).then(setUser)
-  const logout = () => auth.logout()
+  const logout = () => auth.logout().then(() => setUser(null))
 
   return (
-    <AuthContext.Provider children={children} value={{user, login, logout}}/>
+    <AuthContext.Provider children={children} value={{ user, login, logout }} />
   )
 }
 
