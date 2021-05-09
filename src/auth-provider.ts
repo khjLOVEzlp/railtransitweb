@@ -29,4 +29,5 @@ export const login = (data: { loginName: string; password: string }) => {
 
 export const logout = async () => {
   window.sessionStorage.clear();
+  window.location.href = window.location.origin
 }

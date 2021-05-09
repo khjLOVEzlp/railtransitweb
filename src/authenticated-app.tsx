@@ -8,7 +8,7 @@ import { System } from "./views/system";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
 import { Button, Dropdown, Menu } from "antd";
-import { useMount } from "./hook";
+import { resetRoute, useMount } from "./hook";
 import { Plan } from "./views/plan";
 import { Alarm } from "./views/alarm";
 import { Person } from "./views/person";
@@ -58,7 +58,7 @@ export const AuthenticatedApp = () => {
           <div className="img">
             <img src={logo} alt="" />
           </div>
-          <div className="title">
+          <div className="title" onClick={resetRoute}>
             <p>5G-NB智慧轨行区 数字化维养安全管控系统</p>
           </div>
           <Nav>
@@ -136,15 +136,13 @@ const HeaderStyle = styled.header`
 const Logo = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
-
   > .title {
     margin-left: 1rem;
     width: 20rem;
     font-size: 2rem;
     font-weight: bold;
     color: #5A7FFA;
-
+    cursor: pointer;
     > p {
       margin: 0;
     }
