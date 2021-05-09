@@ -5,7 +5,7 @@ import { useMount } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
 
 export const Person = () => {
-  const [loading, setloading] = useState(false)
+  const [loading] = useState(false)
   const [visible, setVisible] = useState(false)
   const [title, setTitle] = useState('')
 
@@ -29,7 +29,6 @@ export const Person = () => {
   useMount(() => {
     client(`person/list`, { method: "POST" }).then(res => {
       setData(res.data)
-
     })
   })
   const columns = [

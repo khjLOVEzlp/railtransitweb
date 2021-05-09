@@ -1,13 +1,16 @@
 import styled from "@emotion/styled";
 import login from './icon/login.png'
-import {Form, Input, Button} from 'antd';
-import {useAuth} from "./context/auth-context";
-import {useDocumentTitle} from "./hook";
+import { Form, Input, Button } from 'antd';
+import { useAuth } from "./context/auth-context";
+import { useDocumentTitle } from "./hook";
 
 export const UnauthenticatedApp = () => {
-  const {login} = useAuth()
+  const { login } = useAuth()
   const onFinish = (values: { loginName: string, password: string }) => {
-    login(values)
+    login(values).then(res => {
+      console.log(values);
+      sessionStorage.setItem('login', JSON.stringify(values))
+    })
   };
   useDocumentTitle('登陆')
   return (
@@ -18,25 +21,25 @@ export const UnauthenticatedApp = () => {
         </Title>
         <Form
           name="basic"
-          initialValues={{remember: true}}
+          initialValues={{ remember: true }}
           onFinish={onFinish}
         >
           <Form.Item
             name="loginName"
-            rules={[{required: true, message: 'Please input your username!'}]}
+            rules={[{ required: true, message: 'Please input your username!' }]}
           >
-            <Input size="large" placeholder="账号：请输入您的账号"/>
+            <Input size="large" placeholder="账号：请输入您的账号" />
           </Form.Item>
 
           <Form.Item
             name="password"
-            rules={[{required: true, message: 'Please input your password!'}]}
+            rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password size="large" placeholder="密码：请输入您的密码"/>
+            <Input.Password size="large" placeholder="密码：请输入您的密码" />
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{width: "100%"}}>
+            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
               登陆
             </Button>
           </Form.Item>

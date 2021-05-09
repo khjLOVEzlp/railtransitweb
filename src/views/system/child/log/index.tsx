@@ -37,7 +37,6 @@ export const Log = () => {
   useEffect(() => {
     let { page, size } = pagination
     client(`log/list?index=${page}&size=${size}`, { method: "POST" }).then(res => {
-      console.log(res.data);
       setData(res.data)
       setPagination({ ...pagination, totla: res.count })
     })
