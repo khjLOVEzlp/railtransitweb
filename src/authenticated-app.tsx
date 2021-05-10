@@ -8,6 +8,7 @@ import { System } from "./views/system";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
 import { Button, Dropdown, Menu } from "antd";
+import { DownOutlined } from '@ant-design/icons';
 import { resetRoute, useMount } from "./hook";
 import { Plan } from "./views/plan";
 import { Alarm } from "./views/alarm";
@@ -16,37 +17,40 @@ import { Hardware } from "./views/hardware";
 
 export const AuthenticatedApp = () => {
   const [menu, setMenu] = useState([])
-  const [menuList] = useState([
-    {
-      name: '首页',
-      path: '/home'
-    },
-    {
-      name: '作业计划',
-      path: '/plan'
-    },
-    {
-      name: '告警上报',
-      path: '/alarm'
-    },
-    {
-      name: '人员管理',
-      path: '/person'
-    },
-    {
-      name: '设备管理',
-      path: '/hardware'
-    },
-    {
-      name: '系统管理',
-      path: '/system'
-    },
-  ])
   const client = useHttp()
   useMount(() => {
     client(`info?type=1`, {
       method: "POST"
     }).then(res => {
+      res.data.push({ name: '首页', url: '/home' })
+      res.data.reverse()
+      res.data[1].url = '/hardware'
+      res.data[2].url = '/statistics'
+      res.data[3].url = '/alarm'
+      res.data[4].url = '/plan'
+      res.data[5].url = '/system'
+      res.data.forEach((item: any) => {
+        let { name } = item
+        switch (name) {
+          case '设备管理':
+            item.url = '/hardware'
+            break;
+          case '统计分析':
+            item.url = '/statistics'
+            break;
+          case '告警上报':
+            item.url = '/alarm'
+            break;
+          case '作业计划':
+            item.url = '/plan'
+            break;
+          case '系统管理':
+            item.url = '/system'
+            break;
+          default:
+            break;
+        }
+      })
       setMenu(res.data)
       sessionStorage.setItem('menu', JSON.stringify(res.data))
     })
@@ -62,16 +66,9 @@ export const AuthenticatedApp = () => {
             <p>5G-NB智慧轨行区 数字化维养安全管控系统</p>
           </div>
           <Nav>
-            {/* {
-            menu.map((item: any, index) => (
-              <li key={index}>
-                <NavLink to={item.url}>{item.name}</NavLink>
-              </li>
-            ))
-          } */}
             {
-              menuList.map((item: any, index) => (
-                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.path}>{item.name}</NavLink></li>
+              menu.map((item: any, index) => (
+                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
               ))
             }
           </Nav>
@@ -83,7 +80,7 @@ export const AuthenticatedApp = () => {
           <Route path={"/home"} element={<Home />} />
           <Route path={"/plan/*"} element={<Plan />} />
           <Route path={"/alarm"} element={<Alarm />} />
-          <Route path={"/person"} element={<Person />} />
+          <Route path={"/statistics"} element={<Alarm />} />
           <Route path={"/hardware"} element={<Hardware />} />
           <Route path={"/system/*"} element={<System />} />
           <Navigate to={"/home"} />
@@ -113,7 +110,7 @@ const User = () => {
     >
       <Button style={{ color: '#3A3D44', fontSize: '2rem', fontWeight: 'bold' }} type={"link"}
         onClick={(e) => e.preventDefault()}>
-        {user?.loginName}
+        {user?.loginName}<DownOutlined />
       </Button>
     </Dropdown>
   );

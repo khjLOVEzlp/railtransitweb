@@ -175,4 +175,5 @@ background: #fff;
 height: 73rem;
 border-radius: 1rem;
 padding: 0 1.5rem;
+overflow-y: auto;
 `

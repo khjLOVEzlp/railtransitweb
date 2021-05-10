@@ -3,6 +3,7 @@ import { Button, Form, Input, Modal, Select, Table } from "antd"
 import React, { useEffect, useState } from "react"
 import { useMount } from "../../hook"
 import { useHttp } from "../../utils/http"
+import { Dialog } from "./dialog/dialog"
 const { Option } = Select;
 
 const layout = {
@@ -10,7 +11,7 @@ const layout = {
   wrapperCol: { span: 21 },
 };
 export const Person = () => {
-  const [visible, setVisible] = useState(false)
+  const [isShow, setIsShow] = useState(false)
   const [title, setTitle] = useState('')
   const [data, setData] = useState([])
   const [loading, setloading] = useState(false)
@@ -44,14 +45,6 @@ export const Person = () => {
 
   const showModal = (title: string) => {
     setTitle(title)
-    setVisible(true)
-  }
-
-  const handleOk = () => {
-  }
-
-  const handleCancel = () => {
-    setVisible(false)
   }
 
   const columns = [
@@ -99,7 +92,7 @@ export const Person = () => {
       title: '体温状态',
       dataIndex: 'number',
       key: 'number',
-      render: () => <><Button type="link">查看</Button></>
+      render: () => <><Button type="link" onClick={() => setIsShow(true)}>查看</Button></>
     },
     {
       title: '酒精状态',
@@ -146,62 +139,7 @@ export const Person = () => {
       <Main>
         <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
       </Main>
-
-      <Modal
-        visible={visible}
-        title={title}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        width={800}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            取消
-            </Button>,
-          <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-            提交
-            </Button>,
-        ]}
-      >
-        <Form
-          labelAlign="right"
-          {...layout}
-        >
-          <Form.Item
-            label="登陆账户"
-            name="loginName"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="密码"
-            name="password"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="人员id"
-            name="personId"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="角色集合"
-            name="roles"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="备注"
-            name="remark"
-          >
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
+      {isShow ? <Dialog isWidth="60rem" setIsShow={setIsShow} /> : ''}
     </AlarmStyle>
   )
 }

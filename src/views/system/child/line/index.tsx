@@ -1,36 +1,34 @@
 import styled from "@emotion/styled"
-import { Button, Form, Input, Table, Modal, message, Popconfirm } from "antd";
+import { Button, Form, Input, Table, Modal, Popconfirm, message } from "antd";
 import qs from "qs";
 import React, { useEffect, useState } from "react";
 import { useMount } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
-import { UserDialog } from "./dialog/UserDialog";
+import { LineDialog } from './dialog/LineDialog'
 
-export const User = () => {
-  const client = useHttp()
+export const Line = () => {
+  const [loading, setloading] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [isShow, setIsShow] = useState(false)
+  const [formData, setFormData] = useState({})
+  const [formType, setFormType] = useState('')
+  const [data, setData] = useState([])
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
     totla: 0,
     name: ''
   })
-  const [isShow, setIsShow] = useState(false)
-  const [formType, setFormType] = useState('')
-  const [formData, setFormData] = useState({})
-  const getUserList = () => {
-    client(`user/list?${qs.stringify(pagination)}`, { method: "POST" }).then(res => {
-      setData(res.data)
-      setPagination({ ...pagination, totla: res.count })
-    })
-  }
-
-  const search = (values: any) => {
-    setPagination({ ...pagination, name: values.username })
-  };
 
   const add = () => {
     setIsShow(true)
     setFormType('新增')
+  }
+
+  const manage = (item: any) => {
+    setIsShow(true)
+    setFormType('线路详情')
+    setFormData(item)
   }
 
   const mod = (item: any) => {
@@ -40,7 +38,7 @@ export const User = () => {
   }
 
   const del = async (id: number | string) => {
-    client(`user/delete/${id}`)
+    client(`plan/delete/${id}`)
   }
 
   const confirm = (item: any) => {
@@ -51,28 +49,38 @@ export const User = () => {
     message.error('取消删除');
   }
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
-
+  const client = useHttp()
   useEffect(() => {
-    getUserList()
-  }, [pagination.name, pagination.page])
+    let { page, size } = pagination
+    client(`log/list?index=${page}&size=${size}`, { method: "POST" }).then(res => {
+      setData(res.data)
+      setPagination({ ...pagination, totla: res.count })
+    })
+
+    console.log(pagination.page);
+
+  }, [pagination.page])
+
   const columns = [
     {
-      title: '用户名',
-      dataIndex: 'name',
-      key: 'name',
+      title: '操作者',
+      dataIndex: 'operName',
+      key: 'operName',
     },
     {
-      title: '备注',
-      dataIndex: 'remark',
-      key: 'remark',
+      title: '标题',
+      dataIndex: 'title',
+      key: 'title',
+    },
+    {
+      title: '操作时间',
+      dataIndex: 'operTime',
+      key: 'operTime',
     },
     {
       title: '操作',
       key: 'id',
-      render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button><Popconfirm
+      render: (item: any) => (<><Button type="link" onClick={() => manage(item)}>管理</Button><Button type="link" onClick={() => mod(item)}>修改</Button><Popconfirm
         title={`是否要删除${item.name}`}
         onConfirm={() => confirm(item)}
         onCancel={cancel}
@@ -80,22 +88,28 @@ export const User = () => {
         cancelText="No"
       >
         <a href="#">删除</a>
-      </Popconfirm></>
+      </Popconfirm></>)
     },
   ]
 
-  const [data, setData] = useState([])
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onChange = (page: number) => {
+    setPagination({ ...pagination, page })
+  }
 
   return (
     <div>
       <Header>
         <Form
           name="basic"
-          onFinish={search}
+          onFinish={onFinish}
           layout={"inline"}
         >
           <Form.Item
-            label="用户名"
+            label="角色名"
             name="username"
           >
             <Input />
@@ -112,8 +126,9 @@ export const User = () => {
       </Header>
       <Main>
         <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
-        {isShow ? <UserDialog setIsShow={setIsShow} formData={formData} formType={formType} /> : ''}
       </Main>
+
+      {isShow ? <LineDialog setIsShow={setIsShow} formData={formData} formType={formType} /> : ''}
     </div>
   )
 }
@@ -134,4 +149,5 @@ background: #fff;
 height: 73rem;
 border-radius: 1rem;
 padding: 0 1.5rem;
+overflow-y: auto;
 `

@@ -65,7 +65,7 @@ export const Warehouse = () => {
           layout={"inline"}
         >
           <Form.Item
-            label="角色名"
+            label="仓库名称"
             name="username"
           >
             <Input />

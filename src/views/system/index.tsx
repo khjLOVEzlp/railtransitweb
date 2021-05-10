@@ -12,6 +12,7 @@ import { Person } from "./child/person";
 import { Warehouse } from "./child/warehouse";
 import { MaterialType } from "./child/materialType";
 import { Temperature } from "./child/temperature";
+import { Line } from "./child/line";
 export const System = () => {
   const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === "系统管理").childMenu)
   return (
@@ -30,10 +31,10 @@ export const System = () => {
           <Route path={"/role"} element={<Role />} />
           <Route path={"/menu"} element={<Menu />} />
           <Route path={"/log"} element={<Log />} />
-          <Route path={"/dataDictionary"} element={<Department />} />
-          <Route path={"/department"} element={<DataDictionary />} />
+          <Route path={"/dataDictionary"} element={<DataDictionary />} />
+          < Route path={"/department"} element={<Department />} />
           <Route path={"/person"} element={<Person />} />
-          <Route path={"/line"} element={<User />} />
+          <Route path={"/line"} element={<Line />} />
           <Route path={"/warehouse"} element={<Warehouse />} />
           <Route path={"/materialType"} element={<MaterialType />} />
           <Route path={"/temperature"} element={<Temperature />} />

@@ -1,38 +1,80 @@
 
 import styled from "@emotion/styled"
-import { Button, Form, Input, Table, Modal } from "antd";
-import React, { useState } from "react";
+import { Button, Form, Input, Popconfirm, message, Table } from "antd";
+import qs from "qs";
+import React, { useEffect, useState } from "react";
 import { useMount } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
-
+import { Dialog } from './dialog/dialog'
 export const PlanWork = () => {
   const [loading, setloading] = useState(false)
-  const [visible, setVisible] = useState(false)
-  const [title, setTitle] = useState('')
+  const [formData, setformData] = useState({})
+  const [isShow, setIsShow] = useState(false)
+  const [formType, setFormType] = useState('')
+  const [pagination, setPagination] = useState({
+    page: 1,
+    size: 10,
+    totla: 0,
+    name: ''
+  })
 
-  const layout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 },
+  const client = useHttp()
+
+  useEffect(() => {
+    getPlanList()
+  }, [pagination.page, pagination.name])
+
+  const getPlanList = () => {
+    const param = {
+      index: pagination.page,
+      size: pagination.size,
+      name: pagination.name
+    }
+
+    client(`plan/list?${qs.stringify(param)}`, { method: "POST" }).then(res => {
+      setData(res.data)
+      setPagination({ ...pagination, totla: res.count })
+      setloading(false)
+    })
+  }
+
+  const search = (values: any) => {
+    setPagination({ ...pagination, name: values.username })
+    getPlanList()
   };
 
-  const showModal = (title: string) => {
-    setTitle(title)
-    setVisible(true)
+  const add = () => {
+    setIsShow(true)
+    setFormType('新增')
   }
 
-  const handleOk = () => {
+  const mod = (item: any) => {
+    setIsShow(true)
+    setFormType('修改')
+    setformData(item)
   }
 
-  const handleCancel = () => {
-    setVisible(false)
+  const fabu = () => {
+    setIsShow(true)
+    setFormType('发布')
   }
-  const client = useHttp()
-  useMount(() => {
-    client(`plan/getAll`, { method: "POST" }).then(res => {
-      setData(res.data)
 
-    })
-  })
+  const del = async (id: number | string) => {
+    client(`plan/delete/${id}`)
+  }
+
+  const confirm = (item: any) => {
+    del(item.id).then(() => message.success('删除成功'))
+  }
+
+  const cancel = () => {
+    message.error('取消删除');
+  }
+
+  const onChange = (page: number) => {
+    setPagination({ ...pagination, page })
+  }
+
   const columns = [
     {
       title: '计划名称',
@@ -61,24 +103,32 @@ export const PlanWork = () => {
     },
     {
       title: '操作',
-      dataIndex: 'address',
-      key: 'address',
-      render: () => <><Button type="link" onClick={() => showModal('发布计划')}>发布计划</Button><Button type="link" onClick={() => showModal('修改')}>修改</Button><Button type="link">删除</Button></>
+      key: 'id',
+      render: (item: any) => (
+        <><Button type="link" onClick={fabu}>发布计划</Button>
+          <Button type="link" onClick={() => mod(item)}>修改</Button>
+          <Popconfirm
+            title={`是否要删除${item.name}`}
+            onConfirm={() => confirm(item)}
+            onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <a href="#">删除</a>
+          </Popconfirm>
+        </>
+      )
     },
   ]
 
   const [data, setData] = useState([])
-
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
 
   return (
     <div>
       <Header>
         <Form
           name="basic"
-          onFinish={onFinish}
+          onFinish={search}
           layout={"inline"}
         >
           <Form.Item
@@ -95,214 +145,13 @@ export const PlanWork = () => {
           </Form.Item>
         </Form>
 
-        <Button onClick={() => showModal('新增')}>新增</Button>
+        <Button onClick={add}>新增</Button>
       </Header>
       <Main>
-        <Table columns={columns} dataSource={data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} loading={loading} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
       </Main>
 
-      <Modal
-        visible={visible}
-        title={title}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        width={800}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            取消
-            </Button>,
-          <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-            提交
-            </Button>,
-        ]}
-      >
-        <Form
-          labelAlign="right"
-          {...layout}
-        >
-          <Form.Item
-            label="开始时间"
-            name="beginTime"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="作业日期"
-            name="dateTime"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="作业单位"
-            name="departmentId"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="文档id集合"
-            name="documentList"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="结束时间"
-            name="endTime"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="是否自动提醒"
-            name="isWarn"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="施工负责人职责"
-            name="leaderDuty"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="施工负责人"
-            name="leaderPerson"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="线路id"
-            name="lineId"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="物料列表id集合"
-            name="materialList"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="计划名称"
-            name="name"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="计划令号"
-            name="num"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="作业人员id列"
-            name="personList"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="销站点"
-            name="pinStand"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="请站点"
-            name="pleaseStand"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="防疫专员职责"
-            name="preventionDuty"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="防疫专员"
-            name="preventionPerson"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="备注"
-            name="remark"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="安全员职责"
-            name="safeDuty"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="安全员"
-            name="safePerson"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="工具列表id集合"
-            name="toolList"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="作业类型"
-            name="type"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="提醒时间"
-            name="warnTime"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="作业区间"
-            name="workAddr"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="作业计划工作量"
-            name="workContent"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="作业人数"
-            name="workPerson"
-          >
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
+      {isShow ? <Dialog setIsShow={setIsShow} formData={formData} formType={formType} /> : ''}
     </div>
   )
 }
@@ -323,4 +172,5 @@ background: #fff;
 height: 73rem;
 border-radius: 1rem;
 padding: 0 1.5rem;
+overflow-y: auto;
 `

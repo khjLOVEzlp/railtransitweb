@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { useDocumentTitle } from "../../hook"
 import { useEffect, useState } from "react";
 import * as echarts from 'echarts';
-
+import { MyModal } from '../../components/MyModal'
 import { track, mounthConfigData } from './subwayRoute'
 export const Home = () => {
   const [data] = useState(track)
@@ -35,7 +35,6 @@ export const Home = () => {
       <Footer>
         <div className="left">
           <div className="title">
-            计划统计
           </div>
         </div>
         <div className="right">

@@ -66,7 +66,7 @@ export const MaterialType = () => {
           layout={"inline"}
         >
           <Form.Item
-            label="角色名"
+            label="物资名称"
             name="username"
           >
             <Input />

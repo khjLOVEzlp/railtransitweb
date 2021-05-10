@@ -20,6 +20,7 @@ export const UnauthenticatedApp = () => {
           5G-NB智慧轨行区数字化维养安全管控系统
         </Title>
         <Form
+          size={'large'}
           name="basic"
           initialValues={{ remember: true }}
           onFinish={onFinish}

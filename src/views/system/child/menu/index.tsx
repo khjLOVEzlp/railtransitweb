@@ -66,7 +66,7 @@ export const Menu = () => {
           layout={"inline"}
         >
           <Form.Item
-            label="角色名"
+            label="菜单名"
             name="username"
           >
             <Input />

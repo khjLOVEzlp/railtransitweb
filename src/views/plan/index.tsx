@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import { Navigate, Route, Routes } from "react-router";
 
 import { NavLink } from "react-router-dom"
+import { useMount } from "../../hook";
 import { PlanHistory } from "./child/planHistory";
 import { PlanTemplate } from "./child/planTemplate";
 import { PlanType } from "./child/planType";
@@ -11,23 +12,13 @@ import { PlanWork } from "./child/planWork";
 export const Plan = () => {
   // const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === "系统管理").childMenu)
   const [asid, setAsid] = useState([
-    {
-      name: '计划模板',
-      url: 'planTemplate'
-    },
-    {
-      name: '作业计划',
-      url: 'planWork'
-    },
-    {
-      name: '作业类型',
-      url: 'planType'
-    },
-    {
-      name: '作业历史',
-      url: 'planHistory'
-    },
   ])
+
+  useMount(() => {
+    const menu = JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu
+    setAsid(menu)
+  })
+
   return (
     <PlanStyle>
       <Left>
@@ -41,10 +32,10 @@ export const Plan = () => {
       <Right>
         <Routes>
           <Route path={"/planTemplate"} element={<PlanTemplate />} />
-          <Route path={"/planWork"} element={<PlanWork />} />
+          <Route path={"/plan"} element={<PlanWork />} />
           <Route path={"/planType"} element={<PlanType />} />
           <Route path={"/planHistory"} element={<PlanHistory />} />
-          <Navigate to={window.location.pathname + "/planTemplate"} />
+          <Navigate to={window.location.pathname + "/plan"} />
         </Routes>
       </Right>
     </PlanStyle>

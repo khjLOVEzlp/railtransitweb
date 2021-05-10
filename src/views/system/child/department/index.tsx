@@ -66,7 +66,7 @@ export const Department = () => {
           layout={"inline"}
         >
           <Form.Item
-            label="角色名"
+            label="部门名称"
             name="username"
           >
             <Input />
