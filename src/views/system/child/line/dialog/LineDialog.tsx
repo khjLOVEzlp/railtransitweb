@@ -1,17 +1,11 @@
-import { MyModal } from "../../../../../components/MyModal"
-interface Props {
-  formData: object,
-  formType: string,
-  setIsShow: (isShow: boolean) => void
-}
+import React from 'react';
 
-export const LineDialog = ({ setIsShow, formData, formType }: Props) => {
-  const submit = () => {
-
-  }
+export const LineDialog = () => {
   return (
-    <MyModal title={formType} isVisible={true} setIsShow={setIsShow} isWidth="100rem" submit={submit}>
-      <div></div>
-    </MyModal>
-  )
-}
+    <div>
+
+    </div>
+  );
+};
+
+export default LineDialog;

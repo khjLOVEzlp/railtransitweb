@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Button, Form, Input, Table, Modal } from "antd";
 import React, { useState } from "react";
-import { useMount } from "../../../../hook";
+import { useDocumentTitle, useMount } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
 
 export const PlanType = () => {
@@ -71,6 +71,8 @@ export const PlanType = () => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
+
+  useDocumentTitle('作业类型')
 
   return (
     <div>

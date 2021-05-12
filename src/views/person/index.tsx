@@ -3,7 +3,6 @@ import { Button, Form, Input, Modal, Select, Table } from "antd"
 import React, { useEffect, useState } from "react"
 import { useMount } from "../../hook"
 import { useHttp } from "../../utils/http"
-import { Dialog } from "./dialog/dialog"
 const { Option } = Select;
 
 const layout = {
@@ -139,7 +138,6 @@ export const Person = () => {
       <Main>
         <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
       </Main>
-      {isShow ? <Dialog isWidth="60rem" setIsShow={setIsShow} /> : ''}
     </AlarmStyle>
   )
 }

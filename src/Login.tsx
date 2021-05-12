@@ -3,8 +3,8 @@ import login from './icon/login.png'
 import { Form, Input, Button } from 'antd';
 import { useAuth } from "./context/auth-context";
 import { useDocumentTitle } from "./hook";
-
-export const UnauthenticatedApp = () => {
+import dayjs from 'dayjs'
+export const Login = () => {
   const { login } = useAuth()
   const onFinish = (values: { loginName: string, password: string }) => {
     login(values).then(res => {
@@ -14,7 +14,11 @@ export const UnauthenticatedApp = () => {
   };
   useDocumentTitle('登陆')
   return (
-    <Login>
+    <LoginStyle>
+      <TopTimer>
+        <div className="left">{dayjs().format('YYYY-MM-DD')}</div>
+        <div className="right">{dayjs().format('HH:mm:ss')}</div>
+      </TopTimer>
       <LoginForm>
         <Title>
           5G-NB智慧轨行区数字化维养安全管控系统
@@ -46,16 +50,27 @@ export const UnauthenticatedApp = () => {
           </Form.Item>
         </Form>
       </LoginForm>
-    </Login>
+    </LoginStyle>
   )
 }
 
-const Login = styled.div`
+const LoginStyle = styled.div`
   min-height: 100vh;
   background-image: url(${login});
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
+`
+
+const TopTimer = styled.div`
+width: 100%;
+padding: 0 2rem;
+position: absolute;
+top: 4rem;
+font-size: 2rem;
+color: #fff;
+display:flex;
+justify-content: space-between;
 `
 
 const LoginForm = styled.div`

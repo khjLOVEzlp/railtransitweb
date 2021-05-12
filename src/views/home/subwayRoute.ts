@@ -1078,3 +1078,93 @@ export const mounthConfigData = {
     },
   ],
 };
+
+
+export const options = {
+  tooltip: {
+    trigger: "item",
+  },
+  legend: {
+    top: "5%",
+    left: "center",
+  },
+  series: [
+    {
+      name: "计划统计",
+      type: "pie",
+      radius: ["40%", "70%"],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: "#fff",
+        borderWidth: 2,
+      },
+      label: {
+        show: false,
+        position: "center",
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: "20",
+          fontWeight: "bold",
+        },
+      },
+      labelLine: {
+        show: false,
+      },
+      data: [
+        { value: 10, name: "日计划数" },
+        { value: 20, name: "周计划数" },
+        { value: 30, name: "月计划数" },
+        { value: 120, name: "季度计划数" },
+        { value: 180, name: "半年计划数" },
+        { value: 360, name: "年计划数" }
+      ],
+    },
+  ],
+};
+
+export const task = {
+  tooltip: {
+    trigger: "item",
+  },
+  legend: {
+    top: "5%",
+    left: "center",
+  },
+  series: [
+    {
+      name: "作业统计",
+      type: "pie",
+      radius: ["40%", "70%"],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: "#fff",
+        borderWidth: 2,
+      },
+      label: {
+        show: false,
+        position: "center",
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: "20",
+          fontWeight: "bold",
+        },
+      },
+      labelLine: {
+        show: false,
+      },
+      data: [
+        { value: 20, name: "日作业数" },
+        { value: 30, name: "周作业数" },
+        { value: 40, name: "月作业数" },
+        { value: 50, name: "季度作业数" },
+        { value: 60, name: "年度作业数" }
+      ],
+    },
+  ],
+};

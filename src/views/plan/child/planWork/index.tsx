@@ -3,7 +3,7 @@ import styled from "@emotion/styled"
 import { Button, Form, Input, Popconfirm, message, Table } from "antd";
 import qs from "qs";
 import React, { useEffect, useState } from "react";
-import { useMount } from "../../../../hook";
+import { useDocumentTitle, useMount } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
 import { Dialog } from './dialog/dialog'
 export const PlanWork = () => {
@@ -21,10 +21,10 @@ export const PlanWork = () => {
   const client = useHttp()
 
   useEffect(() => {
-    getPlanList()
+    getUserList()
   }, [pagination.page, pagination.name])
 
-  const getPlanList = () => {
+  const getUserList = () => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -40,7 +40,7 @@ export const PlanWork = () => {
 
   const search = (values: any) => {
     setPagination({ ...pagination, name: values.username })
-    getPlanList()
+    getUserList()
   };
 
   const add = () => {
@@ -123,6 +123,8 @@ export const PlanWork = () => {
 
   const [data, setData] = useState([])
 
+  useDocumentTitle('作业计划')
+
   return (
     <div>
       <Header>
@@ -151,7 +153,7 @@ export const PlanWork = () => {
         <Table columns={columns} loading={loading} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
       </Main>
 
-      {isShow ? <Dialog setIsShow={setIsShow} formData={formData} formType={formType} /> : ''}
+      {isShow ? <Dialog formData={formData} formType={formType} isShow={isShow} setIsShow={setIsShow} getUserList={getUserList} /> : ''}
     </div>
   )
 }

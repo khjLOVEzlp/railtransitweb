@@ -1,37 +1,65 @@
 import styled from "@emotion/styled"
-import { Button, Form, Input, Table, Modal } from "antd";
-import React, { useState } from "react";
-import { useMount } from "../../../../hook";
+import { Button, Form, Input, Table, Modal, message, Popconfirm, Select } from "antd";
+import qs from "qs";
+import React, { useEffect, useState } from "react";
+import { useDocumentTitle, useMount } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
-
+import { MaterialTypeModal } from './dialog/modal'
+const { Option } = Select
 export const MaterialType = () => {
-  const [loading, setloading] = useState(false)
-  const [visible, setVisible] = useState(false)
-  const [title, setTitle] = useState('')
+  const client = useHttp()
+  const [pagination, setPagination] = useState({
+    page: 1,
+    size: 10,
+    totla: 0,
+    name: ''
+  })
+  const [isShow, setIsShow] = useState(false)
+  const [formType, setFormType] = useState('')
+  const [formData, setFormData] = useState({})
+  const getUserList = () => {
+    client(`materialType/list?${qs.stringify(pagination)}`, { method: "POST" }).then(res => {
+      setData(res.data)
+      setPagination({ ...pagination, totla: res.count })
+    })
+  }
 
-  const layout = {
-    labelCol: { span: 3 },
-    wrapperCol: { span: 21 },
+  const search = (values: any) => {
+    setPagination({ ...pagination, name: values.username })
   };
 
-  const showModal = (title: string) => {
-    setTitle(title)
-    setVisible(true)
+  const add = () => {
+    setIsShow(true)
+    setFormType('新增')
   }
 
-  const handleOk = () => {
+  const mod = (item: any) => {
+    setIsShow(true)
+    setFormType('修改')
+    setFormData(item)
   }
 
-  const handleCancel = () => {
-    setVisible(false)
-  }
-  const client = useHttp()
-  useMount(() => {
-    client(`materialType/list`, { method: "POST" }).then(res => {
-      setData(res.data)
-
+  const del = async (id: number | string) => {
+    client(`materialType/delete/${id}`).then(() => {
+      getUserList()
     })
-  })
+  }
+
+  const confirm = (item: any) => {
+    del(item.id).then(() => message.success('删除成功'))
+  }
+
+  const cancel = () => {
+    message.error('取消删除');
+  }
+
+  const onChange = (page: number) => {
+    setPagination({ ...pagination, page })
+  }
+
+  useEffect(() => {
+    getUserList()
+  }, [pagination.name, pagination.page])
   const columns = [
     {
       title: '用户名',
@@ -45,31 +73,46 @@ export const MaterialType = () => {
     },
     {
       title: '操作',
-      dataIndex: 'address',
-      key: 'address',
-      render: () => <><Button type="link" onClick={() => showModal('修改')}>修改</Button><Button type="link">删除</Button></>
+      key: 'id',
+      render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+        <Popconfirm
+          title={`是否要删除${item.name}`}
+          onConfirm={() => confirm(item)}
+          onCancel={cancel}
+          okText="Yes"
+          cancelText="No"
+        >
+          <a href="#">删除</a>
+        </Popconfirm></>
     },
   ]
 
   const [data, setData] = useState([])
-
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
+  useDocumentTitle('物资类型管理')
 
   return (
     <div>
       <Header>
         <Form
           name="basic"
-          onFinish={onFinish}
+          onFinish={search}
           layout={"inline"}
         >
           <Form.Item
-            label="物资名称"
+            label="用户名"
             name="username"
           >
             <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="类型"
+            name="type"
+          >
+            <Select style={{ width: 120 }} defaultValue={1}>
+              <Option value={1}>轨行区内</Option>
+              <Option value={2}>轨行区外</Option>
+            </Select>
           </Form.Item>
 
           <Form.Item>
@@ -79,67 +122,12 @@ export const MaterialType = () => {
           </Form.Item>
         </Form>
 
-        <Button onClick={() => showModal('新增')}>新增</Button>
+        <Button onClick={() => add()}>新增</Button>
       </Header>
       <Main>
-        <Table columns={columns} dataSource={data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
+        {isShow ? <MaterialTypeModal formData={formData} formType={formType} isShow={isShow} setIsShow={setIsShow} getUserList={getUserList} /> : ''}
       </Main>
-
-      <Modal
-        visible={visible}
-        title={title}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        width={800}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            取消
-            </Button>,
-          <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-            提交
-            </Button>,
-        ]}
-      >
-        <Form
-          labelAlign="right"
-          {...layout}
-        >
-          <Form.Item
-            label="登陆账户"
-            name="loginName"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="密码"
-            name="password"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="人员id"
-            name="personId"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="角色集合"
-            name="roles"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="备注"
-            name="remark"
-          >
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
     </div>
   )
 }

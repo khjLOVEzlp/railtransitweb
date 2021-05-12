@@ -2,14 +2,17 @@ import styled from "@emotion/styled"
 import { useDocumentTitle } from "../../hook"
 import { useEffect, useState } from "react";
 import * as echarts from 'echarts';
-import { MyModal } from '../../components/MyModal'
-import { track, mounthConfigData } from './subwayRoute'
+import { track, mounthConfigData, options, task } from './subwayRoute'
 export const Home = () => {
   const [data] = useState(track)
   const [alertData] = useState(mounthConfigData)
+  const [planData] = useState(options)
+  const [taskData] = useState(task)
   useEffect(() => {
     echarts.init(document.getElementById('track') as HTMLElement).setOption(data)
     echarts.init(document.getElementById('alert') as HTMLElement).setOption(alertData)
+    echarts.init(document.getElementById('plan') as HTMLElement).setOption(planData)
+    echarts.init(document.getElementById('task') as HTMLElement).setOption(taskData)
   }, [data, alertData])
   useDocumentTitle('首页')
   return (
@@ -27,7 +30,7 @@ export const Home = () => {
             告警展示
           </div>
 
-          <div id="alert" style={{ width: '60rem', height: '42rem' }}>
+          <div id="alert" style={{ width: '100%', height: '42rem' }}>
 
           </div>
         </div>
@@ -35,11 +38,19 @@ export const Home = () => {
       <Footer>
         <div className="left">
           <div className="title">
+            计划统计
+          </div>
+          <div id="plan" style={{ width: '100%', height: '30rem' }}>
+
           </div>
         </div>
         <div className="right">
           <div className="title">
             作业统计
+          </div>
+
+          <div id="task" style={{ width: '100%', height: '30rem' }}>
+
           </div>
         </div>
       </Footer>

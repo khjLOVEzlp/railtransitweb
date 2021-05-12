@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Button, Select, Table } from "antd"
 import React, { useEffect, useState } from "react"
-import { useMount } from "../../hook"
+import { useDocumentTitle, useMount } from "../../hook"
 import { useHttp } from "../../utils/http"
 const { Option } = Select;
 export const Alarm = () => {
@@ -78,6 +78,9 @@ export const Alarm = () => {
       render: () => <><Button type="link">删除</Button></>
     },
   ]
+
+  useDocumentTitle('告警上报')
+
   return (
     <AlarmStyle>
       <Header>

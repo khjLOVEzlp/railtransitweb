@@ -12,10 +12,9 @@ import { DownOutlined } from '@ant-design/icons';
 import { resetRoute, useMount } from "./hook";
 import { Plan } from "./views/plan";
 import { Alarm } from "./views/alarm";
-import { Person } from "./views/person";
 import { Hardware } from "./views/hardware";
 
-export const AuthenticatedApp = () => {
+export const PageBox = () => {
   const [menu, setMenu] = useState([])
   const client = useHttp()
   useMount(() => {
@@ -83,7 +82,7 @@ export const AuthenticatedApp = () => {
           <Route path={"/statistics"} element={<Alarm />} />
           <Route path={"/hardware"} element={<Hardware />} />
           <Route path={"/system/*"} element={<System />} />
-          <Navigate to={"/home"} />
+          <Navigate to={window.location.pathname + "/home"} />
         </Routes>
       </ContentStyle>
     </Container>

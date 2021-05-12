@@ -1,37 +1,65 @@
 import styled from "@emotion/styled"
-import { Button, Form, Input, Table, Modal } from "antd";
-import React, { useState } from "react";
-import { useMount } from "../../../../hook";
+import { Button, Form, Input, Table, Modal, message, Popconfirm } from "antd";
+import qs from "qs";
+import React, { useEffect, useState } from "react";
+import { useDocumentTitle, useMount } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
+import { DepartmentModal } from './dialog/modal'
 
 export const Department = () => {
-  const [loading, setloading] = useState(false)
-  const [visible, setVisible] = useState(false)
-  const [title, setTitle] = useState('')
-
-  const layout = {
-    labelCol: { span: 3 },
-    wrapperCol: { span: 21 },
-  };
-
-  const showModal = (title: string) => {
-    setTitle(title)
-    setVisible(true)
-  }
-
-  const handleOk = () => {
-  }
-
-  const handleCancel = () => {
-    setVisible(false)
-  }
   const client = useHttp()
-  useMount(() => {
+  const [pagination, setPagination] = useState({
+    page: 1,
+    size: 10,
+    totla: 0,
+    name: ''
+  })
+  const [isShow, setIsShow] = useState(false)
+  const [formType, setFormType] = useState('')
+  const [formData, setFormData] = useState({})
+  const getUserList = () => {
     client(`department/getAll`).then(res => {
       setData(res.data)
-
+      setPagination({ ...pagination, totla: res.count })
     })
-  })
+  }
+
+  const search = (values: any) => {
+    setPagination({ ...pagination, name: values.username })
+  };
+
+  const add = () => {
+    setIsShow(true)
+    setFormType('新增')
+  }
+
+  const mod = (item: any) => {
+    setIsShow(true)
+    setFormType('修改')
+    setFormData(item)
+  }
+
+  const del = async (id: number | string) => {
+    client(`department/delete/${id}`).then(() => {
+      getUserList()
+    })
+  }
+
+  const confirm = (item: any) => {
+    del(item.id).then(() => message.success('删除成功'))
+  }
+
+  const cancel = () => {
+    message.error('取消删除');
+  }
+
+  const onChange = (page: number) => {
+    setPagination({ ...pagination, page })
+  }
+
+  useEffect(() => {
+    getUserList()
+  }, [pagination.name, pagination.page])
   const columns = [
     {
       title: '用户名',
@@ -45,28 +73,34 @@ export const Department = () => {
     },
     {
       title: '操作',
-      dataIndex: 'address',
-      key: 'address',
-      render: () => <><Button type="link" onClick={() => showModal('修改')}>修改</Button><Button type="link">删除</Button></>
+      key: 'id',
+      render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+        <Popconfirm
+          title={`是否要删除${item.name}`}
+          onConfirm={() => confirm(item)}
+          onCancel={cancel}
+          okText="Yes"
+          cancelText="No"
+        >
+          <a href="#">删除</a>
+        </Popconfirm></>
     },
   ]
 
   const [data, setData] = useState([])
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
+  useDocumentTitle('部门管理')
 
   return (
     <div>
       <Header>
         <Form
           name="basic"
-          onFinish={onFinish}
+          onFinish={search}
           layout={"inline"}
         >
           <Form.Item
-            label="部门名称"
+            label="用户名"
             name="username"
           >
             <Input />
@@ -79,67 +113,12 @@ export const Department = () => {
           </Form.Item>
         </Form>
 
-        <Button onClick={() => showModal('新增')}>新增</Button>
+        <Button onClick={() => add()}>新增</Button>
       </Header>
       <Main>
-        <Table columns={columns} dataSource={data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
+        {isShow ? <DepartmentModal formData={formData} formType={formType} isShow={isShow} setIsShow={setIsShow} getUserList={getUserList} /> : ''}
       </Main>
-
-      <Modal
-        visible={visible}
-        title={title}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        width={800}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            取消
-            </Button>,
-          <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-            提交
-            </Button>,
-        ]}
-      >
-        <Form
-          labelAlign="right"
-          {...layout}
-        >
-          <Form.Item
-            label="登陆账户"
-            name="loginName"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="密码"
-            name="password"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="人员id"
-            name="personId"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="角色集合"
-            name="roles"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="备注"
-            name="remark"
-          >
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
     </div>
   )
 }

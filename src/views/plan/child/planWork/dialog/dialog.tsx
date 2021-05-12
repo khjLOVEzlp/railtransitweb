@@ -1,54 +1,137 @@
-import { Form, Input, message } from "antd"
-import React from "react"
-import { MyModal } from "../../../../../components/MyModal"
-import { useMount } from "../../../../../hook";
-import { useHttp } from "../../../../../utils/http";
+
+
+
+import { Modal, Button, Form, Input, Checkbox, Select, message, Radio, Space, DatePicker } from 'antd';
+import { useForm } from 'antd/lib/form/Form';
+import React, { useState } from 'react';
+import { useMount } from '../../../../../hook';
+import { useHttp } from '../../../../../utils/http';
+const { Option } = Select;
 const layout = {
-  labelCol: { span: 3 },
-  wrapperCol: { span: 21 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
 };
 
-export const Dialog = ({ setIsShow, formType, formData }: { setIsShow: (isShow: boolean) => void, formType: string, formData: object }) => {
-  const [form] = Form.useForm();
+interface Props {
+  formData: object,
+  formType: string,
+  isShow: boolean,
+  setIsShow: (isShow: boolean) => void,
+  getUserList: () => void
+}
+
+export const Dialog = ({ formData, formType, isShow, setIsShow, getUserList }: Props) => {
+  const [form] = useForm()
+  const [isModalVisible, setIsModalVisible] = useState(isShow);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [value, setValue] = useState(1);
+  const [materialList, setMaterialList] = useState([])
+  const [personList, setPersonList] = useState([])
   const client = useHttp()
-  const submit = async () => {
+
+  useMount(() => {
+    getMaterialList()
+    PersonList()
+  })
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    setIsShow(false)
     form.submit()
-  }
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setIsShow(false)
+  };
 
   const onFinish = (values: any) => {
-    let url
-    if (formType === '新增') {
-      url = 'plan/save'
+    let url = ''
+    if (formType === '修改') {
+      url = 'materialType/update'
     } else {
-      url = 'plan/update'
+      url = 'materialType/save'
     }
-
+    setConfirmLoading(true);
     client(url, { method: "POST", body: JSON.stringify(values) }).then(() => {
+      setConfirmLoading(false);
       message.success(`${formType}成功`)
+      getUserList()
     })
   };
 
+  const getMaterialList = () => {
+    client(`materialType/getAll`, { method: "POST" }).then(res => {
+      console.log(res.data);
+      setMaterialList(res.data)
+    })
+  }
+
+  const PersonList = () => {
+    client(`person/list`, { method: "POST" }).then((res) => {
+      setPersonList(res.data)
+    })
+  }
+
+  const beginTime = () => {
+
+  }
+
+  const dateTime = () => {
+
+  }
+
+  const endTime = () => { }
+
+  const handleChange = (value: any) => {
+    console.log(value);
+  }
+
+  const radioChange = (e: any) => {
+    setValue(e.target.value);
+  }
+
   return (
-    <MyModal title={formType} isWidth={"100rem"} isVisible={true} setIsShow={setIsShow} submit={submit}>
+    <Modal title={formType} maskClosable={false} visible={isModalVisible} onOk={handleOk} width={800} onCancel={handleCancel} confirmLoading={confirmLoading} footer={[
+      <Button key="back" onClick={handleCancel}>
+        取消
+            </Button>,
+      <Button key="submit" type="primary" onClick={handleOk}>
+        提交
+            </Button>,
+    ]}>
       <Form
         onFinish={onFinish}
         form={form}
         labelAlign="right"
         {...layout}
-        initialValues={formData}
+        initialValues={formType === '修改' ? formData : {}}
       >
         <Form.Item
           label="开始时间"
           name="beginTime"
         >
-          <Input />
+          <Space direction="vertical">
+            <DatePicker onChange={beginTime} />
+          </Space>
+        </Form.Item>
+
+        <Form.Item
+          label="结束时间"
+          name="endTime"
+        >
+          <Space direction="vertical">
+            <DatePicker onChange={dateTime} />
+          </Space>
         </Form.Item>
 
         <Form.Item
           label="作业日期"
           name="dateTime"
         >
-          <Input />
+          <Space direction="vertical">
+            <DatePicker onChange={dateTime} />
+          </Space>
         </Form.Item>
 
         <Form.Item
@@ -66,17 +149,13 @@ export const Dialog = ({ setIsShow, formType, formData }: { setIsShow: (isShow: 
         </Form.Item>
 
         <Form.Item
-          label="结束时间"
-          name="endTime"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
           label="是否自动提醒"
           name="isWarn"
         >
-          <Input />
+          <Radio.Group onChange={radioChange} value={value}>
+            <Radio value={1}>是</Radio>
+            <Radio value={2}>否</Radio>
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item
@@ -104,7 +183,9 @@ export const Dialog = ({ setIsShow, formType, formData }: { setIsShow: (isShow: 
           label="物料列表id集合"
           name="materialList"
         >
-          <Input />
+          <Select style={{ width: "100%" }} onChange={handleChange}>
+            {materialList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
         </Form.Item>
 
         <Form.Item
@@ -122,10 +203,12 @@ export const Dialog = ({ setIsShow, formType, formData }: { setIsShow: (isShow: 
         </Form.Item>
 
         <Form.Item
-          label="作业人员id列"
+          label="作业人员id列表"
           name="personList"
         >
-          <Input />
+          <Select style={{ width: "100%" }} onChange={handleChange}>
+            {personList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
         </Form.Item>
 
         <Form.Item
@@ -219,6 +302,6 @@ export const Dialog = ({ setIsShow, formType, formData }: { setIsShow: (isShow: 
           <Input />
         </Form.Item>
       </Form>
-    </MyModal>
+    </Modal>
   )
 }

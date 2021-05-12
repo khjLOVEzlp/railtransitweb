@@ -2,9 +2,9 @@ import styled from "@emotion/styled"
 import { Button, Form, Input, Table, Modal, message, Popconfirm } from "antd";
 import qs from "qs";
 import React, { useEffect, useState } from "react";
-import { useMount } from "../../../../hook";
+import { useDocumentTitle, useMount } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
-import { UserDialog } from "./dialog/UserDialog";
+import { UserModal } from "./dialog/modal";
 
 export const User = () => {
   const client = useHttp()
@@ -40,7 +40,9 @@ export const User = () => {
   }
 
   const del = async (id: number | string) => {
-    client(`user/delete/${id}`)
+    client(`user/delete/${id}`).then(() => {
+      getUserList()
+    })
   }
 
   const confirm = (item: any) => {
@@ -72,19 +74,21 @@ export const User = () => {
     {
       title: '操作',
       key: 'id',
-      render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button><Popconfirm
-        title={`是否要删除${item.name}`}
-        onConfirm={() => confirm(item)}
-        onCancel={cancel}
-        okText="Yes"
-        cancelText="No"
-      >
-        <a href="#">删除</a>
-      </Popconfirm></>
+      render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+        <Popconfirm
+          title={`是否要删除${item.name}`}
+          onConfirm={() => confirm(item)}
+          onCancel={cancel}
+          okText="Yes"
+          cancelText="No"
+        >
+          <a href="#">删除</a>
+        </Popconfirm></>
     },
   ]
 
   const [data, setData] = useState([])
+  useDocumentTitle('用户管理')
 
   return (
     <div>
@@ -112,7 +116,7 @@ export const User = () => {
       </Header>
       <Main>
         <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
-        {isShow ? <UserDialog setIsShow={setIsShow} formData={formData} formType={formType} /> : ''}
+        {isShow ? <UserModal formData={formData} formType={formType} isShow={isShow} setIsShow={setIsShow} getUserList={getUserList} /> : ''}
       </Main>
     </div>
   )

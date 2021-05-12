@@ -10,9 +10,7 @@ import { PlanType } from "./child/planType";
 import { PlanWork } from "./child/planWork";
 
 export const Plan = () => {
-  // const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === "系统管理").childMenu)
-  const [asid, setAsid] = useState([
-  ])
+  const [asid, setAsid] = useState([])
 
   useMount(() => {
     const menu = JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu
@@ -31,9 +29,9 @@ export const Plan = () => {
       </Left>
       <Right>
         <Routes>
-          <Route path={"/planTemplate"} element={<PlanTemplate />} />
           <Route path={"/plan"} element={<PlanWork />} />
           <Route path={"/planType"} element={<PlanType />} />
+          <Route path={"/planTemplate"} element={<PlanTemplate />} />
           <Route path={"/planHistory"} element={<PlanHistory />} />
           <Navigate to={window.location.pathname + "/plan"} />
         </Routes>

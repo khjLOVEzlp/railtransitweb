@@ -1,24 +1,37 @@
 import styled from "@emotion/styled"
-import { Button, Form, Input, Table, Modal, Popconfirm, message } from "antd";
+import { Button, Form, Input, Table, Popconfirm, message } from "antd";
 import qs from "qs";
 import React, { useEffect, useState } from "react";
-import { useMount } from "../../../../hook";
+import { useDocumentTitle } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
 import { LineDialog } from './dialog/LineDialog'
+import { Drawermanage } from "./drawermanage/Drawermanage";
 
 export const Line = () => {
-  const [loading, setloading] = useState(false)
   const [visible, setVisible] = useState(false)
+  const [isShowDrawer, setIsShowDrawer] = useState(false)
   const [isShow, setIsShow] = useState(false)
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState<any>({})
   const [formType, setFormType] = useState('')
   const [data, setData] = useState([])
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
     totla: 0,
-    name: ''
+    name: '',
   })
+
+  const getLine = () => {
+    const param = {
+      index: pagination.page,
+      size: pagination.size,
+      name: pagination.name,
+    }
+    client(`line/list?${qs.stringify(param)}`, { method: "POST" }).then(res => {
+      setData(res.data)
+      setPagination({ ...pagination, totla: res.count })
+    })
+  }
 
   const add = () => {
     setIsShow(true)
@@ -26,9 +39,8 @@ export const Line = () => {
   }
 
   const manage = (item: any) => {
-    setIsShow(true)
-    setFormType('线路详情')
     setFormData(item)
+    setIsShowDrawer(true)
   }
 
   const mod = (item: any) => {
@@ -38,7 +50,7 @@ export const Line = () => {
   }
 
   const del = async (id: number | string) => {
-    client(`plan/delete/${id}`)
+    client(`line/delete/${id}`)
   }
 
   const confirm = (item: any) => {
@@ -50,32 +62,25 @@ export const Line = () => {
   }
 
   const client = useHttp()
+
   useEffect(() => {
-    let { page, size } = pagination
-    client(`log/list?index=${page}&size=${size}`, { method: "POST" }).then(res => {
-      setData(res.data)
-      setPagination({ ...pagination, totla: res.count })
-    })
+    getLine()
+  }, [pagination.page, pagination.name])
 
-    console.log(pagination.page);
+  useEffect(() => {
+    console.log(isShowDrawer);
 
-  }, [pagination.page])
-
+  }, [isShowDrawer])
   const columns = [
     {
-      title: '操作者',
-      dataIndex: 'operName',
-      key: 'operName',
+      title: '路线',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
-      title: '标题',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: '操作时间',
-      dataIndex: 'operTime',
-      key: 'operTime',
+      title: '备注',
+      dataIndex: 'remark',
+      key: 'remark',
     },
     {
       title: '操作',
@@ -100,6 +105,8 @@ export const Line = () => {
     setPagination({ ...pagination, page })
   }
 
+  useDocumentTitle('地铁管理')
+
   return (
     <div>
       <Header>
@@ -109,8 +116,8 @@ export const Line = () => {
           layout={"inline"}
         >
           <Form.Item
-            label="角色名"
-            name="username"
+            label="线路名称"
+            name="name"
           >
             <Input />
           </Form.Item>
@@ -128,7 +135,9 @@ export const Line = () => {
         <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
       </Main>
 
-      {isShow ? <LineDialog setIsShow={setIsShow} formData={formData} formType={formType} /> : ''}
+      {isShowDrawer ? <Drawermanage formData={formData} isShowDrawer={isShowDrawer} setIsShowDrawer={setIsShowDrawer} /> : ''}
+
+      {isShow ? <LineDialog /> : ''}
     </div>
   )
 }

@@ -1,145 +1,39 @@
 import styled from "@emotion/styled"
-import { Button, Form, Input, Table, Modal } from "antd";
+import { Tabs } from "antd";
 import React, { useState } from "react";
-import { useMount } from "../../../../hook";
-import { useHttp } from "../../../../utils/http";
-
+import { useDocumentTitle } from "../../../../hook";
+import './index.css'
+import { DictItem } from "./dictItem/DictItem";
+import { DictType } from "./dictType/DictType";
+const { TabPane } = Tabs;
 export const DataDictionary = () => {
-  const [loading, setloading] = useState(false)
-  const [visible, setVisible] = useState(false)
-  const [title, setTitle] = useState('')
-
-  const layout = {
-    labelCol: { span: 3 },
-    wrapperCol: { span: 21 },
-  };
-
-  const showModal = (title: string) => {
-    setTitle(title)
-    setVisible(true)
-  }
-
-  const handleOk = () => {
-  }
-
-  const handleCancel = () => {
-    setVisible(false)
-  }
-  const client = useHttp()
-  useMount(() => {
-    client(`department/getAll`).then(res => {
-      setData(res.data)
-
-    })
-  })
-  const columns = [
+  const [navList] = useState([
     {
-      title: '用户名',
-      dataIndex: 'name',
-      key: 'name',
+      name: "数据字典类型",
+      id: 1,
+      tem: <DictType />,
     },
     {
-      title: '备注',
-      dataIndex: 'remark',
-      key: 'remark',
-    },
-    {
-      title: '操作',
-      dataIndex: 'address',
-      key: 'address',
-      render: () => <><Button type="link" onClick={() => showModal('修改')}>修改</Button><Button type="link">删除</Button></>
-    },
-  ]
+      name: "数据字典数据",
+      id: 2,
+      tem: <DictItem />,
+    }
+  ])
 
-  const [data, setData] = useState([])
-
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
+  const callback = () => { }
+  useDocumentTitle('数据字典')
 
   return (
     <div>
-      <Header>
-        <Form
-          name="basic"
-          onFinish={onFinish}
-          layout={"inline"}
-        >
-          <Form.Item
-            label="角色名"
-            name="username"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              搜索
-        </Button>
-          </Form.Item>
-        </Form>
-
-        <Button onClick={() => showModal('新增')}>新增</Button>
-      </Header>
-      <Main>
-        <Table columns={columns} dataSource={data} rowKey={(item: any) => item.id} />
-      </Main>
-
-      <Modal
-        visible={visible}
-        title={title}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        width={800}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            取消
-            </Button>,
-          <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-            提交
-            </Button>,
-        ]}
-      >
-        <Form
-          labelAlign="right"
-          {...layout}
-        >
-          <Form.Item
-            label="登陆账户"
-            name="loginName"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="密码"
-            name="password"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="人员id"
-            name="personId"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="角色集合"
-            name="roles"
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="备注"
-            name="remark"
-          >
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
+      <Tabs defaultActiveKey="1" onChange={callback}>
+        {
+          navList.map((item: any) => <TabPane tab={item.name} key={item.id}>
+            <Main>
+              {item.tem}
+            </Main>
+          </TabPane>)
+        }
+      </Tabs>
     </div>
   )
 }
@@ -160,4 +54,5 @@ background: #fff;
 height: 73rem;
 border-radius: 1rem;
 padding: 0 1.5rem;
+overflow-y: auto;
 `
