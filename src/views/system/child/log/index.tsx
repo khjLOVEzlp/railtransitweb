@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDocumentTitle, useMount } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
 import { LogModal } from "./dialog/modal";
+import {cleanObject} from "../../../../utils";
 const { RangePicker } = DatePicker;
 
 export const Log = () => {
@@ -13,31 +14,34 @@ export const Log = () => {
     page: 1,
     size: 10,
     totla: 0,
-    name: ''
+    operName: '',
+    startTime: '',
+    endTime: ''
   })
   const [isShow, setIsShow] = useState(false)
   const [formType, setFormType] = useState('')
   const [formData, setFormData] = useState({})
   const getMenuList = () => {
-    client(`log/list?${qs.stringify(pagination)}`, { method: "POST" }).then(res => {
+    const param = {
+      index: pagination.page,
+      size: pagination.size,
+      name: pagination.operName,
+      startTime: pagination.startTime,
+      endTime: pagination.endTime
+    }
+    client(`log/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
       setData(res.data)
       setPagination({ ...pagination, totla: res.count })
     })
   }
 
   const search = (values: any) => {
-    setPagination({ ...pagination, name: values.username })
+    setPagination({ ...pagination, operName: values.name })
   };
 
-  const add = () => {
-    setIsShow(true)
-    setFormType('新增')
-  }
-
-  const mod = (item: any) => {
-    setIsShow(true)
-    setFormType('修改')
-    setFormData(item)
+  const timeChange = (dates: any, dateStrings: any) => {
+    console.log(dates, dateStrings)
+    setPagination({...pagination, startTime: dateStrings[0], endTime: dateStrings[1]})
   }
 
   const del = async (id: number | string) => {
@@ -60,7 +64,7 @@ export const Log = () => {
 
   useEffect(() => {
     getMenuList()
-  }, [pagination.name, pagination.page])
+  }, [pagination.operName, pagination.page, pagination.startTime, pagination.endTime])
   const columns = [
     {
       title: '操作者',
@@ -92,7 +96,7 @@ export const Log = () => {
         >
           <Form.Item
             label="操作者"
-            name="username"
+            name="name"
           >
             <Input />
           </Form.Item>
@@ -102,7 +106,7 @@ export const Log = () => {
             name="time"
           >
             <Space direction="vertical" size={12}>
-              <RangePicker />
+              <RangePicker onChange={timeChange} />
             </Space>
           </Form.Item>
 

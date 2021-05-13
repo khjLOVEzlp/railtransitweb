@@ -3,6 +3,7 @@ import { useForm } from 'antd/lib/form/Form';
 import React, { useState } from 'react';
 import { useMount } from '../../../../../hook';
 import { useHttp } from '../../../../../utils/http';
+import {Simulate} from "react-dom/test-utils";
 const { Option } = Select;
 const layout = {
   labelCol: { span: 3 },
@@ -58,10 +59,13 @@ export const UserModal = ({ formData, formType, isShow, setIsShow, getUserList }
       url = 'user/save'
     }
     setConfirmLoading(true);
-    client(url, { method: "POST", body: JSON.stringify(values) }).then(() => {
+    client(url, { method: "POST", body: JSON.stringify(values) }).then((res) => {
+      console.log(res)
       setConfirmLoading(false);
       message.success(`${formType}成功`)
       getUserList()
+    }).catch(err => {
+      console.log(err)
     })
   };
 

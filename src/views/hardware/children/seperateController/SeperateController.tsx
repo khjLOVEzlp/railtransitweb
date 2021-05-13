@@ -97,7 +97,7 @@ export const SeperateController = () => {
       title: '操作',
       key: 'address',
       render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button><Popconfirm
-        title={`是否要删除${item.name}`}
+        title={`是否要删除${item.codeNumber}`}
         onConfirm={() => confirm(item)}
         onCancel={cancel}
         okText="Yes"

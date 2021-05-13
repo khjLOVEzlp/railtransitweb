@@ -25,9 +25,7 @@ export const RoleModal = ({ formData, formType, isShow, setIsShow, getRoleList }
   const [menu, setMenu] = useState<any>([])
   const client = useHttp()
   useMount(() => {
-
     client(`menu/getAll?type=1`, { method: "POST" }).then(res => {
-
       res.data.forEach((item: any) => {
         item.title = item.name
         item.children = item.childMenu
@@ -65,20 +63,18 @@ export const RoleModal = ({ formData, formType, isShow, setIsShow, getRoleList }
   };
 
   const onFinish = (values: any) => {
-    console.log({ ...values, menuList });
-
-    // let url = ''
-    // if (formType === '修改') {
-    //   url = 'role/update'
-    // } else {
-    //   url = 'role/save'
-    // }
-    // setConfirmLoading(true);
-    // client(url, { method: "POST", body: JSON.stringify(values) }).then(() => {
-    //   setConfirmLoading(false);
-    //   message.success(`${formType}成功`)
-    //   getRoleList()
-    // })
+    let url = ''
+    if (formType === '修改') {
+      url = 'role/update'
+    } else {
+      url = 'role/save'
+    }
+    setConfirmLoading(true);
+    client(url, { method: "POST", body: JSON.stringify(values) }).then(() => {
+      setConfirmLoading(false);
+      message.success(`${formType}成功`)
+      getRoleList()
+    })
   };
 
   const options = [
@@ -105,7 +101,6 @@ export const RoleModal = ({ formData, formType, isShow, setIsShow, getRoleList }
   };
 
   const onCheck = (checkedKeys: any, info: any) => {
-    console.log('onCheck', checkedKeys, info);
     setMenuList([...checkedKeys])
   };
 

@@ -48,9 +48,9 @@ export const Dialog = ({ formData, formType, isShow, setIsShow, getUserList }: P
   const onFinish = (values: any) => {
     let url = ''
     if (formType === '修改') {
-      url = 'materialType/update'
+      url = 'plan/update'
     } else {
-      url = 'materialType/save'
+      url = 'plan/save'
     }
     setConfirmLoading(true);
     client(url, { method: "POST", body: JSON.stringify(values) }).then(() => {
@@ -62,7 +62,6 @@ export const Dialog = ({ formData, formType, isShow, setIsShow, getUserList }: P
 
   const getMaterialList = () => {
     client(`materialType/getAll`, { method: "POST" }).then(res => {
-      console.log(res.data);
       setMaterialList(res.data)
     })
   }
