@@ -4,6 +4,7 @@ import { Form, Input, Button } from 'antd';
 import { useAuth } from "./context/auth-context";
 import { useDocumentTitle } from "./hook";
 import dayjs from 'dayjs'
+import {rules} from "./utils/verification";
 export const Login = () => {
   const { login } = useAuth()
   const onFinish = (values: { loginName: string, password: string }) => {
@@ -31,14 +32,14 @@ export const Login = () => {
         >
           <Form.Item
             name="loginName"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            rules={rules}
           >
             <Input size="large" placeholder="账号：请输入您的账号" />
           </Form.Item>
 
           <Form.Item
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={rules}
           >
             <Input.Password size="large" placeholder="密码：请输入您的密码" />
           </Form.Item>

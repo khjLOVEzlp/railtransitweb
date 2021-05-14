@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
-import { Button, Form, Input, message, Popconfirm, Table } from "antd"
-import React, { useEffect, useState } from "react"
-import { useHttp } from "../../../../utils/http"
-import { UserModal } from "./dialog/modal"
+import {Button, Form, Input, message, Popconfirm, Table} from "antd"
+import React, {useEffect, useState} from "react"
+import {useHttp} from "../../../../utils/http"
+import {UserModal} from "./dialog/modal"
 
 export const TemperaterController = () => {
   const client = useHttp()
@@ -29,9 +29,9 @@ export const TemperaterController = () => {
       type: pagination.type,
       name: pagination.name
     }
-    client(`hardware/seperate/list`, { method: "POST", body: JSON.stringify(param) }).then(res => {
+    client(`hardware/seperate/list`, {method: "POST", body: JSON.stringify(param)}).then(res => {
       setData(res.data)
-      setPagination({ ...pagination, totla: res.count })
+      setPagination({...pagination, totla: res.count})
     })
   }
 
@@ -40,7 +40,7 @@ export const TemperaterController = () => {
   }, [pagination.page, pagination.type])
 
   const search = (values: any) => {
-    setPagination({ ...pagination, name: values.username })
+    setPagination({...pagination, name: values.username})
   }
 
   const add = () => {
@@ -69,7 +69,7 @@ export const TemperaterController = () => {
   }
 
   const onChange = (value: any) => {
-    setPagination({ ...pagination, page: value })
+    setPagination({...pagination, page: value})
   }
 
   const columns = [
@@ -77,16 +77,6 @@ export const TemperaterController = () => {
       title: '设备编号',
       dataIndex: 'codeNumber',
       key: 'codeNumber',
-    },
-    {
-      title: '在线状态',
-      key: 'status',
-      render: (status: number | string) => status == 0 ? '离线' : '在线'
-    },
-    {
-      title: 'imei号',
-      dataIndex: 'imei',
-      key: 'imei',
     },
     {
       title: '是否可使用',
@@ -119,34 +109,42 @@ export const TemperaterController = () => {
           <Form.Item
             name="username"
           >
-            <Input />
+            <Input/>
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
               搜索
-        </Button>
+            </Button>
           </Form.Item>
         </Form>
 
         <Button onClick={add}>新增</Button>
       </Header>
       <Main>
-        <Table columns={columns} loading={loading} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} loading={loading} pagination={{total: pagination.totla, onChange: onChange}}
+               dataSource={data} rowKey={(item: any) => item.id}/>
       </Main>
-      {isShow ? <UserModal formData={formData} formType={formType} isShow={isShow} setIsShow={setIsShow} getHardware={getHardware} /> : ''}
+      {isShow ?
+        <UserModal
+          formData={formData}
+          formType={formType}
+          isShow={isShow}
+          setIsShow={setIsShow}
+          getHardware={getHardware}
+        /> : ''}
     </Contianer>
   )
 }
 
 const Contianer = styled.div`
-overflow: hidden;
+  overflow: hidden;
 `
 
 const Header = styled.div`
-display: flex;
-justify-content: space-between;
-margin: 1rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 1rem;
 `
 
 const Main = styled.div`

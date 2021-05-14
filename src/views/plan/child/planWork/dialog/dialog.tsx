@@ -1,6 +1,3 @@
-
-
-
 import { Modal, Button, Form, Input, Checkbox, Select, message, Radio, Space, DatePicker } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import React, { useState } from 'react';
@@ -111,7 +108,7 @@ export const Dialog = ({ formData, formType, isShow, setIsShow, getUserList }: P
           name="beginTime"
         >
           <Space direction="vertical">
-            <DatePicker onChange={beginTime} />
+            <DatePicker onChange={beginTime} placeholder="开始时间" />
           </Space>
         </Form.Item>
 
@@ -120,7 +117,7 @@ export const Dialog = ({ formData, formType, isShow, setIsShow, getUserList }: P
           name="endTime"
         >
           <Space direction="vertical">
-            <DatePicker onChange={dateTime} />
+            <DatePicker onChange={dateTime} placeholder="结束时间" />
           </Space>
         </Form.Item>
 
@@ -129,7 +126,7 @@ export const Dialog = ({ formData, formType, isShow, setIsShow, getUserList }: P
           name="dateTime"
         >
           <Space direction="vertical">
-            <DatePicker onChange={dateTime} />
+            <DatePicker onChange={dateTime} placeholder="作业日期" />
           </Space>
         </Form.Item>
 

@@ -79,11 +79,6 @@ export const AlcoholController = () => {
       key: 'codeNumber',
     },
     {
-      title: '在线状态',
-      key: 'status',
-      render: (status: number | string) => status == 0 ? '离线' : '在线'
-    },
-    {
       title: 'imei号',
       dataIndex: 'imei',
       key: 'imei',

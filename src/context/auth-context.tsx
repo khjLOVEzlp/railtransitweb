@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { Spin } from "antd";
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import {Spin} from "antd";
+import React, {createContext, ReactNode, useContext} from "react";
 import * as auth from '../auth-provider'
-import { useAsync, useMount } from "../hook";
-import { User } from "../type/user";
-import { http } from "../utils/http";
+import {useAsync, useMount} from "../hook";
+import {User} from "../type/user";
+import {http} from "../utils/http";
 
 const AuthContext = createContext<| {
   user: User | null;
@@ -14,14 +14,14 @@ const AuthContext = createContext<| {
   | undefined>(undefined)
 
 const FullPage = styled.div`
-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const FullPageLoading = () => <FullPage>
-  <Spin size={'large'} />
+  <Spin size={'large'}/>
 </FullPage>
 
 interface AuthForm {
@@ -31,23 +31,19 @@ interface AuthForm {
 
 const bootstrapUser = async () => {
   let user = null;
-  const token = auth.getUser();
-  if (token) {
-    const data = await http("login", { method: "POST", body: token });
+  const form = auth.getUser();
+  if (form) {
+    const data = await http("login", {method: "POST", body: form});
     user = data.data;
   }
-  console.log(user);
-
   return user;
 };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({children}: { children: ReactNode }) => {
   const {
     data: user,
-    error,
     isLoading,
     isIdle,
-    isError,
     run,
     setData: setUser,
   } = useAsync<User | null>();
@@ -58,10 +54,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     run(bootstrapUser())
   })
   if (isIdle || isLoading) {
-    return <FullPageLoading />
+    return <FullPageLoading/>
   }
   return (
-    <AuthContext.Provider children={children} value={{ user, login, logout }} />
+    <AuthContext.Provider children={children} value={{user, login, logout}}/>
   )
 }
 

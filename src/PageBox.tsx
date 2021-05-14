@@ -9,10 +9,11 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
 import { Button, Dropdown, Menu } from "antd";
 import { DownOutlined } from '@ant-design/icons';
-import { resetRoute, useMount } from "./hook";
+import {resetRoute, useDocumentTitle, useMount} from "./hook";
 import { Plan } from "./views/plan";
 import { Alarm } from "./views/alarm";
 import { Hardware } from "./views/hardware";
+import {Statistics} from "./views/statistics";
 
 export const PageBox = () => {
   const [menu, setMenu] = useState([])
@@ -54,6 +55,11 @@ export const PageBox = () => {
       sessionStorage.setItem('menu', JSON.stringify(res.data))
     })
   })
+
+  const setTitle = (name: string) => {
+    console.log(name)
+    // useDocumentTitle(name)
+  }
   return (
     <Container>
       <HeaderStyle>
@@ -67,7 +73,7 @@ export const PageBox = () => {
           <Nav>
             {
               menu.map((item: any, index) => (
-                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
+                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url} onClick={() => setTitle(item.name)}>{item.name}</NavLink></li>
               ))
             }
           </Nav>
@@ -79,7 +85,7 @@ export const PageBox = () => {
           <Route path={"/home"} element={<Home />} />
           <Route path={"/plan/*"} element={<Plan />} />
           <Route path={"/alarm"} element={<Alarm />} />
-          <Route path={"/statistics"} element={<Alarm />} />
+          <Route path={"/statistics"} element={<Statistics />} />
           <Route path={"/hardware"} element={<Hardware />} />
           <Route path={"/system/*"} element={<System />} />
           <Navigate to={window.location.pathname + "/home"} />

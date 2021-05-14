@@ -1,41 +1,124 @@
-import styled from "@emotion/styled"
-import { Button, Form, Input, Table, Popconfirm, message } from "antd";
+import React, {useState, useEffect, useRef} from 'react';
+import {Form, Input, Modal, Button, Table, Popconfirm, message, Select, Checkbox} from 'antd';
+import styled from "@emotion/styled";
+import {useHttp} from "../../../../utils/http";
 import qs from "qs";
-import React, { useEffect, useState } from "react";
-import { useDocumentTitle } from "../../../../hook";
-import { useHttp } from "../../../../utils/http";
-import { LineDialog } from './dialog/LineDialog'
-import { Drawermanage } from "./drawermanage/Drawermanage";
+import {cleanObject} from "../../../../utils";
+import {rules} from "../../../../utils/verification";
+import {useResetFormOnCloseModal} from "../../../../hook";
+import {Drawermanage} from "./drawermanage/Drawermanage";
+
+const {Option} = Select;
+
+const layout = {
+  labelCol: {span: 4},
+  wrapperCol: {span: 20},
+};
+
+interface ModalFormProps {
+  visible: boolean;
+  onCancel: () => void;
+  type: string,
+  formData: object
+}
+
+const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+  const [form] = Form.useForm();
+  const [departmentList, setDepartmentList] = useState([])
+  const client = useHttp()
+  useEffect(() => {
+    client(`department/getAll`).then(res => {
+    setDepartmentList(res.data)
+    })
+  })
+
+  useResetFormOnCloseModal({
+    form,
+    visible,
+  });
+
+  const onOk = () => {
+    form.submit();
+  };
+
+  return (
+    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
+           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+    >
+      <Form
+        form={form}
+        name={type}
+        initialValues={type === '修改' ? formData : {}}
+        labelAlign="right"
+        {...layout}
+      >
+        <Form.Item
+          label="管辖部门集合"
+          name="departmentIds"
+          rules={rules}
+        >
+          <Select>
+            {departmentList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="线路名称"
+          name="name"
+          rules={rules}
+        >
+          <Input/>
+        </Form.Item>
+
+        <Form.Item
+          label="备注"
+          name="remark"
+        >
+          <Input/>
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
 
 export const Line = () => {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
   const [isShowDrawer, setIsShowDrawer] = useState(false)
-  const [isShow, setIsShow] = useState(false)
-  const [formData, setFormData] = useState<any>({})
-  const [formType, setFormType] = useState('')
-  const [data, setData] = useState([])
+  const [tabList, setTabList] = useState([])
+  const [type, setType] = useState('')
+  const [formData, setFormData] = useState({})
+  const client = useHttp()
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    totla: 0,
-    name: '',
+    total: 0,
+    name: ''
   })
 
-  const getLine = () => {
+  useEffect(() => {
+    init()
+  }, [pagination.page, pagination.name])
+
+  const init = () => {
     const param = {
       index: pagination.page,
       size: pagination.size,
       name: pagination.name,
     }
-    client(`line/list?${qs.stringify(param)}`, { method: "POST" }).then(res => {
-      setData(res.data)
-      setPagination({ ...pagination, totla: res.count })
+    client(`line/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
+      setTabList(res.data)
+      setPagination({...pagination, total: res.count})
     })
   }
 
+  const search = (item: any) => {
+    setPagination({...pagination, name: item.name})
+  };
+
   const add = () => {
-    setIsShow(true)
-    setFormType('新增')
+    showUserModal()
+    setType('新增')
   }
 
   const manage = (item: any) => {
@@ -44,13 +127,15 @@ export const Line = () => {
   }
 
   const mod = (item: any) => {
-    setIsShow(true)
-    setFormType('修改')
+    showUserModal()
+    setType('修改')
     setFormData(item)
   }
 
   const del = async (id: number | string) => {
-    client(`line/delete/${id}`)
+    client(`line/delete/${id}`).then(() => {
+      init()
+    })
   }
 
   const confirm = (item: any) => {
@@ -61,102 +146,115 @@ export const Line = () => {
     message.error('取消删除');
   }
 
-  const client = useHttp()
-
-  useEffect(() => {
-    getLine()
-  }, [pagination.page, pagination.name])
-
-  useEffect(() => {
-    console.log(isShowDrawer);
-
-  }, [isShowDrawer])
-  const columns = [
-    {
-      title: '路线',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: '备注',
-      dataIndex: 'remark',
-      key: 'remark',
-    },
-    {
-      title: '操作',
-      key: 'id',
-      render: (item: any) => (<><Button type="link" onClick={() => manage(item)}>管理</Button><Button type="link" onClick={() => mod(item)}>修改</Button><Popconfirm
-        title={`是否要删除${item.name}`}
-        onConfirm={() => confirm(item)}
-        onCancel={cancel}
-        okText="Yes"
-        cancelText="No"
-      >
-        <a href="#">删除</a>
-      </Popconfirm></>)
-    },
-  ]
-
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
-
   const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
+    setPagination({...pagination, page})
   }
 
-  useDocumentTitle('地铁管理')
+  const showUserModal = () => {
+    setVisible(true);
+  };
+
+  const hideUserModal = () => {
+    setVisible(false);
+  };
 
   return (
-    <div>
-      <Header>
-        <Form
-          name="basic"
-          onFinish={onFinish}
-          layout={"inline"}
-        >
-          <Form.Item
-            label="线路名称"
-            name="name"
+    <>
+      <Form.Provider
+        onFormFinish={(name, {values, forms}) => {
+          if (name === '新增') {
+            client(`line/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+              message.success('新增成功')
+              setVisible(false);
+            }).catch(err => {
+              console.log(err.msg, 'err')
+            })
+          } else if (name === "修改") {
+            client(`line/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+              message.success('修改成功')
+              setVisible(false);
+            }).catch(err => {
+              console.log(err.msg, 'err')
+            })
+          }
+        }}
+      >
+        <Header>
+          <Form
+            name="basic"
+            onFinish={search}
+            layout={"inline"}
           >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              label="地铁线路名称"
+              name="name"
+            >
+              <Input/>
+            </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              搜索
-        </Button>
-          </Form.Item>
-        </Form>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                搜索
+              </Button>
+            </Form.Item>
+          </Form>
 
-        <Button onClick={() => add()}>新增</Button>
-      </Header>
-      <Main>
-        <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
-      </Main>
-
-      {isShowDrawer ? <Drawermanage formData={formData} isShowDrawer={isShowDrawer} setIsShowDrawer={setIsShowDrawer} /> : ''}
-
-      {isShow ? <LineDialog /> : ''}
-    </div>
-  )
-}
+          <Button onClick={() => add()}>新增</Button>
+        </Header>
+        <Main>
+          <Table columns={
+            [
+              {
+                title: '地铁线路名称',
+                dataIndex: 'name',
+                key: 'name',
+              },
+              {
+                title: '备注',
+                dataIndex: 'remark',
+                key: 'remark',
+              },
+              {
+                title: '操作',
+                key: 'id',
+                render: (item: any) => <><Button type="link" onClick={() => manage(item)}>管理</Button><Button type="link"
+                                                                                                             onClick={() => mod(item)}>修改</Button>
+                  <Popconfirm
+                    title={`是否要删除${item.name}`}
+                    onConfirm={() => confirm(item)}
+                    onCancel={cancel}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <a href="#">删除</a>
+                  </Popconfirm></>
+              },
+            ]
+          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
+                 rowKey={(item: any) => item.id}/>
+        </Main>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+        {isShowDrawer ? <Drawermanage formData={formData} isShowDrawer={isShowDrawer} setIsShowDrawer={setIsShowDrawer} /> : ''}
+      </Form.Provider>
+    </>
+  );
+};
 
 const Header = styled.div`
-height: 13rem;
-background: #fff;
-margin-bottom: 1rem;
-border-radius: 1rem;
-display: flex;
-align-items: center;
-padding: 0 2rem;
-justify-content: space-between;
+  height: 13rem;
+  background: #fff;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  justify-content: space-between;
 `
 
 const Main = styled.div`
-background: #fff;
-height: 73rem;
-border-radius: 1rem;
-padding: 0 1.5rem;
-overflow-y: auto;
+  background: #fff;
+  height: 73rem;
+  border-radius: 1rem;
+  padding: 0 1.5rem;
+  overflow-y: auto;
 `

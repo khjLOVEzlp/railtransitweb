@@ -8,11 +8,7 @@ import {useHttp} from "../../../../../utils/http";
 interface Props {
   isShowDrawer: boolean,
   setIsShowDrawer: (isShowDrawer: boolean) => void,
-  formData: {
-    id: number,
-    name: string,
-    remark: string
-  }
+  formData: any
 }
 
 const {TabPane} = Tabs;

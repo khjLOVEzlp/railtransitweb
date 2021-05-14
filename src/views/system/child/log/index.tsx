@@ -1,10 +1,9 @@
 import styled from "@emotion/styled"
-import { Button, Form, Input, Table, message, Popconfirm, Space, DatePicker } from "antd";
+import { Button, Form, Input, Table, Space, DatePicker } from "antd";
 import qs from "qs";
 import React, { useEffect, useState } from "react";
-import { useDocumentTitle, useMount } from "../../../../hook";
+import { useDocumentTitle } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
-import { LogModal } from "./dialog/modal";
 import {cleanObject} from "../../../../utils";
 const { RangePicker } = DatePicker;
 
@@ -18,9 +17,7 @@ export const Log = () => {
     startTime: '',
     endTime: ''
   })
-  const [isShow, setIsShow] = useState(false)
-  const [formType, setFormType] = useState('')
-  const [formData, setFormData] = useState({})
+
   const getMenuList = () => {
     const param = {
       index: pagination.page,
@@ -48,14 +45,6 @@ export const Log = () => {
     client(`menu/delete/${id}`).then(() => {
       getMenuList()
     })
-  }
-
-  const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
-  }
-
-  const cancel = () => {
-    message.error('取消删除');
   }
 
   const onChange = (page: number) => {
@@ -106,7 +95,7 @@ export const Log = () => {
             name="time"
           >
             <Space direction="vertical" size={12}>
-              <RangePicker onChange={timeChange} />
+              <RangePicker placeholder={['开始时间', '结束时间']} onChange={timeChange} />
             </Space>
           </Form.Item>
 
@@ -119,7 +108,6 @@ export const Log = () => {
       </Header>
       <Main>
         <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
-        {isShow ? <LogModal formData={formData} formType={formType} isShow={isShow} setIsShow={setIsShow} getMenuList={getMenuList} /> : ''}
       </Main>
     </div>
   )
@@ -141,4 +129,5 @@ background: #fff;
 height: 73rem;
 border-radius: 1rem;
 padding: 0 1.5rem;
+  overflow-y: auto;
 `
