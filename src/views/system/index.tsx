@@ -13,6 +13,7 @@ import {Warehouse} from "./child/warehouse";
 import {MaterialType} from "./child/materialType";
 import {Temperature} from "./child/temperature";
 import {Line} from "./child/line";
+import {useDocumentTitle} from "../../hook";
 
 interface Item {
   name: string,
@@ -22,6 +23,8 @@ interface Item {
 export const System = () => {
   const menu = JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "系统管理").childMenu
   const [asid] = useState(menu)
+
+  useDocumentTitle("系统管理")
   return (
     <SystemStyle>
       <Left>

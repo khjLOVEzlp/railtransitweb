@@ -7,10 +7,12 @@ import {PlanHistory} from "./child/planHistory";
 import {PlanTemplate} from "./child/planTemplate";
 import {PlanType} from "./child/planType";
 import {PlanWork} from "./child/planWork";
+import {useDocumentTitle} from "../../hook";
 
 export const Plan = () => {
   const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu)
 
+  useDocumentTitle("作业计划")
   return (
     <PlanStyle>
       <Left>

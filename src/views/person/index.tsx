@@ -1,9 +1,8 @@
 import styled from "@emotion/styled"
-import { Button, Form, Input, Modal, Select, Table } from "antd"
+import { Button, Form, Input, Table } from "antd"
 import React, { useEffect, useState } from "react"
 import { useMount } from "../../hook"
 import { useHttp } from "../../utils/http"
-const { Option } = Select;
 
 const layout = {
   labelCol: { span: 3 },

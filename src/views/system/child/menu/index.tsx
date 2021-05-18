@@ -1,126 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {Form, Input, Modal, Button, Table, Popconfirm, message, Select, Checkbox} from 'antd';
+import React, {useState, useEffect} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
-import qs from "qs";
-import {cleanObject} from "../../../../utils";
-import {rules} from "../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../hook";
-
-const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};
-
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: object
-}
-
-const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
-  const [form] = Form.useForm();
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
-  const onOk = () => {
-    form.submit();
-  };
-
-  return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
-    >
-      <Form
-        form={form}
-        name={type}
-        initialValues={type === '修改' ? formData : {}}
-        labelAlign="right"
-        {...layout}
-      >
-        <Form.Item
-          label="菜单图标"
-          name="icon"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="菜单类型"
-          name="menuType"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="菜单名称"
-          name="name"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="显示顺序"
-          name="orderNum"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="父节点id"
-          name="parentId"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="权限标识"
-          name="permission"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="类型"
-          name="type"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="请求地址"
-          name="url"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="菜单状态"
-          name="visible"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="备注"
-          name="remark"
-        >
-          <Input />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
+import {ModalForm} from "./modal/ModalForm";
 
 export const Menu = () => {
   const [visible, setVisible] = useState(false);
@@ -140,11 +22,6 @@ export const Menu = () => {
   }, [pagination.page, pagination.name])
 
   const init = () => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.name,
-    }
     client(`menu/getAll?type=1`, {method: "POST"}).then(res => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})

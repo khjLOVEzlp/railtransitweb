@@ -6,7 +6,7 @@ const sessionStorageUser = "login";
 export const getToken = () => window.sessionStorage.getItem(sessionStorageKey);
 export const getUser = () => window.sessionStorage.getItem(sessionStorageUser)
 
-export const handleUserResponse = ({ data }: { data: { jwtToken: string } }) => {
+export const handleUserResponse = ({data}: { data: { jwtToken: string } }) => {
   window.sessionStorage.setItem(sessionStorageKey, data.jwtToken || "");
   return data;
 };
@@ -28,6 +28,12 @@ export const login = (data: { loginName: string; password: string }) => {
 };
 
 export const logout = async () => {
-  window.sessionStorage.clear();
-  window.location.href = window.location.origin
+  return fetch(`${apiUrl}logout`, {
+    method: "POST", headers: {
+      "Authorization": getToken() ? `${getToken()}` : ''
+    }
+  }).then(() => {
+    window.sessionStorage.clear()
+    window.location.href = window.location.origin
+  })
 }

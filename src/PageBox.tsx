@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useHttp } from "./utils/http";
 import logo from './icon/logo.png'
 import { Navigate, Route, Routes } from "react-router";
@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
 import { Button, Dropdown, Menu } from "antd";
 import { DownOutlined } from '@ant-design/icons';
-import {resetRoute, useDocumentTitle, useMount} from "./hook";
+import {resetRoute, useMount} from "./hook";
 import { Plan } from "./views/plan";
 import { Alarm } from "./views/alarm";
 import { Hardware } from "./views/hardware";
@@ -24,11 +24,6 @@ export const PageBox = () => {
     }).then(res => {
       res.data.push({ name: '首页', url: '/home' })
       res.data.reverse()
-      res.data[1].url = '/hardware'
-      res.data[2].url = '/statistics'
-      res.data[3].url = '/alarm'
-      res.data[4].url = '/plan'
-      res.data[5].url = '/system'
       res.data.forEach((item: any) => {
         let { name } = item
         switch (name) {
@@ -56,10 +51,6 @@ export const PageBox = () => {
     })
   })
 
-  const setTitle = (name: string) => {
-    console.log(name)
-    // useDocumentTitle(name)
-  }
   return (
     <Container>
       <HeaderStyle>
@@ -73,7 +64,7 @@ export const PageBox = () => {
           <Nav>
             {
               menu.map((item: any, index) => (
-                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url} onClick={() => setTitle(item.name)}>{item.name}</NavLink></li>
+                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
               ))
             }
           </Nav>
@@ -88,10 +79,17 @@ export const PageBox = () => {
           <Route path={"/statistics"} element={<Statistics />} />
           <Route path={"/hardware"} element={<Hardware />} />
           <Route path={"/system/*"} element={<System />} />
+          <Route path={"*"} element={<Not/>}/>
           <Navigate to={window.location.pathname + "/home"} />
         </Routes>
       </ContentStyle>
     </Container>
+  )
+}
+
+const Not = () => {
+  return (
+    <h1>404 error</h1>
   )
 }
 

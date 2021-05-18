@@ -1,145 +1,10 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {Form, Input, Modal, Button, Table, Popconfirm, message, Select, Checkbox, Tree} from 'antd';
+import React, {useState, useEffect} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
 import qs from "qs";
 import {cleanObject} from "../../../../utils";
-import {rules} from "../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../hook";
-
-const {Option} = Select
-const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};
-
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: object
-}
-
-const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
-  const [form] = Form.useForm();
-  const [menu, setMenu] = useState([])
-  const [menuList, setMenuList] = useState([])
-  const client = useHttp()
-  const [options] = useState([
-    {
-      name: '所有数据权限',
-      value: 1
-    },
-    {
-      name: '本部门数据权限',
-      value: 2
-    },
-    {
-      name: '本部门及以下数据权限',
-      value: 3
-    },
-    {
-      name: '仅本人数据权限',
-      value: 4
-    }
-  ])
-
-  useEffect(() => {
-    client(`menu/getAll?type=1`, {method: "POST"}).then(res => {
-      res.data.forEach((item: any) => {
-        item.title = item.name
-        item.children = item.childMenu
-        item.key = item.id
-
-        if (item.childMenu) {
-          item.childMenu.forEach((key: any) => {
-            key.title = key.name
-            key.children = key.childMenu
-            key.key = key.id
-
-            if (key.childMenu) {
-              key.childMenu.forEach((value: any) => {
-                value.title = value.name
-                value.children = value.childMenu
-                value.key = value.id
-              })
-            }
-          })
-        }
-      })
-      setMenu(res.data)
-    })
-  }, [])
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
-  const onCheck = (checkedKeys: any) => {
-    form.setFieldsValue({menuList: checkedKeys})
-  };
-
-  const onOk = () => {
-    form.submit();
-  };
-
-  return (
-    <Modal title={type} width={800}
-           visible={visible} onOk={onOk}
-           onCancel={onCancel}
-           footer={[
-             <Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>
-           ]}
-    >
-      <Form
-        form={form}
-        name={type}
-        initialValues={type === '修改' ? formData : {}}
-        labelAlign="right"
-        {...layout}
-      >
-        <Form.Item
-          label="数据权限"
-          name="dataScope"
-          rules={rules}
-        >
-          <Select>
-            {options.map((item: any, index: number) => <Option value={item.value} key={index}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="资源集合"
-          name="menuList"
-        >
-          <Tree
-            checkable
-            defaultCheckedKeys={[]}
-            onCheck={onCheck}
-            treeData={menu}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="角色名"
-          name="name"
-          rules={rules}
-        >
-          <Input/>
-        </Form.Item>
-
-        <Form.Item
-          label="备注"
-          name="remark"
-        >
-          <Input/>
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
+import {ModalForm} from "./modal/ModalForm";
 
 export const Role = () => {
   const [visible, setVisible] = useState(false);
@@ -271,7 +136,8 @@ export const Role = () => {
               {
                 title: '操作',
                 key: 'id',
-                render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+                render: (item: any) => <>
+                  <Button type="link" onClick={() => mod(item)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
                     onConfirm={() => confirm(item)}

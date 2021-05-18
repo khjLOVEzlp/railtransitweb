@@ -3,6 +3,7 @@ import {useDocumentTitle} from "../../hook"
 import {useEffect, useState} from "react";
 import * as echarts from 'echarts';
 import {track, mounthConfigData, options, task} from './subwayRoute'
+
 export const Home = () => {
   const [data] = useState(track)
   const [alertData] = useState(mounthConfigData)
@@ -45,7 +46,7 @@ export const Home = () => {
           <div className="data">
             {
               list.map((item: { name: string, count: string }, index: number) => (
-                <li>
+                <li key={index}>
                   <div>
                     <span className="icon">
                       <img src={`../../icon/${item.name}.png`} alt=""/>

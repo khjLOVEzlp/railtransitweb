@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
-import { Button, Tabs } from "antd"
-import React, { useEffect, useState } from "react"
+import {  Tabs } from "antd"
+import React, {  useState } from "react"
 import { useDocumentTitle } from "../../hook"
 import { AlcoholController } from "./children/alcoholController/AlcoholController"
 import { LabelController } from "./children/labelController/LabelController"
@@ -67,25 +67,6 @@ export const Hardware = () => {
     </Tabs>
   )
 }
-
-const AlarmStyle = styled.div`
-
-`
-
-const Header = styled.div`
-height: 13rem;
-background: #fff;
-margin-bottom: 1rem;
-border-radius: 1rem;
-display: flex;
-align-items: center;
-padding: 0 2rem;
-> li {
-  margin-right: 3rem;
-  font-size: 2rem;
-  cursor: pointer;
-}
-`
 
 const Main = styled.div`
 background: #fff;

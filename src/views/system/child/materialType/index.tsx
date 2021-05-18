@@ -1,82 +1,10 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {Form, Input, Modal, Button, Table, Popconfirm, message, Select, Checkbox} from 'antd';
+import React, {useState, useEffect} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
 import qs from "qs";
 import {cleanObject} from "../../../../utils";
-import {rules} from "../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../hook";
-
-const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};
-
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: object
-}
-
-const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
-  const [form] = Form.useForm();
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
-  const onOk = () => {
-    form.submit();
-  };
-
-  return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
-    >
-      <Form
-        form={form}
-        name={type}
-        initialValues={type === '修改' ? formData : {}}
-        labelAlign="right"
-        {...layout}
-      >
-        <Form.Item
-          label="类型名称"
-          name="name"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="性能指标"
-          name="perfIndex"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="规格型号"
-          name="specsModel"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="备注"
-          name="remark"
-        >
-          <Input />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
+import {ModalForm} from "./modal/ModlaForm";
 
 export const MaterialType = () => {
   const [visible, setVisible] = useState(false);

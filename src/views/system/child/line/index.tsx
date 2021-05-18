@@ -1,86 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {Form, Input, Modal, Button, Table, Popconfirm, message, Select, Checkbox} from 'antd';
+import React, {useState, useEffect} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
 import qs from "qs";
 import {cleanObject} from "../../../../utils";
-import {rules} from "../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../hook";
 import {Drawermanage} from "./drawermanage/Drawermanage";
-
-const {Option} = Select;
-
-const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};
-
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: object
-}
-
-const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
-  const [form] = Form.useForm();
-  const [departmentList, setDepartmentList] = useState([])
-  const client = useHttp()
-  useEffect(() => {
-    client(`department/getAll`).then(res => {
-    setDepartmentList(res.data)
-    })
-  })
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
-  const onOk = () => {
-    form.submit();
-  };
-
-  return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
-    >
-      <Form
-        form={form}
-        name={type}
-        initialValues={type === '修改' ? formData : {}}
-        labelAlign="right"
-        {...layout}
-      >
-        <Form.Item
-          label="管辖部门集合"
-          name="departmentIds"
-          rules={rules}
-        >
-          <Select>
-            {departmentList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="线路名称"
-          name="name"
-          rules={rules}
-        >
-          <Input/>
-        </Form.Item>
-
-        <Form.Item
-          label="备注"
-          name="remark"
-        >
-          <Input/>
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
+import {ModalForm} from "./modal/ModalForm";
 
 export const Line = () => {
   const [visible, setVisible] = useState(false);

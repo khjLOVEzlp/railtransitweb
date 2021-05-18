@@ -2,13 +2,15 @@ import styled from "@emotion/styled"
 import { Button, Form, Input, Table, Space, DatePicker } from "antd";
 import qs from "qs";
 import React, { useEffect, useState } from "react";
-import { useDocumentTitle } from "../../../../hook";
 import { useHttp } from "../../../../utils/http";
 import {cleanObject} from "../../../../utils";
+import 'moment/locale/zh-cn';
+import locale from 'antd/es/date-picker/locale/zh_CN';
 const { RangePicker } = DatePicker;
 
 export const Log = () => {
   const client = useHttp()
+
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
@@ -17,6 +19,8 @@ export const Log = () => {
     startTime: '',
     endTime: ''
   })
+
+  const [data, setData] = useState([])
 
   const getMenuList = () => {
     const param = {
@@ -72,9 +76,6 @@ export const Log = () => {
     },
   ]
 
-  const [data, setData] = useState([])
-  useDocumentTitle('日志管理')
-
   return (
     <div>
       <Header>
@@ -95,7 +96,7 @@ export const Log = () => {
             name="time"
           >
             <Space direction="vertical" size={12}>
-              <RangePicker placeholder={['开始时间', '结束时间']} onChange={timeChange} />
+              <RangePicker locale={locale} onChange={timeChange} />
             </Space>
           </Form.Item>
 
