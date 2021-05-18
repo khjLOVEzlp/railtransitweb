@@ -3,7 +3,6 @@ import {useDocumentTitle} from "../../hook"
 import {useEffect, useState} from "react";
 import * as echarts from 'echarts';
 import {track, mounthConfigData, options, task} from './subwayRoute'
-
 export const Home = () => {
   const [data] = useState(track)
   const [alertData] = useState(mounthConfigData)
