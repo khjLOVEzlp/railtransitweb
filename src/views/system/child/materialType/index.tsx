@@ -107,7 +107,7 @@ export const MaterialType = () => {
               label="物资类型名称"
               name="name"
             >
-              <Input />
+              <Input/>
             </Form.Item>
 
             <Form.Item>
@@ -143,7 +143,7 @@ export const MaterialType = () => {
                     okText="Yes"
                     cancelText="No"
                   >
-                    <a href="#">删除</a>
+                    <Button type="link">删除</Button>
                   </Popconfirm></>
               },
             ]

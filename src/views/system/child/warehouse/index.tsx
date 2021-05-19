@@ -22,10 +22,6 @@ export const Warehouse = () => {
     name: ''
   })
 
-  useEffect(() => {
-    init()
-  },[pagination.page, pagination.name])
-
   const init = () => {
     const param = {
       index: pagination.page,
@@ -37,6 +33,10 @@ export const Warehouse = () => {
       setPagination({...pagination, total: res.count})
     })
   }
+
+  useEffect(() => {
+    init()
+  }, [pagination.page, pagination.name])
 
   const search = (item: any) => {
     setPagination({...pagination, name: item.name, type: item.type})
@@ -54,9 +54,10 @@ export const Warehouse = () => {
   }
 
   const del = async (id: number | string) => {
-    client(`warehouse/delete/${id}`).then(() => {
-      init()
-    })
+    client(`warehouse/delete/${id}`)
+      .then(() => {
+        init()
+      })
   }
 
   const confirm = (item: any) => {
@@ -110,7 +111,7 @@ export const Warehouse = () => {
               label="仓库名"
               name="name"
             >
-              <Input />
+              <Input/>
             </Form.Item>
 
             <Form.Item
@@ -118,7 +119,7 @@ export const Warehouse = () => {
               name="type"
               initialValue={1}
             >
-              <Select style={{ width: 120 }}>
+              <Select style={{width: 120}}>
                 <Option value={1}>轨行区内</Option>
                 <Option value={2}>轨行区外</Option>
               </Select>

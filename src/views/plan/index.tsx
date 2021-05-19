@@ -13,6 +13,7 @@ export const Plan = () => {
   const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu)
 
   useDocumentTitle("作业计划")
+
   return (
     <PlanStyle>
       <Left>
@@ -25,11 +26,11 @@ export const Plan = () => {
       </Left>
       <Right>
         <Routes>
-          <Route path={"/plan"} element={<PlanWork/>}/>
+          <Route path={"/planWork"} element={<PlanWork/>}/>
           <Route path={"/planType"} element={<PlanType/>}/>
-          <Route path={"/planTemplate"} element={<PlanTemplate/>}/>
+          <Route path={"/planManage"} element={<PlanTemplate/>}/>
           <Route path={"/planHistory"} element={<PlanHistory/>}/>
-          <Navigate to={window.location.pathname + "/plan"}/>
+          <Navigate to={window.location.pathname + "/planWork"}/>
         </Routes>
       </Right>
     </PlanStyle>

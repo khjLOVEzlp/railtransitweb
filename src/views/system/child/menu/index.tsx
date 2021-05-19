@@ -136,7 +136,7 @@ export const Menu = () => {
                     okText="Yes"
                     cancelText="No"
                   >
-                    <a href="#">删除</a>
+                    <Button type="link">删除</Button>
                   </Popconfirm></>
               },
             ]

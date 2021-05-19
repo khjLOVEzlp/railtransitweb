@@ -121,35 +121,38 @@ export const User = () => {
           <Button onClick={() => add()}>新增</Button>
         </Header>
         <Main>
-          <Table columns={
-            [
-              {
-                title: '用户名',
-                dataIndex: 'name',
-                key: 'name',
-              },
-              {
-                title: '备注',
-                dataIndex: 'remark',
-                key: 'remark',
-              },
-              {
-                title: '操作',
-                key: 'id',
-                render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
-                  <Popconfirm
-                    title={`是否要删除${item.name}`}
-                    onConfirm={() => confirm(item)}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                  >
-                    <a href="#">删除</a>
-                  </Popconfirm></>
-              },
-            ]
-          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
-                 rowKey={(item: any) => item.id}/>
+          <Table
+            columns={
+              [
+                {
+                  title: '用户名',
+                  dataIndex: 'name',
+                  key: 'name',
+                },
+                {
+                  title: '备注',
+                  dataIndex: 'remark',
+                  key: 'remark',
+                },
+                {
+                  title: '操作',
+                  key: 'id',
+                  render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+                    <Popconfirm
+                      title={`是否要删除${item.name}`}
+                      onConfirm={() => confirm(item)}
+                      onCancel={cancel}
+                      okText="Yes"
+                      cancelText="No"
+                    >
+                      <Button type="link">删除</Button>
+                    </Popconfirm></>
+                },
+              ]
+            }
+            pagination={{total: pagination.total, onChange: onChange}}
+            dataSource={tabList}
+            rowKey={(item: any) => item.id}/>
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
       </Form.Provider>

@@ -27,7 +27,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     client(`department/getAll`).then(res => {
       setDepartmentList(res.data)
     })
-  })
+  }, [])
 
   useResetFormOnCloseModal({
     form,
