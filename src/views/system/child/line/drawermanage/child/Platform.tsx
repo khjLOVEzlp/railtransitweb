@@ -110,7 +110,6 @@ export const Platform = ({formData}: { formData: any }) => {
   }, [pagination.page, pagination.name])
 
   const search = (item: any) => {
-    console.log(item)
     setPagination({...pagination, name: item.name})
   };
 

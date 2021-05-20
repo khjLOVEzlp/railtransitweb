@@ -1,61 +1,56 @@
-
-import styled from "@emotion/styled"
-import { Button, Form, Input, Popconfirm, message, Table } from "antd";
+import React, {useState, useEffect} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import styled from "@emotion/styled";
+import {useHttp} from "../../../../utils/http";
 import qs from "qs";
-import React, { useEffect, useState } from "react";
-import { useDocumentTitle } from "../../../../hook";
-import { useHttp } from "../../../../utils/http";
-import { Dialog } from './dialog/dialog'
 import {cleanObject} from "../../../../utils";
+import {ModalForm} from "./modal/ModalForm";
+
 export const PlanType = () => {
-  const [loading, setloading] = useState(false)
-  const [formData, setformData] = useState({})
-  const [isShow, setIsShow] = useState(false)
-  const [formType, setFormType] = useState('')
+  const [visible, setVisible] = useState(false);
+  const [tabList, setTabList] = useState([])
+  const [type, setType] = useState('')
+  const [formData, setFormData] = useState({})
+  const client = useHttp()
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    totla: 0,
-    name: ''
+    total: 0,
+    type: ''
   })
 
-  const client = useHttp()
-
   useEffect(() => {
-    getUserList()
-  }, [pagination.page, pagination.name])
+    init()
+  }, [pagination.page, pagination.type])
 
-  const getUserList = () => {
+  const init = () => {
     const param = {
       index: pagination.page,
       size: pagination.size,
-      type: pagination.name
+      type: pagination.type,
     }
-
-    client(`planType/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
-      setData(res.data)
-      setPagination({ ...pagination, totla: res.count })
-      setloading(false)
+    client(`planType/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
+      setTabList(res.data)
+      setPagination({...pagination, total: res.count})
     })
   }
 
-  const search = (values: any) => {
-    setPagination({ ...pagination, name: values.username })
-  };
 
   const add = () => {
-    setIsShow(true)
-    setFormType('新增')
+    showUserModal()
+    setType('新增')
   }
 
   const mod = (item: any) => {
-    setIsShow(true)
-    setFormType('修改')
-    setformData(item)
+    showUserModal()
+    setType('修改')
+    setFormData(item)
   }
 
   const del = async (id: number | string) => {
-    client(`planType/delete/${id}`)
+    client(`planType/delete/${id}`).then(() => {
+      init()
+    })
   }
 
   const confirm = (item: any) => {
@@ -67,92 +62,138 @@ export const PlanType = () => {
   }
 
   const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
+    setPagination({...pagination, page})
   }
 
-  const columns = [
-    {
-      title: '计划类型',
-      dataIndex: 'type',
-      key: 'type',
-    },
-    {
-      title: '备注',
-      dataIndex: 'remark',
-      key: 'remark',
-    },
-    {
-      title: '操作',
-      key: 'id',
-      render: (item: any) => (
-        <>
-          <Button type="link" onClick={() => mod(item)}>修改</Button>
-          <Popconfirm
-            title={`是否要删除${item.name}`}
-            onConfirm={() => confirm(item)}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <a href="#">删除</a>
-          </Popconfirm>
-        </>
-      )
-    },
-  ]
+  const search = (item: any) => {
+    setPagination({...pagination, type: item.type})
+  };
 
-  const [data, setData] = useState([])
+  const showUserModal = () => {
+    setVisible(true);
+  };
 
-  useDocumentTitle('作业计划')
+  const hideUserModal = () => {
+    setVisible(false);
+  };
+
+  const save = (value: any) => {
+    client(`planType/save`, {method: "POST", body: JSON.stringify(value)}).then(() => {
+      message.success('新增成功')
+      setVisible(false);
+    }).catch(err => {
+      console.log(err.msg, 'err')
+    })
+  }
+
+  const update = (value: any) => {
+    client(`planType/update`, {method: "POST", body: JSON.stringify(value)}).then(() => {
+      message.success('修改成功')
+      setVisible(false);
+    }).catch(err => {
+      console.log(err.msg, 'err')
+    })
+  }
 
   return (
-    <div>
-      <Header>
-        <Form
-          name="basic"
-          onFinish={search}
-          layout={"inline"}
-        >
-          <Form.Item
-            label="计划名称"
-            name="username"
+    <>
+      <Form.Provider
+        onFormFinish={(name, {values, forms}) => {
+          console.log(values)
+          if (name === '新增') {
+            save(values)
+          }
+          if (name === "修改") {
+            update(values)
+          }
+        }}
+      >
+        <Header>
+          <Form
+            name="basic"
+            onFinish={search}
+            layout={"inline"}
           >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              label="作业类型"
+              name="type"
+            >
+              <Input/>
+            </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              搜索
-        </Button>
-          </Form.Item>
-        </Form>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                搜索
+              </Button>
+            </Form.Item>
+          </Form>
 
-        <Button onClick={add}>新增</Button>
-      </Header>
-      <Main>
-        <Table columns={columns} loading={loading} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
-      </Main>
-
-      {isShow ? <Dialog formData={formData} formType={formType} isShow={isShow} setIsShow={setIsShow} getUserList={getUserList} /> : ''}
-    </div>
-  )
+          <Button onClick={() => add()}>新增</Button>
+        </Header>
+        <Main>
+          <Table columns={
+            [
+              {
+                title: '作业类型',
+                dataIndex: 'type',
+                key: 'type',
+              },
+              {
+                title: '时间',
+                dataIndex: 'createTime',
+                key: 'createTime',
+              },
+              {
+                title: '备注',
+                dataIndex: 'remark',
+                key: 'remark',
+              },
+              {
+                title: '操作',
+                key: 'id',
+                align: "center",
+                render: (item: any) => (
+                  <>
+                    <Button type="link" onClick={() => mod(item)}>修改</Button>
+                    <Popconfirm
+                      title={`是否要删除${item.type}`}
+                      onConfirm={() => confirm(item)}
+                      onCancel={cancel}
+                      okText="Yes"
+                      cancelText="No"
+                    >
+                      <Button type="link">删除</Button>
+                    </Popconfirm>
+                  </>
+                )
+              },
+            ]
+          } pagination={{total: pagination.total, onChange: onChange}}
+                 dataSource={tabList}
+                 rowKey={(item: any) => item.id}
+          />
+        </Main>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+      </Form.Provider>
+    </>
+  );
 }
 
 const Header = styled.div`
-height: 13rem;
-background: #fff;
-margin-bottom: 1rem;
-border-radius: 1rem;
-display: flex;
-align-items: center;
-padding: 0 2rem;
-justify-content: space-between;
+  height: 13rem;
+  background: #fff;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  justify-content: space-between;
 `
 
 const Main = styled.div`
-background: #fff;
-height: 73rem;
-border-radius: 1rem;
-padding: 0 1.5rem;
-overflow-y: auto;
+  background: #fff;
+  height: 73rem;
+  border-radius: 1rem;
+  padding: 0 1.5rem;
+  overflow-y: auto;
 `

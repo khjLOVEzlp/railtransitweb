@@ -4,12 +4,10 @@ import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
 import qs from "qs";
 import {cleanObject} from "../../../../utils";
-import {ModalForm, ShareModalForm, ShareBackModalForm} from "./modal/ModalForm";
+import {ModalForm} from "./modal/ModalForm";
 
-export const PlanWork = () => {
+export const WorkManage = () => {
   const [visible, setVisible] = useState(false);
-  const [visibleShare, setVisibleShare] = useState(false);
-  const [visibleShareBack, setVisibleShareBack] = useState(false)
   const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
   const [formData, setFormData] = useState({})
@@ -31,7 +29,7 @@ export const PlanWork = () => {
       size: pagination.size,
       name: pagination.name,
     }
-    client(`plan/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
+    client(`planWork/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
@@ -43,18 +41,6 @@ export const PlanWork = () => {
     setType('新增')
   }
 
-  const share = (item: any) => {
-    setVisibleShare(true)
-    setType('发布计划')
-    setFormData(item)
-  }
-
-  const shareBack = (item: any) => {
-    setVisibleShareBack(true)
-    setType('查看反馈')
-    setFormData(item)
-  }
-
   const mod = (item: any) => {
     showUserModal()
     setType('修改')
@@ -62,7 +48,7 @@ export const PlanWork = () => {
   }
 
   const del = async (id: number | string) => {
-    client(`plan/delete/${id}`).then(() => {
+    client(`planWork/delete/${id}`).then(() => {
       init()
     })
   }
@@ -91,16 +77,8 @@ export const PlanWork = () => {
     setVisible(false);
   };
 
-  const hideShareModal = () => {
-    setVisibleShare(false)
-  }
-
-  const hideShareBackModal = () => {
-    setVisibleShareBack(false)
-  }
-
   const save = (value: any) => {
-    client(`plan/save`, {method: "POST", body: JSON.stringify(value)}).then(() => {
+    client(`planWork/save`, {method: "POST", body: JSON.stringify(value)}).then(() => {
       message.success('新增成功')
       setVisible(false);
     }).catch(err => {
@@ -109,19 +87,11 @@ export const PlanWork = () => {
   }
 
   const update = (value: any) => {
-    client(`plan/update`, {method: "POST", body: JSON.stringify(value)}).then(() => {
+    client(`planWork/update`, {method: "POST", body: JSON.stringify(value)}).then(() => {
       message.success('修改成功')
       setVisible(false);
     }).catch(err => {
       console.log(err.msg, 'err')
-    })
-  }
-
-  const sharePlan = (value: any) => {
-    client(`plan/share`, {method: "POST", body: JSON.stringify((value))}).then(() => {
-      message.success("发布成功")
-    }).catch(err => {
-      console.log(err)
     })
   }
 
@@ -136,9 +106,6 @@ export const PlanWork = () => {
           if (name === "修改") {
             update(values)
           }
-          if (name === "发布计划") {
-            sharePlan(values)
-          }
         }}
       >
         <Header>
@@ -148,7 +115,7 @@ export const PlanWork = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="计划名"
+              label="作业名"
               name="name"
             >
               <Input/>
@@ -167,7 +134,7 @@ export const PlanWork = () => {
           <Table columns={
             [
               {
-                title: '计划名称',
+                title: '作业名称',
                 dataIndex: 'name',
                 key: 'name',
               },
@@ -175,6 +142,11 @@ export const PlanWork = () => {
                 title: '计划执行时间',
                 dataIndex: 'beginTime',
                 key: 'beginTime',
+              },
+              {
+                title: '负责人',
+                dataIndex: 'leaderName',
+                key: 'leaderName',
               },
               {
                 title: '是否自动提醒',
@@ -192,8 +164,6 @@ export const PlanWork = () => {
                 align: "center",
                 render: (item: any) => (
                   <>
-                    <Button type="link" onClick={() => share(item)}>发布计划</Button>
-                    <Button type="link" onClick={() => shareBack(item)}>查看反馈</Button>
                     <Button type="link" onClick={() => mod(item)}>修改</Button>
                     <Popconfirm
                       title={`是否要删除${item.name}`}
@@ -214,8 +184,6 @@ export const PlanWork = () => {
           />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
-        <ShareModalForm visible={visibleShare} formData={formData} type={type} onCancel={hideShareModal}/>
-        <ShareBackModalForm visible={visibleShareBack} formData={formData} type={type} onCancel={hideShareBackModal}/>
       </Form.Provider>
     </>
   );

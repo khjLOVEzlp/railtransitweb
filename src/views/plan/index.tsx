@@ -3,11 +3,10 @@ import React, {useState} from "react"
 import {Navigate, Route, Routes} from "react-router";
 
 import {NavLink} from "react-router-dom"
-import {PlanHistory} from "./child/planHistory";
-import {PlanTemplate} from "./child/planTemplate";
 import {PlanType} from "./child/planType";
 import {PlanWork} from "./child/planWork";
 import {useDocumentTitle} from "../../hook";
+import {WorkManage} from "./child/workManage";
 
 export const Plan = () => {
   const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu)
@@ -20,7 +19,9 @@ export const Plan = () => {
         {
           asid.map((item: any, index: number) => <li key={index}>
             <img src={`../../icon/${item.name}.png`} alt=""/>
-            <NavLink to={item.url} activeStyle={{color: '#5A7FFA', fontWeight: 'bold'}}>{item.name}</NavLink>
+            <NavLink to={item.url} activeStyle={{color: '#5A7FFA', fontWeight: 'bold'}}>
+              {item.name}
+            </NavLink>
           </li>)
         }
       </Left>
@@ -28,8 +29,7 @@ export const Plan = () => {
         <Routes>
           <Route path={"/planWork"} element={<PlanWork/>}/>
           <Route path={"/planType"} element={<PlanType/>}/>
-          <Route path={"/planManage"} element={<PlanTemplate/>}/>
-          <Route path={"/planHistory"} element={<PlanHistory/>}/>
+          <Route path={"/workManage"} element={<WorkManage/>}/>
           <Navigate to={window.location.pathname + "/planWork"}/>
         </Routes>
       </Right>
