@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
-import {Button, Select, Table} from "antd"
-import React, {useEffect, useState} from "react"
-import {useDocumentTitle, useMount} from "../../hook"
+import {Button, message, Popconfirm, Select, Table} from "antd"
+import React, {useCallback, useEffect, useState} from "react"
+import {useDocumentTitle} from '../../hook/useDocumentTitle'
 import {useHttp} from "../../utils/http"
 
 const {Option} = Select;
@@ -12,30 +12,62 @@ export const Alarm = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    totla: 0,
+    total: 0,
     type: ''
   })
+
   const client = useHttp()
 
-  useEffect(() => {
+  const init = useCallback(() => {
+    const param = {...pagination, index: pagination.page}
     client(`alarm/list`, {
-      method: "POST", body: JSON.stringify(pagination)
+      method: "POST", body: JSON.stringify(param)
     }).then(res => {
       setData(res.data)
-      setPagination({...pagination, totla: res.count})
+      setPagination({...pagination, total: res.count})
     })
-  }, [pagination.type, pagination.totla, pagination.page])
-  useMount(() => {
+  }, [pagination.page, pagination.type, client])
+
+  const getNavList = useCallback(() => {
     client(`alarm/statistic/list`, {
       method: "POST", body: JSON.stringify(pagination)
     }).then(res => {
       setNavList(res.data)
     })
+  }, [client, pagination])
 
+  const getType = useCallback(() => {
     client(`dictItem/list?index=1&size=100&typeId=002`, {method: "POST"}).then(res => {
       setType(res.data)
     })
-  })
+  }, [client])
+
+  useEffect(() => {
+    init()
+  }, [init])
+
+  useEffect(() => {
+    getNavList()
+  }, [getNavList])
+
+  useEffect(() => {
+    getType()
+  }, [getType])
+
+  const del = async (id: number | string) => {
+    client(`hardware/alcohol/delete/${id}`)
+      .then(() => {
+      init()
+    })
+  }
+
+  const confirm = (item: any) => {
+    del(item.id).then(() => message.success('删除成功'))
+  }
+
+  const cancel = () => {
+    message.error('取消删除');
+  }
 
   const onChange = (page: number) => {
     setPagination({...pagination, page})
@@ -73,9 +105,16 @@ export const Alarm = () => {
     },
     {
       title: '操作',
-      dataIndex: 'address',
       key: 'address',
-      render: () => <><Button type="link">删除</Button></>
+      render: (item: any) => <Popconfirm
+        title={`是否要删除${item.title}`}
+        onConfirm={() => confirm(item)}
+        onCancel={cancel}
+        okText="Yes"
+        cancelText="No"
+      >
+        <Button type={"link"}>删除</Button>
+      </Popconfirm>
     },
   ]
 
@@ -104,7 +143,7 @@ export const Alarm = () => {
           }
         </Select>
         <Button style={{marginLeft: '1rem'}} onClick={() => setPagination({...pagination, type: ''})}>重置</Button>
-        <Table columns={columns} pagination={{total: pagination.totla, onChange: onChange}} dataSource={data}
+        <Table columns={columns} pagination={{total: pagination.total, onChange: onChange}} dataSource={data}
                rowKey={(item: any) => item.id}/>
       </Main>
     </AlarmStyle>
@@ -112,11 +151,14 @@ export const Alarm = () => {
 }
 
 const AlarmStyle = styled.div`
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 `
 
 const Header = styled.div`
-  height: 23rem;
+  height: 22.5rem;
   background: #fff;
   border-radius: 1rem;
   margin-bottom: 1rem;
@@ -128,7 +170,6 @@ const Main = styled.div`
   height: 63rem;
   border-radius: 1rem;
   padding: 0 3rem;
-  overflow: hidden;
   overflow-y: auto;
 `
 

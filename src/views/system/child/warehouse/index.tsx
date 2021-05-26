@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Button, Table, Popconfirm, message, Select} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
@@ -22,7 +22,7 @@ export const Warehouse = () => {
     name: ''
   })
 
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -32,11 +32,11 @@ export const Warehouse = () => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [client, pagination.page, pagination.name, pagination.type])
 
   useEffect(() => {
     init()
-  }, [pagination.page, pagination.name])
+  }, [init])
 
   const search = (item: any) => {
     setPagination({...pagination, name: item.name, type: item.type})
@@ -172,7 +172,7 @@ export const Warehouse = () => {
 };
 
 const Header = styled.div`
-  height: 13rem;
+  height: 12.5rem;
   background: #fff;
   margin-bottom: 1rem;
   border-radius: 1rem;

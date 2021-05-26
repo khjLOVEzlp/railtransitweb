@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button, DatePicker, Form, Input, Modal, Radio, Select, Space} from "antd";
 import {useHttp} from "../../../../../utils/http";
-import {useMount, useResetFormOnCloseModal} from "../../../../../hook";
+import {useResetFormOnCloseModal} from "../../../../../hook";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
@@ -25,17 +25,17 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [personList, setPersonList] = useState([])
   const client = useHttp()
 
-  const getMaterialList = () => {
+  const getMaterialList = useCallback(() => {
     client(`materialType/getAll`, {method: "POST"}).then(res => {
       setMaterialList(res.data)
     })
-  }
+  }, [client])
 
-  const getPersonList = () => {
+  const getPersonList = useCallback(() => {
     client(`person/list`, {method: "POST"}).then((res) => {
       setPersonList(res.data)
     })
-  }
+  }, [client])
 
   const radioChange = (e: any) => {
     setValue(e.target.value);
@@ -53,10 +53,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     form.setFieldsValue({endTime: item})
   }
 
-  useMount(() => {
+  useEffect(() => {
     getMaterialList()
     getPersonList()
-  })
+  }, [getMaterialList, getPersonList])
 
   useResetFormOnCloseModal({
     form,
@@ -283,13 +283,16 @@ export const ShareModalForm: React.FC<ModalFormProps> = ({visible, onCancel, typ
   const [personList, setPersonList] = useState([])
 
   const client = useHttp()
-  useEffect(() => {
+
+  const getPersonList = useCallback(() => {
     //  人员集合
     client(`person/list`, {method: "POST"}).then(res => {
-      console.log(res.data);
       setPersonList(res.data)
     })
-  }, [])
+  }, [client])
+  useEffect(() => {
+    getPersonList()
+  }, [getPersonList])
 
   const onOk = () => {
     form.submit();

@@ -13,7 +13,7 @@ import {Warehouse} from "./child/warehouse";
 import {MaterialType} from "./child/materialType";
 import {Temperature} from "./child/temperature";
 import {Line} from "./child/line";
-import {useDocumentTitle} from "../../hook";
+import {useDocumentTitle} from '../../hook/useDocumentTitle'
 
 interface Item {
   name: string,
@@ -93,4 +93,8 @@ const Right = styled.div`
   width: calc(100% - 27rem);
   height: 100%;
   margin-left: 0.5%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 `

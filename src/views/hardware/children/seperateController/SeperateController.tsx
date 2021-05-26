@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Modal, Button, Table, Popconfirm, message, Radio} from 'antd';
 import styled from "@emotion/styled";
 import {useResetFormOnCloseModal} from "../../../../hook";
@@ -96,11 +96,7 @@ export const SeperateController = () => {
     type: ''
   })
 
-  useEffect(() => {
-    init()
-  }, [pagination.page, pagination.name])
-
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -110,7 +106,11 @@ export const SeperateController = () => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [client, pagination.name, pagination.page, pagination.type])
+
+  useEffect(() => {
+    init()
+  }, [init])
 
   const search = (item: any) => {
     setPagination({...pagination, name: item.name})
@@ -206,7 +206,7 @@ export const SeperateController = () => {
               {
                 title: '在线状态',
                 key: 'status',
-                render: (status: number | string) => status == 0 ? '离线' : '在线'
+                render: (status: number | string) => status === 0 ? '离线' : '在线'
               },
               {
                 title: 'imei号',
@@ -216,7 +216,7 @@ export const SeperateController = () => {
               {
                 title: '是否可使用',
                 key: 'isUse',
-                render: (isUse: number | string) => isUse == 0 ? '不可用' : '可用'
+                render: (isUse: number | string) => isUse === 0 ? '不可用' : '可用'
               },
               {
                 title: '操作',
@@ -229,7 +229,7 @@ export const SeperateController = () => {
                     okText="Yes"
                     cancelText="No"
                   >
-                    <a href="#">删除</a>
+                    <Button type={"link"}>删除</Button>
                   </Popconfirm></>
               },
             ]
@@ -250,7 +250,7 @@ const Header = styled.div`
 
 const Main = styled.div`
   background: #fff;
-  height: 73rem;
   border-radius: 1rem;
   padding: 0 1.5rem;
+  overflow-y: auto;
 `

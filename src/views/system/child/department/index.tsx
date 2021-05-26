@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Modal, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
@@ -48,7 +48,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
           name="name"
           rules={rules}
         >
-          <Input />
+          <Input/>
         </Form.Item>
 
         <Form.Item
@@ -56,14 +56,14 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
           name="parentId"
           rules={rules}
         >
-          <Input />
+          <Input/>
         </Form.Item>
 
         <Form.Item
           label="备注"
           name="remark"
         >
-          <Input />
+          <Input/>
         </Form.Item>
       </Form>
     </Modal>
@@ -83,11 +83,7 @@ export const Department = () => {
     name: ''
   })
 
-  useEffect(() => {
-    init()
-  }, [pagination.page, pagination.name])
-
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -97,7 +93,11 @@ export const Department = () => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [client, pagination.page, pagination.name])
+
+  useEffect(() => {
+    init()
+  }, [init])
 
   const search = (item: any) => {
     setPagination({...pagination, name: item.name})
@@ -171,7 +171,7 @@ export const Department = () => {
               label="部门名称"
               name="name"
             >
-              <Input />
+              <Input/>
             </Form.Item>
 
             <Form.Item>
@@ -221,7 +221,7 @@ export const Department = () => {
 };
 
 const Header = styled.div`
-  height: 13rem;
+  height: 12.5rem;
   background: #fff;
   margin-bottom: 1rem;
   border-radius: 1rem;

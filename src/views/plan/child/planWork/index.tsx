@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
@@ -21,11 +21,7 @@ export const PlanWork = () => {
     name: ''
   })
 
-  useEffect(() => {
-    init()
-  }, [pagination.page, pagination.name])
-
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -35,8 +31,11 @@ export const PlanWork = () => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [client, pagination.page, pagination.name])
 
+  useEffect(() => {
+    init()
+  }, [init])
 
   const add = () => {
     showUserModal()
@@ -179,7 +178,7 @@ export const PlanWork = () => {
               {
                 title: '是否自动提醒',
                 key: 'isWarn',
-                render: (isWarn) => (<span>{isWarn == 0 ? '否' : '是'}</span>)
+                render: (isWarn) => (<span>{isWarn === 0 ? '否' : '是'}</span>)
               },
               {
                 title: '备注',
@@ -202,7 +201,7 @@ export const PlanWork = () => {
                       okText="Yes"
                       cancelText="No"
                     >
-                      <a href="#">删除</a>
+                      <Button type={"link"}>删除</Button>
                     </Popconfirm>
                   </>
                 )
@@ -222,7 +221,7 @@ export const PlanWork = () => {
 }
 
 const Header = styled.div`
-  height: 13rem;
+  height: 12.5rem;
   background: #fff;
   margin-bottom: 1rem;
   border-radius: 1rem;

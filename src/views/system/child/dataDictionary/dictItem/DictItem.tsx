@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Modal, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import qs from "qs";
@@ -91,11 +91,7 @@ export const DictItem = () => {
     name: ''
   })
 
-  useEffect(() => {
-    init()
-  }, [pagination.page, pagination.name])
-
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -105,7 +101,11 @@ export const DictItem = () => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [client, pagination.page, pagination.name])
+
+  useEffect(() => {
+    init()
+  }, [init])
 
   const search = (item: any) => {
     setPagination({...pagination, name: item.name})

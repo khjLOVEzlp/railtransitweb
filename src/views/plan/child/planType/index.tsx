@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
@@ -19,11 +19,7 @@ export const PlanType = () => {
     type: ''
   })
 
-  useEffect(() => {
-    init()
-  }, [pagination.page, pagination.type])
-
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -33,7 +29,11 @@ export const PlanType = () => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [client, pagination.page, pagination.type])
+
+  useEffect(() => {
+    init()
+  }, [init])
 
 
   const add = () => {
@@ -180,7 +180,7 @@ export const PlanType = () => {
 }
 
 const Header = styled.div`
-  height: 13rem;
+  height: 12.5rem;
   background: #fff;
   margin-bottom: 1rem;
   border-radius: 1rem;

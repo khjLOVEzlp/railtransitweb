@@ -1,10 +1,7 @@
-import {Button, Checkbox, Form, Input, Modal, Select} from "antd";
-import React, {useEffect, useState} from "react";
-import {useHttp} from "../../../../../utils/http";
+import {Button, Form, Input, Modal, Radio} from "antd";
+import React, {useState} from "react";
 import {useResetFormOnCloseModal} from "../../../../../hook";
 import {rules} from "../../../../../utils/verification";
-
-const {Option} = Select;
 
 const layout = {
   labelCol: {span: 4},
@@ -20,31 +17,16 @@ interface ModalFormProps {
 
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
-  const [roleList, setRoleList] = useState([])
-  const [personList, setPersonList] = useState([])
-  const client = useHttp()
-  useEffect(() => {
-    console.log(formData)
-    //  角色集合
-    client(`role/getAll`, {method: "POST"}).then((res) => {
-      res.data.forEach((item: any) => {
-        item.label = item.name
-        item.value = item.id
-      })
-      setRoleList(res.data)
-    })
-
-    //  人员集合
-    client(`person/list`, {method: "POST"}).then(res => {
-      console.log(res.data);
-      setPersonList(res.data)
-    })
-  }, [])
+  const [value, setValue] = useState(1);
 
   useResetFormOnCloseModal({
     form,
     visible,
   });
+
+  const onChange = (e: any) => {
+    setValue(e.target.value);
+  };
 
   const onOk = () => {
     form.submit();
@@ -63,44 +45,37 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         {...layout}
       >
         <Form.Item
-          label="登陆账户"
-          name="loginName"
+          label="设备编号"
+          name="equipmentNum"
           rules={rules}
         >
           <Input/>
         </Form.Item>
 
         <Form.Item
-          label="密码"
-          name="password"
+          label="员工卡号"
+          name="number"
           rules={rules}
         >
           <Input/>
         </Form.Item>
 
         <Form.Item
-          label="人员id"
-          name="personId"
+          label="测量温度"
+          name="temperature"
           rules={rules}
-        >
-          <Select>
-            {personList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="角色集合"
-          name="roles"
-          rules={rules}
-        >
-          <Checkbox.Group options={roleList}/>
-        </Form.Item>
-
-        <Form.Item
-          label="备注"
-          name="remark"
         >
           <Input/>
+        </Form.Item>
+
+        <Form.Item
+          label="类型"
+          name="type"
+        >
+          <Radio.Group onChange={onChange} value={value}>
+            <Radio value={1}>上岗</Radio>
+            <Radio value={2}>离岗</Radio>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </Modal>

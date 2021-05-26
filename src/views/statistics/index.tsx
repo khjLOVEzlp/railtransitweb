@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Button, Select, Table } from "antd"
 import React, { useEffect, useState } from "react"
-import { useDocumentTitle, useMount } from "../../hook"
+import {useDocumentTitle} from '../../hook/useDocumentTitle'
 import { useHttp } from "../../utils/http"
 const { Option } = Select;
 export const Statistics = () => {
@@ -12,7 +12,7 @@ export const Statistics = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    totla: 0,
+    total: 0,
     type: ''
   })
   const client = useHttp()
@@ -22,11 +22,11 @@ export const Statistics = () => {
   //     method: "POST", body: JSON.stringify(pagination)
   //   }).then(res => {
   //     setData(res.data)
-  //     setPagination({ ...pagination, totla: res.count })
+  //     setPagination({ ...pagination, total: res.count })
   //   })
-  // }, [pagination.type, pagination.totla, pagination.page])
+  // }, [pagination.type, pagination.total, pagination.page])
 
-  useMount(() => {
+  useEffect(() => {
     client(`alarm/statistic/list`, {
       method: "POST", body: JSON.stringify(pagination)
     }).then(res => {
@@ -36,7 +36,7 @@ export const Statistics = () => {
     client(`dictItem/list?index=1&size=100&typeId=002`, { method: "POST" }).then(res => {
       setType(res.data)
     })
-  })
+  }, [])
 
   const onChange = (page: number) => {
     setPagination({ ...pagination, page })
@@ -73,18 +73,22 @@ export const Statistics = () => {
         {/*  }*/}
         {/*</Select>*/}
         {/*<Button style={{ marginLeft: '1rem' }} onClick={() => setPagination({ ...pagination, type: '' })}>重置</Button>*/}
-        <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} pagination={{ total: pagination.total, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
       </Main>
     </AlarmStyle>
   )
 }
 
 const AlarmStyle = styled.div`
-
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 
 const Header = styled.div`
-  height: 23rem;
+  height: 22.5rem;
   background: #fff;
   border-radius: 1rem;
   margin-bottom: 1rem;

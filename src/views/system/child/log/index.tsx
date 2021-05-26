@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Button, Form, Input, Table, Space, DatePicker } from "antd";
 import qs from "qs";
-import React, { useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { useHttp } from "../../../../utils/http";
 import {cleanObject} from "../../../../utils";
 import 'moment/locale/zh-cn';
@@ -14,7 +14,7 @@ export const Log = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    totla: 0,
+    total: 0,
     operName: '',
     startTime: '',
     endTime: ''
@@ -22,7 +22,7 @@ export const Log = () => {
 
   const [data, setData] = useState([])
 
-  const getMenuList = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -32,9 +32,13 @@ export const Log = () => {
     }
     client(`log/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
       setData(res.data)
-      setPagination({ ...pagination, totla: res.count })
+      setPagination({ ...pagination, total: res.count })
     })
-  }
+  }, [client, pagination.page, pagination.operName, pagination.startTime, pagination.endTime])
+
+  useEffect(() => {
+    init()
+  }, [init])
 
   const search = (values: any) => {
     setPagination({ ...pagination, operName: values.name })
@@ -45,19 +49,10 @@ export const Log = () => {
     setPagination({...pagination, startTime: dateStrings[0], endTime: dateStrings[1]})
   }
 
-  const del = async (id: number | string) => {
-    client(`menu/delete/${id}`).then(() => {
-      getMenuList()
-    })
-  }
-
   const onChange = (page: number) => {
     setPagination({ ...pagination, page })
   }
 
-  useEffect(() => {
-    getMenuList()
-  }, [pagination.operName, pagination.page, pagination.startTime, pagination.endTime])
   const columns = [
     {
       title: '操作者',
@@ -108,14 +103,14 @@ export const Log = () => {
         </Form>
       </Header>
       <Main>
-        <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} pagination={{ total: pagination.total, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
       </Main>
     </div>
   )
 }
 
 const Header = styled.div`
-height: 13rem;
+  height: 12.5rem;
 background: #fff;
 margin-bottom: 1rem;
 border-radius: 1rem;

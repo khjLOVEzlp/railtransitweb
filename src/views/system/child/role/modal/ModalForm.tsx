@@ -20,8 +20,8 @@ interface ModalFormProps {
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
   const [menu, setMenu] = useState([])
-  const [menuList, setMenuList] = useState([])
   const client = useHttp()
+  console.log(formData)
   const [options] = useState([
     {
       name: '所有数据权限',

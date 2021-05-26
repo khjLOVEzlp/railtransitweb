@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import login from './icon/login.png'
 import { Form, Input, Button } from 'antd';
 import { useAuth } from "./context/auth-context";
-import { useDocumentTitle } from "./hook";
+import { useDocumentTitle } from "./hook/useDocumentTitle";
 import dayjs from 'dayjs'
 import {rules} from "./utils/verification";
 export const Login = () => {

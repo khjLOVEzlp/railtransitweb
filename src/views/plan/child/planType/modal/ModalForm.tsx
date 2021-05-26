@@ -1,9 +1,8 @@
-import React, {useState} from "react";
-import {Button, DatePicker, Form, Input, Modal, Radio, Select, Space} from "antd";
+import React, {useCallback, useEffect, useState} from "react";
+import {Button, Form, Input, Modal, Select} from "antd";
 import {useHttp} from "../../../../../utils/http";
-import {useMount, useResetFormOnCloseModal} from "../../../../../hook";
+import {useResetFormOnCloseModal} from "../../../../../hook";
 import 'moment/locale/zh-cn';
-import locale from 'antd/es/date-picker/locale/zh_CN';
 
 const {Option} = Select;
 const layout = {
@@ -21,42 +20,17 @@ interface ModalFormProps {
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
   const [materialList, setMaterialList] = useState([])
-  const [value, setValue] = useState()
-  const [personList, setPersonList] = useState([])
   const client = useHttp()
 
-  const getMaterialList = () => {
+  const getMaterialList = useCallback(() => {
     client(`materialType/getAll`, {method: "POST"}).then(res => {
       setMaterialList(res.data)
     })
-  }
+  }, [client])
 
-  const getPersonList = () => {
-    client(`person/list`, {method: "POST"}).then((res) => {
-      setPersonList(res.data)
-    })
-  }
-
-  const radioChange = (e: any) => {
-    setValue(e.target.value);
-  }
-
-  const beginTime = (obj: any | null, time: string) => {
-    form.setFieldsValue({beginTime: time})
-  }
-
-  const dateTime = (obj: any, time: string) => {
-    form.setFieldsValue({dateTime: time})
-  }
-
-  const endTime = (obj: any, item: string) => {
-    form.setFieldsValue({endTime: item})
-  }
-
-  useMount(() => {
+  useEffect(() => {
     getMaterialList()
-    getPersonList()
-  })
+  }, [getMaterialList])
 
   useResetFormOnCloseModal({
     form,

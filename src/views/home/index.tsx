@@ -1,13 +1,16 @@
 import styled from "@emotion/styled"
-import {useDocumentTitle} from "../../hook"
-import {useEffect, useState} from "react";
-import * as echarts from 'echarts';
-import {track, mounthConfigData, options, task} from './subwayRoute'
+import {useCallback, useEffect, useState} from "react";
+import {useDocumentTitle} from '../../hook/useDocumentTitle'
+import {track, options, task} from './subwayRoute'
+import {MyEcharts} from "../../components/MyEcharts";
+import {useHttp} from "../../utils/http";
+
 export const Home = () => {
   const [data] = useState(track)
-  const [alertData] = useState(mounthConfigData)
+  const [alertData, setAlertData] = useState({})
   const [planData] = useState(options)
   const [taskData] = useState(task)
+  useDocumentTitle('首页')
   const [list] = useState([
     {
       name: '站台数',
@@ -26,21 +29,69 @@ export const Home = () => {
       count: '50'
     },
   ])
+
+  const client = useHttp()
+
+  const getAlertData = useCallback(() => {
+    client(`alarm/statistic/list`, {method: "POST", body: JSON.stringify({index: 1, size: 10})}).then(res => {
+      console.log(res.data)
+      res.data.forEach((key: { [key in string]: unknown }) => {
+        key["value"] = key.num
+        key["name"] = key.title
+      })
+      const data = {
+        tooltip: {
+          trigger: "item",
+        },
+        legend: {
+          top: "5%",
+          left: "center",
+        },
+        series: [
+          {
+            name: "告警",
+            type: "pie",
+            radius: ["40%", "70%"],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: "#fff",
+              borderWidth: 2,
+            },
+            label: {
+              show: false,
+              position: "center",
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: "20",
+                fontWeight: "bold",
+              },
+            },
+            labelLine: {
+              show: false,
+            },
+            data: res.data
+          },
+        ],
+      }
+      setAlertData(data)
+    })
+  }, [client])
+
   useEffect(() => {
-    echarts.init(document.getElementById('track') as HTMLElement).setOption(data)
-    echarts.init(document.getElementById('alert') as HTMLElement).setOption(alertData)
-    echarts.init(document.getElementById('plan') as HTMLElement).setOption(planData)
-    echarts.init(document.getElementById('task') as HTMLElement).setOption(taskData)
-  }, [data, alertData, planData, taskData])
-  useDocumentTitle('首页')
+    getAlertData()
+  }, [getAlertData])
+
   return (
-    <div>
+    <Container>
       <Header>
         <div className="left">
           {/*<div className="title">*/}
           {/*  轨行图*/}
           {/*</div>*/}
-          <div id="track" style={{width: '80%', height: '100%'}}/>
+          <MyEcharts id="track" data={data} style={{width: '80%', height: '100%'}}/>
 
           <div className="data">
             {
@@ -65,10 +116,7 @@ export const Home = () => {
           <div className="title">
             告警展示
           </div>
-
-          <div id="alert" style={{width: '100%', height: '42rem'}}>
-
-          </div>
+          <MyEcharts id="alert" data={alertData} style={{width: '100%', height: '42rem'}}/>
         </div>
       </Header>
       <Footer>
@@ -76,27 +124,29 @@ export const Home = () => {
           <div className="title">
             计划统计
           </div>
-          <div id="plan" style={{width: '80%', height: '30rem'}}/>
-
+          <MyEcharts id="plan" data={planData} style={{width: '80%', height: '30rem'}}/>
         </div>
         <div className="right">
           <div className="title">
             作业统计
           </div>
-
-          <div id="task" style={{width: '100%', height: '30rem'}}>
-
-          </div>
+          <MyEcharts id="task" data={taskData} style={{width: '100%', height: '30rem'}}/>
         </div>
       </Footer>
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
 
   > .left {
     height: 50vh;
@@ -141,7 +191,7 @@ const Header = styled.div`
     height: 50vh;
     background: #FFFFFF;
     border-radius: 14px;
-    width: 35%;
+    width: 35.5%;
     padding-top: 3rem;
     box-sizing: border-box;
 
@@ -160,10 +210,10 @@ const Footer = styled.div`
   justify-content: space-between;
 
   > .left {
-    height: 38vh;
+    height: 39vh;
     background: #fff;
     border-radius: 14px;
-    width: 49.5%;
+    width: 49.8%;
     padding-top: 3rem;
     box-sizing: border-box;
 
@@ -176,10 +226,10 @@ const Footer = styled.div`
   }
 
   > .right {
-    height: 38vh;
+    height: 39vh;
     background: #fff;
     border-radius: 14px;
-    width: 49.5%;
+    width: 49.8%;
     padding-top: 3rem;
     box-sizing: border-box;
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Modal, Button, Table, Popconfirm, message, Radio} from 'antd';
 import styled from "@emotion/styled";
 import {useResetFormOnCloseModal} from "../../../../hook";
@@ -51,7 +51,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
           name="codeHex10"
           rules={rules}
         >
-          <Input />
+          <Input/>
         </Form.Item>
 
         <Form.Item
@@ -65,7 +65,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
           label="删除理由"
           name="deleteReason"
         >
-          <Input />
+          <Input/>
         </Form.Item>
 
         <Form.Item
@@ -82,14 +82,14 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
           label="状态"
           name="status"
         >
-          <Input />
+          <Input/>
         </Form.Item>
 
         <Form.Item
           label="仓库主键"
           name="warehouseId"
         >
-          <Input />
+          <Input/>
         </Form.Item>
       </Form>
     </Modal>
@@ -97,7 +97,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
 };
 
 export const LabelController = () => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false)
   const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
   const [formData, setFormData] = useState({})
@@ -110,11 +110,7 @@ export const LabelController = () => {
     type: ''
   })
 
-  useEffect(() => {
-    init()
-  }, [pagination.page, pagination.name])
-
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -124,11 +120,15 @@ export const LabelController = () => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [client, pagination.page, pagination.name, pagination.type])
+
+  useEffect(() => {
+    init()
+  }, [init])
 
   const search = (item: any) => {
     setPagination({...pagination, name: item.name})
-  };
+  }
 
   const add = () => {
     showUserModal()
@@ -233,7 +233,7 @@ export const LabelController = () => {
                     okText="Yes"
                     cancelText="No"
                   >
-                    <a href="#">删除</a>
+                    <Button type={"link"}>删除</Button>
                   </Popconfirm></>
               },
             ]
@@ -257,4 +257,5 @@ const Main = styled.div`
   height: 73rem;
   border-radius: 1rem;
   padding: 0 1.5rem;
+  overflow-y: auto;
 `

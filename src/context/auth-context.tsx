@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import {Spin} from "antd";
-import React, {createContext, ReactNode, useContext} from "react";
+import React, {createContext, ReactNode, useContext, useEffect} from "react";
 import * as auth from '../auth-provider'
-import {useAsync, useMount} from "../hook";
 import {User} from "../type/user";
 import {http} from "../utils/http";
+import {useAsync} from "../hook/useAsync";
 
 const AuthContext = createContext<| {
   user: User | null;
@@ -37,7 +37,7 @@ const bootstrapUser = async () => {
     user = data.data;
   }
   return user;
-};
+}
 
 export const AuthProvider = ({children}: { children: ReactNode }) => {
   const {
@@ -50,9 +50,11 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
 
   const login = (form: AuthForm) => auth.login(form).then(setUser)
   const logout = () => auth.logout().then(() => setUser(null))
-  useMount(() => {
+
+  useEffect(() => {
     run(bootstrapUser())
-  })
+  }, [])
+
   if (isIdle || isLoading) {
     return <FullPageLoading/>
   }

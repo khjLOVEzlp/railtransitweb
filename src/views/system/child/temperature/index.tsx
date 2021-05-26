@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
@@ -16,24 +16,26 @@ export const Temperature = () => {
     page: 1,
     size: 10,
     total: 0,
-    name: ''
+    name: '',
+    number: ""
   })
 
-  useEffect(() => {
-    init()
-  }, [pagination.page, pagination.name])
-
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
       name: pagination.name,
+      number: pagination.number
     }
-    client(`user/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
+    client(`record/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [client, pagination.page, pagination.name, pagination.number])
+
+  useEffect(() => {
+    init()
+  }, [init])
 
 
   const add = () => {
@@ -66,7 +68,7 @@ export const Temperature = () => {
   }
 
   const search = (item: any) => {
-    setPagination({...pagination, name: item.name})
+    setPagination({...pagination, name: item.name, number: item.number})
   };
 
   const showUserModal = () => {
@@ -82,7 +84,7 @@ export const Temperature = () => {
       <Form.Provider
         onFormFinish={(name, {values, forms}) => {
           if (name === '新增') {
-            client(`user/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`record/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
               message.success('新增成功')
               setVisible(false);
             }).catch(err => {
@@ -111,6 +113,13 @@ export const Temperature = () => {
               <Input/>
             </Form.Item>
 
+            <Form.Item
+              label="编号"
+              name="number"
+            >
+              <Input/>
+            </Form.Item>
+
             <Form.Item>
               <Button type="primary" htmlType="submit">
                 搜索
@@ -124,16 +133,26 @@ export const Temperature = () => {
           <Table columns={
             [
               {
-                title: '用户名',
-                dataIndex: 'name',
-                key: 'name',
+                title: '员工卡号',
+                dataIndex: 'number',
+                key: 'number',
               },
               {
-                title: '备注',
-                dataIndex: 'remark',
-                key: 'remark',
+                title: '时间',
+                dataIndex: 'measureTime',
+                key: 'measureTime'
               },
               {
+                title: '测量温度',
+                dataIndex: 'temperature',
+                key: 'temperature',
+              },
+              {
+                title: '类型',
+                key: 'type',
+                render: (type: string | number) => <>{type === 1 ? "上岗" : "离岗"}</>
+              },
+              /*{
                 title: '操作',
                 key: 'id',
                 render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
@@ -146,7 +165,7 @@ export const Temperature = () => {
                   >
                     <Button type="link">删除</Button>
                   </Popconfirm></>
-              },
+              },*/
             ]
           } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
                  rowKey={(item: any) => item.id}/>
@@ -155,10 +174,10 @@ export const Temperature = () => {
       </Form.Provider>
     </>
   );
-};
+}
 
 const Header = styled.div`
-  height: 13rem;
+  height: 12.5rem;
   background: #fff;
   margin-bottom: 1rem;
   border-radius: 1rem;

@@ -5,7 +5,7 @@ import {Navigate, Route, Routes} from "react-router";
 import {NavLink} from "react-router-dom"
 import {PlanType} from "./child/planType";
 import {PlanWork} from "./child/planWork";
-import {useDocumentTitle} from "../../hook";
+import {useDocumentTitle} from '../../hook/useDocumentTitle'
 import {WorkManage} from "./child/workManage";
 
 export const Plan = () => {
@@ -27,9 +27,9 @@ export const Plan = () => {
       </Left>
       <Right>
         <Routes>
-          <Route path={"/planWork"} element={<PlanWork/>}/>
-          <Route path={"/planType"} element={<PlanType/>}/>
-          <Route path={"/workManage"} element={<WorkManage/>}/>
+          <Route path={"planWork"} element={<PlanWork/>}/>
+          <Route path={"planType"} element={<PlanType/>}/>
+          <Route path={"workManage"} element={<WorkManage/>}/>
           <Navigate to={window.location.pathname + "/planWork"}/>
         </Routes>
       </Right>
@@ -73,4 +73,8 @@ const Right = styled.div`
   width: calc(100% - 27rem);
   height: 100%;
   margin-left: 0.5%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `

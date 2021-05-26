@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Modal, Button, Table, Popconfirm, message, Radio} from 'antd';
 import styled from "@emotion/styled";
 import {useResetFormOnCloseModal} from "../../../../hook";
@@ -91,7 +91,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
 };
 
 export const AlcoholController = () => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false)
   const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
   const [formData, setFormData] = useState({})
@@ -104,21 +104,21 @@ export const AlcoholController = () => {
     type: ''
   })
 
-  useEffect(() => {
-    init()
-  }, [pagination.page, pagination.name])
-
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
       name: pagination.name,
     }
-    client(`hardware/alcohol/list`, {method: "POST", body: JSON.stringify(cleanObject(param))}).then(res => {
+      client(`hardware/alcohol/list`, {method: "POST", body: JSON.stringify(cleanObject(param))}).then(res => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [client, pagination.page, pagination.name, pagination.type])
+
+  useEffect(() => {
+    init()
+  }, [init])
 
   const search = (item: any) => {
     setPagination({...pagination, name: item.name})
@@ -214,7 +214,7 @@ export const AlcoholController = () => {
               {
                 title: '是否可使用',
                 key: 'isUse',
-                render: (isUse: number | string) => isUse == 0 ? '不可用' : '可用'
+                render: (isUse: number | string) => isUse === 0 ? '不可用' : '可用'
               },
               {
                 title: '操作',
@@ -227,7 +227,7 @@ export const AlcoholController = () => {
                     okText="Yes"
                     cancelText="No"
                   >
-                    <a href="#">删除</a>
+                    <Button type={"link"}>删除</Button>
                   </Popconfirm></>
               },
             ]
@@ -251,4 +251,5 @@ const Main = styled.div`
   height: 73rem;
   border-radius: 1rem;
   padding: 0 1.5rem;
+  overflow-y: auto;
 `

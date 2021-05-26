@@ -1,4 +1,4 @@
-import {useEffect, useRef} from "react"
+import {useEffect, useRef, useState} from "react"
 import {FormInstance} from "antd/lib/form";
 
 export const useResetFormOnCloseModal = ({form, visible}: { form: FormInstance; visible: boolean }) => {
@@ -12,5 +12,5 @@ export const useResetFormOnCloseModal = ({form, visible}: { form: FormInstance; 
     if (!visible && prevVisible) {
       form.resetFields();
     }
-  }, [form, prevVisible, visible]);
+  }, [visible]);
 };

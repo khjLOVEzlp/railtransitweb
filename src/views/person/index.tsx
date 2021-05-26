@@ -1,7 +1,6 @@
 import styled from "@emotion/styled"
 import { Button, Form, Input, Table } from "antd"
 import React, { useEffect, useState } from "react"
-import { useMount } from "../../hook"
 import { useHttp } from "../../utils/http"
 
 const layout = {
@@ -26,8 +25,6 @@ export const Person = () => {
       setData(res.data)
     })
   }, [pagination.type, pagination.totla, pagination.page])
-  useMount(() => {
-  })
 
   const onChange = (page: number) => {
     setPagination({ ...pagination, page })

@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, DatePicker, Form, Input, Modal, Radio, Select, Space} from "antd";
 import {useHttp} from "../../../../../utils/http";
-import {useMount, useResetFormOnCloseModal} from "../../../../../hook";
+import {useResetFormOnCloseModal} from "../../../../../hook";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
@@ -53,10 +53,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     form.setFieldsValue({endTime: item})
   }
 
-  useMount(() => {
+  useEffect(() => {
     getMaterialList()
     getPersonList()
-  })
+  }, [getMaterialList, getPersonList])
 
   useResetFormOnCloseModal({
     form,
