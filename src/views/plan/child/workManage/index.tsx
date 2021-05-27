@@ -4,10 +4,12 @@ import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
 import qs from "qs";
 import {cleanObject} from "../../../../utils";
-import {ModalForm} from "./modal/ModalForm";
+import {ModalForm, SaveGroup, SaveGroupTool} from "./modal/ModalForm";
 
 export const WorkManage = () => {
   const [visible, setVisible] = useState(false);
+  const [saveGroup, setSaveGroup] = useState(false);
+  const [saveGroupTool, setSaveGroupTool] = useState(false);
   const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
   const [formData, setFormData] = useState({})
@@ -19,6 +21,7 @@ export const WorkManage = () => {
     name: ''
   })
 
+  // 分页查询
   const init = useCallback(() => {
     const param = {
       index: pagination.page,
@@ -41,8 +44,14 @@ export const WorkManage = () => {
   }
 
   const mod = (item: any) => {
-    showUserModal()
-    setType('修改')
+    showSaveGroupModal()
+    setType('作业绑定人员和小组信息')
+    setFormData(item)
+  }
+
+  const tool = (item: any) => {
+    showSaveGroupToolModal()
+    setType('作业绑定小组的工具材料')
     setFormData(item)
   }
 
@@ -75,6 +84,22 @@ export const WorkManage = () => {
   const hideUserModal = () => {
     setVisible(false);
   };
+
+  const showSaveGroupModal = () => {
+    setSaveGroup(true)
+  }
+
+  const hideSaveGroupModal = () => {
+    setSaveGroup(false)
+  }
+
+  const showSaveGroupToolModal = () => {
+    setSaveGroup(true)
+  }
+
+  const hideSaveGroupToolModal = () => {
+    setSaveGroup(false)
+  }
 
   const save = (value: any) => {
     client(`planWork/save`, {method: "POST", body: JSON.stringify(value)}).then(() => {
@@ -163,8 +188,9 @@ export const WorkManage = () => {
                 align: "center",
                 render: (item: any) => (
                   <>
-                    <Button type="link" onClick={() => mod(item)}>修改</Button>
-                    <Popconfirm
+                    <Button type="link" onClick={() => mod(item)}>绑定人员和小组信息</Button>
+                    <Button type="link" onClick={() => tool(item)}>绑定小组的工具材料</Button>
+                    {/*<Popconfirm
                       title={`是否要删除${item.name}`}
                       onConfirm={() => confirm(item)}
                       onCancel={cancel}
@@ -172,7 +198,7 @@ export const WorkManage = () => {
                       cancelText="No"
                     >
                       <Button type={"link"}>删除</Button>
-                    </Popconfirm>
+                    </Popconfirm>*/}
                   </>
                 )
               },
@@ -183,6 +209,8 @@ export const WorkManage = () => {
           />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+        <SaveGroup visible={saveGroup} type={type} formData={formData} onCancel={hideSaveGroupModal}/>
+        <SaveGroupTool visible={saveGroupTool} type={type} formData={formData} onCancel={hideSaveGroupToolModal}/>
       </Form.Provider>
     </>
   );

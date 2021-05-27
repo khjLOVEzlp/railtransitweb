@@ -6,10 +6,10 @@ import {useHttp} from "../../../../utils/http";
 import {cleanObject} from "../../../../utils";
 import {rules} from "../../../../utils/verification";
 
-const layout = {
+/*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
-};
+};*/
 
 interface ModalFormProps {
   visible: boolean;
@@ -44,7 +44,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         name={type}
         initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
         <Form.Item
           label="删除理由"

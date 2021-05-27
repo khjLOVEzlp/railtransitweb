@@ -4,8 +4,9 @@ import {useHttp} from "../../../../../utils/http";
 import {useResetFormOnCloseModal} from "../../../../../hook";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-
+const { TextArea } = Input;
 const {Option} = Select;
+
 const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -15,7 +16,7 @@ interface ModalFormProps {
   visible: boolean,
   onCancel: () => void,
   type: string,
-  formData: object
+  formData: any
 }
 
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
@@ -77,7 +78,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         name={type}
         initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
         <Form.Item
           label="开始时间"
@@ -215,7 +216,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           label="备注"
           name="remark"
         >
-          <Input/>
+          <TextArea rows={1} />
         </Form.Item>
 
         <Form.Item
@@ -313,7 +314,7 @@ export const ShareModalForm: React.FC<ModalFormProps> = ({visible, onCancel, typ
         name={type}
         initialValues={formData}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
         <Form.Item
           label="计划id"
@@ -337,6 +338,74 @@ export const ShareModalForm: React.FC<ModalFormProps> = ({visible, onCancel, typ
 
 export const ShareBackModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
+  const [value, setValue] = useState(0);
+  const onOk = () => {
+    form.submit();
+  };
+
+  useResetFormOnCloseModal({
+    form,
+    visible,
+  });
+
+  const onChange = (e: any) => {
+    setValue(e.target.value);
+  };
+
+  return (
+    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
+           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+    >
+      <Form
+        form={form}
+        name={type}
+        initialValues={formData}
+        labelAlign="right"
+        layout={"vertical"}
+      >
+        <Form.Item
+          label="是否通过"
+          name="isPass"
+        >
+          <Radio.Group onChange={onChange} value={value}>
+            <Radio value={0}>是</Radio>
+            <Radio value={1}>否</Radio>
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+          label="计划id"
+          name="planId"
+        >
+          <Input/>
+        </Form.Item>
+
+        <Form.Item
+          label="备注"
+          name="remark"
+        >
+          <Input/>
+        </Form.Item>
+      </Form>
+    </Modal>
+  )
+}
+
+export const ViewModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+  const [form] = Form.useForm();
+  const client = useHttp()
+  const [value, setValue] = useState(0);
+
+  const getShare = useCallback(() => {
+    if (formData.id === undefined) return
+    client(`plan/getShare/${formData.id}`).then(res => {
+    })
+  }, [client, formData])
+
+  useEffect(() => {
+    getShare()
+  }, [getShare])
 
   const onOk = () => {
     form.submit();
@@ -347,11 +416,12 @@ export const ShareBackModalForm: React.FC<ModalFormProps> = ({visible, onCancel,
     visible,
   });
 
+  const onChange = (e: any) => {
+    setValue(e.target.value);
+  };
+
   return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
-    >
+    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel} footer={null}>
       <Form
         form={form}
         name={type}

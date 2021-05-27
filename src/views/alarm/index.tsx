@@ -3,7 +3,6 @@ import {Button, message, Popconfirm, Select, Table} from "antd"
 import React, {useCallback, useEffect, useState} from "react"
 import {useDocumentTitle} from '../../hook/useDocumentTitle'
 import {useHttp} from "../../utils/http"
-import {useParams} from "react-router-dom";
 import {useLocation} from "react-router";
 
 const {Option} = Select;
@@ -21,6 +20,10 @@ export const Alarm = () => {
     name: ""
   })
 
+  // useEffect(() => {
+  //   setPagination({...pagination, name: String(state)})
+  // }, [])
+
   const client = useHttp()
 
   const init = useCallback(() => {
@@ -33,24 +36,13 @@ export const Alarm = () => {
     })
   }, [pagination.page, pagination.type, pagination.name])
 
-  //首页跳转改变列表
-  const homeList = useCallback(() => {
-    const param = {...pagination, name: state}
-    client(`alarm/list`, {
-      method: "POST", body: JSON.stringify(param)
-    }).then(res => {
-      setData(res.data)
-      setPagination({...pagination, total: res.count})
-    })
-  }, [])
-
   const getNavList = useCallback(() => {
     client(`alarm/statistic/list`, {
       method: "POST", body: JSON.stringify(pagination)
     }).then(res => {
       setNavList(res.data)
     })
-  }, [client, pagination])
+  }, [client])
 
   const getType = useCallback(() => {
     client(`dictItem/list?index=1&size=100&typeId=002`, {method: "POST"}).then(res => {
@@ -61,10 +53,6 @@ export const Alarm = () => {
   useEffect(() => {
     init()
   }, [init])
-
-  useEffect(() => {
-    homeList()
-  }, [])
 
   useEffect(() => {
     getNavList()

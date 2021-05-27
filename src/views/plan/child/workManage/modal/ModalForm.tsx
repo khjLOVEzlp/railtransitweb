@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button, DatePicker, Form, Input, Modal, Radio, Select, Space} from "antd";
 import {useHttp} from "../../../../../utils/http";
 import {useResetFormOnCloseModal} from "../../../../../hook";
@@ -6,16 +6,17 @@ import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
 const {Option} = Select;
-const layout = {
+
+/*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
-};
+};*/
 
 interface ModalFormProps {
   visible: boolean,
   onCancel: () => void,
   type: string,
-  formData: object
+  formData: any
 }
 
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
@@ -25,17 +26,17 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [personList, setPersonList] = useState([])
   const client = useHttp()
 
-  const getMaterialList = () => {
+  const getMaterialList = useCallback(() => {
     client(`materialType/getAll`, {method: "POST"}).then(res => {
       setMaterialList(res.data)
     })
-  }
+  }, [client])
 
-  const getPersonList = () => {
+  const getPersonList = useCallback(() => {
     client(`person/list`, {method: "POST"}).then((res) => {
       setPersonList(res.data)
     })
-  }
+  }, [client])
 
   const radioChange = (e: any) => {
     setValue(e.target.value);
@@ -77,7 +78,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         name={type}
         initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
         <Form.Item
           label="开始时间"
@@ -272,6 +273,158 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="workPerson"
         >
           <Input/>
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+
+//作业绑定人员和小组信息
+export const SaveGroup: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+  const [form] = Form.useForm();
+  const [groupList, setGroupList] = useState([])
+  const [registrationList, setRegistrationList] = useState([])
+
+  const client = useHttp()
+
+  // 获取作业信息
+  const getGroupList = useCallback(() => {
+    if (formData.id === undefined) return
+    client(`planWork/get/${formData.id}`)
+      .then(res => {
+        setGroupList(res.data.groupList)
+        setRegistrationList(res.data.registrationList)
+      })
+  }, [client, formData])
+
+  useEffect(() => {
+    getGroupList()
+  }, [getGroupList])
+
+  useResetFormOnCloseModal({
+    form,
+    visible,
+  });
+
+  const onOk = () => {
+    form.submit();
+  };
+
+  return (
+    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
+           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+    >
+      <Form
+        form={form}
+        name={type}
+        initialValues={type === '修改' ? formData : {}}
+        labelAlign="right"
+        layout={"vertical"}
+      >
+        <Form.Item
+          label="作业"
+          name="workId"
+        >
+          <Select>
+            {groupList.map((item: any, index: number) => <Option value={item.workId}
+                                                                 key={index}>{item.leaderName}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="小组集合"
+          name="workId"
+        >
+          <Select>
+            {groupList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.groupName}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="人员登记计划"
+          name="workId"
+        >
+          <Select>
+            {registrationList.map((item: any, index: number) => <Option value={item.personId}
+                                                                        key={index}>{item.personId}</Option>)}
+          </Select>
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+
+// 绑定小组的工具材料
+export const SaveGroupTool: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+  const [form] = Form.useForm();
+  const [groupList, setGroupList] = useState([])
+  const [registrationList, setRegistrationList] = useState([])
+
+  const client = useHttp()
+
+  // 获取作业信息
+  const getGroupList = useCallback(() => {
+    if (formData.id === undefined) return
+    client(`planWork/get/${formData.id}`)
+      .then(res => {
+        setGroupList(res.data.groupList)
+        setRegistrationList(res.data.registrationList)
+      })
+  }, [client, formData])
+
+  useEffect(() => {
+    getGroupList()
+  }, [getGroupList])
+
+  useResetFormOnCloseModal({
+    form,
+    visible,
+  });
+
+  const onOk = () => {
+    form.submit();
+  };
+
+  return (
+    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
+           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+    >
+      <Form
+        form={form}
+        name={type}
+        initialValues={type === '修改' ? formData : {}}
+        labelAlign="right"
+        layout={"vertical"}
+      >
+        <Form.Item
+          label="作业"
+          name="workId"
+        >
+          <Select>
+            {groupList.map((item: any, index: number) => <Option value={item.workId}
+                                                                 key={index}>{item.leaderName}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="小组集合"
+          name="workId"
+        >
+          <Select>
+            {groupList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.groupName}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="人员登记计划"
+          name="workId"
+        >
+          <Select>
+            {registrationList.map((item: any, index: number) => <Option value={item.personId}
+                                                                        key={index}>{item.personId}</Option>)}
+          </Select>
         </Form.Item>
       </Form>
     </Modal>

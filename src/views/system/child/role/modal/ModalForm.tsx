@@ -5,10 +5,10 @@ import {useResetFormOnCloseModal} from "../../../../../hook";
 import {rules} from "../../../../../utils/verification";
 
 const {Option} = Select
-const layout = {
+/*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
-};
+};*/
 
 interface ModalFormProps {
   visible: boolean;
@@ -99,7 +99,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         name={type}
         initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
         <Form.Item
           label="数据权限"

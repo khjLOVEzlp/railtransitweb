@@ -4,11 +4,12 @@ import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
 import qs from "qs";
 import {cleanObject} from "../../../../utils";
-import {ModalForm, ShareModalForm, ShareBackModalForm} from "./modal/ModalForm";
+import {ModalForm, ShareModalForm, ShareBackModalForm, ViewModalForm} from "./modal/ModalForm";
 
 export const PlanWork = () => {
   const [visible, setVisible] = useState(false);
   const [visibleShare, setVisibleShare] = useState(false);
+  const [visibleView, setVisibleView] = useState(false);
   const [visibleShareBack, setVisibleShareBack] = useState(false)
   const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
@@ -50,7 +51,13 @@ export const PlanWork = () => {
 
   const shareBack = (item: any) => {
     setVisibleShareBack(true)
-    setType('查看反馈')
+    setType('反馈')
+    setFormData(item)
+  }
+
+  const view = (item: any) => {
+    setVisibleView(true)
+    setType('查看')
     setFormData(item)
   }
 
@@ -98,6 +105,10 @@ export const PlanWork = () => {
     setVisibleShareBack(false)
   }
 
+  const hideViewModal = () => {
+    setVisibleView(false)
+  }
+
   const save = (value: any) => {
     client(`plan/save`, {method: "POST", body: JSON.stringify(value)}).then(() => {
       message.success('新增成功')
@@ -124,6 +135,14 @@ export const PlanWork = () => {
     })
   }
 
+  const feedBack = (value: any) => {
+    client(`plan/shareBack`, {method: "POST", body: JSON.stringify((value))}).then(() => {
+      message.success("反馈成功")
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   return (
     <>
       <Form.Provider
@@ -137,6 +156,9 @@ export const PlanWork = () => {
           }
           if (name === "发布计划") {
             sharePlan(values)
+          }
+          if (name === "反馈") {
+            feedBack(values)
           }
         }}
       >
@@ -192,7 +214,8 @@ export const PlanWork = () => {
                 render: (item: any) => (
                   <>
                     <Button type="link" onClick={() => share(item)}>发布计划</Button>
-                    <Button type="link" onClick={() => shareBack(item)}>查看反馈</Button>
+                    <Button type="link" onClick={() => shareBack(item)}>反馈</Button>
+                    <Button type="link" onClick={() => view(item)}>查看</Button>
                     <Button type="link" onClick={() => mod(item)}>修改</Button>
                     <Popconfirm
                       title={`是否要删除${item.name}`}
@@ -215,6 +238,7 @@ export const PlanWork = () => {
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
         <ShareModalForm visible={visibleShare} formData={formData} type={type} onCancel={hideShareModal}/>
         <ShareBackModalForm visible={visibleShareBack} formData={formData} type={type} onCancel={hideShareBackModal}/>
+        <ViewModalForm visible={visibleView} formData={formData} type={type} onCancel={hideViewModal}/>
       </Form.Provider>
     </>
   );
