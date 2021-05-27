@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button, Checkbox, Form, Input, Modal, Select} from "antd";
 import {useHttp} from "../../../../../utils/http";
 import {useResetFormOnCloseModal} from "../../../../../hook";
@@ -21,9 +21,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [roleList, setRoleList] = useState([])
   const [personList, setPersonList] = useState([])
   const client = useHttp()
-  useEffect(() => {
-    console.log(formData)
-    //  角色集合
+
+  const getRoleLIst = useCallback(() => {
     client(`role/getAll`, {method: "POST"}).then((res) => {
       res.data.forEach((item: any) => {
         item.label = item.name
@@ -31,13 +30,19 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       })
       setRoleList(res.data)
     })
+  }, [client])
 
-    //  人员集合
+  const getPersonList = useCallback(() => {
     client(`person/list`, {method: "POST"}).then(res => {
       console.log(res.data);
       setPersonList(res.data)
     })
-  }, [])
+  }, [client])
+
+  useEffect(() => {
+  getPersonList()
+  getRoleLIst()
+  }, [getPersonList, getRoleLIst])
 
   useResetFormOnCloseModal({
     form,

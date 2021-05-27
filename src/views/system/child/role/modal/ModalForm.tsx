@@ -1,5 +1,5 @@
 import {Button, Form, Input, Modal, Select, Tree} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useHttp} from "../../../../../utils/http";
 import {useResetFormOnCloseModal} from "../../../../../hook";
 import {rules} from "../../../../../utils/verification";
@@ -41,7 +41,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     }
   ])
 
-  useEffect(() => {
+  const getMenuList = useCallback(() => {
     client(`menu/getAll?type=1`, {method: "POST"}).then(res => {
       res.data.forEach((item: any) => {
         item.title = item.name
@@ -66,7 +66,11 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       })
       setMenu(res.data)
     })
-  }, [])
+  }, [client])
+
+  useEffect(() => {
+    getMenuList()
+  }, [getMenuList])
 
   useResetFormOnCloseModal({
     form,

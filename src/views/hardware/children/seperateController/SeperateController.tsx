@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Modal, Button, Table, Popconfirm, message, Radio} from 'antd';
+import {Form, Input, Modal, Button, Table, Popconfirm, message, Radio, Select} from 'antd';
 import styled from "@emotion/styled";
 import {useResetFormOnCloseModal} from "../../../../hook";
 import {useHttp} from "../../../../utils/http";
 import {cleanObject} from "../../../../utils";
 import {rules} from "../../../../utils/verification";
-
+const {Option} = Select;
 const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -21,10 +21,24 @@ interface ModalFormProps {
 const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState(0);
+  const [personList, setPersonList] = useState([])
+  const client = useHttp()
+
   useResetFormOnCloseModal({
     form,
     visible,
   });
+
+  const getPersonList = useCallback(() => {
+    client(`person/list`, {method: "POST"}).then(res => {
+      console.log(res.data);
+      setPersonList(res.data)
+    })
+  }, [client])
+
+  useEffect(() => {
+    getPersonList()
+  }, [getPersonList])
 
   const onChange = (e: any) => {
     setValue(e.target.value);
@@ -52,6 +66,16 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
           rules={rules}
         >
           <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="人员id"
+          name="personId"
+          rules={rules}
+        >
+          <Select>
+            {personList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
         </Form.Item>
 
         <Form.Item

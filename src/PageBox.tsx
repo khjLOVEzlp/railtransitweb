@@ -13,7 +13,6 @@ import {Plan} from "./views/plan";
 import {Alarm} from "./views/alarm";
 import {Hardware} from "./views/hardware";
 import {Statistics} from "./views/statistics";
-import {Detail} from "./views/alarm/detail";
 
 export const PageBox = () => {
   const [menu, setMenu] = useState([])
@@ -76,7 +75,6 @@ export const PageBox = () => {
           <Route path={"/home"} element={<Home/>}/>
           <Route path={"/plan/*"} element={<Plan/>}/>
           <Route path={"/alarm"} element={<Alarm/>}/>
-          <Route path={"/alarm/:Id/detail"} element={<Detail/>}/>
           <Route path={"/statistics"} element={<Statistics/>}/>
           <Route path={"/hardware"} element={<Hardware/>}/>
           <Route path={"/system/*"} element={<System/>}/>

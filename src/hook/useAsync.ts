@@ -21,23 +21,23 @@ export const useAsync = <D>(initialState?: State<D>) => {
 
   const mountedRef = useMountedRef()
 
-  const setData = (data: D) => setState({
+  const setData = useCallback((data: D) => setState({
     data,
     stat: 'success',
     error: null
-  })
+  }), [])
 
-  const setError = (error: Error) => setState({
+  const setError = useCallback((error: Error) => setState({
     error,
     stat: 'error',
     data: null
-  })
+  }), [])
 
   const run = useCallback((promise: Promise<D>) => {
     if (!promise || !promise.then) {
       throw new Error('请传入promise数据类型')
     }
-    setState({...state, stat: 'loading'})
+    setState(prevState => ({...prevState, stat: 'loading'}))
     return promise.then(data => {
       if (mountedRef.current) setData(data)
       return data
@@ -45,7 +45,7 @@ export const useAsync = <D>(initialState?: State<D>) => {
       setError(error)
       return error
     })
-  }, [mountedRef, setData, state])
+  }, [mountedRef, setData, setError])
 
   return {
     isIdle: state.stat === 'idle',

@@ -3,9 +3,13 @@ import {Button, message, Popconfirm, Select, Table} from "antd"
 import React, {useCallback, useEffect, useState} from "react"
 import {useDocumentTitle} from '../../hook/useDocumentTitle'
 import {useHttp} from "../../utils/http"
+import {useParams} from "react-router-dom";
+import {useLocation} from "react-router";
 
 const {Option} = Select;
+
 export const Alarm = () => {
+  const {state} = useLocation()
   const [navList, setNavList] = useState([])
   const [data, setData] = useState([])
   const [type, setType] = useState([])
@@ -13,7 +17,8 @@ export const Alarm = () => {
     page: 1,
     size: 10,
     total: 0,
-    type: ''
+    type: '',
+    name: ""
   })
 
   const client = useHttp()
@@ -26,7 +31,18 @@ export const Alarm = () => {
       setData(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }, [pagination.page, pagination.type, client])
+  }, [pagination.page, pagination.type, pagination.name])
+
+  //首页跳转改变列表
+  const homeList = useCallback(() => {
+    const param = {...pagination, name: state}
+    client(`alarm/list`, {
+      method: "POST", body: JSON.stringify(param)
+    }).then(res => {
+      setData(res.data)
+      setPagination({...pagination, total: res.count})
+    })
+  }, [])
 
   const getNavList = useCallback(() => {
     client(`alarm/statistic/list`, {
@@ -47,6 +63,10 @@ export const Alarm = () => {
   }, [init])
 
   useEffect(() => {
+    homeList()
+  }, [])
+
+  useEffect(() => {
     getNavList()
   }, [getNavList])
 
@@ -54,11 +74,20 @@ export const Alarm = () => {
     getType()
   }, [getType])
 
+  const filter = (title: string) => {
+    setPagination({...pagination, name: title})
+  }
+
+  // 重置
+  const reset = () => {
+    setPagination({...pagination, type: '', name: ''})
+  }
+
   const del = async (id: number | string) => {
     client(`hardware/alcohol/delete/${id}`)
       .then(() => {
-      init()
-    })
+        init()
+      })
   }
 
   const confirm = (item: any) => {
@@ -128,7 +157,7 @@ export const Alarm = () => {
         </Title>
         <Nav>
           {navList.map((item: any, index) => (<li key={index}>
-            <img src={`../../icon/${item.title}.png`} alt=""/>
+            <img onClick={() => filter(item.title)} src={`../../icon/${item.title}.png`} alt=""/>
             <div>
               <div>{item.title}</div>
               <div style={{fontSize: '2rem', color: '#5A7FFA'}}>{item.num}</div>
@@ -142,7 +171,8 @@ export const Alarm = () => {
             type.map((item: any, index) => <Option value={item.item} key={index}>{item.value}</Option>)
           }
         </Select>
-        <Button style={{marginLeft: '1rem'}} onClick={() => setPagination({...pagination, type: ''})}>重置</Button>
+        <Button style={{marginLeft: '1rem'}}
+                onClick={() => reset()}>重置</Button>
         <Table columns={columns} pagination={{total: pagination.total, onChange: onChange}} dataSource={data}
                rowKey={(item: any) => item.id}/>
       </Main>
@@ -189,6 +219,10 @@ const Nav = styled.div`
   > li {
     display: flex;
     align-items: center;
+
+    > img {
+      cursor: pointer;
+    }
 
     > div {
       margin-left: 1rem;

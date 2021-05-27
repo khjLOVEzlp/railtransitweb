@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useHttp} from "../../../../../../utils/http";
 import qs from "qs";
 import {Button, Form, Input, message, Modal, Popconfirm, Table} from "antd";
@@ -92,7 +92,7 @@ export const Platform = ({formData}: { formData: any }) => {
 
   const client = useHttp()
 
-  const init = () => {
+  const init = useCallback(() => {
     const param = {
       index: pagination.page,
       size: pagination.size,
@@ -103,11 +103,12 @@ export const Platform = ({formData}: { formData: any }) => {
       setData(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }
+  }, [pagination.page, pagination.name, client, formData.id])
+
 
   useEffect(() => {
     init()
-  }, [pagination.page, pagination.name])
+  }, [init])
 
   const search = (item: any) => {
     setPagination({...pagination, name: item.name})

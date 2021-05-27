@@ -53,7 +53,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
 
   useEffect(() => {
     run(bootstrapUser())
-  }, [])
+  }, [run])
 
   if (isIdle || isLoading) {
     return <FullPageLoading/>

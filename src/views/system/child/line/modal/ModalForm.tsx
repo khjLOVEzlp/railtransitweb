@@ -1,5 +1,5 @@
 import {Button, Form, Input, Modal, Select} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useHttp} from "../../../../../utils/http";
 import {useResetFormOnCloseModal} from "../../../../../hook";
 import {rules} from "../../../../../utils/verification";
@@ -23,11 +23,16 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [form] = Form.useForm();
   const [departmentList, setDepartmentList] = useState([])
   const client = useHttp()
-  useEffect(() => {
+
+  const getDepartmentList = useCallback(() => {
     client(`department/getAll`).then(res => {
       setDepartmentList(res.data)
     })
-  }, [])
+  }, [client])
+
+  useEffect(() => {
+    getDepartmentList()
+  }, [getDepartmentList])
 
   useResetFormOnCloseModal({
     form,

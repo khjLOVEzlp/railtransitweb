@@ -29,7 +29,7 @@ export const Role = () => {
       setTabList(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }, [pagination.page, pagination.name])
+  }, [pagination.page, pagination.name, client])
 
   useEffect(() => {
     init()
