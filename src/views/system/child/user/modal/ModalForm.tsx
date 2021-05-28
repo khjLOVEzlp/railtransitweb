@@ -3,7 +3,9 @@ import {Button, Checkbox, Form, Input, Modal, Select} from "antd";
 import {useHttp} from "../../../../../utils/http";
 import {useResetFormOnCloseModal} from "../../../../../hook";
 import {rules} from "../../../../../utils/verification";
+
 const {Option} = Select;
+
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -21,6 +23,11 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [roleList, setRoleList] = useState([])
   const [personList, setPersonList] = useState([])
   const client = useHttp()
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
 
   const getRoleLIst = useCallback(() => {
     client(`role/getAll`, {method: "POST"}).then((res) => {
@@ -40,8 +47,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   }, [client])
 
   useEffect(() => {
-  getPersonList()
-  getRoleLIst()
+    getPersonList()
+    getRoleLIst()
   }, [getPersonList, getRoleLIst])
 
   useResetFormOnCloseModal({
@@ -54,14 +61,13 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   };
 
   return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
+    <Modal forceRender={true} title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
            footer={[<Button key="back" onClick={onCancel}>取消</Button>,
              <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
         layout={"vertical"}
       >

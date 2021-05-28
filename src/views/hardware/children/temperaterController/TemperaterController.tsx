@@ -21,6 +21,12 @@ interface ModalFormProps {
 const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState(0);
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
+
   useResetFormOnCloseModal({
     form,
     visible,
@@ -42,7 +48,6 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
         layout={"vertical"}
       >

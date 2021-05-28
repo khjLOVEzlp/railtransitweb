@@ -23,6 +23,12 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
   const [value, setValue] = useState(0);
   const [personList, setPersonList] = useState([])
   const client = useHttp()
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
+
 
   useResetFormOnCloseModal({
     form,
@@ -56,7 +62,6 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : undefined}
         labelAlign="right"
         layout={"vertical"}
       >

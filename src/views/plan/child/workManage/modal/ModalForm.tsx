@@ -76,7 +76,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
         layout={"vertical"}
       >

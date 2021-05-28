@@ -21,6 +21,11 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [form] = Form.useForm();
   const [materialList, setMaterialList] = useState([])
   const client = useHttp()
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
 
   const getMaterialList = useCallback(() => {
     client(`materialType/getAll`, {method: "POST"}).then(res => {
@@ -49,7 +54,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
         layout={"vertical"}
       >

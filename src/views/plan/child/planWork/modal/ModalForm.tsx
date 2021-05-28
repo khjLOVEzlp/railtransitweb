@@ -7,10 +7,10 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 const { TextArea } = Input;
 const {Option} = Select;
 
-const layout = {
+/*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
-};
+};*/
 
 interface ModalFormProps {
   visible: boolean,
@@ -25,6 +25,11 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [value, setValue] = useState()
   const [personList, setPersonList] = useState([])
   const client = useHttp()
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
 
   const getMaterialList = useCallback(() => {
     client(`materialType/getAll`, {method: "POST"}).then(res => {
@@ -76,7 +81,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
         layout={"vertical"}
       >
@@ -282,7 +286,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
 export const ShareModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
   const [personList, setPersonList] = useState([])
-
   const client = useHttp()
 
   const getPersonList = useCallback(() => {
@@ -312,7 +315,6 @@ export const ShareModalForm: React.FC<ModalFormProps> = ({visible, onCancel, typ
       <Form
         form={form}
         name={type}
-        initialValues={formData}
         labelAlign="right"
         layout={"vertical"}
       >
@@ -360,7 +362,6 @@ export const ShareBackModalForm: React.FC<ModalFormProps> = ({visible, onCancel,
       <Form
         form={form}
         name={type}
-        initialValues={formData}
         labelAlign="right"
         layout={"vertical"}
       >
@@ -425,9 +426,8 @@ export const ViewModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type
       <Form
         form={form}
         name={type}
-        initialValues={formData}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
 
       </Form>

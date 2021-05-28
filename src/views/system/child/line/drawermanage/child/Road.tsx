@@ -6,21 +6,25 @@ import styled from "@emotion/styled";
 import {useResetFormOnCloseModal} from "../../../../../../hook";
 import {rules} from "../../../../../../utils/verification";
 
-const layout = {
+/*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
-};
+};*/
 
 interface ModalFormProps {
   visible: boolean;
   onCancel: () => void;
   type: string,
-  dataForm: object
+  formData: object
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, dataForm}) => {
-
+export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
 
   useResetFormOnCloseModal({
     form,
@@ -39,9 +43,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, da
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? dataForm : {}}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
         <Form.Item
           label="路线名称"
@@ -213,7 +216,7 @@ export const Road = ({formData}: { formData: any }) => {
             },
           ]} pagination={{total: pagination.total, onChange: onChange}} dataSource={data}
                  rowKey={(item: any) => item.id}/>
-          <ModalForm visible={visible} dataForm={dataForm} type={type} onCancel={hideUserModal}/>
+          <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal}/>
         </Main>
       </Form.Provider>
     </Contianer>

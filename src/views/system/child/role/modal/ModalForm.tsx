@@ -21,7 +21,12 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [form] = Form.useForm();
   const [menu, setMenu] = useState([])
   const client = useHttp()
-  console.log(formData)
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
+
   const [options] = useState([
     {
       name: '所有数据权限',
@@ -97,7 +102,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
         layout={"vertical"}
       >

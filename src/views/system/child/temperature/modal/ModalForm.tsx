@@ -1,5 +1,5 @@
 import {Button, Form, Input, Modal, Radio} from "antd";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useResetFormOnCloseModal} from "../../../../../hook";
 import {rules} from "../../../../../utils/verification";
 
@@ -18,6 +18,11 @@ interface ModalFormProps {
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState(1);
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
 
   useResetFormOnCloseModal({
     form,
@@ -40,7 +45,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
         {...layout}
       >

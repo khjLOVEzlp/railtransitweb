@@ -6,10 +6,10 @@ import {rules} from "../../../../../utils/verification";
 
 const {Option} = Select;
 
-const layout = {
+/*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
-};
+};*/
 
 interface ModalFormProps {
   visible: boolean;
@@ -19,10 +19,14 @@ interface ModalFormProps {
 }
 
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
-
   const [form] = Form.useForm();
   const [departmentList, setDepartmentList] = useState([])
   const client = useHttp()
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
 
   const getDepartmentList = useCallback(() => {
     client(`department/getAll`).then(res => {
@@ -51,9 +55,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
         <Form.Item
           label="管辖部门集合"

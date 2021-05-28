@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button, Form, Input, Modal} from "antd";
 import {useResetFormOnCloseModal} from "../../../../../hook";
 import {rules} from "../../../../../utils/verification";
 
-const layout = {
+/*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
-};
+};*/
 
 interface ModalFormProps {
   visible: boolean;
@@ -17,6 +17,11 @@ interface ModalFormProps {
 
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
+  const data = type === "修改" ? formData : ""
+
+  useEffect(() => {
+    form.setFieldsValue(data)
+  }, [data, form])
 
   useResetFormOnCloseModal({
     form,
@@ -35,9 +40,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       <Form
         form={form}
         name={type}
-        initialValues={type === '修改' ? formData : {}}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
         <Form.Item
           label="菜单图标"

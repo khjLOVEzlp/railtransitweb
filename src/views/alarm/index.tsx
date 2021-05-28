@@ -45,9 +45,10 @@ export const Alarm = () => {
   }, [client])
 
   const getType = useCallback(() => {
-    client(`dictItem/list?index=1&size=100&typeId=002`, {method: "POST"}).then(res => {
-      setType(res.data)
-    })
+    client(`dictItem/list?index=1&size=100&typeId=002`, {method: "POST"})
+      .then(res => {
+        setType(res.data)
+      })
   }, [client])
 
   useEffect(() => {
