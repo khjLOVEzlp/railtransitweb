@@ -13,6 +13,7 @@ import {Plan} from "./views/plan";
 import {Alarm} from "./views/alarm";
 import {Hardware} from "./views/hardware";
 import {Statistics} from "./views/statistics";
+import {Person} from "./views/person";
 
 export const PageBox = () => {
   const [menu, setMenu] = useState([])
@@ -23,7 +24,7 @@ export const PageBox = () => {
     }).then(res => {
       res.data.push({name: '首页', url: '/home'})
       res.data.reverse()
-      res.data.forEach((item: any) => {
+      res.data.forEach((item: { [key: string]: unknown }) => {
         let {name} = item
         switch (name) {
           case '设备管理':
@@ -37,6 +38,9 @@ export const PageBox = () => {
             break;
           case '作业计划':
             item.url = '/plan'
+            break;
+          case '人员管理':
+            item.url = '/person'
             break;
           case '系统管理':
             item.url = '/system'
@@ -77,9 +81,10 @@ export const PageBox = () => {
           <Route path={"/alarm"} element={<Alarm/>}/>
           <Route path={"/statistics"} element={<Statistics/>}/>
           <Route path={"/hardware"} element={<Hardware/>}/>
+          <Route path={"/person"} element={<Person/>}/>
           <Route path={"/system/*"} element={<System/>}/>
           <Route path={"*"} element={<Not/>}/>
-          <Navigate to={window.location.pathname + "home"}/>
+          <Navigate to={window.location.pathname + "home"} replace={true}/>
         </Routes>
       </ContentStyle>
     </Container>

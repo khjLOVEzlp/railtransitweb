@@ -1,8 +1,8 @@
 import {Button, Form, Input, Modal, Select} from "antd";
 import React, {useCallback, useEffect, useState} from "react";
 import {useHttp} from "../../../../../utils/http";
-import {useResetFormOnCloseModal} from "../../../../../hook";
 import {rules} from "../../../../../utils/verification";
+import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
 
 const {Option} = Select;
 

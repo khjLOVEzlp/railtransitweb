@@ -5,7 +5,7 @@ import {useHttp} from "../../../../utils/http";
 import qs from "qs";
 import {cleanObject} from "../../../../utils";
 import {rules} from "../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../hook";
+import {useResetFormOnCloseModal} from "../../../../hook/useResetFormOnCloseModal";
 
 /*const layout = {
   labelCol: {span: 4},

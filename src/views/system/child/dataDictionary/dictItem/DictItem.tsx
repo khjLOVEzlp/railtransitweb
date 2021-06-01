@@ -2,10 +2,10 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Modal, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import qs from "qs";
-import {useResetFormOnCloseModal} from "../../../../../hook";
 import {useHttp} from "../../../../../utils/http";
 import {cleanObject} from "../../../../../utils";
 import {rules} from "../../../../../utils/verification";
+import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
 
 /*const layout = {
   labelCol: {span: 4},

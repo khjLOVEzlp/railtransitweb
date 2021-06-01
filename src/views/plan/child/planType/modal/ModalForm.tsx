@@ -1,8 +1,8 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Button, Form, Input, Modal, Select} from "antd";
 import {useHttp} from "../../../../../utils/http";
-import {useResetFormOnCloseModal} from "../../../../../hook";
 import 'moment/locale/zh-cn';
+import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
 
 const {Option} = Select;
 /*const layout = {

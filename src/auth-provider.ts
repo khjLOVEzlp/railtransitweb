@@ -22,6 +22,7 @@ export const login = (data: { loginName: string; password: string }) => {
     body: JSON.stringify(data),
   }).then(async (response) => {
     if (response.ok) {
+      sessionStorage.setItem('login', JSON.stringify(data))
       message.success("登陆成功")
       return handleUserResponse(await response.json());
     } else {

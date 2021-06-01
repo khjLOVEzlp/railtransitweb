@@ -48,7 +48,7 @@ export const System = () => {
           <Route path={"/warehouse"} element={<Warehouse/>}/>
           <Route path={"/materialType"} element={<MaterialType/>}/>
           <Route path={"/temperature"} element={<Temperature/>}/>
-          <Navigate to={window.location.pathname + "/user"}/>
+          <Navigate to={window.location.pathname + "/user"} replace={true}/>
         </Routes>
       </Right>
     </SystemStyle>

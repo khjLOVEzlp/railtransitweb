@@ -1,18 +1,26 @@
 import styled from "@emotion/styled";
 import login from './icon/login.png'
-import { Form, Input, Button } from 'antd';
-import { useAuth } from "./context/auth-context";
-import { useDocumentTitle } from "./hook/useDocumentTitle";
+import {Form, Input, Button} from 'antd';
+import {useAuth} from "./context/auth-context";
+import {useDocumentTitle} from "./hook/useDocumentTitle";
 import dayjs from 'dayjs'
 import {rules} from "./utils/verification";
+import {useState} from "react";
+import {ErrorBox} from "./components/lib";
+import {useAsync} from "./hook/useAsync";
+
 export const Login = () => {
-  const { login } = useAuth()
-  const onFinish = (values: { loginName: string, password: string }) => {
-    login(values).then(res => {
-      console.log(values);
-      sessionStorage.setItem('login', JSON.stringify(values))
-    })
+  const [error, setError] = useState<Error | null>(null);
+  const {isLoading, run} = useAsync(undefined, { throwOnError: true });
+  const {login} = useAuth()
+  const onFinish = async (values: any) => {
+    try {
+      await run(login(values))
+    } catch (e) {
+      setError(e)
+    }
   };
+
   useDocumentTitle('登陆')
   return (
     <LoginStyle>
@@ -24,28 +32,29 @@ export const Login = () => {
         <Title>
           5G-NB智慧轨行区数字化维养安全管控系统
         </Title>
+        <ErrorBox error={error}/>
         <Form
           size={'large'}
           name="basic"
-          initialValues={{ remember: true }}
+          initialValues={{remember: true}}
           onFinish={onFinish}
         >
           <Form.Item
             name="loginName"
             rules={rules}
           >
-            <Input size="large" placeholder="账号：请输入您的账号" />
+            <Input size="large" placeholder="账号：请输入您的账号"/>
           </Form.Item>
 
           <Form.Item
             name="password"
             rules={rules}
           >
-            <Input.Password size="large" placeholder="密码：请输入您的密码" />
+            <Input.Password size="large" placeholder="密码：请输入您的密码"/>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+            <Button loading={isLoading} type="primary" htmlType="submit" style={{width: "100%"}}>
               登陆
             </Button>
           </Form.Item>
@@ -64,14 +73,14 @@ const LoginStyle = styled.div`
 `
 
 const TopTimer = styled.div`
-width: 100%;
-padding: 0 2rem;
-position: absolute;
-top: 4rem;
-font-size: 2rem;
-color: #fff;
-display:flex;
-justify-content: space-between;
+  width: 100%;
+  padding: 0 2rem;
+  position: absolute;
+  top: 4rem;
+  font-size: 2rem;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
 `
 
 const LoginForm = styled.div`

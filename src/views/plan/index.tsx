@@ -30,7 +30,7 @@ export const Plan = () => {
           <Route path={"planWork"} element={<PlanWork/>}/>
           <Route path={"planType"} element={<PlanType/>}/>
           <Route path={"workManage"} element={<WorkManage/>}/>
-          <Navigate to={window.location.pathname + "/planWork"}/>
+          <Navigate to={window.location.pathname + "/planWork"} replace={true}/>
         </Routes>
       </Right>
     </PlanStyle>

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Button, Form, Input, Modal} from "antd";
-import {useResetFormOnCloseModal} from "../../../../../hook";
 import {rules} from "../../../../../utils/verification";
+import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
 
 const layout = {
   labelCol: {span: 4},

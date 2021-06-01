@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Form, Input, Modal, Button, Table, Popconfirm, message, Radio, Select} from 'antd';
 import styled from "@emotion/styled";
-import {useResetFormOnCloseModal} from "../../../../hook";
 import {useHttp} from "../../../../utils/http";
 import {cleanObject} from "../../../../utils";
 import {rules} from "../../../../utils/verification";
+import {useResetFormOnCloseModal} from "../../../../hook/useResetFormOnCloseModal";
+
 const {Option} = Select;
+
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -36,10 +38,11 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
   });
 
   const getPersonList = useCallback(() => {
-    client(`person/list`, {method: "POST"}).then(res => {
-      console.log(res.data);
-      setPersonList(res.data)
-    })
+    client(`person/list`, {method: "POST"})
+      .then(res => {
+        console.log(res.data);
+        setPersonList(res.data)
+      })
   }, [client])
 
   useEffect(() => {
@@ -70,7 +73,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
           name="codeNumber"
           rules={rules}
         >
-          <Input />
+          <Input/>
         </Form.Item>
 
         <Form.Item
@@ -86,8 +89,9 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="imei号"
           name="imei"
+          rules={rules}
         >
-          <Input />
+          <Input/>
         </Form.Item>
 
         <Form.Item
@@ -103,8 +107,9 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="流量卡号码"
           name="phone"
+          rules={rules}
         >
-          <Input />
+          <Input/>
         </Form.Item>
       </Form>
     </Modal>

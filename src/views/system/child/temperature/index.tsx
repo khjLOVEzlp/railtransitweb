@@ -107,7 +107,7 @@ export const Temperature = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="用户名"
+              label="姓名"
               name="name"
             >
               <Input/>

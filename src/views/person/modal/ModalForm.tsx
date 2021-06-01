@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Button, Form, Input, Modal} from "antd";
-import {rules} from "../../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
+import {rules} from "../../../utils/verification";
+import {useResetFormOnCloseModal} from "../../../hook/useResetFormOnCloseModal";
 
 /*const layout = {
   labelCol: {span: 4},
@@ -44,7 +44,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         layout={"vertical"}
       >
         <Form.Item
-          label="类型名称"
+          label="姓名"
           name="name"
           rules={rules}
         >
@@ -52,16 +52,56 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         </Form.Item>
 
         <Form.Item
-          label="性能指标"
-          name="perfIndex"
+          label="性别"
+          name="sex"
           rules={rules}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="规格型号"
-          name="specsModel"
+          label="身份证号"
+          name="identityCard"
+          rules={rules}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="联系方式"
+          name="phone"
+          rules={rules}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="卡号"
+          name="number"
+          rules={rules}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="部门id"
+          name="departmentId"
+          rules={rules}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="出生日期"
+          name="birthday"
+          rules={rules}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="家庭住址"
+          name="address"
           rules={rules}
         >
           <Input />

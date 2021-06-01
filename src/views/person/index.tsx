@@ -1,164 +1,176 @@
-import styled from "@emotion/styled"
-import { Button, Form, Input, Table } from "antd"
-import React, { useEffect, useState } from "react"
-import { useHttp } from "../../utils/http"
+import React, {useState, useEffect, useCallback} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import styled from "@emotion/styled";
+import qs from "qs";
+import {ModalForm} from "./modal/ModalForm";
+import {useHttp} from "../../utils/http";
+import {cleanObject} from "../../utils";
 
-const layout = {
-  labelCol: { span: 3 },
-  wrapperCol: { span: 21 },
-};
 export const Person = () => {
-  const [isShow, setIsShow] = useState(false)
-  const [title, setTitle] = useState('')
-  const [data, setData] = useState([])
-  const [loading, setloading] = useState(false)
+  const [visible, setVisible] = useState(false);
+  const [tabList, setTabList] = useState([])
+  const [type, setType] = useState('')
+  const [formData, setFormData] = useState({})
+  const client = useHttp()
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    totla: 0,
-    type: ''
+    total: 0,
+    name: ''
   })
-  const client = useHttp()
+
+  const init = useCallback(() => {
+    const param = {
+      index: pagination.page,
+      size: pagination.size,
+      name: pagination.name,
+    }
+    client(`person/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
+      setTabList(res.data)
+      setPagination({...pagination, total: res.count})
+    })
+  }, [client, pagination.page, pagination.name])
 
   useEffect(() => {
-    client(`person/list`, { method: "POST" }).then(res => {
-      setData(res.data)
-    })
-  }, [pagination.type, pagination.totla, pagination.page])
+    init()
+  }, [init])
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
-
-  const handleChange = (value: any) => {
-    setPagination({ ...pagination, type: value })
-  }
-
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const search = (item: any) => {
+    setPagination({...pagination, name: item.name})
   };
 
-  const showModal = (title: string) => {
-    setTitle(title)
+  const add = () => {
+    showUserModal()
+    setType('新增')
   }
 
-  const columns = [
-    {
-      title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: '性别',
-      dataIndex: 'sex',
-      key: 'sex',
-      render: (item: any) => {
-        console.log(item);
+  const mod = (item: any) => {
+    showUserModal()
+    setType('修改')
+    setFormData(item)
+  }
 
-        return item == '0' ? '男' : '女'
-      }
-    },
-    {
-      title: '联系方式',
-      dataIndex: 'phone',
-      key: 'phone',
-    },
-    {
-      title: '身份证',
-      dataIndex: 'identityCard',
-      key: 'identityCard',
-    },
-    {
-      title: '部门id',
-      dataIndex: 'departmentId',
-      key: 'departmentId',
-    },
-    {
-      title: '出身日期',
-      dataIndex: 'birthday',
-      key: 'birthday',
-    },
-    {
-      title: '卡号',
-      dataIndex: 'number',
-      key: 'number',
-    },
-    {
-      title: '体温状态',
-      dataIndex: 'number',
-      key: 'number',
-      render: () => <><Button type="link" onClick={() => setIsShow(true)}>查看</Button></>
-    },
-    {
-      title: '酒精状态',
-      dataIndex: 'number',
-      key: 'number',
-      render: () => <><Button type="link">查看</Button></>
-    },
-    {
-      title: '备注',
-      dataIndex: 'remark',
-      key: 'remark',
-    },
-    {
-      title: '操作',
-      dataIndex: 'address',
-      key: 'address',
-      render: () => <><Button type="link" onClick={() => showModal('修改')}>修改</Button><Button type="link">删除</Button></>
-    },
-  ]
+  const del = async (id: number | string) => {
+    client(`person/delete/${id}`).then(() => {
+      init()
+    })
+  }
+
+  const confirm = (item: any) => {
+    del(item.id).then(() => message.success('删除成功'))
+  }
+
+  const cancel = () => {
+    message.error('取消删除');
+  }
+
+  const onChange = (page: number) => {
+    setPagination({...pagination, page})
+  }
+
+  const showUserModal = () => {
+    setVisible(true);
+  };
+
+  const hideUserModal = () => {
+    setVisible(false);
+  };
+
   return (
-    <AlarmStyle>
-      <Header>
-        <Form
-          name="basic"
-          onFinish={onFinish}
-          layout={"inline"}
-        >
-          <Form.Item
-            label="用户名称"
-            name="username"
+    <>
+      <Form.Provider
+        onFormFinish={(name, {values, forms}) => {
+          if (name === '新增') {
+            client(`person/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+              message.success('新增成功')
+              setVisible(false);
+            }).catch(err => {
+              console.log(err.msg, 'err')
+            })
+          } else if (name === "修改") {
+            client(`person/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+              message.success('修改成功')
+              setVisible(false);
+            }).catch(err => {
+              console.log(err.msg, 'err')
+            })
+          }
+        }}
+      >
+        <Header>
+          <Form
+            name="basic"
+            onFinish={search}
+            layout={"inline"}
           >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              label="人员名称"
+              name="name"
+            >
+              <Input/>
+            </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              搜索
-        </Button>
-          </Form.Item>
-        </Form>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                搜索
+              </Button>
+            </Form.Item>
+          </Form>
 
-        <Button onClick={() => showModal('新增')}>新增</Button>
-      </Header>
-      <Main>
-        <Table columns={columns} pagination={{ total: pagination.totla, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
-      </Main>
-    </AlarmStyle>
-  )
-}
-
-const AlarmStyle = styled.div`
-
-`
+          <Button onClick={() => add()}>新增</Button>
+        </Header>
+        <Main>
+          <Table columns={
+            [
+              {
+                title: '人员名称',
+                dataIndex: 'name',
+                key: 'name',
+              },
+              {
+                title: '备注',
+                dataIndex: 'remark',
+                key: 'remark',
+              },
+              {
+                title: '操作',
+                key: 'id',
+                render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+                  <Popconfirm
+                    title={`是否要删除${item.name}`}
+                    onConfirm={() => confirm(item)}
+                    onCancel={cancel}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button type="link">删除</Button>
+                  </Popconfirm></>
+              },
+            ]
+          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
+                 rowKey={(item: any) => item.id}/>
+        </Main>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+      </Form.Provider>
+    </>
+  );
+};
 
 const Header = styled.div`
-height: 13rem;
-background: #fff;
-margin-bottom: 1rem;
-border-radius: 1rem;
-display: flex;
-align-items: center;
-padding: 0 2rem;
-justify-content: space-between;
+  height: 12.5rem;
+  background: #fff;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  justify-content: space-between;
 `
 
 const Main = styled.div`
-background: #fff;
-border-radius: 1rem;
-padding: 0 3rem;
-overflow: hidden;
-overflow-y: auto;
-height: 73rem;
+  background: #fff;
+  height: 73rem;
+  border-radius: 1rem;
+  padding: 0 1.5rem;
+  overflow-y: auto;
 `
-

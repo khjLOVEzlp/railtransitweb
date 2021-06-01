@@ -3,8 +3,8 @@ import {useHttp} from "../../../../../../utils/http";
 import qs from "qs";
 import {Button, Form, Input, message, Modal, Popconfirm, Table} from "antd";
 import styled from "@emotion/styled";
-import {useResetFormOnCloseModal} from "../../../../../../hook";
 import {rules} from "../../../../../../utils/verification";
+import {useResetFormOnCloseModal} from "../../../../../../hook/useResetFormOnCloseModal";
 
 /*const layout = {
   labelCol: {span: 4},
