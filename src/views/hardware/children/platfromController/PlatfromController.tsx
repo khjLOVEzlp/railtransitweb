@@ -55,6 +55,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="电量"
           name="electric"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -62,6 +63,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="是否使用"
           name="isUse"
+          rules={rules}
         >
           <Radio.Group onChange={onChange} value={value}>
             <Radio value={0}>是</Radio>
@@ -72,6 +74,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="电量状态"
           name="electricState"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -79,6 +82,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="电量更新时间"
           name="electricTime"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -94,6 +98,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="厂商"
           name="operator"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -101,6 +106,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="电话号码"
           name="phone"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -108,6 +114,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="状态"
           name="status"
+          rules={rules}
         >
           <Input />
         </Form.Item>

@@ -75,8 +75,7 @@ const Main = styled.div`
   background: #fff;
   border-radius: 1rem;
   padding: 0 3rem;
-  height: 73rem;
-  overflow-y: auto;
+  overflow: hidden;
 `
 
 const Container = styled.div`

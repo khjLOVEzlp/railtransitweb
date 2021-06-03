@@ -3,6 +3,7 @@ import {Button, Form, Input, Modal, Select} from "antd";
 import {useHttp} from "../../../../../utils/http";
 import 'moment/locale/zh-cn';
 import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
+import {rules} from "../../../../../utils/verification";
 
 const {Option} = Select;
 /*const layout = {
@@ -20,12 +21,15 @@ interface ModalFormProps {
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
   const [materialList, setMaterialList] = useState([])
+  const [planTypeList, setPlanTypeList] = useState([])
   const client = useHttp()
-  const data = type === "修改" ? formData : ""
 
   useEffect(() => {
-    form.setFieldsValue(data)
-  }, [data, form])
+    form.setFieldsValue(formData)
+    return () => {
+      form.setFieldsValue(null)
+    }
+  }, [formData, form])
 
   const getMaterialList = useCallback(() => {
     client(`materialType/getAll`, {method: "POST"}).then(res => {
@@ -33,9 +37,19 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     })
   }, [client])
 
+  const getPlanTypeList = useCallback(() => {
+    client(`planType/getAll`, {method: "POST"}).then(res => {
+      setPlanTypeList(res.data)
+    })
+  }, [client])
+
   useEffect(() => {
     getMaterialList()
   }, [getMaterialList])
+
+  useEffect(() => {
+    getPlanTypeList()
+  }, [getPlanTypeList])
 
   useResetFormOnCloseModal({
     form,
@@ -59,8 +73,9 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       >
 
         <Form.Item
-          label="物料列表id集合"
+          label="物料"
           name="materialList"
+          rules={rules}
         >
           <Select style={{width: "100%"}}>
             {materialList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
@@ -68,8 +83,9 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         </Form.Item>
 
         <Form.Item
-          label="工具列表id集合"
+          label="工具"
           name="toolList"
+          rules={rules}
         >
           <Input/>
         </Form.Item>
@@ -77,8 +93,11 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         <Form.Item
           label="作业类型"
           name="type"
+          rules={rules}
         >
-          <Input/>
+          <Select style={{width: "100%"}}>
+            {planTypeList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.type}</Option>)}
+          </Select>
         </Form.Item>
 
         <Form.Item

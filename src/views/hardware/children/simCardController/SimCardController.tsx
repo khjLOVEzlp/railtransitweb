@@ -62,6 +62,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="imei号"
           name="imei"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -69,6 +70,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="是否使用"
           name="isUse"
+          rules={rules}
         >
           <Radio.Group onChange={onChange} value={value}>
             <Radio value={0}>是</Radio>
@@ -79,6 +81,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="厂商"
           name="operator"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -86,6 +89,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="电话号码"
           name="phone"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -93,6 +97,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="状态"
           name="status"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -100,6 +105,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="供应商"
           name="supplier"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -107,6 +113,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="仓库主键"
           name="supplier"
+          rules={rules}
         >
           <Input />
         </Form.Item>

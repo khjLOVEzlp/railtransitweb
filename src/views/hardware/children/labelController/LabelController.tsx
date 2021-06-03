@@ -62,6 +62,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="915编码"
           name="codeHex915"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -69,6 +70,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="是否使用"
           name="isUse"
+          rules={rules}
         >
           <Radio.Group onChange={onChange} value={value}>
             <Radio value={0}>是</Radio>
@@ -79,6 +81,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="状态"
           name="status"
+          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -86,6 +89,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="仓库主键"
           name="warehouseId"
+          rules={rules}
         >
           <Input />
         </Form.Item>

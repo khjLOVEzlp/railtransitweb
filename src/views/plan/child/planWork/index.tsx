@@ -13,7 +13,7 @@ export const PlanWork = () => {
   const [visibleShareBack, setVisibleShareBack] = useState(false)
   const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState<any>({})
   const client = useHttp()
   const [pagination, setPagination] = useState({
     page: 1,
@@ -128,7 +128,8 @@ export const PlanWork = () => {
   }
 
   const sharePlan = (value: any) => {
-    client(`plan/share`, {method: "POST", body: JSON.stringify((value))}).then(() => {
+    const val = {...value, planId: formData.id}
+    client(`plan/share`, {method: "POST", body: JSON.stringify((val))}).then(() => {
       message.success("发布成功")
     }).catch(err => {
       console.log(err)
@@ -136,7 +137,8 @@ export const PlanWork = () => {
   }
 
   const feedBack = (value: any) => {
-    client(`plan/shareBack`, {method: "POST", body: JSON.stringify((value))}).then(() => {
+    const val = {...value, planId: formData.id}
+    client(`plan/shareBack`, {method: "POST", body: JSON.stringify((val))}).then(() => {
       message.success("反馈成功")
     }).catch(err => {
       console.log(err)

@@ -22,6 +22,9 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue(formData)
+    return () => {
+      form.setFieldsValue(null)
+    }
   }, [formData, form])
 
   useResetFormOnCloseModal({

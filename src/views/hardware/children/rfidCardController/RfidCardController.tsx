@@ -62,6 +62,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         <Form.Item
           label="是否使用"
           name="isUse"
+          rules={rules}
         >
           <Radio.Group onChange={onChange} value={value}>
             <Radio value={0}>是</Radio>

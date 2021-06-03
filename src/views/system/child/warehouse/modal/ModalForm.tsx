@@ -13,11 +13,13 @@ export interface ModalFormProps {
 
 export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
-  const data = type === "修改" ? formData : ""
 
   useEffect(() => {
-    form.setFieldsValue(data)
-  }, [data, form])
+    form.setFieldsValue(formData)
+    return () => {
+      form.setFieldsValue(null)
+    }
+  }, [formData, form])
 
   useResetFormOnCloseModal({
     form,

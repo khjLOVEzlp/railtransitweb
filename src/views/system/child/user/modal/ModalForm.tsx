@@ -23,11 +23,13 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   const [roleList, setRoleList] = useState([])
   const [personList, setPersonList] = useState([])
   const client = useHttp()
-  const data = type === "修改" ? formData : ""
 
   useEffect(() => {
-    form.setFieldsValue(data)
-  }, [data, form])
+    form.setFieldsValue(formData)
+    return () => {
+      form.setFieldsValue(null)
+    }
+  }, [formData, form])
 
   const getRoleLIst = useCallback(() => {
     client(`role/getAll`, { method: "POST" }).then((res) => {

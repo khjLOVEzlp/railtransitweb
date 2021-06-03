@@ -23,7 +23,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   const [classList, setClassList] = useState([])
   const [warehouse, setWarehouse] = useState([])
   const client = useHttp()
-  const data = type === "修改" ? formData : ""
 
   const getWarehouse = () => {
     client(`warehouse/listAll`, { method: "POST" }).then(res => {
@@ -43,8 +42,11 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   }, [])
 
   useEffect(() => {
-    form.setFieldsValue(data)
-  }, [data, form])
+    form.setFieldsValue(formData)
+    return () => {
+      form.setFieldsValue(null)
+    }
+  }, [formData, form])
 
   useResetFormOnCloseModal({
     form,

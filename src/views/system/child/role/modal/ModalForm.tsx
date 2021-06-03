@@ -21,11 +21,13 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [form] = Form.useForm();
   const [menu, setMenu] = useState([])
   const client = useHttp()
-  const data = type === "修改" ? formData : ""
 
   useEffect(() => {
-    form.setFieldsValue(data)
-  }, [data, form])
+    form.setFieldsValue(formData)
+    return () => {
+      form.setFieldsValue(null)
+    }
+  }, [formData, form])
 
   const [options] = useState([
     {

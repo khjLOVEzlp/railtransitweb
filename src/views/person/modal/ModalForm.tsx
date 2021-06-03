@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {Button, Form, Input, Modal} from "antd";
+import React, {useEffect, useState} from "react";
+import {Button, Form, Input, Modal, Radio} from "antd";
 import {rules} from "../../../utils/verification";
 import {useResetFormOnCloseModal} from "../../../hook/useResetFormOnCloseModal";
 
@@ -17,11 +17,17 @@ interface ModalFormProps {
 
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
-  const data = type === "修改" ? formData : ""
-
+  const [value, setValue] = useState()
   useEffect(() => {
-    form.setFieldsValue(data)
-  }, [data, form])
+    form.setFieldsValue(formData)
+    return () => {
+      form.setFieldsValue(null)
+    }
+  }, [formData, form])
+
+  const radioChange = (e: any) => {
+    setValue(e.target.value);
+  }
 
   useResetFormOnCloseModal({
     form,
@@ -56,7 +62,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="sex"
           rules={rules}
         >
-          <Input />
+          <Radio.Group onChange={radioChange} defaultValue={1} value={value}>
+            <Radio value={1}>男</Radio>
+            <Radio value={2}>女</Radio>
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item
