@@ -1,18 +1,16 @@
 import styled from "@emotion/styled"
 import React, {useState} from "react"
-import {Navigate, Route, Routes} from "react-router";
-
+import {Outlet} from "react-router";
 import {NavLink} from "react-router-dom"
-import {PlanType} from "./child/planType";
+/*import {PlanType} from "./child/planType";
 import {PlanWork} from "./child/planWork";
+import {WorkManage} from "./child/workManage";*/
 import {useDocumentTitle} from '../../hook/useDocumentTitle'
-import {WorkManage} from "./child/workManage";
 
 export const Plan = () => {
   const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu)
 
   useDocumentTitle("作业计划")
-
   return (
     <PlanStyle>
       <Left>
@@ -26,12 +24,13 @@ export const Plan = () => {
         }
       </Left>
       <Right>
-        <Routes>
+        <Outlet/>
+        {/*<Routes>
           <Route path={"planWork"} element={<PlanWork/>}/>
           <Route path={"planType"} element={<PlanType/>}/>
           <Route path={"workManage"} element={<WorkManage/>}/>
           <Navigate to={window.location.pathname + "/planWork"} replace={true}/>
-        </Routes>
+        </Routes>*/}
       </Right>
     </PlanStyle>
   )

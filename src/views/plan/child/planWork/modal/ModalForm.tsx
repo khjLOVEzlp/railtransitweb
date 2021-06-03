@@ -396,7 +396,7 @@ export const ShareBackModalForm: React.FC<ModalFormProps> = ({visible, onCancel,
 export const ViewModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
   const client = useHttp()
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
 
   const getShare = useCallback(() => {
     if (formData.id === undefined) return
@@ -417,9 +417,9 @@ export const ViewModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type
     visible,
   });
 
-  const onChange = (e: any) => {
+  /*const onChange = (e: any) => {
     setValue(e.target.value);
-  };
+  };*/
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel} footer={null}>

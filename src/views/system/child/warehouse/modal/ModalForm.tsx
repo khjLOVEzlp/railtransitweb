@@ -1,12 +1,8 @@
-import React, {useEffect} from "react";
-import {Button, Form, Input, Modal} from "antd";
-import {rules} from "../../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
-
-const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};
+import React, { useEffect } from "react";
+import { Button, Form, Input, Modal, Select } from "antd";
+import { rules } from "../../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
+const { Option } = Select
 
 export interface ModalFormProps {
   visible: boolean;
@@ -15,7 +11,7 @@ export interface ModalFormProps {
   formData: object
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const data = type === "修改" ? formData : ""
 
@@ -34,21 +30,21 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
         name={type}
         labelAlign="right"
-        {...layout}
+        layout={"vertical"}
       >
         <Form.Item
           label="仓库名称"
           name="name"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -56,7 +52,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="type"
           rules={rules}
         >
-          <Input/>
+          <Select>
+            <Option value={1}>轨行区内</Option>
+            <Option value={2}>轨行区外</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item
@@ -64,7 +63,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="personName"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -72,7 +71,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="personPhone"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -80,14 +79,14 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="address"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="备注"
           name="remark"
         >
-          <Input/>
+          <Input />
         </Form.Item>
       </Form>
     </Modal>

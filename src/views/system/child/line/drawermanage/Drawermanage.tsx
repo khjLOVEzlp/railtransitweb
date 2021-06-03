@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import {Drawer, Tabs} from "antd";
-import React, {useState} from "react";
-import {Road} from "./child/Road";
-import {Platform} from "./child/Platform";
-import {Class} from "./child/Class";
+import { Drawer, Tabs } from "antd";
+import React, { useState } from "react";
+import { Road } from "./child/Road";
+import { Platform } from "./child/Platform";
+import { Class } from "./child/Class";
 
 interface Props {
   isShowDrawer: boolean,
@@ -11,28 +11,29 @@ interface Props {
   formData: any
 }
 
-const {TabPane} = Tabs;
+const { TabPane } = Tabs;
 
 function callback() {
+
 }
 
-export const Drawermanage = ({formData, setIsShowDrawer}: Props) => {
+export const Drawermanage = ({ formData, setIsShowDrawer }: Props) => {
   const [visible, setVisible] = useState(true);
   const [navList] = useState([
     {
       name: "地铁路段",
       id: 1,
-      tem: <Road formData={formData}/>,
+      tem: <Road formData={formData} />,
     },
     {
       name: "地铁站台",
       id: 2,
-      tem: <Platform formData={formData}/>,
+      tem: <Platform formData={formData} />,
     },
     {
       name: "地铁班别",
       id: 3,
-      tem: <Class formData={formData}/>,
+      tem: <Class formData={formData} />,
     }
   ])
 
@@ -44,7 +45,7 @@ export const Drawermanage = ({formData, setIsShowDrawer}: Props) => {
   return (
     <>
       <Drawer
-        title="线路管理"
+        title="地铁管理"
         placement="right"
         closable={true}
         width={800}

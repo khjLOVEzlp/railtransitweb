@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Modal, Button, Table, Popconfirm, message, Radio} from 'antd';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Input, Modal, Button, Table, Popconfirm, message, Radio } from 'antd';
 import styled from "@emotion/styled";
-import {useHttp} from "../../../../utils/http";
-import {cleanObject} from "../../../../utils";
-import {rules} from "../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../hook/useResetFormOnCloseModal";
+import { useHttp } from "../../../../utils/http";
+import { cleanObject } from "../../../../utils";
+import { rules } from "../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../hook/useResetFormOnCloseModal";
 
 /*const layout = {
   labelCol: {span: 4},
@@ -18,7 +18,7 @@ interface ModalFormProps {
   formData: object
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState(0);
   const data = type === "修改" ? formData : ""
@@ -42,8 +42,8 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -56,14 +56,7 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
           name="codeNumber"
           rules={rules}
         >
-          <Input/>
-        </Form.Item>
-
-        <Form.Item
-          label="删除理由"
-          name="deleteReason"
-        >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -80,14 +73,14 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
           label="厂商"
           name="operator"
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="状态"
           name="status"
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
       </Form>
@@ -115,9 +108,9 @@ export const AlcoholController = () => {
       size: pagination.size,
       name: pagination.name,
     }
-      client(`hardware/alcohol/list`, {method: "POST", body: JSON.stringify(cleanObject(param))}).then(res => {
+    client(`hardware/alcohol/list`, { method: "POST", body: JSON.stringify(cleanObject(param)) }).then(res => {
       setTabList(res.data)
-      setPagination({...pagination, total: res.count})
+      setPagination({ ...pagination, total: res.count })
     })
   }, [client, pagination.page, pagination.name, pagination.type])
 
@@ -126,7 +119,7 @@ export const AlcoholController = () => {
   }, [init])
 
   const search = (item: any) => {
-    setPagination({...pagination, name: item.name})
+    setPagination({ ...pagination, name: item.name })
   };
 
   const add = () => {
@@ -155,7 +148,7 @@ export const AlcoholController = () => {
   }
 
   const onChange = (page: number) => {
-    setPagination({...pagination, page})
+    setPagination({ ...pagination, page })
   }
 
   const showUserModal = () => {
@@ -169,16 +162,16 @@ export const AlcoholController = () => {
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
+        onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            client(`hardware/alcohol/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`hardware/alcohol/save`, { method: "POST", body: JSON.stringify(values) }).then(() => {
               message.success('新增成功')
               setVisible(false);
             }).catch(err => {
               console.log(err.msg, 'err')
             })
           } else if (name === "修改") {
-            client(`hardware/alcohol/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`hardware/alcohol/update`, { method: "POST", body: JSON.stringify(values) }).then(() => {
               message.success('修改成功')
               setVisible(false);
             }).catch(err => {
@@ -196,7 +189,7 @@ export const AlcoholController = () => {
             <Form.Item
               name="name"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item>
@@ -236,10 +229,10 @@ export const AlcoholController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
-                 rowKey={(item: any) => item.id}/>
+          } pagination={{ total: pagination.total, onChange: onChange }} dataSource={tabList}
+            rowKey={(item: any) => item.id} />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
       </Form.Provider>
     </>
   );

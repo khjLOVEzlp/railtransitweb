@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import {Navigate, Route, Routes} from "react-router";
+import {Outlet} from "react-router";
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
-import {User} from "./child/user";
+/*import {User} from "./child/user";
 import {Role} from "./child/role";
 import {Menu} from "./child/menu";
 import {Log} from "./child/log";
@@ -12,7 +12,7 @@ import {Person} from "./child/person";
 import {Warehouse} from "./child/warehouse";
 import {MaterialType} from "./child/materialType";
 import {Temperature} from "./child/temperature";
-import {Line} from "./child/line";
+import {Line} from "./child/line";*/
 import {useDocumentTitle} from '../../hook/useDocumentTitle'
 
 interface Item {
@@ -36,7 +36,8 @@ export const System = () => {
         }
       </Left>
       <Right>
-        <Routes>
+        <Outlet />
+        {/*<Routes>
           <Route path={"/user"} element={<User/>}/>
           <Route path={"/role"} element={<Role/>}/>
           <Route path={"/menu"} element={<Menu/>}/>
@@ -49,7 +50,7 @@ export const System = () => {
           <Route path={"/materialType"} element={<MaterialType/>}/>
           <Route path={"/temperature"} element={<Temperature/>}/>
           <Navigate to={window.location.pathname + "/user"} replace={true}/>
-        </Routes>
+        </Routes>*/}
       </Right>
     </SystemStyle>
   )

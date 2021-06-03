@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import {useHttp} from "../../../../utils/http";
+import { useHttp } from "../../../../utils/http";
 import qs from "qs";
-import {cleanObject} from "../../../../utils";
-import {Drawermanage} from "./drawermanage/Drawermanage";
-import {ModalForm} from "./modal/ModalForm";
+import { cleanObject } from "../../../../utils";
+import { Drawermanage } from "./drawermanage/Drawermanage";
+import { ModalForm } from "./modal/ModalForm";
 
 export const Line = () => {
   const [visible, setVisible] = useState(false);
@@ -29,9 +29,9 @@ export const Line = () => {
       size: pagination.size,
       name: pagination.name,
     }
-    client(`line/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
+    client(`line/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
       setTabList(res.data)
-      setPagination({...pagination, total: res.count})
+      setPagination({ ...pagination, total: res.count })
     })
   }, [client, pagination.page, pagination.name])
 
@@ -40,7 +40,7 @@ export const Line = () => {
   }, [init])
 
   const search = (item: any) => {
-    setPagination({...pagination, name: item.name})
+    setPagination({ ...pagination, name: item.name })
   };
 
   const add = () => {
@@ -74,7 +74,7 @@ export const Line = () => {
   }
 
   const onChange = (page: number) => {
-    setPagination({...pagination, page})
+    setPagination({ ...pagination, page })
   }
 
   const showUserModal = () => {
@@ -88,16 +88,17 @@ export const Line = () => {
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
+        onFormFinish={(name, { values }) => {
           if (name === '新增') {
-            client(`line/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`line/save`, { method: "POST", body: JSON.stringify(values) }).then(() => {
               message.success('新增成功')
+              init()
               setVisible(false);
             }).catch(err => {
               console.log(err.msg, 'err')
             })
           } else if (name === "修改") {
-            client(`line/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`line/update`, { method: "POST", body: JSON.stringify(values) }).then(() => {
               message.success('修改成功')
               setVisible(false);
             }).catch(err => {
@@ -116,7 +117,7 @@ export const Line = () => {
               label="地铁线路名称"
               name="name"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item>
@@ -145,7 +146,7 @@ export const Line = () => {
                 title: '操作',
                 key: 'id',
                 render: (item: any) => <><Button type="link" onClick={() => manage(item)}>管理</Button><Button type="link"
-                                                                                                             onClick={() => mod(item)}>修改</Button>
+                  onClick={() => mod(item)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
                     onConfirm={() => confirm(item)}
@@ -157,10 +158,10 @@ export const Line = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
-                 rowKey={(item: any) => item.id}/>
+          } pagination={{ total: pagination.total, onChange: onChange }} dataSource={tabList}
+            rowKey={(item: any) => item.id} />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
         {isShowDrawer ? <Drawermanage formData={formData} isShowDrawer={isShowDrawer} setIsShowDrawer={setIsShowDrawer} /> : ''}
       </Form.Provider>
     </>

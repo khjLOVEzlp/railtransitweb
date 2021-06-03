@@ -2,18 +2,11 @@ import styled from "@emotion/styled";
 import React, {useEffect, useState} from "react";
 import {useHttp} from "./utils/http";
 import logo from './icon/logo.png'
-import {Navigate, Route, Routes} from "react-router";
-import {Home} from './views/home';
-import {System} from "./views/system";
 import {NavLink} from "react-router-dom";
 import {useAuth} from "./context/auth-context";
 import {Button, Dropdown, Menu} from "antd";
 import {DownOutlined} from '@ant-design/icons';
-import {Plan} from "./views/plan";
-import {Alarm} from "./views/alarm";
-import {Hardware} from "./views/hardware";
-import {Statistics} from "./views/statistics";
-import {Person} from "./views/person";
+import {RouterElement} from "./router";
 
 export const PageBox = () => {
   const [menu, setMenu] = useState([])
@@ -75,7 +68,8 @@ export const PageBox = () => {
         <User/>
       </HeaderStyle>
       <ContentStyle>
-        <Routes>
+        <RouterElement></RouterElement>
+        {/*<Routes>
           <Route path={"/home"} element={<Home/>}/>
           <Route path={"/plan/*"} element={<Plan/>}/>
           <Route path={"/alarm"} element={<Alarm/>}/>
@@ -85,15 +79,9 @@ export const PageBox = () => {
           <Route path={"/system/*"} element={<System/>}/>
           <Route path={"*"} element={<Not/>}/>
           <Navigate to={window.location.pathname + "home"} replace={true}/>
-        </Routes>
+        </Routes>*/}
       </ContentStyle>
     </Container>
-  )
-}
-
-const Not = () => {
-  return (
-    <h1>404 error</h1>
   )
 }
 

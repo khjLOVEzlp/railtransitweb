@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {useHttp} from "../../../../../../utils/http";
+import React, { useCallback, useEffect, useState } from "react";
+import { useHttp } from "../../../../../../utils/http";
 import qs from "qs";
-import {Button, Form, Input, message, Modal, Popconfirm, Table} from "antd";
+import { Button, Form, Input, message, Modal, Popconfirm, Select, Table } from "antd";
 import styled from "@emotion/styled";
-import {rules} from "../../../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../../../hook/useResetFormOnCloseModal";
-
+import { rules } from "../../../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
+const { Option } = Select
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -15,12 +15,32 @@ interface ModalFormProps {
   visible: boolean;
   onCancel: () => void;
   type: string,
-  formData: object
+  formData: any
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
+  const [classList, setClassList] = useState([])
+  const [warehouse, setWarehouse] = useState([])
+  const client = useHttp()
   const data = type === "修改" ? formData : ""
+
+  const getWarehouse = () => {
+    client(`warehouse/listAll`, { method: "POST" }).then(res => {
+      setWarehouse(res.data)
+    })
+  }
+
+  const getClassList = () => {
+    client(`lineClass/list?${qs.stringify({ index: 1, size: 1000, lineId: formData.id })}`, { method: "POST" }).then(res => {
+      setClassList(res.data)
+    })
+  }
+
+  useEffect(() => {
+    getWarehouse()
+    getClassList()
+  }, [])
 
   useEffect(() => {
     form.setFieldsValue(data)
@@ -37,8 +57,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -47,41 +67,37 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         layout={"vertical"}
       >
         <Form.Item
-          label="班别id"
+          label="班别"
           name="departmentId"
           rules={rules}
         >
-          <Input/>
+          <Select>
+            {classList.map((item: any, index: number) => <Option value={item.departmentId} key={index}>{item.departmentName}</Option>)}
+          </Select>
         </Form.Item>
 
         <Form.Item
-          label="线路id"
-          name="lineId"
+          label="仓库"
+          name="warehouseId"
           rules={rules}
         >
-          <Input/>
-        </Form.Item>
-
-        <Form.Item
-        label="仓库id"
-        name="warehouseId"
-        rules={rules}
-        >
-          <Input/>
+          <Select>
+            {warehouse.map((item: any, index: number) => <Option value={item.roadId} key={index}>{item.name}</Option>)}
+          </Select>
         </Form.Item>
 
         <Form.Item
           label="备注"
           name="remark"
         >
-          <Input/>
+          <Input />
         </Form.Item>
       </Form>
     </Modal>
   );
 };
 
-export const Class = ({formData}: { formData: any }) => {
+export const Class = ({ formData }: { formData: any }) => {
   const [data, setData] = useState([])
   const [visible, setVisible] = useState(false);
   const [dataForm, setDataForm] = useState({})
@@ -102,9 +118,9 @@ export const Class = ({formData}: { formData: any }) => {
       name: pagination.name,
       lineId: formData.id,
     }
-    client(`lineClass/list?${qs.stringify(param)}`, {method: "POST"}).then(res => {
+    client(`lineClass/list?${qs.stringify(param)}`, { method: "POST" }).then(res => {
       setData(res.data)
-      setPagination({...pagination, total: res.count})
+      setPagination({ ...pagination, total: res.count })
     })
   }, [client, pagination.page, pagination.name, formData.id])
 
@@ -114,12 +130,15 @@ export const Class = ({formData}: { formData: any }) => {
 
   const search = (item: any) => {
     console.log(item)
-    setPagination({...pagination, name: item.name})
+    setPagination({ ...pagination, name: item.name })
   };
 
-  const add = () => {
+  const add = (item: any) => {
     showUserModal()
     setType('新增')
+    setDataForm(item)
+    console.log(item);
+
   }
 
   const mod = (item: any) => {
@@ -157,16 +176,17 @@ export const Class = ({formData}: { formData: any }) => {
   return (
     <Contianer>
       <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
+        onFormFinish={(name, { values, forms }) => {
+          const value = { ...values, lineId: formData.id }
           if (name === '新增') {
-            client(`lineClass/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`lineClass/save`, { method: "POST", body: JSON.stringify(value) }).then(() => {
               message.success('新增成功')
               setVisible(false);
             }).catch(err => {
               console.log(err.msg, 'err')
             })
           } else if (name === "修改") {
-            client(`lineClass/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`lineClass/update`, { method: "POST", body: JSON.stringify(value) }).then(() => {
               message.success('修改成功')
               setVisible(false);
             }).catch(err => {
@@ -185,7 +205,7 @@ export const Class = ({formData}: { formData: any }) => {
               label="路段名称"
               name="name"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item>
@@ -195,7 +215,7 @@ export const Class = ({formData}: { formData: any }) => {
             </Form.Item>
           </Form>
 
-          <Button onClick={() => add()}>新增</Button>
+          <Button onClick={() => add(formData)}>新增</Button>
         </Header>
         <Main>
           <Table columns={[
@@ -222,9 +242,9 @@ export const Class = ({formData}: { formData: any }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{total: pagination.total, onChange: onChange}} dataSource={data}
-                 rowKey={(item: any) => item.id}/>
-          <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal}/>
+          ]} pagination={{ total: pagination.total, onChange: onChange }} dataSource={data}
+            rowKey={(item: any) => item.id} />
+          <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
         </Main>
       </Form.Provider>
     </Contianer>

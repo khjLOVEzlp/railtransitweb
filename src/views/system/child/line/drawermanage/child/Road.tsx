@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {useHttp} from "../../../../../../utils/http";
+import React, { useCallback, useEffect, useState } from "react";
+import { useHttp } from "../../../../../../utils/http";
 import qs from "qs";
-import {Button, Form, Input, message, Modal, Popconfirm, Table} from "antd";
+import { Button, Form, Input, message, Modal, Popconfirm, Table } from "antd";
 import styled from "@emotion/styled";
-import {rules} from "../../../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../../../hook/useResetFormOnCloseModal";
+import { rules } from "../../../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
 
 /*const layout = {
   labelCol: {span: 4},
@@ -18,13 +18,11 @@ interface ModalFormProps {
   formData: object
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
-  const data = type === "修改" ? formData : ""
-
   useEffect(() => {
-    form.setFieldsValue(data)
-  }, [data, form])
+    form.setFieldsValue(formData)
+  }, [formData, form])
 
   useResetFormOnCloseModal({
     form,
@@ -37,8 +35,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -51,29 +49,21 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="name"
           rules={rules}
         >
-          <Input/>
-        </Form.Item>
-
-        <Form.Item
-          label="线路id"
-          name="lineId"
-          rules={rules}
-        >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="备注"
           name="remark"
         >
-          <Input/>
+          <Input />
         </Form.Item>
       </Form>
     </Modal>
   );
 };
 
-export const Road = ({formData}: { formData: any }) => {
+export const Road = ({ formData }: { formData: any }) => {
   const [data, setData] = useState([])
   const [visible, setVisible] = useState(false);
   const [dataForm, setDataForm] = useState({})
@@ -94,9 +84,9 @@ export const Road = ({formData}: { formData: any }) => {
       name: pagination.name,
       lineId: formData.id,
     }
-    client(`lineRoad/list?${qs.stringify(param)}`, {method: "POST"}).then(res => {
+    client(`lineRoad/list?${qs.stringify(param)}`, { method: "POST" }).then(res => {
       setData(res.data)
-      setPagination({...pagination, total: res.count})
+      setPagination({ ...pagination, total: res.count })
     })
   }, [pagination.page, pagination.name, client, formData.id])
 
@@ -106,7 +96,7 @@ export const Road = ({formData}: { formData: any }) => {
 
   const search = (item: any) => {
     console.log(item)
-    setPagination({...pagination, name: item.name})
+    setPagination({ ...pagination, name: item.name })
   };
 
   const add = () => {
@@ -149,16 +139,18 @@ export const Road = ({formData}: { formData: any }) => {
   return (
     <Contianer>
       <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
+        onFormFinish={(name, { values }) => {
+          const value = { ...values, lineId: formData.id }
           if (name === '新增') {
-            client(`lineRoad/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`lineRoad/save`, { method: "POST", body: JSON.stringify(value) }).then(() => {
               message.success('新增成功')
+              init()
               setVisible(false);
             }).catch(err => {
               console.log(err.msg, 'err')
             })
           } else if (name === "修改") {
-            client(`lineRoad/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`lineRoad/update`, { method: "POST", body: JSON.stringify(value) }).then(() => {
               message.success('修改成功')
               setVisible(false);
             }).catch(err => {
@@ -177,7 +169,7 @@ export const Road = ({formData}: { formData: any }) => {
               label="路段名称"
               name="name"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item>
@@ -214,9 +206,9 @@ export const Road = ({formData}: { formData: any }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{total: pagination.total, onChange: onChange}} dataSource={data}
-                 rowKey={(item: any) => item.id}/>
-          <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal}/>
+          ]} pagination={{ total: pagination.total, onChange: onChange }} dataSource={data}
+            rowKey={(item: any) => item.id} />
+          <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
         </Main>
       </Form.Provider>
     </Contianer>

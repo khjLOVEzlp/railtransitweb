@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {Button, Checkbox, Form, Input, Modal, Select} from "antd";
-import {useHttp} from "../../../../../utils/http";
-import {rules} from "../../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Checkbox, Form, Input, Modal, Select } from "antd";
+import { useHttp } from "../../../../../utils/http";
+import { rules } from "../../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
 
-const {Option} = Select;
+const { Option } = Select;
 
 /*const layout = {
   labelCol: {span: 4},
@@ -18,7 +18,7 @@ interface ModalFormProps {
   formData: object
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const [roleList, setRoleList] = useState([])
   const [personList, setPersonList] = useState([])
@@ -30,7 +30,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   }, [data, form])
 
   const getRoleLIst = useCallback(() => {
-    client(`role/getAll`, {method: "POST"}).then((res) => {
+    client(`role/getAll`, { method: "POST" }).then((res) => {
       res.data.forEach((item: any) => {
         item.label = item.name
         item.value = item.id
@@ -40,7 +40,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   }, [client])
 
   const getPersonList = useCallback(() => {
-    client(`person/list`, {method: "POST"}).then(res => {
+    client(`person/list`, { method: "POST" }).then(res => {
       console.log(res.data);
       setPersonList(res.data)
     })
@@ -62,8 +62,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
 
   return (
     <Modal forceRender={true} title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -76,7 +76,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="loginName"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -84,11 +84,11 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="password"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
-          label="人员id"
+          label="人员"
           name="personId"
           rules={rules}
         >
@@ -102,14 +102,14 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="roles"
           rules={rules}
         >
-          <Checkbox.Group options={roleList}/>
+          <Checkbox.Group options={roleList} />
         </Form.Item>
 
         <Form.Item
           label="备注"
           name="remark"
         >
-          <Input/>
+          <Input />
         </Form.Item>
       </Form>
     </Modal>

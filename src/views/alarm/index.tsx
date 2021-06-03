@@ -3,12 +3,12 @@ import {Button, message, Popconfirm, Select, Table} from "antd"
 import React, {useCallback, useEffect, useState} from "react"
 import {useDocumentTitle} from '../../hook/useDocumentTitle'
 import {useHttp} from "../../utils/http"
-import {useLocation} from "react-router";
+// import {useLocation} from "react-router";
 
 const {Option} = Select;
 
 export const Alarm = () => {
-  const {state} = useLocation()
+  // const {state} = useLocation()
   const [navList, setNavList] = useState([])
   const [data, setData] = useState([])
   const [type, setType] = useState([])
@@ -34,7 +34,7 @@ export const Alarm = () => {
       setData(res.data)
       setPagination({...pagination, total: res.count})
     })
-  }, [pagination.page, pagination.type, pagination.name])
+  }, [pagination.page, pagination.type, pagination.name, client])
 
   const getNavList = useCallback(() => {
     client(`alarm/statistic/list`, {
