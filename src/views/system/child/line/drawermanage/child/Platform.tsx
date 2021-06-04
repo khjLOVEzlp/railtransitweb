@@ -21,7 +21,7 @@ interface ModalFormProps {
 
 export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData, roadList }) => {
   const [form] = Form.useForm();
-
+  console.log(formData)
   useEffect(() => {
     form.setFieldsValue(formData)
     return () => {
@@ -50,7 +50,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         layout={"vertical"}
       >
         <Form.Item
-          label="路段id"
+          label="路段"
           name="roadId"
           rules={rules}
         >
@@ -87,10 +87,9 @@ export const Platform = ({ formData }: { formData: any }) => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     name: '',
   })
-
+  const [total, setTotal] = useState(0)
   const client = useHttp()
 
   const init = useCallback(() => {
@@ -102,15 +101,15 @@ export const Platform = ({ formData }: { formData: any }) => {
     }
     client(`linePlatform/list?${qs.stringify(param)}`, { method: "POST" }).then(res => {
       setData(res.data)
-      setPagination({ ...pagination, total: res.count })
+      setTotal(res.count)
     })
-  }, [pagination.page, pagination.name, client, formData.id])
+  }, [pagination, client, formData.id])
 
   const getRoadList = useCallback(() => {
     client(`lineRoad/list?${qs.stringify({ index: 1, size: 1000, lineId: formData.id })}`, { method: "POST" }).then(res => {
       setRoadList(res.data)
     })
-  }, [client])
+  }, [client, formData.id])
 
 
   useEffect(() => {
@@ -168,7 +167,7 @@ export const Platform = ({ formData }: { formData: any }) => {
         onFormFinish={(name, { values, forms }) => {
           const value = { ...values, lineId: formData.id }
           if (name === '新增') {
-            client(`linePlatform/save`, { method: "POST", body: JSON.stringify(values) }).then(() => {
+            client(`linePlatform/save`, { method: "POST", body: JSON.stringify(value) }).then(() => {
               message.success('新增成功')
               init()
               setVisible(false);
@@ -176,7 +175,7 @@ export const Platform = ({ formData }: { formData: any }) => {
               console.log(err.msg, 'err')
             })
           } else if (name === "修改") {
-            client(`linePlatform/update`, { method: "POST", body: JSON.stringify(values) }).then(() => {
+            client(`linePlatform/update`, { method: "POST", body: JSON.stringify(value) }).then(() => {
               message.success('修改成功')
               init()
               setVisible(false);
@@ -233,7 +232,7 @@ export const Platform = ({ formData }: { formData: any }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: pagination.total, onChange: onChange }} dataSource={data}
+          ]} pagination={{ total, onChange: onChange }} dataSource={data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} roadList={roadList} />
         </Main>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import {Form, Input, Button, Table, message} from 'antd';
 import styled from "@emotion/styled";
 import {useHttp} from "../../../../utils/http";
 import qs from "qs";
@@ -10,16 +10,15 @@ export const Temperature = () => {
   const [visible, setVisible] = useState(false);
   const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
-  const [formData, setFormData] = useState({})
+  const [formData] = useState({})
   const client = useHttp()
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     name: '',
     number: ""
   })
-
+  const [total, setTotal] = useState(0)
   const init = useCallback(() => {
     const param = {
       index: pagination.page,
@@ -29,9 +28,9 @@ export const Temperature = () => {
     }
     client(`record/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
       setTabList(res.data)
-      setPagination({...pagination, total: res.count})
+      setTotal(res.count)
     })
-  }, [client, pagination.page, pagination.name, pagination.number])
+  }, [client, pagination])
 
   useEffect(() => {
     init()
@@ -43,25 +42,25 @@ export const Temperature = () => {
     setType('新增')
   }
 
-  const mod = (item: any) => {
+  /*const mod = (item: any) => {
     showUserModal()
     setType('修改')
     setFormData(item)
-  }
+  }*/
 
-  const del = async (id: number | string) => {
+  /*const del = async (id: number | string) => {
     client(`user/delete/${id}`).then(() => {
       init()
     })
-  }
+  }*/
 
-  const confirm = (item: any) => {
+  /*const confirm = (item: any) => {
     del(item.id).then(() => message.success('删除成功'))
   }
 
   const cancel = () => {
     message.error('取消删除');
-  }
+  }*/
 
   const onChange = (page: number) => {
     setPagination({...pagination, page})
@@ -167,7 +166,7 @@ export const Temperature = () => {
                   </Popconfirm></>
               },*/
             ]
-          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
+          } pagination={{total, onChange: onChange}} dataSource={tabList}
                  rowKey={(item: any) => item.id}/>
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>

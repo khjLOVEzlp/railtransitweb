@@ -74,12 +74,11 @@ export const Road = ({ formData }: { formData: any }) => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     name: '',
   })
 
   const client = useHttp()
-
+  const [total, setTotal] = useState(0)
   const init = useCallback(() => {
     const param = {
       index: pagination.page,
@@ -89,9 +88,9 @@ export const Road = ({ formData }: { formData: any }) => {
     }
     client(`lineRoad/list?${qs.stringify(param)}`, { method: "POST" }).then(res => {
       setData(res.data)
-      setPagination({ ...pagination, total: res.count })
+      setTotal(res.count)
     })
-  }, [pagination.page, pagination.name, client, formData.id])
+  }, [pagination, client, formData.id])
 
   useEffect(() => {
     init()
@@ -209,7 +208,7 @@ export const Road = ({ formData }: { formData: any }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: pagination.total, onChange: onChange }} dataSource={data}
+          ]} pagination={{ total, onChange: onChange }} dataSource={data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
         </Main>

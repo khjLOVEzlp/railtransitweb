@@ -11,11 +11,12 @@ interface Props {
 export const ModalForm = ({visible, onCancel, formData}: Props) => {
   const client = useHttp()
   const [share, setShare] = useState()
+  console.log(share)
   const getShare = useCallback(() => {
     client(`plan/getShare/${formData.planId}`).then(res => {
       setShare(res.data)
     })
-  }, [client])
+  }, [client, formData.planId])
 
   useEffect(() => {
     getShare()

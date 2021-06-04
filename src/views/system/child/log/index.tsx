@@ -14,14 +14,13 @@ export const Log = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     operName: '',
     startTime: '',
     endTime: ''
   })
 
   const [data, setData] = useState([])
-
+  const [total, setTotal] = useState(0)
   const init = useCallback(() => {
     const param = {
       index: pagination.page,
@@ -32,9 +31,9 @@ export const Log = () => {
     }
     client(`log/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
       setData(res.data)
-      setPagination({ ...pagination, total: res.count })
+      setTotal(res.count)
     })
-  }, [client, pagination.page, pagination.operName, pagination.startTime, pagination.endTime])
+  }, [client, pagination])
 
   useEffect(() => {
     init()
@@ -103,7 +102,7 @@ export const Log = () => {
         </Form>
       </Header>
       <Main>
-        <Table columns={columns} pagination={{ total: pagination.total, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} pagination={{ total, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
       </Main>
     </div>
   )

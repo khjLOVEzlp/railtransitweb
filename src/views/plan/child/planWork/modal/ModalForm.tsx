@@ -27,8 +27,10 @@ interface ModalFormProps {
 export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
   const [form] = Form.useForm();
   const token = getToken()
+  let document: number[] = []
   const [department, setDepartment] = useState([])
   const [materialList, setMaterialList] = useState([])
+  const [lineLIst, setLineList] = useState([])
   const [value, setValue] = useState()
   const [personList, setPersonList] = useState([])
   const [planTypeList, setPlanTypeList] = useState([])
@@ -40,6 +42,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       form.setFieldsValue(null)
     }
   }, [formData, form])
+
+
 
   const getMaterialList = useCallback(() => {
     client(`materialType/getAll`, {method: "POST"}).then(res => {
@@ -59,11 +63,37 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     })
   }, [client])
 
-  const getPlanTypeList = () => {
+  const getPlanTypeList = useCallback(() => {
     client(`planType/getAll`, {method: "POST"}).then(res => {
       setPlanTypeList(res.data)
     })
-  }
+  }, [client])
+
+  const getLineList = useCallback(() => {
+    client(`line/listLineAndPlatform`, {method: "POST"}).then(res => {
+      setLineList(res.data)
+    })
+  }, [client])
+
+  useEffect(() => {
+    getMaterialList()
+  }, [getMaterialList])
+
+  useEffect(() => {
+    getPlanTypeList()
+  }, [getPlanTypeList])
+
+  useEffect(() => {
+    getDepartment()
+  }, [getDepartment])
+
+  useEffect(() => {
+    getPersonList()
+  }, [getPersonList])
+
+  useEffect(() => {
+    getLineList()
+  }, [getLineList])
 
   const radioChange = (e: any) => {
     setValue(e.target.value);
@@ -81,22 +111,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     form.setFieldsValue({endTime: item})
   }
 
-  useEffect(() => {
-    getMaterialList()
-  }, [getMaterialList])
-
-  useEffect(() => {
-    getPlanTypeList()
-  }, [getMaterialList])
-
-  useEffect(() => {
-    getDepartment()
-  }, [getDepartment])
-
-  useEffect(() => {
-    getPersonList()
-  }, [getPersonList])
-
   useResetFormOnCloseModal({
     form,
     visible,
@@ -109,15 +123,15 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
       authorization: `${token}`,
     },
     onChange(info: any) {
-      let arr = []
       if (info.file.status !== 'uploading') {
-        arr.push(info.file.response.data)
-        form.setFieldsValue({documentList: arr})
+        document = [...document, info.file.response.data]
+        form.setFieldsValue({documentList: document})
+        console.log(document)
       }
       if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
+        message.success(`${info.file.name}上传成功`);
       } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
+        message.error(`${info.file.name} 上传失败`);
       }
     },
   };
@@ -192,7 +206,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="isWarn"
           rules={rules}
         >
-          <Radio.Group onChange={radioChange} defaultValue={1} value={value}>
+          <Radio.Group onChange={radioChange} value={value}>
             <Radio value={1}>是</Radio>
             <Radio value={2}>否</Radio>
           </Radio.Group>
@@ -219,9 +233,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="lineId"
           rules={rules}
         >
-          <Input/>
+          <Select style={{width: "100%"}}>
+            {lineLIst.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
         </Form.Item>
-
         <Form.Item
           label="物料列表"
           name="materialList"

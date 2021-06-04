@@ -85,10 +85,9 @@ export const Department = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     name: ''
   })
-
+  const [total, setTotal] = useState(0)
   const init = useCallback(() => {
     const param = {
       index: pagination.page,
@@ -97,9 +96,9 @@ export const Department = () => {
     }
     client(`department/getAll?${qs.stringify(cleanObject(param))}`).then(res => {
       setTabList(res.data)
-      setPagination({...pagination, total: res.count})
+      setTotal(res.count)
     })
-  }, [client, pagination.page, pagination.name])
+  }, [client, pagination])
 
   useEffect(() => {
     init()
@@ -217,7 +216,7 @@ export const Department = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
+          } pagination={{total, onChange: onChange}} dataSource={tabList}
                  rowKey={(item: any) => item.id}/>
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>

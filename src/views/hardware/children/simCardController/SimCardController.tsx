@@ -131,10 +131,11 @@ export const SimCardController = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     name: '',
     type: ''
   })
+
+  const [total, setTotal] = useState(0)
 
   const init = useCallback(() => {
     const param = {
@@ -144,9 +145,8 @@ export const SimCardController = () => {
     }
     client(`hardware/simcard/list`, {method: "POST", body: JSON.stringify(cleanObject(param))}).then(res => {
       setTabList(res.data)
-      setPagination({...pagination, total: res.count})
-    })
-  }, [client, pagination.page, pagination.name, pagination.type])
+      setTotal(res.count)    })
+  }, [client, pagination])
 
   useEffect(() => {
     init()
@@ -263,7 +263,7 @@ export const SimCardController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
+          } pagination={{total, onChange: onChange}} dataSource={tabList}
                  rowKey={(item: any) => item.id}/>
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>

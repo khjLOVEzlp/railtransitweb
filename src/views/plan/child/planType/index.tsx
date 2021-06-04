@@ -15,9 +15,10 @@ export const PlanType = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     type: ''
   })
+
+  const [total, setTotal] = useState(0)
 
   const init = useCallback(() => {
     const param = {
@@ -27,9 +28,9 @@ export const PlanType = () => {
     }
     client(`planType/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
       setTabList(res.data)
-      setPagination({...pagination, total: res.count})
+      setTotal(res.count)
     })
-  }, [client, pagination.page, pagination.type])
+  }, [client, pagination])
 
   useEffect(() => {
     init()
@@ -168,7 +169,7 @@ export const PlanType = () => {
                 )
               },
             ]
-          } pagination={{total: pagination.total, onChange: onChange}}
+          } pagination={{total, onChange: onChange}}
                  dataSource={tabList}
                  rowKey={(item: any) => item.id}
           />

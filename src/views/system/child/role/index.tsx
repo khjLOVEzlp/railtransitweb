@@ -15,10 +15,9 @@ export const Role = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     name: ''
   })
-
+  const [total, setTotal] = useState(0)
   const init = useCallback(() => {
     const param = {
       index: pagination.page,
@@ -27,9 +26,9 @@ export const Role = () => {
     }
     client(`role/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
       setTabList(res.data)
-      setPagination({...pagination, total: res.count})
+      setTotal(res.count)
     })
-  }, [pagination.page, pagination.name, client])
+  }, [pagination, client])
 
   useEffect(() => {
     init()
@@ -149,7 +148,7 @@ export const Role = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
+          } pagination={{total, onChange: onChange}} dataSource={tabList}
                  rowKey={(item: any) => item.id}/>
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>

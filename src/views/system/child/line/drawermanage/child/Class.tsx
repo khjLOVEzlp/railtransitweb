@@ -24,22 +24,25 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   const [warehouse, setWarehouse] = useState([])
   const client = useHttp()
 
-  const getWarehouse = () => {
+  const getWarehouse = useCallback(() => {
     client(`warehouse/listAll`, { method: "POST" }).then(res => {
       setWarehouse(res.data)
     })
-  }
+  }, [client])
 
-  const getClassList = () => {
+  const getClassList = useCallback(() => {
     client(`lineClass/list?${qs.stringify({ index: 1, size: 1000, lineId: formData.id })}`, { method: "POST" }).then(res => {
       setClassList(res.data)
     })
-  }
+  }, [client, formData.id])
 
   useEffect(() => {
     getWarehouse()
+  }, [getWarehouse])
+
+  useEffect(() => {
     getClassList()
-  }, [])
+  }, [getClassList])
 
   useEffect(() => {
     form.setFieldsValue(formData)
@@ -107,10 +110,9 @@ export const Class = ({ formData }: { formData: any }) => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     name: '',
   })
-
+  const [total, setTotal] = useState(0)
   const client = useHttp()
 
   const init = useCallback(() => {
@@ -122,9 +124,9 @@ export const Class = ({ formData }: { formData: any }) => {
     }
     client(`lineClass/list?${qs.stringify(param)}`, { method: "POST" }).then(res => {
       setData(res.data)
-      setPagination({ ...pagination, total: res.count })
+      setTotal(res.count)
     })
-  }, [client, pagination.page, pagination.name, formData.id])
+  }, [client, pagination, formData.id])
 
   useEffect(() => {
     init()
@@ -244,7 +246,7 @@ export const Class = ({ formData }: { formData: any }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: pagination.total, onChange: onChange }} dataSource={data}
+          ]} pagination={{ total, onChange: onChange }} dataSource={data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
         </Main>

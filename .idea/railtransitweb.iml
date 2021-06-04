@@ -9,6 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="railtransit" />
-    <orderEntry type="module" module-name="my-app" />
+    <orderEntry type="module" module-name="article-manage-system" />
   </component>
 </module>

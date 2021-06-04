@@ -15,10 +15,10 @@ export const Alarm = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     type: '',
     name: ""
   })
+  const [total, setTotal] = useState(0)
 
   // useEffect(() => {
   //   setPagination({...pagination, name: String(state)})
@@ -32,9 +32,9 @@ export const Alarm = () => {
       method: "POST", body: JSON.stringify(param)
     }).then(res => {
       setData(res.data)
-      setPagination({...pagination, total: res.count})
+      setTotal(res.count)
     })
-  }, [pagination.page, pagination.type, pagination.name, client])
+  }, [pagination, client])
 
   const getNavList = useCallback(() => {
     client(`alarm/statistic/list`, {
@@ -42,7 +42,7 @@ export const Alarm = () => {
     }).then(res => {
       setNavList(res.data)
     })
-  }, [client])
+  }, [client, pagination])
 
   const getType = useCallback(() => {
     client(`dictItem/list?index=1&size=100&typeId=002`, {method: "POST"})
@@ -162,7 +162,7 @@ export const Alarm = () => {
         </Select>
         <Button style={{marginLeft: '1rem'}}
                 onClick={() => reset()}>重置</Button>
-        <Table columns={columns} pagination={{total: pagination.total, onChange: onChange}} dataSource={data}
+        <Table columns={columns} pagination={{total: total, onChange: onChange}} dataSource={data}
                rowKey={(item: any) => item.id}/>
       </Main>
     </AlarmStyle>

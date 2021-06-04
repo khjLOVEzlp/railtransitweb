@@ -13,16 +13,15 @@ export const Menu = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    total: 0,
     name: ''
   })
-
+  const [total, setTotal] = useState(0)
   const init = useCallback(() => {
     client(`menu/getAll?type=1`, {method: "POST"}).then(res => {
       setTabList(res.data)
-      setPagination({...pagination, total: res.count})
+      setTotal(res.count)
     })
-  }, [client, pagination.page, pagination.name])
+  }, [client])
 
   useEffect(() => {
     init()
@@ -140,7 +139,7 @@ export const Menu = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total: pagination.total, onChange: onChange}} dataSource={tabList}
+          } pagination={{total, onChange: onChange}} dataSource={tabList}
                  rowKey={(item: any) => item.id}/>
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
