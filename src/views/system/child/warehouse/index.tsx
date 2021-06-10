@@ -1,46 +1,32 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Button, Table, Popconfirm, message, Select} from 'antd';
+import { useState } from 'react';
+import { Form, Input, Button, Table, Popconfirm, message, Select } from 'antd';
 import styled from "@emotion/styled";
-import {useHttp} from "../../../../utils/http";
-import qs from "qs";
-import {cleanObject} from "../../../../utils";
-import {ModalForm} from './modal/ModalForm'
+import { ModalForm } from './modal/ModalForm'
+import { useDel, useAdd, useInit, useMod } from './warehouse';
 
-const {Option} = Select;
+const { Option } = Select;
 
 export const Warehouse = () => {
   const [visible, setVisible] = useState(false);
-  const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
-  const [formData, setFormData] = useState({})
-  const client = useHttp()
+  const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
     type: '',
-    name: ''
+    name: '',
   })
 
-  const [total, setTotal] = useState(0)
-
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.name,
-    }
-    client(`warehouse/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
-      setTabList(res.data)
-      setTotal(res.count)
-    })
-  }, [client, pagination])
-
-  useEffect(() => {
-    init()
-  }, [init])
+  /* 
+    增删改查
+  */
+  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { mutateAsync: Add } = useAdd()
+  const { mutateAsync: Mod } = useMod()
+  const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({...pagination, name: item.name, type: item.type})
+    setPagination({ ...pagination, name: item.name, type: item.type, page: 1 })
   };
 
   const add = () => {
@@ -54,11 +40,8 @@ export const Warehouse = () => {
     setFormData(item)
   }
 
-  const del = async (id: number | string) => {
-    client(`warehouse/delete/${id}`)
-      .then(() => {
-        init()
-      })
+  const del = async (id: number) => {
+    Del(id)
   }
 
   const confirm = (item: any) => {
@@ -69,8 +52,12 @@ export const Warehouse = () => {
     message.error('取消删除');
   }
 
+  const handleChange = (value: any) => {
+    setPagination({ ...pagination, type: value })
+  }
+
   const onChange = (page: number) => {
-    setPagination({...pagination, page})
+    setPagination({ ...pagination, page })
   }
 
   const showUserModal = () => {
@@ -84,20 +71,20 @@ export const Warehouse = () => {
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
+        onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            client(`warehouse/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
-              message.success('新增成功')
+            Add(values).then(() => {
+              message.success("新增成功")
               setVisible(false);
-            }).catch(err => {
-              console.log(err.msg, 'err')
+            }).catch((error) => {
+              message.error(error.msg)
             })
           } else if (name === "修改") {
-            client(`warehouse/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
-              message.success('修改成功')
-              setVisible(false);
-            }).catch(err => {
-              console.log(err.msg, 'err')
+            Mod({ ...values, id: formData.id }).then(() => {
+              message.success("修改成功")
+              setVisible(false)
+            }).catch((error) => {
+              message.error(error.msg)
             })
           }
         }}
@@ -112,7 +99,7 @@ export const Warehouse = () => {
               label="仓库名"
               name="name"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -120,7 +107,7 @@ export const Warehouse = () => {
               name="type"
               initialValue={1}
             >
-              <Select style={{width: 120}}>
+              <Select style={{ width: 120 }} onChange={handleChange}>
                 <Option value={1}>轨行区内</Option>
                 <Option value={2}>轨行区外</Option>
               </Select>
@@ -144,6 +131,11 @@ export const Warehouse = () => {
                 key: 'name',
               },
               {
+                title: "负责人",
+                dataIndex: "personName",
+                key: "id"
+              },
+              {
                 title: '备注',
                 dataIndex: 'remark',
                 key: 'remark',
@@ -163,10 +155,10 @@ export const Warehouse = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total, onChange: onChange}} dataSource={tabList}
-                 rowKey={(item: any) => item.id}/>
+          } pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
+            rowKey={(item: any) => item.id} />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
       </Form.Provider>
     </>
   );

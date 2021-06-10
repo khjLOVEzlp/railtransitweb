@@ -1,11 +1,11 @@
-import {Button, Form, Input, Modal, Radio} from "antd";
-import React, {useEffect, useState} from "react";
-import {rules} from "../../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
+import { Button, Form, Input, Modal, Radio } from "antd";
+import React, { useEffect, useState } from "react";
+import { rules } from "../../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
 
 const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
 };
 
 interface ModalFormProps {
@@ -15,16 +15,14 @@ interface ModalFormProps {
   formData: object
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState(1);
 
   useEffect(() => {
+    if (type === "新增") return
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
 
   useResetFormOnCloseModal({
     form,
@@ -41,8 +39,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -55,7 +53,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="equipmentNum"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -63,7 +61,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="number"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -71,7 +69,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="temperature"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item

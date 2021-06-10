@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import {useHttp} from "../../../../utils/http";
+import { useHttp } from "../../../../utils/http";
 import qs from "qs";
-import {cleanObject} from "../../../../utils";
-import {ModalForm, ShareModalForm, ShareBackModalForm, ViewModalForm} from "./modal/ModalForm";
+import { cleanObject } from "../../../../utils";
+import { ModalForm, ShareModalForm, ShareBackModalForm, ViewModalForm } from "./modal/ModalForm";
 
 export const PlanWork = () => {
   const [visible, setVisible] = useState(false);
@@ -29,7 +29,7 @@ export const PlanWork = () => {
       size: pagination.size,
       name: pagination.name,
     }
-    client(`plan/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
+    client(`plan/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
       setTabList(res.data)
       setTotal(res.count)
     })
@@ -83,11 +83,11 @@ export const PlanWork = () => {
   }
 
   const onChange = (page: number) => {
-    setPagination({...pagination, page})
+    setPagination({ ...pagination, page })
   }
 
   const search = (item: any) => {
-    setPagination({...pagination, name: item.name})
+    setPagination({ ...pagination, name: item.name })
   };
 
   const showUserModal = () => {
@@ -111,7 +111,7 @@ export const PlanWork = () => {
   }
 
   const save = (value: any) => {
-    client(`plan/save`, {method: "POST", body: JSON.stringify(value)}).then(() => {
+    client(`plan/save`, { method: "POST", body: JSON.stringify(value) }).then(() => {
       message.success('新增成功')
       setVisible(false);
     }).catch(err => {
@@ -120,7 +120,7 @@ export const PlanWork = () => {
   }
 
   const update = (value: any) => {
-    client(`plan/update`, {method: "POST", body: JSON.stringify(value)}).then(() => {
+    client(`plan/update`, { method: "POST", body: JSON.stringify(value) }).then(() => {
       message.success('修改成功')
       setVisible(false);
     }).catch(err => {
@@ -129,18 +129,20 @@ export const PlanWork = () => {
   }
 
   const sharePlan = (value: any) => {
-    const val = {...value, planId: formData.id}
-    client(`plan/share`, {method: "POST", body: JSON.stringify((val))}).then(() => {
+    const val = { ...value, planId: formData.id }
+    client(`plan/share`, { method: "POST", body: JSON.stringify((val)) }).then(() => {
       message.success("发布成功")
+      hideShareModal()
     }).catch(err => {
       console.log(err)
     })
   }
 
   const feedBack = (value: any) => {
-    const val = {...value, planId: formData.id}
-    client(`plan/shareBack`, {method: "POST", body: JSON.stringify((val))}).then(() => {
+    const val = { ...value, planId: formData.id }
+    client(`plan/shareBack`, { method: "POST", body: JSON.stringify((val)) }).then(() => {
       message.success("反馈成功")
+      hideShareBackModal()
     }).catch(err => {
       console.log(err)
     })
@@ -149,7 +151,7 @@ export const PlanWork = () => {
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
+        onFormFinish={(name, { values, forms }) => {
           console.log(values)
           if (name === '新增') {
             save(values)
@@ -175,7 +177,7 @@ export const PlanWork = () => {
               label="计划名"
               name="name"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item>
@@ -233,15 +235,15 @@ export const PlanWork = () => {
                 )
               },
             ]
-          } pagination={{total, onChange: onChange}}
-                 dataSource={tabList}
-                 rowKey={(item: any) => item.id}
+          } pagination={{ total, onChange: onChange }}
+            dataSource={tabList}
+            rowKey={(item: any) => item.id}
           />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
-        <ShareModalForm visible={visibleShare} formData={formData} type={type} onCancel={hideShareModal}/>
-        <ShareBackModalForm visible={visibleShareBack} formData={formData} type={type} onCancel={hideShareBackModal}/>
-        <ViewModalForm visible={visibleView} formData={formData} type={type} onCancel={hideViewModal}/>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
+        <ShareModalForm visible={visibleShare} formData={formData} type={type} onCancel={hideShareModal} />
+        <ShareBackModalForm visible={visibleShareBack} formData={formData} type={type} onCancel={hideShareBackModal} />
+        <ViewModalForm visible={visibleView} formData={formData} type={type} onCancel={hideViewModal} />
       </Form.Provider>
     </>
   );

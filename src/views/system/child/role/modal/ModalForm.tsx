@@ -1,10 +1,10 @@
-import {Button, Form, Input, Modal, Select, Tree} from "antd";
-import React, {useCallback, useEffect, useState} from "react";
-import {useHttp} from "../../../../../utils/http";
-import {rules} from "../../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
+import { Button, Form, Input, Modal, Select, Tree } from "antd";
+import React, { useCallback, useEffect, useState } from "react";
+import { useHttp } from "../../../../../utils/http";
+import { rules } from "../../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
 
-const {Option} = Select
+const { Option } = Select
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -17,17 +17,15 @@ interface ModalFormProps {
   formData: object
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const [menu, setMenu] = useState([])
   const client = useHttp()
 
   useEffect(() => {
+    if (type === "新增") return
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
 
   const [options] = useState([
     {
@@ -49,8 +47,25 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   ])
 
   const getMenuList = useCallback(() => {
-    client(`menu/getAll?type=1`, {method: "POST"}).then(res => {
-      res.data.forEach((item: any) => {
+    client(`menu/getAll?type=1`, { method: "POST" }).then(res => {
+      const fuc = (data: any) => {
+        if (data && data.length > 0) {
+          data.forEach((item: any) => {
+            item.title = item.name
+            item.key = item.id
+            item.children = fuc(item.childMenu)
+          });
+        } else {
+          data = []
+        }
+
+        return data
+
+      }
+
+      setMenu(fuc(res.data))
+
+      /* res.data.forEach((item: any) => {
         item.title = item.name
         item.children = item.childMenu
         item.key = item.id
@@ -71,7 +86,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           })
         }
       })
-      setMenu(res.data)
+      setMenu(res.data) */
     })
   }, [client])
 
@@ -85,7 +100,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   });
 
   const onCheck = (checkedKeys: any) => {
-    form.setFieldsValue({menuList: checkedKeys})
+    form.setFieldsValue({ menuList: checkedKeys })
   };
 
   const onOk = () => {
@@ -94,12 +109,12 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
 
   return (
     <Modal title={type} width={800}
-           visible={visible} onOk={onOk}
-           onCancel={onCancel}
-           footer={[
-             <Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>
-           ]}
+      visible={visible} onOk={onOk}
+      onCancel={onCancel}
+      footer={[
+        <Button key="back" onClick={onCancel}>取消</Button>,
+        <Button key="submit" type="primary" onClick={onOk}>提交</Button>
+      ]}
     >
       <Form
         form={form}
@@ -134,14 +149,14 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="name"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="备注"
           name="remark"
         >
-          <Input/>
+          <Input />
         </Form.Item>
       </Form>
     </Modal>

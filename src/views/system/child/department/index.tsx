@@ -1,12 +1,11 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Modal, Button, Table, Popconfirm, message} from 'antd';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Input, Modal, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import {useHttp} from "../../../../utils/http";
-import qs from "qs";
-import {cleanObject} from "../../../../utils";
-import {rules} from "../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../hook/useResetFormOnCloseModal";
-
+import { useHttp } from "../../../../utils/http";
+import { rules } from "../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../hook/useResetFormOnCloseModal";
+import { TreeSelect } from 'antd';
+import { useAdd, useDel, useInit, useMod } from './department';
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -19,15 +18,47 @@ interface ModalFormProps {
   formData: object
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
+  const [value, setValue] = useState([]);
+  const client = useHttp()
+
+  const onChange = (value: any) => {
+    console.log(value);
+    form.setFieldsValue({ parentId: value })
+  };
 
   useEffect(() => {
+    if (type === "新增") return
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
+
+  const getDepartmentList = useCallback(() => {
+    client(`department/getAll`).then(res => {
+      const fuc = (data: any) => {
+        if (data && data.length > 0) {
+          data.forEach((item: any) => {
+            item.title = item.name
+            item.value = item.id
+            item.children = fuc(item.departmentList)
+          });
+        } else {
+          data = []
+        }
+
+        return data
+
+      }
+
+      setValue(fuc(res.data))
+    })
+
+
+  }, [client])
+
+  useEffect(() => {
+    getDepartmentList()
+  }, [getDepartmentList])
 
   useResetFormOnCloseModal({
     form,
@@ -40,8 +71,8 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -50,26 +81,31 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
         layout={"vertical"}
       >
         <Form.Item
-          label="类型名称"
+          label="部门名称"
           name="name"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
-          label="父级ID"
+          label="部门归属"
           name="parentId"
           rules={rules}
         >
-          <Input/>
+          <TreeSelect
+            style={{ width: '100%' }}
+            treeData={value}
+            treeDefaultExpandAll
+            onChange={onChange}
+          />
         </Form.Item>
 
         <Form.Item
           label="备注"
           name="remark"
         >
-          <Input/>
+          <Input />
         </Form.Item>
       </Form>
     </Modal>
@@ -78,35 +114,21 @@ const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}
 
 export const Department = () => {
   const [visible, setVisible] = useState(false);
-  const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
-  const [formData, setFormData] = useState({})
-  const client = useHttp()
+  const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
     name: ''
   })
-  const [total, setTotal] = useState(0)
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.name,
-    }
-    client(`department/getAll?${qs.stringify(cleanObject(param))}`).then(res => {
-      setTabList(res.data)
-      setTotal(res.count)
-    })
-  }, [client, pagination])
 
-  useEffect(() => {
-    init()
-  }, [init])
-
-  const search = (item: any) => {
-    setPagination({...pagination, name: item.name})
-  };
+  /* 
+    增删改查
+  */
+  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { mutateAsync: Add } = useAdd()
+  const { mutateAsync: Mod } = useMod()
+  const { mutateAsync: Del } = useDel()
 
   const add = () => {
     showUserModal()
@@ -119,10 +141,8 @@ export const Department = () => {
     setFormData(item)
   }
 
-  const del = async (id: number | string) => {
-    client(`department/delete/${id}`).then(() => {
-      init()
-    })
+  const del = async (id: number) => {
+    Del(id)
   }
 
   const confirm = (item: any) => {
@@ -134,7 +154,7 @@ export const Department = () => {
   }
 
   const onChange = (page: number) => {
-    setPagination({...pagination, page})
+    setPagination({ ...pagination, page })
   }
 
   const showUserModal = () => {
@@ -148,26 +168,26 @@ export const Department = () => {
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
+        onFormFinish={(name, { values }) => {
           if (name === '新增') {
-            client(`department/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
-              message.success('新增成功')
+            Add(values).then(() => {
+              message.success("新增成功")
               setVisible(false);
-            }).catch(err => {
-              console.log(err.msg, 'err')
+            }).catch(error => {
+              message.error(error.msg)
             })
           } else if (name === "修改") {
-            client(`department/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
-              message.success('修改成功')
+            Mod({ ...values, id: formData.id }).then(() => {
+              message.success("修改成功")
               setVisible(false);
-            }).catch(err => {
-              console.log(err.msg, 'err')
+            }).catch(error => {
+              message.error(error.msg)
             })
           }
         }}
       >
         <Header>
-          <Form
+          {/* <Form
             name="basic"
             onFinish={search}
             layout={"inline"}
@@ -176,7 +196,7 @@ export const Department = () => {
               label="部门名称"
               name="name"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item>
@@ -184,7 +204,8 @@ export const Department = () => {
                 搜索
               </Button>
             </Form.Item>
-          </Form>
+          </Form> */}
+          <div>部门管理</div>
 
           <Button onClick={() => add()}>新增</Button>
         </Header>
@@ -194,7 +215,12 @@ export const Department = () => {
               {
                 title: '部门名称',
                 dataIndex: 'name',
-                key: 'name',
+                key: 'id',
+              },
+              {
+                title: "创建时间",
+                dataIndex: "createTime",
+                key: "id"
               },
               {
                 title: '备注',
@@ -216,10 +242,10 @@ export const Department = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total, onChange: onChange}} dataSource={tabList}
-                 rowKey={(item: any) => item.id}/>
+          } pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
+            rowKey={(item: any) => item.id} />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
       </Form.Provider>
     </>
   );

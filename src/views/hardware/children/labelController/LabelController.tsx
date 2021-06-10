@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Modal, Button, Table, Popconfirm, message, Radio } from 'antd';
 import styled from "@emotion/styled";
-import { useHttp } from "../../../../utils/http";
-import { cleanObject } from "../../../../utils";
 import { rules } from "../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../hook/useResetFormOnCloseModal";
+import { useAdd, useDel, useInit, useMod } from './lab';
 
 /*const layout = {
   labelCol: {span: 4},
@@ -21,11 +20,11 @@ interface ModalFormProps {
 const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState(0);
-  const data = type === "修改" ? formData : ""
 
   useEffect(() => {
-    form.setFieldsValue(data)
-  }, [data, form])
+    if (type === "新增") return
+    form.setFieldsValue(formData)
+  }, [formData, form, visible, type])
 
   useResetFormOnCloseModal({
     form,
@@ -79,14 +78,6 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         </Form.Item>
 
         <Form.Item
-          label="状态"
-          name="status"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
           label="仓库主键"
           name="warehouseId"
           rules={rules}
@@ -100,10 +91,8 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
 
 export const LabelController = () => {
   const [visible, setVisible] = useState(false)
-  const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
-  const [formData, setFormData] = useState({})
-  const client = useHttp()
+  const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
@@ -111,26 +100,16 @@ export const LabelController = () => {
     type: ''
   })
 
-  const [total, setTotal] = useState(0)
-
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.name,
-    }
-    client(`hardware/label/list`, { method: "POST", body: JSON.stringify(cleanObject(param)) }).then(res => {
-      setTabList(res.data)
-      setTotal(res.count)
-    })
-  }, [client, pagination])
-
-  useEffect(() => {
-    init()
-  }, [init])
+  /* 
+      增删改查
+    */
+  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { mutateAsync: Add } = useAdd()
+  const { mutateAsync: Mod } = useMod()
+  const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name })
+    setPagination({ ...pagination, name: item.name, page: 1 })
   }
 
   const add = () => {
@@ -144,10 +123,8 @@ export const LabelController = () => {
     setFormData(item)
   }
 
-  const del = async (id: number | string) => {
-    client(`hardware/label/delete/${id}`).then(() => {
-      init()
-    })
+  const del = async (id: number) => {
+    Del(id)
   }
 
   const confirm = (item: any) => {
@@ -175,18 +152,18 @@ export const LabelController = () => {
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            client(`hardware/label/save`, { method: "POST", body: JSON.stringify(values) }).then(() => {
+            Add(values).then(() => {
               message.success('新增成功')
               setVisible(false);
             }).catch(err => {
-              console.log(err.msg, 'err')
+              message.error(err.msg)
             })
           } else if (name === "修改") {
-            client(`hardware/label/update`, { method: "POST", body: JSON.stringify(values) }).then(() => {
+            Mod({ ...values, id: formData.id }).then(() => {
               message.success('修改成功')
               setVisible(false);
             }).catch(err => {
-              console.log(err.msg, 'err')
+              message.error(err.msg)
             })
           }
         }}
@@ -230,7 +207,7 @@ export const LabelController = () => {
                 key: 'id',
                 render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
                   <Popconfirm
-                    title={`是否要删除${item.name}`}
+                    title={`是否要删除${item.codeHex10}`}
                     onConfirm={() => confirm(item)}
                     onCancel={cancel}
                     okText="Yes"
@@ -240,7 +217,7 @@ export const LabelController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total, onChange: onChange }} dataSource={tabList}
+          } pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
@@ -257,8 +234,6 @@ const Header = styled.div`
 
 const Main = styled.div`
   background: #fff;
-  height: 73rem;
   border-radius: 1rem;
   padding: 0 1.5rem;
-  overflow-y: auto;
 `

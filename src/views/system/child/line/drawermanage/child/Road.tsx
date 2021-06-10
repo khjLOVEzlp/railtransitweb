@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useHttp } from "../../../../../../utils/http";
-import qs from "qs";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, message, Modal, Popconfirm, Table } from "antd";
 import styled from "@emotion/styled";
 import { rules } from "../../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
+import { useAdd, useDel, useInit, useMod } from "./lineRoad";
 
 /*const layout = {
   labelCol: {span: 4},
@@ -21,11 +20,9 @@ interface ModalFormProps {
 export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   useEffect(() => {
+    if (type === "新增") return
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
 
   useResetFormOnCloseModal({
     form,
@@ -48,7 +45,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         layout={"vertical"}
       >
         <Form.Item
-          label="路线名称"
+          label="路段名称"
           name="name"
           rules={rules}
         >
@@ -67,9 +64,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
 };
 
 export const Road = ({ formData }: { formData: any }) => {
-  const [data, setData] = useState([])
   const [visible, setVisible] = useState(false);
-  const [dataForm, setDataForm] = useState({})
+  const [dataForm, setDataForm] = useState<any>({})
   const [type, setType] = useState('')
   const [pagination, setPagination] = useState({
     page: 1,
@@ -77,28 +73,16 @@ export const Road = ({ formData }: { formData: any }) => {
     name: '',
   })
 
-  const client = useHttp()
-  const [total, setTotal] = useState(0)
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.name,
-      lineId: formData.id,
-    }
-    client(`lineRoad/list?${qs.stringify(param)}`, { method: "POST" }).then(res => {
-      setData(res.data)
-      setTotal(res.count)
-    })
-  }, [pagination, client, formData.id])
-
-  useEffect(() => {
-    init()
-  }, [init])
+  /* 
+      增删改查
+    */
+  const { data, isLoading } = useInit({ ...pagination, index: pagination.page, lineId: formData.id })
+  const { mutateAsync: Add } = useAdd()
+  const { mutateAsync: Mod } = useMod()
+  const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    console.log(item)
-    setPagination({ ...pagination, name: item.name })
+    setPagination({ ...pagination, name: item.name, page: 1 })
   };
 
   const add = () => {
@@ -112,18 +96,16 @@ export const Road = ({ formData }: { formData: any }) => {
     setDataForm(item)
   }
 
-  const onChange = () => {
-
+  const onChange = (page: number) => {
+    setPagination({ ...pagination, page })
   }
 
-  const del = async (id: number | string) => {
-    client(`lineRoad/delete/${id}`)
+  const del = async (id: number) => {
+    Del(id)
   }
 
   const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功')).then(() => {
-      init()
-    })
+    del(item.id).then(() => message.success('删除成功'))
   }
 
   const cancel = () => {
@@ -142,21 +124,19 @@ export const Road = ({ formData }: { formData: any }) => {
     <Contianer>
       <Form.Provider
         onFormFinish={(name, { values }) => {
-          const value = { ...values, lineId: formData.id }
           if (name === '新增') {
-            client(`lineRoad/save`, { method: "POST", body: JSON.stringify(value) }).then(() => {
-              message.success('新增成功')
-              init()
+            Add({ ...values, lineId: formData.id, id: dataForm.id }).then(() => {
+              message.success("新增成功")
               setVisible(false);
-            }).catch(err => {
-              console.log(err.msg, 'err')
+            }).catch(error => {
+              message.error(error.msg)
             })
           } else if (name === "修改") {
-            client(`lineRoad/update`, { method: "POST", body: JSON.stringify(value) }).then(() => {
-              message.success('修改成功')
+            Mod({ ...values, lineId: formData.id, id: dataForm.id }).then(() => {
+              message.success("修改成功")
               setVisible(false);
-            }).catch(err => {
-              console.log(err.msg, 'err')
+            }).catch(error => {
+              message.error(error.msg)
             })
           }
         }}
@@ -199,7 +179,7 @@ export const Road = ({ formData }: { formData: any }) => {
               title: '操作',
               key: 'id',
               render: (item: any) => (<><Button type="link" onClick={() => mod(item)}>修改</Button><Popconfirm
-                title={`是否要删除${item.departmentName}`}
+                title={`是否要删除${item.name}`}
                 onConfirm={() => confirm(item)}
                 onCancel={cancel}
                 okText="Yes"
@@ -208,7 +188,7 @@ export const Road = ({ formData }: { formData: any }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total, onChange: onChange }} dataSource={data}
+          ]} pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
         </Main>

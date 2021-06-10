@@ -1,4 +1,4 @@
-import {Typography} from "antd"
+import { Typography } from "antd"
 import styled from "@emotion/styled";
 
 export const FullPageErrorFallback = ({ error }: { error: Error | null }) => (

@@ -1,45 +1,31 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { useHttp } from "../../../../utils/http";
-import qs from "qs";
-import { cleanObject } from "../../../../utils";
 import { Drawermanage } from "./drawermanage/Drawermanage";
 import { ModalForm } from "./modal/ModalForm";
-
+import { useMod, useAdd, useDel, useInit } from './line'
 export const Line = () => {
   const [visible, setVisible] = useState(false);
   const [isShowDrawer, setIsShowDrawer] = useState(false)
-  const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
-  const [formData, setFormData] = useState({})
-  const client = useHttp()
+  const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
     name: ''
   })
 
-  const [total, setTotal] = useState(0)
+  /* 
+    增删改查
+    */
 
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.name,
-    }
-    client(`line/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
-      setTabList(res.data)
-      setTotal(res.count)
-    })
-  }, [client, pagination])
-
-  useEffect(() => {
-    init()
-  }, [init])
+  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { mutateAsync: Add } = useAdd()
+  const { mutateAsync: Mod } = useMod()
+  const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name })
+    setPagination({ ...pagination, name: item.name, page: 1 })
   };
 
   const add = () => {
@@ -58,10 +44,8 @@ export const Line = () => {
     setFormData(item)
   }
 
-  const del = async (id: number | string) => {
-    client(`line/delete/${id}`).then(() => {
-      init()
-    })
+  const del = async (id: number) => {
+    Del(id)
   }
 
   const confirm = (item: any) => {
@@ -89,19 +73,18 @@ export const Line = () => {
       <Form.Provider
         onFormFinish={(name, { values }) => {
           if (name === '新增') {
-            client(`line/save`, { method: "POST", body: JSON.stringify(values) }).then(() => {
-              message.success('新增成功')
-              init()
+            Add(values).then(() => {
+              message.success("新增成功")
               setVisible(false);
-            }).catch(err => {
-              console.log(err.msg, 'err')
+            }).catch((error) => {
+              message.error(error.msg)
             })
           } else if (name === "修改") {
-            client(`line/update`, { method: "POST", body: JSON.stringify(values) }).then(() => {
-              message.success('修改成功')
+            Mod({ ...values, id: formData.id }).then(() => {
+              message.success("修改成功")
               setVisible(false);
-            }).catch(err => {
-              console.log(err.msg, 'err')
+            }).catch((error) => {
+              message.error(error.msg)
             })
           }
         }}
@@ -157,7 +140,8 @@ export const Line = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total, onChange: onChange }} dataSource={tabList}
+          } pagination={{ total: data?.count, onChange: onChange }} dataSource={data?.data}
+            loading={isLoading}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

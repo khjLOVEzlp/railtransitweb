@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
-import {Spin} from "antd";
-import React, {createContext, ReactNode, useContext, useEffect} from "react";
+import { Spin } from "antd";
+import React, { createContext, ReactNode, useContext, useEffect } from "react";
 import * as auth from '../auth-provider'
-import {User} from "../type/user";
-import {http} from "../utils/http";
-import {useAsync} from "../hook/useAsync";
+import { User } from "../type/user";
+import { http } from "../utils/http";
+import { useAsync } from "../hook/useAsync";
+import { FullPageErrorFallback } from "../components/lib";
 
 const AuthContext = createContext<| {
   user: User | null;
@@ -21,7 +22,7 @@ const FullPage = styled.div`
 `
 
 export const FullPageLoading = () => <FullPage>
-  <Spin size={'large'}/>
+  <Spin size={'large'} />
 </FullPage>
 
 interface AuthForm {
@@ -33,17 +34,19 @@ const bootstrapUser = async () => {
   let user = null;
   const form = auth.getUser();
   if (form) {
-    const data = await http("login", {method: "POST", body: form});
+    const data = await http("login", { method: "POST", body: form });
     user = data.data;
   }
   return user;
 }
 
-export const AuthProvider = ({children}: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const {
     data: user,
     isLoading,
     isIdle,
+    isError,
+    error,
     run,
     setData: setUser,
   } = useAsync<User | null>();
@@ -56,10 +59,15 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
   }, [run])
 
   if (isIdle || isLoading) {
-    return <FullPageLoading/>
+    return <FullPageLoading />
   }
+
+  if (isError) {
+    return <FullPageErrorFallback error={error} />
+  }
+
   return (
-    <AuthContext.Provider children={children} value={{user, login, logout}}/>
+    <AuthContext.Provider children={children} value={{ user, login, logout }} />
   )
 }
 

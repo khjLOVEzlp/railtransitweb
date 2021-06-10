@@ -1,18 +1,18 @@
 import styled from "@emotion/styled";
 import login from './icon/login.png'
-import {Form, Input, Button} from 'antd';
-import {useAuth} from "./context/auth-context";
-import {useDocumentTitle} from "./hook/useDocumentTitle";
+import { Form, Input, Button } from 'antd';
+import { useAuth } from "./context/auth-context";
+import { useDocumentTitle } from "./hook/useDocumentTitle";
 import dayjs from 'dayjs'
-import {rules} from "./utils/verification";
-import {useState} from "react";
-import {ErrorBox} from "./components/lib";
-import {useAsync} from "./hook/useAsync";
+import { rules } from "./utils/verification";
+import { useState } from "react";
+import { ErrorBox } from "./components/lib";
+import { useAsync } from "./hook/useAsync";
 
 export const Login = () => {
   const [error, setError] = useState<Error | null>(null);
-  const {isLoading, run} = useAsync(undefined, { throwOnError: true });
-  const {login} = useAuth()
+  const { isLoading, run } = useAsync(undefined, { throwOnError: true });
+  const { login } = useAuth()
   const onFinish = async (values: any) => {
     try {
       await run(login(values))
@@ -32,30 +32,30 @@ export const Login = () => {
         <Title>
           5G-NB智慧轨行区数字化维养安全管控系统
         </Title>
-        <ErrorBox error={error}/>
+        <ErrorBox error={error} />
         <Form
           size={'large'}
           name="basic"
-          initialValues={{remember: true}}
+          initialValues={{ remember: true }}
           onFinish={onFinish}
         >
           <Form.Item
             name="loginName"
             rules={rules}
           >
-            <Input size="large" placeholder="账号：请输入您的账号"/>
+            <Input size="large" placeholder="账号：请输入您的账号" onChange={() => setError(null)} />
           </Form.Item>
 
           <Form.Item
             name="password"
             rules={rules}
           >
-            <Input.Password size="large" placeholder="密码：请输入您的密码"/>
+            <Input.Password size="large" placeholder="密码：请输入您的密码" onChange={() => setError(null)} />
           </Form.Item>
 
           <Form.Item>
-            <Button loading={isLoading} type="primary" htmlType="submit" style={{width: "100%"}}>
-              登陆
+            <Button loading={isLoading} type="primary" htmlType="submit" style={{ width: "100%" }}>
+              登录
             </Button>
           </Form.Item>
         </Form>

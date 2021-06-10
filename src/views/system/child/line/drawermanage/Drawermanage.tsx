@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Drawer, Tabs } from "antd";
-import React, { useState } from "react";
-import { Road } from "./child/Road";
+import { useState } from "react";
+import { Road } from './child/Road'
 import { Platform } from "./child/Platform";
 import { Class } from "./child/Class";
 

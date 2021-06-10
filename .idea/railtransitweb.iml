@@ -10,5 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="railtransit" />
     <orderEntry type="module" module-name="article-manage-system" />
+    <orderEntry type="module" module-name="react-ts-hook-jira" />
   </component>
 </module>

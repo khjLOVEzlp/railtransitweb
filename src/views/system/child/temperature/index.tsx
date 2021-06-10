@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Button, Table, message} from 'antd';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Input, Button, Table, message } from 'antd';
 import styled from "@emotion/styled";
-import {useHttp} from "../../../../utils/http";
+import { useHttp } from "../../../../utils/http";
 import qs from "qs";
-import {cleanObject} from "../../../../utils";
-import {ModalForm} from "./modal/ModalForm";
+import { cleanObject } from "../../../../utils";
+import { ModalForm } from "./modal/ModalForm";
 
 export const Temperature = () => {
   const [visible, setVisible] = useState(false);
@@ -26,7 +26,7 @@ export const Temperature = () => {
       name: pagination.name,
       number: pagination.number
     }
-    client(`record/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
+    client(`record/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
       setTabList(res.data)
       setTotal(res.count)
     })
@@ -63,11 +63,11 @@ export const Temperature = () => {
   }*/
 
   const onChange = (page: number) => {
-    setPagination({...pagination, page})
+    setPagination({ ...pagination, page })
   }
 
   const search = (item: any) => {
-    setPagination({...pagination, name: item.name, number: item.number})
+    setPagination({ ...pagination, name: item.name, number: item.number, page: 1 })
   };
 
   const showUserModal = () => {
@@ -81,18 +81,20 @@ export const Temperature = () => {
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
+        onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            client(`record/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`record/save`, { method: "POST", body: JSON.stringify(values) }).then(() => {
               message.success('新增成功')
               setVisible(false);
+              init()
             }).catch(err => {
               console.log(err.msg, 'err')
             })
           } else if (name === "修改") {
-            client(`user/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            client(`user/update`, { method: "POST", body: JSON.stringify(values) }).then(() => {
               message.success('修改成功')
               setVisible(false);
+              init()
             }).catch(err => {
               console.log(err.msg, 'err')
             })
@@ -109,14 +111,14 @@ export const Temperature = () => {
               label="姓名"
               name="name"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
               label="编号"
               name="number"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item>
@@ -166,10 +168,10 @@ export const Temperature = () => {
                   </Popconfirm></>
               },*/
             ]
-          } pagination={{total, onChange: onChange}} dataSource={tabList}
-                 rowKey={(item: any) => item.id}/>
+          } pagination={{ total, onChange: onChange }} dataSource={tabList}
+            rowKey={(item: any) => item.id} />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
       </Form.Provider>
     </>
   );

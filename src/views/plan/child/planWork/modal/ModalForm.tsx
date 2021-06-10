@@ -1,15 +1,16 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {Button, DatePicker, Form, Input, message, Modal, Radio, Select, Space, Upload} from "antd";
-import {useHttp} from "../../../../../utils/http";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, DatePicker, Form, Input, message, Modal, Radio, Select, Space, Upload } from "antd";
+import { useHttp } from "../../../../../utils/http";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
-import {UploadOutlined} from "@ant-design/icons";
-import {getToken} from "../../../../../auth-provider";
-import {rules} from "../../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
+import { UploadOutlined } from "@ant-design/icons";
+import { getToken } from "../../../../../auth-provider";
+import { rules } from "../../../../../utils/verification";
+import { usePerson } from "../../../../person/person";
 const baseUrl = process.env["REACT_APP_API_URL"]
-const {TextArea} = Input;
-const {Option} = Select;
+const { TextArea } = Input;
+const { Option } = Select;
 
 /*const layout = {
   labelCol: {span: 4},
@@ -24,7 +25,7 @@ interface ModalFormProps {
 }
 
 // 新增修改
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const token = getToken()
   let document: number[] = []
@@ -32,7 +33,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   const [materialList, setMaterialList] = useState([])
   const [lineLIst, setLineList] = useState([])
   const [value, setValue] = useState()
-  const [personList, setPersonList] = useState([])
   const [planTypeList, setPlanTypeList] = useState([])
   const client = useHttp()
 
@@ -44,9 +44,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   }, [formData, form])
 
 
-
   const getMaterialList = useCallback(() => {
-    client(`materialType/getAll`, {method: "POST"}).then(res => {
+    client(`materialType/getAll`, { method: "POST" }).then(res => {
       setMaterialList(res.data)
     })
   }, [client])
@@ -57,20 +56,16 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     })
   }, [client])
 
-  const getPersonList = useCallback(() => {
-    client(`person/list`, {method: "POST"}).then((res) => {
-      setPersonList(res.data)
-    })
-  }, [client])
+  const { data: personList } = usePerson()
 
   const getPlanTypeList = useCallback(() => {
-    client(`planType/getAll`, {method: "POST"}).then(res => {
+    client(`planType/getAll`, { method: "POST" }).then(res => {
       setPlanTypeList(res.data)
     })
   }, [client])
 
   const getLineList = useCallback(() => {
-    client(`line/listLineAndPlatform`, {method: "POST"}).then(res => {
+    client(`line/listLineAndPlatform`, { method: "POST" }).then(res => {
       setLineList(res.data)
     })
   }, [client])
@@ -88,10 +83,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   }, [getDepartment])
 
   useEffect(() => {
-    getPersonList()
-  }, [getPersonList])
-
-  useEffect(() => {
     getLineList()
   }, [getLineList])
 
@@ -100,15 +91,15 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
   }
 
   const beginTime = (obj: any | null, time: string) => {
-    form.setFieldsValue({beginTime: time})
+    form.setFieldsValue({ beginTime: time })
   }
 
   const dateTime = (obj: any, time: string) => {
-    form.setFieldsValue({dateTime: time})
+    form.setFieldsValue({ dateTime: time })
   }
 
   const endTime = (obj: any, item: string) => {
-    form.setFieldsValue({endTime: item})
+    form.setFieldsValue({ endTime: item })
   }
 
   useResetFormOnCloseModal({
@@ -125,7 +116,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
         document = [...document, info.file.response.data]
-        form.setFieldsValue({documentList: document})
+        form.setFieldsValue({ documentList: document })
         console.log(document)
       }
       if (info.file.status === 'done') {
@@ -142,8 +133,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -157,7 +148,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           rules={rules}
         >
           <Space direction="vertical">
-            <DatePicker locale={locale} onChange={beginTime} placeholder="开始时间"/>
+            <DatePicker locale={locale} onChange={beginTime} placeholder="开始时间" />
           </Space>
         </Form.Item>
 
@@ -167,7 +158,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           rules={rules}
         >
           <Space direction="vertical">
-            <DatePicker locale={locale} onChange={endTime} placeholder="结束时间"/>
+            <DatePicker locale={locale} onChange={endTime} placeholder="结束时间" />
           </Space>
         </Form.Item>
 
@@ -177,7 +168,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           rules={rules}
         >
           <Space direction="vertical">
-            <DatePicker locale={locale} onChange={dateTime} placeholder="作业日期"/>
+            <DatePicker locale={locale} onChange={dateTime} placeholder="作业日期" />
           </Space>
         </Form.Item>
 
@@ -186,7 +177,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="departmentId"
           rules={rules}
         >
-          <Select style={{width: "100%"}}>
+          <Select style={{ width: "100%" }}>
             {department.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
@@ -197,7 +188,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           rules={rules}
         >
           <Upload {...props}>
-            <Button icon={<UploadOutlined/>}>上传</Button>
+            <Button icon={<UploadOutlined />}>上传</Button>
           </Upload>
         </Form.Item>
 
@@ -217,7 +208,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="leaderDuty"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -225,7 +216,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="leaderPerson"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -233,7 +224,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="lineId"
           rules={rules}
         >
-          <Select style={{width: "100%"}}>
+          <Select style={{ width: "100%" }}>
             {lineLIst.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
@@ -242,7 +233,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="materialList"
           rules={rules}
         >
-          <Select style={{width: "100%"}}>
+          <Select style={{ width: "100%" }}>
             {materialList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
@@ -252,7 +243,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="name"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -260,7 +251,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="num"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -268,8 +259,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="personList"
           rules={rules}
         >
-          <Select style={{width: "100%"}}>
-            {personList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          <Select style={{ width: "100%" }}>
+            {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
 
@@ -278,7 +269,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="pinStand"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -286,7 +277,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="pleaseStand"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -294,7 +285,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="preventionDuty"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -302,15 +293,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="preventionPerson"
           rules={rules}
         >
-          <Input/>
-        </Form.Item>
-
-        <Form.Item
-          label="备注"
-          name="remark"
-          rules={rules}
-        >
-          <TextArea rows={1}/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -318,7 +301,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="safeDuty"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -326,7 +309,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="safePerson"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -334,7 +317,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="toolList"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -342,7 +325,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="type"
           rules={rules}
         >
-          <Select style={{width: "100%"}}>
+          <Select style={{ width: "100%" }}>
             {planTypeList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.type}</Option>)}
           </Select>
         </Form.Item>
@@ -352,7 +335,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="warnTime"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -360,7 +343,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="workAddr"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -368,7 +351,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="workContent"
           rules={rules}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -376,21 +359,28 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="workPerson"
           rules={rules}
         >
-          <Input/>
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="备注"
+          name="remark"
+        >
+          <TextArea rows={1} />
         </Form.Item>
       </Form>
     </Modal>
   );
 };
 // 发布计划
-export const ShareModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ShareModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const [personList, setPersonList] = useState([])
   const client = useHttp()
 
   const getPersonList = useCallback(() => {
     //  人员集合
-    client(`person/list`, {method: "POST"}).then(res => {
+    client(`person/list`, { method: "POST" }).then(res => {
       setPersonList(res.data)
     })
   }, [client])
@@ -409,8 +399,8 @@ export const ShareModalForm: React.FC<ModalFormProps> = ({visible, onCancel, typ
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -432,7 +422,7 @@ export const ShareModalForm: React.FC<ModalFormProps> = ({visible, onCancel, typ
   )
 }
 // 反馈
-export const ShareBackModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ShareBackModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState(0);
   const onOk = () => {
@@ -450,8 +440,8 @@ export const ShareBackModalForm: React.FC<ModalFormProps> = ({visible, onCancel,
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -474,14 +464,14 @@ export const ShareBackModalForm: React.FC<ModalFormProps> = ({visible, onCancel,
           label="备注"
           name="remark"
         >
-          <Input/>
+          <Input />
         </Form.Item>
       </Form>
     </Modal>
   )
 }
 // 查看
-export const ViewModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ViewModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const client = useHttp()
   // const [value, setValue] = useState(0);

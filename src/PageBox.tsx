@@ -1,12 +1,16 @@
 import styled from "@emotion/styled";
-import React, {useEffect, useState} from "react";
-import {useHttp} from "./utils/http";
+import React, { useEffect, useState } from "react";
+import { useHttp } from "./utils/http";
 import logo from './icon/logo.png'
-import {NavLink} from "react-router-dom";
-import {useAuth} from "./context/auth-context";
-import {Button, Dropdown, Menu} from "antd";
-import {DownOutlined} from '@ant-design/icons';
-import {RouterElement} from "./router";
+import notice from './icon/通知.png'
+import { NavLink } from "react-router-dom";
+import { useAuth } from "./context/auth-context";
+import { Button, Dropdown, Form, Input, Menu, message, Modal, Popover } from "antd";
+import { DownOutlined } from '@ant-design/icons';
+import { RouterElement } from "./router";
+import { useQuery } from 'react-query'
+import qs from "qs";
+import { rules } from "./utils/verification";
 
 export const PageBox = () => {
   const [menu, setMenu] = useState([])
@@ -15,10 +19,10 @@ export const PageBox = () => {
     client(`info?type=1`, {
       method: "POST"
     }).then(res => {
-      res.data.push({name: '首页', url: '/home'})
+      res.data.push({ name: '首页', url: '/home' })
       res.data.reverse()
       res.data.forEach((item: { [key: string]: unknown }) => {
-        let {name} = item
+        let { name } = item
         switch (name) {
           case '设备管理':
             item.url = '/hardware'
@@ -52,7 +56,7 @@ export const PageBox = () => {
       <HeaderStyle>
         <Logo>
           <div className="img">
-            <img src={logo} alt=""/>
+            <img src={logo} alt="" />
           </div>
           <div className="title" onClick={() => window.location.href = window.location.origin}>
             <p>5G-NB智慧轨行区 数字化维养安全管控系统</p>
@@ -60,12 +64,12 @@ export const PageBox = () => {
           <Nav>
             {
               menu.map((item: any, index) => (
-                <li key={index}><NavLink activeStyle={{color: '#5A7FFA'}} to={item.url}>{item.name}</NavLink></li>
+                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
               ))
             }
           </Nav>
         </Logo>
-        <User/>
+        <User />
       </HeaderStyle>
       <ContentStyle>
         <RouterElement></RouterElement>
@@ -86,25 +90,110 @@ export const PageBox = () => {
 }
 
 const User = () => {
-  const {logout, user} = useAuth();
+  const { logout, user } = useAuth();
+  const [visible, setVisible] = useState(false);
+  const client = useHttp()
+  const onCreate = (values: any) => {
+    client(`user/editpassword?${qs.stringify(values)}`, { method: "POST" }).then(() => {
+      message.success("修改成功")
+      setVisible(false);
+    }).catch(error => {
+      message.error(error.msg)
+    })
+  };
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const { data } = useQuery('transactionNotice', () => client(`transactionNotice/list`, { method: "POST" }))
+
+  const content = (
+    <div style={{ minWidth: "20rem" }}>
+      {data?.data.map((item: any) => <p key={item.id} style={{ display: "flex", justifyContent: "space-around" }}>
+        <span>{item.title}</span>
+        <span>{item.content}</span>
+      </p>)}
+    </div>
+  );
 
   return (
-    <Dropdown
-      overlay={
-        <Menu>
-          <Menu.Item key={"logout"}>
-            <Button onClick={logout} type={"link"}>
-              登出
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <Popover content={content} title="事务通知">
+        <img src={notice} alt="" />
+      </Popover>
+      <Dropdown
+        overlay={
+          <Menu>
+            <Menu.Item key={"logout"}>
+              <Button onClick={logout} type={"link"}>
+                登出
             </Button>
-          </Menu.Item>
-        </Menu>
-      }
+            </Menu.Item>
+            <Menu.Item key={"mod"}>
+              <Button onClick={showModal} type={"link"}>
+                修改密码
+            </Button>
+            </Menu.Item>
+          </Menu>
+        }
+      >
+        <Button style={{ color: '#3A3D44', fontSize: '2rem', fontWeight: 'bold' }} type={"link"}
+          onClick={(e) => e.preventDefault()}>
+          {user?.loginName}<DownOutlined />
+        </Button>
+      </Dropdown>
+      <CollectionCreateForm
+        visible={visible}
+        onCreate={onCreate}
+        onCancel={() => {
+          setVisible(false);
+        }}
+      />
+    </div>
+  );
+};
+
+interface CollectionCreateFormProps {
+  visible: boolean;
+  onCreate: (values: any) => void;
+  onCancel: () => void;
+}
+
+const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
+  visible,
+  onCreate,
+  onCancel,
+}) => {
+  const [form] = Form.useForm();
+  return (
+    <Modal
+      visible={visible}
+      title="修改密码"
+      okText="提交"
+      cancelText="取消"
+      onCancel={onCancel}
+      onOk={() => {
+        form
+          .validateFields()
+          .then(values => {
+            form.resetFields();
+            onCreate(values);
+          })
+          .catch(info => {
+            console.log('Validate Failed:', info);
+          });
+      }}
     >
-      <Button style={{color: '#3A3D44', fontSize: '2rem', fontWeight: 'bold'}} type={"link"}
-              onClick={(e) => e.preventDefault()}>
-        {user?.loginName}<DownOutlined/>
-      </Button>
-    </Dropdown>
+      <Form form={form}>
+        <Form.Item name={"newpassword"} rules={rules}>
+          <Input placeholder={"请输入新密码"} />
+        </Form.Item>
+
+        <Form.Item name={"oldpassword"} rules={rules}>
+          <Input placeholder={"请输入旧密码"} />
+        </Form.Item>
+      </Form>
+    </Modal>
   );
 };
 

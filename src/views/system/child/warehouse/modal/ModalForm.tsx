@@ -15,11 +15,9 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   const [form] = Form.useForm();
 
   useEffect(() => {
+    if (type === "新增") return
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
 
   useResetFormOnCloseModal({
     form,

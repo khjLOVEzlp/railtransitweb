@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {Button, Form, Input, Modal, Radio} from "antd";
-import {rules} from "../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../hook/useResetFormOnCloseModal";
-
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, DatePicker, Form, Input, Modal, Radio, Space, TreeSelect } from "antd";
+import { rules } from "../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../hook/useResetFormOnCloseModal";
+import { useHttp } from "../../../utils/http";
+import locale from 'antd/es/date-picker/locale/zh_CN';
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -15,18 +16,47 @@ interface ModalFormProps {
   formData: object
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState()
+  const [sex, setSex] = useState(0)
+  const client = useHttp()
   useEffect(() => {
+    if (type === "新增") return
+    console.log(formData);
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
 
   const radioChange = (e: any) => {
-    setValue(e.target.value);
+    setSex(e.target.value);
+  }
+
+  const getDepartmentList = useCallback(() => {
+    client(`department/getAll`).then(res => {
+      const fuc = (data: any) => {
+        if (data && data.length > 0) {
+          data.forEach((item: any) => {
+            item.title = item.name
+            item.value = item.id
+            item.children = fuc(item.departmentList)
+          });
+        } else {
+          data = []
+        }
+        return data
+      }
+      setValue(fuc(res.data))
+    })
+
+
+  }, [client])
+
+  useEffect(() => {
+    getDepartmentList()
+  }, [getDepartmentList])
+
+  const birthday = (obj: any | null, time: string) => {
+    form.setFieldsValue({ birthday: time })
   }
 
   useResetFormOnCloseModal({
@@ -34,14 +64,18 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
     visible,
   });
 
+  const onChange = (value: any) => {
+    form.setFieldsValue({ departmentId: value })
+  };
+
   const onOk = () => {
     form.submit();
   };
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -62,7 +96,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="sex"
           rules={rules}
         >
-          <Radio.Group onChange={radioChange} defaultValue={1} value={value}>
+          <Radio.Group onChange={radioChange} value={sex}>
             <Radio value={1}>男</Radio>
             <Radio value={2}>女</Radio>
           </Radio.Group>
@@ -93,25 +127,30 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         </Form.Item>
 
         <Form.Item
-          label="部门id"
+          label="部门"
           name="departmentId"
           rules={rules}
         >
-          <Input />
+          <TreeSelect
+            style={{ width: '100%' }}
+            treeData={value}
+            treeDefaultExpandAll
+            onChange={onChange}
+          />
         </Form.Item>
 
         <Form.Item
           label="出生日期"
           name="birthday"
-          rules={rules}
         >
-          <Input />
+          <Space direction="vertical">
+            <DatePicker locale={locale} onChange={birthday} />
+          </Space>
         </Form.Item>
 
         <Form.Item
           label="家庭住址"
           name="address"
-          rules={rules}
         >
           <Input />
         </Form.Item>

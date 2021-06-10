@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
-import {Button, Form, Input, Modal} from "antd";
-import {rules} from "../../../../../utils/verification";
-import {useResetFormOnCloseModal} from "../../../../../hook/useResetFormOnCloseModal";
+import React, { useEffect, useState } from "react";
+import { Button, Form, Input, Modal, Radio } from "antd";
+import { rules } from "../../../../../utils/verification";
+import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
 
 /*const layout = {
   labelCol: {span: 4},
@@ -15,20 +15,28 @@ interface ModalFormProps {
   formData: object
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, formData}) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
+  const [menuType, setMenuType] = useState(1)
+  const [status, setStatus] = useState(1)
 
   useEffect(() => {
+    if (type === "新增") return
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
 
   useResetFormOnCloseModal({
     form,
     visible,
   });
+
+  const menuTypeChange = (e: any) => {
+    setMenuType(e.target.value)
+  }
+
+  const statusChange = (e: any) => {
+    setStatus(e.target.value)
+  }
 
   const onOk = () => {
     form.submit();
@@ -36,8 +44,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
 
   return (
     <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-           footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
       <Form
         form={form}
@@ -57,7 +65,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="menuType"
           rules={rules}
         >
-          <Input />
+          <Radio.Group onChange={menuTypeChange} value={menuType}>
+            <Radio value={1}>web</Radio>
+            <Radio value={2}>app</Radio>
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item
@@ -76,7 +87,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
         </Form.Item>
 
         <Form.Item
-          label="父节点id"
+          label="父节点"
           name="parentId"
           rules={rules}
         >
@@ -110,7 +121,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({visible, onCancel, type, fo
           name="visible"
           rules={rules}
         >
-          <Input />
+          <Radio.Group onChange={statusChange} value={status}>
+            <Radio value={0}>显示</Radio>
+            <Radio value={1}>隐藏</Radio>
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item

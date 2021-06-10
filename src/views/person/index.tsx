@@ -1,43 +1,29 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import { useState } from 'react';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import qs from "qs";
-import {ModalForm} from "./modal/ModalForm";
-import {useHttp} from "../../utils/http";
-import {cleanObject} from "../../utils";
+import { ModalForm } from "./modal/ModalForm";
+import { useAdd, useDel, useInit, useMod } from './person';
 
 export const Person = () => {
   const [visible, setVisible] = useState(false);
-  const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
-  const [formData, setFormData] = useState({})
-  const client = useHttp()
+  const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
     name: ''
   })
 
-  const [total, setTotal] = useState(0)
-
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.name,
-    }
-    client(`person/list?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
-      setTabList(res.data)
-      setTotal(res.count)
-    })
-  }, [client, pagination])
-
-  useEffect(() => {
-    init()
-  }, [init])
+  /* 
+      增删改查
+    */
+  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { mutateAsync: Add } = useAdd()
+  const { mutateAsync: Mod } = useMod()
+  const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({...pagination, name: item.name})
+    setPagination({ ...pagination, name: item.name, page: 1 })
   };
 
   const add = () => {
@@ -51,10 +37,8 @@ export const Person = () => {
     setFormData(item)
   }
 
-  const del = async (id: number | string) => {
-    client(`person/delete/${id}`).then(() => {
-      init()
-    })
+  const del = async (id: number) => {
+    Del(id)
   }
 
   const confirm = (item: any) => {
@@ -66,7 +50,7 @@ export const Person = () => {
   }
 
   const onChange = (page: number) => {
-    setPagination({...pagination, page})
+    setPagination({ ...pagination, page })
   }
 
   const showUserModal = () => {
@@ -80,20 +64,20 @@ export const Person = () => {
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
+        onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            client(`person/save`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            Add(values).then(() => {
               message.success('新增成功')
               setVisible(false);
             }).catch(err => {
-              console.log(err.msg, 'err')
+              message.error(err.msg)
             })
           } else if (name === "修改") {
-            client(`person/update`, {method: "POST", body: JSON.stringify(values)}).then(() => {
+            Mod({ ...values, id: formData.id }).then(() => {
               message.success('修改成功')
               setVisible(false);
             }).catch(err => {
-              console.log(err.msg, 'err')
+              message.error(err.msg)
             })
           }
         }}
@@ -108,7 +92,7 @@ export const Person = () => {
               label="人员名称"
               name="name"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item>
@@ -148,10 +132,10 @@ export const Person = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total, onChange: onChange}} dataSource={tabList}
-                 rowKey={(item: any) => item.id}/>
+          } pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
+            rowKey={(item: any) => item.id} />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
       </Form.Provider>
     </>
   );

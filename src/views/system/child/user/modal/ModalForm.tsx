@@ -25,11 +25,9 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   const client = useHttp()
 
   useEffect(() => {
+    if (type === "新增") return
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
 
   const getRoleLIst = useCallback(() => {
     client(`role/getAll`, { method: "POST" }).then((res) => {
@@ -42,16 +40,18 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   }, [client])
 
   const getPersonList = useCallback(() => {
-    client(`person/list`, { method: "POST" }).then(res => {
-      console.log(res.data);
+    client(`user/userlist`, { method: "POST" }).then(res => {
       setPersonList(res.data)
     })
   }, [client])
 
   useEffect(() => {
-    getPersonList()
     getRoleLIst()
-  }, [getPersonList, getRoleLIst])
+  }, [getRoleLIst])
+
+  useEffect(() => {
+    getPersonList()
+  }, [getPersonList])
 
   useResetFormOnCloseModal({
     form,
@@ -95,7 +95,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           rules={rules}
         >
           <Select>
-            {personList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+            {personList.map((item: any, index: number) => <Option value={item.personId} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
 

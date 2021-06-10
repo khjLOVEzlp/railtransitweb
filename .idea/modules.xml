@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/../article-manage-system/.idea/article-manage-system.iml" filepath="$PROJECT_DIR$/../article-manage-system/.idea/article-manage-system.iml" />
       <module fileurl="file://$PROJECT_DIR$/../railtransit/.idea/railtransit.iml" filepath="$PROJECT_DIR$/../railtransit/.idea/railtransit.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/railtransitweb.iml" filepath="$PROJECT_DIR$/.idea/railtransitweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jira/.idea/react-ts-hook-jira.iml" filepath="$PROJECT_DIR$/../jira/.idea/react-ts-hook-jira.iml" />
     </modules>
   </component>
 </project>

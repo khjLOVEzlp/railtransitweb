@@ -1,15 +1,12 @@
 import styled from "@emotion/styled"
 import { Button, Form, Input, Table, Space, DatePicker } from "antd";
-import qs from "qs";
-import React, {useCallback, useEffect, useState} from "react";
-import { useHttp } from "../../../../utils/http";
-import {cleanObject} from "../../../../utils";
+import { useState } from "react";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
+import { useInit } from "./log";
 const { RangePicker } = DatePicker;
 
 export const Log = () => {
-  const client = useHttp()
 
   const [pagination, setPagination] = useState({
     page: 1,
@@ -19,33 +16,15 @@ export const Log = () => {
     endTime: ''
   })
 
-  const [data, setData] = useState([])
-  const [total, setTotal] = useState(0)
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.operName,
-      startTime: pagination.startTime,
-      endTime: pagination.endTime
-    }
-    client(`log/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
-      setData(res.data)
-      setTotal(res.count)
-    })
-  }, [client, pagination])
-
-  useEffect(() => {
-    init()
-  }, [init])
+  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
 
   const search = (values: any) => {
-    setPagination({ ...pagination, operName: values.name })
+    setPagination({ ...pagination, operName: values.name, page: 1 })
   };
 
   const timeChange = (dates: any, dateStrings: any) => {
     console.log(dates, dateStrings)
-    setPagination({...pagination, startTime: dateStrings[0], endTime: dateStrings[1]})
+    setPagination({ ...pagination, startTime: dateStrings[0], endTime: dateStrings[1] })
   }
 
   const onChange = (page: number) => {
@@ -102,7 +81,7 @@ export const Log = () => {
         </Form>
       </Header>
       <Main>
-        <Table columns={columns} pagination={{ total, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data} rowKey={(item: any) => item.id} />
       </Main>
     </div>
   )

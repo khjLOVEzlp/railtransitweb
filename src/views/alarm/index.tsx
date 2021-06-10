@@ -1,98 +1,39 @@
 import styled from "@emotion/styled"
-import {Button, message, Popconfirm, Select, Table} from "antd"
-import React, {useCallback, useEffect, useState} from "react"
-import {useDocumentTitle} from '../../hook/useDocumentTitle'
-import {useHttp} from "../../utils/http"
+import { Button, Select, Table } from "antd"
+import { useState } from "react"
+import { useDocumentTitle } from '../../hook/useDocumentTitle'
+import { useInit, useStatistic, useType } from "./alarm"
 // import {useLocation} from "react-router";
 
-const {Option} = Select;
+const { Option } = Select;
 
 export const Alarm = () => {
-  // const {state} = useLocation()
-  const [navList, setNavList] = useState([])
-  const [data, setData] = useState([])
-  const [type, setType] = useState([])
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
     type: '',
-    name: ""
+    name: ''
   })
-  const [total, setTotal] = useState(0)
 
-  // useEffect(() => {
-  //   setPagination({...pagination, name: String(state)})
-  // }, [])
-
-  const client = useHttp()
-
-  const init = useCallback(() => {
-    const param = {...pagination, index: pagination.page}
-    client(`alarm/list`, {
-      method: "POST", body: JSON.stringify(param)
-    }).then(res => {
-      setData(res.data)
-      setTotal(res.count)
-    })
-  }, [pagination, client])
-
-  const getNavList = useCallback(() => {
-    client(`alarm/statistic/list`, {
-      method: "POST", body: JSON.stringify(pagination)
-    }).then(res => {
-      setNavList(res.data)
-    })
-  }, [client, pagination])
-
-  const getType = useCallback(() => {
-    client(`dictItem/list?index=1&size=100&typeId=002`, {method: "POST"})
-      .then(res => {
-        setType(res.data)
-      })
-  }, [client])
-
-  useEffect(() => {
-    init()
-  }, [init])
-
-  useEffect(() => {
-    getNavList()
-  }, [getNavList])
-
-  useEffect(() => {
-    getType()
-  }, [getType])
+  const { data: navList } = useStatistic({ ...pagination, index: pagination.page })
+  const { data: dataList, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { data: type } = useType()
 
   const filter = (title: string) => {
-    setPagination({...pagination, name: title})
+    setPagination({ ...pagination, name: title })
   }
 
   // 重置
   const reset = () => {
-    setPagination({...pagination, type: '', name: ''})
-  }
-
-  const del = async (id: number | string) => {
-    client(`hardware/alcohol/delete/${id}`)
-      .then(() => {
-        init()
-      })
-  }
-
-  const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
-  }
-
-  const cancel = () => {
-    message.error('取消删除');
+    setPagination({ ...pagination, type: '', name: '' })
   }
 
   const onChange = (page: number) => {
-    setPagination({...pagination, page})
+    setPagination({ ...pagination, page })
   }
 
   const handleChange = (value: any) => {
-    setPagination({...pagination, type: value})
+    setPagination({ ...pagination, type: value })
   }
 
   const columns = [
@@ -121,19 +62,6 @@ export const Alarm = () => {
       dataIndex: 'content',
       key: 'content',
     },
-    {
-      title: '操作',
-      key: 'address',
-      render: (item: any) => <Popconfirm
-        title={`是否要删除${item.title}`}
-        onConfirm={() => confirm(item)}
-        onCancel={cancel}
-        okText="Yes"
-        cancelText="No"
-      >
-        <Button type={"link"}>删除</Button>
-      </Popconfirm>
-    },
   ]
 
   useDocumentTitle('告警上报')
@@ -145,25 +73,25 @@ export const Alarm = () => {
           告警信息
         </Title>
         <Nav>
-          {navList.map((item: any, index) => (<li key={index}>
-            <img onClick={() => filter(item.title)} src={`../../icon/${item.title}.png`} alt=""/>
+          {navList?.data.map((item: any) => (<li key={item.id}>
+            <img onClick={() => filter(item.title)} src={`../../icon/${item.title}.png`} alt="" />
             <div>
               <div>{item.title}</div>
-              <div style={{fontSize: '2rem', color: '#5A7FFA'}}>{item.num}</div>
+              <div style={{ fontSize: '2rem', color: '#5A7FFA' }}>{item.num}</div>
             </div>
           </li>))}
         </Nav>
       </Header>
       <Main>
-        <Select defaultValue="请选择" style={{width: 120, margin: '1rem 0'}} onChange={handleChange}>
+        <Select defaultValue="请选择" style={{ width: 120, margin: '1rem 0' }} onChange={handleChange}>
           {
-            type.map((item: any, index) => <Option value={item.item} key={index}>{item.value}</Option>)
+            type?.data.map((item: any) => <Option value={item.item} key={item.id}>{item.value}</Option>)
           }
         </Select>
-        <Button style={{marginLeft: '1rem'}}
-                onClick={() => reset()}>重置</Button>
-        <Table columns={columns} pagination={{total: total, onChange: onChange}} dataSource={data}
-               rowKey={(item: any) => item.id}/>
+        <Button style={{ marginLeft: '1rem' }}
+          onClick={() => reset()}>重置</Button>
+        <Table columns={columns} pagination={{ total: dataList?.count, onChange: onChange }} loading={isLoading} dataSource={dataList?.data}
+          rowKey={(item: any) => item.id} />
       </Main>
     </AlarmStyle>
   )
