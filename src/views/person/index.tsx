@@ -113,6 +113,36 @@ export const Person = () => {
                 key: 'name',
               },
               {
+                title: '性别',
+                key: 'sex',
+                render: (item) => <>{item.sex === 1 ? '女' : '男'}</>
+              },
+              {
+                title: '手机号',
+                dataIndex: 'number',
+                key: 'number',
+              },
+              {
+                title: '归属部门',
+                dataIndex: 'departmentName',
+                key: 'departmentName',
+              },
+              {
+                title: '创建者',
+                dataIndex: 'createBy',
+                key: 'id',
+              },
+              {
+                title: '创建时间',
+                dataIndex: 'createTime',
+                key: 'createTime',
+              },
+              {
+                title: '出生日期',
+                dataIndex: 'birthday',
+                key: 'birthday',
+              },
+              {
                 title: '备注',
                 dataIndex: 'remark',
                 key: 'remark',

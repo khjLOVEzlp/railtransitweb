@@ -1,40 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { useHttp } from "../../../../utils/http";
-import qs from "qs";
-import { cleanObject } from "../../../../utils";
 import { ModalForm } from "./modal/ModalForm";
+import { useAdd, useDel, useInit, useMod } from './planType';
 
 export const PlanType = () => {
   const [visible, setVisible] = useState(false);
-  const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
-  const [formData, setFormData] = useState({})
-  const client = useHttp()
+  const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
     type: ''
   })
 
-  const [total, setTotal] = useState(0)
+  /* 增删改查 */
 
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      type: pagination.type,
-    }
-    client(`planType/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
-      setTabList(res.data)
-      setTotal(res.count)
-    })
-  }, [client, pagination])
-
-  useEffect(() => {
-    init()
-  }, [init])
+  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { mutateAsync: Add } = useAdd()
+  const { mutateAsync: Mod } = useMod()
+  const { mutateAsync: Del } = useDel()
 
 
   const add = () => {
@@ -48,10 +33,8 @@ export const PlanType = () => {
     setFormData(item)
   }
 
-  const del = async (id: number | string) => {
-    client(`planType/delete/${id}`).then(() => {
-      init()
-    })
+  const del = async (id: number) => {
+    Del(id)
   }
 
   const confirm = (item: any) => {
@@ -78,38 +61,25 @@ export const PlanType = () => {
     setVisible(false);
   };
 
-  const save = (value: any) => {
-    console.log(value);
-
-    client(`planType/save`, { method: "POST", body: JSON.stringify(value) }).then(() => {
-      message.success('新增成功')
-      setVisible(false);
-      init()
-    }).catch(err => {
-      console.log(err.msg, 'err')
-    })
-  }
-
-  const update = (value: any) => {
-    client(`planType/update`, { method: "POST", body: JSON.stringify(value) }).then(() => {
-      message.success('修改成功')
-      setVisible(false);
-      init()
-    }).catch(err => {
-      console.log(err.msg, 'err')
-    })
-  }
-
   return (
     <>
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
-          console.log(values)
           if (name === '新增') {
-            save(values)
+            Add(values).then(() => {
+              message.success('新增成功')
+              setVisible(false);
+            }).catch(error => {
+              message.error(error.msg)
+            })
           }
           if (name === "修改") {
-            update(values)
+            Mod({ ...values, id: formData.id }).then(() => {
+              message.success('修改成功')
+              setVisible(false);
+            }).catch(error => {
+              message.error(error.msg)
+            })
           }
         }}
       >
@@ -173,8 +143,9 @@ export const PlanType = () => {
                 )
               },
             ]
-          } pagination={{ total, onChange: onChange }}
-            dataSource={tabList}
+          } pagination={{ total: data?.count, onChange: onChange }}
+            dataSource={data?.data}
+            loading={isLoading}
             rowKey={(item: any) => item.id}
           />
         </Main>

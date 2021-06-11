@@ -8,7 +8,7 @@ import { useHttp } from '../../utils/http'
  */
 export const usePerson = () => {
   const client = useHttp()
-  return useQuery(['warehouse'], () => client(`person/getAllPerson`))
+  return useQuery(['person'], () => client(`person/getAllPerson`))
 }
 
 /*
@@ -16,7 +16,7 @@ export const usePerson = () => {
  */
 export const useInit = (params: any) => {
   const client = useHttp()
-  return useQuery(['role', cleanObject(params)], () => client(`person/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery(['person', cleanObject(params)], () => client(`person/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
 /* 

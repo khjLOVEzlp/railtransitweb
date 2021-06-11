@@ -4,17 +4,17 @@ import { cleanObject } from '../../../../utils'
 import { useHttp } from '../../../../utils/http'
 
 /* 查所有 */
-export const useLine = () => {
+export const usePlanType = () => {
   const client = useHttp()
-  return useQuery(['line'], () => client(`line/listLineAndPlatform`, { method: "POST" }))
+  return useQuery(['planType'], () => client(`planType/getAll`, { method: "POST" }))
 }
 
 /*
-分页查询
+查询
  */
-export const useInit = (params: any) => {
+export const useInit = (params?: any) => {
   const client = useHttp()
-  return useQuery(['line', cleanObject(params)], () => client(`line/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery(['planType', cleanObject(params)], () => client(`planType/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
 /* 
@@ -23,9 +23,9 @@ export const useInit = (params: any) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`line/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`planType/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('line')
+      queryClient.invalidateQueries('planType')
     },
     onError: () => {
     }
@@ -38,9 +38,9 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`line/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`planType/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('line')
+      queryClient.invalidateQueries('planType')
     },
     onError: () => {
     }
@@ -53,9 +53,9 @@ export const useMod = () => {
 export const useDel = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((id: number) => client(`line/delete/${id}`), {
+  return useMutation((id: number) => client(`planType/delete/${id}`), {
     onSuccess: () => {
-      queryClient.invalidateQueries('line')
+      queryClient.invalidateQueries('planType')
     },
     onError: () => {
     }

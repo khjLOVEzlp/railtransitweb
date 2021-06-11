@@ -55,3 +55,9 @@ export const useDel = () => {
     }
   })
 }
+
+/* 详情 */
+export const useLineDetail = (id: number) => {
+  const client = useHttp()
+  return useQuery(['lineDetail', id], () => client(`line/get/${id}`))
+}

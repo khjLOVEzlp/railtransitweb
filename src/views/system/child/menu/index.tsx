@@ -113,6 +113,11 @@ export const Menu = () => {
                 key: 'name',
               },
               {
+                title: "创建时间",
+                dataIndex: 'createTime',
+                key: 'id',
+              },
+              {
                 title: '备注',
                 dataIndex: 'remark',
                 key: 'remark',

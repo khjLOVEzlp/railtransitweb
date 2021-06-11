@@ -37,16 +37,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         } else {
           data = []
         }
-
         return data
-
       }
-
       setDepartmentList(fuc(res.data))
-
     })
-
-
   }, [client])
 
   useEffect(() => {

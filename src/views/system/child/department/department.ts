@@ -6,7 +6,7 @@ import { useHttp } from '../../../../utils/http'
 /*
 查询
  */
-export const useInit = (params: any) => {
+export const useInit = (params?: any) => {
   const client = useHttp()
   return useQuery(['department', cleanObject(params)], () => client(`department/getAll?${qs.stringify(cleanObject(params))}`))
 }

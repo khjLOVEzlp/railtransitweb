@@ -3,6 +3,12 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from '../../../../utils'
 import { useHttp } from '../../../../utils/http'
 
+/* 查询没有账号的用户 */
+export const useUserList = () => {
+  const client = useHttp()
+  return useQuery(['userlist'], () => client(`user/userlist`, { method: "POST" }))
+}
+
 /*
 查询
  */

@@ -180,6 +180,16 @@ export const DictType = () => {
                 key: 'name',
               },
               {
+                title: '创建者',
+                dataIndex: 'createBy',
+                key: 'id',
+              },
+              {
+                title: "创建时间",
+                dataIndex: "createTime",
+                key: "id"
+              },
+              {
                 title: '备注',
                 dataIndex: 'remark',
                 key: 'remark',

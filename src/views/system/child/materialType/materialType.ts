@@ -3,8 +3,14 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from '../../../../utils'
 import { useHttp } from '../../../../utils/http'
 
+/* 查询所有 */
+export const useMaterialType = () => {
+  const client = useHttp()
+  return useQuery(['materialType'], () => client(`materialType/getAll`, { method: "POST" }))
+}
+
 /*
-查询
+分页查询
  */
 export const useInit = (params: any) => {
   const client = useHttp()

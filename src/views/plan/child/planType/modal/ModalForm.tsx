@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input, Modal, Select } from "antd";
-import { useHttp } from "../../../../../utils/http";
 import 'moment/locale/zh-cn';
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
 import { rules } from "../../../../../utils/verification";
+import TextArea from "antd/lib/input/TextArea";
+import { useMaterialType } from "../../../../system/child/materialType/materialType";
 
 const { Option } = Select;
 /*const layout = {
@@ -20,46 +21,26 @@ interface ModalFormProps {
 
 export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
-  const [materialList, setMaterialList] = useState([])
-  const [planTypeList, setPlanTypeList] = useState([])
-  const client = useHttp()
 
   useEffect(() => {
+    if (type === "新增") return
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
 
-  const getMaterialList = useCallback(() => {
-    client(`materialType/getAll`, { method: "POST" }).then(res => {
-      setMaterialList(res.data)
-    })
-  }, [client])
-
-  const getPlanTypeList = useCallback(() => {
-    client(`planType/getAll`, { method: "POST" }).then(res => {
-      setPlanTypeList(res.data)
-    })
-  }, [client])
-
-  useEffect(() => {
-    getMaterialList()
-  }, [getMaterialList])
-
-  useEffect(() => {
-    getPlanTypeList()
-  }, [getPlanTypeList])
+  const { data: material } = useMaterialType()
 
   useResetFormOnCloseModal({
     form,
     visible,
   });
 
-  const handleChange = (value: any) => {
-    console.log(value);
+  const materialListChange = (value: any) => {
 
   }
+
+  const toolListChange = (value: any) => {
+  }
+
 
   const onOk = () => {
     form.submit();
@@ -77,6 +58,14 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         layout={"vertical"}
       >
         <Form.Item
+          label="作业类型"
+          name="type"
+          rules={rules}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
           label="物料"
           name="materialList"
           rules={rules}
@@ -85,10 +74,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
             mode="multiple"
             allowClear
             style={{ width: '100%' }}
-            onChange={handleChange}
+            onChange={materialListChange}
           >
             {
-              materialList.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
+              material?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
             }
           </Select>
         </Form.Item>
@@ -98,16 +87,15 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           name="toolList"
           rules={rules}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="作业类型"
-          name="type"
-          rules={rules}
-        >
-          <Select style={{ width: "100%" }}>
-            {planTypeList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.type}</Option>)}
+          <Select
+            mode="multiple"
+            allowClear
+            style={{ width: '100%' }}
+            onChange={toolListChange}
+          >
+            {
+              material?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
+            }
           </Select>
         </Form.Item>
 
@@ -115,7 +103,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           label="备注"
           name="remark"
         >
-          <Input />
+          <TextArea rows={1} />
         </Form.Item>
       </Form>
     </Modal>

@@ -1,43 +1,31 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { useHttp } from "../../../../utils/http";
-import qs from "qs";
-import { cleanObject } from "../../../../utils";
 import { ModalForm, ShareModalForm, ShareBackModalForm, ViewModalForm } from "./modal/ModalForm";
+import { useAdd, useDel, useFeedBack, useInit, useMod, useSharePlan } from './planWork';
 
 export const PlanWork = () => {
   const [visible, setVisible] = useState(false);
   const [visibleShare, setVisibleShare] = useState(false);
   const [visibleView, setVisibleView] = useState(false);
   const [visibleShareBack, setVisibleShareBack] = useState(false)
-  const [tabList, setTabList] = useState([])
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
-  const client = useHttp()
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
     name: ''
   })
 
-  const [total, setTotal] = useState(0)
+  /* 增删改查 */
 
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.name,
-    }
-    client(`plan/list?${qs.stringify(cleanObject(param))}`, { method: "POST" }).then(res => {
-      setTabList(res.data)
-      setTotal(res.count)
-    })
-  }, [client, pagination])
+  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { mutateAsync: Add } = useAdd()
+  const { mutateAsync: Mod } = useMod()
+  const { mutateAsync: Del } = useDel()
+  const { mutateAsync: SharePlan } = useSharePlan()
+  const { mutateAsync: FeedBack } = useFeedBack()
 
-  useEffect(() => {
-    init()
-  }, [init])
 
   const add = () => {
     showUserModal()
@@ -68,10 +56,8 @@ export const PlanWork = () => {
     setFormData(item)
   }
 
-  const del = async (id: number | string) => {
-    client(`plan/delete/${id}`).then(() => {
-      init()
-    })
+  const del = async (id: number) => {
+    Del(id)
   }
 
   const confirm = (item: any) => {
@@ -87,7 +73,7 @@ export const PlanWork = () => {
   }
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name })
+    setPagination({ ...pagination, name: item.name, page: 1 })
   };
 
   const showUserModal = () => {
@@ -110,60 +96,42 @@ export const PlanWork = () => {
     setVisibleView(false)
   }
 
-  const save = (value: any) => {
-    client(`plan/save`, { method: "POST", body: JSON.stringify(value) }).then(() => {
-      message.success('新增成功')
-      setVisible(false);
-    }).catch(err => {
-      console.log(err.msg, 'err')
-    })
-  }
-
-  const update = (value: any) => {
-    client(`plan/update`, { method: "POST", body: JSON.stringify(value) }).then(() => {
-      message.success('修改成功')
-      setVisible(false);
-    }).catch(err => {
-      console.log(err.msg, 'err')
-    })
-  }
-
-  const sharePlan = (value: any) => {
-    const val = { ...value, planId: formData.id }
-    client(`plan/share`, { method: "POST", body: JSON.stringify((val)) }).then(() => {
-      message.success("发布成功")
-      hideShareModal()
-    }).catch(err => {
-      console.log(err)
-    })
-  }
-
-  const feedBack = (value: any) => {
-    const val = { ...value, planId: formData.id }
-    client(`plan/shareBack`, { method: "POST", body: JSON.stringify((val)) }).then(() => {
-      message.success("反馈成功")
-      hideShareBackModal()
-    }).catch(err => {
-      console.log(err)
-    })
-  }
-
   return (
     <>
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
           console.log(values)
           if (name === '新增') {
-            save(values)
+            Add(values).then(() => {
+              message.success("新增成功")
+              setVisible(false)
+            }).catch(error => {
+              message.error(error.msg)
+            })
           }
           if (name === "修改") {
-            update(values)
+            Mod({ ...values, id: formData.id }).then(() => {
+              message.success("修改成功")
+              setVisible(false)
+            }).catch(error => {
+              message.error(error.msg)
+            })
           }
           if (name === "发布计划") {
-            sharePlan(values)
+            SharePlan({ ...values, planId: formData.id }).then(() => {
+              message.success("发布成功")
+              hideShareModal()
+            }).catch(error => {
+              message.error(error.msg)
+            })
           }
           if (name === "反馈") {
-            feedBack(values)
+            FeedBack({ ...values, planId: formData.id }).then(() => {
+              message.success("反馈成功")
+              hideShareBackModal()
+            }).catch(error => {
+              message.error(error.msg)
+            })
           }
         }}
       >
@@ -235,8 +203,9 @@ export const PlanWork = () => {
                 )
               },
             ]
-          } pagination={{ total, onChange: onChange }}
-            dataSource={tabList}
+          } pagination={{ total: data?.count, onChange: onChange }}
+            dataSource={data?.data}
+            loading={isLoading}
             rowKey={(item: any) => item.id}
           />
         </Main>

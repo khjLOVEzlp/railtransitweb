@@ -38,6 +38,11 @@ export const Log = () => {
       key: 'operName',
     },
     {
+      title: "操作时间",
+      dataIndex: 'operTime',
+      key: 'id',
+    },
+    {
       title: '标题',
       dataIndex: 'title',
       key: 'title',

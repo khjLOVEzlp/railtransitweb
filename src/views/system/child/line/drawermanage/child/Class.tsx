@@ -246,6 +246,16 @@ export const Class = ({ formData }: { formData: any }) => {
               key: 'departmentName',
             },
             {
+              title: '创建者',
+              dataIndex: 'createBy',
+              key: 'id',
+            },
+            {
+              title: '创建时间',
+              dataIndex: 'createTime',
+              key: 'createTime',
+            },
+            {
               title: '备注',
               dataIndex: 'remark',
               key: 'remark',

@@ -218,8 +218,18 @@ export const Department = () => {
                 key: 'id',
               },
               {
+                title: '创建者',
+                dataIndex: 'createBy',
+                key: 'id',
+              },
+              {
                 title: "创建时间",
                 dataIndex: "createTime",
+                key: "id"
+              },
+              {
+                title: "更新时间",
+                dataIndex: "updateTime",
                 key: "id"
               },
               {

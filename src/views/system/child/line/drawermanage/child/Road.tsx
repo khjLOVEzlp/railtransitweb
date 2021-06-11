@@ -125,7 +125,7 @@ export const Road = ({ formData }: { formData: any }) => {
       <Form.Provider
         onFormFinish={(name, { values }) => {
           if (name === '新增') {
-            Add({ ...values, lineId: formData.id, id: dataForm.id }).then(() => {
+            Add({ ...values, lineId: formData.id }).then(() => {
               message.success("新增成功")
               setVisible(false);
             }).catch(error => {
@@ -169,6 +169,16 @@ export const Road = ({ formData }: { formData: any }) => {
               title: '路段名称',
               dataIndex: 'name',
               key: 'name',
+            },
+            {
+              title: '创建者',
+              dataIndex: 'createBy',
+              key: 'id',
+            },
+            {
+              title: '创建时间',
+              dataIndex: 'createTime',
+              key: 'createTime',
             },
             {
               title: '备注',

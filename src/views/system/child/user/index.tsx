@@ -119,6 +119,21 @@ export const User = () => {
                   key: 'id',
                 },
                 {
+                  title: "归属部门",
+                  dataIndex: 'departmentName',
+                  key: 'id',
+                },
+                {
+                  title: "登陆日期",
+                  dataIndex: 'loginDate',
+                  key: 'id',
+                },
+                {
+                  title: "创建时间",
+                  dataIndex: 'createTime',
+                  key: 'id',
+                },
+                {
                   title: '备注',
                   dataIndex: 'remark',
                   key: 'remark',

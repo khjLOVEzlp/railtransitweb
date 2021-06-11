@@ -188,9 +188,19 @@ export const DictItem = () => {
                 key: 'value',
               },
               {
+                title: '创建者',
+                dataIndex: 'createBy',
+                key: 'id',
+              },
+              {
                 title: '创建时间',
                 dataIndex: 'createTime',
                 key: 'createTime',
+              },
+              {
+                title: '类型',
+                dataIndex: 'value',
+                key: 'value',
               },
               {
                 title: '备注',

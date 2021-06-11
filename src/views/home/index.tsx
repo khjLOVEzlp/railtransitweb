@@ -1,9 +1,13 @@
 import styled from "@emotion/styled"
-import {useCallback, useEffect, useState} from "react";
-import {useDocumentTitle} from '../../hook/useDocumentTitle'
-import {track, options, task} from './subwayRoute'
-import {MyEcharts} from "../../components/MyEcharts";
-import {useHttp} from "../../utils/http";
+import { useCallback, useEffect, useState } from "react";
+import { useDocumentTitle } from '../../hook/useDocumentTitle'
+import { track, options, task } from './subwayRoute'
+import { MyEcharts } from "../../components/MyEcharts";
+import { useHttp } from "../../utils/http";
+import { Steps } from 'antd';
+import { DownCircleOutlined } from '@ant-design/icons';
+import { useLineIndex } from "./home";
+const { Step } = Steps;
 
 export const Home = () => {
   const [data] = useState(track)
@@ -33,8 +37,7 @@ export const Home = () => {
   const client = useHttp()
 
   const getAlertData = useCallback(() => {
-    client(`alarm/statistic/list`, {method: "POST", body: JSON.stringify({index: 1, size: 10})}).then(res => {
-      console.log(res.data)
+    client(`alarm/statistic/list`, { method: "POST", body: JSON.stringify({ index: 1, size: 10 }) }).then(res => {
       res.data.forEach((key: { [key in string]: unknown }) => {
         key["value"] = key.num
         key["name"] = key.title
@@ -84,6 +87,8 @@ export const Home = () => {
     getAlertData()
   }, [getAlertData])
 
+  const { data: lineList } = useLineIndex()
+
   return (
     <Container>
       <Header>
@@ -91,7 +96,7 @@ export const Home = () => {
           {/*<div className="title">*/}
           {/*  轨行图*/}
           {/*</div>*/}
-          <MyEcharts id="track" data={data} style={{width: '80%', height: '100%'}}/>
+          {/* <MyEcharts id="track" data={data} style={{ width: '80%', height: '50vh' }} />
 
           <div className="data">
             {
@@ -99,7 +104,7 @@ export const Home = () => {
                 <li key={index}>
                   <div>
                     <span className="icon">
-                      <img src={`../../icon/${item.name}.png`} alt=""/>
+                      <img src={`../../icon/${item.name}.png`} alt="" />
                     </span>
                     <span className="name">{item.name}</span>
                   </div>
@@ -109,14 +114,35 @@ export const Home = () => {
                 </li>
               ))
             }
-          </div>
+          </div> */}
+          {
+            lineList?.data.map((item: any) => (
+              <div key={item.id} style={{ height: "12.3rem", border: '1px solid #ccc', width: "100%", borderRadius: "5px", marginBottom: "2rem", padding: "1rem", boxSizing: "border-box" }}>
+                <div style={{ marginBottom: "0.3rem" }}>地铁线名称：<i style={{ fontSize: '2rem', color: "#4ab4ff" }}>{item?.name || "无"}</i></div>
+                <div style={{ marginBottom: "0.3rem" }}>
+                  <span style={{ marginRight: "1rem" }}>班别数：<i style={{ fontSize: '2rem', color: "#4ab4ff" }}>{item?.classCount || "无"}</i></span>
+                  <span style={{ marginRight: "1rem" }}>仓库数：<i style={{ fontSize: '2rem', color: "#4ab4ff" }}>{item?.warehouseCount || "无"}</i></span>
+                  <span style={{ marginRight: "1rem" }}>站台数：<i style={{ fontSize: '2rem', color: "#4ab4ff" }}>{item?.platformCount || "无"}</i></span>
+                </div>
+                <Steps>
+                  {
+                    item.platformList.map((key: any) => (
+                      < Step status="finish" title={key.name} icon={<DownCircleOutlined />} />
+                    ))
+                  }
+                </Steps>
+              </div>
+            ))
+
+          }
+
 
         </div>
         <div className="right">
-          <div className="title">
+          {/* <div className="title">
             告警展示
-          </div>
-          <MyEcharts id="alert" data={alertData} style={{width: '100%', height: '42rem'}}/>
+          </div> */}
+          <MyEcharts id="alert" data={alertData} style={{ width: '100%', height: '50vh' }} />
         </div>
       </Header>
       <Footer>
@@ -124,13 +150,13 @@ export const Home = () => {
           <div className="title">
             计划统计
           </div>
-          <MyEcharts id="plan" data={planData} style={{width: '80%', height: '30rem'}}/>
+          <MyEcharts id="plan" data={planData} style={{ width: '80%', height: '30rem' }} />
         </div>
         <div className="right">
           <div className="title">
             作业统计
           </div>
-          <MyEcharts id="task" data={taskData} style={{width: '100%', height: '30rem'}}/>
+          <MyEcharts id="task" data={taskData} style={{ width: '100%', height: '30rem' }} />
         </div>
       </Footer>
     </Container>
@@ -153,9 +179,9 @@ const Header = styled.div`
     background: #FFFFFF;
     border-radius: 14px;
     width: 64%;
-    padding-top: 3rem;
+    padding: 1rem;
     box-sizing: border-box;
-    display: flex;
+    overflow-y: auto;
 
     > .data {
       display: flex;
@@ -183,8 +209,6 @@ const Header = styled.div`
     //  font-weight: bold;
     //  color: #3A3D44;
     //}
-
-
   }
 
   > .right {
@@ -202,6 +226,16 @@ const Header = styled.div`
       color: #3A3D44;
     }
   }
+`
+
+const Line = styled.div`
+  height: "12.3rem";
+  border: '1px solid #ccc';
+  width: "100%";
+  border-radius: "5px";
+  margin-bottom: "2rem";
+  padding: "1rem";
+  box-sizing: "border-box";
 `
 
 const Footer = styled.div`

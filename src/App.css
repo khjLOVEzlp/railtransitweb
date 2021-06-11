@@ -11,3 +11,9 @@ html, body, #root, .App {
 ul, li {
     list-style: none;
 }
+
+::-webkit-scrollbar {
+    background-color:#eee;
+    width: 2px;
+    height: 2px;
+}

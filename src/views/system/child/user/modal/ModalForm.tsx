@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Input, Modal, Select } from "antd";
 import { useHttp } from "../../../../../utils/http";
 import { rules } from "../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
+import { useUserList } from "../user";
 
 const { Option } = Select;
 
@@ -21,7 +22,6 @@ interface ModalFormProps {
 export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
   const [roleList, setRoleList] = useState([])
-  const [personList, setPersonList] = useState([])
   const client = useHttp()
 
   useEffect(() => {
@@ -39,19 +39,11 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
     })
   }, [client])
 
-  const getPersonList = useCallback(() => {
-    client(`user/userlist`, { method: "POST" }).then(res => {
-      setPersonList(res.data)
-    })
-  }, [client])
+  const { data: personList } = useUserList()
 
   useEffect(() => {
     getRoleLIst()
   }, [getRoleLIst])
-
-  useEffect(() => {
-    getPersonList()
-  }, [getPersonList])
 
   useResetFormOnCloseModal({
     form,
@@ -95,7 +87,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           rules={rules}
         >
           <Select>
-            {personList.map((item: any, index: number) => <Option value={item.personId} key={index}>{item.name}</Option>)}
+            {personList?.data.map((item: any, index: number) => <Option value={item.personId} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
 

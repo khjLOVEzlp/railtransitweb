@@ -131,6 +131,16 @@ export const Warehouse = () => {
                 key: 'name',
               },
               {
+                title: '创建者',
+                dataIndex: 'createBy',
+                key: 'id',
+              },
+              {
+                title: '创建时间',
+                dataIndex: 'createTime',
+                key: 'createTime',
+              },
+              {
                 title: "负责人",
                 dataIndex: "personName",
                 key: "id"

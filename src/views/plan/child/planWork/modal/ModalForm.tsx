@@ -8,6 +8,10 @@ import { UploadOutlined } from "@ant-design/icons";
 import { getToken } from "../../../../../auth-provider";
 import { rules } from "../../../../../utils/verification";
 import { usePerson } from "../../../../person/person";
+import { useMaterialType } from "../../../../system/child/materialType/materialType";
+import { useInit } from "../../../../system/child/department/department";
+import { usePlanType } from "../../planType/planType";
+import { useLine } from "../../../../system/child/line/line";
 const baseUrl = process.env["REACT_APP_API_URL"]
 const { TextArea } = Input;
 const { Option } = Select;
@@ -29,62 +33,18 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   const [form] = Form.useForm();
   const token = getToken()
   let document: number[] = []
-  const [department, setDepartment] = useState([])
-  const [materialList, setMaterialList] = useState([])
-  const [lineLIst, setLineList] = useState([])
   const [value, setValue] = useState()
-  const [planTypeList, setPlanTypeList] = useState([])
-  const client = useHttp()
 
   useEffect(() => {
+    if (type === "新增") return
     form.setFieldsValue(formData)
-    return () => {
-      form.setFieldsValue(null)
-    }
-  }, [formData, form])
+  }, [formData, form, visible, type])
 
-
-  const getMaterialList = useCallback(() => {
-    client(`materialType/getAll`, { method: "POST" }).then(res => {
-      setMaterialList(res.data)
-    })
-  }, [client])
-
-  const getDepartment = useCallback(() => {
-    client(`department/getAll`).then(res => {
-      setDepartment(res.data)
-    })
-  }, [client])
-
+  const { data: materialList } = useMaterialType()
+  const { data: department } = useInit()
+  const { data: planTypeList } = usePlanType()
+  const { data: lineLIst } = useLine()
   const { data: personList } = usePerson()
-
-  const getPlanTypeList = useCallback(() => {
-    client(`planType/getAll`, { method: "POST" }).then(res => {
-      setPlanTypeList(res.data)
-    })
-  }, [client])
-
-  const getLineList = useCallback(() => {
-    client(`line/listLineAndPlatform`, { method: "POST" }).then(res => {
-      setLineList(res.data)
-    })
-  }, [client])
-
-  useEffect(() => {
-    getMaterialList()
-  }, [getMaterialList])
-
-  useEffect(() => {
-    getPlanTypeList()
-  }, [getPlanTypeList])
-
-  useEffect(() => {
-    getDepartment()
-  }, [getDepartment])
-
-  useEffect(() => {
-    getLineList()
-  }, [getLineList])
 
   const radioChange = (e: any) => {
     setValue(e.target.value);
@@ -100,6 +60,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
 
   const endTime = (obj: any, item: string) => {
     form.setFieldsValue({ endTime: item })
+  }
+
+  const warnTime = (obj: any, item: string) => {
+    form.setFieldsValue({ warnTime: item })
   }
 
   useResetFormOnCloseModal({
@@ -143,69 +107,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         layout={"vertical"}
       >
         <Form.Item
-          label="开始时间"
-          name="beginTime"
-          rules={rules}
-        >
-          <Space direction="vertical">
-            <DatePicker locale={locale} onChange={beginTime} placeholder="开始时间" />
-          </Space>
-        </Form.Item>
-
-        <Form.Item
-          label="结束时间"
-          name="endTime"
-          rules={rules}
-        >
-          <Space direction="vertical">
-            <DatePicker locale={locale} onChange={endTime} placeholder="结束时间" />
-          </Space>
-        </Form.Item>
-
-        <Form.Item
-          label="作业日期"
-          name="dateTime"
-          rules={rules}
-        >
-          <Space direction="vertical">
-            <DatePicker locale={locale} onChange={dateTime} placeholder="作业日期" />
-          </Space>
-        </Form.Item>
-
-        <Form.Item
-          label="作业单位"
-          name="departmentId"
-          rules={rules}
-        >
-          <Select style={{ width: "100%" }}>
-            {department.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="文档"
-          name="documentList"
-          rules={rules}
-        >
-          <Upload {...props}>
-            <Button icon={<UploadOutlined />}>上传</Button>
-          </Upload>
-        </Form.Item>
-
-        <Form.Item
-          label="是否自动提醒"
-          name="isWarn"
-          rules={rules}
-        >
-          <Radio.Group onChange={radioChange} value={value}>
-            <Radio value={1}>是</Radio>
-            <Radio value={2}>否</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="施工负责人职责"
-          name="leaderDuty"
+          label="计划名称"
+          name="name"
           rules={rules}
         >
           <Input />
@@ -216,47 +119,14 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           name="leaderPerson"
           rules={rules}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="线路"
-          name="lineId"
-          rules={rules}
-        >
           <Select style={{ width: "100%" }}>
-            {lineLIst.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label="物料列表"
-          name="materialList"
-          rules={rules}
-        >
-          <Select style={{ width: "100%" }}>
-            {materialList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+            {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="计划名称"
-          name="name"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="计划令号"
-          name="num"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="作业人员"
-          name="personList"
+          label="防疫专员"
+          name="preventionPerson"
           rules={rules}
         >
           <Select style={{ width: "100%" }}>
@@ -265,77 +135,43 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         </Form.Item>
 
         <Form.Item
-          label="销站点"
-          name="pinStand"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="请站点"
-          name="pleaseStand"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="防疫专员职责"
-          name="preventionDuty"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="防疫专员"
-          name="preventionPerson"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="安全员职责"
-          name="safeDuty"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
           label="安全员"
           name="safePerson"
           rules={rules}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="工具列表"
-          name="toolList"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="作业类型"
-          name="type"
-          rules={rules}
-        >
           <Select style={{ width: "100%" }}>
-            {planTypeList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.type}</Option>)}
+            {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="提醒时间"
-          name="warnTime"
+          label="作业人员"
+          name="personList"
           rules={rules}
         >
-          <Input />
+          <Select style={{ width: "100%" }} allowClear mode="multiple">
+            {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="小组"
+          name="groupList"
+          rules={rules}
+        >
+          <Select style={{ width: "100%" }} allowClear mode="multiple">
+            {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="作业单位"
+          name="departmentId"
+          rules={rules}
+        >
+          <Select style={{ width: "100%" }}>
+            {department?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
         </Form.Item>
 
         <Form.Item
@@ -346,10 +182,141 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           <Input />
         </Form.Item>
 
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Form.Item
+            label="开始时间"
+            name="beginTime"
+            rules={rules}
+          >
+            <Space direction="vertical">
+              <DatePicker locale={locale} onChange={beginTime} placeholder="开始时间" />
+            </Space>
+          </Form.Item>
+
+          <Form.Item
+            label="结束时间"
+            name="endTime"
+            rules={rules}
+          >
+            <Space direction="vertical">
+              <DatePicker locale={locale} onChange={endTime} placeholder="结束时间" />
+            </Space>
+          </Form.Item>
+
+          <Form.Item
+            label="作业日期"
+            name="dateTime"
+            rules={rules}
+          >
+            <Space direction="vertical">
+              <DatePicker locale={locale} onChange={dateTime} placeholder="作业日期" />
+            </Space>
+          </Form.Item>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: "space-between" }}>
+          <Form.Item
+            label="文档"
+            name="documentList"
+            rules={rules}
+          >
+            <Upload {...props}>
+              <Button icon={<UploadOutlined />}>上传</Button>
+            </Upload>
+          </Form.Item>
+
+          <Form.Item
+            label="是否自动提醒"
+            name="isWarn"
+            rules={rules}
+          >
+            <Radio.Group onChange={radioChange} value={value}>
+              <Radio value={1}>是</Radio>
+              <Radio value={2}>否</Radio>
+            </Radio.Group>
+          </Form.Item>
+
+          <Form.Item
+            label="提醒时间"
+            name="warnTime"
+            rules={rules}
+          >
+            <Space direction="vertical">
+              <DatePicker locale={locale} onChange={warnTime} placeholder="提醒时间" />
+            </Space>
+          </Form.Item>
+        </div>
+
+        <Form.Item
+          label="线路"
+          name="lineId"
+          rules={rules}
+        >
+          <Select style={{ width: "100%" }}>
+            {lineLIst?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="销站点"
+          name="pinStand"
+          rules={rules}
+        >
+          <Select style={{ width: "100%" }}>
+            {lineLIst?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="请站点"
+          name="pleaseStand"
+          rules={rules}
+        >
+          <Select style={{ width: "100%" }}>
+            {lineLIst?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="物料"
+          name="materialList"
+          rules={rules}
+        >
+          <Select style={{ width: "100%" }} mode="multiple" allowClear>
+            {materialList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="工具列表"
+          name="toolList"
+          rules={rules}
+        >
+          <Select style={{ width: "100%" }} allowClear mode="multiple">
+            {materialList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="作业类型"
+          name="type"
+          rules={rules}
+        >
+          <Select style={{ width: "100%" }}>
+            {planTypeList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.type}</Option>)}
+          </Select>
+        </Form.Item>
+
         <Form.Item
           label="作业计划工作量"
           name="workContent"
-          rules={rules}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="计划令号"
+          name="num"
         >
           <Input />
         </Form.Item>
@@ -357,7 +324,27 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         <Form.Item
           label="作业人数"
           name="workPerson"
-          rules={rules}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="施工负责人职责"
+          name="leaderDuty"
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="安全员职责"
+          name="safeDuty"
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="防疫专员职责"
+          name="preventionDuty"
         >
           <Input />
         </Form.Item>
