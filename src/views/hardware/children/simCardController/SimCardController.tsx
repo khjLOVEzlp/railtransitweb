@@ -110,7 +110,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
           rules={rules}
         >
           <Select>
-            {warehouse.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)}
+            {warehouse?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)}
           </Select>
         </Form.Item>
       </Form>

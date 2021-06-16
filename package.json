@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/charts": "^1.1.12",
     "@babel/polyfill": "^7.12.1",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",

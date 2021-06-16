@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Form, Input, Button, Table, Popconfirm, message, Select } from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message, Select, Drawer } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from './modal/ModalForm'
 import { useDel, useAdd, useInit, useMod } from './warehouse';
-
+import { Tool } from './tool';
 const { Option } = Select;
 
 export const Warehouse = () => {
   const [visible, setVisible] = useState(false);
+  const [toolVisible, setToolVisible] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
@@ -40,6 +41,12 @@ export const Warehouse = () => {
     setFormData(item)
   }
 
+  const viewTool = (item: any) => {
+    setToolVisible(true)
+    setType('工具')
+    setFormData(item)
+  }
+
   const del = async (id: number) => {
     Del(id)
   }
@@ -66,6 +73,10 @@ export const Warehouse = () => {
 
   const hideUserModal = () => {
     setVisible(false);
+  };
+
+  const onClose = () => {
+    setToolVisible(false)
   };
 
   return (
@@ -153,7 +164,9 @@ export const Warehouse = () => {
               {
                 title: '操作',
                 key: 'id',
-                render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+                render: (item: any) => <>
+                  <Button type="link" onClick={() => viewTool(item)}>查看工具</Button>
+                  <Button type="link" onClick={() => mod(item)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
                     onConfirm={() => confirm(item)}
@@ -169,6 +182,7 @@ export const Warehouse = () => {
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
+        <Tool visible={toolVisible} onClose={onClose} formData={formData} />
       </Form.Provider>
     </>
   );

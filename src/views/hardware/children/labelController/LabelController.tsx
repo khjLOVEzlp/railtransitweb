@@ -78,7 +78,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         </Form.Item>
 
         <Form.Item
-          label="仓库主键"
+          label="仓库"
           name="warehouseId"
           rules={rules}
         >

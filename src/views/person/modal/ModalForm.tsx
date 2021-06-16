@@ -143,7 +143,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           label="出生日期"
           name="birthday"
         >
-          <Space direction="vertical">
+          <Space direction="vertical" style={{ width: "30rem" }}>
             <DatePicker locale={locale} onChange={birthday} />
           </Space>
         </Form.Item>

@@ -7,79 +7,23 @@ import { useHttp } from "../../utils/http";
 import { Steps } from 'antd';
 import { DownCircleOutlined } from '@ant-design/icons';
 import { useLineIndex } from "./home";
-const { Step } = Steps;
+import Page from './alarmPage'
+import PlanWorkPage from './planWork'
+import PlanType from './planType'
 
 export const Home = () => {
-  const [data] = useState(track)
-  const [alertData, setAlertData] = useState({})
-  const [planData] = useState(options)
-  const [taskData] = useState(task)
+  const [data, setData] = useState([])
   useDocumentTitle('首页')
-  const [list] = useState([
-    {
-      name: '站台数',
-      count: '28'
-    },
-    {
-      name: '班别数',
-      count: '34'
-    },
-    {
-      name: '仓库数',
-      count: '30'
-    },
-    {
-      name: '人员数',
-      count: '50'
-    },
-  ])
 
   const client = useHttp()
 
   const getAlertData = useCallback(() => {
     client(`alarm/statistic/list`, { method: "POST", body: JSON.stringify({ index: 1, size: 10 }) }).then(res => {
       res.data.forEach((key: { [key in string]: unknown }) => {
-        key["value"] = key.num
+        key["star"] = key.num
         key["name"] = key.title
       })
-      const data = {
-        tooltip: {
-          trigger: "item",
-        },
-        legend: {
-          top: "5%",
-          left: "center",
-        },
-        series: [
-          {
-            name: "告警",
-            type: "pie",
-            radius: ["40%", "70%"],
-            avoidLabelOverlap: false,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: "#fff",
-              borderWidth: 2,
-            },
-            label: {
-              show: false,
-              position: "center",
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: "20",
-                fontWeight: "bold",
-              },
-            },
-            labelLine: {
-              show: false,
-            },
-            data: res.data
-          },
-        ],
-      }
-      setAlertData(data)
+      setData(res.data)
     })
   }, [client])
 
@@ -93,36 +37,14 @@ export const Home = () => {
     <Container>
       <Header>
         <div className="left">
-          {/*<div className="title">*/}
-          {/*  轨行图*/}
-          {/*</div>*/}
-          {/* <MyEcharts id="track" data={data} style={{ width: '80%', height: '50vh' }} />
-
-          <div className="data">
-            {
-              list.map((item: { name: string, count: string }, index: number) => (
-                <li key={index}>
-                  <div>
-                    <span className="icon">
-                      <img src={`../../icon/${item.name}.png`} alt="" />
-                    </span>
-                    <span className="name">{item.name}</span>
-                  </div>
-                  <div className="count">
-                    {item.count}
-                  </div>
-                </li>
-              ))
-            }
-          </div> */}
-          {
+          {/* {
             lineList?.data.map((item: any) => (
               <div key={item.id} style={{ height: "12.3rem", border: '1px solid #ccc', width: "100%", borderRadius: "5px", marginBottom: "2rem", padding: "1rem", boxSizing: "border-box" }}>
-                <div style={{ marginBottom: "0.3rem" }}>地铁线名称：<i style={{ fontSize: '2rem', color: "#4ab4ff" }}>{item?.name || "无"}</i></div>
+                <div style={{ marginBottom: "0.3rem" }}>地铁线名称：<span style={{ fontSize: '16px', color: "#4ab4ff" }}>{item?.name || "无"}</span></div>
                 <div style={{ marginBottom: "0.3rem" }}>
-                  <span style={{ marginRight: "1rem" }}>班别数：<i style={{ fontSize: '2rem', color: "#4ab4ff" }}>{item?.classCount || "无"}</i></span>
-                  <span style={{ marginRight: "1rem" }}>仓库数：<i style={{ fontSize: '2rem', color: "#4ab4ff" }}>{item?.warehouseCount || "无"}</i></span>
-                  <span style={{ marginRight: "1rem" }}>站台数：<i style={{ fontSize: '2rem', color: "#4ab4ff" }}>{item?.platformCount || "无"}</i></span>
+                  <span style={{ marginRight: "1rem" }}>班别数：<span style={{ fontSize: '16px', color: "#4ab4ff" }}>{item?.classCount || "无"}</span></span>
+                  <span style={{ marginRight: "1rem" }}>仓库数：<span style={{ fontSize: '16px', color: "#4ab4ff" }}>{item?.warehouseCount || "无"}</span></span>
+                  <span style={{ marginRight: "1rem" }}>站台数：<span style={{ fontSize: '16px', color: "#4ab4ff" }}>{item?.platformCount || "无"}</span></span>
                 </div>
                 <Steps>
                   {
@@ -134,7 +56,7 @@ export const Home = () => {
               </div>
             ))
 
-          }
+          } */}
 
 
         </div>
@@ -142,21 +64,27 @@ export const Home = () => {
           {/* <div className="title">
             告警展示
           </div> */}
-          <MyEcharts id="alert" data={alertData} style={{ width: '100%', height: '50vh' }} />
+          {/* <MyEcharts id="alert" data={alertData} style={{ width: '100%', height: '50vh' }} /> */}
+          <Page data={data} />
         </div>
       </Header>
       <Footer>
         <div className="left">
-          <div className="title">
+          {/* <div className="title">
             计划统计
           </div>
-          <MyEcharts id="plan" data={planData} style={{ width: '80%', height: '30rem' }} />
+          <MyEcharts id="plan" data={planData} style={{ width: '80%', height: '30rem' }} /> */}
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <PlanWorkPage />
+            <div></div>
+          </div>
         </div>
         <div className="right">
-          <div className="title">
+          {/* <div className="title">
             作业统计
           </div>
-          <MyEcharts id="task" data={taskData} style={{ width: '100%', height: '30rem' }} />
+          <MyEcharts id="task" data={taskData} style={{ width: '100%', height: '30rem' }} /> */}
+          <PlanType />
         </div>
       </Footer>
     </Container>
@@ -216,7 +144,6 @@ const Header = styled.div`
     background: #FFFFFF;
     border-radius: 14px;
     width: 35.5%;
-    padding-top: 3rem;
     box-sizing: border-box;
 
     > .title {
@@ -248,7 +175,6 @@ const Footer = styled.div`
     background: #fff;
     border-radius: 14px;
     width: 49.8%;
-    padding-top: 3rem;
     box-sizing: border-box;
 
     > .title {
@@ -264,7 +190,6 @@ const Footer = styled.div`
     background: #fff;
     border-radius: 14px;
     width: 49.8%;
-    padding-top: 3rem;
     box-sizing: border-box;
 
     > .title {

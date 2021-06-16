@@ -63,3 +63,28 @@ export const useDel = () => {
     }
   })
 }
+
+/* 根据仓库id获取库存信息 */
+export const useMaterial = (params: any) => {
+  const client = useHttp()
+  return useQuery(['material', cleanObject(params)], () => client(`warehouse/getMaterial?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+}
+
+/* 工具详情 */
+export const useToolDetail = (id: number) => {
+  const client = useHttp()
+  return useQuery(['detail'], () => client(`material/get/${id}`))
+}
+
+/* 修改物资信息 */
+export const useModMaterial = () => {
+  const queryClient = useQueryClient()
+  const client = useHttp()
+  return useMutation((params: any) => client(`material/update`, { method: "POST", body: JSON.stringify(params) }), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('material')
+    },
+    onError: () => {
+    }
+  })
+}

@@ -108,14 +108,14 @@ export const Person = () => {
           <Table columns={
             [
               {
-                title: '人员名称',
+                title: '姓名',
                 dataIndex: 'name',
                 key: 'name',
               },
               {
                 title: '性别',
                 key: 'sex',
-                render: (item) => <>{item.sex === 1 ? '女' : '男'}</>
+                render: (item) => <>{item.sex === 1 ? '男' : '女'}</>
               },
               {
                 title: '手机号',

@@ -12,6 +12,8 @@ import { useMaterialType } from "../../../../system/child/materialType/materialT
 import { useInit } from "../../../../system/child/department/department";
 import { usePlanType } from "../../planType/planType";
 import { useLine } from "../../../../system/child/line/line";
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import '../../style.css'
 const baseUrl = process.env["REACT_APP_API_URL"]
 const { TextArea } = Input;
 const { Option } = Select;
@@ -40,7 +42,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
     form.setFieldsValue(formData)
   }, [formData, form, visible, type])
 
-  const { data: materialList } = useMaterialType()
+  const { data: material } = useMaterialType()
   const { data: department } = useInit()
   const { data: planTypeList } = usePlanType()
   const { data: lineLIst } = useLine()
@@ -277,25 +279,85 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           </Select>
         </Form.Item>
 
-        <Form.Item
-          label="物料"
-          name="materialList"
-          rules={rules}
-        >
-          <Select style={{ width: "100%" }} mode="multiple" allowClear>
-            {materialList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
+        <Form.List name="materialList">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key, name, fieldKey, ...restField }) => (
+                <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                  <Form.Item
+                    style={{ width: '100%' }}
+                    {...restField}
+                    name={[name, 'materialId']}
+                    fieldKey={[fieldKey, 'materialId']}
+                    rules={rules}
+                  >
+                    <Select>
+                      {
+                        material?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
+                      }
+                    </Select>
+                  </Form.Item>
+                  <Form.Item
+                    style={{ width: '100%' }}
+                    {...restField}
+                    name={[name, 'num']}
+                    fieldKey={[fieldKey, 'num']}
+                    rules={rules}
 
-        <Form.Item
-          label="工具列表"
-          name="toolList"
-          rules={rules}
-        >
-          <Select style={{ width: "100%" }} allowClear mode="multiple">
-            {materialList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
+                  >
+                    <Input placeholder="数量" />
+                  </Form.Item>
+                  <MinusCircleOutlined onClick={() => remove(name)} />
+                </Space>
+              ))}
+              <Form.Item>
+                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                  添加物料
+              </Button>
+              </Form.Item>
+            </>
+          )}
+        </Form.List>
+
+        <Form.List name="toolList">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key, name, fieldKey, ...restField }) => (
+                <Space key={key} style={{ display: 'flex', marginBottom: 8, width: '100%' }} align="baseline">
+                  <Form.Item
+                    style={{ width: '100%' }}
+                    {...restField}
+                    name={[name, 'toolId']}
+                    fieldKey={[fieldKey, 'toolId']}
+                    rules={rules}
+                  >
+                    <Select>
+                      {
+                        material?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
+                      }
+                    </Select>
+                  </Form.Item>
+                  <Form.Item
+                    style={{ width: '100%' }}
+                    {...restField}
+                    name={[name, 'num']}
+                    fieldKey={[fieldKey, 'num']}
+                    rules={rules}
+
+                  >
+                    <Input placeholder="数量" />
+                  </Form.Item>
+                  <MinusCircleOutlined onClick={() => remove(name)} />
+                </Space>
+              ))}
+              <Form.Item>
+                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                  添加工具
+              </Button>
+              </Form.Item>
+            </>
+          )}
+        </Form.List>
 
         <Form.Item
           label="作业类型"

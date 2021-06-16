@@ -65,6 +65,8 @@ export const PlanType = () => {
     <>
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
+          console.log(values);
+
           if (name === '新增') {
             Add(values).then(() => {
               message.success('新增成功')
