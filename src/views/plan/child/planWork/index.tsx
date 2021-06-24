@@ -12,14 +12,14 @@ export const PlanWork = () => {
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     name: ''
   })
 
   /* 增删改查 */
 
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { data, isLoading } = useInit({ ...pagination })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -68,12 +68,8 @@ export const PlanWork = () => {
     message.error('取消删除');
   }
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
-
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, page: 1 })
+    setPagination({ ...pagination, name: item.name, index: 1 })
   };
 
   const showUserModal = () => {
@@ -96,11 +92,19 @@ export const PlanWork = () => {
     setVisibleView(false)
   }
 
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+  };
+
   return (
     <>
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
-          console.log(values)
+          values.personList = values.personList?.map((key: any) => {
+            return { personId: key }
+          })
+          console.log(values);
+
           if (name === '新增') {
             Add(values).then(() => {
               message.success("新增成功")
@@ -203,7 +207,8 @@ export const PlanWork = () => {
                 )
               },
             ]
-          } pagination={{ total: data?.count, onChange: onChange }}
+          } pagination={{ total: data?.count }}
+            onChange={handleTableChange}
             dataSource={data?.data}
             loading={isLoading}
             rowKey={(item: any) => item.id}
@@ -219,6 +224,7 @@ export const PlanWork = () => {
 }
 
 const Header = styled.div`
+  width: 100%;
   height: 12.5rem;
   background: #fff;
   margin-bottom: 1rem;

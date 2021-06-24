@@ -9,7 +9,7 @@ export const User = () => {
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     name: ''
   })
@@ -17,7 +17,7 @@ export const User = () => {
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { data, isLoading } = useInit({ ...pagination })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -45,12 +45,12 @@ export const User = () => {
     message.error('取消删除');
   }
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+  };
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, page: 1 })
+    setPagination({ ...pagination, name: item.name, index: 1 })
   };
 
   const showUserModal = () => {
@@ -154,7 +154,8 @@ export const User = () => {
                 },
               ]
             }
-            pagination={{ total: data?.count, onChange: onChange }}
+            pagination={{ total: data?.count }}
+            onChange={handleTableChange}
             dataSource={data?.data}
             loading={isLoading}
             rowKey={(item: any) => item.id} />

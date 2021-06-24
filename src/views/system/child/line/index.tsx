@@ -8,9 +8,10 @@ export const Line = () => {
   const [visible, setVisible] = useState(false);
   const [isShowDrawer, setIsShowDrawer] = useState(false)
   const [type, setType] = useState('')
+  const [lineId, setLineId] = useState<number | undefined>()
   const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     name: ''
   })
@@ -19,13 +20,13 @@ export const Line = () => {
     增删改查
     */
 
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { data, isLoading } = useInit({ ...pagination })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, page: 1 })
+    setPagination({ ...pagination, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -33,9 +34,11 @@ export const Line = () => {
     setType('新增')
   }
 
-  const manage = (item: any) => {
-    setFormData(item)
+  const manage = (lineId: number | undefined) => {
+    setLineId(lineId)
     setIsShowDrawer(true)
+    console.log(lineId, "index");
+
   }
 
   const mod = (item: any) => {
@@ -56,16 +59,16 @@ export const Line = () => {
     message.error('取消删除');
   }
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
-
   const showUserModal = () => {
     setVisible(true);
   };
 
   const hideUserModal = () => {
     setVisible(false);
+  };
+
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -137,7 +140,7 @@ export const Line = () => {
               {
                 title: '操作',
                 key: 'id',
-                render: (item: any) => <><Button type="link" onClick={() => manage(item)}>管理</Button><Button type="link"
+                render: (item: any) => <><Button type="link" onClick={() => manage(item.id)}>管理</Button><Button type="link"
                   onClick={() => mod(item)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
@@ -150,12 +153,12 @@ export const Line = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, onChange: onChange }} dataSource={data?.data}
+          } pagination={{ total: data?.count }} onChange={handleTableChange} dataSource={data?.data}
             loading={isLoading}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
-        {isShowDrawer ? <Drawermanage formData={formData} isShowDrawer={isShowDrawer} setIsShowDrawer={setIsShowDrawer} /> : ''}
+        {isShowDrawer ? <Drawermanage lineId={lineId} formData={formData} isShowDrawer={isShowDrawer} setIsShowDrawer={setIsShowDrawer} /> : ''}
       </Form.Provider>
     </>
   );

@@ -9,27 +9,26 @@ const { RangePicker } = DatePicker;
 export const Log = () => {
 
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     operName: '',
     startTime: '',
     endTime: ''
   })
 
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { data, isLoading } = useInit({ ...pagination })
 
   const search = (values: any) => {
-    setPagination({ ...pagination, operName: values.name, page: 1 })
+    setPagination({ ...pagination, operName: values.name, index: 1 })
   };
 
   const timeChange = (dates: any, dateStrings: any) => {
-    console.log(dates, dateStrings)
-    setPagination({ ...pagination, startTime: dateStrings[0], endTime: dateStrings[1] })
+    setPagination({ ...pagination, index: 1, startTime: dateStrings[0], endTime: dateStrings[1] })
   }
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+  };
 
   const columns = [
     {
@@ -73,20 +72,20 @@ export const Log = () => {
             label="时间"
             name="time"
           >
-            <Space direction="vertical" size={12}>
-              <RangePicker locale={locale} onChange={timeChange} />
+            <Space direction="vertical" size={50}>
+              <RangePicker style={{ width: "100%" }} locale={locale} onChange={timeChange} />
             </Space>
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
               搜索
-        </Button>
+            </Button>
           </Form.Item>
         </Form>
       </Header>
       <Main>
-        <Table columns={columns} pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data} rowKey={(item: any) => item.id} />
       </Main>
     </div>
   )

@@ -19,7 +19,6 @@ interface ModalFormProps {
 
 const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
-  const [value, setValue] = useState(0);
 
   useEffect(() => {
     if (type === "新增") return
@@ -30,10 +29,6 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
     form,
     visible,
   });
-
-  const onChange = (e: any) => {
-    setValue(e.target.value);
-  };
 
   const onOk = () => {
     form.submit();
@@ -60,12 +55,12 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
 
         <Form.Item
           label="是否使用"
-          name="isUse"
+          name="status"
           rules={rules}
         >
-          <Radio.Group onChange={onChange} value={value}>
-            <Radio value={0}>是</Radio>
-            <Radio value={1}>否</Radio>
+          <Radio.Group>
+            <Radio value={"0"}>是</Radio>
+            <Radio value={"1"}>否</Radio>
           </Radio.Group>
         </Form.Item>
 
@@ -86,7 +81,7 @@ export const TemperaterController = () => {
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     name: '',
     type: ''
@@ -95,13 +90,13 @@ export const TemperaterController = () => {
   /* 
         增删改查
       */
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { data, isLoading } = useInit({ ...pagination })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, page: 1 })
+    setPagination({ ...pagination, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -127,16 +122,16 @@ export const TemperaterController = () => {
     message.error('取消删除');
   }
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
-
   const showUserModal = () => {
     setVisible(true);
   };
 
   const hideUserModal = () => {
     setVisible(false);
+  };
+
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -214,7 +209,7 @@ export const TemperaterController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

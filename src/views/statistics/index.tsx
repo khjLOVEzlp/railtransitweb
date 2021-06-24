@@ -1,128 +1,82 @@
-import styled from "@emotion/styled"
-import { Button, Select, Table } from "antd"
-import React, { useEffect, useState } from "react"
-import {useDocumentTitle} from '../../hook/useDocumentTitle'
-import { useHttp } from "../../utils/http"
-const { Option } = Select;
+import ProTable from '@ant-design/pro-table';
+import { PlusOutlined } from '@ant-design/icons';
+import { useRef } from 'react';
+import { Button, Space } from 'antd';
+import { useState } from 'react';
+import '@ant-design/pro-form/dist/form.css';
+import '@ant-design/pro-table/dist/table.css';
+import '@ant-design/pro-layout/dist/layout.css';
+
+const columns = [
+  {
+    title: '体温',
+    dataIndex: 'temperature',
+    ellipsis: true,
+    formItemProps: {
+      rules: [
+        {
+          required: true,
+          message: '此项为必填项',
+        },
+      ],
+    },
+  },
+]
+
+const dataSource = [
+  {
+    temperature: "36.2",
+    key: 1
+  },
+  {
+    temperature: "33.2",
+    key: 2
+  },
+  {
+    temperature: "34.2",
+    key: 3
+  },
+  {
+    temperature: "35.2",
+    key: 4
+  },
+  {
+    temperature: "36.2",
+    key: 5
+  },
+]
+
 export const Statistics = () => {
-  const [navList, setNavList] = useState([])
-  const [data, setData] = useState([])
-  const [loading, setloading] = useState(false)
-  const [type, setType] = useState([])
-  const [pagination, setPagination] = useState({
-    page: 1,
-    size: 10,
-    total: 0,
-    type: ''
-  })
-  const client = useHttp()
-
-  // useEffect(() => {
-  //   client(`alarm/list`, {
-  //     method: "POST", body: JSON.stringify(pagination)
-  //   }).then(res => {
-  //     setData(res.data)
-  //     setPagination({ ...pagination, total: res.count })
-  //   })
-  // }, [pagination.type, pagination.total, pagination.page])
-
-  useEffect(() => {
-    client(`alarm/statistic/list`, {
-      method: "POST", body: JSON.stringify(pagination)
-    }).then(res => {
-      setNavList(res.data)
-    })
-
-    client(`dictItem/list?index=1&size=100&typeId=002`, { method: "POST" }).then(res => {
-      setType(res.data)
-    })
-  }, [])
-
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
-
-  const handleChange = (value: any) => {
-    setPagination({ ...pagination, type: value })
-  }
-
-  const columns = [{}]
-
-  useDocumentTitle('统计分析')
-
+  const actionRef = useRef();
+  const [state, setState] = useState<any>([])
   return (
-    <AlarmStyle>
-      <Header>
-        <Title>
-          统计分析
-        </Title>
-        {/*<Nav>*/}
-        {/*  {navList.map((item: any, index) => (<li key={index}>*/}
-        {/*    <img src={`../../icon/${item.title}.png`} alt="" />*/}
-        {/*    <div>*/}
-        {/*      <div>{item.title}</div>*/}
-        {/*      <div style={{ fontSize: '2rem', color: '#5A7FFA' }}>{item.num}</div>*/}
-        {/*    </div>*/}
-        {/*  </li>))}*/}
-        {/*</Nav>*/}
-      </Header>
-      <Main>
-        {/*<Select defaultValue="请选择" style={{ width: 120, margin: '1rem 0' }} onChange={handleChange}>*/}
-        {/*  {*/}
-        {/*    type.map((item: any, index) => <Option value={item.item} key={index}>{item.value}</Option>)*/}
-        {/*  }*/}
-        {/*</Select>*/}
-        {/*<Button style={{ marginLeft: '1rem' }} onClick={() => setPagination({ ...pagination, type: '' })}>重置</Button>*/}
-        <Table columns={columns} pagination={{ total: pagination.total, onChange: onChange }} dataSource={data} rowKey={(item: any) => item.id} />
-      </Main>
-    </AlarmStyle>
+    <>
+      <ProTable
+        columns={columns}
+        actionRef={actionRef}
+        dataSource={dataSource}
+        rowKey={item => item.key}
+        rowSelection={{
+        }}
+        tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => (
+          <Space>
+            选择
+          </Space>
+        )}
+        tableAlertOptionRender={() => {
+          return (
+            <Space size={10}>
+              <a>批量删除</a>
+              <a>导出数据</a>
+            </Space>
+          );
+        }}
+        toolBarRender={() => [
+          <Button key="button" icon={<PlusOutlined />} type="primary">
+            新增
+          </Button>
+        ]}
+      />
+    </>
   )
 }
-
-const AlarmStyle = styled.div`
-  height: 100%;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`
-
-const Header = styled.div`
-  height: 22.5rem;
-  background: #fff;
-  border-radius: 1rem;
-  margin-bottom: 1rem;
-  padding: 0 3rem;
-`
-
-const Main = styled.div`
-  background: #fff;
-  height: 63rem;
-  border-radius: 1rem;
-  padding: 0 3rem;
-  overflow: hidden;
-  overflow-y: auto;
-`
-
-const Title = styled.div`
-padding-top: 2rem;
-font-size: 2rem;
-color: #3A3D44;
-margin-bottom: 4rem;
-`
-
-const Nav = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 2rem;
-  color: #989EAC;
-  > li {
-    display: flex;
-    align-items: center;
-    > div {
-      margin-left: 1rem;
-      text-align: center;
-    }
-  }
-`
-

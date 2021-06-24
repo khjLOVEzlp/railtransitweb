@@ -40,7 +40,7 @@ export const data = [
       formatter: "{b}: 19999<br />",
     },
     symbolSize: 0.1,
-    value: [780, 1050],
+    value: [780, 1000],
     x: 800,
     y: 400,
     fixed: true,
@@ -634,91 +634,6 @@ export const data = [
       },
     },
   },
-  //地铁二号线，垂直线路，站点间X轴坐标相同，Y轴坐标相差50
-  {
-    name: "沥滘站",
-    symbol: "circle",
-    symbolSize: [15, 15],
-    label: {
-      color: "#989EAC",
-      position: "left",
-    },
-    value: [680, 0],
-    x: 1000,
-    y: 1000,
-    fixed: true,
-    category: 2,
-    itemStyle: {
-      normal: {
-        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-          {
-            offset: 0,
-            color: "#FFD876",
-          },
-          {
-            offset: 1,
-            color: "#FFD876",
-          },
-        ]),
-      },
-    },
-  },
-  {
-    name: "南洲站",
-    symbol: "circle",
-    symbolSize: [15, 15],
-    label: {
-      color: "#989EAC",
-      position: "left",
-    },
-    value: [680, 400],
-    x: 1000,
-    y: 1000,
-    fixed: true,
-    category: 2,
-    itemStyle: {
-      normal: {
-        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-          {
-            offset: 0,
-            color: "#FFD876",
-          },
-          {
-            offset: 1,
-            color: "#FFD876",
-          },
-        ]),
-      },
-    },
-  },
-  {
-    name: "石溪站",
-    symbol: "circle",
-    symbolSize: [15, 15],
-    label: {
-      color: "#989EAC",
-      position: "left",
-    },
-    value: [680, 1000],
-    x: 1000,
-    y: 1000,
-    fixed: true,
-    category: 2,
-    itemStyle: {
-      normal: {
-        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-          {
-            offset: 0,
-            color: "#FFD876",
-          },
-          {
-            offset: 1,
-            color: "#FFD876",
-          },
-        ]),
-      },
-    },
-  },
 ];
 
 export const track = {
@@ -736,8 +651,6 @@ export const track = {
     show: false,
     min: 0,
     max: 1200,
-    // type: "value",
-    //开启x轴坐标
     axisPointer: {
       show: true,
     },
@@ -752,10 +665,6 @@ export const track = {
       show: true,
     },
   },
-  tooltip: {},
-  //  legend: {
-  //     show: false
-  //  },
   series: [
     {
       type: "graph",
@@ -763,14 +672,14 @@ export const track = {
       draggable: false,
       coordinateSystem: "cartesian2d", //使用二维的直角坐标系（也称笛卡尔坐标系）
 
-      // edgeSymbolSize: [0, 8], //边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定
-      // edgeLabel: {
-      //   normal: {
-      //     textStyle: {
-      //       fontSize: 60
-      //     }
-      //   }
-      // },
+      edgeSymbolSize: [0, 8], //边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定
+      edgeLabel: {
+        normal: {
+          textStyle: {
+            fontSize: 60
+          }
+        }
+      },
       symbol: "rect",
       symbolOffset: ["15%", 0],
 
@@ -784,142 +693,65 @@ export const track = {
         {
           source: "天河公园",
           target: "棠东",
-          // lineStyle: {
-          //   normal: {
-          //     color: "#12b5d0",
-          //
-          //   }
-          // }
         },
         {
           source: "棠东",
           target: "黄村",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "黄村",
           target: "大观南路",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "大观南路",
           target: "天河智慧城",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
 
         {
           source: "天河智慧城",
           target: "神州路",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
 
         {
           source: "神州路",
           target: "科学城",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
 
         {
           source: "科学城",
           target: "苏园",
-          // lineStyle: {
-          //   normal: {
-          //     color: "#12b5d0",
-          //
-          //   }
-          // }
         },
         {
           source: "苏园",
           target: "水西",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "水西",
           target: "长平",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "长平",
           target: "金坑",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "金坑",
           target: "镇龙西",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "镇龙西",
           target: "镇龙",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "镇龙",
           target: "中新",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "中新",
           target: "坑贝站",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "坑贝站",
           target: "凤岗站",
-          lineStyle: {
-            normal: {
-              // color: "#12b5d0",
-            },
-          },
         },
         {
           source: "凤岗站",
@@ -957,25 +789,6 @@ export const track = {
             },
           },
         },
-        //地铁二号线连接
-        {
-          source: "沥滘站",
-          target: "南洲站",
-          lineStyle: {
-            normal: {
-              color: "#FFD876",
-            },
-          },
-        },
-        {
-          source: "南洲站",
-          target: "石溪站",
-          lineStyle: {
-            normal: {
-              color: "#FFD876",
-            },
-          },
-        }
       ],
       lineStyle: {
         normal: {
@@ -1018,13 +831,6 @@ export const track = {
             [980, 600],
           ],
         },
-        {
-          //二号线
-          coords: [
-            [680, 50],
-            [680, 1000],
-          ],
-        },
       ],
     },
   ],
@@ -1064,16 +870,16 @@ export const mounthConfigData = {
         show: false,
       },
       data: [
-        {value: 500, name: "过时"},
-        {value: 735, name: "低电"},
-        {value: 580, name: "分离"},
-        {value: 484, name: "遗漏"},
-        {value: 300, name: "漏点"},
-        {value: 300, name: "漏带"},
-        {value: 300, name: "遗忘"},
-        {value: 300, name: "离线"},
-        {value: 300, name: "体温"},
-        {value: 300, name: "喝酒"},
+        { value: 500, name: "过时" },
+        { value: 735, name: "低电" },
+        { value: 580, name: "分离" },
+        { value: 484, name: "遗漏" },
+        { value: 300, name: "漏点" },
+        { value: 300, name: "漏带" },
+        { value: 300, name: "遗忘" },
+        { value: 300, name: "离线" },
+        { value: 300, name: "体温" },
+        { value: 300, name: "喝酒" },
       ],
     },
   ],
@@ -1114,12 +920,12 @@ export const options = {
         show: false,
       },
       data: [
-        {value: 10, name: "日计划数"},
-        {value: 20, name: "周计划数"},
-        {value: 30, name: "月计划数"},
-        {value: 120, name: "季度计划数"},
-        {value: 180, name: "半年计划数"},
-        {value: 360, name: "年计划数"}
+        { value: 10, name: "日计划数" },
+        { value: 20, name: "周计划数" },
+        { value: 30, name: "月计划数" },
+        { value: 120, name: "季度计划数" },
+        { value: 180, name: "半年计划数" },
+        { value: 360, name: "年计划数" }
       ],
     },
   ],
@@ -1159,11 +965,11 @@ export const task = {
         show: false,
       },
       data: [
-        {value: 20, name: "日作业数"},
-        {value: 30, name: "周作业数"},
-        {value: 40, name: "月作业数"},
-        {value: 50, name: "季度作业数"},
-        {value: 60, name: "年度作业数"}
+        { value: 20, name: "日作业数" },
+        { value: 30, name: "周作业数" },
+        { value: 40, name: "月作业数" },
+        { value: 50, name: "季度作业数" },
+        { value: 60, name: "年度作业数" }
       ],
     },
   ],

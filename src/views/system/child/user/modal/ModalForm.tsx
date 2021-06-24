@@ -4,6 +4,7 @@ import { useHttp } from "../../../../../utils/http";
 import { rules } from "../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
 import { useUserList } from "../user";
+import { usePerson } from "../../../../person/person";
 
 const { Option } = Select;
 
@@ -26,7 +27,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
 
   useEffect(() => {
     if (type === "新增") return
-    form.setFieldsValue(formData)
+    form.setFieldsValue({ ...formData })
   }, [formData, form, visible, type])
 
   const getRoleLIst = useCallback(() => {
@@ -39,7 +40,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
     })
   }, [client])
 
-  const { data: personList } = useUserList()
+  const { data: userList } = useUserList()
+  const { data: personList } = usePerson()
 
   useEffect(() => {
     getRoleLIst()
@@ -86,9 +88,13 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           name="personId"
           rules={rules}
         >
-          <Select>
-            {personList?.data.map((item: any, index: number) => <Option value={item.personId} key={index}>{item.name}</Option>)}
-          </Select>
+          {
+            type === "新增" ? (<Select>
+              {userList?.data.map((item: any, index: number) => <Option value={item.personId} key={index}>{item.name}</Option>)}
+            </Select>) : (<Select>
+              {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+            </Select>)
+          }
         </Form.Item>
 
         <Form.Item

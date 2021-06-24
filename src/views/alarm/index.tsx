@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
-import { Button, Select, Table } from "antd"
+import { Select, Table } from "antd"
 import { useState } from "react"
 import { useDocumentTitle } from '../../hook/useDocumentTitle'
-import { useInit, useStatistic, useType } from "./alarm"
+import { useInit, useWarnCount } from "./alarm"
 // import {useLocation} from "react-router";
 
 const { Option } = Select;
@@ -11,36 +11,67 @@ export const Alarm = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
-    type: '',
-    name: ''
+    state: "0",
+    time: "1"
   })
 
-  const { data: navList } = useStatistic({ ...pagination, index: pagination.page })
+  const [time, setTime] = useState("1")
+
+  const { data: navList } = useWarnCount(time)
   const { data: dataList, isLoading } = useInit({ ...pagination, index: pagination.page })
-  const { data: type } = useType()
-
-  const filter = (title: string) => {
-    setPagination({ ...pagination, name: title })
-  }
-
-  // 重置
-  const reset = () => {
-    setPagination({ ...pagination, type: '', name: '' })
-  }
 
   const onChange = (page: number) => {
     setPagination({ ...pagination, page })
   }
 
-  const handleChange = (value: any) => {
-    setPagination({ ...pagination, type: value })
+  const navChange = (value: string) => {
+    setTime(value)
+  }
+
+  const stateChange = (value: string) => {
+    setPagination({ ...pagination, state: value })
+  }
+
+  const timeChange = (value: string) => {
+    setPagination({ ...pagination, time: value })
+  }
+
+  function onShowSizeChange(current: number, pageSize: number) {
+    setPagination({ ...pagination, page: current, size: pageSize })
+    console.log(pagination);
+
   }
 
   const columns = [
     {
+      title: '作业名称',
+      dataIndex: 'workName',
+      key: 'workName',
+    },
+    {
       title: '告警类型',
-      dataIndex: 'title',
-      key: 'title',
+      key: 'type',
+      render: (item: any) => <>{getType(item.type)}</>
+    },
+    {
+      title: '工具名称',
+      dataIndex: 'toolName',
+      key: 'toolName',
+    },
+    {
+      title: '小组名称',
+      dataIndex: 'groupName',
+      key: 'groupName',
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'warnTime',
+      key: 'warnTime',
+    },
+    {
+      title: '解除时间',
+      dataIndex: 'relieveTime',
+      key: 'relieveTime',
     },
     {
       title: '设备编号',
@@ -64,33 +95,148 @@ export const Alarm = () => {
     },
   ]
 
+  const stateList = [
+    {
+      name: "查所有",
+      value: "0"
+    },
+    {
+      name: "防遗忘",
+      value: "1"
+    },
+    {
+      name: "防漏带",
+      value: "2"
+    },
+    {
+      name: "防漏点",
+      value: "3"
+    },
+    {
+      name: "防遗漏",
+      value: "4"
+    },
+    {
+      name: "防疫请",
+      value: "5"
+    },
+    {
+      name: "防酒精",
+      value: "6"
+    },
+    {
+      name: "分离告警",
+      value: "7"
+    },
+    {
+      name: "离线告警",
+      value: "8"
+    },
+    {
+      name: "过时告警",
+      value: "9"
+    },
+    {
+      name: "低电告警",
+      value: "10"
+    },
+  ]
+
+  const timeList = [
+    {
+      name: "一周",
+      value: "1"
+    },
+    {
+      name: "半月",
+      value: "2"
+    },
+    {
+      name: "一个月",
+      value: "3"
+    },
+    {
+      name: "三个月",
+      value: "4"
+    },
+    {
+      name: "半年",
+      value: "5"
+    },
+    {
+      name: "一年",
+      value: "6"
+    },
+  ]
+
+  const getType = (type: number) => {
+    switch (type) {
+      case 1:
+        return "防遗忘"
+      case 2:
+        return "防漏带"
+
+      case 3:
+        return "防漏点"
+
+      case 4:
+        return "防遗漏"
+
+      case 5:
+        return "防疫情"
+
+      case 6:
+        return "防酒精"
+
+      case 7:
+        return "分离告警"
+
+      case 8:
+        return "离线告警"
+
+      case 9:
+        return "过时告警"
+
+      case 10:
+        return "低电告警"
+
+      default:
+        break;
+    }
+  }
+
   useDocumentTitle('告警上报')
 
   return (
     <AlarmStyle>
       <Header>
-        <Title>
-          告警信息
-        </Title>
+        <Select style={{ width: 120, margin: '1rem 0' }} defaultValue={"1"} onChange={navChange}>
+          {
+            timeList.map((item: { name: string, value: string }) => <Option key={item.value} value={item.value}>{item.name}</Option>)
+          }
+        </Select>
         <Nav>
-          {navList?.data.map((item: any) => (<li key={item.id}>
-            <img onClick={() => filter(item.title)} src={`../../icon/${item.title}.png`} alt="" />
+          {navList?.data.slice(0, 9).map((item: any) => (<li key={item.id}>
+            <img onClick={() => { }} src={`../../icon/${getType(item.type)}.png`} alt="" />
             <div>
-              <div>{item.title}</div>
+              <div>{getType(item.type)}</div>
               <div style={{ fontSize: '2rem', color: '#5A7FFA' }}>{item.num}</div>
             </div>
           </li>))}
         </Nav>
       </Header>
       <Main>
-        <Select defaultValue="请选择" style={{ width: 120, margin: '1rem 0' }} onChange={handleChange}>
+        <Select style={{ width: 120, margin: '1rem 0' }} defaultValue={"0"} onChange={stateChange}>
           {
-            type?.data.map((item: any) => <Option value={item.item} key={item.id}>{item.value}</Option>)
+            stateList.map((item: { name: string, value: string }) => <Option key={item.value} value={item.value}>{item.name}</Option>)
           }
         </Select>
-        <Button style={{ marginLeft: '1rem' }}
-          onClick={() => reset()}>重置</Button>
-        <Table columns={columns} pagination={{ total: dataList?.count, onChange: onChange }} loading={isLoading} dataSource={dataList?.data}
+        <Select style={{ width: 120, margin: '1rem 0', marginLeft: '1rem' }} defaultValue={"1"} onChange={timeChange}>
+          {
+            timeList.map((item: { name: string, value: string }) => <Option key={item.value} value={item.value}>{item.name}</Option>)
+          }
+        </Select>
+        <Table columns={columns} pagination={{ total: dataList?.count, onChange: onChange, onShowSizeChange }} loading={isLoading} dataSource={dataList?.data}
           rowKey={(item: any) => item.id} />
       </Main>
     </AlarmStyle>
@@ -118,13 +264,6 @@ const Main = styled.div`
   border-radius: 1rem;
   padding: 0 3rem;
   overflow-y: auto;
-`
-
-const Title = styled.div`
-  padding-top: 2rem;
-  font-size: 2rem;
-  color: #3A3D44;
-  margin-bottom: 4rem;
 `
 
 const Nav = styled.div`

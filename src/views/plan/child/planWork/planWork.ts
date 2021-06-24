@@ -56,6 +56,12 @@ export const useDel = () => {
   })
 }
 
+/* 根据线路id获取站点 */
+export const useSite = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['plan', id], () => client(`linePlatform/allList?lineId=${id}`, { method: "POST" }))
+}
+
 /* 发布计划 */
 export const useSharePlan = () => {
   const queryClient = useQueryClient()
@@ -80,4 +86,10 @@ export const useFeedBack = () => {
     onError: () => {
     }
   })
+}
+
+/* 查看反馈信息 */
+export const useShare = (id: number) => {
+  const client = useHttp()
+  return useQuery(['share', id], () => client(`plan/getShare/${id}`))
 }

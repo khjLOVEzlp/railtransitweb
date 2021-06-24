@@ -76,13 +76,13 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   );
 };
 
-export const Platform = ({ formData }: { formData: any }) => {
+export const Platform = ({ formData, lineId }: { formData: any, lineId: number | undefined }) => {
   const [visible, setVisible] = useState(false);
   const [roadList, setRoadList] = useState([])
   const [dataForm, setDataForm] = useState<any>({})
   const [type, setType] = useState('')
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     name: '',
   })
@@ -90,7 +90,7 @@ export const Platform = ({ formData }: { formData: any }) => {
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page, lineId: formData.id })
+  const { data, isLoading } = useInit({ ...pagination, lineId })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -98,7 +98,7 @@ export const Platform = ({ formData }: { formData: any }) => {
   const client = useHttp()
 
   const getRoadList = useCallback(() => {
-    client(`lineRoad/list?${qs.stringify({ index: 1, size: 1000, lineId: formData.id })}`, { method: "POST" }).then(res => {
+    client(`lineRoad/list?${qs.stringify({ index: 1, size: 1000, lineId })}`, { method: "POST" }).then(res => {
       setRoadList(res.data)
     })
   }, [client, formData.id])
@@ -108,7 +108,7 @@ export const Platform = ({ formData }: { formData: any }) => {
   }, [getRoadList])
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, page: 1 })
+    setPagination({ ...pagination, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -120,10 +120,6 @@ export const Platform = ({ formData }: { formData: any }) => {
     showUserModal()
     setType('修改')
     setDataForm(item)
-  }
-
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
   }
 
   const del = async (id: number) => {
@@ -146,21 +142,23 @@ export const Platform = ({ formData }: { formData: any }) => {
     setVisible(false);
   };
 
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+  };
+
   return (
     <Contianer>
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            console.log(formData, dataForm);
-
-            Add({ ...values, lineId: formData.id }).then(() => {
+            Add({ ...values, lineId }).then(() => {
               message.success("新增成功")
               setVisible(false);
             }).catch(error => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, lineId: formData.lineId, id: dataForm.id }).then(() => {
+            Mod({ ...values, lineId, id: dataForm.id }).then(() => {
               message.success("修改成功")
               setVisible(false)
             }).catch(error => {
@@ -226,7 +224,7 @@ export const Platform = ({ formData }: { formData: any }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
+          ]} pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} roadList={roadList} />
         </Main>

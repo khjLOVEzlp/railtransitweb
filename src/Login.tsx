@@ -3,7 +3,7 @@ import login from './icon/login.png'
 import { Form, Input, Button } from 'antd';
 import { useAuth } from "./context/auth-context";
 import { useDocumentTitle } from "./hook/useDocumentTitle";
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
 import { rules } from "./utils/verification";
 import { useState } from "react";
 import { ErrorBox } from "./components/lib";
@@ -25,12 +25,13 @@ export const Login = () => {
   return (
     <LoginStyle>
       <TopTimer>
-        <div className="left">{dayjs().format('YYYY-MM-DD')}</div>
-        <div className="right">{dayjs().format('HH:mm:ss')}</div>
+        {/* <div className="left">{dayjs().format('YYYY-MM-DD')}</div>
+        <div className="right">{dayjs().format('HH:mm:ss')}</div> */}
       </TopTimer>
       <LoginForm>
         <Title>
-          5G-NB智慧轨行区数字化维养安全管控系统
+          <li>5G-NB智慧轨行区</li>
+          <li>数字化维养安全管控系统</li>
         </Title>
         <ErrorBox error={error} />
         <Form
@@ -66,7 +67,7 @@ export const Login = () => {
 
 const LoginStyle = styled.div`
   min-height: 100vh;
-  background-image: url(${login});
+  background: url(${login}) center top / cover;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
@@ -87,13 +88,15 @@ const LoginForm = styled.div`
   width: 40rem;
   height: 40rem;
   margin-left: 60%;
+  background: #fff;
   vertical-align: middle;
 `
 
 const Title = styled.div`
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
   color: #5A7FFA;
-  margin: 5rem 0;
+  margin: 10rem 0 5rem;
   overflow: hidden;
+  text-align: center;
 `

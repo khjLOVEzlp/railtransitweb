@@ -1,52 +1,29 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {Form, Input, Button, Table} from 'antd';
+import { useState } from 'react';
+import { Form, Input, Button, Table } from 'antd';
 import styled from "@emotion/styled";
-import {useHttp} from "../../../../utils/http";
-import qs from "qs";
-import {cleanObject} from "../../../../utils";
-import {ModalForm} from "./modal/ModalForm";
+import { ViewModalForm } from "./modal/ModalForm";
+import { useInit } from './workManage';
 
 export const WorkManage = () => {
   const [visible, setVisible] = useState(false);
-  const [tabList, setTabList] = useState([])
   const [formData, setFormData] = useState({})
-  const client = useHttp()
+  const [type, setType] = useState('')
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     name: ''
   })
 
-  const [total, setTotal] = useState(0)
-
-  // 分页查询
-  const init = useCallback(() => {
-    const param = {
-      index: pagination.page,
-      size: pagination.size,
-      name: pagination.name,
-    }
-    client(`planWork/historyList?${qs.stringify(cleanObject(param))}`, {method: "POST"}).then(res => {
-      setTabList(res.data)
-      setTotal(res.count)
-    })
-  }, [client, pagination])
-
-  useEffect(() => {
-    init()
-  }, [init])
+  const { data, isLoading } = useInit({ ...pagination, })
 
   const mod = (item: any) => {
-    showUserModal()
+    setVisible(true)
+    setType('查看')
     setFormData(item)
   }
 
-  const onChange = (page: number) => {
-    setPagination({...pagination, page})
-  }
-
   const search = (item: any) => {
-    setPagination({...pagination, name: item.name})
+    setPagination({ ...pagination, name: item.name })
   };
 
   const showUserModal = () => {
@@ -57,75 +34,79 @@ export const WorkManage = () => {
     setVisible(false);
   };
 
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+  };
+
   return (
     <>
-        <Header>
-          <Form
-            name="basic"
-            onFinish={search}
-            layout={"inline"}
+      <Header>
+        <Form
+          name="basic"
+          onFinish={search}
+          layout={"inline"}
+        >
+          <Form.Item
+            label="作业名"
+            name="name"
           >
-            <Form.Item
-              label="作业名"
-              name="name"
-            >
-              <Input/>
-            </Form.Item>
+            <Input />
+          </Form.Item>
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                搜索
-              </Button>
-            </Form.Item>
-          </Form>
-
-          <Button onClick={() => mod("123")}>新增</Button>
-        </Header>
-        <Main>
-          <Table columns={
-            [
-              {
-                title: '作业名称',
-                dataIndex: 'name',
-                key: 'name',
-              },
-              {
-                title: '计划执行时间',
-                dataIndex: 'beginTime',
-                key: 'beginTime',
-              },
-              {
-                title: '负责人',
-                dataIndex: 'leaderName',
-                key: 'leaderName',
-              },
-              {
-                title: '是否自动提醒',
-                key: 'isWarn',
-                render: (isWarn) => (<span>{isWarn === 0 ? '否' : '是'}</span>)
-              },
-              {
-                title: '备注',
-                dataIndex: 'remark',
-                key: 'remark',
-              },
-              {
-                title: '操作',
-                key: 'id',
-                align: "center",
-                render: (item: any) => (
-                  <>
-                    <Button type={"link"} onClick={() => mod(item)}>查看</Button>
-                  </>
-                )
-              },
-            ]
-          } pagination={{total, onChange: onChange}}
-                 dataSource={tabList}
-                 rowKey={(item: any) => item.id}
-          />
-        </Main>
-        <ModalForm visible={visible} formData={formData} onCancel={hideUserModal}/>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              搜索
+            </Button>
+          </Form.Item>
+        </Form>
+      </Header>
+      <Main>
+        <Table columns={
+          [
+            {
+              title: '作业名称',
+              dataIndex: 'name',
+              key: 'name',
+            },
+            {
+              title: '计划执行时间',
+              dataIndex: 'beginTime',
+              key: 'beginTime',
+            },
+            {
+              title: '负责人',
+              dataIndex: 'leaderName',
+              key: 'leaderName',
+            },
+            {
+              title: '是否自动提醒',
+              key: 'isWarn',
+              render: (isWarn) => (<span>{isWarn === 0 ? '否' : '是'}</span>)
+            },
+            {
+              title: '备注',
+              dataIndex: 'remark',
+              key: 'remark',
+            },
+            {
+              title: '操作',
+              key: 'id',
+              align: "center",
+              render: (item: any) => (
+                <>
+                  <Button type={"link"} onClick={() => mod(item)}>查看</Button>
+                </>
+              )
+            },
+          ]
+        } pagination={{ total: data?.count }}
+          onChange={handleTableChange}
+          dataSource={data?.data}
+          loading={isLoading}
+          rowKey={(item: any) => item.id}
+        />
+      </Main>
+      <ViewModalForm visible={visible} type={type} formData={formData} onCancel={hideUserModal} />
     </>
   );
 }

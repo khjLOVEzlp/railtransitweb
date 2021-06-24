@@ -10,12 +10,16 @@ import { useLineIndex } from "./home";
 import Page from './alarmPage'
 import PlanWorkPage from './planWork'
 import PlanType from './planType'
-
+const { Step } = Steps
 export const Home = () => {
   const [data, setData] = useState([])
+  const [alertData] = useState()
+
   useDocumentTitle('首页')
 
   const client = useHttp()
+
+  const { data: lineList } = useLineIndex()
 
   const getAlertData = useCallback(() => {
     client(`alarm/statistic/list`, { method: "POST", body: JSON.stringify({ index: 1, size: 10 }) }).then(res => {
@@ -31,34 +35,31 @@ export const Home = () => {
     getAlertData()
   }, [getAlertData])
 
-  const { data: lineList } = useLineIndex()
-
   return (
     <Container>
+      {/* <MyEcharts id="alert" data={track} style={{ width: '100%', height: '50vh' }} /> */}
       <Header>
         <div className="left">
-          {/* {
+          {/* <div className={"title"}>
+            地铁路线
+          </div> */}
+
+          {
             lineList?.data.map((item: any) => (
-              <div key={item.id} style={{ height: "12.3rem", border: '1px solid #ccc', width: "100%", borderRadius: "5px", marginBottom: "2rem", padding: "1rem", boxSizing: "border-box" }}>
-                <div style={{ marginBottom: "0.3rem" }}>地铁线名称：<span style={{ fontSize: '16px', color: "#4ab4ff" }}>{item?.name || "无"}</span></div>
-                <div style={{ marginBottom: "0.3rem" }}>
-                  <span style={{ marginRight: "1rem" }}>班别数：<span style={{ fontSize: '16px', color: "#4ab4ff" }}>{item?.classCount || "无"}</span></span>
-                  <span style={{ marginRight: "1rem" }}>仓库数：<span style={{ fontSize: '16px', color: "#4ab4ff" }}>{item?.warehouseCount || "无"}</span></span>
-                  <span style={{ marginRight: "1rem" }}>站台数：<span style={{ fontSize: '16px', color: "#4ab4ff" }}>{item?.platformCount || "无"}</span></span>
+              <div key={item.id} style={{ margin: "3rem" }}>
+                <div style={{ margin: "2rem", fontSize: "1.2rem" }}>地铁路线：<span style={{ color: "#5A7FFA", fontSize: "1.6rem" }}>{item.name}</span></div>
+                <div>
+                  <Steps progressDot >
+                    {
+                      item.platformList.map((key: any) => (
+                        <Step status="finish" title={key.name} />
+                      ))
+                    }
+                  </Steps>
                 </div>
-                <Steps>
-                  {
-                    item.platformList.map((key: any) => (
-                      < Step status="finish" title={key.name} icon={<DownCircleOutlined />} />
-                    ))
-                  }
-                </Steps>
               </div>
             ))
-
-          } */}
-
-
+          }
         </div>
         <div className="right">
           {/* <div className="title">
@@ -131,12 +132,13 @@ const Header = styled.div`
       }
     }
 
-    //> .title {
-    //  margin-left: 2rem;
-    //  font-size: 2rem;
-    //  font-weight: bold;
-    //  color: #3A3D44;
-    //}
+    > .title {
+     width: 100%;
+     text-align: center;
+     font-size: 2rem;
+     font-weight: bold;
+     color: #989EAC;
+    }
   }
 
   > .right {

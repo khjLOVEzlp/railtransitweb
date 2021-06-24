@@ -7,8 +7,12 @@ export const FullPageErrorFallback = ({ error }: { error: Error | null }) => (
   </FullPage>
 );
 
+interface ErrorBoundary extends Error {
+  msg?: string
+}
+
 // 类型守卫
-const isError = (value: any): value is Error => value?.msg;
+const isError = (value: any): value is ErrorBoundary => value?.msg;
 
 export const ErrorBox = ({ error }: { error: unknown }) => {
   if (isError(error)) {

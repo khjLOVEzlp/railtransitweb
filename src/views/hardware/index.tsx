@@ -16,17 +16,17 @@ const { TabPane } = Tabs;
 export const Hardware = () => {
   const [navList] = useState([
     {
-      name: "防分离设备",
+      name: "防分离器",
       id: 1,
       tem: <SeperateController />,
     },
     {
-      name: "酒精测试仪设备",
+      name: "酒精测试仪",
       id: 2,
       tem: <AlcoholController />,
     },
     {
-      name: "流量卡设备",
+      name: "流量卡",
       id: 3,
       tem: <SimCardController />,
     },
@@ -36,7 +36,7 @@ export const Hardware = () => {
       tem: <LabelController />,
     },
     {
-      name: "手持机设备",
+      name: "手持机",
       id: 5,
       tem: <PlatfromController />,
     },
@@ -46,7 +46,7 @@ export const Hardware = () => {
       tem: <RfidCardController />,
     },
     {
-      name: "体温设备",
+      name: "体温测试仪",
       id: 7,
       tem: <TemperaterController />,
     },

@@ -134,12 +134,12 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   );
 };
 
-export const Class = ({ formData }: { formData: any }) => {
+export const Class = ({ formData, lineId }: { formData: any, lineId: number | undefined }) => {
   const [visible, setVisible] = useState(false);
   const [dataForm, setDataForm] = useState<any>({})
   const [type, setType] = useState('')
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     name: '',
   })
@@ -147,14 +147,14 @@ export const Class = ({ formData }: { formData: any }) => {
   /* 
     增删改查
   */
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page, lineId: formData.id })
+  const { data, isLoading } = useInit({ ...pagination, lineId })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
     console.log(item)
-    setPagination({ ...pagination, name: item.name, page: 1 })
+    setPagination({ ...pagination, name: item.name, index: 1 })
   };
 
   const add = (item: any) => {
@@ -169,10 +169,6 @@ export const Class = ({ formData }: { formData: any }) => {
     showUserModal()
     setType('修改')
     setDataForm(item)
-  }
-
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
   }
 
   const del = async (id: number) => {
@@ -195,19 +191,22 @@ export const Class = ({ formData }: { formData: any }) => {
     setVisible(false);
   };
 
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+  };
   return (
     <Contianer>
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            Add({ ...values, lineId: formData.id }).then(() => {
+            Add({ ...values, lineId }).then(() => {
               message.success("新增成功")
               setVisible(false);
             }).catch(error => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, id: dataForm.id, lineId: formData.id }).then(() => {
+            Mod({ ...values, id: dataForm.id, lineId }).then(() => {
               message.success("修改成功")
               setVisible(false)
             }).catch(error => {
@@ -273,7 +272,7 @@ export const Class = ({ formData }: { formData: any }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
+          ]} pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
         </Main>

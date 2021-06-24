@@ -12,7 +12,7 @@ export const Warehouse = () => {
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     type: '',
     name: '',
@@ -21,13 +21,13 @@ export const Warehouse = () => {
   /* 
     增删改查
   */
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { data, isLoading } = useInit({ ...pagination })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, type: item.type, page: 1 })
+    setPagination({ ...pagination, name: item.name, type: item.type, index: 1 })
   };
 
   const add = () => {
@@ -63,10 +63,6 @@ export const Warehouse = () => {
     setPagination({ ...pagination, type: value })
   }
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
-
   const showUserModal = () => {
     setVisible(true);
   };
@@ -77,6 +73,10 @@ export const Warehouse = () => {
 
   const onClose = () => {
     setToolVisible(false)
+  };
+
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -178,7 +178,7 @@ export const Warehouse = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

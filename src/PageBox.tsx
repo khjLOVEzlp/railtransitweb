@@ -59,16 +59,17 @@ export const PageBox = () => {
             <img src={logo} alt="" />
           </div>
           <div className="title" onClick={() => window.location.href = window.location.origin}>
-            <p>5G-NB智慧轨行区 数字化维养安全管控系统</p>
+            <p>5G-NB智慧轨行区</p>
+            <p>数字化维养安全管控系统</p>
           </div>
-          <Nav>
-            {
-              menu.map((item: any, index) => (
-                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
-              ))
-            }
-          </Nav>
         </Logo>
+        <Nav>
+          {
+            menu.map((item: any, index) => (
+              <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
+            ))
+          }
+        </Nav>
         <User />
       </HeaderStyle>
       <ContentStyle>
@@ -127,12 +128,12 @@ const User = () => {
             <Menu.Item key={"logout"}>
               <Button onClick={logout} type={"link"}>
                 登出
-            </Button>
+              </Button>
             </Menu.Item>
             <Menu.Item key={"mod"}>
               <Button onClick={showModal} type={"link"}>
                 修改密码
-            </Button>
+              </Button>
             </Menu.Item>
           </Menu>
         }
@@ -214,16 +215,15 @@ const HeaderStyle = styled.header`
 const Logo = styled.div`
   display: flex;
   align-items: center;
-
   > .title {
     margin-left: 1rem;
-    width: 20rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #5A7FFA;
     cursor: pointer;
 
     > p {
+      width: 20rem;
       margin: 0;
     }
   }
@@ -231,15 +231,19 @@ const Logo = styled.div`
 
 const Nav = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  font-size: 20px;
+  font-size: 1.8rem;
   font-weight: bold;
-  margin-left: 18rem;
-
+  width: 100%;
+  padding: 0 10rem;
+  box-sizing: border-box;
   > li {
-    margin-right: 5rem;
-
+    flex: 1;
+    text-align: center;
     > a {
+      display: block;
+      width: 100%;
       color: #3A3D44;
 
     }

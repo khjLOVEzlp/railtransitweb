@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { rules } from "../../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
 import { useAdd, useDel, useInit, useMod } from "./lineRoad";
+import { useHttp } from "../../../../../../utils/http";
 
 /*const layout = {
   labelCol: {span: 4},
@@ -63,26 +64,28 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   );
 };
 
-export const Road = ({ formData }: { formData: any }) => {
+export const Road = ({ formData, lineId }: { formData: any, lineId: number | undefined }) => {
   const [visible, setVisible] = useState(false);
   const [dataForm, setDataForm] = useState<any>({})
   const [type, setType] = useState('')
+  const client = useHttp()
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     name: '',
   })
 
+
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page, lineId: formData.id })
+  const { data, isLoading } = useInit({ ...pagination, lineId })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, page: 1 })
+    setPagination({ ...pagination, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -96,16 +99,15 @@ export const Road = ({ formData }: { formData: any }) => {
     setDataForm(item)
   }
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
-
   const del = async (id: number) => {
     Del(id)
   }
 
   const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
+    del(item.id).then(() => {
+      setPagination({ ...pagination, index: 1 })
+      message.success('删除成功')
+    })
   }
 
   const cancel = () => {
@@ -120,19 +122,23 @@ export const Road = ({ formData }: { formData: any }) => {
     setVisible(false);
   };
 
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+  };
+
   return (
     <Contianer>
       <Form.Provider
         onFormFinish={(name, { values }) => {
           if (name === '新增') {
-            Add({ ...values, lineId: formData.id }).then(() => {
+            Add({ ...values, lineId }).then(() => {
               message.success("新增成功")
               setVisible(false);
             }).catch(error => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, lineId: formData.id, id: dataForm.id }).then(() => {
+            Mod({ ...values, lineId, id: dataForm.id }).then(() => {
               message.success("修改成功")
               setVisible(false);
             }).catch(error => {
@@ -198,7 +204,7 @@ export const Road = ({ formData }: { formData: any }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
+          ]} pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
         </Main>

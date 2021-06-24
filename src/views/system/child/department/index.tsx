@@ -24,7 +24,6 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
   const client = useHttp()
 
   const onChange = (value: any) => {
-    console.log(value);
     form.setFieldsValue({ parentId: value })
   };
 
@@ -91,7 +90,6 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="部门归属"
           name="parentId"
-          rules={rules}
         >
           <TreeSelect
             style={{ width: '100%' }}
@@ -117,7 +115,7 @@ export const Department = () => {
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     name: ''
   })
@@ -125,7 +123,7 @@ export const Department = () => {
   /* 
     增删改查
   */
-  const { data, isLoading } = useInit({ ...pagination, index: pagination.page })
+  const { data, isLoading } = useInit({ ...pagination })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -153,16 +151,16 @@ export const Department = () => {
     message.error('取消删除');
   }
 
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
-
   const showUserModal = () => {
     setVisible(true);
   };
 
   const hideUserModal = () => {
     setVisible(false);
+  };
+
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -252,8 +250,13 @@ export const Department = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, onChange: onChange }} loading={isLoading} dataSource={data?.data}
-            rowKey={(item: any) => item.id} />
+          } pagination={{ total: data?.count, }}
+            onChange={handleTableChange}
+            loading={isLoading}
+            dataSource={data?.data}
+            childrenColumnName="departmentList"
+            rowKey={(item: any) => item.id}
+          />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
       </Form.Provider>

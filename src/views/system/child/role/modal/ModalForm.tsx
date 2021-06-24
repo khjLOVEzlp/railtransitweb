@@ -58,35 +58,9 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         } else {
           data = []
         }
-
         return data
-
       }
-
       setMenu(fuc(res.data))
-
-      /* res.data.forEach((item: any) => {
-        item.title = item.name
-        item.children = item.childMenu
-        item.key = item.id
-
-        if (item.childMenu) {
-          item.childMenu.forEach((key: any) => {
-            key.title = key.name
-            key.children = key.childMenu
-            key.key = key.id
-
-            if (key.childMenu) {
-              key.childMenu.forEach((value: any) => {
-                value.title = value.name
-                value.children = value.childMenu
-                value.key = value.id
-              })
-            }
-          })
-        }
-      })
-      setMenu(res.data) */
     })
   }, [client])
 
@@ -145,7 +119,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         </Form.Item>
 
         <Form.Item
-          label="角色名"
+          label="角色名称"
           name="name"
           rules={rules}
         >

@@ -57,7 +57,6 @@ export const Temperature = () => {
   /*const confirm = (item: any) => {
     del(item.id).then(() => message.success('删除成功'))
   }
-
   const cancel = () => {
     message.error('取消删除');
   }*/

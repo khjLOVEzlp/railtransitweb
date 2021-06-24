@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@ant-design/charts": "^1.1.12",
+    "@ant-design/pro-layout": "^6.19.7",
+    "@ant-design/pro-table": "^2.42.1",
     "@babel/polyfill": "^7.12.1",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
@@ -15,6 +17,7 @@
     "@types/qs": "^6.9.6",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "ahooks": "^2.10.6",
     "antd": "^4.15.4",
     "core-js": "3",
     "dayjs": "^1.10.4",

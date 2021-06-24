@@ -1,11 +1,11 @@
 import styled from "@emotion/styled"
-import React, {useState} from "react"
-import {Outlet} from "react-router";
-import {NavLink} from "react-router-dom"
+import React, { useState } from "react"
+import { Outlet } from "react-router";
+import { NavLink } from "react-router-dom"
 /*import {PlanType} from "./child/planType";
 import {PlanWork} from "./child/planWork";
 import {WorkManage} from "./child/workManage";*/
-import {useDocumentTitle} from '../../hook/useDocumentTitle'
+import { useDocumentTitle } from '../../hook/useDocumentTitle'
 
 export const Plan = () => {
   const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu)
@@ -16,15 +16,15 @@ export const Plan = () => {
       <Left>
         {
           asid.map((item: any, index: number) => <li key={index}>
-            <img src={`../../icon/${item.name}.png`} alt=""/>
-            <NavLink to={item.url} activeStyle={{color: '#5A7FFA', fontWeight: 'bold'}}>
+            <img src={`../../icon/${item.name}.png`} alt="" />
+            <NavLink to={item.url} activeStyle={{ color: '#5A7FFA', fontWeight: 'bold' }}>
               {item.name}
             </NavLink>
           </li>)
         }
       </Left>
       <Right>
-        <Outlet/>
+        <Outlet />
         {/*<Routes>
           <Route path={"planWork"} element={<PlanWork/>}/>
           <Route path={"planType"} element={<PlanType/>}/>
@@ -69,9 +69,9 @@ const Left = styled.div`
 
 const Right = styled.div`
   border-radius: 14px;
-  width: calc(100% - 27rem);
   height: 100%;
   margin-left: 0.5%;
+  width: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;

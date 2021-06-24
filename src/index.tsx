@@ -1,13 +1,15 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AppProviders } from "./context";
+import '@ant-design/pro-form/dist/form.less';
+import '@ant-design/pro-table/dist/table.less';
+import '@ant-design/pro-layout/dist/layout.less';
 
 ReactDOM.render(
-    <AppProviders>
-      <App />
-    </AppProviders>,
+  <AppProviders>
+    <App />
+  </AppProviders>,
   document.getElementById('root')
 );
 

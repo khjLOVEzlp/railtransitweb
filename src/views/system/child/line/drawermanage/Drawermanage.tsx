@@ -6,9 +6,10 @@ import { Platform } from "./child/Platform";
 import { Class } from "./child/Class";
 
 interface Props {
-  isShowDrawer: boolean,
-  setIsShowDrawer: (isShowDrawer: boolean) => void,
+  isShowDrawer: boolean
+  setIsShowDrawer: (isShowDrawer: boolean) => void
   formData: any
+  lineId: number | undefined
 }
 
 const { TabPane } = Tabs;
@@ -17,23 +18,25 @@ function callback() {
 
 }
 
-export const Drawermanage = ({ formData, setIsShowDrawer }: Props) => {
+export const Drawermanage = ({ formData, setIsShowDrawer, lineId }: Props) => {
+  console.log(lineId, "抽屉");
+
   const [visible, setVisible] = useState(true);
   const [navList] = useState([
     {
-      name: "地铁路段",
+      name: "地铁站台",
       id: 1,
-      tem: <Road formData={formData} />,
+      tem: <Platform formData={formData} lineId={lineId} />,
     },
     {
-      name: "地铁站台",
+      name: "地铁路段",
       id: 2,
-      tem: <Platform formData={formData} />,
+      tem: <Road formData={formData} lineId={lineId} />,
     },
     {
       name: "地铁班别",
       id: 3,
-      tem: <Class formData={formData} />,
+      tem: <Class formData={formData} lineId={lineId} />,
     }
   ])
 
