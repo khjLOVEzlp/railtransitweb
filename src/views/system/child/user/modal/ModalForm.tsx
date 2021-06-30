@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Checkbox, Form, Input, Modal, Select } from "antd";
+import { Button, Checkbox, Form, Input, Modal, Select, Spin } from "antd";
 import { useHttp } from "../../../../../utils/http";
 import { rules } from "../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useUserList } from "../user";
+import { useDetail, useUserList } from "../user";
 import { usePerson } from "../../../../person/person";
 
 const { Option } = Select;
@@ -17,17 +17,19 @@ interface ModalFormProps {
   visible: boolean;
   onCancel: () => void;
   type: string,
-  formData: object
+  id: number | undefined
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, id }) => {
   const [form] = Form.useForm();
   const [roleList, setRoleList] = useState([])
   const client = useHttp()
 
+  const { data: formData, isLoading } = useDetail(id)
+
   useEffect(() => {
     if (type === "新增") return
-    form.setFieldsValue({ ...formData })
+    form.setFieldsValue({ ...formData?.data })
   }, [formData, form, visible, type])
 
   const getRoleLIst = useCallback(() => {
@@ -61,57 +63,61 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
       footer={[<Button key="back" onClick={onCancel}>取消</Button>,
       <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
-      <Form
-        form={form}
-        name={type}
-        labelAlign="right"
-        layout={"vertical"}
-      >
-        <Form.Item
-          label="登陆账户"
-          name="loginName"
-          rules={rules}
+      {
+        isLoading ? (
+          <Spin size={"large"} />
+        ) : <Form
+          form={form}
+          name={type}
+          labelAlign="right"
+          layout={"vertical"}
         >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            label="登陆账户"
+            name="loginName"
+            rules={rules}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="密码"
-          name="password"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            label="密码"
+            name="password"
+            rules={rules}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="人员"
-          name="personId"
-          rules={rules}
-        >
-          {
-            type === "新增" ? (<Select>
-              {userList?.data.map((item: any, index: number) => <Option value={item.personId} key={index}>{item.name}</Option>)}
-            </Select>) : (<Select>
-              {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
-            </Select>)
-          }
-        </Form.Item>
+          <Form.Item
+            label="人员"
+            name="personId"
+            rules={rules}
+          >
+            {
+              type === "新增" ? (<Select>
+                {userList?.data.map((item: any, index: number) => <Option value={item.personId} key={index}>{item.name}</Option>)}
+              </Select>) : (<Select>
+                {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+              </Select>)
+            }
+          </Form.Item>
 
-        <Form.Item
-          label="角色集合"
-          name="roles"
-          rules={rules}
-        >
-          <Checkbox.Group options={roleList} />
-        </Form.Item>
+          <Form.Item
+            label="角色集合"
+            name="roles"
+            rules={rules}
+          >
+            <Checkbox.Group options={roleList} />
+          </Form.Item>
 
-        <Form.Item
-          label="备注"
-          name="remark"
-        >
-          <Input />
-        </Form.Item>
-      </Form>
+          <Form.Item
+            label="备注"
+            name="remark"
+          >
+            <Input />
+          </Form.Item>
+        </Form>
+      }
     </Modal>
   );
 };

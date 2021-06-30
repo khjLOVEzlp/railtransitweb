@@ -3,6 +3,12 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from '../../../../utils'
 import { useHttp } from '../../../../utils/http'
 
+/* 查询所有用户信息 */
+export const useUserAll = () => {
+  const client = useHttp()
+  return useQuery(['userlist'], () => client(`user/allList`, { method: "POST" }))
+}
+
 /* 查询没有账号的用户 */
 export const useUserList = () => {
   const client = useHttp()
@@ -10,7 +16,7 @@ export const useUserList = () => {
 }
 
 /*
-查询
+分页查询
  */
 export const useInit = (params: any) => {
   const client = useHttp()
@@ -25,7 +31,8 @@ export const useAdd = () => {
   const client = useHttp()
   return useMutation((params: any) => client(`user/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('user')
+      queryClient.invalidateQueries('user');
+      queryClient.invalidateQueries('userlist')
     },
     onError: () => {
     }
@@ -41,6 +48,7 @@ export const useMod = () => {
   return useMutation((params: any) => client(`user/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
       queryClient.invalidateQueries('user')
+      queryClient.invalidateQueries('userlist')
     },
     onError: () => {
     }
@@ -56,8 +64,19 @@ export const useDel = () => {
   return useMutation((id: number) => client(`user/delete/${id}`), {
     onSuccess: () => {
       queryClient.invalidateQueries('user')
+      queryClient.invalidateQueries('userlist')
     },
     onError: () => {
     }
+  })
+}
+
+/* 
+查询详情
+*/
+export const useDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['userDetail', id], () => client(`user/get/${id}`), {
+    enabled: Boolean(id),
   })
 }

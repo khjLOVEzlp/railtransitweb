@@ -3,8 +3,10 @@ import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from "./modal/ModalForm";
 import { useAdd, useDel, useInit, useMod } from './person';
+import { useDocumentTitle } from '../../hook/useDocumentTitle';
 
 export const Person = () => {
+  useDocumentTitle("人员管理")
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
@@ -89,7 +91,7 @@ export const Person = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="人员名称"
+              label="姓名"
               name="name"
             >
               <Input />
@@ -118,7 +120,7 @@ export const Person = () => {
                 render: (item) => <>{item.sex === 1 ? '男' : '女'}</>
               },
               {
-                title: '手机号',
+                title: '员工卡号',
                 dataIndex: 'number',
                 key: 'number',
               },
@@ -162,7 +164,7 @@ export const Person = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

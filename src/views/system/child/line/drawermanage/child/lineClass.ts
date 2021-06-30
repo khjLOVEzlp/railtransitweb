@@ -11,6 +11,14 @@ export const useInit = (params: any) => {
   return useQuery(['lineClass', cleanObject(params)], () => client(`lineClass/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
+/*
+查询区间
+ */
+export const useRoad = (params: any) => {
+  const client = useHttp()
+  return useQuery(['lineClass', cleanObject(params)], () => client(`lineRoad/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+}
+
 /* 
 新增
 */
@@ -53,5 +61,15 @@ export const useDel = () => {
     },
     onError: () => {
     }
+  })
+}
+
+/* 
+查询详情
+*/
+export const useDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['lineClassDetail', id], () => client(`lineClass/get/${id}`), {
+    enabled: Boolean(id),
   })
 }

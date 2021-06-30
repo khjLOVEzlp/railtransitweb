@@ -7,7 +7,7 @@ import { useAdd, useDel, useInit, useMod } from './user';
 export const User = () => {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState('')
-  const [formData, setFormData] = useState<any>({})
+  const [id, setId] = useState<any>()
   const [pagination, setPagination] = useState({
     index: 1,
     size: 10,
@@ -25,12 +25,13 @@ export const User = () => {
   const add = () => {
     showUserModal()
     setType('新增')
+    setId(undefined)
   }
 
   const mod = (item: any) => {
     showUserModal()
     setType('修改')
-    setFormData(item)
+    setId(item.id)
   }
 
   const del = async (id: number) => {
@@ -73,7 +74,7 @@ export const User = () => {
               message.error(err.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, id: formData.id }).then(() => {
+            Mod({ ...values, id }).then(() => {
               message.success('修改成功')
               setVisible(false);
             }).catch(err => {
@@ -154,13 +155,14 @@ export const User = () => {
                 },
               ]
             }
-            pagination={{ total: data?.count }}
+            pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
             onChange={handleTableChange}
             dataSource={data?.data}
             loading={isLoading}
-            rowKey={(item: any) => item.id} />
+            rowKey={(item: any) => item.id}
+          />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
+        <ModalForm visible={visible} id={id} type={type} onCancel={hideUserModal} />
       </Form.Provider>
     </>
   );

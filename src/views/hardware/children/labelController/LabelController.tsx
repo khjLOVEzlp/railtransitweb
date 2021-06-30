@@ -65,17 +65,6 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         </Form.Item>
 
         <Form.Item
-          label="是否使用"
-          name="isUse"
-          rules={rules}
-        >
-          <Radio.Group>
-            <Radio value={"0"}>是</Radio>
-            <Radio value={"1"}>否</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
           label="归属仓库"
           name="warehouseId"
           rules={rules}
@@ -83,6 +72,16 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
           <Select>
             {warehouse?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)}
           </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="是否使用"
+          name="isUse"
+        >
+          <Radio.Group>
+            <Radio value={"0"}>是</Radio>
+            <Radio value={"1"}>否</Radio>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </Modal>
@@ -217,7 +216,7 @@ export const LabelController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

@@ -4,12 +4,13 @@ import { useState } from "react";
 import { Road } from './child/Road'
 import { Platform } from "./child/Platform";
 import { Class } from "./child/Class";
+import { QueryClient } from "react-query";
+import { useDetail } from "../line";
 
 interface Props {
   isShowDrawer: boolean
   setIsShowDrawer: (isShowDrawer: boolean) => void
-  formData: any
-  lineId: number | undefined
+  id: number | undefined
 }
 
 const { TabPane } = Tabs;
@@ -18,25 +19,24 @@ function callback() {
 
 }
 
-export const Drawermanage = ({ formData, setIsShowDrawer, lineId }: Props) => {
-  console.log(lineId, "抽屉");
-
+export const Drawermanage = ({ setIsShowDrawer, id }: Props) => {
+  const { data: lineDetail } = useDetail(id)
   const [visible, setVisible] = useState(true);
   const [navList] = useState([
     {
-      name: "地铁站台",
+      name: "区间",
       id: 1,
-      tem: <Platform formData={formData} lineId={lineId} />,
+      tem: <Road id={id} />,
     },
     {
-      name: "地铁路段",
+      name: "地铁站台",
       id: 2,
-      tem: <Road formData={formData} lineId={lineId} />,
+      tem: <Platform id={id} />,
     },
     {
       name: "地铁班别",
       id: 3,
-      tem: <Class formData={formData} lineId={lineId} />,
+      tem: <Class id={id} />,
     }
   ])
 
@@ -58,8 +58,8 @@ export const Drawermanage = ({ formData, setIsShowDrawer, lineId }: Props) => {
         maskClosable={false}
       >
         <div>
-          <LineTitle>{formData.name}</LineTitle>
-          <div>备注：{formData.remark}</div>
+          <LineTitle>{lineDetail?.data.name}</LineTitle>
+          <div>备注：{lineDetail?.data.remark}</div>
           <Tabs defaultActiveKey="1" onChange={callback}>
             {
               navList.map((item: any) => <TabPane tab={item.name} key={item.id}>

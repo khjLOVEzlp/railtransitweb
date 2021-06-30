@@ -64,22 +64,20 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   );
 };
 
-export const Road = ({ formData, lineId }: { formData: any, lineId: number | undefined }) => {
+export const Road = ({ id }: { id: number | undefined }) => {
   const [visible, setVisible] = useState(false);
   const [dataForm, setDataForm] = useState<any>({})
   const [type, setType] = useState('')
-  const client = useHttp()
   const [pagination, setPagination] = useState({
     index: 1,
     size: 10,
     name: '',
   })
 
-
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...pagination, lineId })
+  const { data, isLoading } = useInit({ ...pagination, lineId: id })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -131,14 +129,14 @@ export const Road = ({ formData, lineId }: { formData: any, lineId: number | und
       <Form.Provider
         onFormFinish={(name, { values }) => {
           if (name === '新增') {
-            Add({ ...values, lineId }).then(() => {
+            Add({ ...values, lineId: id }).then(() => {
               message.success("新增成功")
               setVisible(false);
             }).catch(error => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, lineId, id: dataForm.id }).then(() => {
+            Mod({ ...values, lineId: id, id: dataForm.id }).then(() => {
               message.success("修改成功")
               setVisible(false);
             }).catch(error => {
@@ -204,7 +202,7 @@ export const Road = ({ formData, lineId }: { formData: any, lineId: number | und
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          ]} pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
         </Main>

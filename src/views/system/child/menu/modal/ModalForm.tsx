@@ -65,9 +65,9 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           name="menuType"
           rules={rules}
         >
-          <Radio.Group onChange={menuTypeChange} value={menuType}>
-            <Radio value={1}>web</Radio>
-            <Radio value={2}>app</Radio>
+          <Radio.Group>
+            <Radio value={0}>web</Radio>
+            <Radio value={1}>app</Radio>
           </Radio.Group>
         </Form.Item>
 
@@ -121,7 +121,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           name="visible"
           rules={rules}
         >
-          <Radio.Group onChange={statusChange} value={status}>
+          <Radio.Group>
             <Radio value={0}>显示</Radio>
             <Radio value={1}>隐藏</Radio>
           </Radio.Group>

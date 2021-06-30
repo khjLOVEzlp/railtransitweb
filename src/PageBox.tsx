@@ -11,6 +11,7 @@ import { RouterElement } from "./router";
 import { useQuery } from 'react-query'
 import qs from "qs";
 import { rules } from "./utils/verification";
+import { OperModal } from "./views/notice/OperModal";
 
 export const PageBox = () => {
   const [menu, setMenu] = useState([])
@@ -63,7 +64,7 @@ export const PageBox = () => {
             <p>数字化维养安全管控系统</p>
           </div>
         </Logo>
-        <Nav>
+        <Nav className={"NavList"}>
           {
             menu.map((item: any, index) => (
               <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
@@ -93,35 +94,34 @@ export const PageBox = () => {
 const User = () => {
   const { logout, user } = useAuth();
   const [visible, setVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
   const client = useHttp()
   const onCreate = (values: any) => {
     client(`user/editpassword?${qs.stringify(values)}`, { method: "POST" }).then(() => {
-      message.success("修改成功")
+      message.success("修改成功，请重新登陆")
       setVisible(false);
+      logout()
     }).catch(error => {
       message.error(error.msg)
     })
   };
+
   const showModal = () => {
     setVisible(true);
   };
 
-  const { data } = useQuery('transactionNotice', () => client(`transactionNotice/list`, { method: "POST" }))
-
-  const content = (
-    <div style={{ minWidth: "20rem" }}>
-      {data?.data.map((item: any) => <p key={item.id} style={{ display: "flex", justifyContent: "space-around" }}>
-        <span>{item.title}</span>
-        <span>{item.content}</span>
-      </p>)}
-    </div>
-  );
+  const onCancel = () => {
+    setModalVisible(false)
+  }
 
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
-      <Popover content={content} title="事务通知">
+      <Button type={"link"} onClick={() => {
+        setModalVisible(true)
+      }}>
         <img src={notice} alt="" />
-      </Popover>
+      </Button>
+      <OperModal visible={modalVisible} onCancel={onCancel} />
       <Dropdown
         overlay={
           <Menu>
@@ -166,6 +166,12 @@ const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
   onCancel,
 }) => {
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (!visible) {
+      form.resetFields()
+    }
+  }, [visible])
   return (
     <Modal
       visible={visible}

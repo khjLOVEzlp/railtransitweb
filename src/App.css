@@ -13,7 +13,7 @@ ul, li {
 }
 
 ::-webkit-scrollbar {
-    background-color:#eee;
+    background-color:#ccc;
     width: 2px;
     height: 2px;
 }
@@ -231,4 +231,15 @@ a {
 .ant-steps-item-title {
   color: #989EAC !important;
   font-size: 1.4rem !important;
+}
+
+.ant-space-item {
+  width: 100% !important;
+}
+
+@media screen and (max-width: 1200px){
+  .NavList {
+    padding: 0 !important;
+    font-size: 1.2rem !important;
+  }
 }

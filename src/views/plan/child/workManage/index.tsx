@@ -99,7 +99,7 @@ export const WorkManage = () => {
               )
             },
           ]
-        } pagination={{ total: data?.count }}
+        } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
           onChange={handleTableChange}
           dataSource={data?.data}
           loading={isLoading}

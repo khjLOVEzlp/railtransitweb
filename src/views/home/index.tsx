@@ -5,7 +5,6 @@ import { track, options, task } from './subwayRoute'
 import { MyEcharts } from "../../components/MyEcharts";
 import { useHttp } from "../../utils/http";
 import { Steps } from 'antd';
-import { DownCircleOutlined } from '@ant-design/icons';
 import { useLineIndex } from "./home";
 import Page from './alarmPage'
 import PlanWorkPage from './planWork'
@@ -22,7 +21,7 @@ export const Home = () => {
   const { data: lineList } = useLineIndex()
 
   const getAlertData = useCallback(() => {
-    client(`alarm/statistic/list`, { method: "POST", body: JSON.stringify({ index: 1, size: 10 }) }).then(res => {
+    client(`alarm/statistic/list`, { method: "POST", body: JSON.stringify({}) }).then(res => {
       res.data.forEach((key: { [key in string]: unknown }) => {
         key["star"] = key.num
         key["name"] = key.title
@@ -43,13 +42,14 @@ export const Home = () => {
           {/* <div className={"title"}>
             地铁路线
           </div> */}
-
           {
             lineList?.data.map((item: any) => (
-              <div key={item.id} style={{ margin: "3rem" }}>
-                <div style={{ margin: "2rem", fontSize: "1.2rem" }}>地铁路线：<span style={{ color: "#5A7FFA", fontSize: "1.6rem" }}>{item.name}</span></div>
+              <div key={item.id} style={{ margin: "1rem 3rem" }}>
+                <div style={{ margin: "3rem", fontSize: "1.2rem" }}>
+                  <span style={{ color: "#5A7FFA", fontSize: "1.6rem" }}>{item.name}</span>
+                </div>
                 <div>
-                  <Steps progressDot >
+                  <Steps progressDot size={"small"}>
                     {
                       item.platformList.map((key: any) => (
                         <Step status="finish" title={key.name} />
@@ -66,7 +66,9 @@ export const Home = () => {
             告警展示
           </div> */}
           {/* <MyEcharts id="alert" data={alertData} style={{ width: '100%', height: '50vh' }} /> */}
-          <Page data={data} />
+          <div>
+            <Page data={data} />
+          </div>
         </div>
       </Header>
       <Footer>
@@ -75,10 +77,11 @@ export const Home = () => {
             计划统计
           </div>
           <MyEcharts id="plan" data={planData} style={{ width: '80%', height: '30rem' }} /> */}
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <PlanWorkPage />
             <div></div>
-          </div>
+          </div> */}
+          <PlanType />
         </div>
         <div className="right">
           {/* <div className="title">
@@ -108,7 +111,6 @@ const Header = styled.div`
     background: #FFFFFF;
     border-radius: 14px;
     width: 64%;
-    padding: 1rem;
     box-sizing: border-box;
     overflow-y: auto;
 
@@ -147,7 +149,7 @@ const Header = styled.div`
     border-radius: 14px;
     width: 35.5%;
     box-sizing: border-box;
-
+    padding: 3rem;
     > .title {
       margin-left: 2rem;
       font-size: 2rem;

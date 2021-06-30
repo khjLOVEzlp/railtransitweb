@@ -6,7 +6,7 @@ import { rules } from "../../../../../utils/verification";
 import TextArea from "antd/lib/input/TextArea";
 import { useMaterialType } from "../../../../system/child/materialType/materialType";
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import '../../style.css'
+// import '../../style.css'
 const { Option } = Select;
 /*const layout = {
   labelCol: {span: 4},
@@ -125,7 +125,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
               <Form.Item>
                 <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                   添加物料
-              </Button>
+                </Button>
               </Form.Item>
             </>
           )}
@@ -184,7 +184,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
               <Form.Item>
                 <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                   添加工具
-              </Button>
+                </Button>
               </Form.Item>
             </>
           )}

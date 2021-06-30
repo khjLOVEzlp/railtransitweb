@@ -1,47 +1,38 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useHttp } from "../../../../../../utils/http";
 import qs from "qs";
-import { Button, Form, Input, message, Modal, Popconfirm, Select, Table, TreeSelect } from "antd";
+import { Button, Form, Input, message, Modal, Popconfirm, Select, Spin, Table, TreeSelect } from "antd";
 import styled from "@emotion/styled";
 import { rules } from "../../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
-import { useAdd, useDel, useInit, useMod } from './lineClass'
+import { useAdd, useDel, useDetail, useInit, useMod, useRoad } from './lineClass'
+import { useWarehouse } from "../../../warehouse/warehouse";
 
 const { Option } = Select
-/*const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};*/
 
 interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: any
+  visible: boolean
+  onCancel: () => void
+  type: string
+  id: number | undefined
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, id }) => {
   const [form] = Form.useForm();
-  const [classList, setClassList] = useState([])
-  const [warehouse, setWarehouse] = useState([])
   const [value, setValue] = useState([]);
   const client = useHttp()
   const onChange = (value: any) => {
-    console.log(value);
     form.setFieldsValue({ parentId: value })
   };
 
-  const getWarehouse = useCallback(() => {
-    client(`warehouse/listAll`, { method: "POST" }).then(res => {
-      setWarehouse(res.data)
-    })
-  }, [client])
+  const { data: formData, isLoading } = useDetail(id)
+  const { data: roadList } = useRoad({ index: 1, size: 1000, lineId: id })
+  const { data: warehouse } = useWarehouse()
 
-  const getClassList = useCallback(() => {
-    client(`lineClass/list?${qs.stringify({ index: 1, size: 1000, lineId: formData.id })}`, { method: "POST" }).then(res => {
-      setClassList(res.data)
-    })
-  }, [client, formData.id])
+  useEffect(() => {
+    if (type === "新增") return
+    form.setFieldsValue(formData?.data)
+  }, [formData, form, visible, type])
 
   const getDepartmentList = useCallback(() => {
     client(`department/getAll`).then(res => {
@@ -67,19 +58,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
     getDepartmentList()
   }, [getDepartmentList])
 
-  useEffect(() => {
-    getWarehouse()
-  }, [getWarehouse])
-
-  useEffect(() => {
-    getClassList()
-  }, [getClassList])
-
-  useEffect(() => {
-    if (type === "新增") return
-    form.setFieldsValue(formData)
-  }, [formData, form, visible, type])
-
   useResetFormOnCloseModal({
     form,
     visible,
@@ -94,49 +72,65 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
       footer={[<Button key="back" onClick={onCancel}>取消</Button>,
       <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
     >
-      <Form
-        form={form}
-        name={type}
-        labelAlign="right"
-        layout={"vertical"}
-      >
-        <Form.Item
-          label="班别"
-          name="departmentId"
-          rules={rules}
-        >
-          <TreeSelect
-            style={{ width: '100%' }}
-            treeData={value}
-            treeDefaultExpandAll
-            onChange={onChange}
-          />
-        </Form.Item>
+      {
+        isLoading ? (
+          <Spin />
+        ) : (
+          <Form
+            form={form}
+            name={type}
+            labelAlign="right"
+            layout={"vertical"}
+          >
+            <Form.Item
+              label="班别"
+              name="departmentId"
+              rules={rules}
+            >
+              <TreeSelect
+                style={{ width: '100%' }}
+                treeData={value}
+                treeDefaultExpandAll
+                onChange={onChange}
+              />
+            </Form.Item>
 
-        <Form.Item
-          label="仓库"
-          name="warehouseId"
-          rules={rules}
-        >
-          <Select>
-            {warehouse.map((item: any, index: number) => <Option value={item.roadId} key={index}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
+            <Form.Item
+              label="区间"
+              name="roadId"
+              rules={rules}
+            >
+              <Select>
+                {roadList?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)}
+              </Select>
+            </Form.Item>
 
-        <Form.Item
-          label="备注"
-          name="remark"
-        >
-          <Input />
-        </Form.Item>
-      </Form>
+            <Form.Item
+              label="仓库"
+              name="warehouseIds"
+              rules={rules}
+            >
+              <Select allowClear mode="multiple">
+                {warehouse?.data.map((item: any, index: number) => <Option value={item.roadId} key={index}>{item.name}</Option>)}
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              label="备注"
+              name="remark"
+            >
+              <Input />
+            </Form.Item>
+          </Form>
+        )
+      }
     </Modal>
   );
 };
 
-export const Class = ({ formData, lineId }: { formData: any, lineId: number | undefined }) => {
+export const Class = ({ id }: { id: number | undefined }) => {
   const [visible, setVisible] = useState(false);
-  const [dataForm, setDataForm] = useState<any>({})
+  const [classId, setClassId] = useState<number>()
   const [type, setType] = useState('')
   const [pagination, setPagination] = useState({
     index: 1,
@@ -147,7 +141,7 @@ export const Class = ({ formData, lineId }: { formData: any, lineId: number | un
   /* 
     增删改查
   */
-  const { data, isLoading } = useInit({ ...pagination, lineId })
+  const { data, isLoading } = useInit({ ...pagination, lineId: id })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -157,18 +151,15 @@ export const Class = ({ formData, lineId }: { formData: any, lineId: number | un
     setPagination({ ...pagination, name: item.name, index: 1 })
   };
 
-  const add = (item: any) => {
+  const add = () => {
     showUserModal()
     setType('新增')
-    setDataForm(item)
-    console.log(item);
-
   }
 
-  const mod = (item: any) => {
+  const mod = (id: number) => {
     showUserModal()
     setType('修改')
-    setDataForm(item)
+    setClassId(id)
   }
 
   const del = async (id: number) => {
@@ -199,14 +190,14 @@ export const Class = ({ formData, lineId }: { formData: any, lineId: number | un
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            Add({ ...values, lineId }).then(() => {
+            Add({ ...values, lineId: id }).then(() => {
               message.success("新增成功")
               setVisible(false);
             }).catch(error => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, id: dataForm.id, lineId }).then(() => {
+            Mod({ ...values, id, lineId: id }).then(() => {
               message.success("修改成功")
               setVisible(false)
             }).catch(error => {
@@ -222,7 +213,7 @@ export const Class = ({ formData, lineId }: { formData: any, lineId: number | un
             layout={"inline"}
           >
             <Form.Item
-              label="路段名称"
+              label="班别名称"
               name="name"
             >
               <Input />
@@ -235,7 +226,7 @@ export const Class = ({ formData, lineId }: { formData: any, lineId: number | un
             </Form.Item>
           </Form>
 
-          <Button onClick={() => add(formData)}>新增</Button>
+          <Button onClick={() => add()}>新增</Button>
         </Header>
         <Main>
           <Table columns={[
@@ -262,7 +253,7 @@ export const Class = ({ formData, lineId }: { formData: any, lineId: number | un
             {
               title: '操作',
               key: 'id',
-              render: (item: any) => (<><Button type="link" onClick={() => mod(item)}>修改</Button><Popconfirm
+              render: (item: any) => (<><Button type="link" onClick={() => mod(item.id)}>修改</Button><Popconfirm
                 title={`是否要删除${item.departmentName}`}
                 onConfirm={() => confirm(item)}
                 onCancel={cancel}
@@ -272,9 +263,9 @@ export const Class = ({ formData, lineId }: { formData: any, lineId: number | un
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          ]} pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
-          <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
+          <ModalForm visible={visible} id={classId} type={type} onCancel={hideUserModal} />
         </Main>
       </Form.Provider>
     </Contianer>

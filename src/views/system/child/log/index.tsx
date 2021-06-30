@@ -85,7 +85,7 @@ export const Log = () => {
         </Form>
       </Header>
       <Main>
-        <Table columns={columns} pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data} rowKey={(item: any) => item.id} />
+        <Table columns={columns} pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data} rowKey={(item: any) => item.id} />
       </Main>
     </div>
   )

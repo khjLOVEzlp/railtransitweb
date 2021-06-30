@@ -56,7 +56,6 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         <Form.Item
           label="是否使用"
           name="isUse"
-          rules={rules}
         >
           <Radio.Group>
             <Radio value={"0"}>是</Radio>
@@ -172,7 +171,7 @@ export const RfidCardController = () => {
           <Table columns={
             [
               {
-                title: '编号',
+                title: '卡号',
                 dataIndex: 'rfid',
                 key: 'rfid',
               },
@@ -196,7 +195,7 @@ export const RfidCardController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

@@ -9,7 +9,7 @@ const { Option } = Select;
 
 export const Alarm = () => {
   const [pagination, setPagination] = useState({
-    page: 1,
+    index: 1,
     size: 10,
     state: "0",
     time: "1"
@@ -18,11 +18,7 @@ export const Alarm = () => {
   const [time, setTime] = useState("1")
 
   const { data: navList } = useWarnCount(time)
-  const { data: dataList, isLoading } = useInit({ ...pagination, index: pagination.page })
-
-  const onChange = (page: number) => {
-    setPagination({ ...pagination, page })
-  }
+  const { data: dataList, isLoading } = useInit({ ...pagination })
 
   const navChange = (value: string) => {
     setTime(value)
@@ -36,11 +32,9 @@ export const Alarm = () => {
     setPagination({ ...pagination, time: value })
   }
 
-  function onShowSizeChange(current: number, pageSize: number) {
-    setPagination({ ...pagination, page: current, size: pageSize })
-    console.log(pagination);
-
-  }
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+  };
 
   const columns = [
     {
@@ -140,6 +134,14 @@ export const Alarm = () => {
       name: "低电告警",
       value: "10"
     },
+    {
+      name: "防血压",
+      value: "11"
+    },
+    {
+      name: "防遗留",
+      value: "12"
+    },
   ]
 
   const timeList = [
@@ -200,6 +202,12 @@ export const Alarm = () => {
       case 10:
         return "低电告警"
 
+      case 11:
+        return "防血压"
+
+      case 12:
+        return "防遗留"
+
       default:
         break;
     }
@@ -210,16 +218,16 @@ export const Alarm = () => {
   return (
     <AlarmStyle>
       <Header>
-        <Select style={{ width: 120, margin: '1rem 0' }} defaultValue={"1"} onChange={navChange}>
+        <Select style={{ width: 120, margin: '2rem 0' }} defaultValue={"1"} onChange={navChange}>
           {
             timeList.map((item: { name: string, value: string }) => <Option key={item.value} value={item.value}>{item.name}</Option>)
           }
         </Select>
         <Nav>
-          {navList?.data.slice(0, 9).map((item: any) => (<li key={item.id}>
+          {navList?.data.map((item: any) => (<li key={item.id}>
             <img onClick={() => { }} src={`../../icon/${getType(item.type)}.png`} alt="" />
             <div>
-              <div>{getType(item.type)}</div>
+              <div style={{ marginBottom: '1rem' }}>{getType(item.type)}</div>
               <div style={{ fontSize: '2rem', color: '#5A7FFA' }}>{item.num}</div>
             </div>
           </li>))}
@@ -236,7 +244,7 @@ export const Alarm = () => {
             timeList.map((item: { name: string, value: string }) => <Option key={item.value} value={item.value}>{item.name}</Option>)
           }
         </Select>
-        <Table columns={columns} pagination={{ total: dataList?.count, onChange: onChange, onShowSizeChange }} loading={isLoading} dataSource={dataList?.data}
+        <Table columns={columns} pagination={{ total: dataList?.count, current: pagination.index, pageSize: pagination.size, }} onChange={handleTableChange} loading={isLoading} dataSource={dataList?.data}
           rowKey={(item: any) => item.id} />
       </Main>
     </AlarmStyle>
@@ -255,14 +263,14 @@ const Header = styled.div`
   background: #fff;
   border-radius: 1rem;
   margin-bottom: 1rem;
-  padding: 0 3rem;
+  padding: 0 2rem;
 `
 
 const Main = styled.div`
   background: #fff;
   height: 63rem;
   border-radius: 1rem;
-  padding: 0 3rem;
+  padding: 0 2rem;
   overflow-y: auto;
 `
 

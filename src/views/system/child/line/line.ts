@@ -61,3 +61,13 @@ export const useDel = () => {
     }
   })
 }
+
+/* 
+查询详情
+*/
+export const useDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['lineDetail', id], () => client(`line/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

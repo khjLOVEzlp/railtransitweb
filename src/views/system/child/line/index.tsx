@@ -8,8 +8,7 @@ export const Line = () => {
   const [visible, setVisible] = useState(false);
   const [isShowDrawer, setIsShowDrawer] = useState(false)
   const [type, setType] = useState('')
-  const [lineId, setLineId] = useState<number | undefined>()
-  const [formData, setFormData] = useState<any>({})
+  const [id, setId] = useState<number>()
   const [pagination, setPagination] = useState({
     index: 1,
     size: 10,
@@ -32,19 +31,20 @@ export const Line = () => {
   const add = () => {
     showUserModal()
     setType('新增')
+    setId(undefined)
   }
 
-  const manage = (lineId: number | undefined) => {
-    setLineId(lineId)
+  const manage = (id: number | undefined) => {
+    console.log(id);
+
+    setId(id)
     setIsShowDrawer(true)
-    console.log(lineId, "index");
-
   }
 
-  const mod = (item: any) => {
+  const mod = (id: number) => {
     showUserModal()
     setType('修改')
-    setFormData(item)
+    setId(id)
   }
 
   const del = async (id: number) => {
@@ -83,7 +83,7 @@ export const Line = () => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, id: formData.id }).then(() => {
+            Mod({ ...values, id }).then(() => {
               message.success("修改成功")
               setVisible(false);
             }).catch((error) => {
@@ -141,7 +141,7 @@ export const Line = () => {
                 title: '操作',
                 key: 'id',
                 render: (item: any) => <><Button type="link" onClick={() => manage(item.id)}>管理</Button><Button type="link"
-                  onClick={() => mod(item)}>修改</Button>
+                  onClick={() => mod(item.id)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
                     onConfirm={() => confirm(item)}
@@ -153,12 +153,12 @@ export const Line = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count }} onChange={handleTableChange} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} dataSource={data?.data}
             loading={isLoading}
             rowKey={(item: any) => item.id} />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
-        {isShowDrawer ? <Drawermanage lineId={lineId} formData={formData} isShowDrawer={isShowDrawer} setIsShowDrawer={setIsShowDrawer} /> : ''}
+        <ModalForm visible={visible} id={id} type={type} onCancel={hideUserModal} />
+        {isShowDrawer ? <Drawermanage id={id} isShowDrawer={isShowDrawer} setIsShowDrawer={setIsShowDrawer} /> : ''}
       </Form.Provider>
     </>
   );

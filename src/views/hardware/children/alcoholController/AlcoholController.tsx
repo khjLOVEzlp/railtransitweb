@@ -47,22 +47,11 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         layout={"vertical"}
       >
         <Form.Item
-          label="编号"
+          label="设备编号"
           name="code"
           rules={rules}
         >
           <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="是否使用"
-          name="status"
-          rules={rules}
-        >
-          <Radio.Group>
-            <Radio value={"0"}>是</Radio>
-            <Radio value={"1"}>否</Radio>
-          </Radio.Group>
         </Form.Item>
 
         <Form.Item
@@ -71,6 +60,16 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
           rules={rules}
         >
           <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="是否使用"
+          name="status"
+        >
+          <Radio.Group>
+            <Radio value={"0"}>是</Radio>
+            <Radio value={"1"}>否</Radio>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </Modal>
@@ -186,6 +185,11 @@ export const AlcoholController = () => {
                 key: 'code',
               },
               {
+                title: "厂商",
+                dataIndex: "operator",
+                key: "operator"
+              },
+              {
                 title: '是否可使用',
                 key: 'isUse',
                 render: (isUse: number | string) => isUse === 0 ? '不可用' : '可用'
@@ -205,7 +209,7 @@ export const AlcoholController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

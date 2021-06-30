@@ -2,8 +2,6 @@ import { Radar } from '@ant-design/charts';
 
 const Page = ({ data }: { data: any }) => {
   const config = {
-    width: 200,
-    height: 50,
     data: data,
     xField: 'name',
     yField: 'star',

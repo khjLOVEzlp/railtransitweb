@@ -29,6 +29,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
 
   useEffect(() => {
     if (type === "新增") return
+    console.log(formData);
     form.setFieldsValue(formData)
   }, [formData, form, visible, type])
 
@@ -44,15 +45,10 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         } else {
           data = []
         }
-
         return data
-
       }
-
       setValue(fuc(res.data))
     })
-
-
   }, [client])
 
   useEffect(() => {
@@ -133,10 +129,23 @@ export const Department = () => {
     setType('新增')
   }
 
+  const fuc = (data: any) => {
+    if (data.departmentList && data.departmentList.length > 0) {
+      data.departmentList.forEach((item: any) => {
+        item.title = item.name
+        item.value = item.id
+        item.children = fuc(item.departmentList)
+      });
+    } else {
+      data = []
+    }
+    return data
+  }
+
   const mod = (item: any) => {
     showUserModal()
     setType('修改')
-    setFormData(item)
+    setFormData({ ...item })
   }
 
   const del = async (id: number) => {
@@ -250,7 +259,7 @@ export const Department = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, }}
+          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
             onChange={handleTableChange}
             loading={isLoading}
             dataSource={data?.data}

@@ -107,7 +107,7 @@ export const Warehouse = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="仓库名"
+              label="仓库名称"
               name="name"
             >
               <Input />
@@ -178,7 +178,7 @@ export const Warehouse = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

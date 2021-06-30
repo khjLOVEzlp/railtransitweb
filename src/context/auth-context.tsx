@@ -6,6 +6,7 @@ import { User } from "../type/user";
 import { http } from "../utils/http";
 import { useAsync } from "../hook/useAsync";
 import { FullPageErrorFallback } from "../components/lib";
+import { useQueryClient } from "react-query";
 
 const AuthContext = createContext<| {
   user: User | null;
@@ -50,9 +51,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     run,
     setData: setUser,
   } = useAsync<User | null>();
+  const queryClient = useQueryClient();
 
   const login = (form: AuthForm) => auth.login(form).then(setUser)
-  const logout = () => auth.logout().then(() => setUser(null))
+  const logout = () => auth.logout().then(() => {
+    setUser(null)
+    queryClient.clear()
+  })
 
   useEffect(() => {
     run(bootstrapUser())

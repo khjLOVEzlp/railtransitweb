@@ -11,7 +11,7 @@ import { useAsync } from "./hook/useAsync";
 
 export const Login = () => {
   const [error, setError] = useState<Error | null>(null);
-  const { isLoading, run } = useAsync(undefined, { throwOnError: true });
+  const { isLoading, run, isError, error: err } = useAsync(undefined, { throwOnError: true });
   const { login } = useAuth()
   const onFinish = async (values: any) => {
     try {
@@ -34,6 +34,10 @@ export const Login = () => {
           <li>数字化维养安全管控系统</li>
         </Title>
         <ErrorBox error={error} />
+        {
+          isError ? <ErrorBox error={err} /> : ""
+
+        }
         <Form
           size={'large'}
           name="basic"

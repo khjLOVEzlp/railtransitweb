@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { ModalForm, ShareModalForm, ShareBackModalForm, ViewModalForm } from "./modal/ModalForm";
+import { ModalForm, ShareModalForm, ViewModalForm } from "./modal/ModalForm";
 import { useAdd, useDel, useFeedBack, useInit, useMod, useSharePlan } from './planWork';
 
 export const PlanWork = () => {
@@ -100,11 +100,6 @@ export const PlanWork = () => {
     <>
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
-          values.personList = values.personList?.map((key: any) => {
-            return { personId: key }
-          })
-          console.log(values);
-
           if (name === '新增') {
             Add(values).then(() => {
               message.success("新增成功")
@@ -146,7 +141,7 @@ export const PlanWork = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="计划名"
+              label="计划名称"
               name="name"
             >
               <Input />
@@ -191,7 +186,7 @@ export const PlanWork = () => {
                 render: (item: any) => (
                   <>
                     <Button type="link" onClick={() => share(item)}>发布计划</Button>
-                    <Button type="link" onClick={() => shareBack(item)}>反馈</Button>
+                    {/* <Button type="link" onClick={() => shareBack(item)}>反馈</Button> */}
                     <Button type="link" onClick={() => view(item)}>查看</Button>
                     <Button type="link" onClick={() => mod(item)}>修改</Button>
                     <Popconfirm
@@ -207,7 +202,7 @@ export const PlanWork = () => {
                 )
               },
             ]
-          } pagination={{ total: data?.count }}
+          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
             onChange={handleTableChange}
             dataSource={data?.data}
             loading={isLoading}
@@ -216,7 +211,6 @@ export const PlanWork = () => {
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
         <ShareModalForm visible={visibleShare} formData={formData} type={type} onCancel={hideShareModal} />
-        <ShareBackModalForm visible={visibleShareBack} formData={formData} type={type} onCancel={hideShareBackModal} />
         <ViewModalForm visible={visibleView} formData={formData} type={type} onCancel={hideViewModal} />
       </Form.Provider>
     </>

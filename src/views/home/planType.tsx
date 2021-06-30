@@ -4,27 +4,27 @@ import { Pie } from '@ant-design/charts';
 const PlanType: React.FC = () => {
   var data = [
     {
-      type: '日计划数',
+      type: '日计划',
       value: 297,
     },
     {
-      type: '周计划数',
+      type: '周计划',
       value: 506,
     },
     {
-      type: '月计划数',
+      type: '月计划',
       value: 805,
     },
     {
-      type: '季度计划数',
+      type: '季度计划',
       value: 1478,
     },
     {
-      type: '半年计划数',
+      type: '半年计划',
       value: 2029,
     },
     {
-      type: '年底计划数',
+      type: '年底计划',
       value: 7100,
     },
   ];

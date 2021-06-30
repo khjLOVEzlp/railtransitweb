@@ -53,7 +53,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         layout={"vertical"}
       >
         <Form.Item
-          label="编号"
+          label="设备编号"
           name="codeNumber"
           rules={rules}
         >
@@ -79,22 +79,21 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
         </Form.Item>
 
         <Form.Item
-          label="是否使用"
-          name="isUse"
-          rules={rules}
-        >
-          <Radio.Group>
-            <Radio value={"0"}>是</Radio>
-            <Radio value={"1"}>否</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
           label="流量卡号码"
           name="phone"
           rules={rules}
         >
           <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="是否使用"
+          name="isUse"
+        >
+          <Radio.Group>
+            <Radio value={"0"}>是</Radio>
+            <Radio value={"1"}>否</Radio>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </Modal>
@@ -132,6 +131,7 @@ export const SeperateController = () => {
   const mod = (item: any) => {
     showUserModal()
     setType('修改')
+
     setFormData(item)
   }
 
@@ -239,7 +239,7 @@ export const SeperateController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

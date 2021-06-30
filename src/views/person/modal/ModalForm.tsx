@@ -4,6 +4,7 @@ import { rules } from "../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../hook/useResetFormOnCloseModal";
 import { useHttp } from "../../../utils/http";
 import locale from 'antd/es/date-picker/locale/zh_CN';
+import dayjs from "dayjs";
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -68,6 +69,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
     form.setFieldsValue({ departmentId: value })
   };
 
+  const disabledDate = (current: any) => {
+    return current && current > dayjs().endOf('day');
+  }
+
   const onOk = () => {
     form.submit();
   };
@@ -119,7 +124,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         </Form.Item>
 
         <Form.Item
-          label="卡号"
+          label="员工卡号"
           name="number"
           rules={rules}
         >
@@ -127,7 +132,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         </Form.Item>
 
         <Form.Item
-          label="部门"
+          label="归属部门"
           name="departmentId"
           rules={rules}
         >
@@ -144,7 +149,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           name="birthday"
         >
           <Space direction="vertical" style={{ width: "30rem" }}>
-            <DatePicker locale={locale} onChange={birthday} />
+            <DatePicker disabledDate={disabledDate} locale={locale} onChange={birthday} />
           </Space>
         </Form.Item>
 

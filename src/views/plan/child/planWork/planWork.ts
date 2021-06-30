@@ -69,6 +69,7 @@ export const useSharePlan = () => {
   return useMutation((params: any) => client(`plan/share`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
       queryClient.invalidateQueries('plan')
+      queryClient.invalidateQueries('transactionNotice')
     },
     onError: () => {
     }
@@ -91,5 +92,7 @@ export const useFeedBack = () => {
 /* 查看反馈信息 */
 export const useShare = (id: number) => {
   const client = useHttp()
-  return useQuery(['share', id], () => client(`plan/getShare/${id}`))
+  return useQuery(['share', id], () => client(`plan/getShare/${id}`), {
+    enabled: Boolean(id),
+  })
 }
