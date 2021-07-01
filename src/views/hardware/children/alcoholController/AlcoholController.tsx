@@ -164,7 +164,7 @@ export const AlcoholController = () => {
             <Form.Item
               name="name"
             >
-              <Input />
+              <Input placeholder={"设备编号"} />
             </Form.Item>
 
             <Form.Item>

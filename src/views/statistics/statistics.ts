@@ -30,7 +30,7 @@ export const useMonth = (params: any) => {
 */
 export const useDownloadDay = () => {
   const client = useHttp()
-  return useMutation((params: any) => client(`report/downloadMonth?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useMutation((params: any) => client(`report/downloadDay?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
 /*
@@ -38,5 +38,5 @@ export const useDownloadDay = () => {
 */
 export const useDownloadMonth = () => {
   const client = useHttp()
-  return useMutation((params: any) => client(`user/save?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useMutation((params: any) => client(`report/downloadMonth?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }

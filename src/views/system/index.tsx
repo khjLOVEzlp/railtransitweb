@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Outlet } from "react-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from '../../hook/useDocumentTitle'
 

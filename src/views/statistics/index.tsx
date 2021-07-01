@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { useDay, useLineList, useMonth, useDownloadDay, useDownloadMonth } from './statistics';
 import { useDocumentTitle } from '../../hook/useDocumentTitle';
 import locale from 'antd/es/date-picker/locale/zh_CN';
+import qs from 'qs';
 
 const { Option } = Select
 
@@ -60,7 +61,15 @@ export const Statistics = () => {
           <Form.Item
             name="subwayId"
           >
-            <Select style={{ width: 120 }} placeholder={"地铁路线"} onChange={lineChange}>
+            <Select
+              style={{ width: 120 }}
+              placeholder={"地铁路线"}
+              onChange={lineChange}
+              showSearch
+              filterOption={(input, option: any) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
               {
                 lineList?.data.map((item: any) => (
                   <Option value={item.id}>{item.name}</Option>
@@ -75,7 +84,6 @@ export const Statistics = () => {
             {
               value === 0 ? <DatePicker locale={locale} onChange={birthday} /> : <DatePicker locale={locale} picker="month" onChange={birthmoth} />
             }
-
           </Form.Item>
         </Form>
 
@@ -85,6 +93,7 @@ export const Statistics = () => {
             }).catch((err) => {
               message.error(err.msg)
             })
+            // window.location.href = `/report/downloadDay?${qs.stringify(params)}`
           }} style={{ marginRight: "1rem" }}>下载日报</Button>
           <Button onClick={() => {
             downmonth(params).then(() => {
@@ -190,6 +199,26 @@ export const Statistics = () => {
     </>
   );
 };
+
+export const downloadFile = (data: BlobPart, fileName = new Date().getTime().toString()) => {
+  if (data) {
+    const blob = new Blob([data])
+    if ('download' in document.createElement('a')) { // 非IE下载
+      const lnk = document.createElement('a');
+      lnk.download = fileName;
+      lnk.style.display = 'none';
+      lnk.href = URL.createObjectURL(blob);
+      document.body.appendChild(lnk);
+      lnk.click();
+      URL.revokeObjectURL(lnk.href); // 释放URL 对象
+      document.body.removeChild(lnk);
+    } else { // IE10+下载
+      navigator.msSaveBlob(blob, fileName);
+    }
+  } else {
+    message.error('文件下载失败').then();
+  }
+}
 
 const Header = styled.div`
   height: 12.5rem;

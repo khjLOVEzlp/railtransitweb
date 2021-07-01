@@ -65,7 +65,12 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
           name="personId"
           rules={rules}
         >
-          <Select>
+          <Select
+            showSearch
+            filterOption={(input, option: any) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
             {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
@@ -189,7 +194,7 @@ export const SeperateController = () => {
             <Form.Item
               name="name"
             >
-              <Input />
+              <Input placeholder={"设备编号"} />
             </Form.Item>
 
             <Form.Item>

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, DatePicker, Form, Input, message, Modal, Radio, Select, Space, Upload, Row, Col, TreeSelect } from "antd";
+import { Button, DatePicker, Form, Input, message, Modal, Radio, Select, Space, Upload, TreeSelect } from "antd";
 import { useHttp } from "../../../../../utils/http";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
@@ -9,13 +9,10 @@ import { getToken } from "../../../../../auth-provider";
 import { rules } from "../../../../../utils/verification";
 import { usePerson } from "../../../../person/person";
 import { useMaterialType } from "../../../../system/child/materialType/materialType";
-import { useInit } from "../../../../system/child/department/department";
 import { usePlanType } from "../../planType/planType";
 import { useLine } from "../../../../system/child/line/line";
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 // import '../../style.css'
-import { useShare, useSite } from "../planWork";
-import { useUserAll } from "../../../../system/child/user/user";
+import { useSite } from "../planWork";
 const baseUrl = process.env["REACT_APP_API_URL"]
 const { TextArea } = Input;
 const { Option } = Select;
@@ -73,6 +70,21 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
     form.setFieldsValue({ warnTime: item })
   }
 
+  /* 添加工具 */
+  const addTool = () => {
+
+  }
+
+  /* 添加物资 */
+  const addMaterial = () => {
+
+  }
+
+  /* 添加小组 */
+  const addGroup = () => {
+
+  }
+
   useResetFormOnCloseModal({
     form,
     visible,
@@ -107,6 +119,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
     setId(value)
   }
 
+  /* 上传文档 */
   const props = {
     name: 'file',
     action: `${baseUrl}file/upload`,
@@ -170,7 +183,13 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
             name="leaderPerson"
             rules={rules}
           >
-            <Select style={{ width: "100%" }}>
+            <Select
+              style={{ width: "100%" }}
+              showSearch
+              filterOption={(input, option: any) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
               {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
             </Select>
           </Form.Item>
@@ -327,185 +346,17 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           </Form.Item>
         </Space>
 
-        {/* <Form.List name="toolList">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, fieldKey, ...restField }) => (
-                <Space key={key} style={{ display: 'flex', marginBottom: 8, width: '100%' }} align="baseline">
-                  <Form.Item
-                    style={{ width: '100%' }}
-                    {...restField}
-                    name={[name, 'toolId']}
-                    fieldKey={[fieldKey, 'toolId']}
-                    rules={rules}
-                  >
-                    <Select>
-                      {
-                        material?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
-                      }
-                    </Select>
-                  </Form.Item>
-                  <Form.Item
-                    style={{ width: '100%' }}
-                    {...restField}
-                    name={[name, 'num']}
-                    fieldKey={[fieldKey, 'num']}
-                    rules={rules}
-
-                  >
-                    <Input placeholder="数量" />
-                  </Form.Item>
-                  <MinusCircleOutlined onClick={() => remove(name)} />
-                </Space>
-              ))}
-              <Form.Item>
-                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                  添加工具
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List> */}
-
-        {/* <Form.List name="materialList">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, fieldKey, ...restField }) => (
-                <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                  <Form.Item
-                    style={{ width: '100%' }}
-                    {...restField}
-                    name={[name, 'materialId']}
-                    fieldKey={[fieldKey, 'materialId']}
-                  >
-                    <Select>
-                      {
-                        material?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
-                      }
-                    </Select>
-                  </Form.Item>
-                  <Form.Item
-                    style={{ width: '100%' }}
-                    {...restField}
-                    name={[name, 'num']}
-                    fieldKey={[fieldKey, 'num']}
-
-                  >
-                    <Input placeholder="数量" />
-                  </Form.Item>
-                  <MinusCircleOutlined onClick={() => remove(name)} />
-                </Space>
-              ))}
-              <Form.Item style={{ marginBottom: "5rem" }}>
-                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                  添加物料
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List> */}
-
         <Form.Item>
-          <Button style={{ width: "100%" }}>添加工具</Button>
+          <Button style={{ width: "100%" }} onClick={addTool}>添加工具</Button>
         </Form.Item>
 
         <Form.Item>
-          <Button style={{ width: "100%" }}>添加物料</Button>
+          <Button style={{ width: "100%" }} onClick={addMaterial}>添加物料</Button>
         </Form.Item>
 
         <Form.Item>
-          <Button style={{ width: "100%" }}>添加小组</Button>
+          <Button style={{ width: "100%" }} onClick={addGroup}>添加小组</Button>
         </Form.Item>
-
-        {/* <Form.List name="groupList">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, fieldKey, ...restField }) => (
-                <Space key={key} style={{ display: 'flex', justifyContent: "space-between", marginBottom: 8 }}>
-                  <div style={{ width: "100%" }}>
-                    <Form.Item
-                      style={{ width: '100%' }}
-                      {...restField}
-                      name={[name, 'groupName']}
-                      fieldKey={[fieldKey, 'groupName']}
-                      label="组名"
-                    >
-                      <Input style={{ width: '100%' }} />
-                    </Form.Item>
-
-                    <Form.Item
-                      style={{ width: '100%' }}
-                      {...restField}
-                      name={[name, 'leader']}
-                      fieldKey={[fieldKey, 'leader']}
-                      label="组长"
-                    >
-                      <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                      style={{ width: '100%' }}
-                      {...restField}
-                      name={[name, 'personList']}
-                      fieldKey={[fieldKey, 'personList']}
-                      label="小组成员"
-                    >
-                      <Select>
-                        {
-                          personList?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
-                        }
-                      </Select>
-                    </Form.Item>
-                  </div>
-
-                  <div>
-                    <Form.Item
-                      style={{ width: '100%' }}
-                      {...restField}
-                      name={[name, 'groupMaterialList']}
-                      fieldKey={[fieldKey, 'groupMaterialList']}
-                      label="物料"
-                    >
-                      <Select>
-                        {
-                          material?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
-                        }
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
-                      style={{ width: '100%' }}
-                      {...restField}
-                      name={[name, 'groupToolList']}
-                      fieldKey={[fieldKey, 'groupToolList']}
-                      label="工具"
-                    >
-                      <Select>
-                        {
-                          material?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)
-                        }
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
-                      style={{ width: '100%' }}
-                      {...restField}
-                      name={[name, 'remark']}
-                      fieldKey={[fieldKey, 'remark']}
-                      label="备注"
-                    >
-                      <Input />
-                    </Form.Item>
-                  </div>
-                  <MinusCircleOutlined onClick={() => remove(name)} />
-                </Space>
-              ))}
-              <Form.Item>
-                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                  添加小组
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List> */}
 
         <Space style={{ display: "flex" }}>
           <Form.Item
@@ -562,74 +413,3 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
     </Modal>
   );
 };
-// 发布计划
-export const ShareModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
-  const [form] = Form.useForm();
-
-  const { data: personList } = useUserAll()
-
-  const onOk = () => {
-    form.submit();
-  };
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
-  return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
-    >
-      <Form
-        form={form}
-        name={type}
-        labelAlign="right"
-        layout={"vertical"}
-      >
-        <Form.Item
-          label="人员"
-          name="users"
-          rules={rules}
-        >
-          <Select allowClear mode="multiple">
-            {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
-      </Form>
-    </Modal>
-  )
-}
-// 查看
-export const ViewModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
-  const [form] = Form.useForm();
-
-  const { data } = useShare(formData.id)
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
-  /*const onChange = (e: any) => {
-    setValue(e.target.value);
-  };*/
-
-  return (
-    <Modal title={type} width={800} visible={visible} onCancel={onCancel} footer={null}>
-      {
-        data?.data.map((item: any) => (
-          <Row key={item.id}>
-            <Col style={mb} span={12}>人员名称：{item.userName}</Col>
-            <Col span={12}>发布者名称：{item.shareUserName}</Col>
-            <Col style={mb} span={12}>是否通过：{item.isPass === 0 ? "通过" : "驳回"}</Col>
-            <Col span={12}>备注：{item.remark}</Col>
-          </Row>
-        ))
-      }
-    </Modal>
-  )
-}
-
-const mb = { marginBottom: "1rem" }

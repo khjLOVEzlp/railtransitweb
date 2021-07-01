@@ -52,7 +52,12 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           name="roadId"
           rules={rules}
         >
-          <Select>
+          <Select
+            showSearch
+            filterOption={(input, option: any) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
             {roadList.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>

@@ -69,7 +69,12 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData
           name="warehouseId"
           rules={rules}
         >
-          <Select>
+          <Select
+            showSearch
+            filterOption={(input, option: any) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
             {warehouse?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)}
           </Select>
         </Form.Item>
@@ -176,7 +181,7 @@ export const LabelController = () => {
             <Form.Item
               name="name"
             >
-              <Input />
+              <Input placeholder={"十进制编码"} />
             </Form.Item>
 
             <Form.Item>

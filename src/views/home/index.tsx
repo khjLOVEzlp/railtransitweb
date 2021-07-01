@@ -66,9 +66,7 @@ export const Home = () => {
             告警展示
           </div> */}
           {/* <MyEcharts id="alert" data={alertData} style={{ width: '100%', height: '50vh' }} /> */}
-          <div>
-            <Page data={data} />
-          </div>
+          <Page data={data} />
         </div>
       </Header>
       <Footer>
@@ -81,6 +79,7 @@ export const Home = () => {
             <PlanWorkPage />
             <div></div>
           </div> */}
+
           <PlanType />
         </div>
         <div className="right">
@@ -149,7 +148,6 @@ const Header = styled.div`
     border-radius: 14px;
     width: 35.5%;
     box-sizing: border-box;
-    padding: 3rem;
     > .title {
       margin-left: 2rem;
       font-size: 2rem;

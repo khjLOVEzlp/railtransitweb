@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { ModalForm, ShareModalForm, ViewModalForm } from "./modal/ModalForm";
+import { ModalForm } from "./modal/ModalForm";
 import { useAdd, useDel, useFeedBack, useInit, useMod, useSharePlan } from './planWork';
+import { ShareModalForm } from './modal/ShareModalForm';
+import { ViewModalForm } from './modal/ViewModalForm';
 
 export const PlanWork = () => {
   const [visible, setVisible] = useState(false);
@@ -144,7 +146,7 @@ export const PlanWork = () => {
               label="计划名称"
               name="name"
             >
-              <Input />
+              <Input placeholder={"计划名称"} />
             </Form.Item>
 
             <Form.Item>

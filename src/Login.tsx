@@ -17,17 +17,18 @@ export const Login = () => {
     try {
       await run(login(values))
     } catch (e) {
-      setError(e)
+      // setError(e)
     }
   };
 
   useDocumentTitle('登陆')
   return (
     <LoginStyle>
-      <TopTimer>
-        {/* <div className="left">{dayjs().format('YYYY-MM-DD')}</div>
-        <div className="right">{dayjs().format('HH:mm:ss')}</div> */}
-      </TopTimer>
+      {/* <TopTimer>
+        <div className="left">{dayjs().format('YYYY-MM-DD')}</div>
+        <div className="right">{dayjs().format('HH:mm:ss')}</div>
+      </TopTimer> */}
+      <div></div>
       <LoginForm>
         <Title>
           <li>5G-NB智慧轨行区</li>
@@ -36,7 +37,6 @@ export const Login = () => {
         <ErrorBox error={error} />
         {
           isError ? <ErrorBox error={err} /> : ""
-
         }
         <Form
           size={'large'}
@@ -48,7 +48,7 @@ export const Login = () => {
             name="loginName"
             rules={rules}
           >
-            <Input size="large" placeholder="账号：请输入您的账号" onChange={() => setError(null)} />
+            <Input size="large" placeholder="账号：请输入您的账号" onChange={() => { setError(null) }} />
           </Form.Item>
 
           <Form.Item
@@ -75,6 +75,7 @@ const LoginStyle = styled.div`
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
+  justify-content: space-around;
 `
 
 const TopTimer = styled.div`
@@ -89,18 +90,18 @@ const TopTimer = styled.div`
 `
 
 const LoginForm = styled.div`
-  width: 40rem;
+  /* width: 40rem;
   height: 40rem;
-  margin-left: 60%;
+  margin-left: 60%; */
   background: #fff;
-  vertical-align: middle;
 `
 
 const Title = styled.div`
   font-size: 3rem;
   font-weight: bold;
   color: #5A7FFA;
-  margin: 10rem 0 5rem;
+  /* margin: 10rem 0 5rem; */
+  margin-bottom: 5rem;
   overflow: hidden;
   text-align: center;
 `

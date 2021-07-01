@@ -1,6 +1,14 @@
 import { Radar } from '@ant-design/charts';
+import { Modal } from 'antd';
+import { useState } from 'react';
 
 const Page = ({ data }: { data: any }) => {
+  const [visible, setVisible] = useState(false)
+
+  const onCancel = () => {
+    setVisible(false)
+  }
+
   const config = {
     data: data,
     xField: 'name',
@@ -26,7 +34,34 @@ const Page = ({ data }: { data: any }) => {
     point: {},
     area: {},
   };
-  return <Radar {...config} />;
+  return (
+    <>
+      <Radar {...config}
+        onReady={(plot: any) => {
+          plot.on('plot:click', (evt: any) => {
+            const { x, y } = evt;
+            const { xField } = plot.options;
+            const tooltipData = plot.chart.getTooltipItems({ x, y });
+            console.log(tooltipData);
+            setVisible(true)
+          });
+        }}
+
+      /><OperModal visible={visible} onCancel={onCancel} />
+    </>
+  )
 };
 
 export default Page;
+
+const OperModal = ({ visible, onCancel }: { visible: boolean, onCancel: () => void }) => {
+  return (
+    <Modal
+      visible={visible}
+      onCancel={onCancel}
+      title={"告警统计"}
+    >
+
+    </Modal>
+  )
+}

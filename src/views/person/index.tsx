@@ -94,7 +94,7 @@ export const Person = () => {
               label="姓名"
               name="name"
             >
-              <Input />
+              <Input placeholder={"姓名"} />
             </Form.Item>
 
             <Form.Item>

@@ -95,7 +95,7 @@ export const PlanType = () => {
               label="作业类型"
               name="type"
             >
-              <Input />
+              <Input placeholder={"作业类型"} />
             </Form.Item>
 
             <Form.Item>

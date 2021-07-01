@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
-import { Button, Form, Input, Modal } from "antd";
-import { rules } from "../../../../../utils/verification";
+import { Button, Form, Input, Modal, Select } from "antd";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
+import { rules } from "../../../../../utils/verification";
+const { Option } = Select
 
-/*const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};*/
-
-interface ModalFormProps {
+export interface ModalFormProps {
   visible: boolean;
   onCancel: () => void;
   type: string,
@@ -44,7 +40,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         layout={"vertical"}
       >
         <Form.Item
-          label="物资类型名称"
+          label="仓库名称"
           name="name"
           rules={rules}
         >
@@ -52,16 +48,35 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         </Form.Item>
 
         <Form.Item
-          label="性能指标"
-          name="perfIndex"
+          label="类型"
+          name="type"
+          rules={rules}
+        >
+          <Select>
+            <Option value={1}>轨行区内</Option>
+            <Option value={2}>轨行区外</Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="联系人姓名"
+          name="personName"
           rules={rules}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="规格型号"
-          name="specsModel"
+          label="联系人电话"
+          name="personPhone"
+          rules={rules}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="地址"
+          name="address"
           rules={rules}
         >
           <Input />

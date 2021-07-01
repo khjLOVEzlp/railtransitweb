@@ -9,6 +9,7 @@ import { useDocumentTitle } from '../../hook/useDocumentTitle'
 
 export const Plan = () => {
   const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu)
+  console.log(asid);
 
   useDocumentTitle("作业计划")
   return (

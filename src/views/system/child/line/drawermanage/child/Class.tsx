@@ -15,9 +15,10 @@ interface ModalFormProps {
   onCancel: () => void
   type: string
   id: number | undefined
+  classId: number | undefined
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, id }) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, id, classId }) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState([]);
   const client = useHttp()
@@ -25,7 +26,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
     form.setFieldsValue({ parentId: value })
   };
 
-  const { data: formData, isLoading } = useDetail(id)
+  const { data: formData, isLoading } = useDetail(classId)
   const { data: roadList } = useRoad({ index: 1, size: 1000, lineId: id })
   const { data: warehouse } = useWarehouse()
 
@@ -100,7 +101,12 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
               name="roadId"
               rules={rules}
             >
-              <Select>
+              <Select
+                showSearch
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+              >
                 {roadList?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)}
               </Select>
             </Form.Item>
@@ -110,7 +116,14 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
               name="warehouseIds"
               rules={rules}
             >
-              <Select allowClear mode="multiple">
+              <Select
+                allowClear
+                mode="multiple"
+                showSearch
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+              >
                 {warehouse?.data.map((item: any, index: number) => <Option value={item.roadId} key={index}>{item.name}</Option>)}
               </Select>
             </Form.Item>
@@ -135,7 +148,7 @@ export const Class = ({ id }: { id: number | undefined }) => {
   const [pagination, setPagination] = useState({
     index: 1,
     size: 10,
-    name: '',
+    roadName: '',
   })
 
   /* 
@@ -148,8 +161,11 @@ export const Class = ({ id }: { id: number | undefined }) => {
 
   const search = (item: any) => {
     console.log(item)
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setPagination({ ...pagination, roadName: item.roadName, index: 1 })
   };
+
+  console.log(id);
+
 
   const add = () => {
     showUserModal()
@@ -213,8 +229,8 @@ export const Class = ({ id }: { id: number | undefined }) => {
             layout={"inline"}
           >
             <Form.Item
-              label="班别名称"
-              name="name"
+              label="路段名称"
+              name="roadName"
             >
               <Input />
             </Form.Item>
@@ -230,6 +246,11 @@ export const Class = ({ id }: { id: number | undefined }) => {
         </Header>
         <Main>
           <Table columns={[
+            {
+              title: '路段名称',
+              dataIndex: 'roadName',
+              key: 'roadName',
+            },
             {
               title: '班别',
               dataIndex: 'departmentName',
@@ -265,7 +286,7 @@ export const Class = ({ id }: { id: number | undefined }) => {
             },
           ]} pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
-          <ModalForm visible={visible} id={classId} type={type} onCancel={hideUserModal} />
+          <ModalForm visible={visible} classId={classId} type={type} id={id} onCancel={hideUserModal} />
         </Main>
       </Form.Provider>
     </Contianer>

@@ -47,10 +47,10 @@ export const WorkManage = () => {
           layout={"inline"}
         >
           <Form.Item
-            label="作业名"
+            label="作业名称"
             name="name"
           >
-            <Input />
+            <Input placeholder={"作业名称"} />
           </Form.Item>
 
           <Form.Item>

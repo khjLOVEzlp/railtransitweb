@@ -80,13 +80,15 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="密码"
-            name="password"
-            rules={rules}
-          >
-            <Input />
-          </Form.Item>
+          {
+            type === "新增" ? <Form.Item
+              label="密码"
+              name="password"
+              rules={rules}
+            >
+              <Input />
+            </Form.Item> : ""
+          }
 
           <Form.Item
             label="人员"
@@ -94,9 +96,17 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
             rules={rules}
           >
             {
-              type === "新增" ? (<Select>
+              type === "新增" ? (<Select
+                showSearch
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }>
                 {userList?.data.map((item: any, index: number) => <Option value={item.personId} key={index}>{item.name}</Option>)}
-              </Select>) : (<Select>
+              </Select>) : (<Select
+                showSearch
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }>
                 {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
               </Select>)
             }

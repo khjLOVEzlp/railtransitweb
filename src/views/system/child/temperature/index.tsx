@@ -42,25 +42,6 @@ export const Temperature = () => {
     setType('新增')
   }
 
-  /*const mod = (item: any) => {
-    showUserModal()
-    setType('修改')
-    setFormData(item)
-  }*/
-
-  /*const del = async (id: number | string) => {
-    client(`user/delete/${id}`).then(() => {
-      init()
-    })
-  }*/
-
-  /*const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
-  }
-  const cancel = () => {
-    message.error('取消删除');
-  }*/
-
   const onChange = (page: number) => {
     setPagination({ ...pagination, page })
   }

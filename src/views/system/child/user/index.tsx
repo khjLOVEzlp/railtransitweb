@@ -3,11 +3,17 @@ import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from "./modal/ModalForm";
 import { useAdd, useDel, useInit, useMod } from './user';
+import { CollectionCreateForm } from '../../../../PageBox';
+import { useHttp } from '../../../../utils/http';
+import qs from 'qs';
 
 export const User = () => {
   const [visible, setVisible] = useState(false);
+  const [passwdVisible, setPasswdVisible] = useState(false)
+  const [passId, setPassId] = useState<number>()
   const [type, setType] = useState('')
   const [id, setId] = useState<any>()
+  const client = useHttp()
   const [pagination, setPagination] = useState({
     index: 1,
     size: 10,
@@ -58,8 +64,22 @@ export const User = () => {
     setVisible(true);
   };
 
+  const modPass = (passId: any) => {
+    setPassId(passId)
+    setPasswdVisible(true)
+  }
+
   const hideUserModal = () => {
     setVisible(false);
+  };
+
+  const onCreate = (values: any) => {
+    client(`user/resetPassWord?${qs.stringify({ ...values, id: passId })}`, { method: "POST" }).then(() => {
+      message.success("修改成功")
+      setPasswdVisible(false);
+    }).catch(error => {
+      message.error(error.msg)
+    })
   };
 
   return (
@@ -142,7 +162,9 @@ export const User = () => {
                 {
                   title: '操作',
                   key: 'id',
-                  render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+                  render: (item: any) => <>
+                    <Button type="link" onClick={() => mod(item)}>修改</Button>
+                    <Button type="link" onClick={() => modPass(item.id)}>重置密码</Button>
                     <Popconfirm
                       title={`是否要删除${item.name}`}
                       onConfirm={() => confirm(item)}
@@ -163,6 +185,14 @@ export const User = () => {
           />
         </Main>
         <ModalForm visible={visible} id={id} type={type} onCancel={hideUserModal} />
+        <CollectionCreateForm
+          passwd={"reset"}
+          visible={passwdVisible}
+          onCreate={onCreate}
+          onCancel={() => {
+            setPasswdVisible(false);
+          }}
+        />
       </Form.Provider>
     </>
   );

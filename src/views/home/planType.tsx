@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pie } from '@ant-design/charts';
+import { Modal } from 'antd';
 
 const PlanType: React.FC = () => {
+  const [visible, setVisible] = useState(false)
   var data = [
     {
       type: '日计划',
@@ -46,7 +48,41 @@ const PlanType: React.FC = () => {
     },
     interactions: [{ type: 'element-active' }],
   };
-  return <Pie {...config} />;
+
+  const onCancel = () => {
+    setVisible(false)
+  }
+
+  return (
+    <>
+      <Pie {...config} onReady={(plot: any) => {
+        plot.on('plot:click', (evt: any) => {
+          console.log(plot.options.data);
+
+          const { x, y } = evt;
+          const { xField } = plot.options;
+          const tooltipData = plot.chart.getTooltipItems({ x, y });
+          console.log(tooltipData);
+          setVisible(true)
+        });
+      }} />
+
+      <OperModal visible={visible} onCancel={onCancel} />
+    </>
+  )
 };
+
+const OperModal = ({ visible, onCancel }: { visible: boolean, onCancel: () => void }) => {
+  return (
+    <Modal
+      footer={false}
+      visible={visible}
+      onCancel={onCancel}
+      title={"计划统计"}
+    >
+
+    </Modal>
+  )
+}
 
 export default PlanType;

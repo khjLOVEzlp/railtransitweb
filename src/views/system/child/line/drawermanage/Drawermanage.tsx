@@ -51,7 +51,7 @@ export const Drawermanage = ({ setIsShowDrawer, id }: Props) => {
         title="地铁管理"
         placement="right"
         closable={true}
-        width={800}
+        width={1000}
         onClose={onClose}
         visible={visible}
         keyboard={false}

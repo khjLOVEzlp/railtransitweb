@@ -20,8 +20,7 @@ export const PageBox = () => {
     client(`info?type=1`, {
       method: "POST"
     }).then(res => {
-      res.data.push({ name: '首页', url: '/home' })
-      res.data.reverse()
+      res.data.unshift({ name: '首页', url: '/home' })
       res.data.forEach((item: { [key: string]: unknown }) => {
         let { name } = item
         switch (name) {
@@ -42,6 +41,9 @@ export const PageBox = () => {
             break;
           case '系统管理':
             item.url = '/system'
+            break;
+          case '库存管理':
+            item.url = '/warehouse'
             break;
           default:
             break;
@@ -125,14 +127,19 @@ const User = () => {
       <Dropdown
         overlay={
           <Menu>
-            <Menu.Item key={"logout"}>
-              <Button onClick={logout} type={"link"}>
-                登出
+            <Menu.Item key={"user"}>
+              <Button onClick={() => { }} type={"link"}>
+                用户信息
               </Button>
             </Menu.Item>
             <Menu.Item key={"mod"}>
               <Button onClick={showModal} type={"link"}>
                 修改密码
+              </Button>
+            </Menu.Item>
+            <Menu.Item key={"logout"}>
+              <Button onClick={logout} type={"link"}>
+                登出
               </Button>
             </Menu.Item>
           </Menu>
@@ -144,6 +151,7 @@ const User = () => {
         </Button>
       </Dropdown>
       <CollectionCreateForm
+        passwd={"mod"}
         visible={visible}
         onCreate={onCreate}
         onCancel={() => {
@@ -158,12 +166,14 @@ interface CollectionCreateFormProps {
   visible: boolean;
   onCreate: (values: any) => void;
   onCancel: () => void;
+  passwd: string
 }
 
-const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
+export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
   visible,
   onCreate,
   onCancel,
+  passwd
 }) => {
   const [form] = Form.useForm();
 
@@ -196,9 +206,11 @@ const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
           <Input placeholder={"请输入新密码"} />
         </Form.Item>
 
-        <Form.Item name={"oldpassword"} rules={rules}>
-          <Input placeholder={"请输入旧密码"} />
-        </Form.Item>
+        {
+          passwd === "mod" ? <Form.Item name={"oldpassword"} rules={rules}>
+            <Input placeholder={"请输入旧密码"} />
+          </Form.Item> : ""
+        }
       </Form>
     </Modal>
   );
