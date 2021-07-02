@@ -79,10 +79,10 @@ export const RouterElement = () => {
     {
       path: "/warehouse", element: <Warehouse />, children: [
         {
-          path: "toolType", element: <MaterialType />
+          path: "materialType", element: <MaterialType />
         },
         {
-          path: "materialType", element: <ToolType />
+          path: "toolType", element: <ToolType />
         },
         {
           path: "inWarehouse", element: <InWarehouse />

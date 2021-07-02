@@ -94,10 +94,10 @@ export const Alarm = () => {
       name: "查所有",
       value: "0"
     },
-    {
+    /*{
       name: "防遗忘",
       value: "1"
-    },
+    },*/
     {
       name: "防漏带",
       value: "2"
@@ -173,8 +173,8 @@ export const Alarm = () => {
 
   const getType = (type: number) => {
     switch (type) {
-      case 1:
-        return "防遗忘"
+      /*case 1:
+        return "防遗忘"*/
       case 2:
         return "防漏带"
 

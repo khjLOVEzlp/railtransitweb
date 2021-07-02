@@ -58,7 +58,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         </Form.Item>
 
         <Form.Item
-          label="类型"
+          label="运营商"
           name="supplier"
           rules={rules}
         >
