@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { Select, Table } from "antd"
 import { useState } from "react"
 import { useDocumentTitle } from '../../hook/useDocumentTitle'
-import { useInit, useWarnCount } from "./alarm"
+import { useInit, useWarnCount } from "../../utils/alarm"
 // import {useLocation} from "react-router";
 
 const { Option } = Select;

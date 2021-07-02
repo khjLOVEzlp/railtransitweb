@@ -1,6 +1,6 @@
 import { Col, Form, Modal, Row } from "antd";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useShare } from "../planWork";
+import { useShare } from "../../../../../utils/plan/planWork";
 
 // 查看
 interface ModalFormProps {

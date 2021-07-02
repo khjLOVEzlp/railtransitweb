@@ -5,7 +5,7 @@ import { useHttp } from "../../../../utils/http";
 import { rules } from "../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../hook/useResetFormOnCloseModal";
 import { TreeSelect } from 'antd';
-import { useAdd, useDel, useInit, useMod } from './department';
+import { useAdd, useDel, useInit, useMod } from '../../../../utils/system/department';
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},

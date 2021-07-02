@@ -2,28 +2,30 @@ import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from "./modal/ModalForm";
-import { useAdd, useDel, useInit, useMod } from './menu';
+import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from '../../../../utils/system/menu';
+import { useDebounce } from '../../../../hook/useDebounce';
 
 export const Menu = () => {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
-  const [pagination, setPagination] = useState({
+  const [param, setParam] = useProjectsSearchParams()
+  /* const [param, setParam] = useState({
     index: 1,
     size: 10,
     name: ''
-  })
+  }) */
 
   /* 
     增删改查
   */
-  const { data, isLoading } = useInit({ ...pagination })
+  const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -58,7 +60,7 @@ export const Menu = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -89,10 +91,10 @@ export const Menu = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="菜单名称"
+              label=""
               name="name"
             >
-              <Input />
+              <Input placeholder={"菜单名称"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
             </Form.Item>
 
             <Form.Item>
@@ -137,7 +139,10 @@ export const Menu = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+            onChange={handleTableChange}
+            loading={isLoading}
+            dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

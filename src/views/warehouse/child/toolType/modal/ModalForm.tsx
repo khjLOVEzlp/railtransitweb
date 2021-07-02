@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Form, Input, Modal, Select } from "antd";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
 import { rules } from "../../../../../utils/verification";
+import { useUserAll } from '../../../../../utils/system/user'
 const { Option } = Select
 
 export interface ModalFormProps {
@@ -13,7 +14,7 @@ export interface ModalFormProps {
 
 export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
-
+  const { data: personList } = useUserAll()
   useEffect(() => {
     if (type === "新增") return
     form.setFieldsValue(formData)
@@ -59,19 +60,18 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         </Form.Item>
 
         <Form.Item
-          label="联系人姓名"
-          name="personName"
+          label="联系人"
+          name="userId"
           rules={rules}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="联系人电话"
-          name="personPhone"
-          rules={rules}
-        >
-          <Input />
+          <Select
+            showSearch
+            filterOption={(input, option: any) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+          </Select>
         </Form.Item>
 
         <Form.Item

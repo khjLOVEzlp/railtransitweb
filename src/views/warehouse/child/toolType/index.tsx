@@ -1,33 +1,30 @@
-import { useState } from 'react';
-import { Form, Input, Button, Table, Popconfirm, message, Select, Drawer } from 'antd';
+import {useState} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message, Select} from 'antd';
 import styled from "@emotion/styled";
-import { useAdd, useDel, useInit, useMod } from './warehouse';
-import { ModalForm } from './modal/ModalForm';
-import { Tool } from './tool';
-const { Option } = Select;
+import {useAdd, useDel, useInit, useMod, useProjectsSearchParams} from '../../../../utils/warehouse/toolType';
+import {ModalForm} from './modal/ModalForm';
+import {Tool} from './tool';
+import {useDebounce} from "../../../../hook/useDebounce";
+
+const {Option} = Select;
 
 export const ToolType = () => {
   const [visible, setVisible] = useState(false);
   const [toolVisible, setToolVisible] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    type: '',
-    name: '',
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
   /* 
     增删改查
   */
-  const { data, isLoading } = useInit({ ...pagination })
-  const { mutateAsync: Add } = useAdd()
-  const { mutateAsync: Mod } = useMod()
-  const { mutateAsync: Del } = useDel()
+  const {data, isLoading} = useInit(useDebounce(param, 500))
+  const {mutateAsync: Add} = useAdd()
+  const {mutateAsync: Mod} = useMod()
+  const {mutateAsync: Del} = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, type: item.type, index: 1 })
+    setParam({...param, name: item.name, type: item.type, index: 1})
   };
 
   const add = () => {
@@ -60,7 +57,7 @@ export const ToolType = () => {
   }
 
   const handleChange = (value: any) => {
-    setPagination({ ...pagination, type: value })
+    setParam({...param, type: value})
   }
 
   const showUserModal = () => {
@@ -76,13 +73,13 @@ export const ToolType = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({...param, index: p.current, size: p.pageSize})
   };
 
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
+        onFormFinish={(name, {values, forms}) => {
           if (name === '新增') {
             Add(values).then(() => {
               message.success("新增成功")
@@ -91,7 +88,7 @@ export const ToolType = () => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, id: formData.id }).then(() => {
+            Mod({...values, id: formData.id}).then(() => {
               message.success("修改成功")
               setVisible(false)
             }).catch((error) => {
@@ -107,10 +104,11 @@ export const ToolType = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="仓库名称"
+              label=""
               name="name"
             >
-              <Input />
+              <Input placeholder={"仓库名称"} value={param.name}
+                     onChange={(evt) => setParam({...param, name: evt.target.value})}/>
             </Form.Item>
 
             <Form.Item
@@ -118,7 +116,7 @@ export const ToolType = () => {
               name="type"
               initialValue={1}
             >
-              <Select style={{ width: 120 }} onChange={handleChange}>
+              <Select style={{width: 120}} onChange={handleChange}>
                 <Option value={1}>轨行区内</Option>
                 <Option value={2}>轨行区外</Option>
               </Select>
@@ -137,7 +135,7 @@ export const ToolType = () => {
           <Table columns={
             [
               {
-                title: '仓库名',
+                title: '仓库名称',
                 dataIndex: 'name',
                 key: 'name',
               },
@@ -178,11 +176,12 @@ export const ToolType = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
-            rowKey={(item: any) => item.id} />
+          } pagination={{total: data?.count, current: param.index, pageSize: param.size}} onChange={handleTableChange}
+                 loading={isLoading} dataSource={data?.data}
+                 rowKey={(item: any) => item.id}/>
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
-        <Tool visible={toolVisible} onClose={onClose} formData={formData} />
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
+        <Tool visible={toolVisible} onClose={onClose} formData={formData}/>
       </Form.Provider>
     </>
   );

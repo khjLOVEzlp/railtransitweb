@@ -4,8 +4,7 @@ import { useState } from "react";
 import { Road } from './child/Road'
 import { Platform } from "./child/Platform";
 import { Class } from "./child/Class";
-import { QueryClient } from "react-query";
-import { useDetail } from "../line";
+import { useDetail } from "../../../../../utils/system/line";
 
 interface Props {
   isShowDrawer: boolean

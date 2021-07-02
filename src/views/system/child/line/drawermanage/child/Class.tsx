@@ -1,13 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useHttp } from "../../../../../../utils/http";
-import qs from "qs";
 import { Button, Form, Input, message, Modal, Popconfirm, Select, Spin, Table, TreeSelect } from "antd";
 import styled from "@emotion/styled";
 import { rules } from "../../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
-import { useAdd, useDel, useDetail, useInit, useMod, useRoad } from './lineClass'
-import { useWarehouse } from "../../../warehouse/warehouse";
-
+import { useAdd, useDel, useDetail, useInit, useMod, useRoad, useProjectsSearchParams } from '../../../../../../utils/system/lineClass'
+import { useWarehouse } from "../../../../../../utils/warehouse/toolType";
 const { Option } = Select
 
 interface ModalFormProps {
@@ -145,27 +143,19 @@ export const Class = ({ id }: { id: number | undefined }) => {
   const [visible, setVisible] = useState(false);
   const [classId, setClassId] = useState<number>()
   const [type, setType] = useState('')
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    roadName: '',
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
   /* 
     增删改查
   */
-  const { data, isLoading } = useInit({ ...pagination, lineId: id })
+  const { data, isLoading } = useInit({ ...param, lineId: id })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    console.log(item)
-    setPagination({ ...pagination, roadName: item.roadName, index: 1 })
+    setParam({ ...param, departmentName: item.departmentName, index: 1, size: 10 })
   };
-
-  console.log(id);
-
 
   const add = () => {
     showUserModal()
@@ -199,7 +189,7 @@ export const Class = ({ id }: { id: number | undefined }) => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
   return (
     <Contianer>
@@ -229,8 +219,8 @@ export const Class = ({ id }: { id: number | undefined }) => {
             layout={"inline"}
           >
             <Form.Item
-              label="路段名称"
-              name="roadName"
+              label="班别名称"
+              name="departmentName"
             >
               <Input />
             </Form.Item>
@@ -247,14 +237,9 @@ export const Class = ({ id }: { id: number | undefined }) => {
         <Main>
           <Table columns={[
             {
-              title: '路段名称',
-              dataIndex: 'roadName',
-              key: 'roadName',
-            },
-            {
-              title: '班别',
-              dataIndex: 'departmentName',
-              key: 'departmentName',
+              title: "班别名称",
+              dataIndex: "departmentName",
+              key: "departmentName"
             },
             {
               title: '创建者',
@@ -284,7 +269,7 @@ export const Class = ({ id }: { id: number | undefined }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          ]} pagination={{ total: data?.count, current: param.index, pageSize: param.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} classId={classId} type={type} id={id} onCancel={hideUserModal} />
         </Main>

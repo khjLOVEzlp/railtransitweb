@@ -1,33 +1,33 @@
 import styled from "@emotion/styled"
 import { Button, Form, Input, Table, Space, DatePicker } from "antd";
-import { useState } from "react";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import { useInit } from "./log";
+import { useDebounce } from "../../../../hook/useDebounce";
+import { useInit, useProjectsSearchParams } from "../../../../utils/system/log"
 const { RangePicker } = DatePicker;
 
 export const Log = () => {
-
-  const [pagination, setPagination] = useState({
+  const [param, setParam] = useProjectsSearchParams()
+  /* const [param, setParam] = useState({
     index: 1,
     size: 10,
     operName: '',
     startTime: '',
     endTime: ''
-  })
+  }) */
 
-  const { data, isLoading } = useInit({ ...pagination })
+  const { data, isLoading } = useInit(useDebounce(param, 500))
 
   const search = (values: any) => {
-    setPagination({ ...pagination, operName: values.name, index: 1 })
+    setParam({ ...param, operName: values.name, index: 1 })
   };
 
   const timeChange = (dates: any, dateStrings: any) => {
-    setPagination({ ...pagination, index: 1, startTime: dateStrings[0], endTime: dateStrings[1] })
+    setParam({ ...param, index: 1, startTime: dateStrings[0], endTime: dateStrings[1] })
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   const columns = [
@@ -62,14 +62,14 @@ export const Log = () => {
           layout={"inline"}
         >
           <Form.Item
-            label="操作者"
+            label=""
             name="name"
           >
-            <Input />
+            <Input placeholder={"操作者"} value={param.operName} onChange={(evt) => setParam({ ...param, operName: evt.target.value })} />
           </Form.Item>
 
           <Form.Item
-            label="时间"
+            label=""
             name="time"
           >
             <Space direction="vertical" size={50}>
@@ -85,7 +85,12 @@ export const Log = () => {
         </Form>
       </Header>
       <Main>
-        <Table columns={columns} pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data} rowKey={(item: any) => item.id} />
+        <Table
+          columns={columns}
+          pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+          onChange={handleTableChange}
+          loading={isLoading} dataSource={data?.data}
+          rowKey={(item: any) => item.id} />
       </Main>
     </div>
   )

@@ -9,8 +9,6 @@ import { useDocumentTitle } from '../../hook/useDocumentTitle'
 
 export const Plan = () => {
   const [asid] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu)
-  console.log(asid);
-
   useDocumentTitle("作业计划")
   return (
     <PlanStyle>
@@ -43,14 +41,14 @@ const PlanStyle = styled.div`
 `
 
 const Left = styled.div`
-  width: 27rem;
+  width: 16rem;
   background: #FFFFFF;
   border-radius: 14px;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-left: 5rem;
+  padding-left: 2rem;
   box-sizing: border-box;
 
   > li {

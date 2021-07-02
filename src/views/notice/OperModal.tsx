@@ -2,7 +2,7 @@ import { Button, Form, message, Modal, Popconfirm, Radio, Table, Input } from "a
 import { useForm } from "antd/lib/form/Form";
 import { useState } from "react";
 import { rules } from "../../utils/verification";
-import { useInit, useMod, useFeedBack } from "./notice";
+import { useInit, useMod, useFeedBack } from "../../utils/notice";
 const { TextArea } = Input
 
 interface Props {
@@ -35,6 +35,69 @@ export const OperModal = ({ visible, onCancel }: Props) => {
     message.error('取消');
   }
 
+  const isStatus = (item: any) => {
+    switch (item.state) {
+      case 0:
+        return (
+          <span>
+            <Popconfirm
+              title={`是否已经读取：${item.title}`}
+              onConfirm={() => confirm(item)}
+              onCancel={cancel}
+              okText="是"
+              cancelText="否"
+            >
+              <Button type={"link"}>已读</Button>
+            </Popconfirm>
+          </span>
+        )
+
+      case 1:
+        return (
+          <span>
+            <Popconfirm
+              title={`是否已经读取：${item.title}`}
+              onConfirm={() => confirm(item)}
+              onCancel={cancel}
+              okText="是"
+              cancelText="否"
+            >
+              <Button disabled type={"link"}>已读</Button>
+            </Popconfirm>
+          </span>
+        )
+
+      case 2:
+        return (
+          <span>
+            <Popconfirm
+              title={`是否已经读取：${item.title}`}
+              onConfirm={() => confirm(item)}
+              onCancel={cancel}
+              okText="是"
+              cancelText="否"
+            >
+              <Button disabled type={"link"}>已读</Button>
+            </Popconfirm>
+          </span>
+        )
+
+      default:
+        break;
+    }
+  }
+
+  const isFankui = (status: number, item: any) => {
+    if (status === 2 && item.type === 10) {
+      return <Button type={"link"} disabled>已反馈</Button>
+    } else if (status !== 2 && item.type === 10) {
+      return <Button type={"link"} onClick={() => {
+        setId(item.foreignId)
+        setShareVisible(true)
+      }}>反馈</Button>
+    }
+  }
+
   const columns = [
     {
       title: '标题',
@@ -56,27 +119,14 @@ export const OperModal = ({ visible, onCancel }: Props) => {
       title: '操作',
       render: (item: any) => (
         <>
-          {
-            item.state === 1 ?
-              (<Button type={"link"} disabled>
-                已读
-              </Button>) :
-              (<Popconfirm
-                title={`是否已经读取：${item.title}`}
-                onConfirm={() => confirm(item)}
-                onCancel={cancel}
-                okText="是"
-                cancelText="否"
-              >
-                <Button type={"link"}>未读</Button>
-              </Popconfirm>)
-          }
-          {
-            item.type === 10 && item.state !== 1 ? <Button type={"link"} onClick={() => {
-              setId(item.foreignId)
-              setShareVisible(true)
-            }}>反馈</Button> : <Button type={"link"} disabled>已反馈</Button>
-          }
+          <span>{
+            isStatus(item)
+          }</span>
+          <span>
+            {
+              isFankui(item.state, item)
+            }
+          </span>
         </>
       )
     },

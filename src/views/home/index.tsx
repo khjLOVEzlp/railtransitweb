@@ -1,27 +1,19 @@
 import styled from "@emotion/styled"
-import { useCallback, useEffect, useState } from "react";
-import { useDocumentTitle } from '../../hook/useDocumentTitle'
-import { track, options, task } from './subwayRoute'
-import { MyEcharts } from "../../components/MyEcharts";
-import { useHttp } from "../../utils/http";
-import { Steps } from 'antd';
-import { useLineIndex } from "./home";
+import {useCallback, useEffect, useState} from "react";
+import {useDocumentTitle} from '../../hook/useDocumentTitle'
+import {useHttp} from "../../utils/http";
 import Page from './alarmPage'
 import PlanWorkPage from './planWork'
 import PlanType from './planType'
-const { Step } = Steps
+
 export const Home = () => {
   const [data, setData] = useState([])
-  const [alertData] = useState()
-
   useDocumentTitle('首页')
 
   const client = useHttp()
 
-  const { data: lineList } = useLineIndex()
-
   const getAlertData = useCallback(() => {
-    client(`alarm/statistic/list`, { method: "POST", body: JSON.stringify({}) }).then(res => {
+    client(`alarm/statistic/list`, {method: "POST", body: JSON.stringify({})}).then(res => {
       res.data.forEach((key: { [key in string]: unknown }) => {
         key["star"] = key.num
         key["name"] = key.title
@@ -41,7 +33,7 @@ export const Home = () => {
         <div className="left">
           {/* <div className={"title"}>
             地铁路线
-          </div> */}
+          </div> */}{/* 
           {
             lineList?.data.map((item: any) => (
               <div key={item.id} style={{ margin: "1rem 3rem" }}>
@@ -59,14 +51,14 @@ export const Home = () => {
                 </div>
               </div>
             ))
-          }
+          } */}
         </div>
         <div className="right">
           {/* <div className="title">
             告警展示
           </div> */}
           {/* <MyEcharts id="alert" data={alertData} style={{ width: '100%', height: '50vh' }} /> */}
-          <Page data={data} />
+          <Page data={data}/>
         </div>
       </Header>
       <Footer>
@@ -80,14 +72,16 @@ export const Home = () => {
             <div></div>
           </div> */}
 
-          <PlanType />
+          <PlanType/>
         </div>
         <div className="right">
           {/* <div className="title">
             作业统计
           </div>
           <MyEcharts id="task" data={taskData} style={{ width: '100%', height: '30rem' }} /> */}
-          <PlanType />
+          <div>
+            <PlanWorkPage/>
+          </div>
         </div>
       </Footer>
     </Container>
@@ -134,11 +128,11 @@ const Header = styled.div`
     }
 
     > .title {
-     width: 100%;
-     text-align: center;
-     font-size: 2rem;
-     font-weight: bold;
-     color: #989EAC;
+      width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #989EAC;
     }
   }
 
@@ -148,6 +142,7 @@ const Header = styled.div`
     border-radius: 14px;
     width: 35.5%;
     box-sizing: border-box;
+
     > .title {
       margin-left: 2rem;
       font-size: 2rem;
@@ -155,16 +150,6 @@ const Header = styled.div`
       color: #3A3D44;
     }
   }
-`
-
-const Line = styled.div`
-  height: "12.3rem";
-  border: '1px solid #ccc';
-  width: "100%";
-  border-radius: "5px";
-  margin-bottom: "2rem";
-  padding: "1rem";
-  box-sizing: "border-box";
 `
 
 const Footer = styled.div`
@@ -193,6 +178,7 @@ const Footer = styled.div`
     border-radius: 14px;
     width: 49.8%;
     box-sizing: border-box;
+    padding: 1rem;
 
     > .title {
       margin-left: 2rem;

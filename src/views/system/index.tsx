@@ -37,7 +37,7 @@ const SystemStyle = styled.div`
 `
 
 const Left = styled.div`
-  width: 27rem;
+  width: 16rem;
   background: #FFFFFF;
   border-radius: 14px;
   height: 100%;
@@ -45,7 +45,7 @@ const Left = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  padding-left: 5rem;
+  padding-left: 2rem;
   box-sizing: border-box;
 
   > li {
@@ -66,7 +66,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   border-radius: 14px;
-  width: calc(100% - 27rem);
+  width: 100%;
   height: 100%;
   margin-left: 0.5%;
   overflow-y: auto;

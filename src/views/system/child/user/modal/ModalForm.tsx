@@ -3,9 +3,8 @@ import { Button, Checkbox, Form, Input, Modal, Select, Spin } from "antd";
 import { useHttp } from "../../../../../utils/http";
 import { rules } from "../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useDetail, useUserList } from "../user";
-import { usePerson } from "../../../../person/person";
-
+import { useDetail, useUserList } from "../../../../../utils/system/user";
+import { useInit } from '../../../../../utils/person/personManage'
 const { Option } = Select;
 
 /*const layout = {
@@ -43,7 +42,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
   }, [client])
 
   const { data: userList } = useUserList()
-  const { data: personList } = usePerson()
+  // const { data: personList } = usePerson()
+  const { data: personList } = useInit({})
 
   useEffect(() => {
     getRoleLIst()

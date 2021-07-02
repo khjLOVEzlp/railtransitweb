@@ -1,193 +1,77 @@
-import { useState } from 'react';
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { ModalForm } from "./modal/ModalForm";
-import { useAdd, useDel, useInit, useMod } from './person';
-import { useDocumentTitle } from '../../hook/useDocumentTitle';
+import { Outlet } from "react-router";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useDocumentTitle } from "../../hook/useDocumentTitle";
+
+interface Item {
+  name: string,
+  url: string
+}
 
 export const Person = () => {
+  const menu = JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "人员管理").childMenu
+  const [asid] = useState(menu)
+
+  console.log(asid);
+
+
   useDocumentTitle("人员管理")
-  const [visible, setVisible] = useState(false);
-  const [type, setType] = useState('')
-  const [formData, setFormData] = useState<any>({})
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    name: ''
-  })
-
-  /* 
-      增删改查
-    */
-  const { data, isLoading } = useInit({ ...pagination })
-  const { mutateAsync: Add } = useAdd()
-  const { mutateAsync: Mod } = useMod()
-  const { mutateAsync: Del } = useDel()
-
-  const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
-  };
-
-  const add = () => {
-    showUserModal()
-    setType('新增')
-  }
-
-  const mod = (item: any) => {
-    showUserModal()
-    setType('修改')
-    setFormData(item)
-  }
-
-  const del = async (id: number) => {
-    Del(id)
-  }
-
-  const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
-  }
-
-  const cancel = () => {
-    message.error('取消删除');
-  }
-
-  const showUserModal = () => {
-    setVisible(true);
-  };
-
-  const hideUserModal = () => {
-    setVisible(false);
-  };
-
-  const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
-  };
-
   return (
-    <>
-      <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
-          if (name === '新增') {
-            Add(values).then(() => {
-              message.success('新增成功')
-              setVisible(false);
-            }).catch(err => {
-              message.error(err.msg)
-            })
-          } else if (name === "修改") {
-            Mod({ ...values, id: formData.id }).then(() => {
-              message.success('修改成功')
-              setVisible(false);
-            }).catch(err => {
-              message.error(err.msg)
-            })
-          }
-        }}
-      >
-        <Header>
-          <Form
-            name="basic"
-            onFinish={search}
-            layout={"inline"}
-          >
-            <Form.Item
-              label="姓名"
-              name="name"
-            >
-              <Input placeholder={"姓名"} />
-            </Form.Item>
+    <SystemStyle>
+      <Left>
+        {
+          asid.map((item: Item, index: number) => <li key={index}>
+            <img src={`../../icon/${item.name}.png`} alt="" />
+            <NavLink to={item.url} activeStyle={{ color: '#5A7FFA', fontWeight: 'bold' }}>{item.name}</NavLink>
+          </li>)
+        }
+      </Left>
+      <Right>
+        <Outlet />
+      </Right>
+    </SystemStyle>
+  )
+}
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                搜索
-              </Button>
-            </Form.Item>
-          </Form>
-
-          <Button onClick={() => add()}>新增</Button>
-        </Header>
-        <Main>
-          <Table columns={
-            [
-              {
-                title: '姓名',
-                dataIndex: 'name',
-                key: 'name',
-              },
-              {
-                title: '性别',
-                key: 'sex',
-                render: (item) => <>{item.sex === 1 ? '男' : '女'}</>
-              },
-              {
-                title: '员工卡号',
-                dataIndex: 'number',
-                key: 'number',
-              },
-              {
-                title: '归属部门',
-                dataIndex: 'departmentName',
-                key: 'departmentName',
-              },
-              {
-                title: '创建者',
-                dataIndex: 'createBy',
-                key: 'id',
-              },
-              {
-                title: '创建时间',
-                dataIndex: 'createTime',
-                key: 'createTime',
-              },
-              {
-                title: '出生日期',
-                dataIndex: 'birthday',
-                key: 'birthday',
-              },
-              {
-                title: '备注',
-                dataIndex: 'remark',
-                key: 'remark',
-              },
-              {
-                title: '操作',
-                key: 'id',
-                render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
-                  <Popconfirm
-                    title={`是否要删除${item.name}`}
-                    onConfirm={() => confirm(item)}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                  >
-                    <Button type="link">删除</Button>
-                  </Popconfirm></>
-              },
-            ]
-          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
-            rowKey={(item: any) => item.id} />
-        </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
-      </Form.Provider>
-    </>
-  );
-};
-
-const Header = styled.div`
-  height: 12.5rem;
-  background: #fff;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
+const SystemStyle = styled.div`
   display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
+  height: 100%;
 `
 
-const Main = styled.div`
-  background: #fff;
-  height: 73rem;
-  border-radius: 1rem;
-  padding: 0 1.5rem;
+const Left = styled.div`
+  width: 16rem;
+  background: #FFFFFF;
+  border-radius: 14px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 2rem;
+  box-sizing: border-box;
+
+  > li {
+    font-size: 2rem;
+    cursor: pointer;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    height: 6rem;
+
+    > a {
+      color: #747A89;
+      margin-left: 1rem;
+    }
+  }
+`
+
+const Right = styled.div`
+  border-radius: 14px;
+  width: 100%;
+  height: 100%;
+  margin-left: 0.5%;
   overflow-y: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 `

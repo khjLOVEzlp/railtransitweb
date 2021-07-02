@@ -78,7 +78,7 @@ const LoginStyle = styled.div`
   justify-content: space-around;
 `
 
-const TopTimer = styled.div`
+/*const TopTimer = styled.div`
   width: 100%;
   padding: 0 2rem;
   position: absolute;
@@ -87,7 +87,7 @@ const TopTimer = styled.div`
   color: #fff;
   display: flex;
   justify-content: space-between;
-`
+`*/
 
 const LoginForm = styled.div`
   /* width: 40rem;

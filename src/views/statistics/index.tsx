@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Form, Input, Button, Table, Radio, Select, DatePicker, message } from 'antd';
+import { Form, Button, Table, Radio, Select, DatePicker, message } from 'antd';
 import styled from "@emotion/styled";
-import { useDay, useLineList, useMonth, useDownloadDay, useDownloadMonth } from './statistics';
+import { useDay, useLineList, useMonth, useDownloadDay, useDownloadMonth } from '../../utils/statistics';
 import { useDocumentTitle } from '../../hook/useDocumentTitle';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import qs from 'qs';
 
 const { Option } = Select
 
@@ -35,13 +34,10 @@ export const Statistics = () => {
   }
 
   const birthmoth = (obj: any, time: string) => {
-    console.log(time);
-
     setParams({ ...params, date: time })
   }
 
   const onChange = (e: any) => {
-    // form.resetFields()
     setValue(e.target.value);
   };
 

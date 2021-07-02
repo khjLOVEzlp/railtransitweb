@@ -1,101 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Modal, Button, Table, Popconfirm, message, Radio } from 'antd';
+import { useState } from 'react';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { rules } from "../../../../utils/verification";
-import { useResetFormOnCloseModal } from "../../../../hook/useResetFormOnCloseModal";
-import { useAdd, useDel, useInit, useMod } from './tem';
+import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from '../../../../utils/hardware/tem';
+import { ModalForm } from './ModalForm';
+import { useDebounce } from '../../../../hook/useDebounce';
 
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
 };*/
 
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: object
-}
-
-const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (type === "新增") return
-    form.setFieldsValue(formData)
-  }, [formData, form, visible, type])
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
-  const onOk = () => {
-    form.submit();
-  };
-
-  return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
-    >
-      <Form
-        form={form}
-        name={type}
-        labelAlign="right"
-        layout={"vertical"}
-      >
-        <Form.Item
-          label="设备编号"
-          name="code"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="厂商"
-          name="operator"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="是否使用"
-          name="status"
-        >
-          <Radio.Group>
-            <Radio value={"0"}>是</Radio>
-            <Radio value={"1"}>否</Radio>
-          </Radio.Group>
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
-
 export const TemperaterController = () => {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    name: '',
-    type: ''
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
   /* 
         增删改查
       */
-  const { data, isLoading } = useInit({ ...pagination })
+  const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -130,7 +60,7 @@ export const TemperaterController = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -163,7 +93,7 @@ export const TemperaterController = () => {
             <Form.Item
               name="name"
             >
-              <Input placeholder={"设备编号"} />
+              <Input placeholder={"设备编号"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
             </Form.Item>
 
             <Form.Item>
@@ -191,7 +121,7 @@ export const TemperaterController = () => {
               {
                 title: '在线状态',
                 key: 'status',
-                render: (status: number | string) => status === 0 ? '离线' : '在线'
+                render: (item: any) => item.status === 0 ? '离线' : '在线'
               },
               {
                 title: '操作',
@@ -208,7 +138,7 @@ export const TemperaterController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: param.index, pageSize: param.size, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

@@ -3,9 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useHttp } from "../../../../../utils/http";
 import { rules } from "../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useDetail } from "../role";
-import { FullPageLoading } from "../../../../../context/auth-context";
-import { FullPageErrorFallback } from "../../../../../components/lib";
+import { useDetail } from "../../../../../utils/system/role";
 
 const { Option } = Select
 /*const layout = {
@@ -68,7 +66,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
     client(`menu/getAll?type=1`, { method: "POST" }).then(res => {
       setMenu(fuc(res.data))
     })
-  }, [client])
+  }, [client, fuc])
 
   useEffect(() => {
     getMenuList()

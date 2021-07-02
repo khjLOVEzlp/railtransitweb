@@ -1,30 +1,27 @@
-import { useState } from 'react';
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
+import {useState} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import { ModalForm } from "./modal/ModlaForm";
-import { useAdd, useDel, useInit, useMod } from './materialType'
+import {ModalForm} from "./modal/ModlaForm";
+import {useAdd, useDel, useInit, useMod, useProjectsSearchParams} from '../../../../utils/warehouse/materialType'
+import {useDebounce} from "../../../../hook/useDebounce";
 
 export const MaterialType = () => {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    name: ''
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
   /* 
   增删改查
   */
 
-  const { data, isLoading } = useInit({ ...pagination })
-  const { mutateAsync: Add } = useAdd()
-  const { mutateAsync: Mod } = useMod()
-  const { mutateAsync: Del } = useDel()
+  const {data, isLoading} = useInit(useDebounce(param, 500))
+  const {mutateAsync: Add} = useAdd()
+  const {mutateAsync: Mod} = useMod()
+  const {mutateAsync: Del} = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setParam({...param, name: item.name, index: 1})
   };
 
   const add = () => {
@@ -59,13 +56,13 @@ export const MaterialType = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({...param, index: p.current, size: p.pageSize})
   };
 
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
+        onFormFinish={(name, {values, forms}) => {
           if (name === '新增') {
             Add(values).then(() => {
               message.success("新增成功")
@@ -75,7 +72,7 @@ export const MaterialType = () => {
             })
 
           } else if (name === "修改") {
-            Mod({ ...values, id: formData.id }).then(() => {
+            Mod({...values, id: formData.id}).then(() => {
               message.success("修改成功")
               setVisible(false);
             }).catch((error) => {
@@ -91,10 +88,11 @@ export const MaterialType = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="物资类型名称"
+              label=""
               name="name"
             >
-              <Input />
+              <Input placeholder={"物资类型名称"} value={param.name}
+                     onChange={(evt) => setParam({...param, name: evt.target.value})}/>
             </Form.Item>
 
             <Form.Item>
@@ -144,10 +142,11 @@ export const MaterialType = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
-            rowKey={(item: any) => item.id} />
+          } pagination={{total: data?.count, current: param.index, pageSize: param.size}} onChange={handleTableChange}
+                 loading={isLoading} dataSource={data?.data}
+                 rowKey={(item: any) => item.id}/>
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
       </Form.Provider>
     </>
   );

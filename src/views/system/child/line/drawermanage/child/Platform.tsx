@@ -5,8 +5,9 @@ import { Button, Form, Input, message, Modal, Popconfirm, Select, Table } from "
 import styled from "@emotion/styled";
 import { rules } from "../../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
-import { useDel, useAdd, useInit, useMod } from "./linePlatform";
+import { useDel, useAdd, useInit, useMod, useProjectsSearchParams } from "../../../../../../utils/system/linePlatform";
 const { Option } = Select
+
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -86,16 +87,17 @@ export const Platform = ({ id }: { id: number | undefined }) => {
   const [roadList, setRoadList] = useState([])
   const [dataForm, setDataForm] = useState<any>({})
   const [type, setType] = useState('')
-  const [pagination, setPagination] = useState({
+  const [param, setParam] = useProjectsSearchParams()
+  /* const [param, setParam] = useState({
     index: 1,
     size: 10,
     name: '',
-  })
+  }) */
 
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...pagination, lineId: id })
+  const { data, isLoading } = useInit({ ...param, lineId: id })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -106,14 +108,14 @@ export const Platform = ({ id }: { id: number | undefined }) => {
     client(`lineRoad/list?${qs.stringify({ index: 1, size: 1000, lineId: id })}`, { method: "POST" }).then(res => {
       setRoadList(res.data)
     })
-  }, [client])
+  }, [client, id])
 
   useEffect(() => {
     getRoadList()
   }, [getRoadList])
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -148,7 +150,7 @@ export const Platform = ({ id }: { id: number | undefined }) => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -229,7 +231,10 @@ export const Platform = ({ id }: { id: number | undefined }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          ]} pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+            onChange={handleTableChange}
+            loading={isLoading}
+            dataSource={data?.data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} roadList={roadList} />
         </Main>

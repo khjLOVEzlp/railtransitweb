@@ -3,8 +3,8 @@ import { Button, Form, Input, message, Modal, Popconfirm, Table } from "antd";
 import styled from "@emotion/styled";
 import { rules } from "../../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
-import { useAdd, useDel, useInit, useMod } from "./lineRoad";
-import { useHttp } from "../../../../../../utils/http";
+import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from "../../../../../../utils/system/lineRoad";
+import { useDebounce } from "../../../../../../hook/useDebounce";
 
 /*const layout = {
   labelCol: {span: 4},
@@ -46,7 +46,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         layout={"vertical"}
       >
         <Form.Item
-          label="路段名称"
+          label="区间"
           name="name"
           rules={rules}
         >
@@ -68,22 +68,18 @@ export const Road = ({ id }: { id: number | undefined }) => {
   const [visible, setVisible] = useState(false);
   const [dataForm, setDataForm] = useState<any>({})
   const [type, setType] = useState('')
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    name: '',
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...pagination, lineId: id })
+  const { data, isLoading } = useInit(useDebounce({ ...param, lineId: id }, 500))
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -103,7 +99,7 @@ export const Road = ({ id }: { id: number | undefined }) => {
 
   const confirm = (item: any) => {
     del(item.id).then(() => {
-      setPagination({ ...pagination, index: 1 })
+      setParam({ ...param, index: 1 })
       message.success('删除成功')
     })
   }
@@ -121,7 +117,7 @@ export const Road = ({ id }: { id: number | undefined }) => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -152,10 +148,10 @@ export const Road = ({ id }: { id: number | undefined }) => {
             layout={"inline"}
           >
             <Form.Item
-              label="路段名称"
+              label=""
               name="name"
             >
-              <Input />
+              <Input placeholder={"区间"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
             </Form.Item>
 
             <Form.Item>
@@ -170,7 +166,7 @@ export const Road = ({ id }: { id: number | undefined }) => {
         <Main>
           <Table columns={[
             {
-              title: '路段名称',
+              title: '区间',
               dataIndex: 'name',
               key: 'name',
             },
@@ -202,7 +198,10 @@ export const Road = ({ id }: { id: number | undefined }) => {
                 <Button type="link">删除</Button>
               </Popconfirm></>)
             },
-          ]} pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          ]} pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+            onChange={handleTableChange}
+            loading={isLoading}
+            dataSource={data?.data}
             rowKey={(item: any) => item.id} />
           <ModalForm visible={visible} formData={dataForm} type={type} onCancel={hideUserModal} />
         </Main>

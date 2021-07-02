@@ -18,15 +18,21 @@ import { DataDictionary } from "../views/system/child/dataDictionary";
 import { MaterialType } from "../views/warehouse/child/materialType";
 import { ToolType } from "../views/warehouse/child/toolType";
 import { Temperature } from "../views/system/child/temperature";
+import {InWarehouse} from "../views/warehouse/child/inWarehouse";
+import {OutWarehouse} from "../views/warehouse/child/outWarehouse";
 import { Warehouse } from "../views/warehouse";
 import { Hardware } from "../views/hardware";
 import { Navigate } from "react-router";
+import { PersonManage } from '../views/person/child/personManage';
+import { SpiritStatus } from '../views/person/child/spiritStatus';
 
 export const RouterElement = () => {
   const element = useRoutes([
+    /* 首页 */
     {
       path: "/home", element: <Home />
     },
+    /* 作业计划 */
     {
       path: "/plan", element: <Plan />, children: [
         {
@@ -43,31 +49,53 @@ export const RouterElement = () => {
         }
       ]
     },
+    /* 告警上报 */
     {
       path: "/alarm", element: <Alarm />
     },
+    /* 统计分析 */
     {
       path: "/statistics", element: <Statistics />
     },
+    /* 设备管理 */
     {
       path: "/hardware", element: <Hardware />
     },
+    /* 人员管理 */
     {
-      path: "/person", element: <Person />
+      path: "/person", element: <Person />, children: [
+        {
+          path: "personManage", element: <PersonManage />
+        },
+        {
+          path: "spiritStatus", element: <SpiritStatus />
+        },
+        {
+          path: "/", element: <Navigate to={"/person/personManage"} />
+        }
+      ]
     },
+    /* 库存管理 */
     {
       path: "/warehouse", element: <Warehouse />, children: [
+        {
+          path: "toolType", element: <MaterialType />
+        },
         {
           path: "materialType", element: <ToolType />
         },
         {
-          path: "toolType", element: <MaterialType />
+          path: "inWarehouse", element: <InWarehouse />
+        },
+        {
+          path: "outWarehouse", element: <OutWarehouse />
         },
         {
           path: "/", element: <Navigate to={"/warehouse/toolType"} />
         }
       ]
     },
+    /* 系统管理 */
     {
       path: "/system", element: <System />, children: [
         {

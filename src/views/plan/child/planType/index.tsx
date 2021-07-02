@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from "./modal/ModalForm";
-import { useAdd, useDel, useInit, useMod } from './planType';
+import { useAdd, useDel, useInit, useMod } from '../../../../utils/plan/planType';
 
 export const PlanType = () => {
   const [visible, setVisible] = useState(false);
@@ -65,8 +65,6 @@ export const PlanType = () => {
     <>
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
-          console.log(values);
-
           if (name === '新增') {
             Add(values).then(() => {
               message.success('新增成功')

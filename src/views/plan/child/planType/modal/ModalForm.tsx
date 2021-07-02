@@ -4,8 +4,8 @@ import 'moment/locale/zh-cn';
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
 import { rules } from "../../../../../utils/verification";
 import TextArea from "antd/lib/input/TextArea";
-import { useMaterialType } from "../../../../system/child/materialType/materialType";
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { useMaterialType } from "../../../../../utils/warehouse/materialType";
 // import '../../style.css'
 const { Option } = Select;
 /*const layout = {
@@ -38,15 +38,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   const materialListChange = (value: any) => {
 
   }
-
-  const toolListChange = (value: any) => {
-  }
-
-  const onFinish = (value: any) => {
-    console.log(value);
-
-  }
-
 
   const onOk = () => {
     form.submit();

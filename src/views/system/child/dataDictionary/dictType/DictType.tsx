@@ -1,97 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Modal, Button, Table, Popconfirm, message } from 'antd';
+import { useState } from 'react';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { rules } from "../../../../../utils/verification";
-import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useAdd, useDel, useInit, useMod } from './type';
-
-/*const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};*/
-
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: object
-}
-
-const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (type === "新增") return
-    form.setFieldsValue(formData)
-  }, [formData, form, visible, type])
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
-  const onOk = () => {
-    form.submit();
-  };
-
-  return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
-    >
-      <Form
-        form={form}
-        name={type}
-        labelAlign="right"
-        layout={"vertical"}
-      >
-        <Form.Item
-          label="值"
-          name="name"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="键"
-          name="type"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="备注"
-          name="remark"
-        >
-          <Input />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
+import { ModalForm } from './ModalForm'
+import { useDebounce } from '../../../../../hook/useDebounce';
+import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from '../../../../../utils/system/dictType'
 
 export const DictType = () => {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    name: ''
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...pagination })
+  const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -126,7 +55,7 @@ export const DictType = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -159,7 +88,7 @@ export const DictType = () => {
             <Form.Item
               name="name"
             >
-              <Input />
+              <Input placeholder={"物资类型名称"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
             </Form.Item>
 
             <Form.Item>
@@ -209,7 +138,10 @@ export const DictType = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+            onChange={handleTableChange}
+            loading={isLoading}
+            dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

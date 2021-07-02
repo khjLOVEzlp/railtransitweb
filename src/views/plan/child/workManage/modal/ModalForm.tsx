@@ -1,6 +1,6 @@
 import { Col, Form, Modal, Row } from "antd";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useShare } from "../workManage";
+import { useShare } from "../../../../../utils/plan/planHistory";
 
 interface ModalFormProps {
   visible: boolean

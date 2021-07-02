@@ -1,5 +1,5 @@
 import { DatePicker, Form, Input, Modal, Space } from "antd"
-import { useToolDetail } from "../warehouse"
+import { useToolDetail } from "../../../../../utils/warehouse/toolType"
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { useForm } from "antd/lib/form/Form";
 import { useEffect } from "react";

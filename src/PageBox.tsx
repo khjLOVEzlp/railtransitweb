@@ -5,10 +5,9 @@ import logo from './icon/logo.png'
 import notice from './icon/通知.png'
 import { NavLink } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
-import { Button, Dropdown, Form, Input, Menu, message, Modal, Popover } from "antd";
+import { Button, Dropdown, Form, Input, Menu, message, Modal } from "antd";
 import { DownOutlined } from '@ant-design/icons';
 import { RouterElement } from "./router";
-import { useQuery } from 'react-query'
 import qs from "qs";
 import { rules } from "./utils/verification";
 import { OperModal } from "./views/notice/OperModal";
@@ -76,7 +75,7 @@ export const PageBox = () => {
         <User />
       </HeaderStyle>
       <ContentStyle>
-        <RouterElement></RouterElement>
+        <RouterElement/>
         {/*<Routes>
           <Route path={"/home"} element={<Home/>}/>
           <Route path={"/plan/*"} element={<Plan/>}/>

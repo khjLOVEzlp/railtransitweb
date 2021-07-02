@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from "./modal/ModalForm";
-import { useAdd, useDel, useInit, useMod } from './user';
+import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from '../../../../utils/system/user';
 import { CollectionCreateForm } from '../../../../PageBox';
 import { useHttp } from '../../../../utils/http';
 import qs from 'qs';
+import { useDebounce } from '../../../../hook/useDebounce';
 
 export const User = () => {
   const [visible, setVisible] = useState(false);
@@ -14,16 +15,12 @@ export const User = () => {
   const [type, setType] = useState('')
   const [id, setId] = useState<any>()
   const client = useHttp()
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    name: ''
-  })
+  const [param, setParam] = useProjectsSearchParams();
 
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...pagination })
+  const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -53,11 +50,11 @@ export const User = () => {
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const showUserModal = () => {
@@ -110,10 +107,10 @@ export const User = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="用户名"
+              label=""
               name="name"
             >
-              <Input />
+              <Input placeholder={"用户名"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
             </Form.Item>
 
             <Form.Item>
@@ -177,7 +174,7 @@ export const User = () => {
                 },
               ]
             }
-            pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
+            pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
             onChange={handleTableChange}
             dataSource={data?.data}
             loading={isLoading}

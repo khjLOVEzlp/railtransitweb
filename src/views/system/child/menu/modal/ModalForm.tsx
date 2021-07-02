@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input, Modal, Radio } from "antd";
 import { rules } from "../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
@@ -17,8 +17,6 @@ interface ModalFormProps {
 
 export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
   const [form] = Form.useForm();
-  const [menuType, setMenuType] = useState(1)
-  const [status, setStatus] = useState(1)
 
   useEffect(() => {
     if (type === "新增") return
@@ -29,14 +27,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
     form,
     visible,
   });
-
-  const menuTypeChange = (e: any) => {
-    setMenuType(e.target.value)
-  }
-
-  const statusChange = (e: any) => {
-    setStatus(e.target.value)
-  }
 
   const onOk = () => {
     form.submit();

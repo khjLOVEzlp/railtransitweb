@@ -1,10 +1,9 @@
-import { Button, Form, Input, Modal, Spin, Tree, TreeSelect } from "antd";
+import { Button, Form, Input, Modal, Spin, TreeSelect } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useHttp } from "../../../../../utils/http";
 import { rules } from "../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useDetail } from "../line";
-const { TreeNode } = TreeSelect;
+import { useDetail } from "../../../../../utils/system/line";
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},

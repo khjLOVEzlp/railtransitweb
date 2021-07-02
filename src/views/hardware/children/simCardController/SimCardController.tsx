@@ -1,139 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Modal, Button, Table, Popconfirm, message, Radio, Select } from 'antd';
+import { useState } from 'react';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { rules } from "../../../../utils/verification";
-import { useResetFormOnCloseModal } from "../../../../hook/useResetFormOnCloseModal";
-import { useAdd, useDel, useInit, useMod } from './sim';
-import { useWarehouse } from '../../../system/child/warehouse/warehouse';
-const { Option } = Select
+import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from '../../../../utils/hardware/sim';
+import { ModalForm } from './ModalForm';
+import { useDebounce } from '../../../../hook/useDebounce';
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
 };*/
 
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: object
-}
-
-const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (type === "新增") return
-    form.setFieldsValue(formData)
-  }, [formData, form, visible, type])
-
-  const { data: warehouse } = useWarehouse()
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
-  const onOk = () => {
-    form.submit();
-  };
-
-  return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
-    >
-      <Form
-        form={form}
-        name={type}
-        labelAlign="right"
-        layout={"vertical"}
-      >
-        <Form.Item
-          label="设备编号"
-          name="cardNo"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="流量卡号码"
-          name="phone"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="类型"
-          name="supplier"
-          rules={rules}
-        >
-          <Radio.Group>
-            <Radio value={"移动"}>移动</Radio>
-            <Radio value={"联通"}>联通</Radio>
-            <Radio value={"电信"}>电信</Radio>
-            <Radio value={"其他"}>其他</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="归属仓库"
-          name="warehouseId"
-          rules={rules}
-        >
-          <Select
-            showSearch
-            filterOption={(input, option: any) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-          >
-            {warehouse?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.name}</Option>)}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="是否使用"
-          name="isUse"
-        >
-          <Radio.Group>
-            <Radio value={"0"}>是</Radio>
-            <Radio value={"1"}>否</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-          label="备注"
-          name="operator"
-        >
-          <Input />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
-
 export const SimCardController = () => {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    name: '',
-    type: ''
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...pagination })
+  const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const add = () => {
@@ -168,7 +59,7 @@ export const SimCardController = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -202,7 +93,7 @@ export const SimCardController = () => {
             <Form.Item
               name="name"
             >
-              <Input placeholder={"设备编号"} />
+              <Input placeholder={"设备编号"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
             </Form.Item>
 
             <Form.Item>
@@ -223,7 +114,7 @@ export const SimCardController = () => {
                 key: 'cardNo',
               },
               {
-                title: '电话号码',
+                title: '流量卡号码',
                 dataIndex: 'phone',
                 key: 'phone',
               },
@@ -242,7 +133,7 @@ export const SimCardController = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
+          } pagination={{ total: data?.count, current: param.index, pageSize: param.size, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
         </Main>
         <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />

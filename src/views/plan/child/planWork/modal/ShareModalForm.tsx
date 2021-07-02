@@ -1,7 +1,7 @@
 import { Button, Form, Modal, Select } from "antd";
 import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
 import { rules } from "../../../../../utils/verification";
-import { useUserAll } from "../../../../system/child/user/user";
+import { useUserAll } from "../../../../../utils/system/user";
 const { Option } = Select
 
 interface ModalFormProps {

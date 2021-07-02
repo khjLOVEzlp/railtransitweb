@@ -1,7 +1,7 @@
 import { Button, Drawer, Form, message, Table } from "antd"
 import { useState } from "react"
 import { ToolModalForm } from "./modal/ToolModalForm"
-import { useMaterial, useModMaterial } from "./warehouse"
+import { useMaterial, useModMaterial } from "../../../../utils/warehouse/toolType"
 interface Props {
   visible: boolean
   onClose: () => void

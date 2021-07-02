@@ -1,50 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { RadialBar } from '@ant-design/charts';
+
+
+import { useState, useEffect } from 'react';
+import { Line } from '@ant-design/charts';
 
 const PlanWorkPage: React.FC = () => {
-  var data = [
-    {
-      name: '日计划数',
-      star: 297,
-    },
-    {
-      name: '周计划数',
-      star: 506,
-    },
-    {
-      name: '月计划数',
-      star: 805,
-    },
-    {
-      name: '季度计划数',
-      star: 1478,
-    },
-    {
-      name: '半年计划数',
-      star: 2029,
-    },
-    {
-      name: '年底计划数',
-      star: 7100,
-    },
-  ];
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    asyncFetch();
+  }, []);
+  const asyncFetch = () => {
+    fetch('https://gw.alipayobjects.com/os/bmw-prod/e00d52f4-2fa6-47ee-a0d7-105dd95bde20.json')
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => {
+        console.log('fetch data failed', error);
+      });
+  };
   var config = {
-    height: 350,
     data: data,
-    xField: 'name',
-    yField: 'star',
-    radius: 0.8,
-    innerRadius: 0.2,
-    tooltip: {
-      formatter: function formatter(datum: any) {
-        return {
-          name: 'star数',
-          value: datum.star,
-        };
+    xField: 'year',
+    yField: 'gdp',
+    seriesField: 'name',
+    yAxis: {
+      label: {
+        formatter: function formatter(v: any) {
+          return ''.concat((v / 1000000000).toFixed(1), ' B');
+        },
+      },
+    },
+    legend: { position: 'top' },
+    smooth: true,
+    animation: {
+      appear: {
+        animation: 'path-in',
+        duration: 5000,
       },
     },
   };
-  return <RadialBar {...config} />;
+
+  // @ts-ignore
+  return <Line {...config} />;
 };
 
 export default PlanWorkPage;

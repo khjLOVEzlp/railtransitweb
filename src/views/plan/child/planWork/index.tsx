@@ -2,26 +2,22 @@ import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from "./modal/ModalForm";
-import { useAdd, useDel, useFeedBack, useInit, useMod, useSharePlan } from './planWork';
+import { useAdd, useDel, useFeedBack, useInit, useMod, useSharePlan, useProjectsSearchParams } from '../../../../utils/plan/planWork';
 import { ShareModalForm } from './modal/ShareModalForm';
 import { ViewModalForm } from './modal/ViewModalForm';
+import {useDebounce} from "../../../../hook/useDebounce";
 
 export const PlanWork = () => {
   const [visible, setVisible] = useState(false);
   const [visibleShare, setVisibleShare] = useState(false);
   const [visibleView, setVisibleView] = useState(false);
-  const [visibleShareBack, setVisibleShareBack] = useState(false)
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    name: ''
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
   /* 增删改查 */
 
-  const { data, isLoading } = useInit({ ...pagination })
+  const { data, isLoading } = useInit(useDebounce(param, 500) )
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -37,12 +33,6 @@ export const PlanWork = () => {
   const share = (item: any) => {
     setVisibleShare(true)
     setType('发布计划')
-    setFormData(item)
-  }
-
-  const shareBack = (item: any) => {
-    setVisibleShareBack(true)
-    setType('反馈')
     setFormData(item)
   }
 
@@ -71,7 +61,7 @@ export const PlanWork = () => {
   }
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name, index: 1 })
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const showUserModal = () => {
@@ -86,17 +76,28 @@ export const PlanWork = () => {
     setVisibleShare(false)
   }
 
-  const hideShareBackModal = () => {
-    setVisibleShareBack(false)
-  }
-
   const hideViewModal = () => {
     setVisibleView(false)
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
+
+  const isStatus = (type: number) => {
+    switch (type) {
+      case 0:
+        return "未执行"
+      case 1:
+        return "执行中"
+
+      case 2:
+        return "已完成"
+
+      default:
+        break;
+    }
+  }
 
   return (
     <>
@@ -126,14 +127,6 @@ export const PlanWork = () => {
               message.error(error.msg)
             })
           }
-          if (name === "反馈") {
-            FeedBack({ ...values, planId: formData.id }).then(() => {
-              message.success("反馈成功")
-              hideShareBackModal()
-            }).catch(error => {
-              message.error(error.msg)
-            })
-          }
         }}
       >
         <Header>
@@ -143,10 +136,11 @@ export const PlanWork = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="计划名称"
+              label=""
               name="name"
             >
-              <Input placeholder={"计划名称"} />
+              <Input placeholder={"计划名称"} value={param.name}
+                     onChange={(evt) => setParam({...param, name: evt.target.value})} />
             </Form.Item>
 
             <Form.Item>
@@ -167,14 +161,44 @@ export const PlanWork = () => {
                 key: 'name',
               },
               {
-                title: '计划执行时间',
+                title: "负责人",
+                dataIndex: 'leaderName',
+                key: 'leaderName',
+              },
+              {
+                title: '开始时间',
                 dataIndex: 'beginTime',
                 key: 'beginTime',
               },
               {
+                title: '结束时间',
+                dataIndex: 'endTime',
+                key: 'endTime',
+              },
+              {
+                title: '线路',
+                dataIndex: 'lineName',
+                key: 'lineName',
+              },
+              {
+                title: '请站点',
+                dataIndex: 'pinName',
+                key: 'pinName',
+              },
+              {
+                title: '销站点',
+                dataIndex: 'pleaseName',
+                key: 'pleaseName',
+              },
+              {
+                title: '状态',
+                render: (item) => (<span>{isStatus(item.status)}</span>),
+                key: 'status',
+              },
+              {
                 title: '是否自动提醒',
                 key: 'isWarn',
-                render: (isWarn) => (<span>{isWarn === 0 ? '否' : '是'}</span>)
+                render: (item) => (<span>{item.isWarn === 0 ? '否' : '是'}</span>)
               },
               {
                 title: '备注',
@@ -198,13 +222,15 @@ export const PlanWork = () => {
                       okText="Yes"
                       cancelText="No"
                     >
-                      <Button type={"link"}>删除</Button>
+                      {
+                        item.status === 2 ? <Button disabled type={"link"}>删除</Button> : <Button type={"link"}>删除</Button>
+                      }
                     </Popconfirm>
                   </>
                 )
               },
             ]
-          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
+          } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
             onChange={handleTableChange}
             dataSource={data?.data}
             loading={isLoading}

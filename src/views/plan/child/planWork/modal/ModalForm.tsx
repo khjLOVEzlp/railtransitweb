@@ -7,12 +7,12 @@ import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnClos
 import { UploadOutlined } from "@ant-design/icons";
 import { getToken } from "../../../../../auth-provider";
 import { rules } from "../../../../../utils/verification";
-import { usePerson } from "../../../../person/person";
-import { useMaterialType } from "../../../../system/child/materialType/materialType";
-import { usePlanType } from "../../planType/planType";
-import { useLine } from "../../../../system/child/line/line";
+import { usePlanType } from "../../../../../utils/plan/planType";
+import { useLine } from "../../../../../utils//system/line";
 // import '../../style.css'
-import { useSite } from "../planWork";
+import { useSite } from "../../../../../utils/plan/planWork";
+import { useMaterialType } from "../../../../../utils/warehouse/materialType";
+import { usePerson } from "../../../../../utils/person/personManage";
 const baseUrl = process.env["REACT_APP_API_URL"]
 const { TextArea } = Input;
 const { Option } = Select;
@@ -321,7 +321,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           </Form.Item>
 
           <Form.Item
-            label="工作内容"
+            label="作业内容"
             name="workContent"
           >
             <Input />

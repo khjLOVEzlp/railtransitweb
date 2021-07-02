@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Input, Button, Table } from 'antd';
 import styled from "@emotion/styled";
 import { ViewModalForm } from "./modal/ModalForm";
-import { useInit } from './workManage';
+import { useInit } from '../../../../utils/plan/planHistory';
 
 export const WorkManage = () => {
   const [visible, setVisible] = useState(false);
@@ -24,10 +24,6 @@ export const WorkManage = () => {
 
   const search = (item: any) => {
     setPagination({ ...pagination, name: item.name })
-  };
-
-  const showUserModal = () => {
-    setVisible(true);
   };
 
   const hideUserModal = () => {
