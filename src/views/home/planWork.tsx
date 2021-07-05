@@ -1,26 +1,61 @@
-
-
-import { useState, useEffect } from 'react';
-import { Line } from '@ant-design/charts';
+import {useState} from 'react';
+import {Line} from '@ant-design/charts';
 
 const PlanWorkPage: React.FC = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    asyncFetch();
-  }, []);
-  const asyncFetch = () => {
-    fetch('https://gw.alipayobjects.com/os/bmw-prod/e00d52f4-2fa6-47ee-a0d7-105dd95bde20.json')
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => {
-        console.log('fetch data failed', error);
-      });
-  };
+  const [data] = useState([
+    {
+      "name": "日计划",
+      "year": "2000",
+      "gdp": 1111346869605.24
+    },
+    {
+      "name": "日计划",
+      "year": "2001",
+      "gdp": 1211346869605.24
+    },
+    {
+      "name": "日计划",
+      "year": "2002",
+      "gdp": 1311346869605.24
+    },
+    {
+      "name": "周计划",
+      "year": "2000",
+      "gdp": 1411346869605.24
+    },
+    {
+      "name": "周计划",
+      "year": "2001",
+      "gdp": 11346869605.24
+    },
+    {
+      "name": "周计划",
+      "year": "2002",
+      "gdp": 611346869605.24
+    },
+    {
+      "name": "月计划",
+      "year": "2000",
+      "gdp": 711346869605.24
+    },
+    {
+      "name": "月计划",
+      "year": "2001",
+      "gdp": 811346869605.24
+    },
+    {
+      "name": "月计划",
+      "year": "2002",
+      "gdp": 911346869605.24
+    },
+  ]);
+
   var config = {
     data: data,
     xField: 'year',
     yField: 'gdp',
     seriesField: 'name',
+    height: 350,
     yAxis: {
       label: {
         formatter: function formatter(v: any) {
@@ -28,7 +63,7 @@ const PlanWorkPage: React.FC = () => {
         },
       },
     },
-    legend: { position: 'top' },
+    legend: {position: 'top'},
     smooth: true,
     animation: {
       appear: {

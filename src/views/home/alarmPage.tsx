@@ -11,6 +11,8 @@ const Page = ({ data }: { data: any }) => {
 
   const config = {
     data: data,
+    width: 400,
+    height: 400,
     xField: 'name',
     yField: 'star',
     meta: {

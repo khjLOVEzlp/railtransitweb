@@ -114,6 +114,16 @@ export const LabelController = () => {
                 key: 'codeHex915',
               },
               {
+                title: '归属仓库',
+                dataIndex: 'name',
+                key: 'name',
+              },
+              {
+                title: '是否使用',
+                key: 'isUse',
+                render: (item: any) => item.isUse === 0 ? '使用' : '未使用'
+              },
+              {
                 title: '操作',
                 key: 'id',
                 render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>

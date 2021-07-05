@@ -5,12 +5,12 @@ import logo from './icon/logo.png'
 import notice from './icon/通知.png'
 import { NavLink } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
-import { Button, Dropdown, Form, Input, Menu, message, Modal } from "antd";
+import { Button, Dropdown, Menu, message } from "antd";
 import { DownOutlined } from '@ant-design/icons';
 import { RouterElement } from "./router";
 import qs from "qs";
-import { rules } from "./utils/verification";
 import { OperModal } from "./views/notice/OperModal";
+import {PassModal} from "./components/PassModal";
 
 export const PageBox = () => {
   const [menu, setMenu] = useState([])
@@ -149,7 +149,7 @@ const User = () => {
           {user?.loginName}<DownOutlined />
         </Button>
       </Dropdown>
-      <CollectionCreateForm
+      <PassModal
         passwd={"mod"}
         visible={visible}
         onCreate={onCreate}
@@ -158,60 +158,6 @@ const User = () => {
         }}
       />
     </div>
-  );
-};
-
-interface CollectionCreateFormProps {
-  visible: boolean;
-  onCreate: (values: any) => void;
-  onCancel: () => void;
-  passwd: string
-}
-
-export const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
-  visible,
-  onCreate,
-  onCancel,
-  passwd
-}) => {
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (!visible) {
-      form.resetFields()
-    }
-  }, [visible])
-  return (
-    <Modal
-      visible={visible}
-      title="修改密码"
-      okText="提交"
-      cancelText="取消"
-      onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then(values => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch(info => {
-            console.log('Validate Failed:', info);
-          });
-      }}
-    >
-      <Form form={form}>
-        <Form.Item name={"newpassword"} rules={rules}>
-          <Input placeholder={"请输入新密码"} />
-        </Form.Item>
-
-        {
-          passwd === "mod" ? <Form.Item name={"oldpassword"} rules={rules}>
-            <Input placeholder={"请输入旧密码"} />
-          </Form.Item> : ""
-        }
-      </Form>
-    </Modal>
   );
 };
 

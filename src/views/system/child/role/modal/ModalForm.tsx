@@ -44,7 +44,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
     }
   ])
 
-  const fuc = (data: any) => {
+  const fuc = useCallback((data: any) => {
     if (data && data.length > 0) {
       data.forEach((item: any) => {
         item.title = item.name
@@ -55,7 +55,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
       data = []
     }
     return data
-  }
+  }, [])
 
   useEffect(() => {
     if (type === "新增") return

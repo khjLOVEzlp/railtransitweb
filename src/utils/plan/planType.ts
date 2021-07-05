@@ -7,7 +7,7 @@ import {useMemo} from "react";
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
-  const [param, setParam] = useUrlQueryParam(["name", "index", "size"]);
+  const [param, setParam] = useUrlQueryParam(["type", "index", "size"]);
   return [
     useMemo(
       () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),

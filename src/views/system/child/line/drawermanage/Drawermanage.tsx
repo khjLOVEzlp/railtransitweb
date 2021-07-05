@@ -4,13 +4,7 @@ import { useState } from "react";
 import { Road } from './child/Road'
 import { Platform } from "./child/Platform";
 import { Class } from "./child/Class";
-import { useDetail } from "../../../../../utils/system/line";
-
-interface Props {
-  isShowDrawer: boolean
-  setIsShowDrawer: (isShowDrawer: boolean) => void
-  id: number | undefined
-}
+import {useProjectModal} from '../util'
 
 const { TabPane } = Tabs;
 
@@ -18,31 +12,29 @@ function callback() {
 
 }
 
-export const Drawermanage = ({ setIsShowDrawer, id }: Props) => {
-  const { data: lineDetail } = useDetail(id)
-  const [visible, setVisible] = useState(true);
+export const Drawermanage = () => {
+  const {
+    ModalOpen,
+    editingProject,
+    close
+  } = useProjectModal();
   const [navList] = useState([
     {
       name: "区间",
       id: 1,
-      tem: <Road id={id} />,
+      tem: <Road />,
     },
     {
       name: "地铁站台",
       id: 2,
-      tem: <Platform id={id} />,
+      tem: <Platform />,
     },
     {
       name: "地铁班别",
       id: 3,
-      tem: <Class id={id} />,
+      tem: <Class />,
     }
   ])
-
-  const onClose = () => {
-    setVisible(false);
-    setIsShowDrawer(false)
-  };
 
   return (
     <>
@@ -51,14 +43,14 @@ export const Drawermanage = ({ setIsShowDrawer, id }: Props) => {
         placement="right"
         closable={true}
         width={1000}
-        onClose={onClose}
-        visible={visible}
+        onClose={close}
+        visible={ModalOpen}
         keyboard={false}
         maskClosable={false}
       >
         <div>
-          <LineTitle>{lineDetail?.data.name}</LineTitle>
-          <div>备注：{lineDetail?.data.remark}</div>
+          <LineTitle>{editingProject?.data.name}</LineTitle>
+          <div>备注：{editingProject?.data.remark}</div>
           <Tabs defaultActiveKey="1" onChange={callback}>
             {
               navList.map((item: any) => <TabPane tab={item.name} key={item.id}>

@@ -1,18 +1,18 @@
 import styled from "@emotion/styled";
 import login from './icon/login.png'
-import { Form, Input, Button } from 'antd';
-import { useAuth } from "./context/auth-context";
-import { useDocumentTitle } from "./hook/useDocumentTitle";
+import {Form, Input, Button} from 'antd';
+import {useAuth} from "./context/auth-context";
+import {useDocumentTitle} from "./hook/useDocumentTitle";
 // import dayjs from 'dayjs'
-import { rules } from "./utils/verification";
-import { useState } from "react";
-import { ErrorBox } from "./components/lib";
-import { useAsync } from "./hook/useAsync";
+import {rules} from "./utils/verification";
+import {useState} from "react";
+import {ErrorBox} from "./components/lib";
+import {useAsync} from "./hook/useAsync";
 
 export const Login = () => {
   const [error, setError] = useState<Error | null>(null);
-  const { isLoading, run, isError, error: err } = useAsync(undefined, { throwOnError: true });
-  const { login } = useAuth()
+  const {isLoading, run, isError, error: err} = useAsync(undefined, {throwOnError: true});
+  const {login} = useAuth()
   const onFinish = async (values: any) => {
     try {
       await run(login(values))
@@ -28,51 +28,55 @@ export const Login = () => {
         <div className="left">{dayjs().format('YYYY-MM-DD')}</div>
         <div className="right">{dayjs().format('HH:mm:ss')}</div>
       </TopTimer> */}
-      <div></div>
-      <LoginForm>
+      <div/>
+      <div>
         <Title>
           <li>5G-NB智慧轨行区</li>
           <li>数字化维养安全管控系统</li>
         </Title>
-        <ErrorBox error={error} />
+        <ErrorBox error={error}/>
         {
-          isError ? <ErrorBox error={err} /> : ""
+          isError ? <ErrorBox error={err}/> : ""
         }
         <Form
           size={'large'}
           name="basic"
-          initialValues={{ remember: true }}
+          initialValues={{remember: true}}
           onFinish={onFinish}
         >
           <Form.Item
             name="loginName"
             rules={rules}
           >
-            <Input size="large" placeholder="账号：请输入您的账号" onChange={() => { setError(null) }} />
+            <Input style={{height: "6rem", borderRadius: "10px"}} size="large" placeholder="账号：请输入您的账号"
+                   onChange={() => {
+                     setError(null)
+                   }}/>
           </Form.Item>
 
           <Form.Item
             name="password"
             rules={rules}
           >
-            <Input.Password size="large" placeholder="密码：请输入您的密码" onChange={() => setError(null)} />
+            <Input.Password style={{height: "6rem", borderRadius: "10px"}} size="large" placeholder="密码：请输入您的密码"
+                            onChange={() => setError(null)}/>
           </Form.Item>
 
           <Form.Item>
-            <Button loading={isLoading} type="primary" htmlType="submit" style={{ width: "100%" }}>
+            <Button loading={isLoading} type="primary" htmlType="submit"
+                    style={{width: "100%", height: "6rem", borderRadius: "10px"}}>
               登录
             </Button>
           </Form.Item>
         </Form>
-      </LoginForm>
+      </div>
     </LoginStyle>
   )
 }
 
 const LoginStyle = styled.div`
   min-height: 100vh;
-  background: url(${login}) center top / cover;
-  background-repeat: no-repeat;
+  background: url(${login}) center center no-repeat;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -89,19 +93,12 @@ const LoginStyle = styled.div`
   justify-content: space-between;
 `*/
 
-const LoginForm = styled.div`
-  /* width: 40rem;
-  height: 40rem;
-  margin-left: 60%; */
-  background: #fff;
-`
-
 const Title = styled.div`
-  font-size: 3rem;
+  font-size: 4.8rem;
   font-weight: bold;
   color: #5A7FFA;
   /* margin: 10rem 0 5rem; */
-  margin-bottom: 5rem;
+  margin: 5rem 0;
   overflow: hidden;
   text-align: center;
 `

@@ -1,20 +1,17 @@
-import { useState } from 'react';
-import { Form, Input, Button, Table } from 'antd';
+import {useState} from 'react';
+import {Form, Input, Button, Table} from 'antd';
 import styled from "@emotion/styled";
-import { ViewModalForm } from "./modal/ModalForm";
-import { useInit } from '../../../../utils/plan/planHistory';
+import {ViewModalForm} from "./modal/ModalForm";
+import {useInit, useProjectsSearchParams} from '../../../../utils/plan/planHistory';
+import {useDebounce} from "../../../../hook/useDebounce";
 
 export const WorkManage = () => {
   const [visible, setVisible] = useState(false);
   const [formData, setFormData] = useState({})
   const [type, setType] = useState('')
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    name: ''
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
-  const { data, isLoading } = useInit({ ...pagination, })
+  const {data, isLoading} = useInit(useDebounce(param, 500))
 
   const mod = (item: any) => {
     setVisible(true)
@@ -23,7 +20,7 @@ export const WorkManage = () => {
   }
 
   const search = (item: any) => {
-    setPagination({ ...pagination, name: item.name })
+    setParam({...param, name: item.name})
   };
 
   const hideUserModal = () => {
@@ -31,7 +28,7 @@ export const WorkManage = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({...param, index: p.current, size: p.pageSize})
   };
 
   return (
@@ -43,10 +40,11 @@ export const WorkManage = () => {
           layout={"inline"}
         >
           <Form.Item
-            label="作业名称"
+            label=""
             name="name"
           >
-            <Input placeholder={"作业名称"} />
+            <Input placeholder={"作业名称"} value={param.name}
+                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
           </Form.Item>
 
           <Form.Item>
@@ -95,14 +93,14 @@ export const WorkManage = () => {
               )
             },
           ]
-        } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
-          onChange={handleTableChange}
-          dataSource={data?.data}
-          loading={isLoading}
-          rowKey={(item: any) => item.id}
+        } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
+               onChange={handleTableChange}
+               dataSource={data?.data}
+               loading={isLoading}
+               rowKey={(item: any) => item.id}
         />
       </Main>
-      <ViewModalForm visible={visible} type={type} formData={formData} onCancel={hideUserModal} />
+      <ViewModalForm visible={visible} type={type} formData={formData} onCancel={hideUserModal}/>
     </>
   );
 }

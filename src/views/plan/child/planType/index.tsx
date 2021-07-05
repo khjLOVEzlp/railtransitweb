@@ -1,25 +1,22 @@
-import { useState } from 'react';
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
+import {useState} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import { ModalForm } from "./modal/ModalForm";
-import { useAdd, useDel, useInit, useMod } from '../../../../utils/plan/planType';
+import {ModalForm} from "./modal/ModalForm";
+import {useAdd, useDel, useInit, useMod, useProjectsSearchParams} from '../../../../utils/plan/planType';
+import {useDebounce} from "../../../../hook/useDebounce";
 
 export const PlanType = () => {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
-  const [pagination, setPagination] = useState({
-    index: 1,
-    size: 10,
-    type: ''
-  })
+  const [param, setParam] = useProjectsSearchParams()
 
   /* 增删改查 */
 
-  const { data, isLoading } = useInit({ ...pagination })
-  const { mutateAsync: Add } = useAdd()
-  const { mutateAsync: Mod } = useMod()
-  const { mutateAsync: Del } = useDel()
+  const {data, isLoading} = useInit(useDebounce(param, 500))
+  const {mutateAsync: Add} = useAdd()
+  const {mutateAsync: Mod} = useMod()
+  const {mutateAsync: Del} = useDel()
 
 
   const add = () => {
@@ -46,7 +43,7 @@ export const PlanType = () => {
   }
 
   const search = (item: any) => {
-    setPagination({ ...pagination, type: item.type, index: 1 })
+    setParam({...param, type: item.type, index: 1})
   };
 
   const showUserModal = () => {
@@ -58,13 +55,13 @@ export const PlanType = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({...param, index: p.current, size: p.pageSize})
   };
 
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
+        onFormFinish={(name, {values, forms}) => {
           if (name === '新增') {
             Add(values).then(() => {
               message.success('新增成功')
@@ -74,7 +71,7 @@ export const PlanType = () => {
             })
           }
           if (name === "修改") {
-            Mod({ ...values, id: formData.id }).then(() => {
+            Mod({...values, id: formData.id}).then(() => {
               message.success('修改成功')
               setVisible(false);
             }).catch(error => {
@@ -90,10 +87,11 @@ export const PlanType = () => {
             layout={"inline"}
           >
             <Form.Item
-              label="作业类型"
+              label=""
               name="type"
             >
-              <Input placeholder={"作业类型"} />
+              <Input placeholder={"作业类型"} value={param.type}
+                     onChange={(evt) => setParam({...param, type: evt.target.value})}/>
             </Form.Item>
 
             <Form.Item>
@@ -143,14 +141,14 @@ export const PlanType = () => {
                 )
               },
             ]
-          } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
-            onChange={handleTableChange}
-            dataSource={data?.data}
-            loading={isLoading}
-            rowKey={(item: any) => item.id}
+          } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
+                 onChange={handleTableChange}
+                 dataSource={data?.data}
+                 loading={isLoading}
+                 rowKey={(item: any) => item.id}
           />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
       </Form.Provider>
     </>
   );

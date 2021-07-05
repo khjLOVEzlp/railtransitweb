@@ -77,24 +77,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
         </Form.Item>
 
         <Form.Item
-          label="父节点"
-          name="parentId"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
           label="权限标识"
           name="permission"
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="类型"
-          name="type"
-          rules={rules}
         >
           <Input />
         </Form.Item>
@@ -104,17 +88,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
           name="url"
         >
           <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="菜单状态"
-          name="visible"
-          rules={rules}
-        >
-          <Radio.Group>
-            <Radio value={0}>显示</Radio>
-            <Radio value={1}>隐藏</Radio>
-          </Radio.Group>
         </Form.Item>
 
         <Form.Item

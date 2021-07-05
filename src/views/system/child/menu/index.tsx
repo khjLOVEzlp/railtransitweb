@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
+import React, {useState} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import { ModalForm } from "./modal/ModalForm";
-import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from '../../../../utils/system/menu';
-import { useDebounce } from '../../../../hook/useDebounce';
+import {ModalForm} from "./modal/ModalForm";
+import {useAdd, useDel, useInit, useMod, useProjectsSearchParams} from '../../../../utils/system/menu';
+import {useDebounce} from '../../../../hook/useDebounce';
 
 export const Menu = () => {
   const [visible, setVisible] = useState(false);
@@ -19,13 +19,13 @@ export const Menu = () => {
   /* 
     增删改查
   */
-  const { data, isLoading } = useInit(useDebounce(param, 500))
-  const { mutateAsync: Add } = useAdd()
-  const { mutateAsync: Mod } = useMod()
-  const { mutateAsync: Del } = useDel()
+  const {data, isLoading} = useInit(useDebounce(param, 500))
+  const {mutateAsync: Add} = useAdd()
+  const {mutateAsync: Mod} = useMod()
+  const {mutateAsync: Del} = useDel()
 
   const search = (item: any) => {
-    setParam({ ...param, name: item.name, index: 1 })
+    setParam({...param, name: item.name, index: 1})
   };
 
   const add = () => {
@@ -60,13 +60,13 @@ export const Menu = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({ ...param, index: p.current, size: p.pageSize })
+    setParam({...param, index: p.current, size: p.pageSize})
   };
 
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
+        onFormFinish={(name, {values, forms}) => {
           if (name === '新增') {
             Add(values).then(() => {
               message.success('新增成功')
@@ -75,7 +75,7 @@ export const Menu = () => {
               message.error(err.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, id: formData.id }).then(() => {
+            Mod({...values, id: formData.id}).then(() => {
               message.success('修改成功')
               setVisible(false);
             }).catch(err => {
@@ -94,7 +94,8 @@ export const Menu = () => {
               label=""
               name="name"
             >
-              <Input placeholder={"菜单名称"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
+              <Input placeholder={"菜单名称"} value={param.name}
+                     onChange={(evt) => setParam({...param, name: evt.target.value})}/>
             </Form.Item>
 
             <Form.Item>
@@ -127,7 +128,9 @@ export const Menu = () => {
               {
                 title: '操作',
                 key: 'id',
-                render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+                render: (item: any) => <>
+                  <Button type="link" onClick={() => add()}>新增</Button>
+                  <Button type="link" onClick={() => mod(item)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
                     onConfirm={() => confirm(item)}
@@ -139,13 +142,14 @@ export const Menu = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
-            onChange={handleTableChange}
-            loading={isLoading}
-            dataSource={data?.data}
-            rowKey={(item: any) => item.id} />
+          } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
+                 onChange={handleTableChange}
+                 loading={isLoading}
+                 dataSource={data?.data}
+                 childrenColumnName="childMenu"
+                 rowKey={(item: any) => item.id}/>
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
+        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
       </Form.Provider>
     </>
   );

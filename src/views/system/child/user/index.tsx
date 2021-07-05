@@ -3,10 +3,10 @@ import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from "./modal/ModalForm";
 import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from '../../../../utils/system/user';
-import { CollectionCreateForm } from '../../../../PageBox';
 import { useHttp } from '../../../../utils/http';
 import qs from 'qs';
 import { useDebounce } from '../../../../hook/useDebounce';
+import {PassModal} from "../../../../components/PassModal";
 
 export const User = () => {
   const [visible, setVisible] = useState(false);
@@ -182,7 +182,7 @@ export const User = () => {
           />
         </Main>
         <ModalForm visible={visible} id={id} type={type} onCancel={hideUserModal} />
-        <CollectionCreateForm
+        <PassModal
           passwd={"reset"}
           visible={passwdVisible}
           onCreate={onCreate}

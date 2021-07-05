@@ -127,7 +127,7 @@ export const PlatfromController = () => {
               {
                 title: '是否使用',
                 key: 'isUse',
-                render: (item: any) => item.isUse === 0 ? '未使用' : '已使用'
+                render: (item: any) => item.isUse === 0 ? '使用' : '未使用'
               },
               {
                 title: '操作',

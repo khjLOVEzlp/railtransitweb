@@ -1,29 +1,32 @@
-import { useState } from 'react';
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
+import {useState} from 'react';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import { Drawermanage } from "./drawermanage/Drawermanage";
-import { ModalForm } from "./modal/ModalForm";
-import { useMod, useAdd, useDel, useInit, useProjectsSearchParams } from '../../../../utils/system/line'
-import { useDebounce } from '../../../../hook/useDebounce';
+import {Drawermanage} from "./drawermanage/Drawermanage";
+import {ModalForm} from "./modal/ModalForm";
+import {useMod, useAdd, useDel, useInit, useProjectsSearchParams} from '../../../../utils/system/line'
+import {useDebounce} from '../../../../hook/useDebounce';
+import {useProjectModal} from './util'
+
 export const Line = () => {
   const [visible, setVisible] = useState(false);
   const [isShowDrawer, setIsShowDrawer] = useState(false)
   const [type, setType] = useState('')
   const [id, setId] = useState<number>()
-
   const [param, setParam] = useProjectsSearchParams()
+  const {startEdit, ModalOpen} = useProjectModal();
+  const editProject = (id: number) => () => startEdit(id);
 
   /* 
     增删改查
     */
 
-  const { data, isLoading } = useInit(useDebounce(param, 500))
-  const { mutateAsync: Add } = useAdd()
-  const { mutateAsync: Mod } = useMod()
-  const { mutateAsync: Del } = useDel()
+  const {data, isLoading} = useInit(useDebounce(param, 500))
+  const {mutateAsync: Add} = useAdd()
+  const {mutateAsync: Mod} = useMod()
+  const {mutateAsync: Del} = useDel()
 
   const search = (item: any) => {
-    setParam({ ...param, name: item.name, index: 1 })
+    setParam({...param, name: item.name, index: 1})
   };
 
   const add = () => {
@@ -32,11 +35,11 @@ export const Line = () => {
     setId(undefined)
   }
 
-  const manage = (id: number | undefined) => {
+  /*const manage = (id: number | undefined) => {
     setParam({ name: "" })
     setId(id)
     setIsShowDrawer(true)
-  }
+  }*/
 
   const mod = (id: number) => {
     setType('修改')
@@ -65,13 +68,13 @@ export const Line = () => {
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({ ...param, index: p.current, size: p.pageSize })
+    setParam({...param, index: p.current, size: p.pageSize})
   };
 
   return (
     <>
       <Form.Provider
-        onFormFinish={(name, { values }) => {
+        onFormFinish={(name, {values}) => {
           if (name === '新增') {
             Add(values).then(() => {
               message.success("新增成功")
@@ -80,7 +83,7 @@ export const Line = () => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, id }).then(() => {
+            Mod({...values, id}).then(() => {
               message.success("修改成功")
               setVisible(false);
             }).catch((error) => {
@@ -99,7 +102,8 @@ export const Line = () => {
               label=""
               name="name"
             >
-              <Input placeholder={"地铁线路名称"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
+              <Input placeholder={"地铁线路名称"} value={param.name}
+                     onChange={(evt) => setParam({...param, name: evt.target.value})}/>
             </Form.Item>
 
             <Form.Item>
@@ -138,7 +142,8 @@ export const Line = () => {
               {
                 title: '操作',
                 key: 'id',
-                render: (item: any) => <><Button type="link" onClick={() => manage(item.id)}>管理</Button><Button type="link"
+                render: (item: any) => <><Button type="link" onClick={editProject(item.id)}>管理</Button><Button
+                  type="link"
                   onClick={() => mod(item.id)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
@@ -151,18 +156,18 @@ export const Line = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
-            onChange={handleTableChange}
-            dataSource={data?.data}
-            loading={isLoading}
-            rowKey={(item: any) => item.id} />
+          } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
+                 onChange={handleTableChange}
+                 dataSource={data?.data}
+                 loading={isLoading}
+                 rowKey={(item: any) => item.id}/>
         </Main>
-        <ModalForm visible={visible} id={id} type={type} onCancel={hideUserModal} />
-        {isShowDrawer ? <Drawermanage id={id} isShowDrawer={isShowDrawer} setIsShowDrawer={setIsShowDrawer} /> : ''}
+        <ModalForm visible={visible} id={id} type={type} onCancel={hideUserModal}/>
+        {ModalOpen ? <Drawermanage/> : ''}
       </Form.Provider>
     </>
   );
-};
+}
 
 const Header = styled.div`
   height: 12.5rem;

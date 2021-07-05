@@ -5,7 +5,7 @@ import { rules } from "../../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
 import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from "../../../../../../utils/system/lineRoad";
 import { useDebounce } from "../../../../../../hook/useDebounce";
-
+import {useProjectModal} from '../../util'
 /*const layout = {
   labelCol: {span: 4},
   wrapperCol: {span: 20},
@@ -64,16 +64,17 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   );
 };
 
-export const Road = ({ id }: { id: number | undefined }) => {
+export const Road = () => {
   const [visible, setVisible] = useState(false);
   const [dataForm, setDataForm] = useState<any>({})
   const [type, setType] = useState('')
   const [param, setParam] = useProjectsSearchParams()
+  const {editingProjectId} = useProjectModal()
 
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit(useDebounce({ ...param, lineId: id }, 500))
+  const { data, isLoading } = useInit(useDebounce({ ...param, lineId: editingProjectId }, 500))
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -125,14 +126,14 @@ export const Road = ({ id }: { id: number | undefined }) => {
       <Form.Provider
         onFormFinish={(name, { values }) => {
           if (name === '新增') {
-            Add({ ...values, lineId: id }).then(() => {
+            Add({ ...values, lineId: editingProjectId }).then(() => {
               message.success("新增成功")
               setVisible(false);
             }).catch(error => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, lineId: id, id: dataForm.id }).then(() => {
+            Mod({ ...values, lineId: editingProjectId, id: dataForm.id }).then(() => {
               message.success("修改成功")
               setVisible(false);
             }).catch(error => {
@@ -151,7 +152,8 @@ export const Road = ({ id }: { id: number | undefined }) => {
               label=""
               name="name"
             >
-              <Input placeholder={"区间"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
+              <Input placeholder={"区间"} value={param.name}
+                     onChange={(evt) => setParam({...param, name: evt.target.value})} />
             </Form.Item>
 
             <Form.Item>

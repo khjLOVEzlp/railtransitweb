@@ -6,6 +6,8 @@ import styled from "@emotion/styled";
 import { rules } from "../../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
 import { useDel, useAdd, useInit, useMod, useProjectsSearchParams } from "../../../../../../utils/system/linePlatform";
+import {useDebounce} from "hook/useDebounce";
+import {useProjectModal} from '../../util'
 const { Option } = Select
 
 /*const layout = {
@@ -82,12 +84,13 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, f
   );
 };
 
-export const Platform = ({ id }: { id: number | undefined }) => {
+export const Platform = () => {
   const [visible, setVisible] = useState(false);
   const [roadList, setRoadList] = useState([])
   const [dataForm, setDataForm] = useState<any>({})
   const [type, setType] = useState('')
   const [param, setParam] = useProjectsSearchParams()
+  const {editingProjectId} = useProjectModal()
   /* const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -97,7 +100,7 @@ export const Platform = ({ id }: { id: number | undefined }) => {
   /* 
       增删改查
     */
-  const { data, isLoading } = useInit({ ...param, lineId: id })
+  const { data, isLoading } = useInit(useDebounce({ ...param, lineId: editingProjectId }, 500))
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -105,10 +108,10 @@ export const Platform = ({ id }: { id: number | undefined }) => {
   const client = useHttp()
 
   const getRoadList = useCallback(() => {
-    client(`lineRoad/list?${qs.stringify({ index: 1, size: 1000, lineId: id })}`, { method: "POST" }).then(res => {
+    client(`lineRoad/list?${qs.stringify({ index: 1, size: 1000, lineId: editingProjectId })}`, { method: "POST" }).then(res => {
       setRoadList(res.data)
     })
-  }, [client, id])
+  }, [client, editingProjectId])
 
   useEffect(() => {
     getRoadList()
@@ -158,14 +161,14 @@ export const Platform = ({ id }: { id: number | undefined }) => {
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            Add({ ...values, lineId: id }).then(() => {
+            Add({ ...values, lineId: editingProjectId }).then(() => {
               message.success("新增成功")
               setVisible(false);
             }).catch(error => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, lineId: id, id: dataForm.id }).then(() => {
+            Mod({ ...values, lineId: editingProjectId, id: dataForm.id }).then(() => {
               message.success("修改成功")
               setVisible(false)
             }).catch(error => {
@@ -181,10 +184,10 @@ export const Platform = ({ id }: { id: number | undefined }) => {
             layout={"inline"}
           >
             <Form.Item
-              label="站台名称"
+              label=""
               name="name"
             >
-              <Input />
+              <Input placeholder={"站台名称"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })}/>
             </Form.Item>
 
             <Form.Item>

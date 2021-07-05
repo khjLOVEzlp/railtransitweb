@@ -6,26 +6,27 @@ import { rules } from "../../../../../../utils/verification";
 import { useResetFormOnCloseModal } from "../../../../../../hook/useResetFormOnCloseModal";
 import { useAdd, useDel, useDetail, useInit, useMod, useRoad, useProjectsSearchParams } from '../../../../../../utils/system/lineClass'
 import { useWarehouse } from "../../../../../../utils/warehouse/toolType";
+import {useProjectModal} from "../../util";
 const { Option } = Select
 
 interface ModalFormProps {
   visible: boolean
   onCancel: () => void
   type: string
-  id: number | undefined
   classId: number | undefined
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, id, classId }) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, classId }) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState([]);
   const client = useHttp()
+  const {editingProjectId} = useProjectModal()
   const onChange = (value: any) => {
     form.setFieldsValue({ parentId: value })
   };
 
   const { data: formData, isLoading } = useDetail(classId)
-  const { data: roadList } = useRoad({ index: 1, size: 1000, lineId: id })
+  const { data: roadList } = useRoad({ index: 1, size: 1000, lineId: editingProjectId })
   const { data: warehouse } = useWarehouse()
 
   useEffect(() => {
@@ -139,16 +140,18 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
   );
 };
 
-export const Class = ({ id }: { id: number | undefined }) => {
+export const Class = () => {
   const [visible, setVisible] = useState(false);
   const [classId, setClassId] = useState<number>()
   const [type, setType] = useState('')
   const [param, setParam] = useProjectsSearchParams()
-
+  const {
+    editingProjectId,
+  } = useProjectModal();
   /* 
     增删改查
   */
-  const { data, isLoading } = useInit({ ...param, lineId: id })
+  const { data, isLoading } = useInit({ ...param, lineId: editingProjectId })
   const { mutateAsync: Add } = useAdd()
   const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
@@ -196,14 +199,14 @@ export const Class = ({ id }: { id: number | undefined }) => {
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
           if (name === '新增') {
-            Add({ ...values, lineId: id }).then(() => {
+            Add({ ...values, lineId: editingProjectId }).then(() => {
               message.success("新增成功")
               setVisible(false);
             }).catch(error => {
               message.error(error.msg)
             })
           } else if (name === "修改") {
-            Mod({ ...values, id, lineId: id }).then(() => {
+            Mod({ ...values, id: editingProjectId, lineId: editingProjectId }).then(() => {
               message.success("修改成功")
               setVisible(false)
             }).catch(error => {
@@ -271,7 +274,7 @@ export const Class = ({ id }: { id: number | undefined }) => {
             },
           ]} pagination={{ total: data?.count, current: param.index, pageSize: param.size }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
             rowKey={(item: any) => item.id} />
-          <ModalForm visible={visible} classId={classId} type={type} id={id} onCancel={hideUserModal} />
+          <ModalForm visible={visible} classId={classId} type={type} onCancel={hideUserModal} />
         </Main>
       </Form.Provider>
     </Contianer>

@@ -93,7 +93,7 @@ export const SimCardController = () => {
             <Form.Item
               name="name"
             >
-              <Input placeholder={"设备编号"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
+              <Input placeholder={"流量卡号码"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
             </Form.Item>
 
             <Form.Item>
@@ -117,6 +117,16 @@ export const SimCardController = () => {
                 title: '流量卡号码',
                 dataIndex: 'phone',
                 key: 'phone',
+              },
+              {
+                title: '归属仓库',
+                dataIndex: 'name',
+                key: 'name',
+              },
+              {
+                title: '是否使用',
+                key: 'isUse',
+                render: (item: any) => item.isUse === "0" ? '使用' : '未使用'
               },
               {
                 title: '操作',

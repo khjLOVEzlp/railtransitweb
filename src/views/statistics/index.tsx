@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import { Form, Button, Table, Radio, Select, DatePicker, message } from 'antd';
+import {useState} from 'react';
+import {Form, Button, Table, Radio, Select, DatePicker} from 'antd';
 import styled from "@emotion/styled";
-import { useDay, useLineList, useMonth, useDownloadDay, useDownloadMonth } from '../../utils/statistics';
-import { useDocumentTitle } from '../../hook/useDocumentTitle';
+import {useDay, useLineList, useMonth} from '../../utils/statistics';
+import {useDocumentTitle} from '../../hook/useDocumentTitle';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-
-const { Option } = Select
+import {useAuth} from "../../context/auth-context";
+import qs from "qs";
+const apiUrl = process.env.REACT_APP_API_URL;
+const {Option} = Select
 
 export const Statistics = () => {
   useDocumentTitle("统计分析")
@@ -16,30 +18,68 @@ export const Statistics = () => {
     date: ""
   })
 
-  const { data: dayList, isLoading: dayLoading } = useDay(params)
-  const { data: monthList, isLoading: monthLoading } = useMonth(params)
-  const { data: lineList } = useLineList()
-  const { mutateAsync: downday } = useDownloadDay()
-  const { mutateAsync: downmonth } = useDownloadMonth()
+  const {user} = useAuth()
 
-  console.log(dayList);
-
+  const {data: dayList, isLoading: dayLoading} = useDay(params)
+  const {data: monthList, isLoading: monthLoading} = useMonth(params)
+  const {data: lineList} = useLineList()
 
   const lineChange = (value: any) => {
-    setParams({ ...params, subwayId: value })
+    setParams({...params, subwayId: value})
   }
 
   const birthday = (obj: any, time: string) => {
-    setParams({ ...params, date: time })
+    setParams({...params, date: time})
   }
 
   const birthmoth = (obj: any, time: string) => {
-    setParams({ ...params, date: time })
+    setParams({...params, date: time})
   }
 
   const onChange = (e: any) => {
     setValue(e.target.value);
   };
+
+  const downDay = () => {
+    fetch(`${apiUrl}report/downloadDay?${qs.stringify(params)}`, {
+      method: 'get',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": `${user?.jwtToken}`
+      },
+    }).then((res) => {
+      console.log(res)
+      return res.blob();
+    }).then(blob => {
+      let bl = new Blob([blob], {type: blob.type});
+      let fileName = params.date + ".doc";
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+      window.URL.revokeObjectURL(link.href);
+    })
+  }
+
+  const downMonth = () => {
+    fetch(`${apiUrl}report/downloadMonth?${qs.stringify(params)}`, {
+      method: 'get',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": `${user?.jwtToken}`
+      },
+    }).then((res) => {
+      return res.blob();
+    }).then(blob => {
+      let bl = new Blob([blob], {type: blob.type});
+      let fileName = params.date + ".doc";
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+      window.URL.revokeObjectURL(link.href);
+    })
+  }
 
   return (
     <>
@@ -58,7 +98,7 @@ export const Statistics = () => {
             name="subwayId"
           >
             <Select
-              style={{ width: 120 }}
+              style={{width: 120}}
               placeholder={"地铁路线"}
               onChange={lineChange}
               showSearch
@@ -78,31 +118,21 @@ export const Statistics = () => {
             name="date"
           >
             {
-              value === 0 ? <DatePicker locale={locale} onChange={birthday} /> : <DatePicker locale={locale} picker="month" onChange={birthmoth} />
+              value === 0 ? <DatePicker locale={locale} onChange={birthday}/> :
+                <DatePicker locale={locale} picker="month" onChange={birthmoth}/>
             }
           </Form.Item>
         </Form>
 
         <div>
-          <Button onClick={() => {
-            downday(params).then(() => {
-            }).catch((err) => {
-              message.error(err.msg)
-            })
-            // window.location.href = `/report/downloadDay?${qs.stringify(params)}`
-          }} style={{ marginRight: "1rem" }}>下载日报</Button>
-          <Button onClick={() => {
-            downmonth(params).then(() => {
-            }).catch((err) => {
-              message.error(err.msg)
-            })
-          }}>下载月报</Button>
+          <Button onClick={downDay} style={{marginRight: "1rem"}}>下载日报</Button>
+          <Button onClick={downMonth}>下载月报</Button>
         </div>
       </Header>
       <Main>
         {/* 日报 */}
-        {value === 0 ? (<div style={{ display: "flex" }}>
-          <Table style={{ flex: "1" }} columns={
+        {value === 0 ? (<div style={{display: "flex"}}>
+          <Table style={{flex: "1"}} columns={
             [
               {
                 title: '人员',
@@ -118,11 +148,11 @@ export const Statistics = () => {
               },
             ]
           } dataSource={dayList?.data?.personDayVoList || []}
-            pagination={false}
-            rowKey={(item: any) => item.id}
-            loading={dayLoading}
+                 pagination={false}
+                 rowKey={(item: any) => item.id}
+                 loading={dayLoading}
           />
-          <Table style={{ flex: "1" }} columns={
+          <Table style={{flex: "1"}} columns={
             [
               {
                 title: '工具',
@@ -138,14 +168,14 @@ export const Statistics = () => {
               },
             ]
           } dataSource={dayList?.data?.toolDayVoList || []}
-            pagination={false}
-            rowKey={(item: any) => item.id}
-            loading={dayLoading}
+                 pagination={false}
+                 rowKey={(item: any) => item.id}
+                 loading={dayLoading}
           />
         </div>) : (
           /* 月报 */
-          <div style={{ display: "flex" }}>
-            <Table style={{ flex: "1" }} columns={
+          <div style={{display: "flex"}}>
+            <Table style={{flex: "1"}} columns={
               [
                 {
                   title: '人员',
@@ -166,11 +196,11 @@ export const Statistics = () => {
 
               ]
             } pagination={false} dataSource={monthList?.data?.personMonthVoList || []}
-              rowKey={(item: any) => item.id}
-              loading={monthLoading}
+                   rowKey={(item: any) => item.id}
+                   loading={monthLoading}
             />
 
-            <Table style={{ flex: "1" }} columns={
+            <Table style={{flex: "1"}} columns={
               [
                 {
                   title: '工具',
@@ -186,8 +216,8 @@ export const Statistics = () => {
                 },
               ]
             } pagination={false} dataSource={monthList?.data?.toolMonthVoList || []}
-              rowKey={(item: any) => item.id}
-              loading={monthLoading}
+                   rowKey={(item: any) => item.id}
+                   loading={monthLoading}
             />
           </div>
         )}
@@ -195,26 +225,6 @@ export const Statistics = () => {
     </>
   );
 };
-
-export const downloadFile = (data: BlobPart, fileName = new Date().getTime().toString()) => {
-  if (data) {
-    const blob = new Blob([data])
-    if ('download' in document.createElement('a')) { // 非IE下载
-      const lnk = document.createElement('a');
-      lnk.download = fileName;
-      lnk.style.display = 'none';
-      lnk.href = URL.createObjectURL(blob);
-      document.body.appendChild(lnk);
-      lnk.click();
-      URL.revokeObjectURL(lnk.href); // 释放URL 对象
-      document.body.removeChild(lnk);
-    } else { // IE10+下载
-      navigator.msSaveBlob(blob, fileName);
-    }
-  } else {
-    message.error('文件下载失败').then();
-  }
-}
 
 const Header = styled.div`
   height: 12.5rem;

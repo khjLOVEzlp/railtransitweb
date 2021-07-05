@@ -58,7 +58,9 @@ export const Home = () => {
             告警展示
           </div> */}
           {/* <MyEcharts id="alert" data={alertData} style={{ width: '100%', height: '50vh' }} /> */}
-          <Page data={data}/>
+          <div>
+            <Page data={data}/>
+          </div>
         </div>
       </Header>
       <Footer>
@@ -72,7 +74,9 @@ export const Home = () => {
             <div></div>
           </div> */}
 
-          <PlanType/>
+          <div>
+            <PlanType/>
+          </div>
         </div>
         <div className="right">
           {/* <div className="title">
@@ -141,6 +145,7 @@ const Header = styled.div`
     background: #FFFFFF;
     border-radius: 14px;
     width: 35.5%;
+    padding: 2rem;
     box-sizing: border-box;
 
     > .title {

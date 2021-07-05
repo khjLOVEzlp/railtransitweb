@@ -56,10 +56,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
     visible,
   });
 
-  const onCheck = (checkedKeys: any) => {
-    form.setFieldsValue({ departmentIds: checkedKeys })
-  };
-
   const onOk = () => {
     form.submit();
   };

@@ -60,20 +60,20 @@ export const OutWarehouse = () => {
                 key: 'name',
               },
               {
-                title: '创建者',
-                dataIndex: 'createBy',
-                key: 'id',
+                title: '出库者',
+                dataIndex: 'groupName',
+                key: 'groupName',
               },
               {
-                title: '创建时间',
+                title: '数量',
+                dataIndex: 'num',
+                key: 'num',
+              },
+              {
+                title: '出库时间',
                 dataIndex: 'createTime',
                 key: 'createTime',
               },
-              {
-                title: '备注',
-                dataIndex: 'remark',
-                key: 'remark',
-              }
             ]
           } pagination={{total: data?.count, current: param.index, pageSize: param.size}} onChange={handleTableChange}
                  loading={isLoading} dataSource={data?.data}
