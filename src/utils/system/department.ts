@@ -55,3 +55,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const useDepartmentDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['departmentDetail', id], () => client(`department/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

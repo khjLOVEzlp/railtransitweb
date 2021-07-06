@@ -78,6 +78,16 @@ export const useDel = () => {
   })
 }
 
+/*
+查询详情
+*/
+export const useToolTypeDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['toolTypeDetail', id], () => client(`warehouse/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}
+
 /* 根据仓库id获取库存信息 */
 export const useMaterial = (params: any) => {
   const client = useHttp()

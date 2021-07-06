@@ -75,3 +75,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const usePlanTypeDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['planTypeDetail', id], () => client(`planType/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

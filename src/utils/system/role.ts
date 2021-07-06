@@ -73,7 +73,7 @@ export const useDel = () => {
 /* 
 查询详情
 */
-export const useDetail = (id?: number) => {
+export const useRoleDetail = (id?: number) => {
   const client = useHttp()
   return useQuery(['roleDetail', id], () => client(`role/get/${id}`), {
     enabled: Boolean(id),

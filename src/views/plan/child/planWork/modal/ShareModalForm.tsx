@@ -1,38 +1,49 @@
-import { Button, Form, Modal, Select } from "antd";
-import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { rules } from "../../../../../utils/verification";
-import { useUserAll } from "../../../../../utils/system/user";
-const { Option } = Select
+import {Button, Form, message, Modal, Select} from "antd";
+import {rules} from "utils/verification";
+import {useUserAll} from "utils/system/user";
+import {useSharePlan} from 'utils/plan/planWork'
+import {useShareModal} from '../util'
 
-interface ModalFormProps {
-  visible: boolean,
-  onCancel: () => void,
-  type: string,
-  formData: any
-}
+const {Option} = Select
 
-export const ShareModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
+export const ShareModalForm = () => {
   const [form] = Form.useForm();
+  const {ModalOpen, close, publishPlanWorkId} = useShareModal()
+  const {mutateAsync, isLoading} = useSharePlan()
+  const {data: personList} = useUserAll()
 
-  const { data: personList } = useUserAll()
+  const closeModal = () => {
+    form.resetFields()
+    close()
+  }
+
+  const onFinish = (value: any) => {
+    mutateAsync({...value, planId: publishPlanWorkId}).then(() => {
+      message.success("发布成功")
+      form.resetFields()
+      close()
+    })
+  }
 
   const onOk = () => {
     form.submit();
   };
 
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
   return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+    <Modal
+      title={"发布计划"}
+      width={800}
+      visible={ModalOpen}
+      onOk={onOk}
+      onCancel={closeModal}
+      footer={[
+        <Button key="back" onClick={closeModal}>取消</Button>,
+        <Button key="submit" type="primary" onClick={onOk} loading={isLoading}>提交</Button>
+      ]}
     >
       <Form
         form={form}
-        name={type}
+        onFinish={onFinish}
         labelAlign="right"
         layout={"vertical"}
       >
@@ -42,7 +53,8 @@ export const ShareModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, ty
           rules={rules}
         >
           <Select allowClear mode="multiple">
-            {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+            {personList?.data.map((item: any, index: number) => <Option value={item.id}
+                                                                        key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
       </Form>

@@ -1,13 +1,14 @@
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useDetail } from "utils/system/line";
+import { useLineDetail } from "utils/system/line";
 
+/*抽屉*/
 export const useProjectModal = () => {
   const [{ editingProjectId }, setEditingProjectId] = useUrlQueryParam([
     "editingProjectId",
   ]);
 
   const setUrlParams = useSetUrlSearchParam();
-  const { data: editingProject, isLoading } = useDetail(
+  const { data: editingProject, isLoading } = useLineDetail(
     Number(editingProjectId)
   );
   const close = () => setUrlParams({ editingProjectId: "" });
@@ -21,5 +22,38 @@ export const useProjectModal = () => {
     editingProject,
     isLoading,
     editingProjectId
+  };
+};
+
+/*地铁弹框*/
+
+export const useLineModal = () => {
+  const setUrlParams = useSetUrlSearchParam();
+
+  const [{createLine}, setCreateLine] = useUrlQueryParam([
+    "createLine"
+  ])
+
+  const [{editingLineId}, setEditingLineId] = useUrlQueryParam([
+    "editingLineId",
+  ]);
+
+  const {data: editingLine, isLoading} = useLineDetail(
+    Number(editingLineId)
+  );
+
+  const open = () => setCreateLine({createLine: true})
+  const close = () => setUrlParams({editingLineId: "", createLine: ""});
+  const startEdit = (id: number) =>
+    setEditingLineId({editingLineId: id});
+
+  return {
+    ModalOpen: createLine === "true" || Boolean(editingLineId),
+    open,
+    close,
+    startEdit,
+    editingLine,
+    isLoading,
+    editingLineId
   };
 };

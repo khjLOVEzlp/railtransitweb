@@ -2,31 +2,26 @@ import { useState } from 'react';
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from "./modal/ModalForm";
-import { useAdd, useDel, useInit, useMod, useSharePlan, useProjectsSearchParams } from '../../../../utils/plan/planWork';
+import { useAdd, useDel, useInit, useMod, useSharePlan, useProjectsSearchParams } from 'utils/plan/planWork';
 import { ShareModalForm } from './modal/ShareModalForm';
 import { ViewModalForm } from './modal/ViewModalForm';
-import {useDebounce} from "../../../../hook/useDebounce";
+import {useDebounce} from "hook/useDebounce";
+import {usePlanWorkModal, useShareModal} from './util'
 
 export const PlanWork = () => {
-  const [visible, setVisible] = useState(false);
   const [visibleShare, setVisibleShare] = useState(false);
   const [visibleView, setVisibleView] = useState(false);
   const [type, setType] = useState('')
   const [formData, setFormData] = useState<any>({})
   const [param, setParam] = useProjectsSearchParams()
+  const {open, startEdit} = usePlanWorkModal()
+  const {startEdit: startShareEdit} = useShareModal()
 
   /* 增删改查 */
 
   const { data, isLoading } = useInit(useDebounce(param, 500) )
-  const { mutateAsync: Add } = useAdd()
-  const { mutateAsync: Mod } = useMod()
   const { mutateAsync: Del } = useDel()
   const { mutateAsync: SharePlan } = useSharePlan()
-
-  const add = () => {
-    showUserModal()
-    setType('新增')
-  }
 
   const share = (item: any) => {
     setVisibleShare(true)
@@ -37,12 +32,6 @@ export const PlanWork = () => {
   const view = (item: any) => {
     setVisibleView(true)
     setType('查看')
-    setFormData(item)
-  }
-
-  const mod = (item: any) => {
-    showUserModal()
-    setType('修改')
     setFormData(item)
   }
 
@@ -61,22 +50,6 @@ export const PlanWork = () => {
   const search = (item: any) => {
     setParam({ ...param, name: item.name, index: 1 })
   };
-
-  const showUserModal = () => {
-    setVisible(true);
-  };
-
-  const hideUserModal = () => {
-    setVisible(false);
-  };
-
-  const hideShareModal = () => {
-    setVisibleShare(false)
-  }
-
-  const hideViewModal = () => {
-    setVisibleView(false)
-  }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize })
@@ -99,34 +72,6 @@ export const PlanWork = () => {
 
   return (
     <>
-      <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
-          if (name === '新增') {
-            Add(values).then(() => {
-              message.success("新增成功")
-              setVisible(false)
-            }).catch(error => {
-              message.error(error.msg)
-            })
-          }
-          if (name === "修改") {
-            Mod({ ...values, id: formData.id }).then(() => {
-              message.success("修改成功")
-              setVisible(false)
-            }).catch(error => {
-              message.error(error.msg)
-            })
-          }
-          if (name === "发布计划") {
-            SharePlan({ ...values, planId: formData.id }).then(() => {
-              message.success("发布成功")
-              hideShareModal()
-            }).catch(error => {
-              message.error(error.msg)
-            })
-          }
-        }}
-      >
         <Header>
           <Form
             name="basic"
@@ -148,7 +93,7 @@ export const PlanWork = () => {
             </Form.Item>
           </Form>
 
-          <Button onClick={() => add()}>新增</Button>
+          <Button onClick={open}>新增</Button>
         </Header>
         <Main>
           <Table columns={
@@ -209,10 +154,9 @@ export const PlanWork = () => {
                 align: "center",
                 render: (item: any) => (
                   <>
-                    <Button type="link" onClick={() => share(item)}>发布计划</Button>
-                    {/* <Button type="link" onClick={() => shareBack(item)}>反馈</Button> */}
+                    <Button type="link" onClick={() => startShareEdit(item.id)}>发布计划</Button>
                     <Button type="link" onClick={() => view(item)}>查看</Button>
-                    <Button type="link" onClick={() => mod(item)}>修改</Button>
+                    <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                     <Popconfirm
                       title={`是否要删除${item.name}`}
                       onConfirm={() => confirm(item)}
@@ -235,10 +179,9 @@ export const PlanWork = () => {
             rowKey={(item: any) => item.id}
           />
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
-        <ShareModalForm visible={visibleShare} formData={formData} type={type} onCancel={hideShareModal} />
-        <ViewModalForm visible={visibleView} formData={formData} type={type} onCancel={hideViewModal} />
-      </Form.Provider>
+        <ModalForm />
+        <ShareModalForm/>
+        {/*<ViewModalForm visible={visibleView} formData={formData} type={type} onCancel={hideViewModal} />*/}
     </>
   );
 }

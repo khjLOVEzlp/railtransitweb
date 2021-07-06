@@ -1,7 +1,7 @@
 import qs from 'qs'
-import { useQuery } from 'react-query'
-import { cleanObject } from '..'
-import { useHttp } from '../http'
+import {useQuery} from 'react-query'
+import {cleanObject} from '..'
+import {useHttp} from '../http'
 import {useUrlQueryParam} from "../../hook/useUrlQueryParam";
 import {useMemo} from "react";
 
@@ -10,7 +10,7 @@ export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["name", "index", "size"]);
   return [
     useMemo(
-      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
+      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
       [param]
     ),
     setParam,
@@ -22,11 +22,13 @@ export const useProjectsSearchParams = () => {
  */
 export const useInit = (params: any) => {
   const client = useHttp()
-  return useQuery(['planWork', cleanObject(params)], () => client(`planWork/historyList?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery(['planWork', cleanObject(params)], () => client(`planWork/historyList?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
 }
 
 /* 查看详情 */
-export const useShare = (id?: number) => {
+export const useHistoryDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['planWork', id], () => client(`planWork/get/${id}`))
+  return useQuery(['historyDetail', id], () => client(`planWork/get/${id}`), {
+    enabled: Boolean(id)
+  })
 }

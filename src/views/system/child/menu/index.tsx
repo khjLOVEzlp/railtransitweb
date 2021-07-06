@@ -1,43 +1,19 @@
-import React, {useState} from 'react';
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {ModalForm} from "./modal/ModalForm";
-import {useAdd, useDel, useInit, useMod, useProjectsSearchParams} from '../../../../utils/system/menu';
-import {useDebounce} from '../../../../hook/useDebounce';
+import {useDel, useInit, useProjectsSearchParams} from 'utils/system/menu';
+import {useDebounce} from 'hook/useDebounce';
+import {useMenuModal} from './util'
 
 export const Menu = () => {
-  const [visible, setVisible] = useState(false);
-  const [type, setType] = useState('')
-  const [formData, setFormData] = useState<any>({})
   const [param, setParam] = useProjectsSearchParams()
-  /* const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: ''
-  }) */
-
-  /* 
-    增删改查
-  */
+  const {open, startEdit} = useMenuModal()
   const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Add} = useAdd()
-  const {mutateAsync: Mod} = useMod()
   const {mutateAsync: Del} = useDel()
 
   const search = (item: any) => {
     setParam({...param, name: item.name, index: 1})
   };
-
-  const add = () => {
-    showUserModal()
-    setType('新增')
-  }
-
-  const mod = (item: any) => {
-    showUserModal()
-    setType('修改')
-    setFormData(item)
-  }
 
   const del = async (id: number) => {
     Del(id)
@@ -51,39 +27,12 @@ export const Menu = () => {
     message.error('取消删除');
   }
 
-  const showUserModal = () => {
-    setVisible(true);
-  };
-
-  const hideUserModal = () => {
-    setVisible(false);
-  };
-
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({...param, index: p.current, size: p.pageSize})
   };
 
   return (
     <>
-      <Form.Provider
-        onFormFinish={(name, {values, forms}) => {
-          if (name === '新增') {
-            Add(values).then(() => {
-              message.success('新增成功')
-              setVisible(false);
-            }).catch(err => {
-              message.error(err.msg)
-            })
-          } else if (name === "修改") {
-            Mod({...values, id: formData.id}).then(() => {
-              message.success('修改成功')
-              setVisible(false);
-            }).catch(err => {
-              message.error(err.msg)
-            })
-          }
-        }}
-      >
         <Header>
           <Form
             name="basic"
@@ -105,7 +54,7 @@ export const Menu = () => {
             </Form.Item>
           </Form>
 
-          <Button onClick={() => add()}>新增</Button>
+          <Button onClick={open}>新增</Button>
         </Header>
         <Main>
           <Table columns={
@@ -129,8 +78,8 @@ export const Menu = () => {
                 title: '操作',
                 key: 'id',
                 render: (item: any) => <>
-                  <Button type="link" onClick={() => add()}>新增</Button>
-                  <Button type="link" onClick={() => mod(item)}>修改</Button>
+                  <Button type="link" onClick={open}>新增</Button>
+                  <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
                     onConfirm={() => confirm(item)}
@@ -149,8 +98,7 @@ export const Menu = () => {
                  childrenColumnName="childMenu"
                  rowKey={(item: any) => item.id}/>
         </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal}/>
-      </Form.Provider>
+        <ModalForm/>
     </>
   );
 };

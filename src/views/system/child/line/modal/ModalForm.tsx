@@ -1,32 +1,23 @@
-import { Button, Form, Input, Modal, Spin, TreeSelect } from "antd";
-import React, { useCallback, useEffect, useState } from "react";
-import { useHttp } from "../../../../../utils/http";
-import { rules } from "../../../../../utils/verification";
-import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useDetail } from "../../../../../utils/system/line";
-/*const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};*/
+import {Button, Form, Input, message, Modal, Spin, TreeSelect} from "antd";
+import React, {useCallback, useEffect, useState} from "react";
+import {useHttp} from "utils/http";
+import {rules} from "utils/verification";
+import {useLineModal} from '../util'
+import {useAdd, useMod} from "utils/system/line";
 
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  id: number | undefined
-}
-
-export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, id }) => {
+export const ModalForm = () => {
   const [form] = Form.useForm();
   const [departmentList, setDepartmentList] = useState([])
   const client = useHttp()
-
-  const { data: formData, isLoading } = useDetail(id)
+  const {ModalOpen, isLoading, close, editingLine, editingLineId} = useLineModal()
+  const title = editingLine ? "修改" : "新增"
+  const msg = editingLine ? () => message.success("修改成功") : () => message.success("新增成功")
+  const useMutateProject = editingLine ? useMod : useAdd;
+  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
   useEffect(() => {
-    if (type === "新增") return
-    form.setFieldsValue(formData?.data)
-  }, [formData, form, visible, type])
+    form.setFieldsValue(editingLine?.data)
+  }, [form, editingLine])
 
   const getDepartmentList = useCallback(() => {
     client(`department/getAll`).then(res => {
@@ -51,32 +42,42 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
     getDepartmentList()
   }, [getDepartmentList])
 
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
   const onOk = () => {
     form.submit();
   };
 
-  const cancel = () => {
+  const closeModal = () => {
     form.resetFields()
-    onCancel()
+    close()
+  }
+
+  const onFinish = (value: any) => {
+    mutateAsync({...editingLine, ...value, id: editingLineId}).then(() => {
+      msg()
+      form.resetFields()
+      close()
+    })
   }
 
   return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={cancel}
-      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+    <Modal
+      title={title}
+      width={800}
+      visible={ModalOpen}
+      onOk={onOk}
+      onCancel={closeModal}
+      footer={[
+        <Button key="back" onClick={closeModal}>取消</Button>,
+        <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
+      ]}
     >
       {
         isLoading ? (
-          <Spin />
+          <Spin/>
         ) : (
           <Form
             form={form}
-            name={type}
+            onFinish={onFinish}
             labelAlign="right"
             layout={"vertical"}
           >
@@ -87,8 +88,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
             >
               <TreeSelect
                 showSearch
-                style={{ width: '100%' }}
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                style={{width: '100%'}}
+                dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                 allowClear
                 multiple
                 treeData={departmentList}
@@ -100,14 +101,14 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
               name="name"
               rules={rules}
             >
-              <Input />
+              <Input/>
             </Form.Item>
 
             <Form.Item
               label="备注"
               name="remark"
             >
-              <Input />
+              <Input/>
             </Form.Item>
           </Form>
         )

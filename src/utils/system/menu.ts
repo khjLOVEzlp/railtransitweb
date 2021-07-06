@@ -69,3 +69,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const useMenuDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['menuDetail', id], () => client(`menu/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

@@ -77,3 +77,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const usePersonDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['personDetail', id], () => client(`person/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

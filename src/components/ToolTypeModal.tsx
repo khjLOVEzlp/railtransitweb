@@ -54,7 +54,7 @@ export const ToolTypeModal = ({
           title: '操作',
           key: 'id',
           render: (item: any) => mod ? <>
-            <Button type="link" onClick={() => mod?.(item)}>修改</Button>
+            <Button type="link" onClick={() => mod?.(item.id)}>修改</Button>
             <Popconfirm
               title={`是否要删除${item.name}`}
               onConfirm={() => confirm?.(item)}

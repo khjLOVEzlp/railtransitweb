@@ -1,50 +1,21 @@
-import {useState} from 'react';
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {Drawermanage} from "./drawermanage/Drawermanage";
 import {ModalForm} from "./modal/ModalForm";
-import {useMod, useAdd, useDel, useInit, useProjectsSearchParams} from '../../../../utils/system/line'
+import {useDel, useInit, useProjectsSearchParams} from 'utils/system/line'
 import {useDebounce} from '../../../../hook/useDebounce';
-import {useProjectModal} from './util'
+import {useProjectModal, useLineModal} from './util'
 
 export const Line = () => {
-  const [visible, setVisible] = useState(false);
-  const [isShowDrawer, setIsShowDrawer] = useState(false)
-  const [type, setType] = useState('')
-  const [id, setId] = useState<number>()
   const [param, setParam] = useProjectsSearchParams()
-  const {startEdit, ModalOpen} = useProjectModal();
+  const {startEdit} = useProjectModal();
   const editProject = (id: number) => () => startEdit(id);
-
-  /* 
-    增删改查
-    */
-
+  const {open, startEdit: startEditLine} = useLineModal()
   const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Add} = useAdd()
-  const {mutateAsync: Mod} = useMod()
   const {mutateAsync: Del} = useDel()
 
   const search = (item: any) => {
     setParam({...param, name: item.name, index: 1})
-  };
-
-  const add = () => {
-    showUserModal()
-    setType('新增')
-    setId(undefined)
-  }
-
-  /*const manage = (id: number | undefined) => {
-    setParam({ name: "" })
-    setId(id)
-    setIsShowDrawer(true)
-  }*/
-
-  const mod = (id: number) => {
-    setType('修改')
-    setId(id)
-    showUserModal()
   }
 
   const del = async (id: number) => {
@@ -59,39 +30,12 @@ export const Line = () => {
     message.error('取消删除');
   }
 
-  const showUserModal = () => {
-    setVisible(true);
-  };
-
-  const hideUserModal = () => {
-    setVisible(false);
-  };
-
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({...param, index: p.current, size: p.pageSize})
   };
 
   return (
     <>
-      <Form.Provider
-        onFormFinish={(name, {values}) => {
-          if (name === '新增') {
-            Add(values).then(() => {
-              message.success("新增成功")
-              setVisible(false);
-            }).catch((error) => {
-              message.error(error.msg)
-            })
-          } else if (name === "修改") {
-            Mod({...values, id}).then(() => {
-              message.success("修改成功")
-              setVisible(false);
-            }).catch((error) => {
-              message.error(error.msg)
-            })
-          }
-        }}
-      >
         <Header>
           <Form
             name="basic"
@@ -113,7 +57,7 @@ export const Line = () => {
             </Form.Item>
           </Form>
 
-          <Button onClick={() => add()}>新增</Button>
+          <Button onClick={open}>新增</Button>
         </Header>
         <Main>
           <Table columns={
@@ -144,7 +88,7 @@ export const Line = () => {
                 key: 'id',
                 render: (item: any) => <><Button type="link" onClick={editProject(item.id)}>管理</Button><Button
                   type="link"
-                  onClick={() => mod(item.id)}>修改</Button>
+                  onClick={() => startEditLine(item.id)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
                     onConfirm={() => confirm(item)}
@@ -162,9 +106,8 @@ export const Line = () => {
                  loading={isLoading}
                  rowKey={(item: any) => item.id}/>
         </Main>
-        <ModalForm visible={visible} id={id} type={type} onCancel={hideUserModal}/>
-        {ModalOpen ? <Drawermanage/> : ''}
-      </Form.Provider>
+        <ModalForm/>
+        <Drawermanage/>
     </>
   );
 }

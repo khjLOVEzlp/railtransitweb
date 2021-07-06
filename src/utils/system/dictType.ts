@@ -69,3 +69,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const useDictTypeDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['dictTypeDetail', id], () => client(`dictType/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

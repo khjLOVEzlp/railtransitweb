@@ -120,7 +120,7 @@ export const useDel = () => {
 /* 
 查询详情
 */
-export const useDetail = (id?: number) => {
+export const useUserDetail = (id?: number) => {
   const client = useHttp()
   return useQuery(['userDetail', id], () => client(`user/get/${id}`), {
     enabled: Boolean(id),

@@ -71,7 +71,9 @@ export const useDel = () => {
 }
 
 /* 详情 */
-export const useLineDetail = (id: number) => {
+export const useLineRoadDetail = (id: number) => {
   const client = useHttp()
-  return useQuery(['lineDetail', id], () => client(`line/get/${id}`))
+  return useQuery(['lineRoadDetail', id], () => client(`lineRoad/get/${id}`),{
+    enabled: Boolean(id),
+  })
 }

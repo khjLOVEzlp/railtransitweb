@@ -1,38 +1,43 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, Checkbox, Form, Input, Modal, Select, Spin } from "antd";
-import { useHttp } from "../../../../../utils/http";
-import { rules } from "../../../../../utils/verification";
-import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useDetail, useUserList } from "../../../../../utils/system/user";
-import { useInit } from '../../../../../utils/person/personManage'
-const { Option } = Select;
+import React, {useCallback, useEffect, useState} from "react";
+import {Button, Checkbox, Form, Input, message, Modal, Select, Spin} from "antd";
+import {useHttp} from "utils/http";
+import {rules} from "utils/verification";
+import {useUserList} from "utils/system/user";
+import {useInit} from 'utils/person/personManage'
+import {useUserModal} from '../util'
+import {useAdd, useMod} from 'utils/system/user'
 
-/*const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};*/
+const {Option} = Select;
 
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  id: number | undefined
-}
-
-export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, id }) => {
+export const ModalForm = () => {
   const [form] = Form.useForm();
   const [roleList, setRoleList] = useState([])
   const client = useHttp()
-
-  const { data: formData, isLoading } = useDetail(id)
+  const {ModalOpen, isLoading, close, editingUser, editingUserId} = useUserModal()
+  const title = editingUser ? "修改" : "新增"
+  const msg = editingUser ? () => message.success("修改成功") : () => message.success("新增成功")
+  const useMutateProject = editingUser ? useMod : useAdd;
+  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
   useEffect(() => {
-    if (type === "新增") return
-    form.setFieldsValue({ ...formData?.data })
-  }, [formData, form, visible, type])
+    form.setFieldsValue(editingUser?.data)
+  }, [form, editingUser])
+
+  const closeModal = () => {
+    form.resetFields()
+    close()
+  }
+
+  const onFinish = (value: any) => {
+    mutateAsync({...editingUser, ...value, id: editingUserId}).then(() => {
+      msg()
+      form.resetFields()
+      close()
+    })
+  }
 
   const getRoleLIst = useCallback(() => {
-    client(`role/getAll`, { method: "POST" }).then((res) => {
+    client(`role/getAll`, {method: "POST"}).then((res) => {
       res.data.forEach((item: any) => {
         item.label = item.name
         item.value = item.id
@@ -41,34 +46,37 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
     })
   }, [client])
 
-  const { data: userList } = useUserList()
+  const {data: userList} = useUserList()
   // const { data: personList } = usePerson()
-  const { data: personList } = useInit({})
+  const {data: personList} = useInit({})
 
   useEffect(() => {
     getRoleLIst()
   }, [getRoleLIst])
-
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
 
   const onOk = () => {
     form.submit();
   };
 
   return (
-    <Modal forceRender={true} title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+    <Modal
+      forceRender={true}
+      title={title}
+      width={800}
+      visible={ModalOpen}
+      onOk={onOk}
+      onCancel={closeModal}
+      footer={[
+        <Button key="back" onClick={closeModal}>取消</Button>,
+        <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
+      ]}
     >
       {
         isLoading ? (
-          <Spin size={"large"} />
+          <Spin size={"large"}/>
         ) : <Form
           form={form}
-          name={type}
+          onFinish={onFinish}
           labelAlign="right"
           layout={"vertical"}
         >
@@ -77,16 +85,16 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
             name="loginName"
             rules={rules}
           >
-            <Input />
+            <Input/>
           </Form.Item>
 
           {
-            type === "新增" ? <Form.Item
+            !editingUser ? <Form.Item
               label="密码"
               name="password"
               rules={rules}
             >
-              <Input />
+              <Input/>
             </Form.Item> : ""
           }
 
@@ -96,18 +104,20 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
             rules={rules}
           >
             {
-              type === "新增" ? (<Select
+              !editingUser ? (<Select
                 showSearch
                 filterOption={(input, option: any) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }>
-                {userList?.data.map((item: any, index: number) => <Option value={item.personId} key={index}>{item.name}</Option>)}
+                {userList?.data.map((item: any, index: number) => <Option value={item.personId}
+                                                                          key={index}>{item.name}</Option>)}
               </Select>) : (<Select
                 showSearch
                 filterOption={(input, option: any) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }>
-                {personList?.data.map((item: any, index: number) => <Option value={item.id} key={index}>{item.name}</Option>)}
+                {personList?.data.map((item: any, index: number) => <Option value={item.id}
+                                                                            key={index}>{item.name}</Option>)}
               </Select>)
             }
           </Form.Item>
@@ -117,14 +127,14 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
             name="roles"
             rules={rules}
           >
-            <Checkbox.Group options={roleList} />
+            <Checkbox.Group options={roleList}/>
           </Form.Item>
 
           <Form.Item
             label="备注"
             name="remark"
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Form>
       }

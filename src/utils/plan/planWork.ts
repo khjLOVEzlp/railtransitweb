@@ -70,6 +70,16 @@ export const useDel = () => {
   })
 }
 
+/*
+查询详情
+*/
+export const usePlanWorkDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['planWorkDetail', id], () => client(`plan/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}
+
 /* 根据线路id获取站点 */
 export const useSite = (id?: number) => {
   const client = useHttp()

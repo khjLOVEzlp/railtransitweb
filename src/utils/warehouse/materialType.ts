@@ -1,16 +1,16 @@
 import qs from 'qs'
-import { useMemo } from 'react';
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
-import { cleanObject } from '../index'
-import { useHttp } from '../http'
+import {useMemo} from 'react';
+import {useQuery, useMutation, useQueryClient} from 'react-query'
+import {useUrlQueryParam} from '../../hook/useUrlQueryParam';
+import {cleanObject} from '../index'
+import {useHttp} from '../http'
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["name", "index", "size"]);
   return [
     useMemo(
-      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
+      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
       [param]
     ),
     setParam,
@@ -20,7 +20,7 @@ export const useProjectsSearchParams = () => {
 /* 查询所有 */
 export const useMaterialType = () => {
   const client = useHttp()
-  return useQuery(['materialType'], () => client(`materialType/getAll`, { method: "POST" }))
+  return useQuery(['materialType'], () => client(`materialType/getAll`, {method: "POST"}))
 }
 
 /*
@@ -28,7 +28,7 @@ export const useMaterialType = () => {
  */
 export const useInit = (params: any) => {
   const client = useHttp()
-  return useQuery(['materialType', cleanObject(params)], () => client(`materialType/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery(['materialType', cleanObject(params)], () => client(`materialType/list?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
 }
 
 /* 
@@ -37,7 +37,7 @@ export const useInit = (params: any) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`materialType/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`materialType/save`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('materialType')
     },
@@ -52,7 +52,7 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`materialType/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`materialType/update`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('materialType')
     },
@@ -79,7 +79,9 @@ export const useDel = () => {
 /* 
 详情
 */
-export const useDetail = (id: number) => {
+export const useMaterialDetail = (id: number) => {
   const client = useHttp()
-  return useQuery(["materialType"], () => client(`materialType/get/${id}`))
+  return useQuery(["materialDetail"], () => client(`materialType/get/${id}`), {
+    enabled: Boolean(id),
+  })
 }

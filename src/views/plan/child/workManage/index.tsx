@@ -1,30 +1,17 @@
-import {useState} from 'react';
 import {Form, Input, Button, Table} from 'antd';
 import styled from "@emotion/styled";
-import {ViewModalForm} from "./modal/ModalForm";
-import {useInit, useProjectsSearchParams} from '../../../../utils/plan/planHistory';
-import {useDebounce} from "../../../../hook/useDebounce";
+import {ModalForm} from "./modal/ModalForm";
+import {useInit, useProjectsSearchParams} from 'utils/plan/planHistory';
+import {useDebounce} from "hook/useDebounce";
+import {useHistoryModal} from './util'
 
 export const WorkManage = () => {
-  const [visible, setVisible] = useState(false);
-  const [formData, setFormData] = useState({})
-  const [type, setType] = useState('')
   const [param, setParam] = useProjectsSearchParams()
-
+  const {startEdit} = useHistoryModal()
   const {data, isLoading} = useInit(useDebounce(param, 500))
-
-  const mod = (item: any) => {
-    setVisible(true)
-    setType('查看')
-    setFormData(item)
-  }
 
   const search = (item: any) => {
     setParam({...param, name: item.name})
-  };
-
-  const hideUserModal = () => {
-    setVisible(false);
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
@@ -88,7 +75,7 @@ export const WorkManage = () => {
               align: "center",
               render: (item: any) => (
                 <>
-                  <Button type={"link"} onClick={() => mod(item)}>查看</Button>
+                  <Button type={"link"} onClick={() => startEdit(item.id)}>查看</Button>
                 </>
               )
             },
@@ -100,7 +87,7 @@ export const WorkManage = () => {
                rowKey={(item: any) => item.id}
         />
       </Main>
-      <ViewModalForm visible={visible} type={type} formData={formData} onCancel={hideUserModal}/>
+      <ModalForm/>
     </>
   );
 }

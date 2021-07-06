@@ -1,16 +1,16 @@
 import qs from 'qs'
-import { useMemo } from 'react';
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { cleanObject } from '..';
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
-import { useHttp } from '../http';
+import {useMemo} from 'react';
+import {useQuery, useMutation, useQueryClient} from 'react-query'
+import {cleanObject} from '..';
+import {useUrlQueryParam} from '../../hook/useUrlQueryParam';
+import {useHttp} from '../http';
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["name", "index", "size"]);
   return [
     useMemo(
-      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
+      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
       [param]
     ),
     setParam,
@@ -22,7 +22,7 @@ export const useProjectsSearchParams = () => {
  */
 export const useInit = (params: any) => {
   const client = useHttp()
-  return useQuery(['linePlatform', cleanObject(params)], () => client(`linePlatform/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery(['linePlatform', cleanObject(params)], () => client(`linePlatform/list?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
 }
 
 /* 
@@ -31,7 +31,7 @@ export const useInit = (params: any) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`linePlatform/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`linePlatform/save`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('linePlatform')
     },
@@ -46,7 +46,7 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`linePlatform/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`linePlatform/update`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('linePlatform')
     },
@@ -67,5 +67,13 @@ export const useDel = () => {
     },
     onError: () => {
     }
+  })
+}
+
+/* 详情 */
+export const useLinePlatformDetail = (id: number) => {
+  const client = useHttp()
+  return useQuery(['linePlatformDetail', id], () => client(`linePlatform/get/${id}`), {
+    enabled: Boolean(id),
   })
 }

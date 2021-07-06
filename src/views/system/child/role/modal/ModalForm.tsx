@@ -1,29 +1,36 @@
-import { Button, Form, Input, Modal, Select, Spin, Tree } from "antd";
-import React, { useCallback, useEffect, useState } from "react";
-import { useHttp } from "../../../../../utils/http";
-import { rules } from "../../../../../utils/verification";
-import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { useDetail } from "../../../../../utils/system/role";
+import {Button, Form, Input, message, Modal, Select, Spin, Tree} from "antd";
+import React, {useCallback, useEffect, useState} from "react";
+import {useHttp} from "utils/http";
+import {rules} from "utils/verification";
+import {useAdd, useMod} from 'utils/system/role'
+import {useRoleModal} from '../util'
 
-const { Option } = Select
-/*const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};*/
-
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  id: number | undefined
-}
-
-export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, id }) => {
+export const ModalForm = () => {
   const [form] = Form.useForm();
   const [menu, setMenu] = useState([])
   const client = useHttp()
+  const {ModalOpen, isLoading, close, editingRole, editingRoleId} = useRoleModal()
+  const title = editingRole ? "修改" : "新增"
+  const msg = editingRole ? () => message.success("修改成功") : () => message.success("新增成功")
+  const useMutateProject = editingRole ? useMod : useAdd;
+  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
-  const { data: formData, isLoading } = useDetail(id)
+  useEffect(() => {
+    form.setFieldsValue(editingRole?.data)
+  }, [form, editingRole])
+
+  const closeModal = () => {
+    form.resetFields()
+    close()
+  }
+
+  const onFinish = (value: any) => {
+    mutateAsync({...editingRole, ...value, id: editingRoleId}).then(() => {
+      msg()
+      form.resetFields()
+      close()
+    })
+  }
 
   const [options] = useState([
     {
@@ -57,13 +64,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
     return data
   }, [])
 
-  useEffect(() => {
-    if (type === "新增") return
-    form.setFieldsValue({ ...formData?.data })
-  }, [formData, form, visible, type])
-
   const getMenuList = useCallback(() => {
-    client(`menu/getAll?type=1`, { method: "POST" }).then(res => {
+    client(`menu/getAll?type=1`, {method: "POST"}).then(res => {
       setMenu(fuc(res.data))
     })
   }, [client, fuc])
@@ -72,13 +74,8 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
     getMenuList()
   }, [getMenuList])
 
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
-
   const onCheck = (checkedKeys: any) => {
-    form.setFieldsValue({ menuList: checkedKeys })
+    form.setFieldsValue({menuList: checkedKeys})
   };
 
   const onOk = () => {
@@ -86,58 +83,65 @@ export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, i
   };
 
   return (
-    <Modal title={type} width={800}
-      visible={visible} onOk={onOk}
-      onCancel={onCancel}
-      footer={[
-        <Button key="back" onClick={onCancel}>取消</Button>,
-        <Button key="submit" type="primary" onClick={onOk}>提交</Button>
-      ]}
+    <Modal title={title} width={800}
+           visible={ModalOpen} onOk={onOk}
+           onCancel={closeModal}
+           footer={[
+             <Button key="back" onClick={closeModal}>取消</Button>,
+             <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
+           ]}
     >
       {
-        isLoading ? <Spin /> : <Form
-          form={form}
-          name={type}
-          labelAlign="right"
-          layout={"vertical"}
-        >
-          <Form.Item
-            label="数据权限"
-            name="dataScope"
-            rules={rules}
+        isLoading ? (
+          <Spin/>
+        ) : (
+          <Form
+            form={form}
+            onFinish={onFinish}
+            labelAlign="right"
+            layout={"vertical"}
           >
-            <Select>
-              {options.map((item: any, index: number) => <Option value={item.value} key={index}>{item.name}</Option>)}
-            </Select>
-          </Form.Item>
+            <Form.Item
+              label="数据权限"
+              name="dataScope"
+              rules={rules}
+            >
+              <Select>
+                {options.map((item: any, index: number) => <Select.Option
+                  value={item.value
+                  }
+                  key={index}>{item.name}</Select.Option>)}
+              </Select>
+            </Form.Item>
 
-          <Form.Item
-            label="资源集合"
-            name="menuList"
-          >
-            <Tree
-              checkable
-              defaultCheckedKeys={formData?.data.menuList}
-              onCheck={onCheck}
-              treeData={menu}
-            />
-          </Form.Item>
+            <Form.Item
+              label="资源集合"
+              name="menuList"
+            >
+              <Tree
+                checkable
+                defaultCheckedKeys={editingRole?.data.menuList}
+                onCheck={onCheck}
+                treeData={menu}
+              />
+            </Form.Item>
 
-          <Form.Item
-            label="角色名称"
-            name="name"
-            rules={rules}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              label="角色名称"
+              name="name"
+              rules={rules}
+            >
+              <Input/>
+            </Form.Item>
 
-          <Form.Item
-            label="备注"
-            name="remark"
-          >
-            <Input />
-          </Form.Item>
-        </Form>
+            <Form.Item
+              label="备注"
+              name="remark"
+            >
+              <Input/>
+            </Form.Item>
+          </Form>
+        )
       }
 
     </Modal>
