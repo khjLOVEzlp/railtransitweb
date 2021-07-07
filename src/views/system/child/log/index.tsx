@@ -2,19 +2,12 @@ import styled from "@emotion/styled"
 import { Button, Form, Input, Table, Space, DatePicker } from "antd";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import { useDebounce } from "../../../../hook/useDebounce";
-import { useInit, useProjectsSearchParams } from "../../../../utils/system/log"
+import { useDebounce } from "hook/useDebounce";
+import { useInit, useProjectsSearchParams } from "utils/system/log"
 const { RangePicker } = DatePicker;
 
 export const Log = () => {
   const [param, setParam] = useProjectsSearchParams()
-  /* const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    operName: '',
-    startTime: '',
-    endTime: ''
-  }) */
 
   const { data, isLoading } = useInit(useDebounce(param, 500))
 
@@ -90,7 +83,7 @@ export const Log = () => {
           pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
           onChange={handleTableChange}
           loading={isLoading} dataSource={data?.data}
-          rowKey={(item: any) => item.id} />
+          rowKey={(item) => item.id} />
       </Main>
     </div>
   )

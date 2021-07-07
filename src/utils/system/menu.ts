@@ -2,8 +2,10 @@ import qs from 'qs'
 import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from '..';
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
 import { useHttp } from '../http';
+import {search} from "types/search";
+import {menu} from "types/menu";
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
@@ -20,9 +22,9 @@ export const useProjectsSearchParams = () => {
 /*
 查询
  */
-export const useInit = (params: any) => {
+export const useInit = (params?: Partial<search>) => {
   const client = useHttp()
-  return useQuery(['menu', cleanObject(params)], () => client(`menu/getAll?${qs.stringify(cleanObject(params))}&type=1`, { method: "POST" }))
+  return useQuery<menu>(['menu', cleanObject(params)], () => client(`menu/getAll?${qs.stringify(cleanObject(params))}&type=1`, { method: "POST" }))
 }
 
 /* 

@@ -68,3 +68,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const useSimDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['simDetail', id], () => client(`hardware/simcard/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

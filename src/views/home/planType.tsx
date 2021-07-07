@@ -6,27 +6,27 @@ const PlanType: React.FC = () => {
   const [visible, setVisible] = useState(false)
   var data = [
     {
-      type: '日计划',
+      types: '日计划',
       value: 297,
     },
     {
-      type: '周计划',
+      types: '周计划',
       value: 506,
     },
     {
-      type: '月计划',
+      types: '月计划',
       value: 805,
     },
     {
-      type: '季度计划',
+      types: '季度计划',
       value: 1478,
     },
     {
-      type: '半年计划',
+      types: '半年计划',
       value: 2029,
     },
     {
-      type: '年底计划',
+      types: '年底计划',
       value: 7100,
     },
   ];
@@ -36,10 +36,10 @@ const PlanType: React.FC = () => {
     height: 300,
     width: 300,
     angleField: 'value',
-    colorField: 'type',
+    colorField: 'types',
     radius: 0.9,
     label: {
-      type: 'inner',
+      types: 'inner',
       offset: '-30%',
 
       style: {
@@ -47,7 +47,7 @@ const PlanType: React.FC = () => {
         textAlign: 'center',
       },
     },
-    interactions: [{ type: 'element-active' }],
+    interactions: [{ types: 'element-active' }],
   };
 
   const onCancel = () => {

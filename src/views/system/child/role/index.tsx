@@ -19,8 +19,8 @@ export const Role = () => {
     Del(id)
   }
 
-  const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
+  const confirm = (item: number) => {
+    del(item).then(() => message.success('删除成功'))
   }
 
   const cancel = () => {
@@ -76,11 +76,11 @@ export const Role = () => {
             {
               title: '操作',
               key: 'id',
-              render: (item: any) => <>
+              render: (item) => <>
                 <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
                   title={`是否要删除${item.name}`}
-                  onConfirm={() => confirm(item)}
+                  onConfirm={() => confirm(item.id)}
                   onCancel={cancel}
                   okText="Yes"
                   cancelText="No"
@@ -93,7 +93,7 @@ export const Role = () => {
                onChange={handleTableChange}
                loading={isLoading}
                dataSource={data?.data}
-               rowKey={(item: any) => item.id}
+               rowKey={(item) => item.id}
         />
       </Main>
       <ModalForm/>

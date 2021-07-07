@@ -68,3 +68,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const usePlaDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['plaDetail', id], () => client(`hardware/platform/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

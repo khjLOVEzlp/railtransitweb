@@ -8,6 +8,7 @@ import qs from 'qs';
 import {useDebounce} from 'hook/useDebounce';
 import {PassModal} from "components/PassModal";
 import {useUserModal} from './util'
+import {search} from "types/search";
 
 export const User = () => {
   const [passwdVisible, setPasswdVisible] = useState(false)
@@ -34,11 +35,11 @@ export const User = () => {
     setParam({...param, index: p.current, size: p.pageSize})
   };
 
-  const search = (item: any) => {
+  const search = (item: search) => {
     setParam({...param, name: item.name, index: 1})
   };
 
-  const modPass = (passId: any) => {
+  const modPass = (passId: number) => {
     setPassId(passId)
     setPasswdVisible(true)
   }
@@ -114,7 +115,7 @@ export const User = () => {
               {
                 title: '操作',
                 key: 'id',
-                render: (item: any) => <>
+                render: (item) => <>
                   <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                   <Button type="link" onClick={() => modPass(item.id)}>重置密码</Button>
                   <Popconfirm
@@ -133,7 +134,7 @@ export const User = () => {
           onChange={handleTableChange}
           dataSource={data?.data}
           loading={isLoading}
-          rowKey={(item: any) => item.id}
+          rowKey={(item) => item.id}
         />
       </Main>
       <ModalForm/>

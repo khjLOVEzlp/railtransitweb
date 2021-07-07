@@ -68,3 +68,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const useTemDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['temDetail', id], () => client(`hardware/temperater/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

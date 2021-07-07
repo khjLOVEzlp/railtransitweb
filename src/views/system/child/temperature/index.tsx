@@ -136,7 +136,7 @@ export const Temperature = () => {
               /*{
                 title: '操作',
                 key: 'id',
-                render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
+                render: (item: any) => <><Button types="link" onClick={() => mod(item)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
                     onConfirm={() => confirm(item)}
@@ -144,7 +144,7 @@ export const Temperature = () => {
                     okText="Yes"
                     cancelText="No"
                   >
-                    <Button type="link">删除</Button>
+                    <Button types="link">删除</Button>
                   </Popconfirm></>
               },*/
             ]

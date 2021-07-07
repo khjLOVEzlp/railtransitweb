@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
 import { cleanObject } from '../index'
 import { useHttp } from '../http'
 
@@ -67,5 +67,15 @@ export const useDel = () => {
     },
     onError: () => {
     }
+  })
+}
+
+/*
+查询详情
+*/
+export const useAlcDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['alcDetail', id], () => client(`hardware/alcohol/get/${id}`), {
+    enabled: Boolean(id),
   })
 }

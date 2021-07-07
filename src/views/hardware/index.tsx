@@ -9,11 +9,12 @@ import { RfidCardController } from "./children/rfidCardController/RfidCardContro
 import { SeperateController } from './children/seperateController/SeperateController'
 import { SimCardController } from "./children/simCardController/SimCardController"
 import { TemperaterController } from "./children/temperaterController/TemperaterController"
-
+import {useSetUrlSearchParam} from 'hook/useUrlQueryParam'
 import './index.css'
 
 const { TabPane } = Tabs;
 export const Hardware = () => {
+  const setUrlParams = useSetUrlSearchParam()
   const [navList] = useState([
     {
       name: "防分离器",
@@ -53,6 +54,7 @@ export const Hardware = () => {
   ])
 
   const callback = () => {
+    setUrlParams({index: "", size: "", name: ""})
   }
 
   useDocumentTitle('设备管理')

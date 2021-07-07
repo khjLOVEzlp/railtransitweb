@@ -155,7 +155,7 @@ export const PlanWork = () => {
                 render: (item: any) => (
                   <>
                     <Button type="link" onClick={() => startShareEdit(item.id)}>发布计划</Button>
-                    <Button type="link" onClick={() => view(item)}>查看</Button>
+                    {/*<Button type="link" onClick={() => view(item)}>查看</Button>*/}
                     <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                     <Popconfirm
                       title={`是否要删除${item.name}`}
@@ -181,7 +181,7 @@ export const PlanWork = () => {
         </Main>
         <ModalForm />
         <ShareModalForm/>
-        {/*<ViewModalForm visible={visibleView} formData={formData} type={type} onCancel={hideViewModal} />*/}
+        {/*<ViewModalForm visible={visibleView} formData={formData} types={types} onCancel={hideViewModal} />*/}
     </>
   );
 }

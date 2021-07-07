@@ -239,7 +239,7 @@ const Header = styled.div`
 
 const Main = styled.div`
   background: #fff;
-  height: 73rem;
+  height: 100%;
   border-radius: 1rem;
   padding: 0 1.5rem;
   overflow-y: auto;

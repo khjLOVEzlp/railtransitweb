@@ -11,7 +11,7 @@ import {
   Space,
   Upload,
   TreeSelect,
-  InputNumber, Spin
+  Spin
 } from "antd";
 import {useHttp} from "utils/http";
 import 'moment/locale/zh-cn';
@@ -50,7 +50,10 @@ export const ModalForm = () => {
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
   useEffect(() => {
-    form.setFieldsValue(editingPlanWork?.data)
+    /*form.setFieldsValue(
+      editingPlanWork?.data)*/
+    console.log(editingPlanWork)
+
   }, [form, editingPlanWork])
 
   const closeModal = () => {
@@ -92,9 +95,12 @@ export const ModalForm = () => {
     form.setFieldsValue({warnTime: item})
   }
 
+  const options = personList
+
   /* 添加工具 */
   const addTool = () => {
-    setVisibleTool(true)
+    message.success("添加工具待开发")
+    // setVisibleTool(true)
   }
 
   const handleSubmit = (value: object) => {
@@ -103,12 +109,13 @@ export const ModalForm = () => {
 
   /* 添加物资 */
   const addMaterial = () => {
-    setVisibleTool(true)
+    message.success("添加物资待开发")
+    // setVisibleTool(true)
   }
 
   /* 添加小组 */
   const addGroup = () => {
-
+    message.success("添加小组待开发")
   }
 
   const cancel = () => {
@@ -378,22 +385,6 @@ export const ModalForm = () => {
                   {personList?.data.map((item: any, index: number) => <Option value={item.id}
                                                                               key={index}>{item.name}</Option>)}
                 </Select>
-              </Form.Item>
-            </Space>
-
-            <Space style={{display: 'flex'}}>
-              <Form.Item
-                label=""
-                name="num"
-              >
-                <Input disabled/>
-              </Form.Item>
-
-              <Form.Item
-                label=""
-                name=""
-              >
-                <InputNumber placeholder={"数量"}/>
               </Form.Item>
             </Space>
 

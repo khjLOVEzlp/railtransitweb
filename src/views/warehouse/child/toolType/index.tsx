@@ -22,6 +22,7 @@ export const ToolType = () => {
   };
 
   const viewTool = (item: any) => {
+    message.success("功能未开发完成")
     setToolVisible(true)
   }
 

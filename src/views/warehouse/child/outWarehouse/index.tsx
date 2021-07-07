@@ -43,7 +43,7 @@ export const OutWarehouse = () => {
             </Form.Item>
 
             {/*<Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button types="primary" htmlType="submit">
                 搜索
               </Button>
             </Form.Item>*/}

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
 import { cleanObject } from '../index'
 import { useHttp } from '../http'
 
@@ -74,7 +74,7 @@ export const useDel = () => {
 */
 export const useSepDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['sepDetail', id], () => client(`line/get/${id}`), {
+  return useQuery(['sepDetail', id], () => client(`hardware/seperate/get/${id}`), {
     enabled: Boolean(id),
   })
 }

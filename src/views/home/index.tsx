@@ -1,14 +1,21 @@
 import styled from "@emotion/styled"
 import {useCallback, useEffect, useState} from "react";
-import {useDocumentTitle} from '../../hook/useDocumentTitle'
-import {useHttp} from "../../utils/http";
+import {useDocumentTitle} from 'hook/useDocumentTitle'
+import {useHttp} from "utils/http";
 import Page from './alarmPage'
 import PlanWorkPage from './planWork'
+import * as echarts from 'echarts';
 import PlanType from './planType'
+import {MyEcharts} from "components/MyEcharts";
+import {option} from './subwayRoute'
 
 export const Home = () => {
   const [data, setData] = useState([])
   useDocumentTitle('首页')
+
+  useEffect(() => {
+    echarts.init(document.getElementById('track') as HTMLElement).setOption(option)
+  })
 
   const client = useHttp()
 
@@ -28,36 +35,11 @@ export const Home = () => {
 
   return (
     <Container>
-      {/* <MyEcharts id="alert" data={track} style={{ width: '100%', height: '50vh' }} /> */}
       <Header>
         <div className="left">
-          {/* <div className={"title"}>
-            地铁路线
-          </div> */}{/* 
-          {
-            lineList?.data.map((item: any) => (
-              <div key={item.id} style={{ margin: "1rem 3rem" }}>
-                <div style={{ margin: "3rem", fontSize: "1.2rem" }}>
-                  <span style={{ color: "#5A7FFA", fontSize: "1.6rem" }}>{item.name}</span>
-                </div>
-                <div>
-                  <Steps progressDot size={"small"}>
-                    {
-                      item.platformList.map((key: any) => (
-                        <Step status="finish" title={key.name} />
-                      ))
-                    }
-                  </Steps>
-                </div>
-              </div>
-            ))
-          } */}
+          <MyEcharts id="track" data={option} style={{width: '100%', height: '100%'}}/>
         </div>
         <div className="right">
-          {/* <div className="title">
-            告警展示
-          </div> */}
-          {/* <MyEcharts id="alert" data={alertData} style={{ width: '100%', height: '50vh' }} /> */}
           <div>
             <Page data={data}/>
           </div>
@@ -65,15 +47,6 @@ export const Home = () => {
       </Header>
       <Footer>
         <div className="left">
-          {/* <div className="title">
-            计划统计
-          </div>
-          <MyEcharts id="plan" data={planData} style={{ width: '80%', height: '30rem' }} /> */}
-          {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <PlanWorkPage />
-            <div></div>
-          </div> */}
-
           <div>
             <PlanType/>
           </div>
@@ -168,6 +141,7 @@ const Footer = styled.div`
     border-radius: 14px;
     width: 49.8%;
     box-sizing: border-box;
+    padding: 1rem;
 
     > .title {
       margin-left: 2rem;

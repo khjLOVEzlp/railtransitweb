@@ -114,7 +114,7 @@ checkBrowsers(paths.appPath, isInteractive)
       if (tscCompileOnError) {
         console.log(
           chalk.yellow(
-            'Compiled with the following type errors (you may want to check these before deploying your app):\n'
+            'Compiled with the following types errors (you may want to check these before deploying your app):\n'
           )
         );
         printBuildError(err);

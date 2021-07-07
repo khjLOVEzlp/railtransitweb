@@ -1,37 +1,18 @@
-import { useState } from 'react';
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
+import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import { useAdd, useDel, useInit, useMod, useProjectsSearchParams } from '../../../../utils/hardware/lab';
-import { ModalForm } from './ModalForm';
-import { useDebounce } from '../../../../hook/useDebounce';
+import {useDel, useInit, useProjectsSearchParams} from 'utils/hardware/lab';
+import {ModalForm} from './ModalForm';
+import {useDebounce} from 'hook/useDebounce';
+import {useLabModal} from './util'
 
 export const LabelController = () => {
-  const [visible, setVisible] = useState(false)
-  const [type, setType] = useState('')
-  const [formData, setFormData] = useState<any>({})
   const [param, setParam] = useProjectsSearchParams()
-
-  /* 
-      增删改查
-    */
-  const { data, isLoading } = useInit(useDebounce(param, 500))
-  const { mutateAsync: Add } = useAdd()
-  const { mutateAsync: Mod } = useMod()
-  const { mutateAsync: Del } = useDel()
+  const {open, startEdit} = useLabModal()
+  const {data, isLoading} = useInit(useDebounce(param, 500))
+  const {mutateAsync: Del} = useDel()
 
   const search = (item: any) => {
-    setParam({ ...param, name: item.name, index: 1 })
-  }
-
-  const add = () => {
-    showUserModal()
-    setType('新增')
-  }
-
-  const mod = (item: any) => {
-    showUserModal()
-    setType('修改')
-    setFormData(item)
+    setParam({...param, name: item.name, index: 1})
   }
 
   const del = async (id: number) => {
@@ -46,103 +27,77 @@ export const LabelController = () => {
     message.error('取消删除');
   }
 
-  const showUserModal = () => {
-    setVisible(true);
-  };
-
-  const hideUserModal = () => {
-    setVisible(false);
-  };
-
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({ ...param, index: p.current, size: p.pageSize })
+    setParam({...param, index: p.current, size: p.pageSize})
   };
 
   return (
     <>
-      <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
-          if (name === '新增') {
-            Add(values).then(() => {
-              message.success('新增成功')
-              setVisible(false);
-            }).catch(err => {
-              message.error(err.msg)
-            })
-          } else if (name === "修改") {
-            Mod({ ...values, id: formData.id }).then(() => {
-              message.success('修改成功')
-              setVisible(false);
-            }).catch(err => {
-              message.error(err.msg)
-            })
-          }
-        }}
-      >
-        <Header>
-          <Form
-            name="basic"
-            onFinish={search}
-            layout={"inline"}
+      <Header>
+        <Form
+          name="basic"
+          onFinish={search}
+          layout={"inline"}
+        >
+          <Form.Item
+            name="name"
           >
-            <Form.Item
-              name="name"
-            >
-              <Input placeholder={"十进制编码"} value={param.name} onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
-            </Form.Item>
+            <Input placeholder={"十进制编码"} value={param.name}
+                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+          </Form.Item>
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                搜索
-              </Button>
-            </Form.Item>
-          </Form>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              搜索
+            </Button>
+          </Form.Item>
+        </Form>
 
-          <Button onClick={() => add()}>新增</Button>
-        </Header>
-        <Main>
-          <Table columns={
-            [
-              {
-                title: '十进制编码',
-                dataIndex: 'codeHex10',
-                key: 'codeHex10',
-              },
-              {
-                title: '915编码',
-                dataIndex: 'codeHex915',
-                key: 'codeHex915',
-              },
-              {
-                title: '归属仓库',
-                dataIndex: 'name',
-                key: 'name',
-              },
-              {
-                title: '是否使用',
-                key: 'isUse',
-                render: (item: any) => item.isUse === 0 ? '使用' : '未使用'
-              },
-              {
-                title: '操作',
-                key: 'id',
-                render: (item: any) => <><Button type="link" onClick={() => mod(item)}>修改</Button>
-                  <Popconfirm
-                    title={`是否要删除${item.codeHex10}`}
-                    onConfirm={() => confirm(item)}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                  >
-                    <Button type={"link"}>删除</Button>
-                  </Popconfirm></>
-              },
-            ]
-          } pagination={{ total: data?.count, current: param.index, pageSize: param.size, }} onChange={handleTableChange} loading={isLoading} dataSource={data?.data}
-            rowKey={(item: any) => item.id} />
-        </Main>
-        <ModalForm visible={visible} formData={formData} type={type} onCancel={hideUserModal} />
-      </Form.Provider>
+        <Button onClick={open}>新增</Button>
+      </Header>
+      <Main>
+        <Table columns={
+          [
+            {
+              title: '十进制编码',
+              dataIndex: 'codeHex10',
+              key: 'codeHex10',
+            },
+            {
+              title: '915编码',
+              dataIndex: 'codeHex915',
+              key: 'codeHex915',
+            },
+            {
+              title: '归属仓库',
+              dataIndex: 'name',
+              key: 'name',
+            },
+            {
+              title: '是否使用',
+              key: 'isUse',
+              render: (item: any) => item.isUse === 0 ? '使用' : '未使用'
+            },
+            {
+              title: '操作',
+              key: 'id',
+              render: (item: any) => <><Button type="link" onClick={() => startEdit(item)}>修改</Button>
+                <Popconfirm
+                  title={`是否要删除${item.codeHex10}`}
+                  onConfirm={() => confirm(item)}
+                  onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Button type={"link"}>删除</Button>
+                </Popconfirm></>
+            },
+          ]
+        } pagination={{total: data?.count, current: param.index, pageSize: param.size,}} onChange={handleTableChange}
+               loading={isLoading} dataSource={data?.data}
+               rowKey={(item: any) => item.id}/>
+      </Main>
+      <ModalForm/>
     </>
   );
 };

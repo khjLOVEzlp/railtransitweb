@@ -218,7 +218,7 @@ export const Alarm = () => {
   return (
     <AlarmStyle>
       <Header>
-        <Select style={{ width: 120, margin: '2rem 0' }} defaultValue={"1"} onChange={navChange}>
+        <Select style={{ width: 120, margin: '1rem 0' }} defaultValue={"1"} onChange={navChange}>
           {
             timeList.map((item: { name: string, value: string }) => <Option key={item.value} value={item.value}>{item.name}</Option>)
           }
@@ -259,7 +259,7 @@ const AlarmStyle = styled.div`
 `
 
 const Header = styled.div`
-  height: 22.5rem;
+  height: 15rem;
   background: #fff;
   border-radius: 1rem;
   margin-bottom: 1rem;
@@ -268,7 +268,7 @@ const Header = styled.div`
 
 const Main = styled.div`
   background: #fff;
-  height: 63rem;
+  height: 100%;
   border-radius: 1rem;
   padding: 0 2rem;
   overflow-y: auto;
@@ -286,6 +286,7 @@ const Nav = styled.div`
 
     > img {
       cursor: pointer;
+      width: 5rem;
     }
 
     > div {

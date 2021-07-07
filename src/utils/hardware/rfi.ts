@@ -76,3 +76,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const useRfiDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['rfiDetail', id], () => client(`hardware/rfidcard/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

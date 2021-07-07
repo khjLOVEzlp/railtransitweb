@@ -4,6 +4,7 @@ import {ModalForm} from "./modal/ModalForm";
 import {useDel, useInit, useProjectsSearchParams} from 'utils/system/menu';
 import {useDebounce} from 'hook/useDebounce';
 import {useMenuModal} from './util'
+import {search} from "types/search";
 
 export const Menu = () => {
   const [param, setParam] = useProjectsSearchParams()
@@ -11,7 +12,7 @@ export const Menu = () => {
   const {data, isLoading} = useInit(useDebounce(param, 500))
   const {mutateAsync: Del} = useDel()
 
-  const search = (item: any) => {
+  const search = (item: search) => {
     setParam({...param, name: item.name, index: 1})
   };
 
@@ -77,7 +78,7 @@ export const Menu = () => {
               {
                 title: '操作',
                 key: 'id',
-                render: (item: any) => <>
+                render: (item) => <>
                   <Button type="link" onClick={open}>新增</Button>
                   <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                   <Popconfirm
@@ -96,7 +97,7 @@ export const Menu = () => {
                  loading={isLoading}
                  dataSource={data?.data}
                  childrenColumnName="childMenu"
-                 rowKey={(item: any) => item.id}/>
+                 rowKey={(item) => item.id}/>
         </Main>
         <ModalForm/>
     </>

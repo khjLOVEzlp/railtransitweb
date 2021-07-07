@@ -1,88 +1,110 @@
-import { Button, Form, Input, Modal, Radio, Select } from "antd";
-import { useEffect } from "react";
-import { useResetFormOnCloseModal } from "../../../../hook/useResetFormOnCloseModal";
-import { rules } from "../../../../utils/verification";
-import { useWarehouse } from "../../../../utils/warehouse/toolType";
+import {Button, Form, Input, message, Modal, Radio, Select, Spin} from "antd";
+import {useEffect} from "react";
+import {rules} from "utils/verification";
+import {useWarehouse} from "utils/warehouse/toolType";
+import {useAdd, useMod} from 'utils/hardware/lab'
+import {useLabModal} from './util'
 
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: object
-}
-
-export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
+export const ModalForm = () => {
   const [form] = Form.useForm();
+  const {ModalOpen, isLoading, close, editingLab, editingLabId} = useLabModal()
+  const title = editingLab ? "修改" : "新增"
+  const msg = editingLab ? () => message.success("修改成功") : () => message.success("新增成功")
+  const useMutateProject = editingLab ? useMod : useAdd;
+  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
   useEffect(() => {
-    if (type === "新增") return
-    form.setFieldsValue(formData)
-  }, [formData, form, visible, type])
+    form.setFieldsValue(editingLab?.data)
+  }, [form, editingLab])
 
-  const { data: warehouse } = useWarehouse()
+  const closeModal = () => {
+    form.resetFields()
+    close()
+  }
 
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
+  const onFinish = (value: any) => {
+    mutateAsync({...editingLab, ...value, id: editingLabId}).then((res) => {
+      msg()
+      form.resetFields()
+      close()
+    }).catch(err => {
+      message.error(err.msg)
+    })
+  }
+
+  const {data: warehouse} = useWarehouse()
 
   const onOk = () => {
     form.submit();
   };
 
   return (
-    <Modal title={type} width={800} visible={visible} onOk={onOk} onCancel={onCancel}
-      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+    <Modal
+      title={title}
+      width={800}
+      visible={ModalOpen}
+      onOk={onOk}
+      onCancel={closeModal}
+      footer={[
+        <Button key="back" onClick={closeModal}>取消</Button>,
+        <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
+      ]}
     >
-      <Form
-        form={form}
-        name={type}
-        labelAlign="right"
-        layout={"vertical"}
-      >
-        <Form.Item
-          label="十进制编码"
-          name="codeHex10"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="915编码"
-          name="codeHex915"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="归属仓库"
-          name="warehouseId"
-          rules={rules}
-        >
-          <Select
-            showSearch
-            filterOption={(input, option: any) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
+      {
+        isLoading ? (
+          <Spin/>
+        ) : (
+          <Form
+            form={form}
+            onFinish={onFinish}
+            labelAlign="right"
+            layout={"vertical"}
           >
-            {warehouse?.data.map((item: any) => <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>)}
-          </Select>
-        </Form.Item>
+            <Form.Item
+              label="十进制编码"
+              name="codeHex10"
+              rules={rules}
+            >
+              <Input/>
+            </Form.Item>
 
-        <Form.Item
-          label="是否使用"
-          name="isUse"
-          initialValue={"1"}
-        >
-          <Radio.Group>
-            <Radio value={"1"}>否</Radio>
-            <Radio value={"0"}>是</Radio>
-          </Radio.Group>
-        </Form.Item>
-      </Form>
+            <Form.Item
+              label="915编码"
+              name="codeHex915"
+              rules={rules}
+            >
+              <Input/>
+            </Form.Item>
+
+            <Form.Item
+              label="归属仓库"
+              name="warehouseId"
+              rules={rules}
+            >
+              <Select
+                showSearch
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+              >
+                {warehouse?.data.map((item: any) => <Select.Option value={item.id}
+                                                                   key={item.id}>{item.name}</Select.Option>)}
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              label="是否使用"
+              name="isUse"
+              initialValue={"1"}
+            >
+              <Radio.Group>
+                <Radio value={"1"}>否</Radio>
+                <Radio value={"0"}>是</Radio>
+              </Radio.Group>
+            </Form.Item>
+          </Form>
+        )
+      }
     </Modal>
   );
 };

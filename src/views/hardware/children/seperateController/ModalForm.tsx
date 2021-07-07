@@ -1,96 +1,119 @@
-import { Button, Form, Input, Modal, Radio, Select } from "antd";
-import { useEffect } from "react";
-import { useResetFormOnCloseModal } from "../../../../hook/useResetFormOnCloseModal";
-import { rules } from "../../../../utils/verification";
-import { usePerson } from "../../../../utils/person/personManage";
+import {Button, Form, Input, message, Modal, Radio, Select, Spin} from "antd";
+import {useEffect} from "react";
+import {rules} from "utils/verification";
+import {usePerson} from "utils/person/personManage";
+import {useSepModal} from './util'
+import {useMod, useAdd} from 'utils/hardware/sep'
 
-interface ModalFormProps {
-  visible: boolean;
-  onCancel: () => void;
-  type: string,
-  formData: any
-}
-
-export const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel, type, formData }) => {
+export const ModalForm = () => {
   const [form] = Form.useForm();
+  const {ModalOpen, isLoading, close, editingSep, editingSepId} = useSepModal()
+  const title = editingSep ? "修改" : "新增"
+  const msg = editingSep ? () => message.success("修改成功") : () => message.success("新增成功")
+  const useMutateProject = editingSep ? useMod : useAdd;
+  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
   useEffect(() => {
-    if (type === "新增") return
-    form.setFieldsValue(formData)
-  }, [formData, form, visible, type])
+    form.setFieldsValue(editingSep?.data)
+  }, [form, editingSep])
 
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
+  const closeModal = () => {
+    form.resetFields()
+    close()
+  }
 
-  const { data: personList } = usePerson()
+  const onFinish = (value: any) => {
+    mutateAsync({...editingSep, ...value, id: editingSepId}).then((res) => {
+        msg()
+        form.resetFields()
+        close()
+    }).catch(err => {
+      message.error(err.msg)
+    })
+  }
+
+  const {data: personList} = usePerson()
 
   const onOk = () => {
     form.submit();
   };
 
   return (
-    <Modal title={type} width={800} maskClosable={false} visible={visible} onOk={onOk} onCancel={onCancel}
-      footer={[<Button key="back" onClick={onCancel}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk}>提交</Button>]}
+    <Modal
+      title={title}
+      width={800}
+      maskClosable={false}
+      visible={ModalOpen}
+      onOk={onOk}
+      onCancel={closeModal}
+      footer={[
+        <Button key="back" onClick={closeModal}>取消</Button>,
+        <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
+      ]}
     >
-      <Form
-        form={form}
-        name={type}
-        labelAlign="right"
-        layout={"vertical"}
-      >
-        <Form.Item
-          label="设备编号"
-          name="codeNumber"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="人员"
-          name="personId"
-          rules={rules}
-        >
-          <Select
-            showSearch
-            filterOption={(input, option: any) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
+      {
+        isLoading ? (
+          <Spin size={"large"}/>
+        ) : (
+          <Form
+            form={form}
+            onFinish={onFinish}
+            labelAlign="right"
+            layout={"vertical"}
           >
-            {personList?.data.map((item: any, index: number) => <Select.Option value={item.id} key={index}>{item.name}</Select.Option>)}
-          </Select>
-        </Form.Item>
+            <Form.Item
+              label="设备编号"
+              name="codeNumber"
+              rules={rules}
+            >
+              <Input/>
+            </Form.Item>
 
-        <Form.Item
-          label="imei号"
-          name="imei"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
+            <Form.Item
+              label="人员"
+              name="personId"
+              rules={rules}
+            >
+              <Select
+                showSearch
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+              >
+                {personList?.data.map((item: any, index: number) => <Select.Option value={item.id}
+                                                                                   key={index}>{item.name}</Select.Option>)}
+              </Select>
+            </Form.Item>
 
-        <Form.Item
-          label="流量卡号码"
-          name="phone"
-          rules={rules}
-        >
-          <Input />
-        </Form.Item>
+            <Form.Item
+              label="imei号"
+              name="imei"
+              rules={rules}
+            >
+              <Input/>
+            </Form.Item>
 
-        <Form.Item
-          label="是否使用"
-          name="isUse"
-          initialValue={"1"}
-        >
-          <Radio.Group>
-            <Radio value={"1"}>否</Radio>
-            <Radio value={"0"}>是</Radio>
-          </Radio.Group>
-        </Form.Item>
-      </Form>
+            <Form.Item
+              label="流量卡号码"
+              name="phone"
+              rules={rules}
+            >
+              <Input/>
+            </Form.Item>
+
+            <Form.Item
+              label="是否使用"
+              name="isUse"
+              initialValue={"1"}
+            >
+              <Radio.Group>
+                <Radio value={"1"}>否</Radio>
+                <Radio value={"0"}>是</Radio>
+              </Radio.Group>
+            </Form.Item>
+          </Form>
+        )
+      }
     </Modal>
   );
 };

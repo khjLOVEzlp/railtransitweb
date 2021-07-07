@@ -1,33 +1,33 @@
 import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useRoleDetail} from "utils/system/role";
+import {useSepDetail} from "utils/hardware/sep";
 
-export const useRoleModal = () => {
+export const useSepModal = () => {
   const setUrlParams = useSetUrlSearchParam();
 
-  const [{createRole}, setCreateRole] = useUrlQueryParam([
-    "createRole"
+  const [{createSep}, setCreateSep] = useUrlQueryParam([
+    "createSep"
   ])
 
-  const [{editingRoleId}, setEditingRoleId] = useUrlQueryParam([
-    "editingRoleId",
+  const [{editingSepId}, setEditingSepId] = useUrlQueryParam([
+    "editingSepId",
   ]);
 
-  const {data: editingRole, isLoading} = useRoleDetail(
-    Number(editingRoleId)
+  const {data: editingSep, isLoading} = useSepDetail(
+    Number(editingSepId)
   );
 
-  const open = () => setCreateRole({createRole: true})
-  const close = () => setUrlParams({editingRoleId: "", createRole: ""});
+  const open = () => setCreateSep({createSep: true})
+  const close = () => setUrlParams({editingSepId: "", createSep: ""});
   const startEdit = (id: number) =>
-    setEditingRoleId({editingRoleId: id});
+    setEditingSepId({editingSepId: id});
 
   return {
-    ModalOpen: createRole === "true" || Boolean(editingRoleId),
+    ModalOpen: createSep === "true" || Boolean(editingSepId),
     open,
     close,
     startEdit,
-    editingRole,
+    editingSep,
     isLoading,
-    editingRoleId
+    editingSepId
   };
 };

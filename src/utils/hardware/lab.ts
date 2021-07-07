@@ -68,3 +68,13 @@ export const useDel = () => {
     }
   })
 }
+
+/*
+查询详情
+*/
+export const useLabDetail = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['labDetail', id], () => client(`hardware/label/get/${id}`), {
+    enabled: Boolean(id),
+  })
+}

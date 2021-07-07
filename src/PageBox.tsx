@@ -146,7 +146,7 @@ const User = () => {
       >
         <Button style={{ color: '#3A3D44', fontSize: '2rem', fontWeight: 'bold' }} type={"link"}
           onClick={(e) => e.preventDefault()}>
-          {user?.loginName}<DownOutlined />
+          {user?.userName}<DownOutlined />
         </Button>
       </Dropdown>
       <PassModal
