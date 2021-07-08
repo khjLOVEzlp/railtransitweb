@@ -1,4 +1,4 @@
-import {Button, Form, message, Modal, Select} from "antd";
+import {Button, Col, Form, message, Modal, Row, Select, Spin} from "antd";
 import {rules} from "utils/verification";
 import {useUserAll} from "utils/system/user";
 import {useSharePlan} from 'utils/plan/planWork'
@@ -8,8 +8,8 @@ const {Option} = Select
 
 export const ShareModalForm = () => {
   const [form] = Form.useForm();
-  const {ModalOpen, close, publishPlanWorkId} = useShareModal()
-  const {mutateAsync, isLoading} = useSharePlan()
+  const {ModalOpen, close, publishPlanWorkId, isLoading, editingPlanWork} = useShareModal()
+  const {mutateAsync, isLoading: mutaLoading} = useSharePlan()
   const {data: personList} = useUserAll()
 
   const closeModal = () => {
@@ -29,6 +29,16 @@ export const ShareModalForm = () => {
     form.submit();
   };
 
+  const isStatus = (id: number) => {
+    if (id === 0) {
+      return "通过"
+    } else if (id === 1) {
+      return "驳回"
+    } else {
+      return ""
+    }
+  }
+
   return (
     <Modal
       title={"发布计划"}
@@ -38,9 +48,23 @@ export const ShareModalForm = () => {
       onCancel={closeModal}
       footer={[
         <Button key="back" onClick={closeModal}>取消</Button>,
-        <Button key="submit" type="primary" onClick={onOk} loading={isLoading}>提交</Button>
+        <Button key="submit" type="primary" onClick={onOk} loading={mutaLoading}>提交</Button>
       ]}
     >
+      {
+        isLoading ? (
+          <Spin size={"large"}/>
+        ) : (
+          editingPlanWork?.data.map((item: any) => (
+            <Row key={item.id}>
+              <Col style={mb} span={12}>人员名称：{item.userName}</Col>
+              <Col span={12}>发布者名称：{item.shareUserName}</Col>
+              <Col style={mb} span={12}>是否通过：{isStatus(item.isPass)}</Col>
+              <Col span={12}>备注：{item.remark}</Col>
+            </Row>
+          ))
+        )
+      }
       <Form
         form={form}
         onFinish={onFinish}
@@ -61,3 +85,5 @@ export const ShareModalForm = () => {
     </Modal>
   )
 }
+
+const mb = {marginBottom: "1rem"}

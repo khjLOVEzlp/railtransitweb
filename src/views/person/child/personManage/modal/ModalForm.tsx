@@ -1,12 +1,16 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Button, DatePicker, Form, Input, message, Modal, Radio, Select, Space, Spin, TreeSelect} from "antd";
+import {Button, DatePicker, Form, Input, message, Modal, Radio, Select, Space, Spin, TreeSelect, Upload} from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import dayjs from "dayjs";
 import {useHttp} from "utils/http";
 import {rules} from "utils/verification";
 import {useAllRfi} from "utils/hardware/rfi";
-import {usePersonModal} from '../util'
+import {usePersonModal, useImportModal} from '../util'
 import {useAdd, useMod} from 'utils/person/personManage'
+import {InboxOutlined} from '@ant-design/icons';
+import {useAuth} from "../../../../../context/auth-context";
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const {Option} = Select
 
@@ -30,10 +34,14 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingPerson, ...value, id: editingPersonId}).then(() => {
-      msg()
-      form.resetFields()
-      close()
+    mutateAsync({...editingPerson, ...value, id: editingPersonId}).then((res) => {
+      if (res.code === 200) {
+        msg()
+        form.resetFields()
+        close()
+      } else {
+        message.error(res.msg)
+      }
     })
   }
 
@@ -191,3 +199,42 @@ export const ModalForm = () => {
     </Modal>
   );
 };
+
+export const ImportModal = () => {
+  const {ModalOpen, close} = useImportModal()
+  const {user} = useAuth()
+
+  const props = {
+    name: 'file',
+    action: `${apiUrl}person/import`,
+    headers: {
+      authorization: `${user?.jwtToken}`,
+    },
+    onChange(info: any) {
+      if (info.file.status !== 'uploading') {
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name}上传成功`);
+        close()
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} 上传失败`);
+      }
+    },
+  };
+
+  return (
+    <Modal
+      title={"导入人员"}
+      visible={ModalOpen}
+      onCancel={close}
+      footer={false}
+    >
+      <Upload.Dragger {...props} maxCount={1}>
+        <p className="ant-upload-drag-icon">
+          <InboxOutlined/>
+        </p>
+        <p className="ant-upload-text">点击导入人员</p>
+      </Upload.Dragger>
+    </Modal>
+  )
+}

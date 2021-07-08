@@ -20,7 +20,10 @@ export const DictItem = () => {
   }
 
   const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
+    del(item.id).then(() => {
+      message.success('删除成功')
+      setParam({...param, index: 1})
+    })
   }
 
   const cancel = () => {
@@ -88,7 +91,7 @@ export const DictItem = () => {
               key: 'id',
               render: (item: any) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
-                  title={`是否要删除${item.name}`}
+                  title={`是否要删除${item.value}`}
                   onConfirm={() => confirm(item)}
                   onCancel={cancel}
                   okText="Yes"

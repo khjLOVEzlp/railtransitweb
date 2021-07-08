@@ -96,3 +96,13 @@ export const useUserDetail = (id?: number) => {
     enabled: Boolean(id),
   })
 }
+
+/*
+查询用户信息
+*/
+export const useInfo = (id?: number) => {
+  const client = useHttp()
+  return useQuery(['info', id], () => client(`user/getSelf/${id}`), {
+    enabled: Boolean(id),
+  })
+}

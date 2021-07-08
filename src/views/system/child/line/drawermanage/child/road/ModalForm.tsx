@@ -27,6 +27,8 @@ export const ModalForm = () => {
       msg()
       form.resetFields();
       close();
+    }).catch(err => {
+      message.error(err.msg)
     })
   }
 

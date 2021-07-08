@@ -1,28 +1,22 @@
-import {ToolTypeModal} from "../../../../../components/ToolTypeModal";
+import {ToolTypeModal} from "components/ToolTypeModal";
 import {Form, Input, Modal} from "antd";
 import {useInit, useProjectsSearchParams} from 'utils/warehouse/materialType'
-import {useDebounce} from "../../../../../hook/useDebounce";
+import {useDebounce} from "hook/useDebounce";
+import {useAddToolModal} from '../util'
 
-interface Props {
-  visible: boolean
-  onCancel: () => void
-  title: string
-  onSubmit: (item: object) => void
-}
-
-export const AddToolModal = ({visible, onCancel, title, onSubmit}: Props) => {
+export const AddToolModal = () => {
   const [param, setParam] = useProjectsSearchParams()
   const {data, isLoading} = useInit(useDebounce(param, 500))
-
+  const {ModalOpen, close} = useAddToolModal()
   const handleTableChange = (p: any) => {
     setParam({...param, index: p.current, size: p.pageSize})
   };
   return (
     <Modal
       width={800}
-      title={title}
-      visible={visible}
-      onCancel={onCancel}
+      title={"添加工具"}
+      visible={ModalOpen}
+      onCancel={close}
       footer={false}
     >
       <Form>
@@ -45,8 +39,7 @@ export const AddToolModal = ({visible, onCancel, title, onSubmit}: Props) => {
         current={param.index}
         loading={isLoading}
         data={data?.data}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
+        onCancel={close}
       />
     </Modal>
   )

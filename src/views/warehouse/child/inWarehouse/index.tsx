@@ -65,9 +65,9 @@ export const InWarehouse = () => {
                 key: 'groupName',
               },
               {
-                title: '数量',
-                dataIndex: 'num',
-                key: 'num',
+                title: '标签',
+                dataIndex: 'labelNum',
+                key: 'labelNum',
               },
               {
                 title: '入库时间',

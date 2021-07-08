@@ -116,7 +116,7 @@ export const useFeedBack = () => {
 /* 查看反馈信息 */
 export const useShare = (id: number) => {
   const client = useHttp()
-  return useQuery(['share', id], () => client(`plan/getShare/${id}`), {
+  return useQuery<any>(['share', id], () => client(`plan/getShare/${id}`), {
     enabled: Boolean(id),
   })
 }

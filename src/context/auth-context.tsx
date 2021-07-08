@@ -12,6 +12,7 @@ const AuthContext = createContext<| {
     jwtToken: string,
     loginName?: string
     userName?: string
+    userId?: number
   } | null;
   login: (form: AuthForm) => Promise<void>;
   logout: () => Promise<void>;
@@ -57,6 +58,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     jwtToken: string,
     loginName?: string,
     userName?: string
+    userId?: number
   } | null>();
   const queryClient = useQueryClient();
 

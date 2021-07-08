@@ -18,6 +18,7 @@ export const ModalForm = () => {
   const useMutateProject = editingPlanType ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
   const {data: material} = useMaterialType()
+
   useEffect(() => {
     form.setFieldsValue(editingPlanType?.data)
   }, [form, editingPlanType])

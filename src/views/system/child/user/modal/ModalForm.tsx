@@ -6,6 +6,7 @@ import {useUserList} from "utils/system/user";
 import {useInit} from 'utils/person/personManage'
 import {useUserModal} from '../util'
 import {useAdd, useMod} from 'utils/system/user'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 const {Option} = Select;
 
@@ -13,6 +14,7 @@ export const ModalForm = () => {
   const [form] = Form.useForm();
   const [roleList, setRoleList] = useState([])
   const client = useHttp()
+  const setUrlParams = useSetUrlSearchParam()
   const {ModalOpen, isLoading, close, editingUser, editingUserId} = useUserModal()
   const title = editingUser ? "修改" : "新增"
   const msg = editingUser ? () => message.success("修改成功") : () => message.success("新增成功")
@@ -29,10 +31,15 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingUser, ...value, id: editingUserId}).then(() => {
-      msg()
-      form.resetFields()
-      close()
+    mutateAsync({...editingUser, ...value, id: editingUserId}).then((res) => {
+      if (res.code === 200) {
+        msg()
+        form.resetFields()
+        close()
+        setUrlParams({index: 1})
+      } else {
+        message.error(res.msg)
+      }
     })
   }
 

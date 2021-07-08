@@ -30,7 +30,7 @@ export const SpiritStatus = () => {
 
       case 2:
         return (
-          <span>异常</span>
+          <span style={{color: "red"}}>异常</span>
         )
 
       default:

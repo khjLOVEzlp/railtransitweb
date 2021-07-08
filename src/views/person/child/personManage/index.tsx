@@ -1,13 +1,17 @@
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import {ModalForm} from "./modal/ModalForm";
+import {ImportModal, ModalForm} from "./modal/ModalForm";
 import {useDel, useInit, useProjectsSearchParams} from 'utils/person/personManage';
 import {useDebounce} from 'hook/useDebounce';
-import {usePersonModal} from './util'
+import {usePersonModal, useImportModal} from './util'
+import {useAuth} from "../../../../context/auth-context";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const PersonManage = () => {
+  const {user} = useAuth()
   const [param, setParam] = useProjectsSearchParams()
   const {open, startEdit} = usePersonModal()
+  const {open: openImportModal} = useImportModal()
   const {data, isLoading} = useInit(useDebounce(param, 500))
   const {mutateAsync: Del} = useDel()
 
@@ -20,7 +24,12 @@ export const PersonManage = () => {
   }
 
   const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
+    del(item.id).then(() => {
+      message.success('删除成功')
+      setParam({...param, index: 1})
+    }).catch(err => {
+      message.error(err.msg)
+    })
   }
 
   const cancel = () => {
@@ -30,6 +39,26 @@ export const PersonManage = () => {
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({...param, index: p.current, size: p.pageSize})
   };
+
+  const downTemplate = () => {
+    fetch(`${apiUrl}person/downTemplate`, {
+      method: 'get',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": `${user?.jwtToken}`
+      },
+    }).then((res) => {
+      return res.blob();
+    }).then(blob => {
+      let bl = new Blob([blob], {type: blob.type});
+      let fileName = "模板" + ".xlsx";
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+      window.URL.revokeObjectURL(link.href);
+    })
+  }
 
   return (
     <>
@@ -51,6 +80,16 @@ export const PersonManage = () => {
             <Button type="primary" htmlType="submit">
               搜索
             </Button>
+          </Form.Item>
+
+          <Form.Item>
+            <Button onClick={() => downTemplate()}>
+              模板下载
+            </Button>
+          </Form.Item>
+
+          <Form.Item>
+              <Button onClick={openImportModal}>导入人员</Button>
           </Form.Item>
         </Form>
 
@@ -121,6 +160,7 @@ export const PersonManage = () => {
                rowKey={(item: any) => item.id}/>
       </Main>
       <ModalForm/>
+      <ImportModal/>
     </>
   );
 };

@@ -20,7 +20,10 @@ export const SeperateController = () => {
   }
 
   const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功')).catch(err => {
+    del(item.id).then(() => {
+      message.success('删除成功')
+      setParam({...param, index: 1})
+    }).catch(err => {
       message.error(err.msg)
     })
   }

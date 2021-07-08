@@ -21,7 +21,10 @@ export const Menu = () => {
   }
 
   const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
+    del(item.id).then(() => {
+      message.success('删除成功')
+      setParam({...param, index: 1})
+    })
   }
 
   const cancel = () => {

@@ -1,5 +1,5 @@
 import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {usePlanWorkDetail} from "utils/plan/planWork";
+import {usePlanWorkDetail, useShare} from "utils/plan/planWork";
 
 export const usePlanWorkModal = () => {
   const setUrlParams = useSetUrlSearchParam();
@@ -12,7 +12,7 @@ export const usePlanWorkModal = () => {
     "editingPlanWorkId",
   ]);
 
-  const {data: editingPlanWork, isLoading} = usePlanWorkDetail(
+  const {data: editingPlanWork, isLoading, isSuccess} = usePlanWorkDetail(
     Number(editingPlanWorkId)
   );
 
@@ -28,7 +28,8 @@ export const usePlanWorkModal = () => {
     startEdit,
     editingPlanWork,
     isLoading,
-    editingPlanWorkId
+    editingPlanWorkId,
+    isSuccess
   };
 };
 
@@ -40,6 +41,10 @@ export const useShareModal = () => {
     "publishPlanWorkId",
   ]);
 
+  const {data: editingPlanWork, isLoading} = useShare(
+    Number(publishPlanWorkId)
+  );
+
   const close = () => setUrlParams({publishPlanWorkId: ""});
 
   const startEdit = (id: number) =>
@@ -49,6 +54,27 @@ export const useShareModal = () => {
     ModalOpen: Boolean(publishPlanWorkId),
     publishPlanWorkId,
     startEdit,
-    close
+    close,
+    isLoading,
+    editingPlanWork
   }
+}
+
+/*添加工具弹框*/
+
+export const useAddToolModal = () => {
+  const setUrlParams = useSetUrlSearchParam();
+
+  const [{AddTool}, setAddTool] = useUrlQueryParam([
+    "AddTool"
+  ])
+
+  const open = () => setAddTool({AddTool: true})
+  const close = () => setUrlParams({AddTool: ""});
+
+  return {
+    ModalOpen: AddTool === "true",
+    open,
+    close,
+  };
 }

@@ -1,16 +1,13 @@
 import { Button, Form, message, Modal, Popconfirm, Radio, Table, Input } from "antd"
 import { useForm } from "antd/lib/form/Form";
 import { useState } from "react";
-import { rules } from "../../utils/verification";
-import { useInit, useMod, useFeedBack } from "../../utils/notice";
+import { rules } from "utils/verification";
+import { useInit, useMod, useFeedBack } from "utils/notice";
+import {useNoticeModal} from './util'
 const { TextArea } = Input
 
-interface Props {
-  visible: boolean
-  onCancel: () => void
-}
-
-export const OperModal = ({ visible, onCancel }: Props) => {
+export const OperModal = () => {
+  const {ModalOpen, close} = useNoticeModal()
   const [shareVisible, setShareVisible] = useState(false)
   const [id, setId] = useState<number | undefined>(undefined)
   const [form] = useForm()
@@ -154,11 +151,12 @@ export const OperModal = ({ visible, onCancel }: Props) => {
       keyboard={false}
       maskClosable={false}
       width={1200}
-      visible={visible}
-      onCancel={onCancel}
+      visible={ModalOpen}
+      onCancel={close}
       footer={false}
       title={"事务通知"}>
       <Table
+        size="small"
         loading={isLoading}
         dataSource={data?.data}
         pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}

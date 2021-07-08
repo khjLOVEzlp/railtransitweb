@@ -38,7 +38,13 @@ export const http = async (
         return Promise.reject({ message: "请重新登录" });
       }
       const data = await response.json();
+
+      if (data.code === 334) {
+        message.error("数据权限异常，请在用户管理重新为用户设置角色")
+      }
+
       if (response.ok) {
+        console.log(data)
         return data;
       } else {
         return Promise.reject(data);

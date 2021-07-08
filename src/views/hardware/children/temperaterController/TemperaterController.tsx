@@ -20,7 +20,12 @@ export const TemperaterController = () => {
   }
 
   const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
+    del(item.id).then(() => {
+      message.success('删除成功')
+      setParam({...param, index: 1})
+    }).catch(err => {
+      message.error(err.msg)
+    })
   }
 
   const cancel = () => {
@@ -72,6 +77,11 @@ export const TemperaterController = () => {
               title: '在线状态',
               key: 'status',
               render: (item: any) => item.status === 0 ? '离线' : '在线'
+            },
+            {
+              title: '是否使用',
+              key: 'isUse',
+              render: (item: any) => item.isUse === "0" ? '使用' : '未使用'
             },
             {
               title: '操作',

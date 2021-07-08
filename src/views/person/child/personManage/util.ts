@@ -31,3 +31,23 @@ export const usePersonModal = () => {
     editingPersonId
   };
 };
+
+/*导入人员弹框*/
+
+export const useImportModal = () => {
+  const setUrlParams = useSetUrlSearchParam()
+
+  const [{importModal}, setImportModal] = useUrlQueryParam([
+    "importModal"
+  ])
+
+  const open = () => setImportModal({importModal: true})
+
+  const close = () => setUrlParams({importModal: ""})
+
+  return {
+    ModalOpen: importModal === 'true',
+    open,
+    close
+  }
+}

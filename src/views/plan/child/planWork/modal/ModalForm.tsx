@@ -21,12 +21,11 @@ import {getToken} from "../../../../../auth-provider";
 import {rules} from "utils/verification";
 import {usePlanType} from "utils/plan/planType";
 import {useLine} from "utils//system/line";
-// import '../../style.css'
 import {useSite} from "utils/plan/planWork";
 import {useMaterialType} from "utils/warehouse/materialType";
 import {usePerson} from "utils/person/personManage";
 import {AddToolModal} from './AddToolModal'
-import {usePlanWorkModal} from '../util'
+import {usePlanWorkModal, useAddToolModal} from '../util'
 import {useAdd, useMod} from "utils/plan/planWork";
 
 const baseUrl = process.env["REACT_APP_API_URL"]
@@ -43,17 +42,19 @@ export const ModalForm = () => {
   const [value, setValue] = useState()
   const [id, setId] = useState<number>(0)
   const client = useHttp()
-  const {ModalOpen, isLoading, close, editingPlanWork, editingPlanWorkId} = usePlanWorkModal()
+  const {open} = useAddToolModal()
+  const {ModalOpen, isLoading, close, editingPlanWork, editingPlanWorkId, isSuccess} = usePlanWorkModal()
   const title = editingPlanWork ? "修改" : "新增"
   const msg = editingPlanWork ? () => message.success("修改成功") : () => message.success("新增成功")
   const useMutateProject = editingPlanWork ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
   useEffect(() => {
-    /*form.setFieldsValue(
-      editingPlanWork?.data)*/
-    console.log(editingPlanWork)
-
+    if (isSuccess) {
+      let newList = editingPlanWork.data.typeList.map((key: any) => key.typeId)
+      editingPlanWork.data.typeList = newList
+      form.setFieldsValue(editingPlanWork?.data)
+    }
   }, [form, editingPlanWork])
 
   const closeModal = () => {
@@ -95,12 +96,11 @@ export const ModalForm = () => {
     form.setFieldsValue({warnTime: item})
   }
 
-  const options = personList
-
   /* 添加工具 */
   const addTool = () => {
-    message.success("添加工具待开发")
+    // message.success("添加工具待开发")
     // setVisibleTool(true)
+    open()
   }
 
   const handleSubmit = (value: object) => {
@@ -458,7 +458,7 @@ export const ModalForm = () => {
       }
 
       {/*添加工具*/}
-      <AddToolModal visible={visibleTool} onCancel={cancel} title={title} onSubmit={handleSubmit}/>
+      <AddToolModal/>
     </Modal>
   );
 };

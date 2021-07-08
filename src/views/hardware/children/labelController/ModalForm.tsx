@@ -71,7 +71,6 @@ export const ModalForm = () => {
             <Form.Item
               label="915编码"
               name="codeHex915"
-              rules={rules}
             >
               <Input/>
             </Form.Item>

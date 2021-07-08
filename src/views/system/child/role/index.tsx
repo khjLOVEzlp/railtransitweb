@@ -4,6 +4,7 @@ import {ModalForm} from "./modal/ModalForm";
 import {useDel, useInit, useProjectsSearchParams} from 'utils/system/role';
 import {useDebounce} from 'hook/useDebounce';
 import {useRoleModal} from './util'
+import dayjs from "dayjs";
 
 export const Role = () => {
   const [param, setParam] = useProjectsSearchParams()
@@ -20,7 +21,10 @@ export const Role = () => {
   }
 
   const confirm = (item: number) => {
-    del(item).then(() => message.success('删除成功'))
+    del(item).then(() => {
+      message.success('删除成功')
+      setParam({...param, index: 1})
+    })
   }
 
   const cancel = () => {
@@ -67,6 +71,7 @@ export const Role = () => {
               title: "创建时间",
               dataIndex: 'createTime',
               key: 'id',
+              sorter: (a: any, b: any) => dayjs(a.createTime).unix() - dayjs(b.createTime).unix()
             },
             {
               title: '备注',

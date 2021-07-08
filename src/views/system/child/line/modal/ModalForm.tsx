@@ -9,7 +9,7 @@ export const ModalForm = () => {
   const [form] = Form.useForm();
   const [departmentList, setDepartmentList] = useState([])
   const client = useHttp()
-  const {ModalOpen, isLoading, close, editingLine, editingLineId} = useLineModal()
+  const {ModalOpen, isLoading, close, editingLine, editingLineId, startAdd} = useLineModal()
   const title = editingLine ? "修改" : "新增"
   const msg = editingLine ? () => message.success("修改成功") : () => message.success("新增成功")
   const useMutateProject = editingLine ? useMod : useAdd;
@@ -52,10 +52,15 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingLine, ...value, id: editingLineId}).then(() => {
-      msg()
-      form.resetFields()
-      close()
+    mutateAsync({...editingLine, ...value, id: editingLineId}).then((res) => {
+      if (res.code === 200) {
+        msg()
+        form.resetFields()
+        close()
+        startAdd()
+      } else {
+        message.error(res.msg)
+      }
     })
   }
 
@@ -97,7 +102,7 @@ export const ModalForm = () => {
             </Form.Item>
 
             <Form.Item
-              label="线路名称"
+              label="地铁线路名称"
               name="name"
               rules={rules}
             >

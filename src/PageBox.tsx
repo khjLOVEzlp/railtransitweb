@@ -11,6 +11,8 @@ import { RouterElement } from "./router";
 import qs from "qs";
 import { OperModal } from "./views/notice/OperModal";
 import {PassModal} from "./components/PassModal";
+import {useNoticeModal} from 'views/notice/util'
+import {useInfoModal, UserInfo} from './components/UserInfo'
 
 export const PageBox = () => {
   const [menu, setMenu] = useState([])
@@ -88,14 +90,17 @@ export const PageBox = () => {
           <Navigate to={window.location.pathname + "home"} replace={true}/>
         </Routes>*/}
       </ContentStyle>
+      <UserInfo/>
     </Container>
   )
 }
 
 const User = () => {
+  const {open} = useNoticeModal()
+  const {startEdit} = useInfoModal()
   const { logout, user } = useAuth();
+  console.log(user)
   const [visible, setVisible] = useState(false);
-  const [modalVisible, setModalVisible] = useState<boolean>(false)
   const client = useHttp()
   const onCreate = (values: any) => {
     client(`user/editpassword?${qs.stringify(values)}`, { method: "POST" }).then(() => {
@@ -111,23 +116,17 @@ const User = () => {
     setVisible(true);
   };
 
-  const onCancel = () => {
-    setModalVisible(false)
-  }
-
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
-      <Button type={"link"} onClick={() => {
-        setModalVisible(true)
-      }}>
+      <Button type={"link"} onClick={open}>
         <img src={notice} alt="" />
       </Button>
-      <OperModal visible={modalVisible} onCancel={onCancel} />
+      <OperModal />
       <Dropdown
         overlay={
           <Menu>
             <Menu.Item key={"user"}>
-              <Button onClick={() => { }} type={"link"}>
+              <Button onClick={() => startEdit(user?.userId)} type={"link"}>
                 用户信息
               </Button>
             </Menu.Item>
@@ -139,6 +138,11 @@ const User = () => {
             <Menu.Item key={"logout"}>
               <Button onClick={logout} type={"link"}>
                 登出
+              </Button>
+            </Menu.Item>
+            <Menu.Item key={"help"}>
+              <Button onClick={() => {}} type={"link"}>
+                关于、帮助
               </Button>
             </Menu.Item>
           </Menu>

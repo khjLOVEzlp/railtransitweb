@@ -31,7 +31,12 @@ export const ToolType = () => {
   }
 
   const confirm = (item: any) => {
-    del(item.id).then(() => message.success('删除成功'))
+    del(item.id).then(() => {
+      message.success('删除成功')
+      setParam({...param, index: 1})
+    }).catch(err => {
+      message.error(err.msg)
+    })
   }
 
   const cancel = () => {
@@ -67,11 +72,11 @@ export const ToolType = () => {
           </Form.Item>
 
           <Form.Item
-            label="类型"
+            label=""
             name="type"
-            initialValue={1}
           >
-            <Select style={{width: 120}} onChange={handleChange}>
+            <Select style={{width: 120}} onChange={handleChange} placeholder={"类型"}>
+              <Option value={""}>所有</Option>
               <Option value={1}>轨行区内</Option>
               <Option value={2}>轨行区外</Option>
             </Select>

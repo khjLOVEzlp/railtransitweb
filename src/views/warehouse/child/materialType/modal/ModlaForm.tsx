@@ -22,10 +22,14 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingMaterial, ...value, id: editingMaterialId}).then(() => {
-      msg()
-      form.resetFields()
-      close()
+    mutateAsync({...editingMaterial, ...value, id: editingMaterialId}).then((res) => {
+      if (res.code === 200) {
+        msg()
+        form.resetFields()
+        close()
+      } else {
+        message.error(res.msg)
+      }
     })
   }
 
