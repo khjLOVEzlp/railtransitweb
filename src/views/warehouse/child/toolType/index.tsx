@@ -1,30 +1,23 @@
-import {useState} from 'react';
 import {Form, Input, Button, Table, Popconfirm, message, Select} from 'antd';
 import styled from "@emotion/styled";
 import {useDel, useInit, useProjectsSearchParams} from 'utils/warehouse/toolType';
 import {ModalForm} from './modal/ModalForm';
 import {Tool} from './tool';
 import {useDebounce} from "hook/useDebounce";
-import {useToolTypeModal} from './util'
+import {useToolTypeModal, useViewTool} from './util'
 
 const {Option} = Select;
 
 export const ToolType = () => {
-  const [toolVisible, setToolVisible] = useState(false);
   const [param, setParam] = useProjectsSearchParams()
   const {open, startEdit} = useToolTypeModal()
-
+  const {startEdit: startTool} = useViewTool()
   const {data, isLoading} = useInit(useDebounce(param, 500))
   const {mutateAsync: Del} = useDel()
 
   const search = (item: any) => {
     setParam({...param, name: item.name, type: item.type, index: 1})
   };
-
-  const viewTool = (item: any) => {
-    message.success("功能未开发完成")
-    setToolVisible(true)
-  }
 
   const del = async (id: number) => {
     Del(id)
@@ -46,10 +39,6 @@ export const ToolType = () => {
   const handleChange = (value: any) => {
     setParam({...param, type: value})
   }
-
-  const onClose = () => {
-    setToolVisible(false)
-  };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({...param, index: p.current, size: p.pageSize})
@@ -123,7 +112,7 @@ export const ToolType = () => {
               title: '操作',
               key: 'id',
               render: (item: any) => <>
-                <Button type="link" onClick={() => viewTool(item)}>查看工具</Button>
+                <Button type="link" onClick={() => startTool(item.id)}>查看工具</Button>
                 <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
                   title={`是否要删除${item.name}`}
@@ -143,7 +132,7 @@ export const ToolType = () => {
         />
       </Main>
       <ModalForm/>
-      {/*<Tool visible={toolVisible} onClose={onClose}/>*/}
+      <Tool/>
     </>
   );
 };

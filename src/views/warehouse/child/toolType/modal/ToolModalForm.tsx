@@ -1,35 +1,23 @@
-import { DatePicker, Form, Input, Modal, Space } from "antd"
-import { useToolDetail } from "../../../../../utils/warehouse/toolType"
+import {DatePicker, Form, Input, Modal, Space} from "antd"
+import {useToolDetail} from "utils/warehouse/toolType"
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import { useForm } from "antd/lib/form/Form";
-import { useEffect } from "react";
-import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
+import {useForm} from "antd/lib/form/Form";
+import {useEffect, useState} from "react";
 
-interface Props {
-  visible: boolean;
-  onCancel: () => void;
-  formData: any
-}
-export const ToolModalForm: React.FC<Props> = ({ visible, onCancel, formData }) => {
+export const ToolModalForm = () => {
+  const [visible] = useState(false)
   const [form] = useForm()
-  const { data } = useToolDetail(formData.id)
-
-  useEffect(() => {
-    form.setFieldsValue(data?.data)
-  }, [data, form])
 
   const beginTime = (obj: any | null, time: string) => {
-    form.setFieldsValue({ beginTime: time })
+    form.setFieldsValue({beginTime: time})
   }
 
-  useResetFormOnCloseModal({
-    form,
-    visible,
-  });
+  const onCancel = () => {}
 
   const onOk = () => {
     form.submit();
   };
+
   return (
     <>
       <Modal
@@ -48,8 +36,8 @@ export const ToolModalForm: React.FC<Props> = ({ visible, onCancel, formData }) 
             label={"失效时间"}
             name={"invalidTime"}
           >
-            <Space direction="vertical" style={{ width: '30rem' }}>
-              <DatePicker locale={locale} onChange={beginTime} />
+            <Space direction="vertical" style={{width: '30rem'}}>
+              <DatePicker locale={locale} onChange={beginTime}/>
             </Space>
           </Form.Item>
 
@@ -57,21 +45,21 @@ export const ToolModalForm: React.FC<Props> = ({ visible, onCancel, formData }) 
             label={"标签"}
             name={"labelNum"}
           >
-            <Input disabled />
+            <Input disabled/>
           </Form.Item>
 
           <Form.Item
             label={"仓库"}
             name={"warehouseId"}
           >
-            <Input disabled />
+            <Input disabled/>
           </Form.Item>
 
           <Form.Item
             label={"备注"}
             name={"remark"}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Form>
       </Modal>

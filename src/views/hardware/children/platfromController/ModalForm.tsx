@@ -78,7 +78,7 @@ export const ModalForm = () => {
               name="phone"
               rules={rules}
             >
-              <Input/>
+              <Input type={"number"}/>
             </Form.Item>
 
             <Form.Item

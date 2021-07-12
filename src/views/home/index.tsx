@@ -1,37 +1,19 @@
 import styled from "@emotion/styled"
-import {useCallback, useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useDocumentTitle} from 'hook/useDocumentTitle'
-import {useHttp} from "utils/http";
-import Page from './alarmPage'
-import PlanWorkPage from './planWork'
+import Page from './child/alarmStatistics'
+import PlanWorkPage from './child/taskStatistics'
 import * as echarts from 'echarts';
-import PlanType from './planType'
+import PlanType from './child/planType'
 import {MyEcharts} from "components/MyEcharts";
 import {option} from './subwayRoute'
 
 export const Home = () => {
-  const [data, setData] = useState([])
   useDocumentTitle('首页')
 
   useEffect(() => {
     echarts.init(document.getElementById('track') as HTMLElement).setOption(option)
   })
-
-  const client = useHttp()
-
-  const getAlertData = useCallback(() => {
-    client(`alarm/statistic/list`, {method: "POST", body: JSON.stringify({})}).then(res => {
-      res.data.forEach((key: { [key in string]: unknown }) => {
-        key["star"] = key.num
-        key["name"] = key.title
-      })
-      setData(res.data)
-    })
-  }, [client])
-
-  useEffect(() => {
-    getAlertData()
-  }, [getAlertData])
 
   return (
     <Container>
@@ -40,22 +22,21 @@ export const Home = () => {
           <MyEcharts id="track" data={option} style={{width: '100%', height: '100%'}}/>
         </div>
         <div className="right">
+          {/*告警统计*/}
           <div>
-            <Page data={data}/>
+            <Page/>
           </div>
         </div>
       </Header>
       <Footer>
+        {/*计划统计*/}
         <div className="left">
           <div>
             <PlanType/>
           </div>
         </div>
+        {/*作业统计*/}
         <div className="right">
-          {/* <div className="title">
-            作业统计
-          </div>
-          <MyEcharts id="task" data={taskData} style={{ width: '100%', height: '30rem' }} /> */}
           <div>
             <PlanWorkPage/>
           </div>

@@ -27,10 +27,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -59,10 +59,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -91,10 +91,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -123,10 +123,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -155,10 +155,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -187,10 +187,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -214,10 +214,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -242,10 +242,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -269,10 +269,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -296,10 +296,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -323,10 +323,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -350,10 +350,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -377,10 +377,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -404,10 +404,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -431,10 +431,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -458,10 +458,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -485,10 +485,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -512,10 +512,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -539,10 +539,10 @@ const data = [
           offset: 0,
           color: "#FF1493"
         },
-          {
-            offset: 1,
-            color: "#0000FF"
-          }
+        {
+          offset: 1,
+          color: "#0000FF"
+        }
         ])
       }
     }
@@ -566,10 +566,10 @@ const data = [
           offset: 0,
           color: "#FF1493"
         },
-          {
-            offset: 1,
-            color: "#0000FF"
-          }
+        {
+          offset: 1,
+          color: "#0000FF"
+        }
         ])
       }
     }
@@ -593,10 +593,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -620,10 +620,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -647,10 +647,10 @@ const data = [
           offset: 0,
           color: "#FF1493"
         },
-          {
-            offset: 1,
-            color: "#0000FF"
-          }
+        {
+          offset: 1,
+          color: "#0000FF"
+        }
         ])
       }
     }
@@ -674,10 +674,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -701,10 +701,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -728,10 +728,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -755,10 +755,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -782,10 +782,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-          {
-            offset: 1,
-            color: "#35c2ff"
-          }
+        {
+          offset: 1,
+          color: "#35c2ff"
+        }
         ])
       }
     }
@@ -810,10 +810,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -837,10 +837,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -864,10 +864,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -891,10 +891,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -918,10 +918,10 @@ const data = [
           offset: 0,
           color: "#FF1493"
         },
-          {
-            offset: 1,
-            color: "#0000FF"
-          }
+        {
+          offset: 1,
+          color: "#0000FF"
+        }
         ])
       }
     }
@@ -945,10 +945,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -972,10 +972,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -999,10 +999,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1026,10 +1026,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1053,10 +1053,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1080,10 +1080,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1107,10 +1107,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1134,10 +1134,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1161,10 +1161,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1188,10 +1188,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1215,10 +1215,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1242,10 +1242,10 @@ const data = [
           offset: 0,
           color: "#FF1493"
         },
-          {
-            offset: 1,
-            color: "#0000FF"
-          }
+        {
+          offset: 1,
+          color: "#0000FF"
+        }
         ])
       }
     }
@@ -1269,10 +1269,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1296,10 +1296,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1323,10 +1323,10 @@ const data = [
           offset: 0,
           color: "red"
         },
-          {
-            offset: 1,
-            color: "red"
-          }
+        {
+          offset: 1,
+          color: "red"
+        }
         ])
       }
     }
@@ -1351,10 +1351,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1378,10 +1378,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1405,10 +1405,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1432,10 +1432,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1459,10 +1459,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1486,10 +1486,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1513,10 +1513,10 @@ const data = [
           offset: 0,
           color: "#FF1493"
         },
-          {
-            offset: 1,
-            color: "#0000FF"
-          }
+        {
+          offset: 1,
+          color: "#0000FF"
+        }
         ])
       }
     }
@@ -1540,10 +1540,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1567,10 +1567,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1594,10 +1594,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1621,10 +1621,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1648,10 +1648,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1675,10 +1675,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1702,10 +1702,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1729,10 +1729,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1756,10 +1756,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1783,10 +1783,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1810,10 +1810,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1837,10 +1837,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1864,10 +1864,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1891,10 +1891,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1918,10 +1918,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1945,10 +1945,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -1972,10 +1972,10 @@ const data = [
           offset: 0,
           color: "#FF00FF"
         },
-          {
-            offset: 1,
-            color: "#FF00FF"
-          }
+        {
+          offset: 1,
+          color: "#FF00FF"
+        }
         ])
       }
     }
@@ -2000,10 +2000,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2027,10 +2027,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2054,10 +2054,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2081,10 +2081,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2108,10 +2108,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2135,10 +2135,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2162,10 +2162,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2189,10 +2189,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2216,10 +2216,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2243,10 +2243,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2270,10 +2270,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2297,10 +2297,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2324,10 +2324,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2351,10 +2351,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2378,10 +2378,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2405,10 +2405,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2432,10 +2432,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2459,10 +2459,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2486,10 +2486,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2513,10 +2513,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2540,10 +2540,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2567,10 +2567,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2594,10 +2594,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2621,10 +2621,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2648,10 +2648,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2675,10 +2675,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-          {
-            offset: 1,
-            color: "#48D1CC"
-          }
+        {
+          offset: 1,
+          color: "#48D1CC"
+        }
         ])
       }
     }
@@ -2703,10 +2703,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-          {
-            offset: 1,
-            color: "#20B2AA"
-          }
+        {
+          offset: 1,
+          color: "#20B2AA"
+        }
         ])
       }
     }
@@ -2730,10 +2730,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-          {
-            offset: 1,
-            color: "#20B2AA"
-          }
+        {
+          offset: 1,
+          color: "#20B2AA"
+        }
         ])
       }
     }
@@ -2757,10 +2757,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-          {
-            offset: 1,
-            color: "#20B2AA"
-          }
+        {
+          offset: 1,
+          color: "#20B2AA"
+        }
         ])
       }
     }
@@ -2784,10 +2784,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-          {
-            offset: 1,
-            color: "#20B2AA"
-          }
+        {
+          offset: 1,
+          color: "#20B2AA"
+        }
         ])
       }
     }
@@ -2811,10 +2811,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-          {
-            offset: 1,
-            color: "#20B2AA"
-          }
+        {
+          offset: 1,
+          color: "#20B2AA"
+        }
         ])
       }
     }
@@ -2838,10 +2838,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-          {
-            offset: 1,
-            color: "#20B2AA"
-          }
+        {
+          offset: 1,
+          color: "#20B2AA"
+        }
         ])
       }
     }
@@ -2865,10 +2865,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-          {
-            offset: 1,
-            color: "#20B2AA"
-          }
+        {
+          offset: 1,
+          color: "#20B2AA"
+        }
         ])
       }
     }
@@ -2892,10 +2892,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-          {
-            offset: 1,
-            color: "#20B2AA"
-          }
+        {
+          offset: 1,
+          color: "#20B2AA"
+        }
         ])
       }
     }
@@ -2919,10 +2919,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-          {
-            offset: 1,
-            color: "#20B2AA"
-          }
+        {
+          offset: 1,
+          color: "#20B2AA"
+        }
         ])
       }
     }
@@ -2931,7 +2931,7 @@ const data = [
 
 export const option = ({
   title: {
-    text: '西安地铁线路图',
+    text: '',
     textStyle: {
       color: '#1890ff',
       fontSize: 20
@@ -2940,7 +2940,7 @@ export const option = ({
     top: 10
   },
   //不设置背景颜色就是透明色
-  backgroundColor: '#000',
+  backgroundColor: '#003366',
   xAxis: {
     show: false,
     min: 0,
@@ -2948,7 +2948,7 @@ export const option = ({
     // type: "value",
     //开启x轴坐标
     axisPointer: {
-      show: true
+      show: false
     },
   },
   yAxis: {
@@ -2958,7 +2958,7 @@ export const option = ({
     //   type: "value",
     //开启y轴坐标
     axisPointer: {
-      show: true
+      show: false
     },
   },
   tooltip: {},
@@ -2998,940 +2998,940 @@ export const option = ({
       //   }
       // }
     },
-      {
-        source: "北槐",
-        target: "上林路",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
+    {
+      source: "北槐",
+      target: "上林路",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
         }
-      },
-      {
-        source: "上林路",
-        target: "沣东自贸园",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
+      }
+    },
+    {
+      source: "上林路",
+      target: "沣东自贸园",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
         }
-      },
-      {
-        source: "沣东自贸园",
-        target: "后卫寨",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
+      }
+    },
+    {
+      source: "沣东自贸园",
+      target: "后卫寨",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
         }
-      },
+      }
+    },
 
-      {
-        source: "后卫寨",
-        target: "三桥",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
+    {
+      source: "后卫寨",
+      target: "三桥",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
         }
-      },
+      }
+    },
 
-      {
-        source: "三桥",
-        target: "皂河",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
+    {
+      source: "三桥",
+      target: "皂河",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
         }
-      },
+      }
+    },
 
-      {
-        source: "皂河",
-        target: "枣园"
-        // lineStyle: {
-        //   normal: {
-        //     color: "#12b5d0",
-        //
-        //   }
-        // }
-      },
-      {
-        source: "枣园",
-        target: "汉城路",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "汉城路",
-        target: "开远门",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "开远门",
-        target: "劳动路",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "劳动路",
-        target: "玉祥门",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "玉祥门",
-        target: "洒金桥",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "洒金桥",
-        target: "北大街",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "北大街",
-        target: "五路口",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "五路口",
-        target: "朝阳门",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "朝阳门",
-        target: "康复路",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "康复路",
-        target: "通化门",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "通化门",
-        target: "万寿路",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "万寿路",
-        target: "长乐坡",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "长乐坡",
-        target: "浐河",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "浐河",
-        target: "半坡",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      {
-        source: "半坡",
-        target: "纺织城",
-        lineStyle: {
-          normal: {
-            // color: "#12b5d0",
-          }
-        }
-      },
-      //地铁二号线连接
-      {
-        source: "韦曲南",
-        target: "航天城",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "航天城",
-        target: "凤栖原",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "凤栖原",
-        target: "三爻",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "三爻",
-        target: "会展中心",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "会展中心",
-        target: "纬一街",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "纬一街",
-        target: "小寨",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "小寨",
-        target: "体育场",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "体育场",
-        target: "南稍门",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "南稍门",
-        target: "永宁门",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "永宁门",
-        target: "钟楼",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "钟楼",
-        target: "北大街",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "北大街",
-        target: "安远门",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "安远门",
-        target: "龙首原",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "龙首原",
-        target: "大明宫西",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "大明宫西",
-        target: "市图书馆",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "市图书馆",
-        target: "凤城五路",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "凤城五路",
-        target: "行政中心",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "行政中心",
-        target: "运动公园",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "运动公园",
-        target: "北苑",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "北苑",
-        target: "北客站",
-        lineStyle: {
-          normal: {
-            color: "red",
-          }
-        }
-      },
-      {
-        source: "鱼化寨",
-        target: "丈八北路",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "丈八北路",
-        target: "延平门",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "延平门",
-        target: "科技路",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "科技路",
-        target: "太白南路",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "太白南路",
-        target: "吉祥村",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "吉祥村",
-        target: "小寨",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "小寨",
-        target: "大雁塔",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "大雁塔",
-        target: "北池头",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "北池头",
-        target: "青龙寺",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "青龙寺",
-        target: "延兴门",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "延兴门",
-        target: "咸宁路",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "咸宁路",
-        target: "长乐公园",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "长乐公园",
-        target: "通化门",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "通化门",
-        target: "胡家庙",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "胡家庙",
-        target: "石家街",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "石家街",
-        target: "辛家庙",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "辛家庙",
-        target: "广泰门",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "广泰门",
-        target: "桃花潭",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "桃花潭",
-        target: "浐灞中心",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "浐灞中心",
-        target: "香湖湾",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "香湖湾",
-        target: "务庄",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "务庄",
-        target: "国际港务区",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "国际港务区",
-        target: "双寨",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "双寨",
-        target: "新筑",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      {
-        source: "新筑",
-        target: "保税区",
-        lineStyle: {
-          normal: {
-            color: "#FF00FF",
-          }
-        }
-      },
-      //地铁四号线和机场城际的连线
-      {
-        source: "航天新城",
-        target: "航天东路",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "航天东路",
-        target: "神舟大道",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "神舟大道",
-        target: "东长安街",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "东长安街",
-        target: "飞天路",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "飞天路",
-        target: "航天大道",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "航天大道",
-        target: "金滹沱",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "金滹沱",
-        target: "曲江池西",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "曲江池西",
-        target: "大唐芙蓉园",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "大唐芙蓉园",
-        target: "大雁塔",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "大雁塔",
-        target: "西安科技大学",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "西安科技大学",
-        target: "建筑科技大学",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "建筑科技大学",
-        target: "和平门",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "和平门",
-        target: "大差市",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "大差市",
-        target: "五路口",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "五路口",
-        target: "火车站",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "火车站",
-        target: "含元殿",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "含元殿",
-        target: "大明宫",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "大明宫",
-        target: "大明宫北",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "大明宫北",
-        target: "余家寨",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "余家寨",
-        target: "百花村",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "百花村",
-        target: "常青路",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "常青路",
-        target: "市中医院",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "市中医院",
-        target: "行政中心",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "行政中心",
-        target: "文景路",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "文景路",
-        target: "凤城九路",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "凤城九路",
-        target: "凤城十二路",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "凤城十二路",
-        target: "元朔路",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "元朔路",
-        target: "北客站(北广场)",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      //机场城际各站点连线
-      {
-        source: "北客站(北广场)",
-        target: "渭河南",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "渭河南",
-        target: "秦宫",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "秦宫",
-        target: "秦汉新城",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "秦汉新城",
-        target: "长陵",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "长陵",
-        target: "摆旗寨",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "摆旗寨",
-        target: "艺术中心",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "艺术中心",
-        target: "空港新城",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "空港新城",
-        target: "机场（T5）",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
-      {
-        source: "机场（T5）",
-        target: "机场西（T1、T2、T3）",
-        lineStyle: {
-          normal: {
-            color: "#48D1CC",
-          }
-        }
-      },
+    {
+      source: "皂河",
+      target: "枣园"
+      // lineStyle: {
+      //   normal: {
+      //     color: "#12b5d0",
+      //
+      //   }
+      // }
+    },
+    {
+      source: "枣园",
+      target: "汉城路",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "汉城路",
+      target: "开远门",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "开远门",
+      target: "劳动路",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "劳动路",
+      target: "玉祥门",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "玉祥门",
+      target: "洒金桥",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "洒金桥",
+      target: "北大街",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "北大街",
+      target: "五路口",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "五路口",
+      target: "朝阳门",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "朝阳门",
+      target: "康复路",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "康复路",
+      target: "通化门",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "通化门",
+      target: "万寿路",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "万寿路",
+      target: "长乐坡",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "长乐坡",
+      target: "浐河",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "浐河",
+      target: "半坡",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    {
+      source: "半坡",
+      target: "纺织城",
+      lineStyle: {
+        normal: {
+          // color: "#12b5d0",
+        }
+      }
+    },
+    //地铁二号线连接
+    {
+      source: "韦曲南",
+      target: "航天城",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "航天城",
+      target: "凤栖原",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "凤栖原",
+      target: "三爻",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "三爻",
+      target: "会展中心",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "会展中心",
+      target: "纬一街",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "纬一街",
+      target: "小寨",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "小寨",
+      target: "体育场",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "体育场",
+      target: "南稍门",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "南稍门",
+      target: "永宁门",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "永宁门",
+      target: "钟楼",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "钟楼",
+      target: "北大街",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "北大街",
+      target: "安远门",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "安远门",
+      target: "龙首原",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "龙首原",
+      target: "大明宫西",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "大明宫西",
+      target: "市图书馆",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "市图书馆",
+      target: "凤城五路",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "凤城五路",
+      target: "行政中心",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "行政中心",
+      target: "运动公园",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "运动公园",
+      target: "北苑",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "北苑",
+      target: "北客站",
+      lineStyle: {
+        normal: {
+          color: "red",
+        }
+      }
+    },
+    {
+      source: "鱼化寨",
+      target: "丈八北路",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "丈八北路",
+      target: "延平门",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "延平门",
+      target: "科技路",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "科技路",
+      target: "太白南路",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "太白南路",
+      target: "吉祥村",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "吉祥村",
+      target: "小寨",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "小寨",
+      target: "大雁塔",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "大雁塔",
+      target: "北池头",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "北池头",
+      target: "青龙寺",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "青龙寺",
+      target: "延兴门",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "延兴门",
+      target: "咸宁路",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "咸宁路",
+      target: "长乐公园",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "长乐公园",
+      target: "通化门",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "通化门",
+      target: "胡家庙",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "胡家庙",
+      target: "石家街",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "石家街",
+      target: "辛家庙",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "辛家庙",
+      target: "广泰门",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "广泰门",
+      target: "桃花潭",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "桃花潭",
+      target: "浐灞中心",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "浐灞中心",
+      target: "香湖湾",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "香湖湾",
+      target: "务庄",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "务庄",
+      target: "国际港务区",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "国际港务区",
+      target: "双寨",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "双寨",
+      target: "新筑",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    {
+      source: "新筑",
+      target: "保税区",
+      lineStyle: {
+        normal: {
+          color: "#FF00FF",
+        }
+      }
+    },
+    //地铁四号线和机场城际的连线
+    {
+      source: "航天新城",
+      target: "航天东路",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "航天东路",
+      target: "神舟大道",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "神舟大道",
+      target: "东长安街",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "东长安街",
+      target: "飞天路",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "飞天路",
+      target: "航天大道",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "航天大道",
+      target: "金滹沱",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "金滹沱",
+      target: "曲江池西",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "曲江池西",
+      target: "大唐芙蓉园",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "大唐芙蓉园",
+      target: "大雁塔",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "大雁塔",
+      target: "西安科技大学",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "西安科技大学",
+      target: "建筑科技大学",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "建筑科技大学",
+      target: "和平门",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "和平门",
+      target: "大差市",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "大差市",
+      target: "五路口",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "五路口",
+      target: "火车站",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "火车站",
+      target: "含元殿",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "含元殿",
+      target: "大明宫",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "大明宫",
+      target: "大明宫北",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "大明宫北",
+      target: "余家寨",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "余家寨",
+      target: "百花村",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "百花村",
+      target: "常青路",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "常青路",
+      target: "市中医院",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "市中医院",
+      target: "行政中心",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "行政中心",
+      target: "文景路",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "文景路",
+      target: "凤城九路",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "凤城九路",
+      target: "凤城十二路",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "凤城十二路",
+      target: "元朔路",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "元朔路",
+      target: "北客站(北广场)",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    //机场城际各站点连线
+    {
+      source: "北客站(北广场)",
+      target: "渭河南",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "渭河南",
+      target: "秦宫",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "秦宫",
+      target: "秦汉新城",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "秦汉新城",
+      target: "长陵",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "长陵",
+      target: "摆旗寨",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "摆旗寨",
+      target: "艺术中心",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "艺术中心",
+      target: "空港新城",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "空港新城",
+      target: "机场（T5）",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
+    {
+      source: "机场（T5）",
+      target: "机场西（T1、T2、T3）",
+      lineStyle: {
+        normal: {
+          color: "#48D1CC",
+        }
+      }
+    },
     ],
     lineStyle: {
       normal: {
@@ -3942,50 +3942,50 @@ export const option = ({
       }
     }
   },
-    {
-      type: "lines",
-      coordinateSystem: "cartesian2d",
-      z: 1,
-      zlevel: 7,
-      animation: true,
-      effect: {
-        show: true,
-        period: 5,
-        trailLength: 0.71,
-        symbolSize: 14,
-        symbol: "circle",
-        loop: true,
-        color: 'yellow'
-        //   color: "rgba(55,155,255,0.5)"
-      },
-      lineStyle: {
-        normal: {
-          // color: "green",
-          width: 0,
-          curveness: 0  //动画线路的曲度
-        }
-      },
-
-      data: [
-        {  //一号线
-          coords: [
-            [5, 600],
-            [1130, 600]
-          ]
-        },
-        {  //二号线
-          coords: [
-            [680, 50],
-            [680, 1050]
-          ]
-        },
-        //   {  //三号线
-        //     coords: [
-        //       [280, 350],
-        //       [1040, 1080]
-        //     ]
-        //   }
-      ]
+  {
+    type: "lines",
+    coordinateSystem: "cartesian2d",
+    z: 1,
+    zlevel: 7,
+    animation: true,
+    effect: {
+      show: true,
+      period: 5,
+      trailLength: 0.71,
+      symbolSize: 14,
+      symbol: "circle",
+      loop: true,
+      color: 'yellow'
+      //   color: "rgba(55,155,255,0.5)"
     },
+    lineStyle: {
+      normal: {
+        // color: "green",
+        width: 0,
+        curveness: 0  //动画线路的曲度
+      }
+    },
+
+    data: [
+      {  //一号线
+        coords: [
+          [5, 600],
+          [1130, 600]
+        ]
+      },
+      {  //二号线
+        coords: [
+          [680, 50],
+          [680, 1050]
+        ]
+      },
+      //   {  //三号线
+      //     coords: [
+      //       [280, 350],
+      //       [1040, 1080]
+      //     ]
+      //   }
+    ]
+  },
   ]
 })

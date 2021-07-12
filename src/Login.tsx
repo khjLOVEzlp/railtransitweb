@@ -47,16 +47,22 @@ export const Login = () => {
           <Form.Item
             name="loginName"
             rules={rules}
+            getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
           >
-            <Input style={{height: "6rem", borderRadius: "10px"}} size="large" placeholder="账号：请输入您的账号"
-                   onChange={() => {
-                     setError(null)
-                   }}/>
+            <Input
+              style={{height: "6rem", borderRadius: "10px"}}
+              size="large"
+              placeholder="账号：请输入您的账号"
+              onChange={() => {
+                setError(null)
+              }}
+            />
           </Form.Item>
 
           <Form.Item
             name="password"
             rules={rules}
+            getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
           >
             <Input.Password style={{height: "6rem", borderRadius: "10px"}} size="large" placeholder="密码：请输入您的密码"
                             onChange={() => setError(null)}/>

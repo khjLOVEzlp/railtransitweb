@@ -4,6 +4,7 @@ import {useHttp} from "utils/http";
 import {rules} from "utils/verification";
 import {useAdd, useMod} from 'utils/system/role'
 import {useRoleModal} from '../util'
+import {useInit} from 'utils/system/menu'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
@@ -14,6 +15,8 @@ export const ModalForm = () => {
   const msg = editingRole ? () => message.success("修改成功") : () => message.success("新增成功")
   const useMutateProject = editingRole ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+
+  const {data, isSuccess} = useInit()
 
   useEffect(() => {
     form.setFieldsValue(editingRole?.data)
@@ -33,6 +36,7 @@ export const ModalForm = () => {
       } else {
         message.error(res.msg)
       }
+    }).then(() => {
     })
   }
 
@@ -69,9 +73,7 @@ export const ModalForm = () => {
   }, [])
 
   const getMenuList = useCallback(() => {
-    client(`menu/getAll?type=1`, {method: "POST"}).then(res => {
-      setMenu(fuc(res.data))
-    })
+      setMenu(fuc(isSuccess ? data?.data : ""))
   }, [client, fuc])
 
   useEffect(() => {

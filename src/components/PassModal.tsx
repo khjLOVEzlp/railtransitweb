@@ -38,12 +38,14 @@ export const PassModal: React.FC<CollectionCreateFormProps> = ({visible, onCreat
       }}
     >
       <Form form={form}>
-        <Form.Item name={"newpassword"} rules={rules}>
+        <Form.Item name={"newpassword"} rules={rules}
+                   getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}>
           <Input placeholder={"请输入新密码"}/>
         </Form.Item>
 
         {
-          passwd === "mod" ? <Form.Item name={"oldpassword"} rules={rules}>
+          passwd === "mod" ? <Form.Item name={"oldpassword"} rules={rules}
+                                        getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}>
             <Input placeholder={"请输入旧密码"}/>
           </Form.Item> : ""
         }

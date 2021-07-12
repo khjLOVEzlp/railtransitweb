@@ -10,9 +10,10 @@ import { DownOutlined } from '@ant-design/icons';
 import { RouterElement } from "./router";
 import qs from "qs";
 import { OperModal } from "./views/notice/OperModal";
-import {PassModal} from "./components/PassModal";
-import {useNoticeModal} from 'views/notice/util'
-import {useInfoModal, UserInfo} from './components/UserInfo'
+import { PassModal } from "./components/PassModal";
+import { useNoticeModal } from 'views/notice/util'
+import { useInfoModal, UserInfo } from './components/UserInfo'
+import { OnHelp, useOnHelpModal } from './components/OnHelp'
 
 export const PageBox = () => {
   const [menu, setMenu] = useState([])
@@ -22,7 +23,7 @@ export const PageBox = () => {
       method: "POST"
     }).then(res => {
       res.data.unshift({ name: '首页', url: '/home' })
-      res.data.forEach((item: { [key: string]: unknown }) => {
+      /*res.data.forEach((item: { [key: string]: unknown }) => {
         let { name } = item
         switch (name) {
           case '设备管理':
@@ -49,7 +50,7 @@ export const PageBox = () => {
           default:
             break;
         }
-      })
+      })*/
       setMenu(res.data)
       sessionStorage.setItem('menu', JSON.stringify(res.data))
     })
@@ -77,7 +78,7 @@ export const PageBox = () => {
         <User />
       </HeaderStyle>
       <ContentStyle>
-        <RouterElement/>
+        <RouterElement />
         {/*<Routes>
           <Route path={"/home"} element={<Home/>}/>
           <Route path={"/plan/*"} element={<Plan/>}/>
@@ -90,16 +91,17 @@ export const PageBox = () => {
           <Navigate to={window.location.pathname + "home"} replace={true}/>
         </Routes>*/}
       </ContentStyle>
-      <UserInfo/>
+      <UserInfo />
+      <OnHelp />
     </Container>
   )
 }
 
 const User = () => {
-  const {open} = useNoticeModal()
-  const {startEdit} = useInfoModal()
+  const { open } = useNoticeModal()
+  const { startEdit } = useInfoModal()
   const { logout, user } = useAuth();
-  console.log(user)
+  const { open: OnHelpModal } = useOnHelpModal()
   const [visible, setVisible] = useState(false);
   const client = useHttp()
   const onCreate = (values: any) => {
@@ -141,7 +143,7 @@ const User = () => {
               </Button>
             </Menu.Item>
             <Menu.Item key={"help"}>
-              <Button onClick={() => {}} type={"link"}>
+              <Button onClick={OnHelpModal} type={"link"}>
                 关于、帮助
               </Button>
             </Menu.Item>

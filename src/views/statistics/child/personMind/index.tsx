@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {useLineList} from "../../../../utils/statistics";
+import {useLineList} from "../../../../utils/statistics/taskStatistics";
 import {Form, Select} from "antd";
 import {Column} from "@ant-design/charts";
 
@@ -14,6 +14,7 @@ export const PersonMind = () => {
         >
           <Form.Item
             name={"subwayId"}
+            initialValue={83}
           >
             <Select
               style={{width: 120}}
@@ -33,6 +34,7 @@ export const PersonMind = () => {
 
           <Form.Item
             name={"time"}
+            initialValue={3}
           >
             <Select
               placeholder={"时间"}

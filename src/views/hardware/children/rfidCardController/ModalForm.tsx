@@ -1,6 +1,5 @@
 import {Button, Form, Input, message, Modal, Radio, Spin} from "antd";
 import {useEffect} from "react";
-import {rules} from "utils/verification";
 import {useAdd, useMod} from 'utils/hardware/rfi'
 import {useRfiModal} from './util'
 
@@ -60,9 +59,9 @@ export const ModalForm = () => {
             <Form.Item
               label="卡号"
               name="rfid"
-              rules={rules}
+              rules={[{required: true, len: 10, message: "请输入10位卡号"}]}
             >
-              <Input/>
+              <Input type={"number"} />
             </Form.Item>
 
             <Form.Item

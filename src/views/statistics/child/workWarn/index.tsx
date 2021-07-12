@@ -1,109 +1,27 @@
 import styled from "@emotion/styled";
-import {Form, Select} from "antd";
-import {useLineList} from "utils/statistics";
-import { Column } from '@ant-design/charts';
+import {Form, Modal, Select, Table} from "antd";
+import {useLineList} from "utils/statistics/taskStatistics";
+import {Column} from '@ant-design/charts';
+import {useProjectsSearchParams, useAlarmModal, useAlarmStatistics} from 'utils/statistics/alarmStatistics'
 
 export const WorkWarn = () => {
   const {data: lineList} = useLineList()
+  const [param, setParam] = useProjectsSearchParams()
+  const {open} = useAlarmModal()
+  const {data: alarmStatistics, isLoading} = useAlarmStatistics(param)
 
-  return (
-    <>
-      <Header>
-        <Form
-          layout={"inline"}
-        >
-          <Form.Item
-            name={"subwayId"}
-          >
-            <Select
-              style={{width: 120}}
-              placeholder={"地铁路线"}
-              showSearch
-              filterOption={(input, option: any) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              {
-                lineList?.data.map((item: any) => (
-                  <Select.Option value={item.id}>{item.name}</Select.Option>
-                ))
-              }
-            </Select>
-          </Form.Item>
+  const lineChange = (value: any) => {
+    setParam({subwayId: value})
+  }
 
-          <Form.Item
-            name={"time"}
-          >
-            <Select
-              placeholder={"时间"}
-              style={{width: 120}}
-            >
-              <Select.Option value={1}>本日</Select.Option>
-              <Select.Option value={2}>本周</Select.Option>
-              <Select.Option value={3}>本月</Select.Option>
-            </Select>
-          </Form.Item>
-        </Form>
-      </Header>
+  const timeChange = (value: any) => {
+    setParam({time: value})
+  }
 
-      <Main>
-        <DemoColumn/>
-      </Main>
-    </>
-  )
-}
-
-const DemoColumn = () => {
-  var data = [
-    {
-      type: '防漏带',
-      sales: 38,
-    },
-    {
-      type: '防漏点',
-      sales: 52,
-    },
-    {
-      type: '防遗漏',
-      sales: 61,
-    },
-    {
-      type: '防疫情',
-      sales: 145,
-    },
-    {
-      type: '防酒精',
-      sales: 48,
-    },
-    {
-      type: '分离告警',
-      sales: 38,
-    },
-    {
-      type: '离线告警',
-      sales: 38,
-    },
-    {
-      type: '过时告警',
-      sales: 38,
-    },
-    {
-      type: '低电告警',
-      sales: 38,
-    },
-    {
-      type: '防血压',
-      sales: 38,
-    },
-    {
-      type: '防遗留',
-      sales: 38,
-    },
-  ];
-  var config = {
-    data: data,
-    xField: 'type',
-    yField: 'sales',
+  const config = {
+    data: isLoading ? [] : alarmStatistics?.data,
+    xField: 'name',
+    yField: 'num',
     label: {
       position: 'middle',
       style: {
@@ -118,13 +36,99 @@ const DemoColumn = () => {
       },
     },
     meta: {
-      type: { alias: '类别' },
-      sales: { alias: '销售额' },
+      name: {alias: '类型'},
+      num: {alias: '数量'},
     },
   };
-  // @ts-ignore
-  return <Column {...config} />;
-};
+
+  return (
+    <>
+      <Header>
+        <Form
+          layout={"inline"}
+        >
+          <Form.Item
+            name={"subwayId"}
+            initialValue={83}
+          >
+            <Select
+              style={{width: 120}}
+              placeholder={"地铁路线"}
+              showSearch
+              onChange={lineChange}
+              filterOption={(input, option: any) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {
+                lineList?.data.map((item: any) => (
+                  <Select.Option value={item.id}>{item.name}</Select.Option>
+                ))
+              }
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name={"time"}
+            initialValue={3}
+          >
+            <Select
+              placeholder={"时间"}
+              style={{width: 120}}
+              onChange={timeChange}
+            >
+              <Select.Option value={1}>本日</Select.Option>
+              <Select.Option value={2}>本周</Select.Option>
+              <Select.Option value={3}>本月</Select.Option>
+            </Select>
+          </Form.Item>
+        </Form>
+      </Header>
+
+      <Main>
+        {/*@ts-ignore*/}
+        <Column
+          {...config}
+          onReady={(plot: any) => {
+            plot.on('plot:click', (evt: any) => {
+              const {x, y} = evt;
+              const tooltipData = plot.chart.getTooltipItems({x, y});
+              open(tooltipData[0].data.type)
+            });
+          }}
+        />
+
+        <AlarmModal/>
+      </Main>
+    </>
+  )
+}
+export const AlarmModal = () => {
+  const {ModalOpen, close, alarmId} = useAlarmModal()
+
+  const columns = [
+    {}
+  ]
+
+  return (
+    <Modal
+      visible={ModalOpen}
+      onCancel={close}
+      title={"作业告警统计"}
+      footer={false}
+      width={1600}
+    >
+      <Table
+        columns={columns}
+        // dataSource={Alarm?.data}
+        // pagination={{total: Alarm?.count, current: param.index, pageSize: param.size}}
+        // loading={isLoading}
+        // onChange={handleTableChange}
+        rowKey={(item: any, index: any) => index}
+      />
+    </Modal>
+  )
+}
 
 const Header = styled.div`
   height: 12.5rem;

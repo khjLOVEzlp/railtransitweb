@@ -89,9 +89,9 @@ export const useToolTypeDetail = (id?: number) => {
 }
 
 /* 根据仓库id获取库存信息 */
-export const useMaterial = (params: any) => {
+export const useViewToolDetail = (id: number) => {
   const client = useHttp()
-  return useQuery(['material', cleanObject(params)], () => client(`warehouse/getMaterial?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery(['viewToolDetail'], () => client(`warehouse/getMaterial?id=${id}`, { method: "POST" }))
 }
 
 /* 工具详情 */

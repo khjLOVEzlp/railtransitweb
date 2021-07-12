@@ -1,5 +1,5 @@
 import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useToolTypeDetail} from "utils/warehouse/toolType";
+import {useToolTypeDetail, useViewToolDetail} from "utils/warehouse/toolType";
 
 export const useToolTypeModal = () => {
   const setUrlParams = useSetUrlSearchParam();
@@ -31,3 +31,55 @@ export const useToolTypeModal = () => {
     editingToolTypeId
   };
 };
+
+/*查看工具*/
+
+export const useViewTool = () => {
+  const setUrlParams = useSetUrlSearchParam();
+
+  const [{viewToolId}, setViewToolId] = useUrlQueryParam([
+    "viewToolId"
+  ])
+
+  const {data: viewTool, isLoading} = useViewToolDetail(
+    Number(viewToolId)
+  )
+
+  const close = () => setUrlParams({viewToolId: ""});
+  const startEdit = (id: number) =>
+    setViewToolId({viewToolId: id});
+
+  return {
+    ModalOpen: Boolean(viewToolId),
+    close,
+    viewToolId,
+    viewTool,
+    startEdit,
+    isLoading
+  }
+}
+
+export const useToolModal = () => {
+  const setUrlParams = useSetUrlSearchParam();
+
+  const [{viewToolId}, setViewToolId] = useUrlQueryParam([
+    "viewToolId"
+  ])
+
+  const {data: viewTool, isLoading} = useViewToolDetail(
+    Number(viewToolId)
+  )
+
+  const close = () => setUrlParams({viewToolId: ""});
+  const startEdit = (id: number) =>
+    setViewToolId({viewToolId: id});
+
+  return {
+    ModalOpen: Boolean(viewToolId),
+    close,
+    viewToolId,
+    viewTool,
+    startEdit,
+    isLoading
+  }
+}

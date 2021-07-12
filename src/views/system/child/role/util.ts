@@ -18,6 +18,7 @@ export const useRoleModal = () => {
 
   const open = () => setCreateRole({createRole: true})
   const close = () => setUrlParams({editingRoleId: "", createRole: ""});
+
   const startEdit = (id: number) =>
     setEditingRoleId({editingRoleId: id});
 
@@ -28,6 +29,6 @@ export const useRoleModal = () => {
     startEdit,
     editingRole,
     isLoading,
-    editingRoleId
+    editingRoleId,
   };
 };

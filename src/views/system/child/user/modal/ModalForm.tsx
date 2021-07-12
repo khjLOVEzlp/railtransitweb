@@ -6,7 +6,6 @@ import {useUserList} from "utils/system/user";
 import {useInit} from 'utils/person/personManage'
 import {useUserModal} from '../util'
 import {useAdd, useMod} from 'utils/system/user'
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 const {Option} = Select;
 
@@ -14,7 +13,6 @@ export const ModalForm = () => {
   const [form] = Form.useForm();
   const [roleList, setRoleList] = useState([])
   const client = useHttp()
-  const setUrlParams = useSetUrlSearchParam()
   const {ModalOpen, isLoading, close, editingUser, editingUserId} = useUserModal()
   const title = editingUser ? "修改" : "新增"
   const msg = editingUser ? () => message.success("修改成功") : () => message.success("新增成功")
@@ -36,7 +34,6 @@ export const ModalForm = () => {
         msg()
         form.resetFields()
         close()
-        setUrlParams({index: 1})
       } else {
         message.error(res.msg)
       }
@@ -100,6 +97,7 @@ export const ModalForm = () => {
               label="密码"
               name="password"
               rules={rules}
+              getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
             >
               <Input/>
             </Form.Item> : ""

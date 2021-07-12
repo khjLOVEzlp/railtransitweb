@@ -47,7 +47,7 @@ export const SimCardController = () => {
           <Form.Item
             name="name"
           >
-            <Input placeholder={"流量卡号码"} value={param.name}
+            <Input type={"number"} placeholder={"流量卡号码"} value={param.name}
                    onChange={(evt) => setParam({...param, name: evt.target.value})}/>
           </Form.Item>
 
