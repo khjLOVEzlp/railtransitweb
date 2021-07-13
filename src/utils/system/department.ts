@@ -1,14 +1,34 @@
 import qs from 'qs'
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { cleanObject } from '..'
-import { useHttp } from '../http'
+import {useQuery, useMutation, useQueryClient} from 'react-query'
+import {cleanObject} from '..'
+import {useHttp} from '../http'
+import {department} from "types/department";
 
 /*
 查询
  */
+
+const fuc = (data: any) => {
+  if (data && data.length > 0) {
+    data.forEach((item: any) => {
+      item.title = item.name
+      item.value = item.id
+      item.children = fuc(item.departmentList)
+    });
+  } else {
+    data = []
+  }
+  return data
+}
+
 export const useInit = (params?: any) => {
   const client = useHttp()
-  return useQuery(['department', cleanObject(params)], () => client(`department/getAll?${qs.stringify(cleanObject(params))}`))
+  return useQuery<department>(['department', cleanObject(params)], async () => {
+      const data = await client(`department/getAll?${qs.stringify(cleanObject(params))}`)
+      fuc(data.data)
+      return data
+    }
+  )
 }
 
 /* 
@@ -17,7 +37,7 @@ export const useInit = (params?: any) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`department/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`department/save`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('department')
     },
@@ -32,7 +52,7 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`department/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`department/update`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('department')
     },

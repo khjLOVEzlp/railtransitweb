@@ -19,8 +19,8 @@ export const AlcoholController = () => {
     Del(id)
   }
 
-  const confirm = (item: any) => {
-    del(item.id).then(() => {
+  const confirm = (id: number) => {
+    del(id).then(() => {
       message.success('删除成功')
       setParam({...param, index: 1})
     })
@@ -82,7 +82,7 @@ export const AlcoholController = () => {
               render: (item: any) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
                   title={`是否要删除${item.code}`}
-                  onConfirm={() => confirm(item)}
+                  onConfirm={() => confirm(item.id)}
                   onCancel={cancel}
                   okText="Yes"
                   cancelText="No"

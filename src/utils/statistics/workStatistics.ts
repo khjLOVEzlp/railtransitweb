@@ -25,22 +25,29 @@ export const useWorkStatistics = (params?: any) => {
   )
 }
 
+/*到岗详情*/
+export const useWorkStatisticsDetail = (params?: any) => {
+  const client = useHttp()
+  return useQuery(['WorkStatisticsDetail', cleanObject(params)], () =>
+    client(`report/getPersonWorkMore?${qs.stringify(cleanObject(params))}`, {method: "POST"})
+  )
+}
+
 /*到岗统计弹框*/
 
 export const useWorkModal = () => {
   const setUrlParams = useSetUrlSearchParam()
 
-  const [{workId}, setWorkId] = useUrlQueryParam([
-    'workId'
+  const [{openWork}, setOpenWork] = useUrlQueryParam([
+    'openWork'
   ])
 
-  const open = (id: number) => setWorkId({workId: id})
+  const open = () => setOpenWork({openWork: true})
 
-  const close = () => setUrlParams({workId: ""})
+  const close = () => setUrlParams({openWork: ""})
 
   return {
-    ModalOpen: Boolean(workId),
-    workId,
+    ModalOpen: openWork === 'true',
     open,
     close
   }

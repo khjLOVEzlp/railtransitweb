@@ -12,7 +12,7 @@ export const useRoleModal = () => {
     "editingRoleId",
   ]);
 
-  const {data: editingRole, isLoading} = useRoleDetail(
+  const {data: editingRole, isLoading, isSuccess} = useRoleDetail(
     Number(editingRoleId)
   );
 
@@ -30,5 +30,6 @@ export const useRoleModal = () => {
     editingRole,
     isLoading,
     editingRoleId,
+    isSuccess
   };
 };

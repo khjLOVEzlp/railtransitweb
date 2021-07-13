@@ -20,8 +20,8 @@ export const Role = () => {
     Del(id)
   }
 
-  const confirm = (item: number) => {
-    del(item).then(() => {
+  const confirm = (id: number) => {
+    del(id).then(() => {
       message.success('删除成功')
       setParam({...param, index: 1})
     })

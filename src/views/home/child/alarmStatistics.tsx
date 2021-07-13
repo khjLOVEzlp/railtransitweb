@@ -3,48 +3,6 @@ import {Modal, Spin, Table} from 'antd';
 import {useAlarmStatistics, useAlarmPagination, useAlarmModal, useProjectsSearchParams} from 'utils/home'
 import {useDebounce} from "hook/useDebounce";
 
-export const getType = (type: number) => {
-  switch (type) {
-    case 1:
-      return "防遗忘"
-    case 2:
-      return "防漏带"
-
-    case 3:
-      return "防漏点"
-
-    case 4:
-      return "防遗漏"
-
-    case 5:
-      return "防疫情"
-
-    case 6:
-      return "防酒精"
-
-    case 7:
-      return "分离告警"
-
-    case 8:
-      return "离线告警"
-
-    case 9:
-      return "过时告警"
-
-    case 10:
-      return "低电告警"
-
-    case 11:
-      return "防血压"
-
-    case 12:
-      return "防遗留"
-
-    default:
-      break;
-  }
-}
-
 const Page = () => {
   const {data: alarmStatistics, isLoading} = useAlarmStatistics()
   const {open} = useAlarmModal()
@@ -56,8 +14,11 @@ const Page = () => {
     xField: "name",
     yField: "num",
     meta: {
-      type: {alias: "类型"},
-      num: {alias: "数量"}
+      num: {
+        alias: '数量',
+        min: 0,
+        nice: true,
+      },
     },
     xAxis: {
       line: null,

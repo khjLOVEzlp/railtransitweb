@@ -12,7 +12,7 @@ export const ToolType = () => {
   const [param, setParam] = useProjectsSearchParams()
   const {open, startEdit} = useToolTypeModal()
   const {startEdit: startTool} = useViewTool()
-  const {data, isLoading} = useInit(useDebounce(param, 500))
+  const {data, isLoading, isSuccess} = useInit(useDebounce(param, 500))
   const {mutateAsync: Del} = useDel()
 
   const search = (item: any) => {
@@ -81,55 +81,57 @@ export const ToolType = () => {
         <Button onClick={open}>新增</Button>
       </Header>
       <Main>
-        <Table columns={
-          [
-            {
-              title: '仓库名称',
-              dataIndex: 'name',
-              key: 'name',
-            },
-            {
-              title: '创建者',
-              dataIndex: 'createBy',
-              key: 'id',
-            },
-            {
-              title: '创建时间',
-              dataIndex: 'createTime',
-              key: 'createTime',
-            },
-            {
-              title: "负责人",
-              dataIndex: "personName",
-              key: "id"
-            },
-            {
-              title: '备注',
-              dataIndex: 'remark',
-              key: 'remark',
-            },
-            {
-              title: '操作',
-              key: 'id',
-              render: (item: any) => <>
-                <Button type="link" onClick={() => startTool(item.id)}>查看工具</Button>
-                <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
-                <Popconfirm
-                  title={`是否要删除${item.name}`}
-                  onConfirm={() => confirm(item)}
-                  onCancel={cancel}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <Button type="link">删除</Button>
-                </Popconfirm></>
-            },
-          ]
-        } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
-               onChange={handleTableChange}
-               loading={isLoading} dataSource={data?.data}
-               rowKey={(item: any) => item.id}
-        />
+        {isSuccess && (
+          <Table columns={
+            [
+              {
+                title: '仓库名称',
+                dataIndex: 'name',
+                key: 'name',
+              },
+              {
+                title: '创建者',
+                dataIndex: 'createBy',
+                key: 'id',
+              },
+              {
+                title: '创建时间',
+                dataIndex: 'createTime',
+                key: 'createTime',
+              },
+              {
+                title: "负责人",
+                dataIndex: "personName",
+                key: "id"
+              },
+              {
+                title: '备注',
+                dataIndex: 'remark',
+                key: 'remark',
+              },
+              {
+                title: '操作',
+                key: 'id',
+                render: (item: any) => <>
+                  <Button type="link" onClick={() => startTool(item.id)}>查看工具</Button>
+                  <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                  <Popconfirm
+                    title={`是否要删除${item.name}`}
+                    onConfirm={() => confirm(item)}
+                    onCancel={cancel}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button type="link">删除</Button>
+                  </Popconfirm></>
+              },
+            ]
+          } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
+                 onChange={handleTableChange}
+                 loading={isLoading} dataSource={data?.data}
+                 rowKey={(item: any) => item.id}
+          />
+        )}
       </Main>
       <ModalForm/>
       <Tool/>

@@ -1,10 +1,9 @@
 import {useQuery} from 'react-query'
 import {useHttp} from "./http"
 import qs from "qs";
-import {cleanObject} from "./index";
+import {cleanObject, getType} from "./index";
 import {useSetUrlSearchParam, useUrlQueryParam} from 'hook/useUrlQueryParam'
 import {useMemo} from "react";
-import {getType} from "../views/home/child/alarmStatistics";
 
 /*项目列表搜索的参数*/
 export const useProjectsSearchParams = () => {
@@ -45,13 +44,55 @@ export const usePlanPagination = (params?: any) => {
     client(`report/webPlanMore?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
 }
 
+const Type = (type: number) => {
+  switch (type) {
+    case 1:
+      return "遗忘"
+    case 2:
+      return "漏带"
+
+    case 3:
+      return "漏点"
+
+    case 4:
+      return "遗漏"
+
+    case 5:
+      return "疫情"
+
+    case 6:
+      return "酒精"
+
+    case 7:
+      return "分离告警"
+
+    case 8:
+      return "离线告警"
+
+    case 9:
+      return "过时告警"
+
+    case 10:
+      return "低电告警"
+
+    case 11:
+      return "血压"
+
+    case 12:
+      return "遗留"
+
+    default:
+      break;
+  }
+}
+
 /*首页告警统计*/
 export const useAlarmStatistics = () => {
   const client = useHttp()
   return useQuery(['alarmStatistics'], async () => {
     const data = await client(`report/webWarn`)
     data.data.forEach((key: any) => {
-      key["name"] = getType(key["type"])
+      key["name"] = Type(key["type"])
     })
     return data
   })

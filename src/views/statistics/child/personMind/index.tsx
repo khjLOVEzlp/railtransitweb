@@ -1,10 +1,149 @@
 import styled from "@emotion/styled";
-import {useLineList} from "../../../../utils/statistics/taskStatistics";
-import {Form, Select} from "antd";
+import {useLineList} from "utils/statistics/taskStatistics";
+import {Form, Modal, Select, Table} from "antd";
 import {Column} from "@ant-design/charts";
+import {
+  useProjectsSearchParams,
+  useMindModal,
+  useMindStatistics,
+  useMindStatisticsDetail
+} from 'utils/statistics/mindStatistics'
 
 export const PersonMind = () => {
   const {data: lineList} = useLineList()
+  const {open} = useMindModal()
+  const [param, setParam] = useProjectsSearchParams()
+  const {data: mindStatistics, isLoading, isError} = useMindStatistics(param)
+
+  console.log(mindStatistics?.data)
+
+  const lineChange = (value: any) => {
+    setParam({subwayId: value})
+  }
+
+  const timeChange = (value: any) => {
+    setParam({time: value})
+  }
+
+  const data = [
+    {
+      "classId": 64,
+      "className": "变电七分部",
+      "temRate": "体温异常率",
+      "alcRate": 66,
+      "bloodRate": 100,
+    },
+    {
+      "classId": 65,
+      "className": "变电七分部",
+      "temRate": "酒精异常率",
+      "alcRate": 80,
+      "bloodRate": 90,
+    },
+    {
+      "classId": 66,
+      "className": "变电七分部",
+      "temRate": "血压异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电二班",
+      "temRate": "体温异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电二班",
+      "temRate": "酒精异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电二班",
+      "temRate": "血压异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电三班",
+      "temRate": "体温异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电三班",
+      "temRate": "酒精异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电三班",
+      "temRate": "血压异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电四班",
+      "temRate": "体温异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电四班",
+      "temRate": "酒精异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电四班",
+      "temRate": "血压异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电五班",
+      "temRate": "体温异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电五班",
+      "temRate": "酒精异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+    {
+      "classId": 66,
+      "className": "变电五班",
+      "temRate": "血压异常率",
+      "alcRate": 70,
+      "bloodRate": 50,
+    },
+  ]
+
+  const config = {
+    data: data,
+    xField: "className",
+    yField: "alcRate",
+    seriesField: "temRate",
+    maxColumnWidth: 100,
+    isGroup: "true",
+    columnStyle: {
+      radius: [20, 20, 0, 0]
+    }
+  };
 
   return (
     <>
@@ -14,11 +153,11 @@ export const PersonMind = () => {
         >
           <Form.Item
             name={"subwayId"}
-            initialValue={83}
           >
             <Select
               style={{width: 120}}
               placeholder={"地铁路线"}
+              onChange={lineChange}
               showSearch
               filterOption={(input, option: any) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -34,11 +173,11 @@ export const PersonMind = () => {
 
           <Form.Item
             name={"time"}
-            initialValue={3}
           >
             <Select
               placeholder={"时间"}
               style={{width: 120}}
+              onChange={timeChange}
             >
               <Select.Option value={1}>本日</Select.Option>
               <Select.Option value={2}>本周</Select.Option>
@@ -49,86 +188,39 @@ export const PersonMind = () => {
       </Header>
 
       <Main>
-        <DemoColumn/>
-        <DemoColumn/>
-        <DemoColumn/>
+        {/*@ts-ignore*/}
+        <Column
+          {...config}
+          onReady={(plot: any) => {
+            plot.on('plot:click', (evt: any) => {
+              open()
+            });
+          }}
+        />
+
+        <PersonMindModal/>
       </Main>
     </>
   )
 }
 
-const DemoColumn = () => {
-  var data = [
-    {
-      type: '防漏带',
-      sales: 38,
-    },
-    {
-      type: '防漏点',
-      sales: 52,
-    },
-    {
-      type: '防遗漏',
-      sales: 61,
-    },
-    {
-      type: '防疫情',
-      sales: 145,
-    },
-    {
-      type: '防酒精',
-      sales: 48,
-    },
-    {
-      type: '分离告警',
-      sales: 38,
-    },
-    {
-      type: '离线告警',
-      sales: 38,
-    },
-    {
-      type: '过时告警',
-      sales: 38,
-    },
-    {
-      type: '低电告警',
-      sales: 38,
-    },
-    {
-      type: '防血压',
-      sales: 38,
-    },
-    {
-      type: '防遗留',
-      sales: 38,
-    },
-  ];
-  var config = {
-    data: data,
-    xField: 'type',
-    yField: 'sales',
-    label: {
-      position: 'middle',
-      style: {
-        fill: '#FFFFFF',
-        opacity: 0.6,
-      },
-    },
-    xAxis: {
-      label: {
-        autoHide: true,
-        autoRotate: false,
-      },
-    },
-    meta: {
-      type: {alias: '类别'},
-      sales: {alias: '销售额'},
-    },
-  };
-  // @ts-ignore
-  return <Column {...config} />;
-};
+const PersonMindModal = () => {
+  const {ModalOpen, close} = useMindModal()
+  const [param] = useProjectsSearchParams()
+  const {data: mindDetail} = useMindStatisticsDetail(param)
+
+  return (
+    <Modal
+      visible={ModalOpen}
+      onCancel={close}
+      title={"精神状态"}
+      footer={false}
+      width={1600}
+    >
+      <Table pagination={false}/>
+    </Modal>
+  )
+}
 
 const Header = styled.div`
   height: 12.5rem;
@@ -147,7 +239,8 @@ const Main = styled.div`
   width: 100%;
   border-radius: 1rem;
   padding: 1.5rem 1.5rem;
-  display: flex;
+  //display: flex;
+
   > * {
     flex: 1;
   }

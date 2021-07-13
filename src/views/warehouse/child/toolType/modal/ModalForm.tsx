@@ -25,10 +25,14 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingToolType, ...value, id: editingToolTypeId}).then(() => {
-      msg()
-      form.resetFields()
-      close()
+    mutateAsync({...editingToolType, ...value, id: editingToolTypeId}).then((res) => {
+      if (res.code === 200) {
+        msg()
+        form.resetFields()
+        close()
+      } else {
+        message.error(res.msg)
+      }
     }).catch(err => {
       message.error(err.msg)
     })

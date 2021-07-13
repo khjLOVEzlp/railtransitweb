@@ -1,6 +1,5 @@
 import {Button, Form, Input, message, Modal, Select, Spin, Tree} from "antd";
-import React, {useCallback, useEffect, useState} from "react";
-import {useHttp} from "utils/http";
+import React, {useEffect, useState} from "react";
 import {rules} from "utils/verification";
 import {useAdd, useMod} from 'utils/system/role'
 import {useRoleModal} from '../util'
@@ -8,15 +7,13 @@ import {useInit} from 'utils/system/menu'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const [menu, setMenu] = useState([])
-  const client = useHttp()
-  const {ModalOpen, isLoading, close, editingRole, editingRoleId} = useRoleModal()
+  const {ModalOpen, isLoading, close, editingRole, editingRoleId, isSuccess} = useRoleModal()
   const title = editingRole ? "修改" : "新增"
   const msg = editingRole ? () => message.success("修改成功") : () => message.success("新增成功")
   const useMutateProject = editingRole ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
-  const {data, isSuccess} = useInit()
+  const {data: menu} = useInit()
 
   useEffect(() => {
     form.setFieldsValue(editingRole?.data)
@@ -58,27 +55,6 @@ export const ModalForm = () => {
       value: 4
     }
   ])
-
-  const fuc = useCallback((data: any) => {
-    if (data && data.length > 0) {
-      data.forEach((item: any) => {
-        item.title = item.name
-        item.key = item.id
-        item.children = fuc(item.childMenu)
-      });
-    } else {
-      data = []
-    }
-    return data
-  }, [])
-
-  const getMenuList = useCallback(() => {
-      setMenu(fuc(isSuccess ? data?.data : ""))
-  }, [client, fuc])
-
-  useEffect(() => {
-    getMenuList()
-  }, [getMenuList])
 
   const onCheck = (checkedKeys: any) => {
     form.setFieldsValue({menuList: checkedKeys})
@@ -126,9 +102,10 @@ export const ModalForm = () => {
             >
               <Tree
                 checkable
-                defaultCheckedKeys={editingRole?.data.menuList}
+                defaultCheckedKeys={editingRole === undefined ? [] : editingRole.data.menuList}
                 onCheck={onCheck}
-                treeData={menu}
+                // @ts-ignore
+                treeData={menu.data}
               />
             </Form.Item>
 

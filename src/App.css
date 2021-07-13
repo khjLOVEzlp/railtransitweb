@@ -253,5 +253,8 @@ input::-webkit-inner-spin-button {
 /* 火狐浏览器 */
 input[type="number"]{
   -moz-appearance: textfield;
-  -moz-appearance:textfield;
+}
+
+.ant-modal-content {
+  z-index: 10000 !important;
 }

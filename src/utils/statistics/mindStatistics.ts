@@ -17,11 +17,19 @@ export const useProjectsSearchParams = () => {
   ] as const;
 };
 
-/*到岗统计*/
+/*精神分析统计*/
 export const useMindStatistics = (params?: any) => {
   const client = useHttp()
-  return useQuery(['MindStatistics', cleanObject(params)], () =>
+  return useQuery(['MindStatistics', cleanObject(params)], async () =>
     client(`report/getPersonMind?${qs.stringify(cleanObject(params))}`, {method: "POST"})
+  )
+}
+
+/*精神分析统计详情*/
+export const useMindStatisticsDetail = (params?: any) => {
+  const client = useHttp()
+  return useQuery(['MindStatisticsDetail', cleanObject(params)], () =>
+    client(`report/getPersonMindMore?${qs.stringify(cleanObject(params))}`, {method: "POST"})
   )
 }
 
@@ -30,17 +38,16 @@ export const useMindStatistics = (params?: any) => {
 export const useMindModal = () => {
   const setUrlParams = useSetUrlSearchParam()
 
-  const [{mindId}, setMindId] = useUrlQueryParam([
-    'mindId'
+  const [{openMind}, setOpenMind] = useUrlQueryParam([
+    'openMind'
   ])
 
-  const open = (id: number) => setMindId({mindId: id})
+  const open = () => setOpenMind({openMind: true})
 
-  const close = () => setUrlParams({mindId: ""})
+  const close = () => setUrlParams({openMind: ""})
 
   return {
-    ModalOpen: Boolean(mindId),
-    mindId,
+    ModalOpen: openMind === 'true',
     open,
     close
   }

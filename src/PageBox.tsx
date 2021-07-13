@@ -108,7 +108,7 @@ const User = () => {
     client(`user/editpassword?${qs.stringify(values)}`, { method: "POST" }).then(() => {
       message.success("修改成功，请重新登陆")
       setVisible(false);
-      logout()
+      setTimeout(() => logout(), 3000)
     }).catch(error => {
       message.error(error.msg)
     })

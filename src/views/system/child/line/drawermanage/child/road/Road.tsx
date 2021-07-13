@@ -22,8 +22,8 @@ export const Road = () => {
     Del(id)
   }
 
-  const confirm = (item: any) => {
-    del(item.id).then(() => {
+  const confirm = (id: number) => {
+    del(id).then(() => {
       setParam({...param, index: 1})
       message.success('删除成功')
     })
@@ -89,7 +89,7 @@ export const Road = () => {
             key: 'id',
             render: (item: any) => (<><Button type="link" onClick={() => startEdit(item.id)}>修改</Button><Popconfirm
               title={`是否要删除${item.name}`}
-              onConfirm={() => confirm(item)}
+              onConfirm={() => confirm(item.id)}
               onCancel={cancel}
               okText="Yes"
               cancelText="No"

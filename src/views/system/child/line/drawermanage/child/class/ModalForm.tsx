@@ -132,8 +132,8 @@ export const ModalForm = () => {
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
               >
-                {warehouse?.data.map((item: any, index: number) => <Select.Option value={item.roadId}
-                                                                                  key={index}>{item.name}</Select.Option>)}
+                {warehouse?.data.map((item: any) => <Select.Option value={item.id}
+                                                                                  key={item.id}>{item.name}</Select.Option>)}
               </Select>
             </Form.Item>
 

@@ -83,7 +83,14 @@ export const useDel = () => {
 */
 export const useLineClassDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['lineClassDetail', id], () => client(`lineClass/get/${id}`), {
+  return useQuery(['lineClassDetail', id], async () => {
+    const data = await client(`lineClass/get/${id}`)
+    data.data.warehouseIds.forEach((key: any) => {
+      key = parseInt(key)
+    })
+    console.log(data)
+    return data
+  }, {
     enabled: Boolean(id),
   })
 }

@@ -1,9 +1,9 @@
 import qs from 'qs'
-import { useMemo } from 'react';
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { cleanObject } from '..';
-import { useUrlQueryParam } from 'hook/useUrlQueryParam';
-import { useHttp } from '../http';
+import {useCallback, useMemo} from 'react';
+import {useQuery, useMutation, useQueryClient} from 'react-query'
+import {cleanObject} from '..';
+import {useUrlQueryParam} from 'hook/useUrlQueryParam';
+import {useHttp} from '../http';
 import {search} from "types/search";
 import {menu} from "types/menu";
 
@@ -12,19 +12,37 @@ export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["name", "index", "size"]);
   return [
     useMemo(
-      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
+      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
       [param]
     ),
     setParam,
   ] as const;
 };
 
+const fuc = (data: any) => {
+  if (data && data.length > 0) {
+    data.forEach((item: any) => {
+      item.title = item.name
+      item.key = item.id
+      item.children = fuc(item.childMenu)
+    });
+  } else {
+    data = []
+  }
+  return data
+}
+
 /*
 查询
  */
 export const useInit = (params?: Partial<search>) => {
   const client = useHttp()
-  return useQuery<menu>(['menu', cleanObject(params)], () => client(`menu/getAll?${qs.stringify(cleanObject(params))}&type=1`, { method: "POST" }))
+  return useQuery<menu>(['menu', cleanObject(params)], async () => {
+      const data = await client(`menu/getAll?${qs.stringify(cleanObject(params))}&type=1`, {method: "POST"})
+      fuc(data.data)
+      return data
+    }
+  )
 }
 
 /* 
@@ -33,7 +51,7 @@ export const useInit = (params?: Partial<search>) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`menu/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`menu/save`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('menu')
     },
@@ -48,7 +66,7 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`menu/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`menu/update`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('menu')
     },

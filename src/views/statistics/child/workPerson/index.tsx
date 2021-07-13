@@ -1,99 +1,28 @@
 import styled from "@emotion/styled";
-import {useLineList} from "../../../../utils/statistics/taskStatistics";
-import {Form, Select} from "antd";
+import {useLineList} from "utils/statistics/taskStatistics";
+import {Form, Modal, Select, Table} from "antd";
 import {Column} from "@ant-design/charts";
+import {useWorkStatistics, useProjectsSearchParams, useWorkModal, useWorkStatisticsDetail} from 'utils/statistics/workStatistics'
 
 export const WorkPerson = () => {
   const {data: lineList} = useLineList()
+  const [param, setParam] = useProjectsSearchParams()
+  const {data: workStatistics, isLoading, isError} = useWorkStatistics(param)
+  const {open} = useWorkModal()
 
-  return (
-    <>
-      <Header>
-        <Form
-          layout={"inline"}
-        >
-          <Form.Item
-            name={"subwayId"}
-            initialValue={83}
-          >
-            <Select
-              style={{width: 120}}
-              placeholder={"地铁路线"}
-              showSearch
-              filterOption={(input, option: any) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              {
-                lineList?.data.map((item: any) => (
-                  <Select.Option value={item.id}>{item.name}</Select.Option>
-                ))
-              }
-            </Select>
-          </Form.Item>
+  const lineChange = (value: any) => {
+    setParam({subwayId: value})
+  }
 
-          <Form.Item
-            name={"time"}
-            initialValue={3}
-          >
-            <Select
-              placeholder={"时间"}
-              style={{width: 120}}
-            >
-              <Select.Option value={1}>本日</Select.Option>
-              <Select.Option value={2}>本周</Select.Option>
-              <Select.Option value={3}>本月</Select.Option>
-            </Select>
-          </Form.Item>
-        </Form>
-      </Header>
+  const timeChange = (value: any) => {
+    setParam({time: value})
+  }
 
-      <Main>
-        <DemoColumn/>
-      </Main>
-    </>
-  )
-}
-
-const DemoColumn: React.FC = () => {
-  var data = [
-    {
-      type: '家具家电',
-      sales: 38,
-    },
-    {
-      type: '粮油副食',
-      sales: 52,
-    },
-    {
-      type: '生鲜水果',
-      sales: 61,
-    },
-    {
-      type: '美容洗护',
-      sales: 145,
-    },
-    {
-      type: '母婴用品',
-      sales: 48,
-    },
-    {
-      type: '进口食品',
-      sales: 38,
-    },
-    {
-      type: '食品饮料',
-      sales: 38,
-    },
-    {
-      type: '家庭清洁',
-      sales: 38,
-    },
-  ];
-  var config = {
-    data: data,
-    xField: 'type',
-    yField: 'sales',
+  const config = {
+    data: isLoading || isError ? [] : workStatistics?.data,
+    xField: 'className',
+    yField: 'classId',
+    maxColumnWidth: 100,
     label: {
       position: 'middle',
       style: {
@@ -108,13 +37,107 @@ const DemoColumn: React.FC = () => {
       },
     },
     meta: {
-      type: { alias: '类别' },
-      sales: { alias: '销售额' },
+      className: {alias: '班别'},
+      classId: {alias: '数量'},
     },
   };
-  // @ts-ignore
-  return <Column {...config} />;
-};
+
+  return (
+    <>
+      <Header>
+        <Form
+          layout={"inline"}
+        >
+          <Form.Item
+            name={"subwayId"}
+          >
+            <Select
+              style={{width: 120}}
+              placeholder={"地铁路线"}
+              showSearch
+              onChange={lineChange}
+              filterOption={(input, option: any) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {
+                lineList?.data.map((item: any) => (
+                  <Select.Option value={item.id}>{item.name}</Select.Option>
+                ))
+              }
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name={"time"}
+          >
+            <Select
+              placeholder={"时间"}
+              style={{width: 120}}
+              onChange={timeChange}
+            >
+              <Select.Option value={1}>本日</Select.Option>
+              <Select.Option value={2}>本周</Select.Option>
+              <Select.Option value={3}>本月</Select.Option>
+            </Select>
+          </Form.Item>
+        </Form>
+      </Header>
+
+      <Main>
+        {/*@ts-ignore*/}
+        <Column
+          {...config}
+          onReady={(plot: any) => {
+            plot.on('plot:click', (evt: any) => {
+              open()
+            });
+          }}
+        />
+
+        <WorkPersonModal/>
+      </Main>
+    </>
+  )
+}
+
+export const WorkPersonModal = () => {
+  const {ModalOpen, close} = useWorkModal()
+  const [param] = useProjectsSearchParams()
+  const {data: alarmDetail, isLoading} = useWorkStatisticsDetail(param)
+  const columns = [
+    {
+      title: "部门",
+      dataIndex: "className"
+    },
+    {
+      title: "姓名",
+      dataIndex: "personName"
+    },
+  ]
+  /*const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setParam({...param, index: p.current, size: p.pageSize})
+  };*/
+  return (
+    <Modal
+      visible={ModalOpen}
+      onCancel={close}
+      title={"到岗统计"}
+      footer={false}
+      width={1600}
+    >
+      <Table
+        columns={columns}
+        pagination={false}
+        dataSource={alarmDetail?.data}
+        // pagination={{total: alarmPagination?.count, current: param.index, pageSize: param.size}}
+        loading={isLoading}
+        // onChange={handleTableChange}
+        rowKey={(item: any, index: any) => index}
+      />
+    </Modal>
+  )
+}
 
 const Header = styled.div`
   height: 12.5rem;

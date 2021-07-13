@@ -101,6 +101,7 @@ const Header = styled.div`
     width: 35.5%;
     padding: 2rem;
     box-sizing: border-box;
+    overflow-y: auto;
 
     > .title {
       margin-left: 2rem;
@@ -123,6 +124,7 @@ const Footer = styled.div`
     width: 49.8%;
     box-sizing: border-box;
     padding: 1rem;
+    overflow-y: auto;
 
     > .title {
       margin-left: 2rem;
@@ -139,6 +141,7 @@ const Footer = styled.div`
     width: 49.8%;
     box-sizing: border-box;
     padding: 1rem;
+    overflow-y: auto;
 
     > .title {
       margin-left: 2rem;

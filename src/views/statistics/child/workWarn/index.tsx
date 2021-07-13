@@ -2,13 +2,19 @@ import styled from "@emotion/styled";
 import {Form, Modal, Select, Table} from "antd";
 import {useLineList} from "utils/statistics/taskStatistics";
 import {Column} from '@ant-design/charts';
-import {useProjectsSearchParams, useAlarmModal, useAlarmStatistics} from 'utils/statistics/alarmStatistics'
+import {
+  useProjectsSearchParams,
+  useAlarmModal,
+  useAlarmStatistics,
+  useAlarmPagination
+} from 'utils/statistics/alarmStatistics'
+import {useDebounce} from "../../../../hook/useDebounce";
 
 export const WorkWarn = () => {
   const {data: lineList} = useLineList()
   const [param, setParam] = useProjectsSearchParams()
   const {open} = useAlarmModal()
-  const {data: alarmStatistics, isLoading} = useAlarmStatistics(param)
+  const {data: alarmStatistics, isLoading, isError} = useAlarmStatistics(param)
 
   const lineChange = (value: any) => {
     setParam({subwayId: value})
@@ -19,9 +25,10 @@ export const WorkWarn = () => {
   }
 
   const config = {
-    data: isLoading ? [] : alarmStatistics?.data,
+    data: isLoading || isError ? [] : alarmStatistics?.data,
     xField: 'name',
     yField: 'num',
+    maxColumnWidth: 100,
     label: {
       position: 'middle',
       style: {
@@ -49,7 +56,6 @@ export const WorkWarn = () => {
         >
           <Form.Item
             name={"subwayId"}
-            initialValue={83}
           >
             <Select
               style={{width: 120}}
@@ -70,7 +76,6 @@ export const WorkWarn = () => {
 
           <Form.Item
             name={"time"}
-            initialValue={3}
           >
             <Select
               placeholder={"时间"}
@@ -91,9 +96,7 @@ export const WorkWarn = () => {
           {...config}
           onReady={(plot: any) => {
             plot.on('plot:click', (evt: any) => {
-              const {x, y} = evt;
-              const tooltipData = plot.chart.getTooltipItems({x, y});
-              open(tooltipData[0].data.type)
+              open()
             });
           }}
         />
@@ -103,13 +106,32 @@ export const WorkWarn = () => {
     </>
   )
 }
+
 export const AlarmModal = () => {
-  const {ModalOpen, close, alarmId} = useAlarmModal()
-
+  const {ModalOpen, close} = useAlarmModal()
+  const [param, setParam] = useProjectsSearchParams()
+  const {data: alarmPagination, isLoading} = useAlarmPagination(useDebounce(param, 500))
   const columns = [
-    {}
+    {
+      title: "作业名",
+      dataIndex: "workName"
+    },
+    {
+      title: "作业小组",
+      dataIndex: "groupName"
+    },
+    {
+      title: "作业时间",
+      dataIndex: "warnTime"
+    },
+    {
+      title: "作业内容",
+      dataIndex: "content"
+    },
   ]
-
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setParam({...param, index: p.current, size: p.pageSize})
+  };
   return (
     <Modal
       visible={ModalOpen}
@@ -120,10 +142,10 @@ export const AlarmModal = () => {
     >
       <Table
         columns={columns}
-        // dataSource={Alarm?.data}
-        // pagination={{total: Alarm?.count, current: param.index, pageSize: param.size}}
-        // loading={isLoading}
-        // onChange={handleTableChange}
+        dataSource={alarmPagination?.data}
+        pagination={{total: alarmPagination?.count, current: param.index, pageSize: param.size}}
+        loading={isLoading}
+        onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}
       />
     </Modal>

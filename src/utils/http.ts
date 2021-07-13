@@ -37,6 +37,19 @@ export const http = async (
         await setTimeout(() => auth.logout(), 3000)
         return Promise.reject({ message: "请重新登录" });
       }
+
+      if (response.status === 404) {
+        message.error("请求接口不存在")
+      }
+
+      if (response.status === 403) {
+        message.error("未获得访问权限!")
+      }
+
+      if (response.status === 500) {
+        message.error("接口错误")
+      }
+
       const data = await response.json();
 
       if (data.code === 334) {

@@ -36,7 +36,8 @@ export const useUserList = () => {
  */
 export const useInit = (params?: Partial<search>) => {
   const client = useHttp()
-  return useQuery<user>(['user', cleanObject(params)], () => client(`user/list?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
+  return useQuery<user>(['user', cleanObject(params)], () =>
+    client(`user/list?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
 }
 
 /* 

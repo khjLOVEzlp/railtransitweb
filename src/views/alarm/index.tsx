@@ -3,7 +3,6 @@ import { Select, Table } from "antd"
 import { useState } from "react"
 import { useDocumentTitle } from '../../hook/useDocumentTitle'
 import { useInit, useWarnCount } from "../../utils/alarm"
-// import {useLocation} from "react-router";
 
 const { Option } = Select;
 
@@ -35,6 +34,48 @@ export const Alarm = () => {
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setPagination({ ...pagination, index: p.current, size: p.pageSize })
   };
+
+  const getType = (type: number) => {
+    switch (type) {
+      case 1:
+        return "遗忘"
+      case 2:
+        return "漏带"
+
+      case 3:
+        return "漏点"
+
+      case 4:
+        return "遗漏"
+
+      case 5:
+        return "疫情"
+
+      case 6:
+        return "酒精"
+
+      case 7:
+        return "分离告警"
+
+      case 8:
+        return "离线告警"
+
+      case 9:
+        return "过时告警"
+
+      case 10:
+        return "低电告警"
+
+      case 11:
+        return "血压"
+
+      case 12:
+        return "遗留"
+
+      default:
+        break;
+    }
+  }
 
   const columns = [
     {
@@ -170,48 +211,6 @@ export const Alarm = () => {
       value: "6"
     },
   ]
-
-  const getType = (type: number) => {
-    switch (type) {
-      /*case 1:
-        return "防遗忘"*/
-      case 2:
-        return "防漏带"
-
-      case 3:
-        return "防漏点"
-
-      case 4:
-        return "防遗漏"
-
-      case 5:
-        return "防疫情"
-
-      case 6:
-        return "防酒精"
-
-      case 7:
-        return "分离告警"
-
-      case 8:
-        return "离线告警"
-
-      case 9:
-        return "过时告警"
-
-      case 10:
-        return "低电告警"
-
-      case 11:
-        return "防血压"
-
-      case 12:
-        return "防遗留"
-
-      default:
-        break;
-    }
-  }
 
   useDocumentTitle('告警上报')
 

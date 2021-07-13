@@ -11,6 +11,7 @@ export const Department = () => {
     size: 10,
     name: ''
   })
+
   const {open, startEdit} = useDepartmentModal()
 
   const {data, isLoading} = useInit({...pagination})
@@ -20,8 +21,8 @@ export const Department = () => {
     Del(id)
   }
 
-  const confirm = (item: any) => {
-    del(item.id).then(() => {
+  const confirm = (id: number) => {
+    del(id).then(() => {
       message.success('删除成功')
       setPagination({...pagination, index: 1})
     })
@@ -39,7 +40,6 @@ export const Department = () => {
     <>
       <Header>
         <div>部门管理</div>
-
         <Button onClick={open}>新增</Button>
       </Header>
       <Main>
@@ -73,11 +73,11 @@ export const Department = () => {
             {
               title: '操作',
               key: 'id',
-              render: (item: any) => <>
+              render: (item) => <>
                 <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
                   title={`是否要删除${item.name}`}
-                  onConfirm={() => confirm(item)}
+                  onConfirm={() => confirm(item.id)}
                   onCancel={cancel}
                   okText="Yes"
                   cancelText="No"
@@ -91,7 +91,7 @@ export const Department = () => {
                loading={isLoading}
                dataSource={data?.data}
                childrenColumnName="departmentList"
-               rowKey={(item: any) => item.id}
+               rowKey={(item) => item.id}
         />
       </Main>
       <ModalForm/>
