@@ -30,12 +30,12 @@ export const ShareModalForm = () => {
   };
 
   const isStatus = (id: number) => {
-    if (id === 0) {
-      return "通过"
-    } else if (id === 1) {
+    if (id === 2) {
       return "驳回"
+    } else if (id === 1) {
+      return "通过"
     } else {
-      return ""
+      return "未反馈"
     }
   }
 

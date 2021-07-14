@@ -17,7 +17,7 @@ export const useUserModal = () => {
   );
 
   const open = () => setCreateUser({createUser: true})
-  const close = () => setUrlParams({editingUserId: "", createUser: ""});
+  const close = (callback?: any) => setUrlParams({editingUserId: "", createUser: ""});
 
   const startEdit = (id: number) =>
     setEditingUserId({editingUserId: id});

@@ -46,9 +46,9 @@ export const http = async (
         message.error("未获得访问权限!")
       }
 
-      if (response.status === 500) {
+      /*if (response.status === 500) {
         message.error("接口错误")
-      }
+      }*/
 
       const data = await response.json();
 

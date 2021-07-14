@@ -6,16 +6,25 @@ import {useUserList} from "utils/system/user";
 import {useInit} from 'utils/person/personManage'
 import {useUserModal} from '../util'
 import {useAdd, useMod} from 'utils/system/user'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 const {Option} = Select;
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
   const [roleList, setRoleList] = useState([])
   const client = useHttp()
   const {ModalOpen, isLoading, close, editingUser, editingUserId} = useUserModal()
   const title = editingUser ? "修改" : "新增"
-  const msg = editingUser ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingUser ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createUser: ""})
+  }
   const useMutateProject = editingUser ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -33,7 +42,6 @@ export const ModalForm = () => {
       if (res.code === 200) {
         msg()
         form.resetFields()
-        close()
       } else {
         message.error(res.msg)
       }

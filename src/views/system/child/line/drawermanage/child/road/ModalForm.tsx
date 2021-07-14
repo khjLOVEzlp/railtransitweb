@@ -4,13 +4,23 @@ import {rules} from "utils/verification";
 import {useLineRoadModal} from './util'
 import {useAdd, useMod} from 'utils/system/lineRoad'
 import {useProjectModal} from "../../../util";
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const {editingProjectId} = useProjectModal()
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, editingLineRoad, close, isLoading, editingLineRoadId} = useLineRoadModal()
   const [form] = Form.useForm();
   const title = editingLineRoad ? "修改" : "新增"
-  const msg = editingLineRoad ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingLineRoad ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createLineRoad: ""})
+  }
   const useMutateProject = editingLineRoad ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -26,7 +36,6 @@ export const ModalForm = () => {
     mutateAsync({...editingLineRoad, ...value, id: editingLineRoadId, lineId: editingProjectId}).then(() => {
       msg()
       form.resetFields();
-      close();
     }).catch(err => {
       message.error(err.msg)
     })

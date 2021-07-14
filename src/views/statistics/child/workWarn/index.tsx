@@ -8,11 +8,11 @@ import {
   useAlarmStatistics,
   useAlarmPagination
 } from 'utils/statistics/alarmStatistics'
-import {useDebounce} from "../../../../hook/useDebounce";
+import {useDebounce} from "hook/useDebounce";
 
 export const WorkWarn = () => {
   const {data: lineList} = useLineList()
-  const [param, setParam] = useProjectsSearchParams()
+  const [param = {subwayId: lineList?.data[0].id, time: 3}, setParam] = useProjectsSearchParams()
   const {open} = useAlarmModal()
   const {data: alarmStatistics, isLoading, isError} = useAlarmStatistics(param)
 

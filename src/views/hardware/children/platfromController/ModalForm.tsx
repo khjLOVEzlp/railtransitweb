@@ -3,12 +3,22 @@ import {useEffect} from "react";
 import {rules} from "utils/verification";
 import {useAdd, useMod} from 'utils/hardware/pla'
 import {usePlaModal} from './util'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, isLoading, close, editingPla, editingPlaId} = usePlaModal()
   const title = editingPla ? "修改" : "新增"
-  const msg = editingPla ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingPla ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createPla: ""})
+  }
   const useMutateProject = editingPla ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 

@@ -9,6 +9,7 @@ import {usePersonModal, useImportModal} from '../util'
 import {useAdd, useMod} from 'utils/person/personManage'
 import {InboxOutlined} from '@ant-design/icons';
 import {useAuth} from "../../../../../context/auth-context";
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -18,14 +19,28 @@ export const ModalForm = () => {
   const [form] = Form.useForm();
   const [value, setValue] = useState()
   const client = useHttp()
-  const {ModalOpen, editingPersonId, editingPerson, isLoading, close} = usePersonModal()
+  const setUrlParams = useSetUrlSearchParam();
+
+  const {ModalOpen, editingPersonId, editingPerson, isLoading, close, isSuccess} = usePersonModal()
   const title = editingPerson ? "修改" : "新增"
-  const msg = editingPerson ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingPerson ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createPerson: ""})
+  }
   const useMutateProject = editingPerson ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
   useEffect(() => {
-    form.setFieldsValue(editingPerson?.data)
+    if (isSuccess && editingPerson) {
+      form.setFieldsValue({
+        ...editingPerson?.data,
+        birthday: dayjs(editingPerson?.data?.birthday)
+      })
+    }
   }, [form, editingPerson])
 
   const closeModal = () => {
@@ -38,7 +53,6 @@ export const ModalForm = () => {
       if (res.code === 200) {
         msg()
         form.resetFields()
-        close()
       } else {
         message.error(res.msg)
       }
@@ -70,10 +84,6 @@ export const ModalForm = () => {
   useEffect(() => {
     getDepartmentList()
   }, [getDepartmentList])
-
-  const birthday = (obj: any | null, time: string) => {
-    form.setFieldsValue({birthday: time})
-  }
 
   const onChange = (value: any) => {
     form.setFieldsValue({departmentId: value})
@@ -175,9 +185,7 @@ export const ModalForm = () => {
               label="出生日期"
               name="birthday"
             >
-              <Space direction="vertical" style={{width: "30rem"}}>
-                <DatePicker disabledDate={disabledDate} locale={locale} onChange={birthday}/>
-              </Space>
+              <DatePicker disabledDate={disabledDate} locale={locale}/>
             </Form.Item>
 
             <Form.Item

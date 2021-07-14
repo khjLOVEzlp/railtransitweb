@@ -12,10 +12,8 @@ import {
 export const PersonMind = () => {
   const {data: lineList} = useLineList()
   const {open} = useMindModal()
-  const [param, setParam] = useProjectsSearchParams()
+  const [param = {subwayId: lineList?.data[0].id, time: 3}, setParam] = useProjectsSearchParams()
   const {data: mindStatistics, isLoading, isError} = useMindStatistics(param)
-
-  console.log(mindStatistics?.data)
 
   const lineChange = (value: any) => {
     setParam({subwayId: value})

@@ -3,12 +3,22 @@ import {useEffect} from "react";
 import {rules} from "utils/verification";
 import {useAdd, useMod} from 'utils/hardware/alc'
 import {useAlcModal} from './util'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, isLoading, close, editingAlc, editingAlcId} = useAlcModal()
   const title = editingAlc ? "修改" : "新增"
-  const msg = editingAlc ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingAlc ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createAlc: ""})
+  }
   const useMutateProject = editingAlc ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -25,7 +35,6 @@ export const ModalForm = () => {
     mutateAsync({...editingAlc, ...value, id: editingAlcId}).then(() => {
       msg()
       form.resetFields()
-      close()
     }).catch(err => {
       message.error(err.msg)
     })

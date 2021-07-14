@@ -1,5 +1,5 @@
 import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {Modal} from "antd";
+import {Col, Modal, Row} from "antd";
 
 export const OnHelp = () => {
   const {ModalOpen, close} = useOnHelpModal()
@@ -10,7 +10,15 @@ export const OnHelp = () => {
       footer={false}
       title={"关于、帮助"}
     >
-
+      <Row style={{padding: "0.5rem"}}>
+        <Col span={12}>版本：1.0</Col>
+      </Row>
+      <Row style={{padding: "0.5rem"}}>
+        <Col span={24}>公司：深圳市阿尔艾富信息科技股份有限公司</Col>
+      </Row>
+      <Row style={{padding: "0.5rem"}}>
+        <Col span={24}>系统名称：5G-NB智慧轨行区数字化维养安全管控系统</Col>
+      </Row>
     </Modal>
   )
 }

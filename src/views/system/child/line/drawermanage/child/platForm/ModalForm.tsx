@@ -5,13 +5,22 @@ import {useInit} from 'utils/system/lineRoad'
 import {useMod, useAdd} from 'utils/system/linePlatform'
 import {useProjectModal} from "../../../util";
 import {useEffect} from "react";
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
   const {editingProjectId} = useProjectModal()
   const {editingLinePlatForm, isLoading, close, ModalOpen, editingLinePlatFormId} = useLinePlatFormModal()
   const title = editingLinePlatForm ? "修改" : "新增"
-  const msg = editingLinePlatForm ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingLinePlatForm ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createLinePlatForm: ""})
+  }
   const useMutateProject = editingLinePlatForm ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -31,7 +40,6 @@ export const ModalForm = () => {
       if (res.code === 200) {
         msg()
         form.resetFields()
-        close()
       } else {
         message.error(res.msg)
       }

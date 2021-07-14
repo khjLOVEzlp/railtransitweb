@@ -3,12 +3,22 @@ import {useEffect} from "react";
 import {rules} from "utils/verification";
 import {useTemModal} from './util'
 import {useAdd, useMod} from 'utils/hardware/tem'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, isLoading, close, editingTem, editingTemId} = useTemModal()
   const title = editingTem ? "修改" : "新增"
-  const msg = editingTem ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingTem ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createTem: ""})
+  }
   const useMutateProject = editingTem ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -25,7 +35,6 @@ export const ModalForm = () => {
     mutateAsync({...editingTem, ...value, id: editingTemId}).then((res) => {
       msg()
       form.resetFields()
-      close()
     }).catch(err => {
       message.error(err.msg)
     })

@@ -1,18 +1,40 @@
-import {DatePicker, Form, Input, Modal, Space} from "antd"
-import {useToolDetail} from "utils/warehouse/toolType"
+import {Button, DatePicker, Form, Input, message, Modal, Spin} from "antd"
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import {useForm} from "antd/lib/form/Form";
-import {useEffect, useState} from "react";
+import {useToolModal} from '../util'
+import React, {useEffect} from "react";
+import {useModMaterial} from 'utils/warehouse/toolType'
+import dayjs from "dayjs";
 
 export const ToolModalForm = () => {
-  const [visible] = useState(false)
   const [form] = useForm()
+  const {ModalOpen, close, isLoading, viewTool, viewToolDetailId} = useToolModal()
+  const {mutateAsync, isLoading: mutateLoading} = useModMaterial()
+  useEffect(() => {
+    if (viewTool) {
+      form.setFieldsValue({
+        ...viewTool?.data,
+        invalidTime: dayjs(viewTool?.data?.invalidTime)
+      })
+    }
+  }, [viewTool])
 
-  const beginTime = (obj: any | null, time: string) => {
-    form.setFieldsValue({beginTime: time})
+  const closeModal = () => {
+    form.resetFields()
+    close()
   }
 
-  const onCancel = () => {}
+  const onFinish = (value: any) => {
+    mutateAsync({...viewTool?.data, ...value, id: viewToolDetailId}).then((res) => {
+      if (res.code === 200) {
+        message.success("修改成功")
+        form.resetFields()
+        close()
+      } else {
+        message.error(res.msg)
+      }
+    })
+  }
 
   const onOk = () => {
     form.submit();
@@ -24,44 +46,53 @@ export const ToolModalForm = () => {
         title="详情"
         width={800}
         onOk={onOk}
-        visible={visible}
-        onCancel={onCancel}
-        okText="提交"
-        cancelText="取消">
-        <Form
-          form={form}
-          layout={"vertical"}
-        >
-          <Form.Item
-            label={"失效时间"}
-            name={"invalidTime"}
-          >
-            <Space direction="vertical" style={{width: '30rem'}}>
-              <DatePicker locale={locale} onChange={beginTime}/>
-            </Space>
-          </Form.Item>
+        visible={ModalOpen}
+        onCancel={closeModal}
+        style={{zIndex: 10000}}
+        footer={[
+          <Button key="back" onClick={closeModal}>取消</Button>,
+          <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
+        ]}
+      >
+        {
+          isLoading ? (
+            <Spin/>
+          ) : (
+            <Form
+              form={form}
+              layout={"vertical"}
+              onFinish={onFinish}
+            >
+              <Form.Item
+                label={"失效时间"}
+                name={"invalidTime"}
+              >
+                  <DatePicker locale={locale}/>
+              </Form.Item>
 
-          <Form.Item
-            label={"标签"}
-            name={"labelNum"}
-          >
-            <Input disabled/>
-          </Form.Item>
+              <Form.Item
+                label={"标签"}
+                name={"labelNum"}
+              >
+                <Input disabled/>
+              </Form.Item>
 
-          <Form.Item
-            label={"仓库"}
-            name={"warehouseId"}
-          >
-            <Input disabled/>
-          </Form.Item>
+              <Form.Item
+                label={"仓库"}
+                name={"warehouseId"}
+              >
+                <Input disabled/>
+              </Form.Item>
 
-          <Form.Item
-            label={"备注"}
-            name={"remark"}
-          >
-            <Input/>
-          </Form.Item>
-        </Form>
+              <Form.Item
+                label={"备注"}
+                name={"remark"}
+              >
+                <Input/>
+              </Form.Item>
+            </Form>
+          )
+        }
       </Modal>
     </>
   )

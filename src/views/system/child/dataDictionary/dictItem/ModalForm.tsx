@@ -3,12 +3,22 @@ import { rules } from "utils/verification";
 import {useDictItemModal} from "./util";
 import {useAdd, useMod} from "utils/system/dictItem";
 import {useEffect} from "react";
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, isLoading, close, editingDictItem, editingDictItemId} = useDictItemModal()
   const title = editingDictItem ? "修改" : "新增"
-  const msg = editingDictItem ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingDictItem ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createDictItem: ""})
+  }
   const useMutateProject = editingDictItem ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -30,7 +40,6 @@ export const ModalForm = () => {
       if (res.code === 200) {
         msg()
         form.resetFields()
-        close()
       } else {
         message.error(res.msg)
       }

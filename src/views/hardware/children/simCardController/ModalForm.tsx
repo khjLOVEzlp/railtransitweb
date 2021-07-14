@@ -4,12 +4,21 @@ import {rules} from "utils/verification";
 import {useWarehouse} from "utils/warehouse/toolType";
 import {useAdd, useMod} from 'utils/hardware/sim'
 import {useSimModal} from './util'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
   const {ModalOpen, isLoading, close, editingSim, editingSimId} = useSimModal()
   const title = editingSim ? "修改" : "新增"
-  const msg = editingSim ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingSim ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createSim: ""})
+  }
   const useMutateProject = editingSim ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -26,7 +35,6 @@ export const ModalForm = () => {
     mutateAsync({...editingSim, ...value, id: editingSimId}).then((res) => {
       msg()
       form.resetFields()
-      close()
     }).catch(err => {
       message.error(err.msg)
     })
@@ -71,7 +79,7 @@ export const ModalForm = () => {
             <Form.Item
               label="流量卡号码"
               name="phone"
-              rules={[{required: true, len: 10, message: "请输入10位卡号"}]}
+              rules={[{required: true, len: 11, message: "请输入11位卡号"}]}
             >
               <Input type={"number"}/>
             </Form.Item>

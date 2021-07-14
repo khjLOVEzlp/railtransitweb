@@ -4,14 +4,23 @@ import {useHttp} from "utils/http";
 import {rules} from "utils/verification";
 import {useLineModal} from '../util'
 import {useAdd, useMod} from "utils/system/line";
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
   const [departmentList, setDepartmentList] = useState([])
   const client = useHttp()
-  const {ModalOpen, isLoading, close, editingLine, editingLineId, startAdd} = useLineModal()
+  const {ModalOpen, isLoading, close, editingLine, editingLineId} = useLineModal()
   const title = editingLine ? "修改" : "新增"
-  const msg = editingLine ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingLine ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createLine: ""})
+  }
   const useMutateProject = editingLine ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -56,8 +65,6 @@ export const ModalForm = () => {
       if (res.code === 200) {
         msg()
         form.resetFields()
-        close()
-        startAdd()
       } else {
         message.error(res.msg)
       }

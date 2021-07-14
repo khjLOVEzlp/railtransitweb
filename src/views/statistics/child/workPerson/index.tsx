@@ -2,11 +2,16 @@ import styled from "@emotion/styled";
 import {useLineList} from "utils/statistics/taskStatistics";
 import {Form, Modal, Select, Table} from "antd";
 import {Column} from "@ant-design/charts";
-import {useWorkStatistics, useProjectsSearchParams, useWorkModal, useWorkStatisticsDetail} from 'utils/statistics/workStatistics'
+import {
+  useWorkStatistics,
+  useProjectsSearchParams,
+  useWorkModal,
+  useWorkStatisticsDetail
+} from 'utils/statistics/workStatistics'
 
 export const WorkPerson = () => {
   const {data: lineList} = useLineList()
-  const [param, setParam] = useProjectsSearchParams()
+  const [param = {subwayId: lineList?.data[0].id, time: 3}, setParam] = useProjectsSearchParams()
   const {data: workStatistics, isLoading, isError} = useWorkStatistics(param)
   const {open} = useWorkModal()
 

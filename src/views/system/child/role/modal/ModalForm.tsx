@@ -4,19 +4,30 @@ import {rules} from "utils/verification";
 import {useAdd, useMod} from 'utils/system/role'
 import {useRoleModal} from '../util'
 import {useInit} from 'utils/system/menu'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
   const {ModalOpen, isLoading, close, editingRole, editingRoleId, isSuccess} = useRoleModal()
   const title = editingRole ? "修改" : "新增"
-  const msg = editingRole ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingRole ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createRole: ""})
+  }
   const useMutateProject = editingRole ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
-  const {data: menu} = useInit()
+  const {data: menu, isSuccess: success} = useInit()
 
   useEffect(() => {
-    form.setFieldsValue(editingRole?.data)
+    if (isSuccess && editingRole) {
+      form.setFieldsValue(editingRole?.data)
+    }
   }, [form, editingRole])
 
   const closeModal = () => {
@@ -29,11 +40,9 @@ export const ModalForm = () => {
       if (res.code === 200) {
         msg()
         form.resetFields()
-        close()
       } else {
         message.error(res.msg)
       }
-    }).then(() => {
     })
   }
 
@@ -102,10 +111,10 @@ export const ModalForm = () => {
             >
               <Tree
                 checkable
-                defaultCheckedKeys={editingRole === undefined ? [] : editingRole.data.menuList}
+                defaultCheckedKeys={editingRole && isSuccess ? editingRole.data.menuList : []}
                 onCheck={onCheck}
                 // @ts-ignore
-                treeData={menu.data}
+                treeData={success ? menu.data : []}
               />
             </Form.Item>
 

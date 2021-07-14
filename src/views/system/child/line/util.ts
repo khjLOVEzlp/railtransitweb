@@ -44,7 +44,6 @@ export const useLineModal = () => {
 
   const open = () => setCreateLine({createLine: true})
   const close = () => setUrlParams({editingLineId: "", createLine: ""});
-  const startAdd = () => setUrlParams({editingLineId: "", createLine: "", index: 1});
   const startEdit = (id: number) =>
     setEditingLineId({editingLineId: id});
 
@@ -56,6 +55,5 @@ export const useLineModal = () => {
     editingLine,
     isLoading,
     editingLineId,
-    startAdd
   };
 };

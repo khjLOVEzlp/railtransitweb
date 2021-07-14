@@ -1,16 +1,26 @@
 import React, {useEffect} from "react";
 import {Button, Form, Input, message, Modal, Spin, TreeSelect} from "antd";
-import {useHttp} from "utils/http";
 import {rules} from "utils/verification";
 import {useAdd, useMod} from 'utils/system/department'
 import {useDepartmentModal} from './util'
 import {useInit} from 'utils/system/department'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, isLoading, close, editingDepartment, editingDepartmentId} = useDepartmentModal()
   const title = editingDepartment ? "修改" : "新增"
-  const msg = editingDepartment ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingDepartment ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createDepartment: ""})
+  }
   const useMutateProject = editingDepartment ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -29,12 +39,11 @@ export const ModalForm = () => {
     mutateAsync({...editingDepartment, ...value, id: editingDepartmentId}).then(() => {
       msg()
       form.resetFields()
-      close()
     })
   }
 
   const onChange = (value: any) => {
-    form.setFieldsValue({ parentId: value })
+    form.setFieldsValue({parentId: value})
   };
 
   const onOk = () => {
@@ -61,7 +70,7 @@ export const ModalForm = () => {
               name="name"
               rules={rules}
             >
-              <Input />
+              <Input/>
             </Form.Item>
 
             <Form.Item
@@ -69,7 +78,7 @@ export const ModalForm = () => {
               name="parentId"
             >
               <TreeSelect
-                style={{ width: '100%' }}
+                style={{width: '100%'}}
                 treeData={data?.data}
                 treeDefaultExpandAll
                 onChange={onChange}
@@ -80,7 +89,7 @@ export const ModalForm = () => {
               label="备注"
               name="remark"
             >
-              <Input />
+              <Input/>
             </Form.Item>
           </Form>
         )

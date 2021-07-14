@@ -2,12 +2,22 @@ import {Button, Form, Input, message, Modal, Radio, Spin} from "antd";
 import {useEffect} from "react";
 import {useAdd, useMod} from 'utils/hardware/rfi'
 import {useRfiModal} from './util'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, isLoading, close, editingRfi, editingRfiId} = useRfiModal()
   const title = editingRfi ? "修改" : "新增"
-  const msg = editingRfi ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingRfi ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createRfi: ""})
+  }
   const useMutateProject = editingRfi ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -24,7 +34,6 @@ export const ModalForm = () => {
     mutateAsync({...editingRfi, ...value, id: editingRfiId}).then((res) => {
       msg()
       form.resetFields()
-      close()
     }).catch(err => {
       message.error(err.msg)
     })
@@ -59,9 +68,10 @@ export const ModalForm = () => {
             <Form.Item
               label="卡号"
               name="rfid"
-              rules={[{required: true, len: 10, message: "请输入10位卡号"}]}
+              // rules={[{required: true, len: 10, message: "请输入10位卡号"}]}
             >
-              <Input type={"number"} />
+              {/*type={number}*/}
+              <Input />
             </Form.Item>
 
             <Form.Item

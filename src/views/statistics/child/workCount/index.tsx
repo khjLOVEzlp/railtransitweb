@@ -2,15 +2,14 @@ import {useState} from 'react';
 import {Form, Button, Table, Radio, Select, DatePicker} from 'antd';
 import styled from "@emotion/styled";
 import {useDay, useLineList, useMonth} from 'utils/statistics/taskStatistics';
-import {useDocumentTitle} from 'hook/useDocumentTitle';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import qs from "qs";
 import {useAuth} from "context/auth-context";
+
 const apiUrl = process.env.REACT_APP_API_URL;
 const {Option} = Select
 
 export const WorkCount = () => {
-  useDocumentTitle("统计分析")
   const [form] = Form.useForm()
   const [value, setValue] = useState(0);
   const [params, setParams] = useState({

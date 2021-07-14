@@ -16,7 +16,7 @@ import {
 import {useHttp} from "utils/http";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import {UploadOutlined} from "@ant-design/icons";
+import {MinusCircleOutlined, PlusOutlined, UploadOutlined} from "@ant-design/icons";
 import {getToken} from "../../../../../auth-provider";
 import {rules} from "utils/verification";
 import {usePlanType} from "utils/plan/planType";
@@ -27,6 +27,8 @@ import {usePerson} from "utils/person/personManage";
 import {AddToolModal} from './AddToolModal'
 import {usePlanWorkModal, useAddToolModal} from '../util'
 import {useAdd, useMod} from "utils/plan/planWork";
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import dayjs from 'dayjs'
 
 const baseUrl = process.env["REACT_APP_API_URL"]
 const {TextArea} = Input;
@@ -43,17 +45,32 @@ export const ModalForm = () => {
   const [id, setId] = useState<number>(0)
   const client = useHttp()
   const {open} = useAddToolModal()
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, isLoading, close, editingPlanWork, editingPlanWorkId, isSuccess} = usePlanWorkModal()
   const title = editingPlanWork ? "修改" : "新增"
-  const msg = editingPlanWork ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingPlanWork ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createPlanWork: ""})
+  }
   const useMutateProject = editingPlanWork ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && editingPlanWork) {
       let newList = editingPlanWork.data.typeList.map((key: any) => key.typeId)
       editingPlanWork.data.typeList = newList
-      form.setFieldsValue(editingPlanWork?.data)
+      form.setFieldsValue({
+        ...editingPlanWork?.data,
+        beginTime: dayjs(editingPlanWork?.data?.beginTime, "YYYY-MM-DD HH:mm:ss"),
+        dateTime: dayjs(editingPlanWork?.data?.dateTime, "YYYY-MM-DD"),
+        endTime: dayjs(editingPlanWork?.data?.endTime, "YYYY-MM-DD HH:mm:ss"),
+        warnTime: dayjs(editingPlanWork?.data?.warnTime, "YYYY-MM-DD HH:mm:ss"),
+      })
     }
   }, [form, editingPlanWork])
 
@@ -63,10 +80,16 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingPlanWork, ...value, id: editingPlanWorkId}).then(() => {
+    mutateAsync({
+      ...editingPlanWork, ...value,
+      id: editingPlanWorkId,
+      beginTime: dayjs(value.beginTime).format("YYYY-MM-DD HH:mm:ss"),
+      dateTime: dayjs(value.dateTime).format("YYYY-MM-DD"),
+      endTime: dayjs(value.endTime).format("YYYY-MM-DD HH:mm:ss"),
+      warnTime: dayjs(value.warnTime).format("YYYY-MM-DD HH:mm:ss"),
+    }).then(() => {
       msg()
       form.resetFields()
-      close()
     })
   }
 
@@ -80,7 +103,7 @@ export const ModalForm = () => {
     setValue(e.target.value);
   }
 
-  const beginTime = (obj: any | null, time: string) => {
+  /*const beginTime = (obj: any | null, time: string) => {
     form.setFieldsValue({beginTime: time})
   }
 
@@ -94,7 +117,7 @@ export const ModalForm = () => {
 
   const warnTime = (obj: any, item: string) => {
     form.setFieldsValue({warnTime: item})
-  }
+  }*/
 
   /* 添加工具 */
   const addTool = () => {
@@ -175,6 +198,10 @@ export const ModalForm = () => {
   const onOk = () => {
     form.submit();
   };
+
+  const materialListChange = (value: any) => {
+
+  }
 
   return (
     <Modal title={title} width={800} visible={ModalOpen} onOk={onOk} onCancel={closeModal}
@@ -295,9 +322,12 @@ export const ModalForm = () => {
                 rules={rules}
                 style={{width: "100%"}}
               >
-                <Space style={{width: "100%"}}>
-                  <DatePicker style={{width: "100%"}} showTime locale={locale} onChange={beginTime} placeholder="开始时间"/>
-                </Space>
+                <DatePicker
+                  style={{width: "100%"}}
+                  showTime locale={locale}
+                  format={"YYYY-MM-DD HH:mm:ss"}
+                  placeholder="开始时间"
+                />
               </Form.Item>
 
               <Form.Item
@@ -306,9 +336,12 @@ export const ModalForm = () => {
                 rules={rules}
                 style={{width: "100%"}}
               >
-                <Space style={{width: "100%"}}>
-                  <DatePicker style={{width: "100%"}} showTime locale={locale} onChange={endTime} placeholder="结束时间"/>
-                </Space>
+                <DatePicker
+                  style={{width: "100%"}}
+                  format={"YYYY-MM-DD HH:mm:ss"}
+                  showTime locale={locale}
+                  placeholder="结束时间"
+                />
               </Form.Item>
             </Space>
 
@@ -317,18 +350,25 @@ export const ModalForm = () => {
                 label="提醒时间"
                 name="warnTime"
               >
-                <Space style={{width: "100%"}}>
-                  <DatePicker style={{width: "100%"}} locale={locale} onChange={warnTime} placeholder="提醒时间"/>
-                </Space>
+                <DatePicker
+                  style={{width: "100%"}}
+                  locale={locale}
+                  showTime
+                  format={"YYYY-MM-DD HH:mm:ss"}
+                  placeholder="提醒时间"
+                />
               </Form.Item>
 
               <Form.Item
                 label="作业日期"
                 name="dateTime"
               >
-                <Space style={{width: "100%"}}>
-                  <DatePicker style={{width: "100%"}} locale={locale} onChange={dateTime} placeholder="作业日期"/>
-                </Space>
+                <DatePicker
+                  style={{width: "100%"}}
+                  locale={locale}
+                  format={"YYYY-MM-DD"}
+                  placeholder="作业日期"
+                />
               </Form.Item>
             </Space>
 
@@ -388,13 +428,99 @@ export const ModalForm = () => {
               </Form.Item>
             </Space>
 
-            <Form.Item>
+            {/*<Form.Item>
               <Button style={{width: "100%"}} onClick={addTool}>添加工具</Button>
             </Form.Item>
 
             <Form.Item>
               <Button style={{width: "100%"}} onClick={addMaterial}>添加物料</Button>
-            </Form.Item>
+            </Form.Item>*/}
+
+            <Form.List name="materialList">
+              {(fields, {add, remove}) => (
+                <>
+                  {fields.map(({key, name, fieldKey, ...restField}) => (
+                    <Space key={key} style={{display: 'flex', marginBottom: 8}} align="baseline">
+                      <Form.Item
+                        style={{width: '100%'}}
+                        {...restField}
+                        name={[name, 'materialId']}
+                        fieldKey={[fieldKey, 'materialId']}
+                        rules={rules}
+                      >
+                        <Select
+                          onChange={materialListChange}
+                        >
+                          {
+                            material?.data.map((item: any) => <Option value={item.id}
+                                                                      key={item.id}>{item.name}</Option>)
+                          }
+                        </Select>
+                      </Form.Item>
+                      <Form.Item
+                        style={{width: '100%'}}
+                        {...restField}
+                        name={[name, 'num']}
+                        fieldKey={[fieldKey, 'num']}
+                        rules={rules}
+
+                      >
+                        <Input placeholder="数量"/>
+                      </Form.Item>
+                      <MinusCircleOutlined onClick={() => remove(name)}/>
+                    </Space>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                      添加物料
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+
+            <Form.List name="toolList">
+              {(fields, {add, remove}) => (
+                <>
+                  {fields.map(({key, name, fieldKey, ...restField}) => (
+                    <Space key={key} style={{display: 'flex', marginBottom: 8, width: '100%'}} align="baseline">
+                      <Form.Item
+                        style={{width: '100%'}}
+                        {...restField}
+                        name={[name, 'toolId']}
+                        fieldKey={[fieldKey, 'toolId']}
+                        rules={rules}
+                      >
+                        <Select
+                          onChange={materialListChange}
+                        >
+                          {
+                            material?.data.map((item: any) => <Option value={item.id}
+                                                                      key={item.id}>{item.name}</Option>)
+                          }
+                        </Select>
+                      </Form.Item>
+                      <Form.Item
+                        style={{width: '100%'}}
+                        {...restField}
+                        name={[name, 'num']}
+                        fieldKey={[fieldKey, 'num']}
+                        rules={rules}
+
+                      >
+                        <Input placeholder="数量"/>
+                      </Form.Item>
+                      <MinusCircleOutlined onClick={() => remove(name)}/>
+                    </Space>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                      添加工具
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
 
             <Form.Item>
               <Button style={{width: "100%"}} onClick={addGroup}>添加小组</Button>

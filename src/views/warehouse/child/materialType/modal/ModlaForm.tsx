@@ -3,12 +3,22 @@ import {rules} from "utils/verification";
 import {useMaterialModal} from '../util'
 import {useAdd, useMod} from 'utils/warehouse/materialType'
 import {useEffect} from "react";
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, isLoading, close, editingMaterial, editingMaterialId} = useMaterialModal()
   const title = editingMaterial ? "修改" : "新增"
-  const msg = editingMaterial ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingMaterial ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createMaterial: ""})
+  }
   const useMutateProject = editingMaterial ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -26,7 +36,6 @@ export const ModalForm = () => {
       if (res.code === 200) {
         msg()
         form.resetFields()
-        close()
       } else {
         message.error(res.msg)
       }

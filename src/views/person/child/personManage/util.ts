@@ -12,7 +12,7 @@ export const usePersonModal = () => {
     "editingPersonId",
   ]);
 
-  const {data: editingPerson, isLoading} = usePersonDetail(
+  const {data: editingPerson, isLoading, isSuccess} = usePersonDetail(
     Number(editingPersonId)
   );
 
@@ -28,7 +28,8 @@ export const usePersonModal = () => {
     startEdit,
     editingPerson,
     isLoading,
-    editingPersonId
+    editingPersonId,
+    isSuccess
   };
 };
 

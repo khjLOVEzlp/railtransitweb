@@ -4,12 +4,22 @@ import {rules} from "utils/verification";
 import {usePerson} from "utils/person/personManage";
 import {useSepModal} from './util'
 import {useMod, useAdd} from 'utils/hardware/sep'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, isLoading, close, editingSep, editingSepId} = useSepModal()
   const title = editingSep ? "修改" : "新增"
-  const msg = editingSep ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingSep ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createSep: ""})
+  }
   const useMutateProject = editingSep ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -26,7 +36,6 @@ export const ModalForm = () => {
     mutateAsync({...editingSep, ...value, id: editingSepId}).then((res) => {
         msg()
         form.resetFields()
-        close()
     }).catch(err => {
       message.error(err.msg)
     })
@@ -70,7 +79,7 @@ export const ModalForm = () => {
             </Form.Item>
 
             <Form.Item
-              label="人员"
+              label="使用人"
               name="personId"
               rules={rules}
             >
@@ -97,7 +106,7 @@ export const ModalForm = () => {
             <Form.Item
               label="流量卡号码"
               name="phone"
-              rules={[{required: true, len: 10, message: "请输入10位卡号"}]}
+              rules={[{required: true, len: 11, message: "请输入11位卡号"}]}
             >
               <Input type={"number"}/>
             </Form.Item>

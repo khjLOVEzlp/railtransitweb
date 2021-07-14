@@ -52,15 +52,7 @@ export const OperModal = () => {
       case 1:
         return (
           <span>
-            <Popconfirm
-              title={`是否已经读取：${item.title}`}
-              onConfirm={() => confirm(item)}
-              onCancel={cancel}
-              okText="是"
-              cancelText="否"
-            >
               <Button disabled type={"link"}>已读</Button>
-            </Popconfirm>
           </span>
         )
 
@@ -143,6 +135,7 @@ export const OperModal = () => {
   }
 
   const handleCancel = () => {
+    form.resetFields()
     setShareVisible(false)
   }
 
@@ -196,8 +189,8 @@ export const OperModal = () => {
               rules={rules}
             >
               <Radio.Group>
-                <Radio value={0}>是</Radio>
-                <Radio value={1}>否</Radio>
+                <Radio value={1}>是</Radio>
+                <Radio value={2}>否</Radio>
               </Radio.Group>
             </Form.Item>
 

@@ -7,14 +7,24 @@ import {usePlanTypeModal} from '../util'
 import {useAdd, useMod} from "utils/plan/planType";
 import {useEffect} from "react";
 import {useMaterialType} from 'utils/warehouse/materialType'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 const {Option} = Select;
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
+
   const {ModalOpen, close, isLoading, editingPlanType, editingPlanTypeId} = usePlanTypeModal()
   const title = editingPlanType ? "修改" : "新增"
-  const msg = editingPlanType ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingPlanType ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createPlanType: ""})
+  }
   const useMutateProject = editingPlanType ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
   const {data: material} = useMaterialType()
@@ -32,7 +42,6 @@ export const ModalForm = () => {
     mutateAsync({...editingPlanType, ...value, id: editingPlanTypeId}).then(() => {
       msg()
       form.resetFields()
-      close()
     })
   }
 

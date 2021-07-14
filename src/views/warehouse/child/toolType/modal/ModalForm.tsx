@@ -4,14 +4,23 @@ import {rules} from "utils/verification";
 import {useUserAll} from 'utils/system/user'
 import {useToolTypeModal} from '../util'
 import {useMod, useAdd} from 'utils/warehouse/toolType'
+import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
 const {Option} = Select
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const setUrlParams = useSetUrlSearchParam();
   const {ModalOpen, isLoading, close, editingToolType, editingToolTypeId} = useToolTypeModal()
   const title = editingToolType ? "修改" : "新增"
-  const msg = editingToolType ? () => message.success("修改成功") : () => message.success("新增成功")
+  const msg = editingToolType ? () => {
+    message.success("修改成功")
+    close()
+  } : () => {
+    message.success("新增成功")
+    close()
+    setUrlParams({index: 1, createToolType: ""})
+  }
   const useMutateProject = editingToolType ? useMod : useAdd;
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
@@ -29,7 +38,6 @@ export const ModalForm = () => {
       if (res.code === 200) {
         msg()
         form.resetFields()
-        close()
       } else {
         message.error(res.msg)
       }

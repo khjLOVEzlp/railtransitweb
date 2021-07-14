@@ -1,7 +1,7 @@
 import qs from 'qs'
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { cleanObject } from '../index'
-import { useHttp } from '../http'
+import {useQuery, useMutation, useQueryClient} from 'react-query'
+import {cleanObject} from '../index'
+import {useHttp} from '../http'
 import {useUrlQueryParam} from "../../hook/useUrlQueryParam";
 import {useMemo} from "react";
 
@@ -10,7 +10,7 @@ export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["name", "index", "size", "type"]);
   return [
     useMemo(
-      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
+      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
       [param]
     ),
     setParam,
@@ -22,7 +22,7 @@ export const useProjectsSearchParams = () => {
 */
 export const useWarehouse = () => {
   const client = useHttp()
-  return useQuery(['warehouse'], () => client(`warehouse/listAll`, { method: "POST" }))
+  return useQuery(['warehouse'], () => client(`warehouse/listAll`, {method: "POST"}))
 }
 
 /*
@@ -30,7 +30,7 @@ export const useWarehouse = () => {
  */
 export const useInit = (params: any) => {
   const client = useHttp()
-  return useQuery(['warehouse', cleanObject(params)], () => client(`warehouse/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery(['warehouse', cleanObject(params)], () => client(`warehouse/list?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
 }
 
 /* 
@@ -39,7 +39,7 @@ export const useInit = (params: any) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`warehouse/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`warehouse/save`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('warehouse')
     },
@@ -54,7 +54,7 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`warehouse/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`warehouse/update`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('warehouse')
     },
@@ -91,7 +91,7 @@ export const useToolTypeDetail = (id?: number) => {
 /* 根据仓库id获取库存信息 */
 export const useViewToolDetail = (id: number) => {
   const client = useHttp()
-  return useQuery(['viewToolDetail'], () => client(`warehouse/getMaterial?id=${id}`, { method: "POST" }), {
+  return useQuery(['viewToolDetail'], () => client(`warehouse/getMaterial?id=${id}`, {method: "POST"}), {
     enabled: Boolean(id)
   })
 }
@@ -99,14 +99,17 @@ export const useViewToolDetail = (id: number) => {
 /* 工具详情 */
 export const useToolDetail = (id: number) => {
   const client = useHttp()
-  return useQuery(['detail'], () => client(`material/get/${id}`))
+  return useQuery(['detail'], () => client(`material/get/${id}`), {
+    enabled: Boolean(id)
+  })
 }
 
 /* 修改物资信息 */
 export const useModMaterial = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`material/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) =>
+    client(`material/update`, {method: "POST", body: JSON.stringify(params)}), {
     onSuccess: () => {
       queryClient.invalidateQueries('material')
     },
