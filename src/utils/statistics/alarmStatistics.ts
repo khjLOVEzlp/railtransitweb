@@ -4,6 +4,17 @@ import {useHttp} from '../http'
 import {cleanObject} from "../index";
 import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
 import {useMemo} from "react";
+/*项目列表搜索的参数*/
+export const useProjectsSearchParams = () => {
+  const [param, setParam] = useUrlQueryParam(["subwayId", "time", "index", "size"]);
+  return [
+    useMemo(
+      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
+      [param]
+    ),
+    setParam,
+  ] as const;
+};
 
 const getType = (type: number) => {
   switch (type) {
@@ -46,18 +57,6 @@ const getType = (type: number) => {
       break;
   }
 }
-
-/*项目列表搜索的参数*/
-export const useProjectsSearchParams = () => {
-  const [param, setParam] = useUrlQueryParam(["subwayId", "time", "index", "size"]);
-  return [
-    useMemo(
-      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
-      [param]
-    ),
-    setParam,
-  ] as const;
-};
 
 /*告警统计*/
 export const useAlarmStatistics = (params?: any) => {

@@ -1,10 +1,12 @@
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {ImportModal, ModalForm} from "./modal/ModalForm";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/person/personManage';
+import {useDel, useInit} from 'utils/person/personManage';
 import {useDebounce} from 'hook/useDebounce';
 import {usePersonModal, useImportModal} from './util'
 import {useAuth} from "../../../../context/auth-context";
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export const PersonManage = () => {
@@ -19,16 +21,14 @@ export const PersonManage = () => {
     setParam({...param, name: item.name, index: 1})
   };
 
-  const del = async (id: number) => {
-    Del(id)
-  }
-
   const confirm = (id: number) => {
-    del(id).then(() => {
-      message.success('删除成功')
-      setParam({...param, index: 1})
-    }).catch(err => {
-      message.error(err.msg)
+    Del(id).then((res) => {
+      if (res.code !== 200) {
+        message.error(res.msg)
+      } else {
+        message.success('删除成功')
+        setParam({...param, index: 1})
+      }
     })
   }
 
@@ -89,7 +89,7 @@ export const PersonManage = () => {
           </Form.Item>
 
           <Form.Item>
-              <Button onClick={openImportModal}>导入人员</Button>
+            <Button onClick={openImportModal}>导入人员</Button>
           </Form.Item>
         </Form>
 

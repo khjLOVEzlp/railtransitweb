@@ -79,7 +79,15 @@ export const ModalForm = () => {
             <Form.Item
               label="流量卡号码"
               name="phone"
-              rules={[{required: true, len: 11, message: "请输入11位卡号"}]}
+              rules={[
+                {
+                  required: true, message: "请输入卡号"
+                },
+                {
+                  pattern: new RegExp(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/),
+                  message: "请输入正确的卡号"
+                }
+              ]}
             >
               <Input type={"number"}/>
             </Form.Item>

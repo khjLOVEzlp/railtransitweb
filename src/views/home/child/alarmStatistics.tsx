@@ -9,8 +9,7 @@ const Page = () => {
 
   const config = {
     data: alarmStatistics?.data,
-    width: 400,
-    height: 400,
+    // padding: 10,
     xField: "name",
     yField: "num",
     meta: {

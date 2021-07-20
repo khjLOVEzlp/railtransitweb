@@ -1,16 +1,15 @@
 import {Button, Form, Input, message, Modal, Spin, TreeSelect} from "antd";
-import React, {useCallback, useEffect, useState} from "react";
-import {useHttp} from "utils/http";
+import React, {useEffect} from "react";
 import {rules} from "utils/verification";
 import {useLineModal} from '../util'
 import {useAdd, useMod} from "utils/system/line";
 import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import {useInit} from 'utils/system/department'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
-  const [departmentList, setDepartmentList] = useState([])
-  const client = useHttp()
+  const {data: departmentList} = useInit()
   const {ModalOpen, isLoading, close, editingLine, editingLineId} = useLineModal()
   const title = editingLine ? "修改" : "新增"
   const msg = editingLine ? () => {
@@ -27,29 +26,6 @@ export const ModalForm = () => {
   useEffect(() => {
     form.setFieldsValue(editingLine?.data)
   }, [form, editingLine])
-
-  const getDepartmentList = useCallback(() => {
-    client(`department/getAll`).then(res => {
-
-      const fuc = (data: any) => {
-        if (data && data.length > 0) {
-          data.forEach((item: any) => {
-            item.title = item.name
-            item.key = item.id
-            item.children = fuc(item.departmentList)
-          });
-        } else {
-          data = []
-        }
-        return data
-      }
-      setDepartmentList(fuc(res.data))
-    })
-  }, [client])
-
-  useEffect(() => {
-    getDepartmentList()
-  }, [getDepartmentList])
 
   const onOk = () => {
     form.submit();
@@ -104,7 +80,7 @@ export const ModalForm = () => {
                 dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                 allowClear
                 multiple
-                treeData={departmentList}
+                treeData={departmentList?.data}
               />
             </Form.Item>
 

@@ -1,9 +1,10 @@
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/hardware/rfi';
+import {useDel, useInit} from 'utils/hardware/rfi';
 import {ModalForm} from './ModalForm';
 import {useDebounce} from 'hook/useDebounce';
 import {useRfiModal} from './util'
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 
 export const RfidCardController = () => {
   const [param, setParam] = useProjectsSearchParams()

@@ -1,9 +1,10 @@
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/hardware/tem';
+import {useDel, useInit} from 'utils/hardware/tem';
 import {ModalForm} from './ModalForm';
 import {useDebounce} from 'hook/useDebounce';
 import {useTemModal} from './util'
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 
 export const TemperaterController = () => {
   const [param, setParam] = useProjectsSearchParams()

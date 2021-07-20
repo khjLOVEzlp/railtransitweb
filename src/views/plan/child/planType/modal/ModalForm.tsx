@@ -96,6 +96,7 @@ export const ModalForm = () => {
                         name={[name, 'materialId']}
                         fieldKey={[fieldKey, 'materialId']}
                         rules={rules}
+                        label={"物料"}
                       >
                         <Select
                           onChange={materialListChange}
@@ -112,7 +113,8 @@ export const ModalForm = () => {
                         name={[name, 'num']}
                         fieldKey={[fieldKey, 'num']}
                         rules={rules}
-
+                        label={"数量"}
+                        getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                       >
                         <Input placeholder="数量"/>
                       </Form.Item>
@@ -139,6 +141,7 @@ export const ModalForm = () => {
                         name={[name, 'toolId']}
                         fieldKey={[fieldKey, 'toolId']}
                         rules={rules}
+                        label={"工具"}
                       >
                         <Select
                           onChange={materialListChange}
@@ -155,7 +158,8 @@ export const ModalForm = () => {
                         name={[name, 'num']}
                         fieldKey={[fieldKey, 'num']}
                         rules={rules}
-
+                        label={"数量"}
+                        getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                       >
                         <Input placeholder="数量"/>
                       </Form.Item>

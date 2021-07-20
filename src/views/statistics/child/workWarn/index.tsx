@@ -9,10 +9,17 @@ import {
   useAlarmPagination
 } from 'utils/statistics/alarmStatistics'
 import {useDebounce} from "hook/useDebounce";
+import {useEffect} from "react";
 
 export const WorkWarn = () => {
   const {data: lineList} = useLineList()
-  const [param = {subwayId: lineList?.data[0].id, time: 3}, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useProjectsSearchParams()
+
+  useEffect(() => {
+    if (lineList) {
+      setParam({subwayId: lineList?.data[0]?.id, time: 3, index: 1, size: 10})
+    }
+  }, [lineList])
   const {open} = useAlarmModal()
   const {data: alarmStatistics, isLoading, isError} = useAlarmStatistics(param)
 

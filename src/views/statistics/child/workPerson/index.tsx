@@ -8,10 +8,18 @@ import {
   useWorkModal,
   useWorkStatisticsDetail
 } from 'utils/statistics/workStatistics'
+import {useEffect} from "react";
 
 export const WorkPerson = () => {
   const {data: lineList} = useLineList()
-  const [param = {subwayId: lineList?.data[0].id, time: 3}, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useProjectsSearchParams()
+
+  useEffect(() => {
+    if (lineList) {
+      setParam({subwayId: lineList?.data[0]?.id, time: 3})
+    }
+  }, [lineList])
+
   const {data: workStatistics, isLoading, isError} = useWorkStatistics(param)
   const {open} = useWorkModal()
 
@@ -99,7 +107,6 @@ export const WorkPerson = () => {
             });
           }}
         />
-
         <WorkPersonModal/>
       </Main>
     </>
@@ -119,6 +126,10 @@ export const WorkPersonModal = () => {
       title: "姓名",
       dataIndex: "personName"
     },
+    {
+      title: "到岗人数",
+      dataIndex: "isWork"
+    }
   ]
   /*const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({...param, index: p.current, size: p.pageSize})

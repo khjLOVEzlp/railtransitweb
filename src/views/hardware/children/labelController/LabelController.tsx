@@ -1,9 +1,10 @@
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/hardware/lab';
+import {useDel, useInit} from 'utils/hardware/lab';
 import {ModalForm} from './ModalForm';
 import {useDebounce} from 'hook/useDebounce';
 import {useLabModal} from './util'
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 
 export const LabelController = () => {
   const [param, setParam] = useProjectsSearchParams()
@@ -45,7 +46,7 @@ export const LabelController = () => {
           <Form.Item
             name="name"
           >
-            <Input placeholder={"十进制编码"} value={param.name}
+            <Input placeholder={"编号"} value={param.name}
                    onChange={(evt) => setParam({...param, name: evt.target.value})}/>
           </Form.Item>
 
@@ -62,7 +63,7 @@ export const LabelController = () => {
         <Table columns={
           [
             {
-              title: '十进制编码',
+              title: '编号',
               dataIndex: 'codeHex10',
               key: 'codeHex10',
             },

@@ -1,10 +1,11 @@
-import { Button, Form, message, Modal, Popconfirm, Radio, Table, Input } from "antd"
-import { useForm } from "antd/lib/form/Form";
-import { useState } from "react";
-import { rules } from "utils/verification";
-import { useInit, useMod, useFeedBack } from "utils/notice";
+import {Button, Form, message, Modal, Popconfirm, Radio, Table, Input} from "antd"
+import {useForm} from "antd/lib/form/Form";
+import {useEffect, useState} from "react";
+import {rules} from "utils/verification";
+import {useInit, useMod, useFeedBack} from "utils/notice";
 import {useNoticeModal} from './util'
-const { TextArea } = Input
+
+const {TextArea} = Input
 
 export const OperModal = () => {
   const {ModalOpen, close} = useNoticeModal()
@@ -16,9 +17,16 @@ export const OperModal = () => {
     size: 10
   })
 
-  const { data, isLoading } = useInit(pagination)
-  const { mutateAsync: Mod } = useMod()
-  const { mutateAsync: sharePlan } = useFeedBack()
+  useEffect(() => {
+    setPagination({
+      index: 1,
+      size: 10
+    })
+  }, [ModalOpen])
+
+  const {data, isLoading} = useInit(pagination)
+  const {mutateAsync: Mod} = useMod()
+  const {mutateAsync: sharePlan} = useFeedBack()
 
   const mod = async (id: number) => {
     Mod(id)
@@ -59,15 +67,7 @@ export const OperModal = () => {
       case 2:
         return (
           <span>
-            <Popconfirm
-              title={`是否已经读取：${item.title}`}
-              onConfirm={() => confirm(item)}
-              onCancel={cancel}
-              okText="是"
-              cancelText="否"
-            >
               <Button disabled type={"link"}>已读</Button>
-            </Popconfirm>
           </span>
         )
 
@@ -122,11 +122,11 @@ export const OperModal = () => {
   ];
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setPagination({...pagination, index: p.current, size: p.pageSize})
   };
 
   const handleOk = (value: any) => {
-    sharePlan({ ...value, planId: id }).then(() => {
+    sharePlan({...value, planId: id}).then(() => {
       message.success("反馈成功")
       handleCancel()
     }).catch((err) => {
@@ -152,7 +152,7 @@ export const OperModal = () => {
         size="small"
         loading={isLoading}
         dataSource={data?.data}
-        pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
+        pagination={{total: data?.count, current: pagination.index, pageSize: pagination.size}}
         onChange={handleTableChange}
         columns={columns}
         rowKey={(item: any) => item.id}
@@ -198,11 +198,10 @@ export const OperModal = () => {
               label="备注"
               name="remark"
             >
-              <TextArea rows={1} />
+              <TextArea rows={1}/>
             </Form.Item>
           </Form.Item>
         </Form>
-
       </Modal>
     </Modal>
   )

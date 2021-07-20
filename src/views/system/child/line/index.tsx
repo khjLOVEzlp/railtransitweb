@@ -2,7 +2,7 @@ import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {Drawermanage} from "./drawermanage/Drawermanage";
 import {ModalForm} from "./modal/ModalForm";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/system/line'
+import {useDel, useInit} from 'utils/system/line'
 import {useDebounce} from 'hook/useDebounce';
 import {useProjectModal, useLineModal} from './util'
 import {useState} from "react";
@@ -19,14 +19,14 @@ export const Line = () => {
     setParam({...param, name: item.name, index: 1})
   }
 
-  const del = async (id: number) => {
-    Del(id)
-  }
-
   const confirm = (id: number) => {
-    del(id).then(() => {
-      message.success('删除成功')
-      setParam({...param, index: 1})
+    Del(id).then((res) => {
+      if (res.code !== 200) {
+        message.error(res.msg)
+      } else {
+        message.success('删除成功')
+        setParam({...param, index: 1})
+      }
     })
   }
 

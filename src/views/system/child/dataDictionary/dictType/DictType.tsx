@@ -2,8 +2,9 @@ import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {ModalForm} from './ModalForm'
 import {useDebounce} from 'hook/useDebounce';
-import {useDel, useInit, useProjectsSearchParams} from 'utils/system/dictType'
+import {useDel, useInit, } from 'utils/system/dictType'
 import {useDictTypeModal} from './util'
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 
 export const DictType = () => {
   const [param, setParam] = useProjectsSearchParams()
@@ -15,14 +16,14 @@ export const DictType = () => {
     setParam({...param, name: item.name, index: 1})
   };
 
-  const del = async (id: number) => {
-    Del(id)
-  }
-
   const confirm = (id: number) => {
-    del(id).then(() => {
-      message.success('删除成功')
-      setParam({...param, index: 1})
+    Del(id).then((res) => {
+      if (res.code !== 200) {
+        message.error(res.msg)
+      } else {
+        message.success('删除成功')
+        setParam({...param, index: 1})
+      }
     })
   }
 

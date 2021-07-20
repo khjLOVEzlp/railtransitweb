@@ -1,24 +1,24 @@
 import * as echarts from 'echarts';
 
+const color = "#989EAC"
 
 const data = [
-
   {
-    name: "地铁一号线",
+    name: "21号线",
     tooltip: {
       formatter: "{b}: 19999<br />"
     },
     symbolSize: 0.1,
-    value: [5, 750],
-    x: 800,
-    y: 400,
+    value: [-80, 1400],
+    x: 1000,
+    y: 1000,
     fixed: true,
     // draggable: false,
     category: 1,
     label: {
-      color: "#35c2ff",
+      color: "#5A7FFA",
       position: 'bottom',
-      fontSize: 24,
+      fontSize: 18,
       fontWeight: 1000
     },
     itemStyle: {
@@ -27,14 +27,49 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
+
+  {
+    name: "广佛线",
+    tooltip: {
+      formatter: "{b}: 19999<br />"
+    },
+    symbolSize: 0.1,
+    value: [500, 1300],
+    x: 1000,
+    y: 1000,
+    fixed: true,
+    // draggable: false,
+    category: 1,
+    label: {
+      color: "#FFD876",
+      position: 'top',
+      fontSize: 18,
+      fontWeight: 1000
+    },
+    itemStyle: {
+      normal: {
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+          offset: 0,
+          color: "#157eff"
+        },
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
+        ])
+      }
+    }
+  },
+
+  /*
   {
     name: "地铁二号线",
     tooltip: {
@@ -98,8 +133,8 @@ const data = [
         ])
       }
     }
-  },
-  {
+  },*/
+  /*{
     name: "地铁四号线",
     tooltip: {
       formatter: "{b}: 19999<br />"
@@ -123,10 +158,10 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
@@ -155,31 +190,31 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
-  },
-  //地铁一号线，站点间X轴坐标相差50，Y轴坐标相同
+  },*/
+  //21号线，站点间X轴坐标相差50，Y轴坐标相同
   {
-    name: "沣河森林公园",
+    name: "天河公园",
     tooltip: {
       formatter: "{b}: 19999<br />"
     },
     symbol: 'circle',
-    symbolSize: [25, 25],
-    value: [5, 600],
+    symbolSize: [20, 20],
+    value: [0, 1200],
     x: 800,
     y: 400,
     fixed: true,
     // draggable: false,
     category: 1,
     label: {
-      color: "#FFF",
-      position: 'bottom',
+      color: color,
+      position: 'left',
     },
     itemStyle: {
       normal: {
@@ -187,25 +222,25 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "北槐",
+    name: "棠东",
     x: 400,
     y: 400,
-    value: [80, 600],
+    value: [0, 1050],
     fixed: true,
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#FFF",
-      position: 'top',
+      color: color,
+      position: 'left',
     },
     category: 1,
     itemStyle: {
@@ -214,26 +249,26 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
 
   {
-    name: "上林路",
+    name: "黄村",
     x: 1000,
     y: 1000,
-    value: [130, 600],
+    value: [-30, 900],
     fixed: true,
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#fff",
-      position: 'bottom',
+      color: color,
+      position: 'left',
     },
     category: 1,
     itemStyle: {
@@ -242,23 +277,23 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "沣东自贸园",
+    name: "大观南路",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
-      position: 'top',
+      color: color,
+      position: 'left',
     },
-    value: [180, 600],
+    value: [-50, 750],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -269,23 +304,131 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "后卫寨",
+    name: "天河智慧城",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
+      position: 'left',
+    },
+    value: [-50, 600],
+    x: 1000,
+    y: 1000,
+    fixed: true,
+    category: 2,
+    itemStyle: {
+      normal: {
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+          offset: 0,
+          color: "#157eff"
+        },
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
+        ])
+      }
+    }
+  },
+  {
+    name: "神舟路",
+    symbol: 'circle',
+    symbolSize: [15, 15],
+    label: {
+      color: color,
+      position: 'left',
+    },
+    value: [-50, 450],
+    x: 1000,
+    y: 1000,
+    fixed: true,
+    category: 2,
+    itemStyle: {
+      normal: {
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+          offset: 0,
+          color: "#157eff"
+        },
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
+        ])
+      }
+    }
+  },
+  {
+    name: "科学城",
+    symbol: 'circle',
+    symbolSize: [15, 15],
+    label: {
+      color: color,
+      position: 'left',
+    },
+    value: [-30, 300],
+    x: 1000,
+    y: 1000,
+    fixed: true,
+    category: 2,
+    itemStyle: {
+      normal: {
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+          offset: 0,
+          color: "#157eff"
+        },
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
+        ])
+      }
+    }
+  },
+  {
+    name: "苏元",
+    symbol: 'circle',
+    symbolSize: [15, 15],
+    label: {
+      color: color,
+      position: 'left',
+    },
+    value: [-10, 150],
+    x: 1000,
+    y: 1000,
+    fixed: true,
+    category: 2,
+    itemStyle: {
+      normal: {
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+          offset: 0,
+          color: "#157eff"
+        },
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
+        ])
+      }
+    }
+  },
+  {
+    name: "水西",
+    symbol: 'circle',
+    symbolSize: [15, 15],
+    label: {
+      color: color,
       position: 'bottom',
     },
-    value: [230, 600],
+    value: [100, 150],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -296,23 +439,23 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "三桥",
+    name: "长平",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'top',
     },
-    value: [280, 600],
+    value: [200, 200],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -323,23 +466,23 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "皂河",
+    name: "金坑",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
-    value: [330, 600],
+    value: [300, 200],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -350,23 +493,23 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "枣园",
+    name: "镇龙西",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'top',
     },
-    value: [380, 600],
+    value: [400, 200],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -377,23 +520,23 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "汉城路",
+    name: "镇龙",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
-    value: [430, 600],
+    value: [500, 200],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -404,131 +547,23 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "开远门",
+    name: "中新",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
-      position: 'top',
-    },
-    value: [480, 600],
-    x: 1000,
-    y: 1000,
-    fixed: true,
-    category: 2,
-    itemStyle: {
-      normal: {
-        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
-          offset: 0,
-          color: "#157eff"
-        },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
-        ])
-      }
-    }
-  },
-  {
-    name: "劳动路",
-    symbol: 'circle',
-    symbolSize: [15, 15],
-    label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
-    value: [530, 600],
-    x: 1000,
-    y: 1000,
-    fixed: true,
-    category: 2,
-    itemStyle: {
-      normal: {
-        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
-          offset: 0,
-          color: "#157eff"
-        },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
-        ])
-      }
-    }
-  },
-  {
-    name: "玉祥门",
-    symbol: 'circle',
-    symbolSize: [15, 15],
-    label: {
-      color: "#efefef",
-      position: 'top',
-    },
-    value: [580, 600],
-    x: 1000,
-    y: 1000,
-    fixed: true,
-    category: 2,
-    itemStyle: {
-      normal: {
-        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
-          offset: 0,
-          color: "#157eff"
-        },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
-        ])
-      }
-    }
-  },
-  {
-    name: "洒金桥",
-    symbol: 'circle',
-    symbolSize: [15, 15],
-    label: {
-      color: "#efefef",
-      position: 'bottom',
-    },
-    value: [630, 600],
-    x: 1000,
-    y: 1000,
-    fixed: true,
-    category: 2,
-    itemStyle: {
-      normal: {
-        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
-          offset: 0,
-          color: "#157eff"
-        },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
-        ])
-      }
-    }
-  },
-  {
-    name: "北大街",
-    symbol: 'circle',
-    symbolSize: [20, 20],
-    label: {
-      color: "#efefef",
-      position: 'top',
-    },
-    value: [680, 600],
+    value: [600, 150],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -537,25 +572,25 @@ const data = [
       normal: {
         color: new echarts.graphic.LinearGradient(0, 1, 1, 0, [{
           offset: 0,
-          color: "#FF1493"
+          color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#0000FF"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "五路口",
+    name: "坑贝站",
     symbol: 'circle',
-    symbolSize: [20, 20],
+    symbolSize: [15, 15],
     label: {
-      color: "#efefef",
-      position: 'bottom',
+      color: color,
+      position: 'right',
     },
-    value: [730, 600],
+    value: [700, 250],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -564,25 +599,25 @@ const data = [
       normal: {
         color: new echarts.graphic.LinearGradient(0, 1, 1, 0, [{
           offset: 0,
-          color: "#FF1493"
+          color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#0000FF"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "朝阳门",
+    name: "凤岗站",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
-      position: 'top',
+      color: color,
+      position: 'right',
     },
-    value: [780, 600],
+    value: [700, 400],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -593,23 +628,23 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "康复路",
+    name: "朱村",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
-      position: 'bottom',
+      color: color,
+      position: 'top',
     },
-    value: [830, 600],
+    value: [700, 550],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -620,23 +655,23 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "通化门",
+    name: "山田站",
     symbol: 'circle',
-    symbolSize: [20, 20],
+    symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'top',
     },
-    value: [880, 600],
+    value: [800, 550],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -645,25 +680,25 @@ const data = [
       normal: {
         color: new echarts.graphic.LinearGradient(0, 1, 1, 0, [{
           offset: 0,
-          color: "#FF1493"
+          color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#0000FF"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "万寿路",
+    name: "钟岗站",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
-    value: [930, 600],
+    value: [900, 550],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -674,50 +709,23 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
         ])
       }
     }
   },
   {
-    name: "长乐坡",
+    name: "增城广场",
     symbol: 'circle',
-    symbolSize: [15, 15],
+    symbolSize: [20, 20],
     label: {
-      color: "#efefef",
-      position: 'top',
-    },
-    value: [980, 600],
-    x: 1000,
-    y: 1000,
-    fixed: true,
-    category: 2,
-    itemStyle: {
-      normal: {
-        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
-          offset: 0,
-          color: "#157eff"
-        },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
-        ])
-      }
-    }
-  },
-  {
-    name: "浐河",
-    symbol: 'circle',
-    symbolSize: [15, 15],
-    label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
-    value: [1030, 600],
+    value: [1000, 450],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -728,23 +736,52 @@ const data = [
           offset: 0,
           color: "#157eff"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#35c2ff"
+          }
+        ])
+      }
+    }
+  },
+
+  //广佛线，垂直线路，站点间X轴坐标相同，Y轴坐标相差50
+  {
+    name: "石溪站",
+    symbol: 'circle',
+    symbolSize: [20, 20],
+    label: {
+      color: color,
+      position: 'right',
+    },
+    value: [500, 1200],
+    x: 1000,
+    y: 1000,
+    fixed: true,
+    category: 2,
+    itemStyle: {
+      normal: {
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+          offset: 0,
+          color: "#FFEDC1"
+        },
+          {
+            offset: 1,
+            color: "#FFEDC1"
+          }
         ])
       }
     }
   },
   {
-    name: "半坡",
+    name: "南洲站",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
-      position: 'top',
+      color: color,
+      position: 'left',
     },
-    value: [1080, 600],
+    value: [500, 540],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -753,25 +790,25 @@ const data = [
       normal: {
         color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
           offset: 0,
-          color: "#157eff"
+          color: "#FFEDC1"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#FFEDC1"
+          }
         ])
       }
     }
   },
   {
-    name: "纺织城",
+    name: "沥滘站",
     symbol: 'circle',
-    symbolSize: [25, 25],
+    symbolSize: [20, 20],
     label: {
-      color: "#efefef",
-      position: 'bottom',
+      color: color,
+      position: 'left',
     },
-    value: [1130, 600],
+    value: [500, 0],
     x: 1000,
     y: 1000,
     fixed: true,
@@ -780,23 +817,23 @@ const data = [
       normal: {
         color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
           offset: 0,
-          color: "#157eff"
+          color: "#FFEDC1"
         },
-        {
-          offset: 1,
-          color: "#35c2ff"
-        }
+          {
+            offset: 1,
+            color: "#FFEDC1"
+          }
         ])
       }
     }
   },
-  //地铁二号线，垂直线路，站点间X轴坐标相同，Y轴坐标相差50
+  /*//广佛线，垂直线路，站点间X轴坐标相同，Y轴坐标相差50
   {
     name: "钟楼",
     symbol: 'circle',
-    symbolSize: [15, 15],
+    symbolSize: [20, 20],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 540],
@@ -823,7 +860,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 500],
@@ -850,7 +887,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 450],
@@ -877,7 +914,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 400],
@@ -904,7 +941,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [20, 20],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 350],
@@ -931,7 +968,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 300],
@@ -958,7 +995,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 250],
@@ -985,7 +1022,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 200],
@@ -1012,7 +1049,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 150],
@@ -1039,7 +1076,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 100],
@@ -1066,7 +1103,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [25, 25],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 50],
@@ -1093,7 +1130,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 660],
@@ -1120,7 +1157,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 700],
@@ -1147,7 +1184,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 750],
@@ -1174,7 +1211,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 800],
@@ -1201,7 +1238,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 850],
@@ -1228,7 +1265,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [20, 20],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 900],
@@ -1255,7 +1292,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 950],
@@ -1282,7 +1319,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 1000],
@@ -1309,7 +1346,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [25, 25],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [680, 1050],
@@ -1337,7 +1374,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'top',
     },
     value: [580, 350],
@@ -1364,7 +1401,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [520, 350],
@@ -1391,7 +1428,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'top',
     },
     value: [460, 350],
@@ -1418,7 +1455,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [400, 350],
@@ -1445,7 +1482,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'top',
     },
     value: [340, 350],
@@ -1472,7 +1509,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [25, 25],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [280, 350],
@@ -1499,7 +1536,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [20, 20],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [730, 350],
@@ -1526,7 +1563,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'top',
     },
     value: [800, 350],
@@ -1553,7 +1590,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [850, 370],
@@ -1580,7 +1617,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [880, 400],
@@ -1607,7 +1644,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [880, 450],
@@ -1634,7 +1671,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [880, 500],
@@ -1661,7 +1698,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [880, 660],
@@ -1688,7 +1725,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [880, 700],
@@ -1715,7 +1752,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [900, 750],
@@ -1742,7 +1779,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'top',
     },
     value: [960, 755],
@@ -1769,7 +1806,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [1000, 757],
@@ -1796,7 +1833,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [1040, 780],
@@ -1823,7 +1860,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [1040, 830],
@@ -1850,7 +1887,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [1040, 880],
@@ -1877,7 +1914,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [1040, 930],
@@ -1904,7 +1941,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [1040, 980],
@@ -1931,7 +1968,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [1040, 1030],
@@ -1958,7 +1995,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [25, 25],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [1040, 1080],
@@ -1979,14 +2016,14 @@ const data = [
         ])
       }
     }
-  },
+  },*/
   //地铁四号线
-  {
+  /*{
     name: "大唐芙蓉园",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 300],
@@ -2000,10 +2037,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2013,7 +2050,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 250],
@@ -2027,10 +2064,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2040,7 +2077,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 200],
@@ -2054,10 +2091,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2067,7 +2104,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 150],
@@ -2081,10 +2118,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2094,7 +2131,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 100],
@@ -2108,10 +2145,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2121,7 +2158,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 50],
@@ -2135,10 +2172,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2148,7 +2185,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [820, 30],
@@ -2162,10 +2199,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2175,7 +2212,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [920, 30],
@@ -2189,10 +2226,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2202,7 +2239,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [1020, 30],
@@ -2216,10 +2253,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2229,7 +2266,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 400],
@@ -2243,10 +2280,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2256,7 +2293,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 450],
@@ -2270,10 +2307,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2283,7 +2320,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 500],
@@ -2297,10 +2334,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2310,7 +2347,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 550],
@@ -2324,10 +2361,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2337,7 +2374,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 660],
@@ -2351,10 +2388,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2364,7 +2401,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 695],
@@ -2378,10 +2415,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2391,7 +2428,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 735],
@@ -2405,10 +2442,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2418,7 +2455,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 770],
@@ -2432,10 +2469,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2445,7 +2482,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 805],
@@ -2459,10 +2496,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2472,7 +2509,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 835],
@@ -2486,10 +2523,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2499,7 +2536,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [730, 865],
@@ -2513,10 +2550,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2526,7 +2563,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [710, 890],
@@ -2540,10 +2577,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2553,7 +2590,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [550, 900],
@@ -2567,10 +2604,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2580,7 +2617,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [530, 930],
@@ -2594,10 +2631,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2607,7 +2644,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [530, 970],
@@ -2621,10 +2658,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2634,7 +2671,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [530, 1010],
@@ -2648,10 +2685,10 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
@@ -2661,7 +2698,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [25, 25],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [640, 1100],
@@ -2675,21 +2712,21 @@ const data = [
           offset: 0,
           color: "#48D1CC"
         },
-        {
-          offset: 1,
-          color: "#48D1CC"
-        }
+          {
+            offset: 1,
+            color: "#48D1CC"
+          }
         ])
       }
     }
-  },
+  },*/
   //机场城际
-  {
+  /*{
     name: "渭河南",
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [530, 1120],
@@ -2703,10 +2740,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-        {
-          offset: 1,
-          color: "#20B2AA"
-        }
+          {
+            offset: 1,
+            color: "#20B2AA"
+          }
         ])
       }
     }
@@ -2716,7 +2753,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'left',
     },
     value: [450, 1145],
@@ -2730,10 +2767,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-        {
-          offset: 1,
-          color: "#20B2AA"
-        }
+          {
+            offset: 1,
+            color: "#20B2AA"
+          }
         ])
       }
     }
@@ -2743,7 +2780,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [380, 1105],
@@ -2757,10 +2794,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-        {
-          offset: 1,
-          color: "#20B2AA"
-        }
+          {
+            offset: 1,
+            color: "#20B2AA"
+          }
         ])
       }
     }
@@ -2770,7 +2807,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [310, 1080],
@@ -2784,10 +2821,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-        {
-          offset: 1,
-          color: "#20B2AA"
-        }
+          {
+            offset: 1,
+            color: "#20B2AA"
+          }
         ])
       }
     }
@@ -2797,7 +2834,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [230, 1070],
@@ -2811,10 +2848,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-        {
-          offset: 1,
-          color: "#20B2AA"
-        }
+          {
+            offset: 1,
+            color: "#20B2AA"
+          }
         ])
       }
     }
@@ -2824,7 +2861,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [170, 1100],
@@ -2838,10 +2875,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-        {
-          offset: 1,
-          color: "#20B2AA"
-        }
+          {
+            offset: 1,
+            color: "#20B2AA"
+          }
         ])
       }
     }
@@ -2851,7 +2888,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [120, 1150],
@@ -2865,10 +2902,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-        {
-          offset: 1,
-          color: "#20B2AA"
-        }
+          {
+            offset: 1,
+            color: "#20B2AA"
+          }
         ])
       }
     }
@@ -2878,7 +2915,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [15, 15],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'right',
     },
     value: [80, 1190],
@@ -2892,10 +2929,10 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-        {
-          offset: 1,
-          color: "#20B2AA"
-        }
+          {
+            offset: 1,
+            color: "#20B2AA"
+          }
         ])
       }
     }
@@ -2905,7 +2942,7 @@ const data = [
     symbol: 'circle',
     symbolSize: [25, 25],
     label: {
-      color: "#efefef",
+      color: color,
       position: 'bottom',
     },
     value: [20, 1130],
@@ -2919,14 +2956,14 @@ const data = [
           offset: 0,
           color: "#20B2AA"
         },
-        {
-          offset: 1,
-          color: "#20B2AA"
-        }
+          {
+            offset: 1,
+            color: "#20B2AA"
+          }
         ])
       }
     }
-  },
+  },*/
 ];
 
 export const option = ({
@@ -2940,7 +2977,6 @@ export const option = ({
     top: 10
   },
   //不设置背景颜色就是透明色
-  backgroundColor: '#003366',
   xAxis: {
     show: false,
     min: 0,
@@ -2989,8 +3025,8 @@ export const option = ({
     },
     data: data,
     links: [{
-      source: "沣河森林公园",
-      target: "北槐"
+      source: "天河公园",
+      target: "棠东"
       // lineStyle: {
       //   normal: {
       //     color: "#12b5d0",
@@ -2998,994 +3034,580 @@ export const option = ({
       //   }
       // }
     },
-    {
-      source: "北槐",
-      target: "上林路",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
+      {
+        source: "棠东",
+        target: "黄村",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
         }
-      }
-    },
-    {
-      source: "上林路",
-      target: "沣东自贸园",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
+      },
+      {
+        source: "黄村",
+        target: "大观南路",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
         }
-      }
-    },
-    {
-      source: "沣东自贸园",
-      target: "后卫寨",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
+      },
+      {
+        source: "大观南路",
+        target: "天河智慧城",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
         }
-      }
-    },
+      },
 
-    {
-      source: "后卫寨",
-      target: "三桥",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
+      {
+        source: "天河智慧城",
+        target: "神舟路",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
         }
-      }
-    },
+      },
 
-    {
-      source: "三桥",
-      target: "皂河",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
+      {
+        source: "神舟路",
+        target: "科学城",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
         }
-      }
-    },
+      },
 
-    {
-      source: "皂河",
-      target: "枣园"
-      // lineStyle: {
-      //   normal: {
-      //     color: "#12b5d0",
-      //
-      //   }
-      // }
-    },
-    {
-      source: "枣园",
-      target: "汉城路",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "汉城路",
-      target: "开远门",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "开远门",
-      target: "劳动路",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "劳动路",
-      target: "玉祥门",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "玉祥门",
-      target: "洒金桥",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "洒金桥",
-      target: "北大街",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "北大街",
-      target: "五路口",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "五路口",
-      target: "朝阳门",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "朝阳门",
-      target: "康复路",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "康复路",
-      target: "通化门",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "通化门",
-      target: "万寿路",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "万寿路",
-      target: "长乐坡",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "长乐坡",
-      target: "浐河",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "浐河",
-      target: "半坡",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    {
-      source: "半坡",
-      target: "纺织城",
-      lineStyle: {
-        normal: {
-          // color: "#12b5d0",
-        }
-      }
-    },
-    //地铁二号线连接
-    {
-      source: "韦曲南",
-      target: "航天城",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "航天城",
-      target: "凤栖原",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "凤栖原",
-      target: "三爻",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "三爻",
-      target: "会展中心",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "会展中心",
-      target: "纬一街",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "纬一街",
-      target: "小寨",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "小寨",
-      target: "体育场",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "体育场",
-      target: "南稍门",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "南稍门",
-      target: "永宁门",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "永宁门",
-      target: "钟楼",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "钟楼",
-      target: "北大街",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "北大街",
-      target: "安远门",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "安远门",
-      target: "龙首原",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "龙首原",
-      target: "大明宫西",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "大明宫西",
-      target: "市图书馆",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "市图书馆",
-      target: "凤城五路",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "凤城五路",
-      target: "行政中心",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "行政中心",
-      target: "运动公园",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "运动公园",
-      target: "北苑",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "北苑",
-      target: "北客站",
-      lineStyle: {
-        normal: {
-          color: "red",
-        }
-      }
-    },
-    {
-      source: "鱼化寨",
-      target: "丈八北路",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "丈八北路",
-      target: "延平门",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "延平门",
-      target: "科技路",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "科技路",
-      target: "太白南路",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "太白南路",
-      target: "吉祥村",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "吉祥村",
-      target: "小寨",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "小寨",
-      target: "大雁塔",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "大雁塔",
-      target: "北池头",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "北池头",
-      target: "青龙寺",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "青龙寺",
-      target: "延兴门",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "延兴门",
-      target: "咸宁路",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "咸宁路",
-      target: "长乐公园",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "长乐公园",
-      target: "通化门",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "通化门",
-      target: "胡家庙",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "胡家庙",
-      target: "石家街",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "石家街",
-      target: "辛家庙",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "辛家庙",
-      target: "广泰门",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "广泰门",
-      target: "桃花潭",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "桃花潭",
-      target: "浐灞中心",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "浐灞中心",
-      target: "香湖湾",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "香湖湾",
-      target: "务庄",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "务庄",
-      target: "国际港务区",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "国际港务区",
-      target: "双寨",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "双寨",
-      target: "新筑",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    {
-      source: "新筑",
-      target: "保税区",
-      lineStyle: {
-        normal: {
-          color: "#FF00FF",
-        }
-      }
-    },
-    //地铁四号线和机场城际的连线
-    {
-      source: "航天新城",
-      target: "航天东路",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "航天东路",
-      target: "神舟大道",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "神舟大道",
-      target: "东长安街",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "东长安街",
-      target: "飞天路",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "飞天路",
-      target: "航天大道",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "航天大道",
-      target: "金滹沱",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "金滹沱",
-      target: "曲江池西",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "曲江池西",
-      target: "大唐芙蓉园",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "大唐芙蓉园",
-      target: "大雁塔",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "大雁塔",
-      target: "西安科技大学",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "西安科技大学",
-      target: "建筑科技大学",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "建筑科技大学",
-      target: "和平门",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "和平门",
-      target: "大差市",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "大差市",
-      target: "五路口",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "五路口",
-      target: "火车站",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "火车站",
-      target: "含元殿",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "含元殿",
-      target: "大明宫",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "大明宫",
-      target: "大明宫北",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "大明宫北",
-      target: "余家寨",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "余家寨",
-      target: "百花村",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "百花村",
-      target: "常青路",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "常青路",
-      target: "市中医院",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "市中医院",
-      target: "行政中心",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "行政中心",
-      target: "文景路",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "文景路",
-      target: "凤城九路",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "凤城九路",
-      target: "凤城十二路",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "凤城十二路",
-      target: "元朔路",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "元朔路",
-      target: "北客站(北广场)",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    //机场城际各站点连线
-    {
-      source: "北客站(北广场)",
-      target: "渭河南",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "渭河南",
-      target: "秦宫",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "秦宫",
-      target: "秦汉新城",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "秦汉新城",
-      target: "长陵",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "长陵",
-      target: "摆旗寨",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "摆旗寨",
-      target: "艺术中心",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "艺术中心",
-      target: "空港新城",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "空港新城",
-      target: "机场（T5）",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
-    {
-      source: "机场（T5）",
-      target: "机场西（T1、T2、T3）",
-      lineStyle: {
-        normal: {
-          color: "#48D1CC",
-        }
-      }
-    },
+      {
+        source: "科学城",
+        target: "苏元"
+        // lineStyle: {
+        //   normal: {
+        //     color: "#12b5d0",
+        //
+        //   }
+        // }
+      },
+      {
+        source: "苏元",
+        target: "水西",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "水西",
+        target: "长平",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "长平",
+        target: "金坑",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "金坑",
+        target: "镇龙西",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "镇龙西",
+        target: "镇龙",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "镇龙",
+        target: "中新",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "中新",
+        target: "坑贝站",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "坑贝站",
+        target: "凤岗站",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "凤岗站",
+        target: "朱村",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "朱村",
+        target: "山田站",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "山田站",
+        target: "钟岗站",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      {
+        source: "钟岗站",
+        target: "增城广场",
+        lineStyle: {
+          normal: {
+            // color: "#12b5d0",
+          }
+        }
+      },
+      //广佛线连接
+      {
+        source: "石溪站",
+        target: "南洲站",
+        lineStyle: {
+          normal: {
+            color: "#FFE197",
+          }
+        }
+      },
+      {
+        source: "南洲站",
+        target: "沥滘站",
+        lineStyle: {
+          normal: {
+            color: "#FFE197",
+          }
+        }
+      },
+      //地铁四号线和机场城际的连线
+      {
+        source: "航天新城",
+        target: "航天东路",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "航天东路",
+        target: "神舟大道",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "神舟大道",
+        target: "东长安街",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "东长安街",
+        target: "飞天路",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "飞天路",
+        target: "航天大道",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "航天大道",
+        target: "金滹沱",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "金滹沱",
+        target: "曲江池西",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "曲江池西",
+        target: "大唐芙蓉园",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "大唐芙蓉园",
+        target: "大雁塔",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "大雁塔",
+        target: "西安科技大学",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "西安科技大学",
+        target: "建筑科技大学",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "建筑科技大学",
+        target: "和平门",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "和平门",
+        target: "大差市",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "大差市",
+        target: "五路口",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "五路口",
+        target: "火车站",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "火车站",
+        target: "含元殿",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "含元殿",
+        target: "大明宫",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "大明宫",
+        target: "大明宫北",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "大明宫北",
+        target: "余家寨",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "余家寨",
+        target: "百花村",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "百花村",
+        target: "常青路",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "常青路",
+        target: "市中医院",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "市中医院",
+        target: "行政中心",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "行政中心",
+        target: "文景路",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "文景路",
+        target: "凤城九路",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "凤城九路",
+        target: "凤城十二路",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "凤城十二路",
+        target: "元朔路",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "元朔路",
+        target: "北客站(北广场)",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      //机场城际各站点连线
+      {
+        source: "北客站(北广场)",
+        target: "渭河南",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "渭河南",
+        target: "秦宫",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "秦宫",
+        target: "秦汉新城",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "秦汉新城",
+        target: "长陵",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "长陵",
+        target: "摆旗寨",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "摆旗寨",
+        target: "艺术中心",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "艺术中心",
+        target: "空港新城",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "空港新城",
+        target: "机场（T5）",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
+      {
+        source: "机场（T5）",
+        target: "机场西（T1、T2、T3）",
+        lineStyle: {
+          normal: {
+            color: "#48D1CC",
+          }
+        }
+      },
     ],
     lineStyle: {
       normal: {
         opacity: 0.6, //线条透明度
-        color: "#53B5EA",
+        color: "#6A9EFD",
         curveness: 0, //站点间连线曲度，0表示直线
-        width: 10 //线条宽度
+        width: 5 //线条宽度
       }
     }
   },
-  {
-    type: "lines",
-    coordinateSystem: "cartesian2d",
-    z: 1,
-    zlevel: 7,
-    animation: true,
-    effect: {
-      show: true,
-      period: 5,
-      trailLength: 0.71,
-      symbolSize: 14,
-      symbol: "circle",
-      loop: true,
-      color: 'yellow'
-      //   color: "rgba(55,155,255,0.5)"
-    },
-    lineStyle: {
-      normal: {
-        // color: "green",
-        width: 0,
-        curveness: 0  //动画线路的曲度
-      }
-    },
+    {
+      type: "lines",
+      coordinateSystem: "cartesian2d",
+      z: 1,
+      zlevel: 7,
+      animation: true,
+      effect: {
+        show: true,
+        period: 5,
+        trailLength: 0.71,
+        symbolSize: 14,
+        symbol: "circle",
+        loop: true,
+        color: 'yellow'
+        //   color: "rgba(55,155,255,0.5)"
+      },
+      lineStyle: {
+        normal: {
+          // color: "green",
+          width: 0,
+          curveness: 0  //动画线路的曲度
+        }
+      },
 
-    data: [
-      {  //一号线
-        coords: [
-          [5, 600],
-          [1130, 600]
-        ]
-      },
-      {  //二号线
-        coords: [
-          [680, 50],
-          [680, 1050]
-        ]
-      },
-      //   {  //三号线
-      //     coords: [
-      //       [280, 350],
-      //       [1040, 1080]
-      //     ]
-      //   }
-    ]
-  },
+      data: [
+        // {  //一号线
+        //   coords: [
+        //     [5, 600],
+        //     [1130, 600]
+        //   ]
+        // },
+        // {  //二号线
+        //   coords: [
+        //     [680, 50],
+        //     [680, 1050]
+        //   ]
+        // },
+        //   {  //三号线
+        //     coords: [
+        //       [280, 350],
+        //       [1040, 1080]
+        //     ]
+        //   }
+      ]
+    },
   ]
 })

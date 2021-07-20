@@ -18,14 +18,14 @@ export const Class = () => {
     setParam({...param, departmentName: item.departmentName, index: 1, size: 10})
   };
 
-  const del = async (id: number) => {
-    Del(id)
-  }
-
   const confirm = (id: number) => {
-    del(id).then(() => {
-      message.success('删除成功')
-      setParam({...param, index: 1})
+    Del(id).then((res) => {
+      if (res.code !== 200) {
+        message.error(res.msg)
+      } else {
+        message.success('删除成功')
+        setParam({...param, index: 1})
+      }
     })
   }
 

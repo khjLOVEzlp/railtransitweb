@@ -1,24 +1,19 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {Button, DatePicker, Form, Input, message, Modal, Radio, Select, Space, Spin, TreeSelect, Upload} from "antd";
+import React, {useEffect} from "react";
+import {Button, DatePicker, Form, Input, message, Modal, Radio, Spin, TreeSelect, Upload} from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import dayjs from "dayjs";
-import {useHttp} from "utils/http";
 import {rules} from "utils/verification";
-import {useAllRfi} from "utils/hardware/rfi";
 import {usePersonModal, useImportModal} from '../util'
 import {useAdd, useMod} from 'utils/person/personManage'
 import {InboxOutlined} from '@ant-design/icons';
 import {useAuth} from "../../../../../context/auth-context";
 import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import {useInit} from 'utils/system/department'
+import moment from "moment";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-const {Option} = Select
-
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const [value, setValue] = useState()
-  const client = useHttp()
   const setUrlParams = useSetUrlSearchParam();
 
   const {ModalOpen, editingPersonId, editingPerson, isLoading, close, isSuccess} = usePersonModal()
@@ -38,7 +33,7 @@ export const ModalForm = () => {
     if (isSuccess && editingPerson) {
       form.setFieldsValue({
         ...editingPerson?.data,
-        birthday: dayjs(editingPerson?.data?.birthday)
+        birthday: editingPerson?.data?.birthday === null ? "" : moment(editingPerson?.data?.birthday)
       })
     }
   }, [form, editingPerson])
@@ -59,38 +54,14 @@ export const ModalForm = () => {
     })
   }
 
-  const {data} = useAllRfi()
-
-  const getDepartmentList = useCallback(() => {
-    client(`department/getAll`).then(res => {
-      const fuc = (data: any) => {
-        if (data && data.length > 0) {
-          data.forEach((item: any) => {
-            item.title = item.name
-            item.value = item.id
-            item.children = fuc(item.departmentList)
-          });
-        } else {
-          data = []
-        }
-        return data
-      }
-      setValue(fuc(res.data))
-    })
-
-
-  }, [client])
-
-  useEffect(() => {
-    getDepartmentList()
-  }, [getDepartmentList])
+  const {data: departmentList} = useInit()
 
   const onChange = (value: any) => {
     form.setFieldsValue({departmentId: value})
   };
 
   const disabledDate = (current: any) => {
-    return current && current > dayjs().endOf('day');
+    return current && current > moment().endOf('day');
   }
 
   const onOk = () => {
@@ -141,7 +112,15 @@ export const ModalForm = () => {
             <Form.Item
               label="身份证号"
               name="identityCard"
-              rules={rules}
+              rules={[
+                {
+                  required: true, message: "请输入身份证号"
+                },
+                {
+                  pattern: new RegExp(/(^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$)|(^\d{6}(18|19|20)\d{2}(0[1-9]|10|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$)/),
+                  message: "请输入正确的身份证"
+                }
+              ]}
             >
               <Input/>
             </Form.Item>
@@ -149,7 +128,15 @@ export const ModalForm = () => {
             <Form.Item
               label="联系方式"
               name="phone"
-              rules={rules}
+              rules={[
+                {
+                  required: true, message: "请输入联系方式"
+                },
+                {
+                  pattern: new RegExp(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/),
+                  message: "请输入正确的联系方式"
+                }
+              ]}
             >
               <Input/>
             </Form.Item>
@@ -159,13 +146,14 @@ export const ModalForm = () => {
               name="number"
               rules={rules}
             >
-              <Select
+              {/*<Select
                 showSearch
                 filterOption={(input, option: any) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }>
-                {data?.data.map((item: any) => <Option value={item.id} key={item.id}>{item.rfid}</Option>)}
-              </Select>
+                {data?.data.map((item: any) => <Option value={item.rfid} key={item.id}>{item.rfid}</Option>)}
+              </Select>*/}
+              <Input/>
             </Form.Item>
 
             <Form.Item
@@ -174,8 +162,9 @@ export const ModalForm = () => {
               rules={rules}
             >
               <TreeSelect
+                getPopupContainer={triggerNode => triggerNode.parentElement}
                 style={{width: '100%'}}
-                treeData={value}
+                treeData={departmentList?.data}
                 treeDefaultExpandAll
                 onChange={onChange}
               />
@@ -220,6 +209,9 @@ export const ImportModal = () => {
     },
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
+        return (
+          <Spin size={"large"}/>
+        )
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name}上传成功`);

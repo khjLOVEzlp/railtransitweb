@@ -70,8 +70,8 @@ export const ModalForm = () => {
               name="rfid"
               // rules={[{required: true, len: 10, message: "请输入10位卡号"}]}
             >
-              {/*type={number}*/}
               <Input />
+              {/*<Input type={"number"}/>*/}
             </Form.Item>
 
             <Form.Item

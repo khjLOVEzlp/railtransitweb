@@ -75,7 +75,14 @@ export const useDel = () => {
 */
 export const usePlanWorkDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['planWorkDetail', id], () => client(`plan/get/${id}`), {
+  return useQuery(['planWorkDetail', id], async () => {
+    const data = await client(`plan/get/${id}`)
+    let newList = data.data.typeList.map((key: any) => key.typeId)
+    newList = data.data.personList.map((key: any) => key.personId)
+    data.data.typeList = newList
+    data.data.personList = newList
+    return data
+  }, {
     enabled: Boolean(id),
   })
 }

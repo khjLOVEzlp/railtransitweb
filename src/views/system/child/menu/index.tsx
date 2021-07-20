@@ -1,10 +1,11 @@
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {ModalForm} from "./modal/ModalForm";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/system/menu';
+import {useDel, useInit} from 'utils/system/menu';
 import {useDebounce} from 'hook/useDebounce';
 import {useMenuModal} from './util'
 import {search} from "types/search";
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 
 export const Menu = () => {
   const [param, setParam] = useProjectsSearchParams()
@@ -16,14 +17,14 @@ export const Menu = () => {
     setParam({...param, name: item.name, index: 1})
   };
 
-  const del = async (id: number) => {
-    Del(id)
-  }
-
   const confirm = (id: number) => {
-    del(id).then(() => {
-      message.success('删除成功')
-      setParam({...param, index: 1})
+    Del(id).then((res) => {
+      if (res.code !== 200) {
+        message.error(res.msg)
+      } else {
+        message.success('删除成功')
+        setParam({...param, index: 1})
+      }
     })
   }
 
@@ -37,72 +38,72 @@ export const Menu = () => {
 
   return (
     <>
-        <Header>
-          <Form
-            name="basic"
-            onFinish={search}
-            layout={"inline"}
+      <Header>
+        <Form
+          name="basic"
+          onFinish={search}
+          layout={"inline"}
+        >
+          <Form.Item
+            label=""
+            name="name"
           >
-            <Form.Item
-              label=""
-              name="name"
-            >
-              <Input placeholder={"菜单名称"} value={param.name}
-                     onChange={(evt) => setParam({...param, name: evt.target.value})}/>
-            </Form.Item>
+            <Input placeholder={"菜单名称"} value={param.name}
+                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+          </Form.Item>
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                搜索
-              </Button>
-            </Form.Item>
-          </Form>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              搜索
+            </Button>
+          </Form.Item>
+        </Form>
 
-          <Button onClick={open}>新增</Button>
-        </Header>
-        <Main>
-          <Table columns={
-            [
-              {
-                title: '菜单名称',
-                dataIndex: 'name',
-                key: 'name',
-              },
-              {
-                title: "创建时间",
-                dataIndex: 'createTime',
-                key: 'id',
-              },
-              {
-                title: '备注',
-                dataIndex: 'remark',
-                key: 'remark',
-              },
-              {
-                title: '操作',
-                key: 'id',
-                render: (item) => <>
-                  <Button type="link" onClick={open}>新增</Button>
-                  <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
-                  <Popconfirm
-                    title={`是否要删除${item.name}`}
-                    onConfirm={() => confirm(item.id)}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                  >
-                    <Button type="link">删除</Button>
-                  </Popconfirm></>
-              },
-            ]
-          } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
-                 onChange={handleTableChange}
-                 loading={isLoading}
-                 dataSource={data?.data}
-                 childrenColumnName="childMenu"
-                 rowKey={(item) => item.id}/>
-        </Main>
-        <ModalForm/>
+        <Button onClick={open}>新增</Button>
+      </Header>
+      <Main>
+        <Table columns={
+          [
+            {
+              title: '菜单名称',
+              dataIndex: 'name',
+              key: 'name',
+            },
+            {
+              title: "创建时间",
+              dataIndex: 'createTime',
+              key: 'id',
+            },
+            {
+              title: '备注',
+              dataIndex: 'remark',
+              key: 'remark',
+            },
+            {
+              title: '操作',
+              key: 'id',
+              render: (item) => <>
+                <Button type="link" onClick={open}>新增</Button>
+                <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                <Popconfirm
+                  title={`是否要删除${item.name}`}
+                  onConfirm={() => confirm(item.id)}
+                  onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Button type="link">删除</Button>
+                </Popconfirm></>
+            },
+          ]
+        } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
+               onChange={handleTableChange}
+               loading={isLoading}
+               dataSource={data?.data}
+               childrenColumnName="childMenu"
+               rowKey={(item) => item.id}/>
+      </Main>
+      <ModalForm/>
     </>
   );
 };

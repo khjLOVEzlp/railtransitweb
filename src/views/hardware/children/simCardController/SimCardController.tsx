@@ -1,9 +1,10 @@
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/hardware/sim';
+import {useDel, useInit} from 'utils/hardware/sim';
 import {ModalForm} from './ModalForm';
 import {useDebounce} from 'hook/useDebounce';
 import {useSimModal} from './util'
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 
 export const SimCardController = () => {
   const [param, setParam] = useProjectsSearchParams()

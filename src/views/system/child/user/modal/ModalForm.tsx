@@ -129,8 +129,8 @@ export const ModalForm = () => {
                 filterOption={(input, option: any) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }>
-                {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                            key={index}>{item.name}</Option>)}
+                {personList?.data.map((item: any) => <Option value={item.id}
+                                                                            key={item.id}>{item.name}</Option>)}
               </Select>)
             }
           </Form.Item>

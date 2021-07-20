@@ -25,117 +25,57 @@ export const PersonMind = () => {
 
   const data = [
     {
-      "classId": 64,
       "className": "变电七分部",
-      "temRate": "体温异常率",
-      "alcRate": 66,
-      "bloodRate": 100,
+      "type": "体温异常率",
+      "value": 66,
     },
     {
-      "classId": 65,
       "className": "变电七分部",
-      "temRate": "酒精异常率",
-      "alcRate": 80,
-      "bloodRate": 90,
+      "type": "酒精异常率",
+      "value": 66,
     },
     {
-      "classId": 66,
       "className": "变电七分部",
-      "temRate": "血压异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
+      "type": "血压异常率",
+      "value": 66,
     },
     {
-      "classId": 66,
       "className": "变电二班",
-      "temRate": "体温异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
+      "type": "体温异常率",
+      "value": 66,
     },
     {
-      "classId": 66,
       "className": "变电二班",
-      "temRate": "酒精异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
+      "type": "酒精异常率",
+      "value": 66,
     },
     {
-      "classId": 66,
       "className": "变电二班",
-      "temRate": "血压异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
+      "type": "血压异常率",
+      "value": 66,
     },
     {
-      "classId": 66,
       "className": "变电三班",
-      "temRate": "体温异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
+      "type": "体温异常率",
+      "value": 66,
     },
     {
-      "classId": 66,
       "className": "变电三班",
-      "temRate": "酒精异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
+      "type": "酒精异常率",
+      "value": 66,
     },
     {
-      "classId": 66,
       "className": "变电三班",
-      "temRate": "血压异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
-    },
-    {
-      "classId": 66,
-      "className": "变电四班",
-      "temRate": "体温异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
-    },
-    {
-      "classId": 66,
-      "className": "变电四班",
-      "temRate": "酒精异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
-    },
-    {
-      "classId": 66,
-      "className": "变电四班",
-      "temRate": "血压异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
-    },
-    {
-      "classId": 66,
-      "className": "变电五班",
-      "temRate": "体温异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
-    },
-    {
-      "classId": 66,
-      "className": "变电五班",
-      "temRate": "酒精异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
-    },
-    {
-      "classId": 66,
-      "className": "变电五班",
-      "temRate": "血压异常率",
-      "alcRate": 70,
-      "bloodRate": 50,
+      "type": "血压异常率",
+      "value": 66,
     },
   ]
 
   const config = {
     data: data,
     xField: "className",
-    yField: "alcRate",
-    seriesField: "temRate",
+    yField: "value",
+    seriesField: "type",
     maxColumnWidth: 100,
     isGroup: "true",
     columnStyle: {
@@ -207,6 +147,29 @@ const PersonMindModal = () => {
   const [param] = useProjectsSearchParams()
   const {data: mindDetail} = useMindStatisticsDetail(param)
 
+  const columns = [
+    {
+      title: "姓名",
+      dataIndex: "personName"
+    },
+    {
+      title: "班别",
+      dataIndex: "className"
+    },
+    {
+      title: "体温异常率",
+      dataIndex: "temRate"
+    },
+    {
+      title: "酒精异常率",
+      dataIndex: "alcRate"
+    },
+    {
+      title: "血压异常率",
+      dataIndex: "bloodRate"
+    }
+  ]
+
   return (
     <Modal
       visible={ModalOpen}
@@ -215,7 +178,7 @@ const PersonMindModal = () => {
       footer={false}
       width={1600}
     >
-      <Table pagination={false}/>
+      <Table columns={columns} pagination={false}/>
     </Modal>
   )
 }

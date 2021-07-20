@@ -1,6 +1,5 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Button, Form, Input, message, Modal, Select, Spin, TreeSelect} from "antd";
-import {useHttp} from "utils/http";
 import {useProjectModal} from "../../../util";
 import {useAdd, useMod} from "utils/system/lineClass";
 import {useWarehouse} from "utils/warehouse/toolType";
@@ -8,6 +7,7 @@ import {rules} from "utils/verification";
 import {useLineClassModal} from './util'
 import {useInit} from "utils/system/lineRoad";
 import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import * as department from 'utils/system/department'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
@@ -49,35 +49,11 @@ export const ModalForm = () => {
     })
   }
 
-  const [value, setValue] = useState([]);
-  const client = useHttp()
+  const {data: departmentList} = department.useInit()
+
   const onChange = (value: any) => {
     form.setFieldsValue({parentId: value})
   };
-
-  const getDepartmentList = useCallback(() => {
-    client(`department/getAll`).then(res => {
-      const fuc = (data: any) => {
-        if (data && data.length > 0) {
-          data.forEach((item: any) => {
-            item.title = item.name
-            item.value = item.id
-            item.children = fuc(item.departmentList)
-          });
-        } else {
-          data = []
-        }
-        return data
-      }
-      setValue(fuc(res.data))
-    })
-
-
-  }, [client])
-
-  useEffect(() => {
-    getDepartmentList()
-  }, [getDepartmentList])
 
   const onOk = () => {
     form.submit();
@@ -105,7 +81,7 @@ export const ModalForm = () => {
             >
               <TreeSelect
                 style={{width: '100%'}}
-                treeData={value}
+                treeData={departmentList?.data}
                 treeDefaultExpandAll
                 onChange={onChange}
               />

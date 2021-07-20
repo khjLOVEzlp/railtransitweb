@@ -2,9 +2,6 @@ import styled from "@emotion/styled"
 import React, { useState } from "react"
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom"
-/*import {PlanType} from "./child/planType";
-import {PlanWork} from "./child/planWork";
-import {WorkManage} from "./child/workManage";*/
 import { useDocumentTitle } from '../../hook/useDocumentTitle'
 
 export const Plan = () => {

@@ -1,10 +1,10 @@
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/hardware/alc';
+import {useDel, useInit} from 'utils/hardware/alc';
 import {ModalForm} from './ModalForm';
 import {useDebounce} from 'hook/useDebounce';
 import {useAlcModal} from './util'
-
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 export const AlcoholController = () => {
   const [param, setParam] = useProjectsSearchParams()
   const {open, startEdit} = useAlcModal()

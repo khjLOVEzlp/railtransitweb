@@ -1,10 +1,10 @@
-import {Form, Input, Button, message} from 'antd';
+import {Form, Input, Button, message, Popconfirm, Table} from 'antd';
 import styled from "@emotion/styled";
 import {ModalForm} from "./modal/ModlaForm";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/warehouse/materialType'
+import {useDel, useInit} from 'utils/warehouse/materialType'
 import {useDebounce} from "hook/useDebounce";
-import {ToolTypeModal} from "components/ToolTypeModal";
 import {useMaterialModal} from './util'
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 
 export const MaterialType = () => {
   const [param, setParam] = useProjectsSearchParams()
@@ -63,7 +63,7 @@ export const MaterialType = () => {
         <Button onClick={open}>新增</Button>
       </Header>
       <Main>
-        <ToolTypeModal
+        {/*<ToolTypeModal
           loading={isLoading}
           data={data?.data}
           cancel={cancel}
@@ -73,7 +73,49 @@ export const MaterialType = () => {
           total={data?.count}
           mod={startEdit}
           pageSize={param.size}
-        />
+        />*/}
+        <Table columns={
+          [
+            {
+              title: '物资类型名称',
+              dataIndex: 'name',
+              key: 'name',
+            },
+            {
+              title: '创建者',
+              dataIndex: 'createBy',
+              key: 'id',
+            },
+            {
+              title: '创建时间',
+              dataIndex: 'createTime',
+              key: 'createTime',
+            },
+            {
+              title: '备注',
+              dataIndex: 'remark',
+              key: 'remark',
+            },
+            {
+              title: '操作',
+              key: 'id',
+              render: (item: any) =><>
+                <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                <Popconfirm
+                  title={`是否要删除${item.name}`}
+                  onConfirm={() => confirm?.(item)}
+                  onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Button type="link">删除</Button>
+                </Popconfirm>
+              </>
+            },
+          ]
+        } pagination={{total: data?.count, current: param.index, pageSize: param.size}} onChange={handleTableChange}
+               loading={isLoading} dataSource={data?.data}
+               rowKey={(item: any) => item.id}/>
       </Main>
       <ModalForm/>
     </>

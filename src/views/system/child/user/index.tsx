@@ -2,13 +2,14 @@ import {useState} from 'react';
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {ModalForm} from "./modal/ModalForm";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/system/user';
+import {useDel, useInit} from 'utils/system/user';
 import {useHttp} from 'utils/http';
 import qs from 'qs';
 import {useDebounce} from 'hook/useDebounce';
 import {PassModal} from "components/PassModal";
 import {useUserModal} from './util'
 import {search} from "types/search";
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 
 export const User = () => {
   const [passwdVisible, setPasswdVisible] = useState(false)

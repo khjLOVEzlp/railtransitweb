@@ -18,14 +18,14 @@ export const Road = () => {
     setParam({...param, name: item.name, index: 1})
   };
 
-  const del = async (id: number) => {
-    Del(id)
-  }
-
   const confirm = (id: number) => {
-    del(id).then(() => {
-      setParam({...param, index: 1})
-      message.success('删除成功')
+    Del(id).then((res) => {
+      if (res.code !== 200) {
+        message.error(res.msg)
+      } else {
+        message.success('删除成功')
+        setParam({...param, index: 1})
+      }
     })
   }
 

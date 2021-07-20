@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
   Button,
   DatePicker,
@@ -13,7 +13,6 @@ import {
   TreeSelect,
   Spin
 } from "antd";
-import {useHttp} from "utils/http";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import {MinusCircleOutlined, PlusOutlined, UploadOutlined} from "@ant-design/icons";
@@ -25,10 +24,11 @@ import {useSite} from "utils/plan/planWork";
 import {useMaterialType} from "utils/warehouse/materialType";
 import {usePerson} from "utils/person/personManage";
 import {AddToolModal} from './AddToolModal'
-import {usePlanWorkModal, useAddToolModal} from '../util'
+import {usePlanWorkModal} from '../util'
 import {useAdd, useMod} from "utils/plan/planWork";
 import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
-import dayjs from 'dayjs'
+import {useInit} from 'utils/system/department'
+import moment from "moment";
 
 const baseUrl = process.env["REACT_APP_API_URL"]
 const {TextArea} = Input;
@@ -37,14 +37,10 @@ const {Option} = Select;
 // 新增修改
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const [visibleTool, setVisibleTool] = useState(false)
   const token = getToken()
-  let document: number[] = []
-  const [departmentList, setDepartmentList] = useState([])
+  let document: string[] = []
   const [value, setValue] = useState()
   const [id, setId] = useState<number>(0)
-  const client = useHttp()
-  const {open} = useAddToolModal()
   const setUrlParams = useSetUrlSearchParam();
 
   const {ModalOpen, isLoading, close, editingPlanWork, editingPlanWorkId, isSuccess} = usePlanWorkModal()
@@ -62,15 +58,14 @@ export const ModalForm = () => {
 
   useEffect(() => {
     if (isSuccess && editingPlanWork) {
-      let newList = editingPlanWork.data.typeList.map((key: any) => key.typeId)
-      editingPlanWork.data.typeList = newList
       form.setFieldsValue({
-        ...editingPlanWork?.data,
-        beginTime: dayjs(editingPlanWork?.data?.beginTime, "YYYY-MM-DD HH:mm:ss"),
-        dateTime: dayjs(editingPlanWork?.data?.dateTime, "YYYY-MM-DD"),
-        endTime: dayjs(editingPlanWork?.data?.endTime, "YYYY-MM-DD HH:mm:ss"),
-        warnTime: dayjs(editingPlanWork?.data?.warnTime, "YYYY-MM-DD HH:mm:ss"),
-      })
+          ...editingPlanWork?.data,
+          dateTime: moment(editingPlanWork?.data?.dateTime),
+          beginTime: moment(editingPlanWork?.data?.beginTime),
+          endTime: moment(editingPlanWork?.data?.endTime),
+          warnTime: moment(editingPlanWork?.data?.warnTime),
+        }
+      )
     }
   }, [form, editingPlanWork])
 
@@ -80,19 +75,32 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
+    const {beginTime, dateTime, endTime, warnTime, groupList} = value
+    const temp = JSON.parse(JSON.stringify(value))
+    temp.groupList.forEach((item: any) => {
+      for (let i = 0; i < item.personList.length; i++) {
+        let temp = item.personList[i];
+        item.personList[i] = {personId: temp, id: temp};
+      }
+    });
+
+    console.log(temp)
+
     mutateAsync({
-      ...editingPlanWork, ...value,
+      ...editingPlanWork,
+      ...temp,
+      dateTime: moment(dateTime).format("YYYY-MM-DD"),
+      beginTime: moment(beginTime).format("YYYY-MM-DD HH:mm:ss"),
+      endTime: moment(endTime).format("YYYY-MM-DD HH:mm:ss"),
+      warnTime: moment(warnTime).format("YYYY-MM-DD HH:mm:ss"),
       id: editingPlanWorkId,
-      beginTime: dayjs(value.beginTime).format("YYYY-MM-DD HH:mm:ss"),
-      dateTime: dayjs(value.dateTime).format("YYYY-MM-DD"),
-      endTime: dayjs(value.endTime).format("YYYY-MM-DD HH:mm:ss"),
-      warnTime: dayjs(value.warnTime).format("YYYY-MM-DD HH:mm:ss"),
     }).then(() => {
       msg()
       form.resetFields()
     })
   }
 
+  const {data: departmentList} = useInit()
   const {data: material} = useMaterialType()
   const {data: planTypeList} = usePlanType()
   const {data: lineLIst} = useLine()
@@ -103,74 +111,13 @@ export const ModalForm = () => {
     setValue(e.target.value);
   }
 
-  /*const beginTime = (obj: any | null, time: string) => {
-    form.setFieldsValue({beginTime: time})
-  }
-
-  const dateTime = (obj: any, time: string) => {
-    form.setFieldsValue({dateTime: time})
-  }
-
-  const endTime = (obj: any, item: string) => {
-    form.setFieldsValue({endTime: item})
-  }
-
-  const warnTime = (obj: any, item: string) => {
-    form.setFieldsValue({warnTime: item})
-  }*/
-
-  /* 添加工具 */
-  const addTool = () => {
-    // message.success("添加工具待开发")
-    // setVisibleTool(true)
-    open()
-  }
-
-  const handleSubmit = (value: object) => {
-    console.log(value)
-  }
-
-  /* 添加物资 */
-  const addMaterial = () => {
-    message.success("添加物资待开发")
-    // setVisibleTool(true)
-  }
-
   /* 添加小组 */
   const addGroup = () => {
     message.success("添加小组待开发")
   }
 
-  const cancel = () => {
-    setVisibleTool(false)
-  }
-
-  const getDepartmentList = useCallback(() => {
-    client(`department/getAll`).then(res => {
-
-      const fuc = (data: any) => {
-        if (data && data.length > 0) {
-          data.forEach((item: any) => {
-            item.title = item.name
-            item.key = item.id
-            item.children = fuc(item.departmentList)
-          });
-        } else {
-          data = []
-        }
-        return data
-      }
-      setDepartmentList(fuc(res.data))
-    })
-  }, [client])
-
-  useEffect(() => {
-    getDepartmentList()
-  }, [getDepartmentList])
-
   /* 选择线路 */
   const onGenderChange = (value: number) => {
-    console.log(value);
     setId(value)
   }
 
@@ -183,9 +130,8 @@ export const ModalForm = () => {
     },
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
-        document = [...document, info.file.response.data]
+        document = [...document, info.file.response.data + ""]
         form.setFieldsValue({documentList: document})
-        console.log(document)
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name}上传成功`);
@@ -201,6 +147,17 @@ export const ModalForm = () => {
 
   const materialListChange = (value: any) => {
 
+  }
+
+  const personChange = (value: any) => {
+    let arr: any = []
+    let obj: any = {}
+    value.forEach((key: any) => {
+      obj["personId"] = key
+      obj["id"] = key
+      arr.push(obj)
+    })
+    return value
   }
 
   return (
@@ -235,7 +192,7 @@ export const ModalForm = () => {
                 <TreeSelect
                   showSearch
                   style={{width: '100%'}}
-                  treeData={departmentList}
+                  treeData={departmentList?.data}
                 />
               </Form.Item>
             </Space>
@@ -263,7 +220,14 @@ export const ModalForm = () => {
                 name="lineId"
                 rules={rules}
               >
-                <Select style={{width: "100%"}} onChange={onGenderChange}>
+                <Select
+                  style={{width: "100%"}}
+                  showSearch
+                  filterOption={(input, option: any) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                  onChange={onGenderChange}
+                >
                   {lineLIst?.data.map((item: any, index: number) => <Option value={item.id}
                                                                             key={index}>{item.name}</Option>)}
                 </Select>
@@ -284,7 +248,13 @@ export const ModalForm = () => {
                 name="pleaseStand"
                 rules={rules}
               >
-                <Select style={{width: "100%"}}>
+                <Select
+                  style={{width: "100%"}}
+                  showSearch
+                  filterOption={(input, option: any) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                >
                   {allList?.data.map((item: any, index: number) => <Option value={item.id}
                                                                            key={index}>{item.name}</Option>)}
                 </Select>
@@ -297,7 +267,13 @@ export const ModalForm = () => {
                 name="pinStand"
                 rules={rules}
               >
-                <Select style={{width: "100%"}}>
+                <Select
+                  style={{width: "100%"}}
+                  showSearch
+                  filterOption={(input, option: any) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                >
                   {allList?.data.map((item: any, index: number) => <Option value={item.id}
                                                                            key={index}>{item.name}</Option>)}
                 </Select>
@@ -324,7 +300,8 @@ export const ModalForm = () => {
               >
                 <DatePicker
                   style={{width: "100%"}}
-                  showTime locale={locale}
+                  showTime
+                  locale={locale}
                   format={"YYYY-MM-DD HH:mm:ss"}
                   placeholder="开始时间"
                 />
@@ -338,8 +315,9 @@ export const ModalForm = () => {
               >
                 <DatePicker
                   style={{width: "100%"}}
+                  showTime
+                  locale={locale}
                   format={"YYYY-MM-DD HH:mm:ss"}
-                  showTime locale={locale}
                   placeholder="结束时间"
                 />
               </Form.Item>
@@ -352,8 +330,8 @@ export const ModalForm = () => {
               >
                 <DatePicker
                   style={{width: "100%"}}
-                  locale={locale}
                   showTime
+                  locale={locale}
                   format={"YYYY-MM-DD HH:mm:ss"}
                   placeholder="提醒时间"
                 />
@@ -366,7 +344,6 @@ export const ModalForm = () => {
                 <DatePicker
                   style={{width: "100%"}}
                   locale={locale}
-                  format={"YYYY-MM-DD"}
                   placeholder="作业日期"
                 />
               </Form.Item>
@@ -397,6 +374,7 @@ export const ModalForm = () => {
               <Form.Item
                 label="作业人数"
                 name="workPerson"
+                getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
               >
                 <Input/>
               </Form.Item>
@@ -421,7 +399,14 @@ export const ModalForm = () => {
                 label="作业人员"
                 name="personList"
               >
-                <Select style={{width: "100%"}} allowClear mode="multiple">
+                <Select
+                  style={{width: "100%"}}
+                  allowClear mode="multiple"
+                  showSearch
+                  filterOption={(input, option: any) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                >
                   {personList?.data.map((item: any, index: number) => <Option value={item.id}
                                                                               key={index}>{item.name}</Option>)}
                 </Select>
@@ -436,6 +421,7 @@ export const ModalForm = () => {
               <Button style={{width: "100%"}} onClick={addMaterial}>添加物料</Button>
             </Form.Item>*/}
 
+            {/*添加物料*/}
             <Form.List name="materialList">
               {(fields, {add, remove}) => (
                 <>
@@ -450,6 +436,11 @@ export const ModalForm = () => {
                       >
                         <Select
                           onChange={materialListChange}
+                          showSearch
+                          filterOption={(input, option: any) =>
+                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                          }
+                          placeholder={"请选择物料"}
                         >
                           {
                             material?.data.map((item: any) => <Option value={item.id}
@@ -463,7 +454,7 @@ export const ModalForm = () => {
                         name={[name, 'num']}
                         fieldKey={[fieldKey, 'num']}
                         rules={rules}
-
+                        getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                       >
                         <Input placeholder="数量"/>
                       </Form.Item>
@@ -479,6 +470,7 @@ export const ModalForm = () => {
               )}
             </Form.List>
 
+            {/*添加工具*/}
             <Form.List name="toolList">
               {(fields, {add, remove}) => (
                 <>
@@ -493,6 +485,11 @@ export const ModalForm = () => {
                       >
                         <Select
                           onChange={materialListChange}
+                          showSearch
+                          filterOption={(input, option: any) =>
+                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                          }
+                          placeholder={"请选择工具"}
                         >
                           {
                             material?.data.map((item: any) => <Option value={item.id}
@@ -506,7 +503,7 @@ export const ModalForm = () => {
                         name={[name, 'num']}
                         fieldKey={[fieldKey, 'num']}
                         rules={rules}
-
+                        getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                       >
                         <Input placeholder="数量"/>
                       </Form.Item>
@@ -522,16 +519,194 @@ export const ModalForm = () => {
               )}
             </Form.List>
 
-            <Form.Item>
-              <Button style={{width: "100%"}} onClick={addGroup}>添加小组</Button>
-            </Form.Item>
+            {/*添加小组*/}
+            <Form.List name="groupList">
+              {(fields, {add, remove}) => (
+                <>
+                  {fields.map(({key, name, fieldKey, ...restField}) => (
+                    <>
+                      <Space style={{width: "100%"}}>
+                        <Form.Item
+                          style={{width: '100%'}}
+                          {...restField}
+                          name={[name, 'groupName']}
+                          fieldKey={[fieldKey, 'groupName']}
+                          rules={rules}
+                        >
+                          <Input placeholder={"小组名称"}/>
+                        </Form.Item>
+
+                        <Form.Item
+                          style={{width: '100%'}}
+                          {...restField}
+                          name={[name, 'leader']}
+                          fieldKey={[fieldKey, 'leader']}
+                          rules={rules}
+                        >
+                          <Select
+                            style={{width: "100%"}}
+                            showSearch
+                            filterOption={(input, option: any) =>
+                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            placeholder={"小组组长"}
+                          >
+                            {personList?.data.map((item: any, index: number) => <Option value={item.id}
+                                                                                        key={index}>{item.name}</Option>)}
+                          </Select>
+                        </Form.Item>
+
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'personList']}
+                          fieldKey={[fieldKey, 'personList']}
+                          rules={rules}
+                        >
+                          <Select
+                            style={{width: "100%"}}
+                            allowClear
+                            mode="multiple"
+                            showSearch
+                            onChange={personChange}
+                            filterOption={(input, option: any) =>
+                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            placeholder={"小组成员"}
+                          >
+                            {personList?.data.map((item: any, index: number) => <Option value={item.id}
+                                                                                        key={index}>{item.name}</Option>)}
+                          </Select>
+                        </Form.Item>
+
+                        <Form.Item name={"remark"}>
+                          <Input placeholder={"备注"}/>
+                        </Form.Item>
+
+                        <MinusCircleOutlined onClick={() => remove(name)}/>
+                      </Space>
+
+                      {/*添加物料*/}
+                      <Form.List
+                        name={[name, 'groupMaterialList']}
+                      >
+                        {(fields, {add, remove}) => (
+                          <>
+                            {fields.map(({key, name, fieldKey, ...restField}) => (
+                              <Space key={key} style={{display: 'flex', marginBottom: 8, width: '100%'}}
+                                     align="baseline">
+                                <Form.Item
+                                  style={{width: '100%'}}
+                                  {...restField}
+                                  name={[name, 'materialId']}
+                                  fieldKey={[fieldKey, 'materialId']}
+                                  rules={rules}
+                                >
+                                  <Select
+                                    showSearch
+                                    filterOption={(input, option: any) =>
+                                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    placeholder={"请选择物料"}
+                                  >
+                                    {
+                                      material?.data.map((item: any) => <Option value={item.id}
+                                                                                key={item.id}>{item.name}</Option>)
+                                    }
+                                  </Select>
+                                </Form.Item>
+                                <Form.Item
+                                  style={{width: '100%'}}
+                                  {...restField}
+                                  name={[name, 'num']}
+                                  fieldKey={[fieldKey, 'num']}
+                                  rules={rules}
+                                  getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
+                                >
+                                  <Input placeholder="数量"/>
+                                </Form.Item>
+                                <MinusCircleOutlined onClick={() => remove(name)}/>
+                              </Space>
+                            ))}
+                            <Form.Item>
+                              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                                物料
+                              </Button>
+                            </Form.Item>
+                          </>
+                        )}
+                      </Form.List>
+
+                      {/*添加工具*/}
+                      <Form.List name={[name, "groupToolList"]}>
+                        {(fields, {add, remove}) => (
+                          <>
+                            {fields.map(({key, name, fieldKey, ...restField}) => (
+                              <Space key={key} style={{display: 'flex', marginBottom: 8, width: '100%'}}
+                                     align="baseline">
+                                <Form.Item
+                                  style={{width: '100%'}}
+                                  {...restField}
+                                  name={[name, 'toolId']}
+                                  fieldKey={[fieldKey, 'toolId']}
+                                  rules={rules}
+                                >
+                                  <Select
+                                    showSearch
+                                    filterOption={(input, option: any) =>
+                                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    placeholder={"请选择工具"}
+                                  >
+                                    {
+                                      material?.data.map((item: any) => <Option value={item.id}
+                                                                                key={item.id}>{item.name}</Option>)
+                                    }
+                                  </Select>
+                                </Form.Item>
+                                <Form.Item
+                                  style={{width: '100%'}}
+                                  {...restField}
+                                  name={[name, 'num']}
+                                  fieldKey={[fieldKey, 'num']}
+                                  rules={rules}
+                                  getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
+                                >
+                                  <Input placeholder="数量"/>
+                                </Form.Item>
+                                <MinusCircleOutlined onClick={() => remove(name)}/>
+                              </Space>
+                            ))}
+                            <Form.Item>
+                              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                                工具
+                              </Button>
+                            </Form.Item>
+                          </>
+                        )}
+                      </Form.List>
+                    </>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                      添加小组
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
 
             <Space style={{display: "flex"}}>
               <Form.Item
                 label="防疫专员"
                 name="preventionPerson"
               >
-                <Select style={{width: "100%"}}>
+                <Select
+                  style={{width: "100%"}}
+                  showSearch
+                  filterOption={(input, option: any) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                >
                   {personList?.data.map((item: any, index: number) => <Option value={item.id}
                                                                               key={index}>{item.name}</Option>)}
                 </Select>
@@ -541,7 +716,13 @@ export const ModalForm = () => {
                 label="安全员"
                 name="safePerson"
               >
-                <Select style={{width: "100%"}}>
+                <Select
+                  style={{width: "100%"}}
+                  showSearch
+                  filterOption={(input, option: any) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                >
                   {personList?.data.map((item: any, index: number) => <Option value={item.id}
                                                                               key={index}>{item.name}</Option>)}
                 </Select>

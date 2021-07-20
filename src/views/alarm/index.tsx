@@ -1,10 +1,10 @@
 import styled from "@emotion/styled"
-import { Select, Table } from "antd"
-import { useState } from "react"
-import { useDocumentTitle } from '../../hook/useDocumentTitle'
-import { useInit, useWarnCount } from "../../utils/alarm"
+import {Select, Table} from "antd"
+import {useState} from "react"
+import {useDocumentTitle} from '../../hook/useDocumentTitle'
+import {useInit, useWarnCount} from "../../utils/alarm"
 
-const { Option } = Select;
+const {Option} = Select;
 
 export const Alarm = () => {
   const [pagination, setPagination] = useState({
@@ -16,23 +16,23 @@ export const Alarm = () => {
 
   const [time, setTime] = useState("1")
 
-  const { data: navList } = useWarnCount(time)
-  const { data: dataList, isLoading } = useInit({ ...pagination })
+  const {data: navList} = useWarnCount(time)
+  const {data: dataList, isLoading} = useInit({...pagination})
 
   const navChange = (value: string) => {
     setTime(value)
   }
 
   const stateChange = (value: string) => {
-    setPagination({ ...pagination, state: value })
+    setPagination({...pagination, state: value})
   }
 
   const timeChange = (value: string) => {
-    setPagination({ ...pagination, time: value })
+    setPagination({...pagination, time: value})
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setPagination({...pagination, index: p.current, size: p.pageSize})
   };
 
   const getType = (type: number) => {
@@ -217,34 +217,53 @@ export const Alarm = () => {
   return (
     <AlarmStyle>
       <Header>
-        <Select style={{ width: 120, margin: '1rem 0' }} defaultValue={"1"} onChange={navChange}>
+        <Select style={{width: 120, margin: '1rem 0'}} defaultValue={"1"} onChange={navChange}>
           {
-            timeList.map((item: { name: string, value: string }) => <Option key={item.value} value={item.value}>{item.name}</Option>)
+            timeList.map((item: { name: string, value: string }) => <Option key={item.value}
+                                                                            value={item.value}>{item.name}</Option>)
           }
         </Select>
         <Nav>
           {navList?.data.map((item: any) => (<li key={item.id}>
-            <img onClick={() => { }} src={`../../icon/${getType(item.type)}.png`} alt="" />
+            <img onClick={() => {
+            }} src={`../../icon/${getType(item.type)}.png`} alt=""/>
             <div>
-              <div style={{ marginBottom: '1rem' }}>{getType(item.type)}</div>
-              <div style={{ fontSize: '2rem', color: '#5A7FFA' }}>{item.num}</div>
+              <div style={{marginBottom: '1rem'}}>{getType(item.type)}</div>
+              <div style={{fontSize: '2rem', color: '#5A7FFA'}}>{item.num}</div>
             </div>
           </li>))}
         </Nav>
       </Header>
       <Main>
-        <Select style={{ width: 120, margin: '1rem 0' }} defaultValue={"0"} onChange={stateChange}>
+        <Select
+          style={{width: 120, margin: '1rem 0'}}
+          defaultValue={"0"}
+          onChange={stateChange}
+          getPopupContainer={triggerNode => triggerNode.parentElement}
+        >
           {
-            stateList.map((item: { name: string, value: string }) => <Option key={item.value} value={item.value}>{item.name}</Option>)
+            stateList.map((item: { name: string, value: string }) => <Option key={item.value}
+                                                                             value={item.value}>{item.name}</Option>)
           }
         </Select>
-        <Select style={{ width: 120, margin: '1rem 0', marginLeft: '1rem' }} defaultValue={"1"} onChange={timeChange}>
+        <Select getPopupContainer={triggerNode => triggerNode.parentElement} style={{width: 120, margin: '1rem 0', marginLeft: '1rem'}} defaultValue={"1"} onChange={timeChange}>
           {
-            timeList.map((item: { name: string, value: string }) => <Option key={item.value} value={item.value}>{item.name}</Option>)
+            timeList.map((item: { name: string, value: string }) => <Option key={item.value}
+                                                                            value={item.value}>{item.name}</Option>)
           }
         </Select>
-        <Table columns={columns} pagination={{ total: dataList?.count, current: pagination.index, pageSize: pagination.size, }} onChange={handleTableChange} loading={isLoading} dataSource={dataList?.data}
-          rowKey={(item: any) => item.id} />
+        <Table
+          columns={columns}
+          pagination={{
+            total: dataList?.count,
+            current: pagination.index,
+            pageSize: pagination.size,
+          }}
+          onChange={handleTableChange}
+          loading={isLoading}
+          dataSource={dataList?.data}
+          rowKey={(item: any) => item.id}
+        />
       </Main>
     </AlarmStyle>
   )

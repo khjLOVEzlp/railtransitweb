@@ -86,7 +86,7 @@ export const ModalForm = () => {
             <Form.Item
               label="流量卡号码"
               name="phone"
-              rules={rules}
+              rules={[{required: true, len: 11, message: "请输入11位卡号"}]}
             >
               <Input type={"number"}/>
             </Form.Item>

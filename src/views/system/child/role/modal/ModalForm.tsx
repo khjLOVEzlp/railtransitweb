@@ -78,6 +78,7 @@ export const ModalForm = () => {
            visible={ModalOpen} onOk={onOk}
            onCancel={closeModal}
            footer={[
+             <Button key="clean" onClick={() => form.resetFields()}>清空</Button>,
              <Button key="back" onClick={closeModal}>取消</Button>,
              <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
            ]}
@@ -111,8 +112,8 @@ export const ModalForm = () => {
             >
               <Tree
                 checkable
-                defaultCheckedKeys={editingRole && isSuccess ? editingRole.data.menuList : []}
                 onCheck={onCheck}
+                checkedKeys={editingRole?.data?.menuList}
                 // @ts-ignore
                 treeData={success ? menu.data : []}
               />

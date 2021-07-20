@@ -1,7 +1,8 @@
 import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
 import styled from "@emotion/styled";
 import {ModalForm} from "./modal/ModalForm";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/system/role';
+import {useDel, useInit} from 'utils/system/role';
+import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
 import {useDebounce} from 'hook/useDebounce';
 import {useRoleModal} from './util'
 

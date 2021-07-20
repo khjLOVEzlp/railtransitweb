@@ -81,7 +81,7 @@ export const useDel = () => {
 */
 export const useMaterialDetail = (id: number) => {
   const client = useHttp()
-  return useQuery(["materialDetail"], () => client(`materialType/get/${id}`), {
+  return useQuery(["materialDetail", id], () => client(`materialType/get/${id}`), {
     enabled: Boolean(id),
   })
 }

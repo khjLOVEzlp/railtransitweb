@@ -17,7 +17,8 @@ export const Login = () => {
     try {
       await run(login(values))
     } catch (e) {
-      // setError(e)
+      console.log(e)
+      setError(e)
     }
   };
 
@@ -35,9 +36,6 @@ export const Login = () => {
           <li>数字化维养安全管控系统</li>
         </Title>
         <ErrorBox error={error}/>
-        {
-          isError ? <ErrorBox error={err}/> : ""
-        }
         <Form
           size={'large'}
           name="basic"

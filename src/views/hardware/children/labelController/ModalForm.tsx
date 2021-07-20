@@ -70,7 +70,7 @@ export const ModalForm = () => {
             layout={"vertical"}
           >
             <Form.Item
-              label="十进制编码"
+              label="编号"
               name="codeHex10"
               rules={rules}
             >

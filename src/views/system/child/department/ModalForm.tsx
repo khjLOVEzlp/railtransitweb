@@ -10,7 +10,6 @@ import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
-
   const {ModalOpen, isLoading, close, editingDepartment, editingDepartmentId} = useDepartmentModal()
   const title = editingDepartment ? "修改" : "新增"
   const msg = editingDepartment ? () => {
@@ -27,7 +26,10 @@ export const ModalForm = () => {
   const {data} = useInit()
 
   useEffect(() => {
-    form.setFieldsValue(editingDepartment?.data)
+    form.setFieldsValue({
+      ...editingDepartment?.data,
+      parentId: editingDepartment?.data.parentId === 0 ? "无" : editingDepartment?.data.parentId
+    })
   }, [form, editingDepartment])
 
   const closeModal = () => {

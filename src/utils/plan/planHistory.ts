@@ -28,7 +28,7 @@ export const useInit = (params: any) => {
 /* 查看详情 */
 export const useHistoryDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['historyDetail', id], () => client(`planWork/get/${id}`), {
+  return useQuery(['historyDetail', id], () => client(`planWork/getWeb/${id}`), {
     enabled: Boolean(id)
   })
 }

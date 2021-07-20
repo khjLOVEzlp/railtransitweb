@@ -4,7 +4,7 @@ import {useForm} from "antd/lib/form/Form";
 import {useToolModal} from '../util'
 import React, {useEffect} from "react";
 import {useModMaterial} from 'utils/warehouse/toolType'
-import dayjs from "dayjs";
+import moment from "moment";
 
 export const ToolModalForm = () => {
   const [form] = useForm()
@@ -14,7 +14,7 @@ export const ToolModalForm = () => {
     if (viewTool) {
       form.setFieldsValue({
         ...viewTool?.data,
-        invalidTime: dayjs(viewTool?.data?.invalidTime)
+        invalidTime: moment(viewTool?.data?.invalidTime)
       })
     }
   }, [viewTool])

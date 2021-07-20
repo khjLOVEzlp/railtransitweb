@@ -12,7 +12,6 @@ const PlanWorkPage = () => {
     xField: 'name',
     yField: 'num',
     label: {},
-    height: 350,
     point: {
       size: 5,
       shape: 'diamond',

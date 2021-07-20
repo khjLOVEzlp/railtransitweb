@@ -9,7 +9,6 @@ const PlanType = () => {
 
   const config = {
     data: planStatistics?.data,
-    height: 350,
     xField: 'name',
     yField: 'num',
     label: {
