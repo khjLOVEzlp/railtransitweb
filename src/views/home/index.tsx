@@ -1,42 +1,60 @@
 import styled from "@emotion/styled"
-import {useEffect} from "react";
-import {useDocumentTitle} from 'hook/useDocumentTitle'
+import { useEffect, useState } from "react";
+import { useDocumentTitle } from 'hook/useDocumentTitle'
 import Page from './child/alarmStatistics'
 import PlanWorkPage from './child/taskStatistics'
 import * as echarts from 'echarts';
 import PlanType from './child/planType'
-import {MyEcharts} from "components/MyEcharts";
-import {option} from './subwayRoute'
+import { option } from './subwayRoute'
+import { Drawer } from "antd";
+
 export const Home = () => {
   useDocumentTitle('首页')
+  const [visible, setVisible] = useState(false);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
 
   /*绑定DOM*/
   useEffect(() => {
+    // @ts-ignore
     echarts.init(document.getElementById('track') as HTMLElement).setOption(option)
   }, [])
 
   return (
     <Container>
       <Header>
+        <div id="mysubway"></div>
         <div className="left">
-          <MyEcharts id="track" data={option} style={{width: '100%', height: '100%'}}/>
+          <div id="track" style={{ width: '100%', height: '100%' }} onClick={() => { }} />
+          <Drawer
+            title={"地铁线路"}
+            width={"100%"}
+            closable={false}
+            onClose={onClose}
+            visible={visible}
+          >
+          </Drawer>
         </div>
         <div className="right">
           {/*告警统计*/}
-          <h3 style={{padding: "1rem"}}>告警统计</h3>
-            <Page/>
+          <h3 style={{ padding: "1rem" }}>告警统计</h3>
+          <Page />
         </div>
       </Header>
       <Footer>
         {/*计划统计*/}
         <div className="left">
-          <h3 style={{padding: "1rem"}}>计划统计</h3>
-            <PlanType/>
+          <h3 style={{ padding: "1rem" }}>计划统计</h3>
+          <PlanType />
         </div>
         {/*作业统计*/}
         <div className="right">
-          <h3 style={{padding: "1rem"}}>作业统计</h3>
-            <PlanWorkPage/>
+          <h3 style={{ padding: "1rem" }}>作业统计</h3>
+          <PlanWorkPage />
         </div>
       </Footer>
     </Container>

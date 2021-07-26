@@ -1,20 +1,22 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Button, Checkbox, Form, Input, message, Modal, Select, Spin} from "antd";
-import {useHttp} from "utils/http";
 import {rules} from "utils/verification";
 import {useUserList} from "utils/system/user";
 import {useInit} from 'utils/person/personManage'
 import {useUserModal} from '../util'
 import {useAdd, useMod} from 'utils/system/user'
 import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import {useRoleAll} from "utils/system/role";
 
 const {Option} = Select;
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const {data: userList} = useUserList()
+  const {data: personList} = useInit({})
+  const {data: roleList} = useRoleAll()
+
   const setUrlParams = useSetUrlSearchParam();
-  const [roleList, setRoleList] = useState([])
-  const client = useHttp()
   const {ModalOpen, isLoading, close, editingUser, editingUserId} = useUserModal()
   const title = editingUser ? "修改" : "新增"
   const msg = editingUser ? () => {
@@ -47,24 +49,6 @@ export const ModalForm = () => {
       }
     })
   }
-
-  const getRoleLIst = useCallback(() => {
-    client(`role/getAll`, {method: "POST"}).then((res) => {
-      res.data.forEach((item: any) => {
-        item.label = item.name
-        item.value = item.id
-      })
-      setRoleList(res.data)
-    })
-  }, [client])
-
-  const {data: userList} = useUserList()
-  // const { data: personList } = usePerson()
-  const {data: personList} = useInit({})
-
-  useEffect(() => {
-    getRoleLIst()
-  }, [getRoleLIst])
 
   const onOk = () => {
     form.submit();
@@ -140,7 +124,7 @@ export const ModalForm = () => {
             name="roles"
             rules={rules}
           >
-            <Checkbox.Group options={roleList}/>
+            <Checkbox.Group options={roleList?.data}/>
           </Form.Item>
 
           <Form.Item

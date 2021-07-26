@@ -20,6 +20,21 @@ export const useProjectsSearchParams = () => {
 };
 
 /*
+查询全部
+ */
+export const useRoleAll = () => {
+  const client = useHttp()
+  return useQuery(['role'], async () => {
+    const data = await client(`role/getAll`, {method: "POST"})
+    data.data.forEach((item: any) => {
+      item.label = item.name
+      item.value = item.id
+    })
+    return data
+  })
+}
+
+/*
 查询
  */
 export const useInit = (params?: Partial<search>) => {

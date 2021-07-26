@@ -5,7 +5,7 @@ import {rules} from "utils/verification";
 import {usePersonModal, useImportModal} from '../util'
 import {useAdd, useMod} from 'utils/person/personManage'
 import {InboxOutlined} from '@ant-design/icons';
-import {useAuth} from "../../../../../context/auth-context";
+import {useAuth} from "context/auth-context";
 import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 import {useInit} from 'utils/system/department'
 import moment from "moment";
@@ -30,10 +30,10 @@ export const ModalForm = () => {
   const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
   useEffect(() => {
-    if (isSuccess && editingPerson) {
+    if (isSuccess) {
       form.setFieldsValue({
-        ...editingPerson?.data,
-        birthday: editingPerson?.data?.birthday === null ? "" : moment(editingPerson?.data?.birthday)
+        ...editingPerson.data,
+        birthday: editingPerson.data.birthday === null ? "" : moment(editingPerson.data.birthday)
       })
     }
   }, [form, editingPerson])
@@ -209,12 +209,10 @@ export const ImportModal = () => {
     },
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
-        return (
-          <Spin size={"large"}/>
-        )
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name}上传成功`);
+        info = null
         close()
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} 上传失败`);

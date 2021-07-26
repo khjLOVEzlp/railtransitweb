@@ -6,7 +6,6 @@ import {useDepartmentModal} from './util'
 import {useInit} from 'utils/system/department'
 import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
 
-
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
@@ -28,7 +27,6 @@ export const ModalForm = () => {
   useEffect(() => {
     form.setFieldsValue({
       ...editingDepartment?.data,
-      parentId: editingDepartment?.data.parentId === 0 ? "无" : editingDepartment?.data.parentId
     })
   }, [form, editingDepartment])
 
@@ -75,17 +73,23 @@ export const ModalForm = () => {
               <Input/>
             </Form.Item>
 
-            <Form.Item
-              label="部门归属"
-              name="parentId"
-            >
-              <TreeSelect
-                style={{width: '100%'}}
-                treeData={data?.data}
-                treeDefaultExpandAll
-                onChange={onChange}
-              />
-            </Form.Item>
+            {
+              editingDepartment ? (
+                <div />
+              ) : (
+                <Form.Item
+                  label="部门归属"
+                  name="parentId"
+                >
+                  <TreeSelect
+                    style={{width: '100%'}}
+                    treeData={data?.data}
+                    treeDefaultExpandAll
+                    onChange={onChange}
+                  />
+                </Form.Item>
+              )
+            }
 
             <Form.Item
               label="备注"

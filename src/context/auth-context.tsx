@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import {Spin} from "antd";
-import React, {createContext, ReactNode, useContext, useEffect} from "react";
+import { Spin } from "antd";
+import React, { createContext, ReactNode, useContext, useEffect } from "react";
 import * as auth from '../auth-provider'
-import {http} from "../utils/http";
-import {useAsync} from "../hook/useAsync";
-import {FullPageErrorFallback} from "../components/lib";
-import {useQueryClient} from "react-query";
+import { http } from "../utils/http";
+import { useAsync } from "../hook/useAsync";
+import { FullPageErrorFallback } from "../components/lib";
+import { useQueryClient } from "react-query";
 
 const AuthContext = createContext<| {
   user: {
@@ -27,7 +27,7 @@ const FullPage = styled.div`
 `
 
 export const FullPageLoading = () => <FullPage>
-  <Spin size={'large'}/>
+  <Spin size={'large'} />
 </FullPage>
 
 interface AuthForm {
@@ -37,15 +37,15 @@ interface AuthForm {
 
 const bootstrapUser = async () => {
   let user = null;
-  const form = auth.getUser();
-  if (form) {
-    const data = await http("login", {method: "POST", body: form});
-    user = data.data;
+  const users = sessionStorage.getItem('user')
+  if (users) {
+    const data = JSON.parse(users)
+    user = data
   }
   return user;
 }
 
-export const AuthProvider = ({children}: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const {
     data: user,
     isLoading,
@@ -63,6 +63,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
   const queryClient = useQueryClient();
 
   const login = (form: AuthForm) => auth.login(form).then(setUser)
+
   const logout = () => auth.logout().then(() => {
     setUser(null)
     queryClient.clear()
@@ -73,15 +74,15 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
   }, [run])
 
   if (isIdle || isLoading) {
-    return <FullPageLoading/>
+    return <FullPageLoading />
   }
 
   if (isError) {
-    return <FullPageErrorFallback error={error}/>
+    return <FullPageErrorFallback error={error} />
   }
 
   return (
-    <AuthContext.Provider children={children} value={{user, login, logout}}/>
+    <AuthContext.Provider children={children} value={{ user, login, logout }} />
   )
 }
 

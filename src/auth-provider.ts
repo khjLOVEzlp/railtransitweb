@@ -1,4 +1,4 @@
-import {message} from "antd";
+import { message } from "antd";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -8,8 +8,9 @@ const sessionStorageUser = "login";
 export const getToken = () => window.sessionStorage.getItem(sessionStorageKey);
 export const getUser = () => window.sessionStorage.getItem(sessionStorageUser)
 
-export const handleUserResponse = ({data}: { data: { jwtToken: string } }) => {
+export const handleUserResponse = ({ data }: { data: { jwtToken: string } }) => {
   window.sessionStorage.setItem(sessionStorageKey, data.jwtToken || "");
+  window.sessionStorage.setItem('user', JSON.stringify(data) || "")
   return data;
 };
 
