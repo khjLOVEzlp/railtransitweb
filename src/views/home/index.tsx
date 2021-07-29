@@ -6,10 +6,13 @@ import PlanWorkPage from './child/taskStatistics'
 import * as echarts from 'echarts';
 import PlanType from './child/planType'
 import { option } from './subwayRoute'
-import { Drawer } from "antd";
+import { Drawer, Spin } from "antd";
+import { usePlanStatistics } from "utils/home";
+import { getType, color } from 'utils/index'
 
 export const Home = () => {
   useDocumentTitle('首页')
+  const { data, isLoading } = usePlanStatistics()
   const [visible, setVisible] = useState(false);
   const showDrawer = () => {
     setVisible(true);
@@ -47,7 +50,7 @@ export const Home = () => {
 
     // @ts-ignore
     // echarts.init(document.getElementById('track') as HTMLElement).setOption(option)
-  }, [window])
+  }, [])
 
   return (
     <Container>
@@ -78,16 +81,34 @@ export const Home = () => {
         {/*计划统计*/}
         <div className="left">
           <Title>计划统计</Title>
-          <div style={{ padding: "0 10rem 0" }}>
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
             <PlanType />
+            {/* {
+              isLoading ? (
+                <Spin />
+              ) : (
+                <div>
+                  {
+                    data?.data.map((item: any) => <div style={{ lineHeight: "5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }} key={item.type}>
+                      <i style={{ width: "8px", height: "8px", background: color(item.type), display: "inline-block" }} />
+                      <span style={{ margin: "0 3rem 0 2rem", color: "#3A3D44" }}>
+                        {getType(item.type)}
+                      </span>
+
+                      <span style={{ color: "#989EAC" }}>
+                        {item.num}
+                      </span>
+                    </div>)
+                  }
+                </div>
+              )
+            } */}
           </div>
         </div>
         {/*作业统计*/}
         <div className="right">
           <Title>作业统计</Title>
-          <div style={{ padding: "0 10rem 0" }}>
-            <PlanWorkPage />
-          </div>
+          <PlanWorkPage />
         </div>
       </Footer>
     </Container>
@@ -101,7 +122,7 @@ const Container = styled.div`
   justify-content: space-between;
 `
 const Title = styled.h3`
-  padding: 2rem;
+  padding: 1rem;
   font-size: 2rem;
   font-weight: 800;
 `
@@ -192,12 +213,5 @@ const Footer = styled.div`
     width: 49.8%;
     box-sizing: border-box;
     overflow-y: auto;
-
-    > .title {
-      margin-left: 2rem;
-      font-size: 2rem;
-      font-weight: bold;
-      color: #3A3D44;
-    }
   }
 `

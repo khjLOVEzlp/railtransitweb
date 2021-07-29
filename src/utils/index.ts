@@ -56,3 +56,27 @@ export const getType = (type: number) => {
       break;
   }
 }
+
+export const color = (type: number) => {
+  switch (type) {
+    case 1:
+      return "#33E598"
+    case 2:
+      return "#62C4E9"
+
+    case 3:
+      return "#FF585D"
+
+    case 4:
+      return "#FFD876"
+
+    case 5:
+      return "#9E5AFA"
+
+    case 6:
+      return "#5A7FFA"
+
+    default:
+      break;
+  }
+}

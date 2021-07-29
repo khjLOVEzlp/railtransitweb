@@ -1,41 +1,24 @@
-import { Line } from '@ant-design/charts';
+import { Line, Bar, Pie, Funnel } from '@ant-design/charts';
 import { useTaskStatistics, useTaskPagination, useTaskModal, useProjectsSearchParams } from 'utils/home'
 import { Modal, Spin, Table } from "antd";
 import { useDebounce } from "hook/useDebounce";
 
 const PlanWorkPage = () => {
-  const { data: taskStatistics, isLoading } = useTaskStatistics()
+  const { data: taskStatistics, isLoading, isError, isIdle } = useTaskStatistics()
   const { open } = useTaskModal()
 
   const config = {
-    data: taskStatistics?.data,
+    data: isLoading || isError || isIdle ? [] : taskStatistics?.data,
     xField: 'name',
     yField: 'num',
-    label: {},
-    point: {
-      size: 5,
-      shape: 'diamond',
-      style: {
-        fill: 'white',
-        stroke: '#5B8FF9',
-        lineWidth: 2,
-      },
-    },
-    tooltip: { showMarkers: false },
-    state: {
-      active: {
-        style: {
-          shadowBlur: 4,
-          stroke: '#000',
-          fill: 'red',
-        },
-      },
-    },
-    interactions: [{ type: 'marker-active' }],
-    meta: {
-      type: { alias: "类型" },
-      num: { alias: "数量" }
-    },
+    isTransposed: true,
+    minSize: 0.4,
+    maxSize: 0.8,
+    conversionTag: false,
+    legend: {
+      layout: 'horizontal',
+      position: 'top'
+    }
   };
 
   return (
@@ -45,7 +28,7 @@ const PlanWorkPage = () => {
           <Spin />
         ) : (
           // @ts-ignore
-          <Line
+          <Funnel
             {...config}
             onReady={(plot: any) => {
               plot.on('plot:click', (evt: any) => {

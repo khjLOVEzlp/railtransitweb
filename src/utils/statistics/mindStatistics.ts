@@ -23,9 +23,9 @@ export const useMindStatistics = (params?: any) => {
   return useQuery(['MindStatistics', cleanObject(params)], async () => {
     const data = await client(`report/getPersonMind?${qs.stringify(cleanObject(params))}`, { method: "POST" })
     data.data.forEach((key: any) => {
-      if (key["isAlcNormal"]) key["isAlcNormal"] = parseInt(key["isAlcNormal"].replace("%", "")) * 0.01
-      if (key["isBloodNormal"]) key["isBloodNormal"] = parseInt(key["isBloodNormal"].replace("%", "")) * 0.01
-      if (key["isTemNormal"]) key["isTemNormal"] = parseInt(key["isTemNormal"].replace("%", "")) * 0.01
+      if (key["isAlcNormal"]) key["isAlcNormal"] = key["isAlcNormal"].replace("%", "")
+      if (key["isBloodNormal"]) key["isBloodNormal"] = key["isBloodNormal"].replace("%", "")
+      if (key["isTemNormal"]) key["isTemNormal"] = key["isTemNormal"].replace("%", "")
     })
 
     console.log(data);
