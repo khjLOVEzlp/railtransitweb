@@ -1,10 +1,10 @@
 import styled from "@emotion/styled"
-import { Select, Table } from "antd"
-import { useState } from "react"
-import { useDocumentTitle } from '../../hook/useDocumentTitle'
-import { useInit, useWarnCount } from "../../utils/alarm"
+import {Select, Table} from "antd"
+import {useState} from "react"
+import {useDocumentTitle} from '../../hook/useDocumentTitle'
+import {useInit, useWarnCount} from "../../utils/alarm"
 
-const { Option } = Select;
+const {Option} = Select;
 
 export const Alarm = () => {
   const [pagination, setPagination] = useState({
@@ -16,23 +16,23 @@ export const Alarm = () => {
 
   const [time, setTime] = useState("1")
 
-  const { data: navList } = useWarnCount(time)
-  const { data: dataList, isLoading } = useInit({ ...pagination })
+  const {data: navList} = useWarnCount(time)
+  const {data: dataList, isLoading} = useInit({...pagination})
 
   const navChange = (value: string) => {
     setTime(value)
   }
 
   const stateChange = (value: string) => {
-    setPagination({ ...pagination, state: value })
+    setPagination({...pagination, state: value})
   }
 
   const timeChange = (value: string) => {
-    setPagination({ ...pagination, time: value })
+    setPagination({...pagination, time: value})
   }
 
-  const handleTableChange = (p: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setPagination({...pagination, index: p.current, size: p.pageSize})
   };
 
   const getType = (type: number) => {
@@ -99,24 +99,29 @@ export const Alarm = () => {
       key: 'groupName',
     },
     {
+      title: '创建时间',
+      dataIndex: 'warnTime',
+      key: 'warnTime',
+    },
+    {
       title: '解除时间',
       dataIndex: 'relieveTime',
       key: 'relieveTime',
     },
     {
-      title: '设备标签',
-      dataIndex: 'labelNum',
-      key: 'labelNum'
+      title: '设备编号',
+      dataIndex: 'groupId',
+      key: 'groupId'
     },
     {
-      title: '人员',
-      dataIndex: 'personName',
-      key: 'personName',
+      title: '绑定人',
+      dataIndex: 'createBy',
+      key: 'createBy',
     },
     {
       title: '告警时间',
-      dataIndex: 'warnTime',
-      key: 'warnTime',
+      dataIndex: 'createTime',
+      key: 'createTime',
     },
     {
       title: '告警内容',
@@ -135,23 +140,23 @@ export const Alarm = () => {
       value: "1"
     },*/
     {
-      name: "漏带",
+      name: "防漏带",
       value: "2"
     },
     {
-      name: "漏点",
+      name: "防漏点",
       value: "3"
     },
     {
-      name: "遗漏",
+      name: "防遗漏",
       value: "4"
     },
     {
-      name: "疫请",
+      name: "防疫请",
       value: "5"
     },
     {
-      name: "酒精",
+      name: "防酒精",
       value: "6"
     },
     {
@@ -171,11 +176,11 @@ export const Alarm = () => {
       value: "10"
     },
     {
-      name: "血压",
+      name: "防血压",
       value: "11"
     },
     {
-      name: "遗留",
+      name: "防遗留",
       value: "12"
     },
   ]
@@ -212,39 +217,39 @@ export const Alarm = () => {
   return (
     <AlarmStyle>
       <Header>
-        <Select style={{ width: 120, margin: '1rem 0' }} defaultValue={"1"} onChange={navChange}>
+        <Select style={{width: 120, margin: '1rem 0'}} defaultValue={"1"} onChange={navChange}>
           {
             timeList.map((item: { name: string, value: string }) => <Option key={item.value}
-              value={item.value}>{item.name}</Option>)
+                                                                            value={item.value}>{item.name}</Option>)
           }
         </Select>
         <Nav>
           {navList?.data.map((item: any) => (<li key={item.id}>
             <img onClick={() => {
-            }} src={`../../icon/${getType(item.type)}.png`} alt="" />
+            }} src={`../../icon/${getType(item.type)}.png`} alt=""/>
             <div>
-              <div style={{ marginBottom: '1rem' }}>{getType(item.type)}</div>
-              <div style={{ fontSize: '2rem', color: '#5A7FFA' }}>{item.num}</div>
+              <div style={{marginBottom: '1rem'}}>{getType(item.type)}</div>
+              <div style={{fontSize: '2rem', color: '#5A7FFA'}}>{item.num}</div>
             </div>
           </li>))}
         </Nav>
       </Header>
       <Main>
         <Select
-          style={{ width: 120, margin: '1rem 0' }}
+          style={{width: 120, margin: '1rem 0'}}
           defaultValue={"0"}
           onChange={stateChange}
           getPopupContainer={triggerNode => triggerNode.parentElement}
         >
           {
             stateList.map((item: { name: string, value: string }) => <Option key={item.value}
-              value={item.value}>{item.name}</Option>)
+                                                                             value={item.value}>{item.name}</Option>)
           }
         </Select>
-        <Select getPopupContainer={triggerNode => triggerNode.parentElement} style={{ width: 120, margin: '1rem 0', marginLeft: '1rem' }} defaultValue={"1"} onChange={timeChange}>
+        <Select getPopupContainer={triggerNode => triggerNode.parentElement} style={{width: 120, margin: '1rem 0', marginLeft: '1rem'}} defaultValue={"1"} onChange={timeChange}>
           {
             timeList.map((item: { name: string, value: string }) => <Option key={item.value}
-              value={item.value}>{item.name}</Option>)
+                                                                            value={item.value}>{item.name}</Option>)
           }
         </Select>
         <Table
