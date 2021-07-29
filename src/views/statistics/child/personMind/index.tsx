@@ -1,77 +1,37 @@
 import styled from "@emotion/styled";
-import {useLineList} from "utils/statistics/taskStatistics";
-import {Form, Modal, Select, Table} from "antd";
-import {Column} from "@ant-design/charts";
+import { useLineList } from "utils/statistics/taskStatistics";
+import { Form, Modal, Select, Table } from "antd";
+import { Column, Pie } from "@ant-design/charts";
 import {
   useProjectsSearchParams,
   useMindModal,
   useMindStatistics,
   useMindStatisticsDetail
 } from 'utils/statistics/mindStatistics'
+import { useEffect } from "react";
 
 export const PersonMind = () => {
-  const {data: lineList} = useLineList()
-  const {open} = useMindModal()
-  const [param = {subwayId: lineList?.data[0].id, time: 3}, setParam] = useProjectsSearchParams()
-  const {data: mindStatistics, isLoading, isError} = useMindStatistics(param)
+  const { data: lineList } = useLineList()
+  const { open } = useMindModal()
+  const [param, setParam] = useProjectsSearchParams()
+  const { data: mindStatistics, isLoading, isError } = useMindStatistics(param)
+  console.log(mindStatistics);
 
   const lineChange = (value: any) => {
-    setParam({subwayId: value})
+    setParam({ subwayId: value })
   }
 
   const timeChange = (value: any) => {
-    setParam({time: value})
+    setParam({ time: value })
   }
 
-  const data = [
-    {
-      "className": "变电七分部",
-      "type": "体温异常率",
-      "value": 66,
-    },
-    {
-      "className": "变电七分部",
-      "type": "酒精异常率",
-      "value": 66,
-    },
-    {
-      "className": "变电七分部",
-      "type": "血压异常率",
-      "value": 66,
-    },
-    {
-      "className": "变电二班",
-      "type": "体温异常率",
-      "value": 66,
-    },
-    {
-      "className": "变电二班",
-      "type": "酒精异常率",
-      "value": 66,
-    },
-    {
-      "className": "变电二班",
-      "type": "血压异常率",
-      "value": 66,
-    },
-    {
-      "className": "变电三班",
-      "type": "体温异常率",
-      "value": 66,
-    },
-    {
-      "className": "变电三班",
-      "type": "酒精异常率",
-      "value": 66,
-    },
-    {
-      "className": "变电三班",
-      "type": "血压异常率",
-      "value": 66,
-    },
-  ]
+  useEffect(() => {
+    if (lineList) {
+      setParam({ subwayId: lineList?.data[0]?.id, time: 3 })
+    }
+  }, [lineList])
 
-  const config = {
+  /* const config = {
     data: data,
     xField: "className",
     yField: "value",
@@ -81,6 +41,58 @@ export const PersonMind = () => {
     columnStyle: {
       radius: [20, 20, 0, 0]
     }
+  }; */
+
+  const Aconfig = {
+    appendPadding: 10,
+    data: isLoading || isError ? [] : mindStatistics?.data,
+    angleField: 'isAlcNormal',
+    colorField: 'className',
+    radius: 0.8,
+    innerRadius: 0.64,
+    statistic: null,
+  };
+
+  const Bconfig = {
+    appendPadding: 10,
+    data: isLoading || isError ? [] : mindStatistics?.data,
+    angleField: 'isBloodNormal',
+    colorField: 'className',
+    radius: 0.8,
+    innerRadius: 0.64,
+    label: {
+      type: 'inner',
+      offset: '-50%',
+      // @ts-ignore
+      content: ({ percent }) => `${percent * 100}%`,
+      style: {
+        fill: '#fff',
+        fontSize: 14,
+        textAlign: 'center',
+      },
+    },
+    statistic: null,
+  };
+
+  const Cconfig = {
+    appendPadding: 10,
+    data: isLoading || isError ? [] : mindStatistics?.data,
+    angleField: 'isTemNormal',
+    colorField: 'className',
+    radius: 0.8,
+    innerRadius: 0.64,
+    label: {
+      type: 'inner',
+      offset: '-50%',
+      // @ts-ignore
+      content: ({ percent }) => `${percent * 100}%`,
+      style: {
+        fill: '#fff',
+        fontSize: 14,
+        textAlign: 'center',
+      },
+    },
+    statistic: null,
   };
 
   return (
@@ -93,7 +105,7 @@ export const PersonMind = () => {
             name={"subwayId"}
           >
             <Select
-              style={{width: 120}}
+              style={{ width: 120 }}
               placeholder={"地铁路线"}
               onChange={lineChange}
               showSearch
@@ -114,7 +126,7 @@ export const PersonMind = () => {
           >
             <Select
               placeholder={"时间"}
-              style={{width: 120}}
+              style={{ width: 120 }}
               onChange={timeChange}
             >
               <Select.Option value={1}>本日</Select.Option>
@@ -127,25 +139,31 @@ export const PersonMind = () => {
 
       <Main>
         {/*@ts-ignore*/}
-        <Column
+        {/* <Column
           {...config}
           onReady={(plot: any) => {
             plot.on('plot:click', (evt: any) => {
               open()
             });
           }}
-        />
+        /> */}
+        {/*@ts-ignore*/}
+        <Pie {...Aconfig} />
+        {/*@ts-ignore*/}
+        <Pie {...Bconfig} />
+        {/*@ts-ignore*/}
+        <Pie {...Cconfig} />
 
-        <PersonMindModal/>
+        <PersonMindModal />
       </Main>
     </>
   )
 }
 
 const PersonMindModal = () => {
-  const {ModalOpen, close} = useMindModal()
+  const { ModalOpen, close } = useMindModal()
   const [param] = useProjectsSearchParams()
-  const {data: mindDetail} = useMindStatisticsDetail(param)
+  const { data: mindDetail } = useMindStatisticsDetail(param)
 
   const columns = [
     {
@@ -178,7 +196,7 @@ const PersonMindModal = () => {
       footer={false}
       width={1600}
     >
-      <Table columns={columns} pagination={false}/>
+      <Table columns={columns} pagination={false} />
     </Modal>
   )
 }
@@ -200,7 +218,7 @@ const Main = styled.div`
   width: 100%;
   border-radius: 1rem;
   padding: 1.5rem 1.5rem;
-  //display: flex;
+  display: flex;
 
   > * {
     flex: 1;

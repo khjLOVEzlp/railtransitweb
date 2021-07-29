@@ -1,42 +1,93 @@
 import styled from "@emotion/styled"
-import {useEffect} from "react";
-import {useDocumentTitle} from 'hook/useDocumentTitle'
+import { useEffect, useState } from "react";
+import { useDocumentTitle } from 'hook/useDocumentTitle'
 import Page from './child/alarmStatistics'
 import PlanWorkPage from './child/taskStatistics'
 import * as echarts from 'echarts';
 import PlanType from './child/planType'
-import {MyEcharts} from "components/MyEcharts";
-import {option} from './subwayRoute'
+import { option } from './subwayRoute'
+import { Drawer } from "antd";
+
 export const Home = () => {
   useDocumentTitle('首页')
+  const [visible, setVisible] = useState(false);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
 
   /*绑定DOM*/
   useEffect(() => {
-    echarts.init(document.getElementById('track') as HTMLElement).setOption(option)
-  }, [])
+    // @ts-ignore
+    let subway = window.subway
+
+    var mysubway = subway('mysubway', {
+      adcode: 4401,
+      theme: "colorful",
+      client: 0,
+      doubleclick: {
+        switch: true
+      },
+      easy: true
+    });
+
+    mysubway.event.on("subway.complete", function () {
+    });
+
+    //点击站点，显示此站点的信息窗体
+    /* mysubway.event.on("station.touch", function (ev: any, info: any) {
+      var id = info.id;
+      mysubway.stopAnimation();
+      mysubway.addInfoWindow(id, {});
+      var center = mysubway.getStCenter(id);
+      mysubway.setCenter(center);
+    }); */
+
+    // @ts-ignore
+    // echarts.init(document.getElementById('track') as HTMLElement).setOption(option)
+  }, [window])
 
   return (
     <Container>
       <Header>
         <div className="left">
-          <MyEcharts id="track" data={option} style={{width: '100%', height: '100%'}}/>
+          {/* <div id="track" style={{ width: '100%', height: '100%' }} onClick={() => { }} /> */}
+          {/*  onClick={showDrawer} */}
+          <div id="mysubway"></div>
+          {/* <Drawer
+            title={"地铁线路"}
+            width={"100%"}
+            closable={false}
+            onClose={onClose}
+            visible={visible}
+          >
+            <div id="mysubway" style={{ width: "100%", height: "100%" }}></div>
+          </Drawer> */}
         </div>
         <div className="right">
           {/*告警统计*/}
-          <h3 style={{padding: "1rem"}}>告警统计</h3>
-            <Page/>
+          <Title>告警统计</Title>
+          <div style={{ padding: "0 10rem 0" }}>
+            <Page />
+          </div>
         </div>
       </Header>
       <Footer>
         {/*计划统计*/}
         <div className="left">
-          <h3 style={{padding: "1rem"}}>计划统计</h3>
-            <PlanType/>
+          <Title>计划统计</Title>
+          <div style={{ padding: "0 10rem 0" }}>
+            <PlanType />
+          </div>
         </div>
         {/*作业统计*/}
         <div className="right">
-          <h3 style={{padding: "1rem"}}>作业统计</h3>
-            <PlanWorkPage/>
+          <Title>作业统计</Title>
+          <div style={{ padding: "0 10rem 0" }}>
+            <PlanWorkPage />
+          </div>
         </div>
       </Footer>
     </Container>
@@ -49,18 +100,23 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `
+const Title = styled.h3`
+  padding: 2rem;
+  font-size: 2rem;
+  font-weight: 800;
+`
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
 
   > .left {
-    height: 50vh;
+    /* height: 50vh; */
     background: #FFFFFF;
     border-radius: 14px;
-    width: 64%;
+    width: 69%;
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow-y: hidden;
 
     > .data {
       display: flex;
@@ -95,7 +151,7 @@ const Header = styled.div`
     height: 50vh;
     background: #FFFFFF;
     border-radius: 14px;
-    width: 35.5%;
+    width: 30.5%;
     box-sizing: border-box;
     overflow-y: auto;
 
@@ -119,7 +175,6 @@ const Footer = styled.div`
     border-radius: 14px;
     width: 49.8%;
     box-sizing: border-box;
-    padding: 1rem;
     overflow-y: auto;
 
     > .title {
@@ -136,7 +191,6 @@ const Footer = styled.div`
     border-radius: 14px;
     width: 49.8%;
     box-sizing: border-box;
-    padding: 1rem;
     overflow-y: auto;
 
     > .title {

@@ -3,7 +3,7 @@ export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
  *传入一个对象，去除对象值为空的键
  */
 export const cleanObject = (object?: { [key: string]: unknown }) => {
-  const result = {...object};
+  const result = { ...object };
   Object.keys(result).forEach((key) => {
     const value = result[key];
     if (isFalsy(value)) {
@@ -20,9 +20,9 @@ export const cleanObject = (object?: { [key: string]: unknown }) => {
  */
 export const subset = <O extends { [key in string]: unknown },
   K extends keyof O>(
-  obj: O,
-  keys: K[]
-) => {
+    obj: O,
+    keys: K[]
+  ) => {
   const filteredEntries = Object.entries(obj).filter(([key]) =>
     keys.includes(key as K)
   );
@@ -36,7 +36,7 @@ export const subset = <O extends { [key in string]: unknown },
 export const getType = (type: number) => {
   switch (type) {
     case 1:
-      return "本日"
+      return "今日"
     case 2:
       return "本周"
 

@@ -1,34 +1,35 @@
 import styled from "@emotion/styled";
-import {Form, Modal, Select, Table} from "antd";
-import {useLineList} from "utils/statistics/taskStatistics";
-import {Column} from '@ant-design/charts';
+import { Form, Modal, Select, Table } from "antd";
+import { useLineList } from "utils/statistics/taskStatistics";
+import { Column } from '@ant-design/charts';
 import {
   useProjectsSearchParams,
   useAlarmModal,
   useAlarmStatistics,
   useAlarmPagination
 } from 'utils/statistics/alarmStatistics'
-import {useDebounce} from "hook/useDebounce";
-import {useEffect} from "react";
+import { useDebounce } from "hook/useDebounce";
+import { useEffect } from "react";
 
 export const WorkWarn = () => {
-  const {data: lineList} = useLineList()
+  const { data: lineList } = useLineList()
   const [param, setParam] = useProjectsSearchParams()
+  const { open, ModalOpen } = useAlarmModal()
 
   useEffect(() => {
     if (lineList) {
-      setParam({subwayId: lineList?.data[0]?.id, time: 3, index: 1, size: 10})
+      setParam({ subwayId: lineList?.data[0]?.id, time: 3 })
     }
-  }, [lineList])
-  const {open} = useAlarmModal()
-  const {data: alarmStatistics, isLoading, isError} = useAlarmStatistics(param)
+  }, [lineList, ModalOpen])
+
+  const { data: alarmStatistics, isLoading, isError } = useAlarmStatistics(param)
 
   const lineChange = (value: any) => {
-    setParam({subwayId: value})
+    setParam({ subwayId: value })
   }
 
   const timeChange = (value: any) => {
-    setParam({time: value})
+    setParam({ time: value })
   }
 
   const config = {
@@ -50,8 +51,8 @@ export const WorkWarn = () => {
       },
     },
     meta: {
-      name: {alias: '类型'},
-      num: {alias: '数量'},
+      name: { alias: '类型' },
+      num: { alias: '数量' },
     },
   };
 
@@ -65,7 +66,7 @@ export const WorkWarn = () => {
             name={"subwayId"}
           >
             <Select
-              style={{width: 120}}
+              style={{ width: 120 }}
               placeholder={"地铁路线"}
               showSearch
               onChange={lineChange}
@@ -86,7 +87,7 @@ export const WorkWarn = () => {
           >
             <Select
               placeholder={"时间"}
-              style={{width: 120}}
+              style={{ width: 120 }}
               onChange={timeChange}
             >
               <Select.Option value={1}>本日</Select.Option>
@@ -103,21 +104,22 @@ export const WorkWarn = () => {
           {...config}
           onReady={(plot: any) => {
             plot.on('plot:click', (evt: any) => {
-              open()
+              open(param.subwayId, param.time)
             });
           }}
         />
 
-        <AlarmModal/>
+        <AlarmModal />
       </Main>
     </>
   )
 }
 
 export const AlarmModal = () => {
-  const {ModalOpen, close} = useAlarmModal()
+  const { ModalOpen, close } = useAlarmModal()
   const [param, setParam] = useProjectsSearchParams()
-  const {data: alarmPagination, isLoading} = useAlarmPagination(useDebounce(param, 500))
+
+  const { data: alarmPagination, isLoading } = useAlarmPagination(useDebounce(param, 500))
   const columns = [
     {
       title: "作业名",
@@ -137,7 +139,7 @@ export const AlarmModal = () => {
     },
   ]
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
   return (
     <Modal
@@ -150,7 +152,7 @@ export const AlarmModal = () => {
       <Table
         columns={columns}
         dataSource={alarmPagination?.data}
-        pagination={{total: alarmPagination?.count, current: param.index, pageSize: param.size}}
+        pagination={{ total: alarmPagination?.count, current: param.index, pageSize: param.size }}
         loading={isLoading}
         onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}

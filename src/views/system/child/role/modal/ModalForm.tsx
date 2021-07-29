@@ -1,15 +1,16 @@
-import {Button, Form, Input, message, Modal, Select, Spin, Tree} from "antd";
-import React, {useEffect, useState} from "react";
-import {rules} from "utils/verification";
-import {useAdd, useMod} from 'utils/system/role'
-import {useRoleModal} from '../util'
-import {useInit} from 'utils/system/menu'
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import { Button, Form, Input, message, Modal, Select, Spin, Tree } from "antd";
+import React, { useEffect, useState } from "react";
+import { rules } from "utils/verification";
+import { useAdd, useMod } from 'utils/system/role'
+import { useRoleModal } from '../util'
+import { useInit } from 'utils/system/menu'
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
+  const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
   const setUrlParams = useSetUrlSearchParam();
-  const {ModalOpen, isLoading, close, editingRole, editingRoleId, isSuccess} = useRoleModal()
+  const { ModalOpen, isLoading, close, editingRole, editingRoleId, isSuccess } = useRoleModal()
   const title = editingRole ? "修改" : "新增"
   const msg = editingRole ? () => {
     message.success("修改成功")
@@ -17,14 +18,16 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createRole: ""})
+    setUrlParams({ index: 1, createRole: "" })
   }
   const useMutateProject = editingRole ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
 
-  const {data: menu, isSuccess: success} = useInit()
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
+
+  const { data: menu, isSuccess: success } = useInit()
 
   useEffect(() => {
+    setCheckedKeys(editingRole?.data?.menuList)
     form.setFieldsValue(editingRole?.data)
   }, [form, editingRole])
 
@@ -34,7 +37,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingRole, ...value, id: editingRoleId}).then((res) => {
+    mutateAsync({ ...editingRole, ...value, id: editingRoleId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -63,8 +66,13 @@ export const ModalForm = () => {
     }
   ])
 
-  const onCheck = (checkedKeys: any) => {
-    form.setFieldsValue({menuList: checkedKeys})
+  /* const onCheck = (checkedKeys: any) => {
+    form.setFieldsValue({ menuList: checkedKeys })
+  }; */
+
+  const onCheck = (checkedKeysValue: any) => {
+    setCheckedKeys(checkedKeysValue);
+    form.setFieldsValue({ menuList: checkedKeysValue })
   };
 
   const onOk = () => {
@@ -73,17 +81,16 @@ export const ModalForm = () => {
 
   return (
     <Modal title={title} width={800}
-           visible={ModalOpen} onOk={onOk}
-           onCancel={closeModal}
-           footer={[
-             <Button key="clean" onClick={() => form.resetFields()}>清空</Button>,
-             <Button key="back" onClick={closeModal}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
-           ]}
+      visible={ModalOpen} onOk={onOk}
+      onCancel={closeModal}
+      footer={[
+        <Button key="back" onClick={closeModal}>取消</Button>,
+        <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
+      ]}
     >
       {
         isLoading ? (
-          <Spin/>
+          <Spin />
         ) : (
           <Form
             form={form}
@@ -111,7 +118,8 @@ export const ModalForm = () => {
               <Tree
                 checkable
                 onCheck={onCheck}
-                checkedKeys={editingRole?.data?.menuList}
+                // checkedKeys={editingRole?.data?.menuList}
+                checkedKeys={checkedKeys}
                 // @ts-ignore
                 treeData={success ? menu.data : []}
               />
@@ -122,14 +130,14 @@ export const ModalForm = () => {
               name="name"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
               label="备注"
               name="remark"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Form>
         )

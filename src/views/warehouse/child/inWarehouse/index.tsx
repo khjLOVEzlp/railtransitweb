@@ -1,28 +1,23 @@
-import {Form, Table, DatePicker} from 'antd';
+import { Form, Table, DatePicker } from 'antd';
 import styled from "@emotion/styled";
-import {useInit, useProjectsSearchParams} from '../../../../utils/warehouse/inWarehouse'
-import {useDebounce} from "../../../../hook/useDebounce";
+import { useInit, useProjectsSearchParams } from '../../../../utils/warehouse/inWarehouse'
+import { useDebounce } from "../../../../hook/useDebounce";
 import locale from "antd/es/date-picker/locale/zh_CN";
 
 export const InWarehouse = () => {
   const [param, setParam] = useProjectsSearchParams()
-
-  /* 
-  增删改查
-  */
-
-  const {data, isLoading} = useInit(useDebounce(param, 500))
+  const { data, isLoading } = useInit(useDebounce(param, 500))
 
   const search = (item: any) => {
-    setParam({...param, date: item.date, index: 1})
+    setParam({ ...param, date: item.date, index: 1 })
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   const birthday = (obj: any, time: string) => {
-    setParam({...param, index: 1, date: time})
+    setParam({ ...param, index: 1, date: time })
   }
 
   return (
@@ -39,7 +34,7 @@ export const InWarehouse = () => {
               label=""
               name="date"
             >
-              <DatePicker locale={locale} onChange={birthday}/>
+              <DatePicker locale={locale} onChange={birthday} />
             </Form.Item>
 
             {/*<Form.Item>
@@ -76,9 +71,9 @@ export const InWarehouse = () => {
               },
 
             ]
-          } pagination={{total: data?.count, current: param.index, pageSize: param.size}} onChange={handleTableChange}
-                 loading={isLoading} dataSource={data?.data}
-                 rowKey={(item, index: any) => index}/>
+          } pagination={{ total: data?.count, current: param.index, pageSize: param.size }} onChange={handleTableChange}
+            loading={isLoading} dataSource={data?.data}
+            rowKey={(item, index: any) => index} />
         </Main>
       </Form.Provider>
     </>

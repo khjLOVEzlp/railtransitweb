@@ -1,15 +1,15 @@
 import qs from 'qs'
-import {useQuery} from 'react-query'
-import {useHttp} from '../http'
-import {cleanObject} from "../index";
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useMemo} from "react";
+import { useQuery } from 'react-query'
+import { useHttp } from '../http'
+import { cleanObject } from "../index";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useMemo } from "react";
 /*项目列表搜索的参数*/
 export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["subwayId", "time", "index", "size"]);
   return [
     useMemo(
-      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
+      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
       [param]
     ),
     setParam,
@@ -62,12 +62,12 @@ const getType = (type: number) => {
 export const useAlarmStatistics = (params?: any) => {
   const client = useHttp()
   return useQuery(['AlarmStatistics', cleanObject(params)], async () => {
-      const data = await client(`report/getWorkWarn?${qs.stringify(cleanObject(params))}`, {method: "POST"})
-      data.data.forEach((key: any) => {
-        key["name"] = getType(key["type"])
-      })
-      return data
-    }
+    const data = await client(`report/getWorkWarn?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    data.data.forEach((key: any) => {
+      key["name"] = getType(key["type"])
+    })
+    return data
+  }
   )
 }
 
@@ -75,7 +75,7 @@ export const useAlarmStatistics = (params?: any) => {
 export const useAlarmPagination = (params?: any) => {
   const client = useHttp()
   return useQuery(['AlarmPagination', cleanObject(params)], async () =>
-    client(`report/getWorkWarnMore?${qs.stringify(cleanObject(params))}`, {method: "POST"})
+    client(`report/getWorkWarnMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
   )
 }
 
@@ -84,16 +84,17 @@ export const useAlarmPagination = (params?: any) => {
 export const useAlarmModal = () => {
   const setUrlParams = useSetUrlSearchParam()
 
-  const [{openAlarm}, setOpenAlarm] = useUrlQueryParam([
-    'openAlarm'
+  const [{ subwayId, time, openAlarm }, setOpenAlarm] = useUrlQueryParam([
+    'subwayId', "time", "openAlarm"
   ])
 
-  const open = () => setOpenAlarm({openAlarm: true})
+  const open = (subwayId: number | string, time: number | string) =>
+    setOpenAlarm({ subwayId: subwayId, time: time, openAlarm: true });
 
-  const close = () => setUrlParams({openAlarm: ""})
+  const close = () => setUrlParams({ subwayId: "", time: "", openAlarm: "" })
 
   return {
-    ModalOpen: openAlarm === "true",
+    ModalOpen: Boolean(subwayId) && Boolean(time) && openAlarm === "true",
     open,
     close
   }

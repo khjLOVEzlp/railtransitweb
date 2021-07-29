@@ -1,16 +1,16 @@
-import {useQuery} from 'react-query'
-import {useHttp} from "./http"
+import { useQuery } from 'react-query'
+import { useHttp } from "./http"
 import qs from "qs";
-import {cleanObject, getType} from "./index";
-import {useSetUrlSearchParam, useUrlQueryParam} from 'hook/useUrlQueryParam'
-import {useMemo} from "react";
+import { cleanObject, getType } from "./index";
+import { useSetUrlSearchParam, useUrlQueryParam } from 'hook/useUrlQueryParam'
+import { useMemo } from "react";
 
 /*项目列表搜索的参数*/
 export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["type", "index", "size"]);
   return [
     useMemo(
-      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
+      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
       [param]
     ),
     setParam,
@@ -22,7 +22,7 @@ export const useProjectsSearchParams = () => {
  */
 export const useLineIndex = () => {
   const client = useHttp()
-  return useQuery(['line'], () => client(`line/getIndex`, {method: "POST"}))
+  return useQuery(['line'], () => client(`line/getIndex`, { method: "POST" }))
 }
 
 /*首页计划统计*/
@@ -39,9 +39,12 @@ export const usePlanStatistics = () => {
 
 /*首页计划统计分页查询*/
 export const usePlanPagination = (params?: any) => {
+  const p = params.type ? true : false
   const client = useHttp()
   return useQuery(['planPagination', cleanObject(params)], () =>
-    client(`report/webPlanMore?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
+    client(`report/webPlanMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: p
+  })
 }
 
 const Type = (type: number) => {
@@ -100,9 +103,13 @@ export const useAlarmStatistics = () => {
 
 /*首页告警统计分页查询*/
 export const useAlarmPagination = (params?: any) => {
+  const p = params.type ? true : false
+
   const client = useHttp()
   return useQuery(['alarmPagination', cleanObject(params)], () =>
-    client(`report/webWarnMore?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
+    client(`report/webWarnMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: p
+  })
 }
 
 /*首页作业统计*/
@@ -119,9 +126,12 @@ export const useTaskStatistics = () => {
 
 /*首页作业统计分页查询*/
 export const useTaskPagination = (params?: any) => {
+  const p = params.type ? true : false
   const client = useHttp()
   return useQuery(['taskPagination', cleanObject(params)], () =>
-    client(`report/webWorkMore?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
+    client(`report/webWorkMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: p
+  })
 }
 
 /*
@@ -131,14 +141,14 @@ export const useTaskPagination = (params?: any) => {
 export const usePlanModal = () => {
   const setUrlParams = useSetUrlSearchParam()
 
-  const [{PlanId}, setPlanId] = useUrlQueryParam([
+  const [{ PlanId }, setPlanId] = useUrlQueryParam([
     "PlanId"
   ])
 
   const open = (id: number) =>
-    setPlanId({PlanId: id});
+    setPlanId({ PlanId: id });
 
-  const close = () => setUrlParams({PlanId: ""})
+  const close = () => setUrlParams({ PlanId: "" })
 
   return {
     ModalOpen: Boolean(PlanId),
@@ -155,14 +165,14 @@ export const usePlanModal = () => {
 export const useAlarmModal = () => {
   const setUrlParams = useSetUrlSearchParam()
 
-  const [{AlarmId}, setAlarmId] = useUrlQueryParam([
+  const [{ AlarmId }, setAlarmId] = useUrlQueryParam([
     "AlarmId"
   ])
 
   const open = (id: number) =>
-    setAlarmId({AlarmId: id});
+    setAlarmId({ AlarmId: id });
 
-  const close = () => setUrlParams({AlarmId: ""})
+  const close = () => setUrlParams({ AlarmId: "" })
 
   return {
     ModalOpen: Boolean(AlarmId),
@@ -179,14 +189,14 @@ export const useAlarmModal = () => {
 export const useTaskModal = () => {
   const setUrlParams = useSetUrlSearchParam()
 
-  const [{TaskId}, setTaskId] = useUrlQueryParam([
+  const [{ TaskId }, setTaskId] = useUrlQueryParam([
     "TaskId"
   ])
 
   const open = (id: number) =>
-    setTaskId({TaskId: id});
+    setTaskId({ TaskId: id });
 
-  const close = () => setUrlParams({TaskId: ""})
+  const close = () => setUrlParams({ TaskId: "" })
 
   return {
     ModalOpen: Boolean(TaskId),

@@ -1,17 +1,18 @@
-import {Radar} from '@ant-design/charts';
-import {Modal, Spin, Table} from 'antd';
-import {useAlarmStatistics, useAlarmPagination, useAlarmModal, useProjectsSearchParams} from 'utils/home'
-import {useDebounce} from "hook/useDebounce";
+import { Radar } from '@ant-design/charts';
+import { Modal, Spin, Table } from 'antd';
+import { useAlarmStatistics, useAlarmPagination, useAlarmModal, useProjectsSearchParams } from 'utils/home'
+import { useDebounce } from "hook/useDebounce";
 
 const Page = () => {
-  const {data: alarmStatistics, isLoading} = useAlarmStatistics()
-  const {open} = useAlarmModal()
+  const { data: alarmStatistics, isLoading } = useAlarmStatistics()
+  const { open } = useAlarmModal()
 
   const config = {
     data: alarmStatistics?.data,
     // padding: 10,
     xField: "name",
     yField: "num",
+    // padding: [0, 150, 0, 150],
     meta: {
       num: {
         alias: '数量',
@@ -38,21 +39,21 @@ const Page = () => {
     <>
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Radar
             {...config}
             onReady={(plot: any) => {
               plot.on('plot:click', (evt: any) => {
-                const {x, y} = evt;
-                const tooltipData = plot.chart.getTooltipItems({x, y});
+                const { x, y } = evt;
+                const tooltipData = plot.chart.getTooltipItems({ x, y });
                 open(tooltipData[0].data.type)
               });
             }}
           />
         )
       }
-      <OpenModal/>
+      <OpenModal />
     </>
   )
 };
@@ -60,10 +61,10 @@ const Page = () => {
 export default Page;
 
 const OpenModal = () => {
-  const {ModalOpen, close, AlarmId} = useAlarmModal()
+  const { ModalOpen, close, AlarmId } = useAlarmModal()
   const [param, setParam] = useProjectsSearchParams()
 
-  const {data: Alarm, isLoading} = useAlarmPagination(useDebounce({...param, type: AlarmId}, 500))
+  const { data: Alarm, isLoading } = useAlarmPagination(useDebounce({ ...param, type: AlarmId }, 500))
 
   const columns = [
     {
@@ -105,7 +106,7 @@ const OpenModal = () => {
   ]
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -119,7 +120,7 @@ const OpenModal = () => {
       <Table
         columns={columns}
         dataSource={Alarm?.data}
-        pagination={{total: Alarm?.count, current: param.index, pageSize: param.size}}
+        pagination={{ total: Alarm?.count, current: param.index, pageSize: param.size }}
         loading={isLoading}
         onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}

@@ -1,39 +1,17 @@
-import {Button, DatePicker, Form, Input, message, Modal, Spin} from "antd"
+import { Button, DatePicker, Form, Input, message, Modal, Spin } from "antd"
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import {useForm} from "antd/lib/form/Form";
-import {useToolModal} from '../util'
-import React, {useEffect} from "react";
-import {useModMaterial} from 'utils/warehouse/toolType'
+import { useForm } from "antd/lib/form/Form";
+import { useToolModal } from '../util'
+import React, { useEffect } from "react";
 import moment from "moment";
 
 export const ToolModalForm = () => {
   const [form] = useForm()
-  const {ModalOpen, close, isLoading, viewTool, viewToolDetailId} = useToolModal()
-  const {mutateAsync, isLoading: mutateLoading} = useModMaterial()
-  useEffect(() => {
-    if (viewTool) {
-      form.setFieldsValue({
-        ...viewTool?.data,
-        invalidTime: moment(viewTool?.data?.invalidTime)
-      })
-    }
-  }, [viewTool])
+  const { ModalOpen, close, isLoading, viewTool } = useToolModal()
 
   const closeModal = () => {
     form.resetFields()
     close()
-  }
-
-  const onFinish = (value: any) => {
-    mutateAsync({...viewTool?.data, ...value, id: viewToolDetailId}).then((res) => {
-      if (res.code === 200) {
-        message.success("修改成功")
-        form.resetFields()
-        close()
-      } else {
-        message.error(res.msg)
-      }
-    })
   }
 
   const onOk = () => {
@@ -48,49 +26,21 @@ export const ToolModalForm = () => {
         onOk={onOk}
         visible={ModalOpen}
         onCancel={closeModal}
-        style={{zIndex: 10000}}
-        footer={[
-          <Button key="back" onClick={closeModal}>取消</Button>,
-          <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
-        ]}
+        style={{ zIndex: 10000 }}
+        footer={false}
       >
         {
           isLoading ? (
-            <Spin/>
+            <Spin />
           ) : (
-            <Form
-              form={form}
-              layout={"vertical"}
-              onFinish={onFinish}
-            >
-              <Form.Item
-                label={"失效时间"}
-                name={"invalidTime"}
-              >
-                  <DatePicker locale={locale}/>
-              </Form.Item>
-
-              <Form.Item
-                label={"标签"}
-                name={"labelNum"}
-              >
-                <Input disabled/>
-              </Form.Item>
-
-              <Form.Item
-                label={"仓库"}
-                name={"warehouseId"}
-              >
-                <Input disabled/>
-              </Form.Item>
-
-              <Form.Item
-                label={"备注"}
-                name={"remark"}
-              >
-                <Input/>
-              </Form.Item>
-            </Form>
+            viewTool?.data.map((item: any) => (
+              <div key={item.id} style={{ marginBottom: "1rem" }}>
+                <div>标签：{item.labelNum ? item.labelNum : "无"}</div>
+                <div>使用状态：{item.useStatus === 0 ? "未使用" : "使用中"}</div>
+                <div>失效状态：{item.status === 0 ? "正常" : "快过期"}</div>
+                <div>失效时间：{item.invalidTimemoment ? (item.invalidTime).format("YYYY-MM-DD HH:mm:ss") : "无"}</div>
+              </div>
+            ))
           )
         }
       </Modal>

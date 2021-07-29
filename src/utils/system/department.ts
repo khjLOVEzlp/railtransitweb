@@ -1,8 +1,8 @@
 import qs from 'qs'
-import {useQuery, useMutation, useQueryClient} from 'react-query'
-import {cleanObject} from '..'
-import {useHttp} from '../http'
-import {department} from "types/department";
+import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { cleanObject } from '..'
+import { useHttp } from '../http'
+import { department } from "types/department";
 
 /*
 查询
@@ -21,13 +21,39 @@ const fuc = (data: any) => {
   return data
 }
 
+const fuc1 = (data: any) => {
+  if (data && data.length > 0) {
+    data.forEach((item: any) => {
+      item.title = item.name
+      item.value = item.id
+      item.children = fuc(item.personList)
+    });
+  } else {
+    data = []
+  }
+  return data
+}
+
+/**
+ * 查询登录人员拥有的组织机构信息及人员信息(app)
+ *  */
+export const useInitDepartment = () => {
+  const client = useHttp()
+  return useQuery<department>(['department'], async () => {
+    const data = await client(`department/getDepartmentAndPerson`)
+    fuc1(data.data)
+    return data
+  }
+  )
+}
+
 export const useInit = (params?: any) => {
   const client = useHttp()
   return useQuery<department>(['department', cleanObject(params)], async () => {
-      const data = await client(`department/getAll?${qs.stringify(cleanObject(params))}`)
-      fuc(data.data)
-      return data
-    }
+    const data = await client(`department/getAll?${qs.stringify(cleanObject(params))}`)
+    fuc(data.data)
+    return data
+  }
   )
 }
 
@@ -37,7 +63,7 @@ export const useInit = (params?: any) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`department/save`, {method: "POST", body: JSON.stringify(params)}), {
+  return useMutation((params: any) => client(`department/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
       queryClient.invalidateQueries('department')
     },
@@ -52,7 +78,7 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`department/update`, {method: "POST", body: JSON.stringify(params)}), {
+  return useMutation((params: any) => client(`department/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
       queryClient.invalidateQueries('department')
     },

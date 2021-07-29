@@ -2,8 +2,8 @@ import styled from "@emotion/styled"
 import { Tabs } from "antd";
 import React, { useState } from "react";
 import './index.css'
-import {DictItem} from './dictItem/DictItem'
-import {DictType} from './dictType/DictType'
+import { DictItem } from "./dictItem/DictItem";
+import { DictType } from "./dictType/DictType";
 
 const { TabPane } = Tabs;
 export const DataDictionary = () => {

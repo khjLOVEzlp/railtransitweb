@@ -1,10 +1,10 @@
-import {Button, Drawer, Table} from "antd"
-import {ToolModalForm} from "./modal/ToolModalForm"
-import {useViewTool, useToolModal} from './util'
+import { Button, Drawer, Table } from "antd"
+import { ToolModalForm } from "./modal/ToolModalForm"
+import { useViewTool, useToolModal } from './util'
 
 export const Tool = () => {
-  const {ModalOpen, close, viewTool, isLoading} = useViewTool()
-  const {startEdit} = useToolModal()
+  const { ModalOpen, close, viewTool, isLoading, viewToolId } = useViewTool()
+  const { startEdit } = useToolModal()
   return (
     <Drawer
       width={'100%'}
@@ -43,12 +43,12 @@ export const Tool = () => {
         {
           title: "操作",
           render: (item: any) => <>
-            <Button type={"link"} onClick={() => startEdit(item.id)}>详情</Button>
+            <Button type={"link"} onClick={() => startEdit(item.id, Number(viewToolId))}>详情</Button>
           </>
         }
-      ]} loading={isLoading} rowKey={item => item.id}/>
+      ]} loading={isLoading} rowKey={item => item.id} />
 
-      <ToolModalForm/>
+      <ToolModalForm />
     </Drawer>
   )
 }

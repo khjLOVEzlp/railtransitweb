@@ -1,7 +1,7 @@
 @import '~antd/dist/antd.css';
 
 html {
-    font-size: 62.5%;
+    font-size: 62.5% !important;
 }
 
 html, body, #root, .App {
@@ -72,9 +72,6 @@ big,
 input,
 textarea,
 button,
-select {
-  font-size: 100%
-}
 
 h1,
 h2,
@@ -204,7 +201,6 @@ sub {
 }
 
 html {
-  height: 100%;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -257,4 +253,8 @@ input[type="number"]{
 
 .ant-modal-content {
   z-index: 10000 !important;
+}
+
+.amap-subway-api #drag_handle {
+  position: absolute !important;
 }

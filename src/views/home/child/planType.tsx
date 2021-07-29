@@ -1,16 +1,17 @@
-import {Column} from '@ant-design/charts';
-import {Modal, Spin, Table} from 'antd';
-import {usePlanStatistics, usePlanPagination, usePlanModal, useProjectsSearchParams} from 'utils/home'
-import {useDebounce} from "hook/useDebounce";
+import { Column, RadialBar } from '@ant-design/charts';
+import { Modal, Spin, Table } from 'antd';
+import { usePlanStatistics, usePlanPagination, usePlanModal, useProjectsSearchParams } from 'utils/home'
+import { useDebounce } from "hook/useDebounce";
 
 const PlanType = () => {
-  const {open} = usePlanModal()
-  const {data: planStatistics, isLoading} = usePlanStatistics()
+  const { open } = usePlanModal()
+  const { data: planStatistics, isLoading } = usePlanStatistics()
 
-  const config = {
+  /* const config = {
     data: planStatistics?.data,
     xField: 'name',
     yField: 'num',
+    padding: [10, 0, 20, 20],
     label: {
       position: 'middle',
       style: {
@@ -25,38 +26,81 @@ const PlanType = () => {
       },
     },
     meta: {
-      type: {alias: "类型"},
-      num: {alias: "数量"}
+      type: { alias: "类型" },
+      num: { alias: "数量" }
     },
-  }
+    point: {},
+  } */
+
+  var config = {
+    data: planStatistics?.data,
+    xField: 'name',
+    yField: 'num',
+    maxAngle: 250,
+    radius: 0.8,
+    innerRadius: 0.1,
+    maxBarWidth: 10,
+    tooltip: {
+      formatter: function formatter(datum: any) {
+        return {
+          name: '数量',
+          value: datum.num,
+        };
+      },
+    },
+    meta: {
+      type: { alias: "类型" },
+      num: { alias: "数量" }
+    },
+    colorField: 'name',
+    color: function color(_ref: any) {
+      var star = _ref.name;
+      switch (star) {
+        case "今日":
+          return "#33E598"
+        case "本月":
+          return "#FF585D"
+        case "本周":
+          return "#62C4E9"
+        case "本季度":
+          return "#FFD876"
+        case "半年":
+          return "#9E5AFA"
+        case "今年":
+          return "#5A7FFA"
+        default:
+          break;
+      }
+    },
+  };
 
   return <>
     {
       isLoading ? (
-        <Spin/>
+        <Spin />
       ) : (
         // @ts-ignore
-        <Column
+        <RadialBar
           {...config}
           onReady={(plot: any) => {
             plot.on('plot:click', (evt: any) => {
-              const {x, y} = evt;
-              const tooltipData = plot.chart.getTooltipItems({x, y});
-              open(tooltipData[0].data.type)
+              const { x, y } = evt;
+              const tooltipData = plot.chart.getTooltipItems({ x, y });
+              open(tooltipData[0]?.data?.type)
             });
           }}
         />
       )
     }
-    <OpenModal/>
+    <OpenModal />
   </>
 };
 
 const OpenModal = () => {
-  const {ModalOpen, close, PlanId} = usePlanModal()
+  const { ModalOpen, close, PlanId } = usePlanModal()
   const [param, setParam] = useProjectsSearchParams()
 
-  const {data: Plan, isLoading} = usePlanPagination(useDebounce({...param, type: PlanId}, 500))
+  const { data: Plan, isLoading } = usePlanPagination(useDebounce({ ...param, type: PlanId }, 500))
   const columns = [
     {
       title: "计划名称",
@@ -86,7 +130,7 @@ const OpenModal = () => {
   ]
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -100,7 +144,7 @@ const OpenModal = () => {
       <Table
         columns={columns}
         dataSource={Plan?.data}
-        pagination={{total: Plan?.count, current: param.index, pageSize: param.size}}
+        pagination={{ total: Plan?.count, current: param.index, pageSize: param.size }}
         loading={isLoading}
         onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}

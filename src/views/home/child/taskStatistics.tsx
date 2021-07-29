@@ -1,11 +1,11 @@
-import {Line} from '@ant-design/charts';
-import {useTaskStatistics, useTaskPagination, useTaskModal, useProjectsSearchParams} from 'utils/home'
-import {Modal, Spin, Table} from "antd";
-import {useDebounce} from "hook/useDebounce";
+import { Line } from '@ant-design/charts';
+import { useTaskStatistics, useTaskPagination, useTaskModal, useProjectsSearchParams } from 'utils/home'
+import { Modal, Spin, Table } from "antd";
+import { useDebounce } from "hook/useDebounce";
 
 const PlanWorkPage = () => {
-  const {data: taskStatistics, isLoading} = useTaskStatistics()
-  const {open} = useTaskModal()
+  const { data: taskStatistics, isLoading } = useTaskStatistics()
+  const { open } = useTaskModal()
 
   const config = {
     data: taskStatistics?.data,
@@ -33,8 +33,8 @@ const PlanWorkPage = () => {
     },
     interactions: [{ type: 'marker-active' }],
     meta: {
-      type: {alias: "类型"},
-      num: {alias: "数量"}
+      type: { alias: "类型" },
+      num: { alias: "数量" }
     },
   };
 
@@ -42,15 +42,15 @@ const PlanWorkPage = () => {
     <>
       {
         isLoading ? (
-          <Spin/>
+          <Spin />
         ) : (
           // @ts-ignore
           <Line
             {...config}
             onReady={(plot: any) => {
               plot.on('plot:click', (evt: any) => {
-                const {x, y} = evt;
-                const tooltipData = plot.chart.getTooltipItems({x, y});
+                const { x, y } = evt;
+                const tooltipData = plot.chart.getTooltipItems({ x, y });
                 open(tooltipData[0].data.type)
               });
             }}
@@ -58,15 +58,15 @@ const PlanWorkPage = () => {
         )
       }
 
-      <OpenModal/>
+      <OpenModal />
     </>
   )
 };
 
 export const OpenModal = () => {
-  const {ModalOpen, TaskId, close} = useTaskModal()
+  const { ModalOpen, TaskId, close } = useTaskModal()
   const [param, setParam] = useProjectsSearchParams()
-  const {data: Task, isLoading} = useTaskPagination(useDebounce({...param, type: TaskId}, 500))
+  const { data: Task, isLoading } = useTaskPagination(useDebounce({ ...param, type: TaskId }, 500))
   const columns = [
     {
       title: "计划名称",
@@ -96,7 +96,7 @@ export const OpenModal = () => {
   ]
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -110,7 +110,7 @@ export const OpenModal = () => {
       <Table
         columns={columns}
         dataSource={Task?.data}
-        pagination={{total: Task?.count, current: param.index, pageSize: param.size}}
+        pagination={{ total: Task?.count, current: param.index, pageSize: param.size }}
         loading={isLoading}
         onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}

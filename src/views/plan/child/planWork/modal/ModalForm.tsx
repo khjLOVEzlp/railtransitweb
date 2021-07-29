@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   DatePicker,
@@ -15,24 +15,24 @@ import {
 } from "antd";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import {MinusCircleOutlined, PlusOutlined, UploadOutlined} from "@ant-design/icons";
-import {getToken} from "../../../../../auth-provider";
-import {rules} from "utils/verification";
-import {usePlanType} from "utils/plan/planType";
-import {useLine} from "utils//system/line";
-import {useSite} from "utils/plan/planWork";
-import {useMaterialType} from "utils/warehouse/materialType";
-import {usePerson} from "utils/person/personManage";
-import {AddToolModal} from './AddToolModal'
-import {usePlanWorkModal} from '../util'
-import {useAdd, useMod} from "utils/plan/planWork";
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
-import {useInit} from 'utils/system/department'
+import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import { getToken } from "../../../../../auth-provider";
+import { rules } from "utils/verification";
+import { usePlanType } from "utils/plan/planType";
+import { useLine } from "utils//system/line";
+import { useSite } from "utils/plan/planWork";
+import { useMaterialType } from "utils/warehouse/materialType";
+import { usePerson } from "utils/person/personManage";
+import { AddToolModal } from './AddToolModal'
+import { usePlanWorkModal } from '../util'
+import { useAdd, useMod } from "utils/plan/planWork";
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
+import { useInitDepartment } from 'utils/system/department'
 import moment from "moment";
 
 const baseUrl = process.env["REACT_APP_API_URL"]
-const {TextArea} = Input;
-const {Option} = Select;
+const { TextArea } = Input;
+const { Option } = Select;
 
 // 新增修改
 export const ModalForm = () => {
@@ -43,7 +43,7 @@ export const ModalForm = () => {
   const [id, setId] = useState<number>(0)
   const setUrlParams = useSetUrlSearchParam();
 
-  const {ModalOpen, isLoading, close, editingPlanWork, editingPlanWorkId, isSuccess} = usePlanWorkModal()
+  const { ModalOpen, isLoading, close, editingPlanWork, editingPlanWorkId, isSuccess } = usePlanWorkModal()
   const title = editingPlanWork ? "修改" : "新增"
   const msg = editingPlanWork ? () => {
     message.success("修改成功")
@@ -51,20 +51,21 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createPlanWork: ""})
+    setUrlParams({ index: 1, createPlanWork: "" })
   }
+
   const useMutateProject = editingPlanWork ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     if (isSuccess && editingPlanWork) {
       form.setFieldsValue({
-          ...editingPlanWork?.data,
-          dateTime: moment(editingPlanWork?.data?.dateTime),
-          beginTime: moment(editingPlanWork?.data?.beginTime),
-          endTime: moment(editingPlanWork?.data?.endTime),
-          warnTime: moment(editingPlanWork?.data?.warnTime),
-        }
+        ...editingPlanWork?.data,
+        dateTime: moment(editingPlanWork?.data?.dateTime),
+        beginTime: moment(editingPlanWork?.data?.beginTime),
+        endTime: moment(editingPlanWork?.data?.endTime),
+        warnTime: moment(editingPlanWork?.data?.warnTime),
+      }
       )
     }
   }, [form, editingPlanWork])
@@ -75,12 +76,12 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    const {beginTime, dateTime, endTime, warnTime, groupList} = value
+    const { beginTime, dateTime, endTime, warnTime, groupList } = value
     const temp = JSON.parse(JSON.stringify(value))
     temp.groupList.forEach((item: any) => {
       for (let i = 0; i < item.personList.length; i++) {
         let temp = item.personList[i];
-        item.personList[i] = {personId: temp, id: temp};
+        item.personList[i] = { personId: temp, id: temp };
       }
     });
 
@@ -100,12 +101,12 @@ export const ModalForm = () => {
     })
   }
 
-  const {data: departmentList} = useInit()
-  const {data: material} = useMaterialType()
-  const {data: planTypeList} = usePlanType()
-  const {data: lineLIst} = useLine()
-  const {data: personList} = usePerson()
-  const {data: allList} = useSite(id)
+  const { data: departmentList } = useInitDepartment()
+  const { data: material } = useMaterialType()
+  const { data: planTypeList } = usePlanType()
+  const { data: lineLIst } = useLine()
+  const { data: personList } = usePerson()
+  const { data: allList } = useSite(id)
 
   const radioChange = (e: any) => {
     setValue(e.target.value);
@@ -131,7 +132,7 @@ export const ModalForm = () => {
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
         document = [...document, info.file.response.data + ""]
-        form.setFieldsValue({documentList: document})
+        form.setFieldsValue({ documentList: document })
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name}上传成功`);
@@ -162,12 +163,12 @@ export const ModalForm = () => {
 
   return (
     <Modal title={title} width={800} visible={ModalOpen} onOk={onOk} onCancel={closeModal}
-           footer={[<Button key="back" onClick={closeModal}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>]}
+      footer={[<Button key="back" onClick={closeModal}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>]}
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}
@@ -175,13 +176,13 @@ export const ModalForm = () => {
             labelAlign="right"
             layout={"vertical"}
           >
-            <Space style={{display: 'flex'}}>
+            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="计划名称"
                 name="name"
                 rules={rules}
               >
-                <Input/>
+                <Input />
               </Form.Item>
 
               <Form.Item
@@ -191,27 +192,27 @@ export const ModalForm = () => {
               >
                 <TreeSelect
                   showSearch
-                  style={{width: '100%'}}
+                  style={{ width: '100%' }}
                   treeData={departmentList?.data}
                 />
               </Form.Item>
             </Space>
 
-            <Space style={{display: 'flex'}}>
+            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="施工负责人"
                 name="leaderPerson"
                 rules={rules}
               >
                 <Select
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
                 >
                   {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                              key={index}>{item.name}</Option>)}
+                    key={index}>{item.name}</Option>)}
                 </Select>
               </Form.Item>
 
@@ -221,7 +222,7 @@ export const ModalForm = () => {
                 rules={rules}
               >
                 <Select
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -229,18 +230,18 @@ export const ModalForm = () => {
                   onChange={onGenderChange}
                 >
                   {lineLIst?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                            key={index}>{item.name}</Option>)}
+                    key={index}>{item.name}</Option>)}
                 </Select>
               </Form.Item>
             </Space>
 
-            <Space style={{display: 'flex'}}>
+            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="作业区域"
                 name="workAddr"
                 rules={rules}
               >
-                <Input/>
+                <Input />
               </Form.Item>
 
               <Form.Item
@@ -249,33 +250,33 @@ export const ModalForm = () => {
                 rules={rules}
               >
                 <Select
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
                 >
                   {allList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                           key={index}>{item.name}</Option>)}
+                    key={index}>{item.name}</Option>)}
                 </Select>
               </Form.Item>
             </Space>
 
-            <Space style={{display: 'flex'}}>
+            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="销站点"
                 name="pinStand"
                 rules={rules}
               >
                 <Select
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
                 >
                   {allList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                           key={index}>{item.name}</Option>)}
+                    key={index}>{item.name}</Option>)}
                 </Select>
               </Form.Item>
 
@@ -284,22 +285,22 @@ export const ModalForm = () => {
                 name="typeList"
                 rules={rules}
               >
-                <Select style={{width: "100%"}} allowClear mode="multiple">
+                <Select style={{ width: "100%" }} allowClear mode="multiple">
                   {planTypeList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                                key={index}>{item.type}</Option>)}
+                    key={index}>{item.type}</Option>)}
                 </Select>
               </Form.Item>
             </Space>
 
-            <Space style={{display: 'flex', justifyContent: "space-between", width: "100%"}}>
+            <Space style={{ display: 'flex', justifyContent: "space-between", width: "100%" }}>
               <Form.Item
                 label="开始时间"
                 name="beginTime"
                 rules={rules}
-                style={{width: "100%"}}
+                style={{ width: "100%" }}
               >
                 <DatePicker
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   showTime
                   locale={locale}
                   format={"YYYY-MM-DD HH:mm:ss"}
@@ -311,10 +312,10 @@ export const ModalForm = () => {
                 label="结束时间"
                 name="endTime"
                 rules={rules}
-                style={{width: "100%"}}
+                style={{ width: "100%" }}
               >
                 <DatePicker
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   showTime
                   locale={locale}
                   format={"YYYY-MM-DD HH:mm:ss"}
@@ -323,13 +324,13 @@ export const ModalForm = () => {
               </Form.Item>
             </Space>
 
-            <Space style={{display: "flex"}}>
+            <Space style={{ display: "flex" }}>
               <Form.Item
                 label="提醒时间"
                 name="warnTime"
               >
                 <DatePicker
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   showTime
                   locale={locale}
                   format={"YYYY-MM-DD HH:mm:ss"}
@@ -342,14 +343,14 @@ export const ModalForm = () => {
                 name="dateTime"
               >
                 <DatePicker
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   locale={locale}
                   placeholder="作业日期"
                 />
               </Form.Item>
             </Space>
 
-            <Space style={{display: "flex"}}>
+            <Space style={{ display: "flex" }}>
               <Form.Item
                 label="是否自动提醒"
                 name="isWarn"
@@ -364,35 +365,35 @@ export const ModalForm = () => {
                 label="文档"
                 name="documentList"
               >
-                <Upload {...props} style={{width: "100%"}}>
-                  <Button style={{width: "100%"}} icon={<UploadOutlined/>}>上传</Button>
+                <Upload {...props} style={{ width: "100%" }}>
+                  <Button style={{ width: "100%" }} icon={<UploadOutlined />}>上传</Button>
                 </Upload>
               </Form.Item>
             </Space>
 
-            <Space style={{display: 'flex'}}>
+            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="作业人数"
                 name="workPerson"
                 getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
               >
-                <Input/>
+                <Input />
               </Form.Item>
 
               <Form.Item
                 label="作业内容"
                 name="workContent"
               >
-                <Input/>
+                <Input />
               </Form.Item>
             </Space>
 
-            <Space style={{display: 'flex'}}>
+            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="计划令号"
                 name="num"
               >
-                <Input/>
+                <Input />
               </Form.Item>
 
               <Form.Item
@@ -400,7 +401,7 @@ export const ModalForm = () => {
                 name="personList"
               >
                 <Select
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   allowClear mode="multiple"
                   showSearch
                   filterOption={(input, option: any) =>
@@ -408,7 +409,7 @@ export const ModalForm = () => {
                   }
                 >
                   {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                              key={index}>{item.name}</Option>)}
+                    key={index}>{item.name}</Option>)}
                 </Select>
               </Form.Item>
             </Space>
@@ -423,12 +424,12 @@ export const ModalForm = () => {
 
             {/*添加物料*/}
             <Form.List name="materialList">
-              {(fields, {add, remove}) => (
+              {(fields, { add, remove }) => (
                 <>
-                  {fields.map(({key, name, fieldKey, ...restField}) => (
-                    <Space key={key} style={{display: 'flex', marginBottom: 8}} align="baseline">
+                  {fields.map(({ key, name, fieldKey, ...restField }) => (
+                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
                       <Form.Item
-                        style={{width: '100%'}}
+                        style={{ width: '100%' }}
                         {...restField}
                         name={[name, 'materialId']}
                         fieldKey={[fieldKey, 'materialId']}
@@ -444,25 +445,25 @@ export const ModalForm = () => {
                         >
                           {
                             material?.data.map((item: any) => <Option value={item.id}
-                                                                      key={item.id}>{item.name}</Option>)
+                              key={item.id}>{item.name}</Option>)
                           }
                         </Select>
                       </Form.Item>
                       <Form.Item
-                        style={{width: '100%'}}
+                        style={{ width: '100%' }}
                         {...restField}
                         name={[name, 'num']}
                         fieldKey={[fieldKey, 'num']}
                         rules={rules}
                         getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                       >
-                        <Input placeholder="数量"/>
+                        <Input placeholder="数量" />
                       </Form.Item>
-                      <MinusCircleOutlined onClick={() => remove(name)}/>
+                      <MinusCircleOutlined onClick={() => remove(name)} />
                     </Space>
                   ))}
                   <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                       添加物料
                     </Button>
                   </Form.Item>
@@ -472,12 +473,12 @@ export const ModalForm = () => {
 
             {/*添加工具*/}
             <Form.List name="toolList">
-              {(fields, {add, remove}) => (
+              {(fields, { add, remove }) => (
                 <>
-                  {fields.map(({key, name, fieldKey, ...restField}) => (
-                    <Space key={key} style={{display: 'flex', marginBottom: 8, width: '100%'}} align="baseline">
+                  {fields.map(({ key, name, fieldKey, ...restField }) => (
+                    <Space key={key} style={{ display: 'flex', marginBottom: 8, width: '100%' }} align="baseline">
                       <Form.Item
-                        style={{width: '100%'}}
+                        style={{ width: '100%' }}
                         {...restField}
                         name={[name, 'toolId']}
                         fieldKey={[fieldKey, 'toolId']}
@@ -493,25 +494,25 @@ export const ModalForm = () => {
                         >
                           {
                             material?.data.map((item: any) => <Option value={item.id}
-                                                                      key={item.id}>{item.name}</Option>)
+                              key={item.id}>{item.name}</Option>)
                           }
                         </Select>
                       </Form.Item>
                       <Form.Item
-                        style={{width: '100%'}}
+                        style={{ width: '100%' }}
                         {...restField}
                         name={[name, 'num']}
                         fieldKey={[fieldKey, 'num']}
                         rules={rules}
                         getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                       >
-                        <Input placeholder="数量"/>
+                        <Input placeholder="数量" />
                       </Form.Item>
-                      <MinusCircleOutlined onClick={() => remove(name)}/>
+                      <MinusCircleOutlined onClick={() => remove(name)} />
                     </Space>
                   ))}
                   <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                       添加工具
                     </Button>
                   </Form.Item>
@@ -521,30 +522,30 @@ export const ModalForm = () => {
 
             {/*添加小组*/}
             <Form.List name="groupList">
-              {(fields, {add, remove}) => (
+              {(fields, { add, remove }) => (
                 <>
-                  {fields.map(({key, name, fieldKey, ...restField}) => (
+                  {fields.map(({ key, name, fieldKey, ...restField }) => (
                     <>
-                      <Space style={{width: "100%"}}>
+                      <Space style={{ width: "100%" }}>
                         <Form.Item
-                          style={{width: '100%'}}
+                          style={{ width: '100%' }}
                           {...restField}
                           name={[name, 'groupName']}
                           fieldKey={[fieldKey, 'groupName']}
                           rules={rules}
                         >
-                          <Input placeholder={"小组名称"}/>
+                          <Input placeholder={"小组名称"} />
                         </Form.Item>
 
                         <Form.Item
-                          style={{width: '100%'}}
+                          style={{ width: '100%' }}
                           {...restField}
                           name={[name, 'leader']}
                           fieldKey={[fieldKey, 'leader']}
                           rules={rules}
                         >
                           <Select
-                            style={{width: "100%"}}
+                            style={{ width: "100%" }}
                             showSearch
                             filterOption={(input, option: any) =>
                               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -552,7 +553,7 @@ export const ModalForm = () => {
                             placeholder={"小组组长"}
                           >
                             {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                                        key={index}>{item.name}</Option>)}
+                              key={index}>{item.name}</Option>)}
                           </Select>
                         </Form.Item>
 
@@ -563,7 +564,7 @@ export const ModalForm = () => {
                           rules={rules}
                         >
                           <Select
-                            style={{width: "100%"}}
+                            style={{ width: "100%" }}
                             allowClear
                             mode="multiple"
                             showSearch
@@ -574,28 +575,28 @@ export const ModalForm = () => {
                             placeholder={"小组成员"}
                           >
                             {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                                        key={index}>{item.name}</Option>)}
+                              key={index}>{item.name}</Option>)}
                           </Select>
                         </Form.Item>
 
                         <Form.Item name={"remark"}>
-                          <Input placeholder={"备注"}/>
+                          <Input placeholder={"备注"} />
                         </Form.Item>
 
-                        <MinusCircleOutlined onClick={() => remove(name)}/>
+                        <MinusCircleOutlined onClick={() => remove(name)} />
                       </Space>
 
                       {/*添加物料*/}
                       <Form.List
                         name={[name, 'groupMaterialList']}
                       >
-                        {(fields, {add, remove}) => (
+                        {(fields, { add, remove }) => (
                           <>
-                            {fields.map(({key, name, fieldKey, ...restField}) => (
-                              <Space key={key} style={{display: 'flex', marginBottom: 8, width: '100%'}}
-                                     align="baseline">
+                            {fields.map(({ key, name, fieldKey, ...restField }) => (
+                              <Space key={key} style={{ display: 'flex', marginBottom: 8, width: '100%' }}
+                                align="baseline">
                                 <Form.Item
-                                  style={{width: '100%'}}
+                                  style={{ width: '100%' }}
                                   {...restField}
                                   name={[name, 'materialId']}
                                   fieldKey={[fieldKey, 'materialId']}
@@ -610,25 +611,25 @@ export const ModalForm = () => {
                                   >
                                     {
                                       material?.data.map((item: any) => <Option value={item.id}
-                                                                                key={item.id}>{item.name}</Option>)
+                                        key={item.id}>{item.name}</Option>)
                                     }
                                   </Select>
                                 </Form.Item>
                                 <Form.Item
-                                  style={{width: '100%'}}
+                                  style={{ width: '100%' }}
                                   {...restField}
                                   name={[name, 'num']}
                                   fieldKey={[fieldKey, 'num']}
                                   rules={rules}
                                   getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                                 >
-                                  <Input placeholder="数量"/>
+                                  <Input placeholder="数量" />
                                 </Form.Item>
-                                <MinusCircleOutlined onClick={() => remove(name)}/>
+                                <MinusCircleOutlined onClick={() => remove(name)} />
                               </Space>
                             ))}
                             <Form.Item>
-                              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                                 物料
                               </Button>
                             </Form.Item>
@@ -638,13 +639,13 @@ export const ModalForm = () => {
 
                       {/*添加工具*/}
                       <Form.List name={[name, "groupToolList"]}>
-                        {(fields, {add, remove}) => (
+                        {(fields, { add, remove }) => (
                           <>
-                            {fields.map(({key, name, fieldKey, ...restField}) => (
-                              <Space key={key} style={{display: 'flex', marginBottom: 8, width: '100%'}}
-                                     align="baseline">
+                            {fields.map(({ key, name, fieldKey, ...restField }) => (
+                              <Space key={key} style={{ display: 'flex', marginBottom: 8, width: '100%' }}
+                                align="baseline">
                                 <Form.Item
-                                  style={{width: '100%'}}
+                                  style={{ width: '100%' }}
                                   {...restField}
                                   name={[name, 'toolId']}
                                   fieldKey={[fieldKey, 'toolId']}
@@ -659,25 +660,25 @@ export const ModalForm = () => {
                                   >
                                     {
                                       material?.data.map((item: any) => <Option value={item.id}
-                                                                                key={item.id}>{item.name}</Option>)
+                                        key={item.id}>{item.name}</Option>)
                                     }
                                   </Select>
                                 </Form.Item>
                                 <Form.Item
-                                  style={{width: '100%'}}
+                                  style={{ width: '100%' }}
                                   {...restField}
                                   name={[name, 'num']}
                                   fieldKey={[fieldKey, 'num']}
                                   rules={rules}
                                   getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                                 >
-                                  <Input placeholder="数量"/>
+                                  <Input placeholder="数量" />
                                 </Form.Item>
-                                <MinusCircleOutlined onClick={() => remove(name)}/>
+                                <MinusCircleOutlined onClick={() => remove(name)} />
                               </Space>
                             ))}
                             <Form.Item>
-                              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                                 工具
                               </Button>
                             </Form.Item>
@@ -687,7 +688,7 @@ export const ModalForm = () => {
                     </>
                   ))}
                   <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                       添加小组
                     </Button>
                   </Form.Item>
@@ -695,20 +696,20 @@ export const ModalForm = () => {
               )}
             </Form.List>
 
-            <Space style={{display: "flex"}}>
+            <Space style={{ display: "flex" }}>
               <Form.Item
                 label="防疫专员"
                 name="preventionPerson"
               >
                 <Select
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
                 >
                   {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                              key={index}>{item.name}</Option>)}
+                    key={index}>{item.name}</Option>)}
                 </Select>
               </Form.Item>
 
@@ -717,47 +718,47 @@ export const ModalForm = () => {
                 name="safePerson"
               >
                 <Select
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
                 >
                   {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                              key={index}>{item.name}</Option>)}
+                    key={index}>{item.name}</Option>)}
                 </Select>
               </Form.Item>
             </Space>
 
-            <Space style={{display: "flex"}}>
+            <Space style={{ display: "flex" }}>
               <Form.Item
                 label="施工负责人职责"
                 name="leaderDuty"
               >
-                <Input/>
+                <Input />
               </Form.Item>
 
               <Form.Item
                 label="防疫专员职责"
                 name="preventionDuty"
               >
-                <Input/>
+                <Input />
               </Form.Item>
             </Space>
 
-            <Space style={{display: "flex"}}>
+            <Space style={{ display: "flex" }}>
               <Form.Item
                 label="安全员职责"
                 name="safeDuty"
               >
-                <Input/>
+                <Input />
               </Form.Item>
 
               <Form.Item
                 label="备注"
                 name="remark"
               >
-                <TextArea rows={1}/>
+                <TextArea rows={1} />
               </Form.Item>
             </Space>
           </Form>
@@ -765,7 +766,7 @@ export const ModalForm = () => {
       }
 
       {/*添加工具*/}
-      <AddToolModal/>
+      <AddToolModal />
     </Modal>
   );
 };

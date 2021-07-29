@@ -1,34 +1,34 @@
 import styled from "@emotion/styled";
-import {useLineList} from "utils/statistics/taskStatistics";
-import {Form, Modal, Select, Table} from "antd";
-import {Column} from "@ant-design/charts";
+import { useLineList } from "utils/statistics/taskStatistics";
+import { Form, Modal, Select, Table } from "antd";
+import { Column } from "@ant-design/charts";
 import {
   useWorkStatistics,
   useProjectsSearchParams,
   useWorkModal,
   useWorkStatisticsDetail
 } from 'utils/statistics/workStatistics'
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 export const WorkPerson = () => {
-  const {data: lineList} = useLineList()
+  const { data: lineList } = useLineList()
   const [param, setParam] = useProjectsSearchParams()
+  const { open, ModalOpen } = useWorkModal()
 
   useEffect(() => {
     if (lineList) {
-      setParam({subwayId: lineList?.data[0]?.id, time: 3})
+      setParam({ subwayId: lineList?.data[0]?.id, time: 3 })
     }
-  }, [lineList])
+  }, [lineList, ModalOpen])
 
-  const {data: workStatistics, isLoading, isError} = useWorkStatistics(param)
-  const {open} = useWorkModal()
+  const { data: workStatistics, isLoading, isError } = useWorkStatistics(param)
 
   const lineChange = (value: any) => {
-    setParam({subwayId: value})
+    setParam({ subwayId: value })
   }
 
   const timeChange = (value: any) => {
-    setParam({time: value})
+    setParam({ time: value })
   }
 
   const config = {
@@ -50,8 +50,8 @@ export const WorkPerson = () => {
       },
     },
     meta: {
-      className: {alias: '班别'},
-      classId: {alias: '数量'},
+      className: { alias: '班别' },
+      classId: { alias: '数量' },
     },
   };
 
@@ -65,7 +65,7 @@ export const WorkPerson = () => {
             name={"subwayId"}
           >
             <Select
-              style={{width: 120}}
+              style={{ width: 120 }}
               placeholder={"地铁路线"}
               showSearch
               onChange={lineChange}
@@ -86,7 +86,7 @@ export const WorkPerson = () => {
           >
             <Select
               placeholder={"时间"}
-              style={{width: 120}}
+              style={{ width: 120 }}
               onChange={timeChange}
             >
               <Select.Option value={1}>本日</Select.Option>
@@ -103,20 +103,20 @@ export const WorkPerson = () => {
           {...config}
           onReady={(plot: any) => {
             plot.on('plot:click', (evt: any) => {
-              open()
+              open(param.subwayId, param.time)
             });
           }}
         />
-        <WorkPersonModal/>
+        <WorkPersonModal />
       </Main>
     </>
   )
 }
 
 export const WorkPersonModal = () => {
-  const {ModalOpen, close} = useWorkModal()
+  const { ModalOpen, close } = useWorkModal()
   const [param] = useProjectsSearchParams()
-  const {data: alarmDetail, isLoading} = useWorkStatisticsDetail(param)
+  const { data: alarmDetail, isLoading } = useWorkStatisticsDetail(param)
   const columns = [
     {
       title: "部门",

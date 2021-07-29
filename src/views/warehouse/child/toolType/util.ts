@@ -1,26 +1,26 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useToolTypeDetail, useViewToolDetail, useToolDetail} from "utils/warehouse/toolType";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useToolTypeDetail, useViewToolDetail, useGetMaterialDetail } from "utils/warehouse/toolType";
 
 /*新增修改弹框*/
 export const useToolTypeModal = () => {
   const setUrlParams = useSetUrlSearchParam();
 
-  const [{createToolType}, setCreateToolType] = useUrlQueryParam([
+  const [{ createToolType }, setCreateToolType] = useUrlQueryParam([
     "createToolType"
   ])
 
-  const [{editingToolTypeId}, setEditingToolTypeId] = useUrlQueryParam([
+  const [{ editingToolTypeId }, setEditingToolTypeId] = useUrlQueryParam([
     "editingToolTypeId",
   ]);
 
-  const {data: editingToolType, isLoading} = useToolTypeDetail(
+  const { data: editingToolType, isLoading } = useToolTypeDetail(
     Number(editingToolTypeId)
   );
 
-  const open = () => setCreateToolType({createToolType: true})
-  const close = () => setUrlParams({editingToolTypeId: "", createToolType: ""});
+  const open = () => setCreateToolType({ createToolType: true })
+  const close = () => setUrlParams({ editingToolTypeId: "", createToolType: "" });
   const startEdit = (id: number) =>
-    setEditingToolTypeId({editingToolTypeId: id});
+    setEditingToolTypeId({ editingToolTypeId: id });
 
   return {
     ModalOpen: createToolType === "true" || Boolean(editingToolTypeId),
@@ -38,17 +38,17 @@ export const useToolTypeModal = () => {
 export const useViewTool = () => {
   const setUrlParams = useSetUrlSearchParam();
 
-  const [{viewToolId}, setViewToolId] = useUrlQueryParam([
+  const [{ viewToolId }, setViewToolId] = useUrlQueryParam([
     "viewToolId"
   ])
 
-  const {data: viewTool, isLoading} = useViewToolDetail(
+  const { data: viewTool, isLoading } = useViewToolDetail(
     Number(viewToolId)
   )
 
-  const close = () => setUrlParams({viewToolId: ""});
+  const close = () => setUrlParams({ viewToolId: "" });
   const startEdit = (id: number) =>
-    setViewToolId({viewToolId: id});
+    setViewToolId({ viewToolId: id });
 
   return {
     ModalOpen: Boolean(viewToolId),
@@ -64,22 +64,21 @@ export const useViewTool = () => {
 export const useToolModal = () => {
   const setUrlParams = useSetUrlSearchParam();
 
-  const [{viewToolDetailId}, setViewToolId] = useUrlQueryParam([
-    "viewToolDetailId"
+  const [{ type, warehouseId }, setViewToolId] = useUrlQueryParam([
+    "type", "warehouseId"
   ])
 
-  const {data: viewTool, isLoading} = useToolDetail(
-    Number(viewToolDetailId)
+  const { data: viewTool, isLoading } = useGetMaterialDetail(
+    Number(type), Number(warehouseId)
   )
 
-  const close = () => setUrlParams({viewToolDetailId: ""});
-  const startEdit = (id: number) =>
-    setViewToolId({viewToolDetailId: id});
+  const close = () => setUrlParams({ type: "", warehouseId: "" });
+  const startEdit = (type: number, warehouseId: number) =>
+    setViewToolId({ type, warehouseId });
 
   return {
-    ModalOpen: Boolean(viewToolDetailId),
+    ModalOpen: Boolean(type) && Boolean(warehouseId),
     close,
-    viewToolDetailId,
     viewTool,
     startEdit,
     isLoading
