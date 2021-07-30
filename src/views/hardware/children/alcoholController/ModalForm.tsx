@@ -1,15 +1,15 @@
-import {Button, Form, Input, message, Modal, Radio, Spin} from "antd";
-import {useEffect} from "react";
-import {rules} from "utils/verification";
-import {useAdd, useMod} from 'utils/hardware/alc'
-import {useAlcModal} from './util'
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import { Button, Form, Input, message, Modal, Radio, Spin } from "antd";
+import { useEffect } from "react";
+import { rules } from "utils/verification";
+import { useAdd, useMod } from './request'
+import { useAlcModal } from './util'
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const {ModalOpen, isLoading, close, editingAlc, editingAlcId} = useAlcModal()
+  const { ModalOpen, isLoading, close, editingAlc, editingAlcId } = useAlcModal()
   const title = editingAlc ? "修改" : "新增"
   const msg = editingAlc ? () => {
     message.success("修改成功")
@@ -17,10 +17,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createAlc: ""})
+    setUrlParams({ index: 1, createAlc: "" })
   }
   const useMutateProject = editingAlc ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingAlc?.data)
@@ -32,7 +32,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingAlc, ...value, id: editingAlcId}).then(() => {
+    mutateAsync({ ...editingAlc, ...value, id: editingAlcId }).then(() => {
       msg()
       form.resetFields()
     }).catch(err => {
@@ -58,7 +58,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}
@@ -71,7 +71,7 @@ export const ModalForm = () => {
               name="code"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -79,7 +79,7 @@ export const ModalForm = () => {
               name="operator"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item

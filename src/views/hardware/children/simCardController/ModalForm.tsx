@@ -1,15 +1,15 @@
-import {Button, Form, Input, message, Modal, Radio, Select, Spin} from "antd";
-import {useEffect} from "react";
-import {rules} from "utils/verification";
-import {useWarehouse} from "utils/warehouse/toolType";
-import {useAdd, useMod} from 'utils/hardware/sim'
-import {useSimModal} from './util'
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import { Button, Form, Input, message, Modal, Radio, Select, Spin } from "antd";
+import { useEffect } from "react";
+import { rules } from "utils/verification";
+import { useWarehouse } from "utils/warehouse/toolType";
+import { useAdd, useMod } from './request'
+import { useSimModal } from './util'
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
-  const {ModalOpen, isLoading, close, editingSim, editingSimId} = useSimModal()
+  const { ModalOpen, isLoading, close, editingSim, editingSimId } = useSimModal()
   const title = editingSim ? "修改" : "新增"
   const msg = editingSim ? () => {
     message.success("修改成功")
@@ -17,10 +17,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createSim: ""})
+    setUrlParams({ index: 1, createSim: "" })
   }
   const useMutateProject = editingSim ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingSim?.data)
@@ -32,7 +32,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingSim, ...value, id: editingSimId}).then((res) => {
+    mutateAsync({ ...editingSim, ...value, id: editingSimId }).then((res) => {
       msg()
       form.resetFields()
     }).catch(err => {
@@ -40,7 +40,7 @@ export const ModalForm = () => {
     })
   }
 
-  const {data: warehouse} = useWarehouse()
+  const { data: warehouse } = useWarehouse()
 
   const onOk = () => {
     form.submit();
@@ -60,7 +60,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin/>
+          <Spin />
         ) : (
           <Form
             form={form}
@@ -73,7 +73,7 @@ export const ModalForm = () => {
               name="cardNo"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -89,7 +89,7 @@ export const ModalForm = () => {
                 }
               ]}
             >
-              <Input type={"number"}/>
+              <Input type={"number"} />
             </Form.Item>
 
             <Form.Item
@@ -117,7 +117,7 @@ export const ModalForm = () => {
                 }
               >
                 {warehouse?.data.map((item: any) => <Select.Option value={item.id}
-                                                                   key={item.id}>{item.name}</Select.Option>)}
+                  key={item.id}>{item.name}</Select.Option>)}
               </Select>
             </Form.Item>
 
@@ -136,7 +136,7 @@ export const ModalForm = () => {
               label="备注"
               name="operator"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Form>
         )

@@ -24,7 +24,7 @@ export const Home = () => {
   /*绑定DOM*/
   useEffect(() => {
     // @ts-ignore
-    let subway = window.subway
+    var subway = window.subway
 
     var mysubway = subway('mysubway', {
       adcode: 4401,
@@ -33,7 +33,6 @@ export const Home = () => {
       doubleclick: {
         switch: true
       },
-      easy: true
     });
 
     mysubway.event.on("subway.complete", function () {
@@ -83,7 +82,7 @@ export const Home = () => {
           <Title>计划统计</Title>
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             <PlanType />
-            {/* {
+            {
               isLoading ? (
                 <Spin />
               ) : (
@@ -102,7 +101,7 @@ export const Home = () => {
                   }
                 </div>
               )
-            } */}
+            }
           </div>
         </div>
         {/*作业统计*/}

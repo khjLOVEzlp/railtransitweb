@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
-import { cleanObject } from '../index'
-import { useHttp } from '../http'
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
+import { cleanObject } from 'utils/index'
+import { useHttp } from 'utils/http'
+import { Search } from 'utils/typings';
+import { Sim } from './typings';
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
@@ -19,9 +21,9 @@ export const useProjectsSearchParams = () => {
 /*
 查询
  */
-export const useInit = (params: any) => {
+export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery(['temperater', cleanObject(params)], () => client(`hardware/temperater/list`, { method: "POST", body: JSON.stringify(params) }))
+  return useQuery<Sim>(['simcard', cleanObject(params)], () => client(`hardware/simcard/list`, { method: "POST", body: JSON.stringify(params) }))
 }
 
 /* 
@@ -30,9 +32,9 @@ export const useInit = (params: any) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/temperater/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/simcard/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('temperater')
+      queryClient.invalidateQueries('simcard')
     },
     onError: () => {
     }
@@ -45,9 +47,9 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/temperater/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/simcard/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('temperater')
+      queryClient.invalidateQueries('simcard')
     },
     onError: () => {
     }
@@ -60,9 +62,9 @@ export const useMod = () => {
 export const useDel = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((id: number) => client(`hardware/temperater/delete/${id}`), {
+  return useMutation((id: number) => client(`hardware/simcard/delete/${id}`), {
     onSuccess: () => {
-      queryClient.invalidateQueries('temperater')
+      queryClient.invalidateQueries('simcard')
     },
     onError: () => {
     }
@@ -72,9 +74,9 @@ export const useDel = () => {
 /*
 查询详情
 */
-export const useTemDetail = (id?: number) => {
+export const useSimDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['temDetail', id], () => client(`hardware/temperater/get/${id}`), {
+  return useQuery(['simDetail', id], () => client(`hardware/simcard/get/${id}`), {
     enabled: Boolean(id),
   })
 }

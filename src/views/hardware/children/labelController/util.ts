@@ -1,25 +1,25 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useLabDetail} from "utils/hardware/lab";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useLabDetail } from "./request";
 
 export const useLabModal = () => {
   const setUrlParams = useSetUrlSearchParam();
 
-  const [{createLab}, setCreateLab] = useUrlQueryParam([
+  const [{ createLab }, setCreateLab] = useUrlQueryParam([
     "createLab"
   ])
 
-  const [{editingLabId}, setEditingLabId] = useUrlQueryParam([
+  const [{ editingLabId }, setEditingLabId] = useUrlQueryParam([
     "editingLabId",
   ]);
 
-  const {data: editingLab, isLoading} = useLabDetail(
+  const { data: editingLab, isLoading } = useLabDetail(
     Number(editingLabId)
   );
 
-  const open = () => setCreateLab({createLab: true})
-  const close = () => setUrlParams({editingLabId: "", createLab: ""});
+  const open = () => setCreateLab({ createLab: true })
+  const close = () => setUrlParams({ editingLabId: "", createLab: "" });
   const startEdit = (id: number) =>
-    setEditingLabId({editingLabId: id});
+    setEditingLabId({ editingLabId: id });
 
   return {
     ModalOpen: createLab === "true" || Boolean(editingLabId),

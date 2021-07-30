@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
-import { cleanObject } from '../index'
-import { useHttp } from '../http'
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
+import { cleanObject } from 'utils/index'
+import { useHttp } from 'utils/http'
+import { Pla } from './typings';
+import { Search } from 'utils/typings';
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
@@ -19,9 +21,9 @@ export const useProjectsSearchParams = () => {
 /*
 查询
  */
-export const useInit = (params: any) => {
+export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery(['label', cleanObject(params)], () => client(`hardware/label/list`, { method: "POST", body: JSON.stringify(params) }))
+  return useQuery<Pla>(['platform', cleanObject(params)], () => client(`hardware/platform/list`, { method: "POST", body: JSON.stringify(params) }))
 }
 
 /* 
@@ -30,9 +32,9 @@ export const useInit = (params: any) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/label/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/platform/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('label')
+      queryClient.invalidateQueries('platform')
     },
     onError: () => {
     }
@@ -45,9 +47,9 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/label/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/platform/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('label')
+      queryClient.invalidateQueries('platform')
     },
     onError: () => {
     }
@@ -60,9 +62,9 @@ export const useMod = () => {
 export const useDel = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((id: number) => client(`hardware/label/delete/${id}`), {
+  return useMutation((id: number) => client(`hardware/platform/delete/${id}`), {
     onSuccess: () => {
-      queryClient.invalidateQueries('label')
+      queryClient.invalidateQueries('platform')
     },
     onError: () => {
     }
@@ -72,9 +74,9 @@ export const useDel = () => {
 /*
 查询详情
 */
-export const useLabDetail = (id?: number) => {
+export const usePlaDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['labDetail', id], () => client(`hardware/label/get/${id}`), {
+  return useQuery(['plaDetail', id], () => client(`hardware/platform/get/${id}`), {
     enabled: Boolean(id),
   })
 }

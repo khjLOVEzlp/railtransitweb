@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
 import { Select, Table } from "antd"
 import { useState } from "react"
-import { useDocumentTitle } from '../../hook/useDocumentTitle'
-import { useInit, useWarnCount } from "../../utils/alarm"
+import { useDocumentTitle } from 'hook/useDocumentTitle'
+import { useInit, useWarnCount } from "./request"
 
 const { Option } = Select;
 
@@ -76,54 +76,6 @@ export const Alarm = () => {
         break;
     }
   }
-
-  const columns = [
-    {
-      title: '作业名称',
-      dataIndex: 'workName',
-      key: 'workName',
-    },
-    {
-      title: '告警类型',
-      key: 'type',
-      render: (item: any) => <>{getType(item.type)}</>
-    },
-    {
-      title: '工具名称',
-      dataIndex: 'toolName',
-      key: 'toolName',
-    },
-    {
-      title: '小组名称',
-      dataIndex: 'groupName',
-      key: 'groupName',
-    },
-    {
-      title: '解除时间',
-      dataIndex: 'relieveTime',
-      key: 'relieveTime',
-    },
-    {
-      title: '设备标签',
-      dataIndex: 'labelNum',
-      key: 'labelNum'
-    },
-    {
-      title: '人员',
-      dataIndex: 'personName',
-      key: 'personName',
-    },
-    {
-      title: '告警时间',
-      dataIndex: 'warnTime',
-      key: 'warnTime',
-    },
-    {
-      title: '告警内容',
-      dataIndex: 'content',
-      key: 'content',
-    },
-  ]
 
   const stateList = [
     {
@@ -248,7 +200,55 @@ export const Alarm = () => {
           }
         </Select>
         <Table
-          columns={columns}
+          columns={
+            [
+              {
+                title: '作业名称',
+                dataIndex: 'workName',
+                key: 'workName',
+              },
+              {
+                title: '告警类型',
+                key: 'type',
+                render: (item) => <>{getType(item.type)}</>
+              },
+              {
+                title: '工具名称',
+                dataIndex: 'toolName',
+                key: 'toolName',
+              },
+              {
+                title: '小组名称',
+                dataIndex: 'groupName',
+                key: 'groupName',
+              },
+              {
+                title: '解除时间',
+                dataIndex: 'relieveTime',
+                key: 'relieveTime',
+              },
+              {
+                title: '设备标签',
+                dataIndex: 'labelNum',
+                key: 'labelNum'
+              },
+              {
+                title: '人员',
+                dataIndex: 'personName',
+                key: 'personName',
+              },
+              {
+                title: '告警时间',
+                dataIndex: 'warnTime',
+                key: 'warnTime',
+              },
+              {
+                title: '告警内容',
+                dataIndex: 'content',
+                key: 'content',
+              },
+            ]
+          }
           pagination={{
             total: dataList?.count,
             current: pagination.index,

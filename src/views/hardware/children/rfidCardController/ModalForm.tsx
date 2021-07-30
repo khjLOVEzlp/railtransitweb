@@ -1,14 +1,14 @@
-import {Button, Form, Input, message, Modal, Radio, Spin} from "antd";
-import {useEffect} from "react";
-import {useAdd, useMod} from 'utils/hardware/rfi'
-import {useRfiModal} from './util'
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import { Button, Form, Input, message, Modal, Radio, Spin } from "antd";
+import { useEffect } from "react";
+import { useAdd, useMod } from './request'
+import { useRfiModal } from './util'
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const {ModalOpen, isLoading, close, editingRfi, editingRfiId} = useRfiModal()
+  const { ModalOpen, isLoading, close, editingRfi, editingRfiId } = useRfiModal()
   const title = editingRfi ? "修改" : "新增"
   const msg = editingRfi ? () => {
     message.success("修改成功")
@@ -16,10 +16,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createRfi: ""})
+    setUrlParams({ index: 1, createRfi: "" })
   }
   const useMutateProject = editingRfi ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingRfi?.data)
@@ -31,7 +31,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingRfi, ...value, id: editingRfiId}).then((res) => {
+    mutateAsync({ ...editingRfi, ...value, id: editingRfiId }).then((res) => {
       msg()
       form.resetFields()
     }).catch(err => {
@@ -57,8 +57,8 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
-        ): (
+          <Spin size={"large"} />
+        ) : (
           <Form
             form={form}
             onFinish={onFinish}
@@ -68,7 +68,7 @@ export const ModalForm = () => {
             <Form.Item
               label="卡号"
               name="rfid"
-              // rules={[{required: true, len: 10, message: "请输入10位卡号"}]}
+            // rules={[{required: true, len: 10, message: "请输入10位卡号"}]}
             >
               <Input />
               {/*<Input type={"number"}/>*/}

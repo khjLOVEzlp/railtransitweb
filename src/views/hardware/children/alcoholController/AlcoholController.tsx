@@ -1,18 +1,19 @@
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import {useDel, useInit} from 'utils/hardware/alc';
-import {ModalForm} from './ModalForm';
-import {useDebounce} from 'hook/useDebounce';
-import {useAlcModal} from './util'
-import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
+import { useDel, useInit } from './request';
+import { ModalForm } from './ModalForm';
+import { useDebounce } from 'hook/useDebounce';
+import { useAlcModal } from './util'
+import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
+import { Search } from 'utils/typings';
 export const AlcoholController = () => {
   const [param, setParam] = useProjectsSearchParams()
-  const {open, startEdit} = useAlcModal()
-  const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Del} = useDel()
+  const { open, startEdit } = useAlcModal()
+  const { data, isLoading } = useInit(useDebounce(param, 500))
+  const { mutateAsync: Del } = useDel()
 
-  const search = (item: any) => {
-    setParam({...param, name: item.name, index: 1})
+  const search = (item: Search) => {
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const del = async (id: number) => {
@@ -22,7 +23,7 @@ export const AlcoholController = () => {
   const confirm = (id: number) => {
     del(id).then(() => {
       message.success('删除成功')
-      setParam({...param, index: 1})
+      setParam({ ...param, index: 1 })
     })
   }
 
@@ -31,7 +32,7 @@ export const AlcoholController = () => {
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -46,7 +47,7 @@ export const AlcoholController = () => {
             name="name"
           >
             <Input placeholder={"设备编号"} value={param.name}
-                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
           <Form.Item>
@@ -74,12 +75,12 @@ export const AlcoholController = () => {
             {
               title: '是否使用',
               key: 'isUse',
-              render: (item: any) => item.isUse === 0 ? '使用' : '未使用'
+              render: (item) => item.isUse === 0 ? '使用' : '未使用'
             },
             {
               title: '操作',
               key: 'id',
-              render: (item: any) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+              render: (item) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
                   title={`是否要删除${item.code}`}
                   onConfirm={() => confirm(item.id)}
@@ -91,11 +92,11 @@ export const AlcoholController = () => {
                 </Popconfirm></>
             },
           ]
-        } pagination={{total: data?.count, current: param.index, pageSize: param.size,}} onChange={handleTableChange}
-               loading={isLoading} dataSource={data?.data}
-               rowKey={(item: any) => item.id}/>
+        } pagination={{ total: data?.count, current: param.index, pageSize: param.size, }} onChange={handleTableChange}
+          loading={isLoading} dataSource={data?.data}
+          rowKey={(item) => item.id} />
       </Main>
-      <ModalForm/>
+      <ModalForm />
     </>
   );
 };

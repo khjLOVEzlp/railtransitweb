@@ -1,8 +1,11 @@
 import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { useUrlQueryParam } from 'hook/useUrlQueryParam';
-import { cleanObject } from '../index'
-import { useHttp } from '../http'
+import { cleanObject } from 'utils/index'
+import { useHttp } from 'utils/http'
+import { Alc } from './typings';
+import { Search } from 'utils/typings'
+
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
@@ -19,9 +22,9 @@ export const useProjectsSearchParams = () => {
 /*
 查询
  */
-export const useInit = (params: any) => {
+export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery(['seperate', cleanObject(params)], () => client(`hardware/seperate/list`, { method: "POST", body: JSON.stringify(params) }))
+  return useQuery<Alc>(['alcohol', cleanObject(params)], () => client(`hardware/alcohol/list`, { method: "POST", body: JSON.stringify(params) }))
 }
 
 /* 
@@ -30,9 +33,9 @@ export const useInit = (params: any) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/seperate/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/alcohol/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('seperate')
+      queryClient.invalidateQueries('alcohol')
     },
     onError: () => {
     }
@@ -45,9 +48,9 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/seperate/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/alcohol/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('seperate')
+      queryClient.invalidateQueries('alcohol')
     },
     onError: () => {
     }
@@ -60,9 +63,9 @@ export const useMod = () => {
 export const useDel = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((id: number) => client(`hardware/seperate/delete/${id}`), {
+  return useMutation((id: number) => client(`hardware/alcohol/delete/${id}`), {
     onSuccess: () => {
-      queryClient.invalidateQueries('seperate')
+      queryClient.invalidateQueries('alcohol')
     },
     onError: () => {
     }
@@ -72,9 +75,9 @@ export const useDel = () => {
 /*
 查询详情
 */
-export const useSepDetail = (id?: number) => {
+export const useAlcDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['sepDetail', id], () => client(`hardware/seperate/get/${id}`), {
+  return useQuery(['alcDetail', id], () => client(`hardware/alcohol/get/${id}`), {
     enabled: Boolean(id),
   })
 }

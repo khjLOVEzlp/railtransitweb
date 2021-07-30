@@ -1,25 +1,25 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useSepDetail} from "utils/hardware/sep";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useSepDetail } from "./request";
 
 export const useSepModal = () => {
   const setUrlParams = useSetUrlSearchParam();
 
-  const [{createSep}, setCreateSep] = useUrlQueryParam([
+  const [{ createSep }, setCreateSep] = useUrlQueryParam([
     "createSep"
   ])
 
-  const [{editingSepId}, setEditingSepId] = useUrlQueryParam([
+  const [{ editingSepId }, setEditingSepId] = useUrlQueryParam([
     "editingSepId",
   ]);
 
-  const {data: editingSep, isLoading} = useSepDetail(
+  const { data: editingSep, isLoading } = useSepDetail(
     Number(editingSepId)
   );
 
-  const open = () => setCreateSep({createSep: true})
-  const close = () => setUrlParams({editingSepId: "", createSep: ""});
+  const open = () => setCreateSep({ createSep: true })
+  const close = () => setUrlParams({ editingSepId: "", createSep: "" });
   const startEdit = (id: number) =>
-    setEditingSepId({editingSepId: id});
+    setEditingSepId({ editingSepId: id });
 
   return {
     ModalOpen: createSep === "true" || Boolean(editingSepId),

@@ -40,10 +40,10 @@ const PlanType = () => {
     radius: 0.8,
     innerRadius: 0.1,
     maxBarWidth: 10,
-    legend: {
+    /* legend: {
       layout: 'horizontal',
       position: 'bottom'
-    },
+    }, */
     tooltip: {
       formatter: function formatter(datum: any) {
         return {

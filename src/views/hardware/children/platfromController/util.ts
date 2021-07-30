@@ -1,25 +1,25 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {usePlaDetail} from "utils/hardware/pla";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { usePlaDetail } from "./request";
 
 export const usePlaModal = () => {
   const setUrlParams = useSetUrlSearchParam();
 
-  const [{createPla}, setCreatePla] = useUrlQueryParam([
+  const [{ createPla }, setCreatePla] = useUrlQueryParam([
     "createPla"
   ])
 
-  const [{editingPlaId}, setEditingPlaId] = useUrlQueryParam([
+  const [{ editingPlaId }, setEditingPlaId] = useUrlQueryParam([
     "editingPlaId",
   ]);
 
-  const {data: editingPla, isLoading} = usePlaDetail(
+  const { data: editingPla, isLoading } = usePlaDetail(
     Number(editingPlaId)
   );
 
-  const open = () => setCreatePla({createPla: true})
-  const close = () => setUrlParams({editingPlaId: "", createPla: ""});
+  const open = () => setCreatePla({ createPla: true })
+  const close = () => setUrlParams({ editingPlaId: "", createPla: "" });
   const startEdit = (id: number) =>
-    setEditingPlaId({editingPlaId: id});
+    setEditingPlaId({ editingPlaId: id });
 
   return {
     ModalOpen: createPla === "true" || Boolean(editingPlaId),

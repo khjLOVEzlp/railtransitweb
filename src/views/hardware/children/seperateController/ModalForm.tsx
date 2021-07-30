@@ -1,16 +1,16 @@
-import {Button, Form, Input, message, Modal, Radio, Select, Spin} from "antd";
-import {useEffect} from "react";
-import {rules} from "utils/verification";
-import {usePerson} from "utils/person/personManage";
-import {useSepModal} from './util'
-import {useMod, useAdd} from 'utils/hardware/sep'
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import { Button, Form, Input, message, Modal, Radio, Select, Spin } from "antd";
+import { useEffect } from "react";
+import { rules } from "utils/verification";
+import { usePerson } from "utils/person/personManage";
+import { useSepModal } from './util'
+import { useMod, useAdd } from './request'
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const {ModalOpen, isLoading, close, editingSep, editingSepId} = useSepModal()
+  const { ModalOpen, isLoading, close, editingSep, editingSepId } = useSepModal()
   const title = editingSep ? "修改" : "新增"
   const msg = editingSep ? () => {
     message.success("修改成功")
@@ -18,10 +18,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createSep: ""})
+    setUrlParams({ index: 1, createSep: "" })
   }
   const useMutateProject = editingSep ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingSep?.data)
@@ -33,15 +33,15 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingSep, ...value, id: editingSepId}).then((res) => {
-        msg()
-        form.resetFields()
+    mutateAsync({ ...editingSep, ...value, id: editingSepId }).then((res) => {
+      msg()
+      form.resetFields()
     }).catch(err => {
       message.error(err.msg)
     })
   }
 
-  const {data: personList} = usePerson()
+  const { data: personList } = usePerson()
 
   const onOk = () => {
     form.submit();
@@ -62,7 +62,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}
@@ -75,7 +75,7 @@ export const ModalForm = () => {
               name="codeNumber"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -90,7 +90,7 @@ export const ModalForm = () => {
                 }
               >
                 {personList?.data.map((item: any, index: number) => <Select.Option value={item.id}
-                                                                                   key={index}>{item.name}</Select.Option>)}
+                  key={index}>{item.name}</Select.Option>)}
               </Select>
             </Form.Item>
 
@@ -100,15 +100,15 @@ export const ModalForm = () => {
               rules={rules}
               getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
               label="流量卡号码"
               name="phone"
-              rules={[{required: true, len: 11, message: "请输入11位卡号"}]}
+              rules={[{ required: true, len: 11, message: "请输入11位卡号" }]}
             >
-              <Input type={"number"}/>
+              <Input type={"number"} />
             </Form.Item>
 
             <Form.Item
