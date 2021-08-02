@@ -1,12 +1,14 @@
-export interface user {
+export type Person = {
   count: number
   data: {
     id: number
     name: string
-    loginName: string
+    sex: number
+    number: number
     departmentName: string
-    loginDate: string
+    createBy: string
     createTime: string
+    birthday: string
     remark: string
   }[]
 }

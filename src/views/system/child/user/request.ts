@@ -1,18 +1,18 @@
 import qs from 'qs'
-import {useMemo} from 'react';
-import {useQuery, useMutation, useQueryClient} from 'react-query'
-import {useUrlQueryParam} from 'hook/useUrlQueryParam';
-import {cleanObject} from '..'
-import {useHttp} from '../http'
-import {search} from "types/search";
-import {user} from 'types/user'
+import { useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
+import { cleanObject } from 'utils/index'
+import { useHttp } from 'utils/http'
+import { Search } from "utils/typings";
+import { User } from './typings'
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["name", "index", "size"]);
   return [
     useMemo(
-      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
+      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
       [param]
     ),
     setParam,
@@ -22,22 +22,22 @@ export const useProjectsSearchParams = () => {
 /* 查询所有用户信息 */
 export const useUserAll = () => {
   const client = useHttp()
-  return useQuery(['userlist'], () => client(`user/allList`, {method: "POST"}))
+  return useQuery(['userlist'], () => client(`user/allList`, { method: "POST" }))
 }
 
 /* 查询没有账号的用户 */
 export const useUserList = () => {
   const client = useHttp()
-  return useQuery(['userlist'], () => client(`user/userlist`, {method: "POST"}))
+  return useQuery(['userlist'], () => client(`user/userlist`, { method: "POST" }))
 }
 
 /*
 分页查询
  */
-export const useInit = (params?: Partial<search>) => {
+export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery<user>(['user', cleanObject(params)], () =>
-    client(`user/list?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
+  return useQuery<User>(['user', cleanObject(params)], () =>
+    client(`user/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
 /* 
@@ -46,7 +46,7 @@ export const useInit = (params?: Partial<search>) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`user/save`, {method: "POST", body: JSON.stringify(params)}), {
+  return useMutation((params: any) => client(`user/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
       queryClient.invalidateQueries('user');
       queryClient.invalidateQueries('userlist')
@@ -62,7 +62,7 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`user/update`, {method: "POST", body: JSON.stringify(params)}), {
+  return useMutation((params: any) => client(`user/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
       queryClient.invalidateQueries('user')
       queryClient.invalidateQueries('userlist')

@@ -13,13 +13,13 @@ import { Alarm } from "../views/alarm";
 /*统计分析*/
 import { Statistics } from "../views/statistics";
 /*作业统计*/
-import {WorkCount} from "../views/statistics/child/workCount";
+import { WorkCount } from "../views/statistics/child/workCount";
 /*告警统计*/
-import {WorkWarn} from "../views/statistics/child/workWarn";
+import { WorkWarn } from "../views/statistics/child/workWarn";
 /*到岗统计*/
-import {WorkPerson} from "../views/statistics/child/workPerson";
+import { WorkPerson } from "../views/statistics/child/workPerson";
 /*精神分析*/
-import {PersonMind} from "../views/statistics/child/personMind";
+import { PersonMind } from "../views/statistics/child/personMind";
 /*人员管理*/
 import { Person } from "../views/person";
 import { PersonManage } from '../views/person/child/personManage';
@@ -46,11 +46,11 @@ import { MaterialType } from "../views/warehouse/child/materialType";
 /*仓库管理*/
 import { ToolType } from "../views/warehouse/child/toolType";
 /**/
-import { Temperature } from "../views/system/child/temperature";
+// import { Temperature } from "../views/system/child/temperature";
 /*入库记录*/
-import {InWarehouse} from "../views/warehouse/child/inWarehouse";
+import { InWarehouse } from "../views/warehouse/child/inWarehouse";
 /*出库记录*/
-import {OutWarehouse} from "../views/warehouse/child/outWarehouse";
+import { OutWarehouse } from "../views/warehouse/child/outWarehouse";
 /*库存管理*/
 import { Warehouse } from "../views/warehouse";
 /*设备管理*/
@@ -89,16 +89,16 @@ export const RouterElement = () => {
     {
       path: "/statistics", element: <Statistics />, children: [
         {
-          path: "workCount", element: <WorkCount/>
+          path: "workCount", element: <WorkCount />
         },
         {
-          path: "workWarn", element: <WorkWarn/>
+          path: "workWarn", element: <WorkWarn />
         },
         {
-          path: "workPerson", element: <WorkPerson/>
+          path: "workPerson", element: <WorkPerson />
         },
         {
-          path: "personMind", element: <PersonMind/>
+          path: "personMind", element: <PersonMind />
         },
         {
           path: "/", element: <Navigate to={"/statistics/workCount"} />
@@ -166,9 +166,6 @@ export const RouterElement = () => {
         },
         {
           path: "dataDictionary", element: <DataDictionary />
-        },
-        {
-          path: "temperature", element: <Temperature />
         },
         {
           path: "/", element: <Navigate to={"/system/user"} />

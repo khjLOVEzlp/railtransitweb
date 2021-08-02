@@ -1,18 +1,18 @@
 import qs from 'qs'
-import {useMemo} from 'react';
-import {useQuery, useMutation, useQueryClient} from 'react-query'
-import {cleanObject} from '..';
-import {useUrlQueryParam} from '../../hook/useUrlQueryParam';
-import {useHttp} from '../http';
-import {search} from "types/search";
-import {role} from "types/role";
+import { useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { cleanObject } from 'utils';
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
+import { useHttp } from 'utils/http';
+import { Search } from 'utils/typings';
+import { Role } from './typings';
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["name", "index", "size"]);
   return [
     useMemo(
-      () => ({...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined}),
+      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
       [param]
     ),
     setParam,
@@ -25,7 +25,7 @@ export const useProjectsSearchParams = () => {
 export const useRoleAll = () => {
   const client = useHttp()
   return useQuery(['role'], async () => {
-    const data = await client(`role/getAll`, {method: "POST"})
+    const data = await client(`role/getAll`, { method: "POST" })
     data.data.forEach((item: any) => {
       item.label = item.name
       item.value = item.id
@@ -37,9 +37,9 @@ export const useRoleAll = () => {
 /*
 查询
  */
-export const useInit = (params?: Partial<search>) => {
+export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery<role>(['role', cleanObject(params)], () => client(`role/list?${qs.stringify(cleanObject(params))}`, {method: "POST"}))
+  return useQuery<Role>(['role', cleanObject(params)], () => client(`role/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
 /* 
@@ -48,7 +48,7 @@ export const useInit = (params?: Partial<search>) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`role/save`, {method: "POST", body: JSON.stringify(params)}), {
+  return useMutation((params: any) => client(`role/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
       queryClient.invalidateQueries('role')
     },
@@ -63,7 +63,7 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`role/update`, {method: "POST", body: JSON.stringify(params)}), {
+  return useMutation((params: any) => client(`role/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
       queryClient.invalidateQueries('role')
     },

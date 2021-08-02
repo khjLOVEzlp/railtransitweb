@@ -1,24 +1,24 @@
-import {useState} from 'react';
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import { useState } from 'react';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import {ModalForm} from "./modal/ModalForm";
-import {useDel, useInit} from 'utils/system/user';
-import {useHttp} from 'utils/http';
+import { ModalForm } from "./modal/ModalForm";
+import { useDel, useInit } from './request';
+import { useHttp } from 'utils/http';
 import qs from 'qs';
-import {useDebounce} from 'hook/useDebounce';
-import {PassModal} from "components/PassModal";
-import {useUserModal} from './util'
-import {search} from "types/search";
-import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
+import { useDebounce } from 'hook/useDebounce';
+import { PassModal } from "components/PassModal";
+import { useUserModal } from './util'
+import { Search } from "utils/typings";
+import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 
 export const User = () => {
   const [passwdVisible, setPasswdVisible] = useState(false)
   const [passId, setPassId] = useState<number>()
   const client = useHttp()
   const [param, setParam] = useProjectsSearchParams();
-  const {open, startEdit} = useUserModal()
-  const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Del} = useDel()
+  const { open, startEdit } = useUserModal()
+  const { data, isLoading } = useInit(useDebounce(param, 500))
+  const { mutateAsync: Del } = useDel()
 
   const confirm = (id: number) => {
     Del(id).then((res) => {
@@ -26,7 +26,7 @@ export const User = () => {
         message.error(res.msg)
       } else {
         message.success('删除成功')
-        setParam({...param, index: 1})
+        setParam({ ...param, index: 1 })
       }
     })
   }
@@ -36,11 +36,11 @@ export const User = () => {
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
-  const search = (item: search) => {
-    setParam({...param, name: item.name, index: 1})
+  const search = (item: Search) => {
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const modPass = (passId: number) => {
@@ -49,7 +49,7 @@ export const User = () => {
   }
 
   const onCreate = (values: any) => {
-    client(`user/resetPassWord?${qs.stringify({...values, id: passId})}`, {method: "POST"}).then(() => {
+    client(`user/resetPassWord?${qs.stringify({ ...values, id: passId })}`, { method: "POST" }).then(() => {
       message.success("修改成功")
       setPasswdVisible(false);
     }).catch(error => {
@@ -70,7 +70,7 @@ export const User = () => {
             name="name"
           >
             <Input placeholder={"用户名"} value={param.name}
-                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
           <Form.Item>
@@ -134,14 +134,14 @@ export const User = () => {
               },
             ]
           }
-          pagination={{total: data?.count, current: param.index, pageSize: param.size}}
+          pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
           onChange={handleTableChange}
           dataSource={data?.data}
           loading={isLoading}
           rowKey={(item) => item.id}
         />
       </Main>
-      <ModalForm/>
+      <ModalForm />
       <PassModal
         passwd={"reset"}
         visible={passwdVisible}

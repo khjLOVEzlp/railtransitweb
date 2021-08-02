@@ -1,4 +1,4 @@
-export interface role {
+export type Menu = {
   count: number
   data: {
     id: number

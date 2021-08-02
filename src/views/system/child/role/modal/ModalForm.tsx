@@ -1,16 +1,16 @@
 import { Button, Form, Input, message, Modal, Select, Spin, Tree } from "antd";
 import React, { useEffect, useState } from "react";
 import { rules } from "utils/verification";
-import { useAdd, useMod } from 'utils/system/role'
+import { useAdd, useMod } from '../request'
 import { useRoleModal } from '../util'
-import { useInit } from 'utils/system/menu'
+import { useInit } from 'views/system/child/menu/request'
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
   const setUrlParams = useSetUrlSearchParam();
-  const { ModalOpen, isLoading, close, editingRole, editingRoleId, isSuccess } = useRoleModal()
+  const { ModalOpen, isLoading, close, editingRole, editingRoleId } = useRoleModal()
   const title = editingRole ? "修改" : "新增"
   const msg = editingRole ? () => {
     message.success("修改成功")

@@ -1,8 +1,8 @@
-import {Col, Modal, Row, Spin} from "antd";
-import {useHistoryModal} from '../util'
+import { Col, Modal, Row, Spin } from "antd";
+import { useHistoryModal } from '../util'
 
 export const ModalForm = () => {
-  const {ModalOpen, planHistory, close, isLoading} = useHistoryModal()
+  const { ModalOpen, planHistory, close, isLoading } = useHistoryModal()
 
   return (
     <Modal
@@ -13,7 +13,7 @@ export const ModalForm = () => {
       footer={null}>
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Row>
             <Col style={mb} span={12}>开始时间：{planHistory?.data.beginTime}</Col>
@@ -24,7 +24,7 @@ export const ModalForm = () => {
             <Col span={12}>请站点：{planHistory?.data.pleaseName}</Col>
             {
               planHistory?.data.groupList.map((item: any) => (
-                <div key={item.id} style={{width: "100%", display: "flex", flexWrap: "wrap"}}>
+                <div key={item.id} style={{ width: "100%", display: "flex", flexWrap: "wrap" }}>
                   <Col span={12} style={mb}>小组名称：{item.groupName}</Col>
                   <Col span={12} style={mb}>组长：{item.leaderName}</Col>
                   {
@@ -43,4 +43,4 @@ export const ModalForm = () => {
   )
 }
 
-const mb = {marginBottom: "1rem"}
+const mb = { marginBottom: "1rem" }

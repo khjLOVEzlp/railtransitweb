@@ -1,9 +1,11 @@
 import qs from 'qs'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { cleanObject } from '..'
-import { useHttp } from '../http'
-import {useUrlQueryParam} from "../../hook/useUrlQueryParam";
-import {useMemo} from "react";
+import { cleanObject } from 'utils/index'
+import { useHttp } from 'utils/http'
+import { useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useMemo } from "react";
+import { Search } from 'utils/typings';
+import { PlanWork } from './typings';
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
@@ -20,9 +22,9 @@ export const useProjectsSearchParams = () => {
 /*
 分页查询
  */
-export const useInit = (params: any) => {
+export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery(['plan', cleanObject(params)], () => client(`plan/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery<PlanWork>(['plan', cleanObject(params)], () => client(`plan/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
 /* 

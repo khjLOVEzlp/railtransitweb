@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Outlet } from "react-router";
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hook/useDocumentTitle";
 
@@ -11,17 +10,13 @@ interface Item {
 
 export const Person = () => {
   const menu = JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "人员管理").childMenu
-  const [asid] = useState(menu)
-
-  console.log(asid);
-
 
   useDocumentTitle("人员管理")
   return (
     <SystemStyle>
       <Left>
         {
-          asid.map((item: Item, index: number) => <li key={index}>
+          menu.map((item: Item, index: number) => <li key={index}>
             <img src={`../../icon/${item.name}.png`} alt="" />
             <NavLink to={item.url} activeStyle={{ color: '#5A7FFA', fontWeight: 'bold' }}>{item.name}</NavLink>
           </li>)

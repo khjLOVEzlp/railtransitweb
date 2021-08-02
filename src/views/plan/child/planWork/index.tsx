@@ -1,27 +1,28 @@
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 /*
 * 新增修改弹框
 * */
-import {ModalForm} from "./modal/ModalForm";
+import { ModalForm } from "./modal/ModalForm";
 /*
 * 接口请求
 * */
-import {useDel, useInit, useSharePlan} from 'utils/plan/planWork';
+import { useDel, useInit } from './request';
 /*计划发布弹框*/
-import {ShareModalForm} from './modal/ShareModalForm';
-import {useDebounce} from "hook/useDebounce";
-import {usePlanWorkModal, useShareModal} from './util'
-import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
+import { ShareModalForm } from './modal/ShareModalForm';
+import { useDebounce } from "hook/useDebounce";
+import { usePlanWorkModal, useShareModal } from './util'
+import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
+import { Search } from 'utils/typings';
 
 /*作业计划*/
 export const PlanWork = () => {
   const [param, setParam] = useProjectsSearchParams()
-  const {open, startEdit} = usePlanWorkModal()
-  const {startEdit: startShareEdit} = useShareModal()
-  const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Del} = useDel()
-  const {mutateAsync: SharePlan} = useSharePlan()
+  const { open, startEdit } = usePlanWorkModal()
+  const { startEdit: startShareEdit } = useShareModal()
+  const { data, isLoading } = useInit(useDebounce(param, 500))
+  const { mutateAsync: Del } = useDel()
+  // const { mutateAsync: SharePlan } = useSharePlan()
 
   /*删除*/
   const confirm = (id: number) => {
@@ -30,7 +31,7 @@ export const PlanWork = () => {
         message.error(res.msg)
       } else {
         message.success('删除成功')
-        setParam({...param, index: 1})
+        setParam({ ...param, index: 1 })
       }
     })
   }
@@ -40,13 +41,13 @@ export const PlanWork = () => {
   }
 
   /*搜索*/
-  const search = (item: any) => {
-    setParam({...param, name: item.name, index: 1})
+  const search = (item: Search) => {
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   /*分页*/
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   /*计划执行状态*/
@@ -78,7 +79,7 @@ export const PlanWork = () => {
             name="name"
           >
             <Input placeholder={"计划名称"} value={param.name}
-                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
           <Form.Item>
@@ -147,7 +148,7 @@ export const PlanWork = () => {
               title: '操作',
               key: 'id',
               align: "center",
-              render: (item: any) => (
+              render: (item) => (
                 <>
                   <Button type="link" onClick={() => startShareEdit(item.id)}>发布计划</Button>
                   {/*<Button type="link" onClick={() => view(item)}>查看</Button>*/}
@@ -167,15 +168,15 @@ export const PlanWork = () => {
               )
             },
           ]
-        } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
-               onChange={handleTableChange}
-               dataSource={data?.data}
-               loading={isLoading}
-               rowKey={(item: any) => item.id}
+        } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+          onChange={handleTableChange}
+          dataSource={data?.data}
+          loading={isLoading}
+          rowKey={(item) => item.id}
         />
       </Main>
-      <ModalForm/>
-      <ShareModalForm/>
+      <ModalForm />
+      <ShareModalForm />
       {/*<ViewModalForm visible={visibleView} formData={formData} types={types} onCancel={hideViewModal} />*/}
     </>
   );

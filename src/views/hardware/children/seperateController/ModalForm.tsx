@@ -1,10 +1,10 @@
 import { Button, Form, Input, message, Modal, Radio, Select, Spin } from "antd";
 import { useEffect } from "react";
 import { rules } from "utils/verification";
-import { usePerson } from "utils/person/personManage";
 import { useSepModal } from './util'
 import { useMod, useAdd } from './request'
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
+import { usePerson } from "views/person/child/personManage/request";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();

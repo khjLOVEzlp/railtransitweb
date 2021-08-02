@@ -257,7 +257,7 @@ export const Alarm = () => {
           onChange={handleTableChange}
           loading={isLoading}
           dataSource={dataList?.data}
-          rowKey={(item: any) => item.id}
+          rowKey={(item) => item.id}
         />
       </Main>
     </AlarmStyle>

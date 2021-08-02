@@ -3,23 +3,23 @@ import { useEffect, useState } from "react";
 import { useDocumentTitle } from 'hook/useDocumentTitle'
 import Page from './child/alarmStatistics'
 import PlanWorkPage from './child/taskStatistics'
-import * as echarts from 'echarts';
+// import * as echarts from 'echarts';
 import PlanType from './child/planType'
-import { option } from './subwayRoute'
-import { Drawer, Spin } from "antd";
+// import { option } from './subwayRoute'
+import { Spin } from "antd";
 import { usePlanStatistics } from "utils/home";
 import { getType, color } from 'utils/index'
 
 export const Home = () => {
   useDocumentTitle('首页')
   const { data, isLoading } = usePlanStatistics()
-  const [visible, setVisible] = useState(false);
+  /* const [visible, setVisible] = useState(false);
   const showDrawer = () => {
     setVisible(true);
   };
   const onClose = () => {
     setVisible(false);
-  };
+  }; */
 
   /*绑定DOM*/
   useEffect(() => {
@@ -71,7 +71,7 @@ export const Home = () => {
         <div className="right">
           {/*告警统计*/}
           <Title>告警统计</Title>
-          <div style={{ padding: "0 10rem 0" }}>
+          <div>
             <Page />
           </div>
         </div>

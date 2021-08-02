@@ -1,20 +1,20 @@
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import {ModalForm} from "./modal/ModalForm";
-import {useDel, useInit} from 'utils/system/menu';
-import {useDebounce} from 'hook/useDebounce';
-import {useMenuModal} from './util'
-import {search} from "types/search";
-import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
+import { ModalForm } from "./modal/ModalForm";
+import { useDel, useInit } from './request';
+import { useDebounce } from 'hook/useDebounce';
+import { useMenuModal } from './util'
+import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
+import { Search } from 'utils/typings';
 
 export const Menu = () => {
   const [param, setParam] = useProjectsSearchParams()
-  const {open, startEdit} = useMenuModal()
-  const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Del} = useDel()
+  const { open, startEdit } = useMenuModal()
+  const { data, isLoading } = useInit(useDebounce(param, 500))
+  const { mutateAsync: Del } = useDel()
 
-  const search = (item: search) => {
-    setParam({...param, name: item.name, index: 1})
+  const search = (item: Search) => {
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const confirm = (id: number) => {
@@ -23,7 +23,7 @@ export const Menu = () => {
         message.error(res.msg)
       } else {
         message.success('删除成功')
-        setParam({...param, index: 1})
+        setParam({ ...param, index: 1 })
       }
     })
   }
@@ -33,7 +33,7 @@ export const Menu = () => {
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -49,7 +49,7 @@ export const Menu = () => {
             name="name"
           >
             <Input placeholder={"菜单名称"} value={param.name}
-                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
           <Form.Item>
@@ -96,14 +96,14 @@ export const Menu = () => {
                 </Popconfirm></>
             },
           ]
-        } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
-               onChange={handleTableChange}
-               loading={isLoading}
-               dataSource={data?.data}
-               childrenColumnName="childMenu"
-               rowKey={(item) => item.id}/>
+        } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+          onChange={handleTableChange}
+          loading={isLoading}
+          dataSource={data?.data}
+          childrenColumnName="childMenu"
+          rowKey={(item) => item.id} />
       </Main>
-      <ModalForm/>
+      <ModalForm />
     </>
   );
 };

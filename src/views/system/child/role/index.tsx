@@ -1,19 +1,20 @@
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import {ModalForm} from "./modal/ModalForm";
-import {useDel, useInit} from 'utils/system/role';
-import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
-import {useDebounce} from 'hook/useDebounce';
-import {useRoleModal} from './util'
+import { ModalForm } from "./modal/ModalForm";
+import { useDel, useInit } from './request';
+import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
+import { useDebounce } from 'hook/useDebounce';
+import { useRoleModal } from './util'
+import { Search } from 'utils/typings';
 
 export const Role = () => {
   const [param, setParam] = useProjectsSearchParams()
-  const {open, startEdit} = useRoleModal()
-  const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Del} = useDel()
+  const { open, startEdit } = useRoleModal()
+  const { data, isLoading } = useInit(useDebounce(param, 500))
+  const { mutateAsync: Del } = useDel()
 
-  const search = (item: any) => {
-    setParam({...param, name: item.name, index: 1})
+  const search = (item: Search) => {
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const confirm = (id: number) => {
@@ -22,7 +23,7 @@ export const Role = () => {
         message.error(res.msg)
       } else {
         message.success('删除成功')
-        setParam({...param, index: 1})
+        setParam({ ...param, index: 1 })
       }
     })
   }
@@ -32,7 +33,7 @@ export const Role = () => {
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -47,7 +48,7 @@ export const Role = () => {
             name="name"
           >
             <Input placeholder={"角色名称"} value={param.name}
-                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
           <Form.Item>
@@ -93,14 +94,14 @@ export const Role = () => {
                 </Popconfirm></>
             },
           ]
-        } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
-               onChange={handleTableChange}
-               loading={isLoading}
-               dataSource={data?.data}
-               rowKey={(item) => item.id}
+        } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+          onChange={handleTableChange}
+          loading={isLoading}
+          dataSource={data?.data}
+          rowKey={(item) => item.id}
         />
       </Main>
-      <ModalForm/>
+      <ModalForm />
     </>
   );
 };

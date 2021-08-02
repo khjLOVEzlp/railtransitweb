@@ -18,14 +18,14 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { getToken } from "../../../../../auth-provider";
 import { rules } from "utils/verification";
-import { usePlanType } from "utils/plan/planType";
-import { useLine } from "utils//system/line";
-import { useSite } from "utils/plan/planWork";
+import { usePlanType } from "../../planType/request";
+import { useLine } from "utils/system/line";
+import { useSite } from "../request";
 import { useMaterialType } from "utils/warehouse/materialType";
-import { usePerson } from "utils/person/personManage";
+import { usePerson } from "views/person/child/personManage/request";
 import { AddToolModal } from './AddToolModal'
 import { usePlanWorkModal } from '../util'
-import { useAdd, useMod } from "utils/plan/planWork";
+import { useAdd, useMod } from "../request";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 import { useInitDepartment } from 'utils/system/department'
 import moment from "moment";
@@ -285,7 +285,7 @@ export const ModalForm = () => {
                 name="typeList"
                 rules={rules}
               >
-                <Select style={{ width: "100%" }} allowClear mode="multiple">
+                  <Select style={{ width: "100%" }} allowClear mode="multiple" getPopupContainer={triggerNode => triggerNode.parentElement}>
                   {planTypeList?.data.map((item: any, index: number) => <Option value={item.id}
                     key={index}>{item.type}</Option>)}
                 </Select>

@@ -1,15 +1,16 @@
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import {ModalForm} from "./modal/ModalForm";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/plan/planType';
-import {useDebounce} from "hook/useDebounce";
-import {usePlanTypeModal} from './util'
+import { ModalForm } from "./modal/ModalForm";
+import { useDel, useInit, useProjectsSearchParams } from './request';
+import { useDebounce } from "hook/useDebounce";
+import { usePlanTypeModal } from './util'
+import { Search } from 'utils/typings';
 
 export const PlanType = () => {
   const [param, setParam] = useProjectsSearchParams()
-  const {open, startEdit} = usePlanTypeModal()
-  const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Del} = useDel()
+  const { open, startEdit } = usePlanTypeModal()
+  const { data, isLoading } = useInit(useDebounce(param, 500))
+  const { mutateAsync: Del } = useDel()
 
   const confirm = (id: number) => {
     Del(id).then((res) => {
@@ -17,7 +18,7 @@ export const PlanType = () => {
         message.error(res.msg)
       } else {
         message.success('删除成功')
-        setParam({...param, index: 1})
+        setParam({ ...param, index: 1 })
       }
     })
   }
@@ -26,12 +27,12 @@ export const PlanType = () => {
     message.error('取消删除');
   }
 
-  const search = (item: any) => {
-    setParam({...param, type: item.type, index: 1})
+  const search = (item: Search) => {
+    setParam({ ...param, type: item.type, index: 1 })
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -47,7 +48,7 @@ export const PlanType = () => {
             name="type"
           >
             <Input placeholder={"作业类型"} value={param.type}
-                   onChange={(evt) => setParam({...param, type: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, type: evt.target.value })} />
           </Form.Item>
 
           <Form.Item>
@@ -81,7 +82,7 @@ export const PlanType = () => {
               title: '操作',
               key: 'id',
               align: "center",
-              render: (item: any) => (
+              render: (item) => (
                 <>
                   <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                   <Popconfirm
@@ -97,14 +98,14 @@ export const PlanType = () => {
               )
             },
           ]
-        } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
-               onChange={handleTableChange}
-               dataSource={data?.data}
-               loading={isLoading}
-               rowKey={(item: any) => item.id}
+        } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+          onChange={handleTableChange}
+          dataSource={data?.data}
+          loading={isLoading}
+          rowKey={(item) => item.id}
         />
       </Main>
-      <ModalForm/>
+      <ModalForm />
     </>
   );
 }

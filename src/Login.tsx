@@ -1,18 +1,18 @@
 import styled from "@emotion/styled";
 import login from './icon/login.png'
-import {Form, Input, Button} from 'antd';
-import {useAuth} from "./context/auth-context";
-import {useDocumentTitle} from "./hook/useDocumentTitle";
+import { Form, Input, Button } from 'antd';
+import { useAuth } from "./context/auth-context";
+import { useDocumentTitle } from "./hook/useDocumentTitle";
 // import dayjs from 'dayjs'
-import {rules} from "./utils/verification";
-import {useState} from "react";
-import {ErrorBox} from "./components/lib";
-import {useAsync} from "./hook/useAsync";
+import { rules } from "./utils/verification";
+import { useState } from "react";
+import { ErrorBox } from "./components/lib";
+import { useAsync } from "./hook/useAsync";
 
 export const Login = () => {
   const [error, setError] = useState<Error | null>(null);
-  const {isLoading, run, isError, error: err} = useAsync(undefined, {throwOnError: true});
-  const {login} = useAuth()
+  const { isLoading, run } = useAsync(undefined, { throwOnError: true });
+  const { login } = useAuth()
   const onFinish = async (values: any) => {
     try {
       await run(login(values))
@@ -29,17 +29,17 @@ export const Login = () => {
         <div className="left">{dayjs().format('YYYY-MM-DD')}</div>
         <div className="right">{dayjs().format('HH:mm:ss')}</div>
       </TopTimer> */}
-      <div/>
+      <div />
       <div>
         <Title>
           <li>5G-NB智慧轨行区</li>
           <li>数字化维养安全管控系统</li>
         </Title>
-        <ErrorBox error={error}/>
+        <ErrorBox error={error} />
         <Form
           size={'large'}
           name="basic"
-          initialValues={{remember: true}}
+          initialValues={{ remember: true }}
           onFinish={onFinish}
         >
           <Form.Item
@@ -48,7 +48,7 @@ export const Login = () => {
             getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
           >
             <Input
-              style={{height: "6rem", borderRadius: "10px"}}
+              style={{ height: "6rem", borderRadius: "10px" }}
               size="large"
               placeholder="账号：请输入您的账号"
               onChange={() => {
@@ -62,13 +62,13 @@ export const Login = () => {
             rules={rules}
             getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
           >
-            <Input.Password style={{height: "6rem", borderRadius: "10px"}} size="large" placeholder="密码：请输入您的密码"
-                            onChange={() => setError(null)}/>
+            <Input.Password style={{ height: "6rem", borderRadius: "10px" }} size="large" placeholder="密码：请输入您的密码"
+              onChange={() => setError(null)} />
           </Form.Item>
 
           <Form.Item>
             <Button loading={isLoading} type="primary" htmlType="submit"
-                    style={{width: "100%", height: "6rem", borderRadius: "10px"}}>
+              style={{ width: "100%", height: "6rem", borderRadius: "10px" }}>
               登录
             </Button>
           </Form.Item>

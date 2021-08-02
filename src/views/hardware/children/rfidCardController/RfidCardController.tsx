@@ -1,11 +1,11 @@
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
-import styled from "@emotion/styled";
 import { useDel, useInit } from './request';
 import { ModalForm } from './ModalForm';
 import { useDebounce } from 'hook/useDebounce';
 import { useRfiModal } from './util'
 import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
+import { Header, Main } from '../component/Styled';
 
 export const RfidCardController = () => {
   const [param, setParam] = useProjectsSearchParams()
@@ -71,7 +71,7 @@ export const RfidCardController = () => {
             {
               title: '是否使用',
               key: 'isUse',
-              render: (item) => item.isUse === 0 ? '使用' : '未使用'
+              render: (item) => item.isUse === "0" ? '使用' : '未使用'
             },
             {
               title: '操作',
@@ -96,15 +96,3 @@ export const RfidCardController = () => {
     </>
   );
 };
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 1rem 1rem;
-`
-
-const Main = styled.div`
-  background: #fff;
-  border-radius: 1rem;
-  padding: 0 1.5rem;
-`

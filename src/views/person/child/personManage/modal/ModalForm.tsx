@@ -1,13 +1,13 @@
-import React, {useEffect} from "react";
-import {Button, DatePicker, Form, Input, message, Modal, Radio, Spin, TreeSelect, Upload} from "antd";
+import React, { useEffect } from "react";
+import { Button, DatePicker, Form, Input, message, Modal, Radio, Spin, TreeSelect, Upload } from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import {rules} from "utils/verification";
-import {usePersonModal, useImportModal} from '../util'
-import {useAdd, useMod} from 'utils/person/personManage'
-import {InboxOutlined} from '@ant-design/icons';
-import {useAuth} from "context/auth-context";
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
-import {useInit} from 'utils/system/department'
+import { rules } from "utils/verification";
+import { usePersonModal, useImportModal } from '../util'
+import { useAdd, useMod } from '../request'
+import { InboxOutlined } from '@ant-design/icons';
+import { useAuth } from "context/auth-context";
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
+import { useInit } from 'utils/system/department'
 import moment from "moment";
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -16,7 +16,7 @@ export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const {ModalOpen, editingPersonId, editingPerson, isLoading, close, isSuccess} = usePersonModal()
+  const { ModalOpen, editingPersonId, editingPerson, isLoading, close, isSuccess } = usePersonModal()
   const title = editingPerson ? "修改" : "新增"
   const msg = editingPerson ? () => {
     message.success("修改成功")
@@ -24,10 +24,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createPerson: ""})
+    setUrlParams({ index: 1, createPerson: "" })
   }
   const useMutateProject = editingPerson ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     if (isSuccess) {
@@ -44,7 +44,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingPerson, ...value, id: editingPersonId}).then((res) => {
+    mutateAsync({ ...editingPerson, ...value, id: editingPersonId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -54,10 +54,10 @@ export const ModalForm = () => {
     })
   }
 
-  const {data: departmentList} = useInit()
+  const { data: departmentList } = useInit()
 
   const onChange = (value: any) => {
-    form.setFieldsValue({departmentId: value})
+    form.setFieldsValue({ departmentId: value })
   };
 
   const disabledDate = (current: any) => {
@@ -82,7 +82,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}
@@ -95,7 +95,7 @@ export const ModalForm = () => {
               name="name"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -104,8 +104,8 @@ export const ModalForm = () => {
               rules={rules}
             >
               <Radio.Group>
-                <Radio value={1}>男</Radio>
-                <Radio value={2}>女</Radio>
+                <Radio value={0}>男</Radio>
+                <Radio value={1}>女</Radio>
               </Radio.Group>
             </Form.Item>
 
@@ -122,7 +122,7 @@ export const ModalForm = () => {
                 }
               ]}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -138,7 +138,7 @@ export const ModalForm = () => {
                 }
               ]}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -153,7 +153,7 @@ export const ModalForm = () => {
                 }>
                 {data?.data.map((item: any) => <Option value={item.rfid} key={item.id}>{item.rfid}</Option>)}
               </Select>*/}
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -163,7 +163,7 @@ export const ModalForm = () => {
             >
               <TreeSelect
                 getPopupContainer={triggerNode => triggerNode.parentElement}
-                style={{width: '100%'}}
+                style={{ width: '100%' }}
                 treeData={departmentList?.data}
                 treeDefaultExpandAll
                 onChange={onChange}
@@ -174,21 +174,21 @@ export const ModalForm = () => {
               label="出生日期"
               name="birthday"
             >
-              <DatePicker disabledDate={disabledDate} locale={locale}/>
+              <DatePicker disabledDate={disabledDate} locale={locale} />
             </Form.Item>
 
             <Form.Item
               label="家庭住址"
               name="address"
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
               label="备注"
               name="remark"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Form>
         )
@@ -198,8 +198,8 @@ export const ModalForm = () => {
 };
 
 export const ImportModal = () => {
-  const {ModalOpen, close} = useImportModal()
-  const {user} = useAuth()
+  const { ModalOpen, close } = useImportModal()
+  const { user } = useAuth()
 
   const props = {
     name: 'file',
@@ -229,7 +229,7 @@ export const ImportModal = () => {
     >
       <Upload.Dragger {...props} maxCount={1}>
         <p className="ant-upload-drag-icon">
-          <InboxOutlined/>
+          <InboxOutlined />
         </p>
         <p className="ant-upload-text">点击导入人员</p>
       </Upload.Dragger>

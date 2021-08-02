@@ -2,7 +2,7 @@ import qs from 'qs'
 import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from '..';
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
 import { useHttp } from '../http';
 
 // 项目列表搜索的参数

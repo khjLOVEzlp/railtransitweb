@@ -4,7 +4,6 @@ export type Tem = {
     id: number
     code: string
     operator: string
-    status: number
-    isUse: number
+    status: string
   }[]
 }

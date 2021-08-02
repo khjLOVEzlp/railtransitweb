@@ -1,23 +1,23 @@
-import React, {useEffect} from "react";
-import {Button, Checkbox, Form, Input, message, Modal, Select, Spin} from "antd";
-import {rules} from "utils/verification";
-import {useUserList} from "utils/system/user";
-import {useInit} from 'utils/person/personManage'
-import {useUserModal} from '../util'
-import {useAdd, useMod} from 'utils/system/user'
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
-import {useRoleAll} from "utils/system/role";
+import React, { useEffect } from "react";
+import { Button, Checkbox, Form, Input, message, Modal, Select, Spin } from "antd";
+import { rules } from "utils/verification";
+import { useUserList } from "../request";
+import { useInit } from 'views/person/child/personManage/request'
+import { useUserModal } from '../util'
+import { useAdd, useMod } from '../request'
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
+import { useRoleAll } from "views/system/child/role/request";
 
-const {Option} = Select;
+const { Option } = Select;
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const {data: userList} = useUserList()
-  const {data: personList} = useInit({})
-  const {data: roleList} = useRoleAll()
+  const { data: userList } = useUserList()
+  const { data: personList } = useInit()
+  const { data: roleList } = useRoleAll()
 
   const setUrlParams = useSetUrlSearchParam();
-  const {ModalOpen, isLoading, close, editingUser, editingUserId} = useUserModal()
+  const { ModalOpen, isLoading, close, editingUser, editingUserId } = useUserModal()
   const title = editingUser ? "修改" : "新增"
   const msg = editingUser ? () => {
     message.success("修改成功")
@@ -25,10 +25,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createUser: ""})
+    setUrlParams({ index: 1, createUser: "" })
   }
   const useMutateProject = editingUser ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingUser?.data)
@@ -40,7 +40,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingUser, ...value, id: editingUserId}).then((res) => {
+    mutateAsync({ ...editingUser, ...value, id: editingUserId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -69,7 +69,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : <Form
           form={form}
           onFinish={onFinish}
@@ -81,7 +81,7 @@ export const ModalForm = () => {
             name="loginName"
             rules={rules}
           >
-            <Input/>
+            <Input />
           </Form.Item>
 
           {
@@ -91,7 +91,7 @@ export const ModalForm = () => {
               rules={rules}
               getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
             >
-              <Input/>
+              <Input />
             </Form.Item> : ""
           }
 
@@ -107,14 +107,14 @@ export const ModalForm = () => {
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }>
                 {userList?.data.map((item: any) => <Option value={item.personId}
-                                                                          key={item.id}>{item.name}</Option>)}
+                  key={item.id}>{item.name}</Option>)}
               </Select>) : (<Select
                 showSearch
                 filterOption={(input, option: any) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }>
                 {personList?.data.map((item: any) => <Option value={item.id}
-                                                                            key={item.id}>{item.name}</Option>)}
+                  key={item.id}>{item.name}</Option>)}
               </Select>)
             }
           </Form.Item>
@@ -124,14 +124,14 @@ export const ModalForm = () => {
             name="roles"
             rules={rules}
           >
-            <Checkbox.Group options={roleList?.data}/>
+            <Checkbox.Group options={roleList?.data} />
           </Form.Item>
 
           <Form.Item
             label="备注"
             name="remark"
           >
-            <Input/>
+            <Input />
           </Form.Item>
         </Form>
       }

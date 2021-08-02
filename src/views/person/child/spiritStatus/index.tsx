@@ -1,14 +1,15 @@
 import { Form, Input, Button, Table } from 'antd';
 import styled from "@emotion/styled";
-import { useInit, useProjectsSearchParams } from '../../../../utils/person/personStatus';
-import { useDebounce } from '../../../../hook/useDebounce';
+import { useInit, useProjectsSearchParams } from './request';
+import { useDebounce } from 'hook/useDebounce';
+import { Search } from 'utils/typings';
 
 export const SpiritStatus = () => {
   const [param, setParam] = useProjectsSearchParams()
 
   const { data, isLoading } = useInit(useDebounce(param, 500))
 
-  const search = (item: any) => {
+  const search = (item: Search) => {
     setParam({ ...param, name: item.name, index: 1 })
   };
 
@@ -30,7 +31,7 @@ export const SpiritStatus = () => {
 
       case 2:
         return (
-          <span style={{color: "red"}}>异常</span>
+          <span style={{ color: "red" }}>异常</span>
         )
 
       default:
@@ -81,22 +82,22 @@ export const SpiritStatus = () => {
               },
               {
                 title: "体温状态",
-                render: (item: any) => <>{isStatus(item.isTemNormal)}</>
+                render: (item) => <>{isStatus(item.isTemNormal)}</>
               },
               {
                 title: "酒精状态",
-                render: (item: any) => <>{isStatus(item.isAlcNormal)}</>
+                render: (item) => <>{isStatus(item.isAlcNormal)}</>
               },
               {
                 title: "血压状态",
-                render: (item: any) => <>{isStatus(item.isBloodNormal)}</>
+                render: (item) => <>{isStatus(item.isBloodNormal)}</>
               },
             ]
           } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
             onChange={handleTableChange}
             loading={isLoading}
             dataSource={data?.data}
-            rowKey={(item: any) => item.id} />
+            rowKey={(item) => item.id} />
         </Main>
       </Form.Provider>
     </>

@@ -7,7 +7,7 @@ import {
   useMindModal,
   useMindStatistics,
   useMindStatisticsDetail
-} from 'utils/statistics/mindStatistics'
+} from './request'
 import { useEffect } from "react";
 
 export const PersonMind = () => {

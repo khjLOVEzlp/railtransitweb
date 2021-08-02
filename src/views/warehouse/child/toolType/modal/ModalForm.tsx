@@ -1,17 +1,17 @@
-import React, {useEffect} from "react";
-import {Button, Form, Input, message, Modal, Select, Spin} from "antd";
-import {rules} from "utils/verification";
-import {useUserAll} from 'utils/system/user'
-import {useToolTypeModal} from '../util'
-import {useMod, useAdd} from 'utils/warehouse/toolType'
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import React, { useEffect } from "react";
+import { Button, Form, Input, message, Modal, Select, Spin } from "antd";
+import { rules } from "utils/verification";
+import { useUserAll } from 'views/system/child/user/request'
+import { useToolTypeModal } from '../util'
+import { useMod, useAdd } from 'utils/warehouse/toolType'
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
-const {Option} = Select
+const { Option } = Select
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
-  const {ModalOpen, isLoading, close, editingToolType, editingToolTypeId} = useToolTypeModal()
+  const { ModalOpen, isLoading, close, editingToolType, editingToolTypeId } = useToolTypeModal()
   const title = editingToolType ? "修改" : "新增"
   const msg = editingToolType ? () => {
     message.success("修改成功")
@@ -19,10 +19,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createToolType: ""})
+    setUrlParams({ index: 1, createToolType: "" })
   }
   const useMutateProject = editingToolType ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingToolType?.data)
@@ -34,7 +34,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingToolType, ...value, id: editingToolTypeId}).then((res) => {
+    mutateAsync({ ...editingToolType, ...value, id: editingToolTypeId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -46,7 +46,7 @@ export const ModalForm = () => {
     })
   }
 
-  const {data: personList} = useUserAll()
+  const { data: personList } = useUserAll()
 
   const onOk = () => {
     form.submit();
@@ -66,7 +66,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}
@@ -79,7 +79,7 @@ export const ModalForm = () => {
               name="name"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -105,7 +105,7 @@ export const ModalForm = () => {
                 }
               >
                 {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                            key={index}>{item.name}</Option>)}
+                  key={index}>{item.name}</Option>)}
               </Select>
             </Form.Item>
 
@@ -114,14 +114,14 @@ export const ModalForm = () => {
               name="address"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
               label="备注"
               name="remark"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Form>
         )

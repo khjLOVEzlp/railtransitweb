@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { Spin } from "antd";
 import React, { createContext, ReactNode, useContext, useEffect } from "react";
 import * as auth from '../auth-provider'
-import { http } from "../utils/http";
 import { useAsync } from "../hook/useAsync";
 import { FullPageErrorFallback } from "../components/lib";
 import { useQueryClient } from "react-query";

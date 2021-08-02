@@ -1,9 +1,11 @@
 import qs from 'qs'
 import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
-import { cleanObject } from '../index'
-import { useHttp } from '../http'
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
+import { cleanObject } from 'utils/index'
+import { useHttp } from 'utils/http'
+import { Search } from 'utils/typings';
+import { Person } from './typings';
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
@@ -28,9 +30,9 @@ export const usePerson = () => {
 /*
 查询
  */
-export const useInit = (params: any) => {
+export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery(['person', cleanObject(params)], () => client(`person/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery<Person>(['person', cleanObject(params)], () => client(`person/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
 /* 

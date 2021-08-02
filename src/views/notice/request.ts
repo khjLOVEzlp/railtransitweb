@@ -1,14 +1,16 @@
 import qs from "qs"
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { cleanObject } from "./index"
-import { useHttp } from "./http"
+import { cleanObject } from "utils/index"
+import { useHttp } from "utils/http"
+import { Notice } from "./typing"
+import { Search } from "utils/typings"
 
 /*
 分页查询
  */
-export const useInit = (params: any) => {
+export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery(['transactionNotice', cleanObject(params)], () => client(`transactionNotice/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery<Notice>(['transactionNotice', cleanObject(params)], () => client(`transactionNotice/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
 /* 反馈 */

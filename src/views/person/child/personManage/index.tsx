@@ -1,24 +1,25 @@
-import {Form, Input, Button, Table, Popconfirm, message} from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import {ImportModal, ModalForm} from "./modal/ModalForm";
-import {useDel, useInit} from 'utils/person/personManage';
-import {useDebounce} from 'hook/useDebounce';
-import {usePersonModal, useImportModal} from './util'
-import {useAuth} from "../../../../context/auth-context";
-import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
+import { ImportModal, ModalForm } from "./modal/ModalForm";
+import { useDel, useInit } from './request';
+import { useDebounce } from 'hook/useDebounce';
+import { usePersonModal, useImportModal } from './util'
+import { useAuth } from "../../../../context/auth-context";
+import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
+import { Search } from 'utils/typings';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export const PersonManage = () => {
-  const {user} = useAuth()
+  const { user } = useAuth()
   const [param, setParam] = useProjectsSearchParams()
-  const {open, startEdit} = usePersonModal()
-  const {open: openImportModal} = useImportModal()
-  const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Del} = useDel()
+  const { open, startEdit } = usePersonModal()
+  const { open: openImportModal } = useImportModal()
+  const { data, isLoading } = useInit(useDebounce(param, 500))
+  const { mutateAsync: Del } = useDel()
 
-  const search = (item: any) => {
-    setParam({...param, name: item.name, index: 1})
+  const search = (item: Search) => {
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const confirm = (id: number) => {
@@ -27,7 +28,7 @@ export const PersonManage = () => {
         message.error(res.msg)
       } else {
         message.success('删除成功')
-        setParam({...param, index: 1})
+        setParam({ ...param, index: 1 })
       }
     })
   }
@@ -37,7 +38,7 @@ export const PersonManage = () => {
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   const downTemplate = () => {
@@ -50,7 +51,7 @@ export const PersonManage = () => {
     }).then((res) => {
       return res.blob();
     }).then(blob => {
-      let bl = new Blob([blob], {type: blob.type});
+      let bl = new Blob([blob], { type: blob.type });
       let fileName = "模板" + ".xlsx";
       var link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -73,7 +74,7 @@ export const PersonManage = () => {
             name="name"
           >
             <Input placeholder={"姓名"} value={param.name}
-                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
           <Form.Item>
@@ -141,7 +142,7 @@ export const PersonManage = () => {
             {
               title: '操作',
               key: 'id',
-              render: (item: any) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+              render: (item) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
                   title={`是否要删除${item.name}`}
                   onConfirm={() => confirm(item.id)}
@@ -153,14 +154,14 @@ export const PersonManage = () => {
                 </Popconfirm></>
             },
           ]
-        } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
-               onChange={handleTableChange}
-               loading={isLoading}
-               dataSource={data?.data}
-               rowKey={(item: any) => item.id}/>
+        } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+          onChange={handleTableChange}
+          loading={isLoading}
+          dataSource={data?.data}
+          rowKey={(item) => item.id} />
       </Main>
-      <ModalForm/>
-      <ImportModal/>
+      <ModalForm />
+      <ImportModal />
     </>
   );
 };

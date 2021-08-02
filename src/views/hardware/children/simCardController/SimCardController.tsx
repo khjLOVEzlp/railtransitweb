@@ -1,11 +1,11 @@
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
-import styled from "@emotion/styled";
 import { useDel, useInit } from './request';
 import { ModalForm } from './ModalForm';
 import { useDebounce } from 'hook/useDebounce';
 import { useSimModal } from './util'
 import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
+import { Header, Main } from '../component/Styled';
 
 export const SimCardController = () => {
   const [param, setParam] = useProjectsSearchParams()
@@ -108,15 +108,3 @@ export const SimCardController = () => {
     </>
   );
 };
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 1rem 1rem;
-`
-
-const Main = styled.div`
-  background: #fff;
-  border-radius: 1rem;
-  padding: 0 1.5rem;
-`

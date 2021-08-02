@@ -1,26 +1,26 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useRoleDetail} from "utils/system/role";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useRoleDetail } from "./request";
 
 export const useRoleModal = () => {
   const setUrlParams = useSetUrlSearchParam();
 
-  const [{createRole}, setCreateRole] = useUrlQueryParam([
+  const [{ createRole }, setCreateRole] = useUrlQueryParam([
     "createRole"
   ])
 
-  const [{editingRoleId}, setEditingRoleId] = useUrlQueryParam([
+  const [{ editingRoleId }, setEditingRoleId] = useUrlQueryParam([
     "editingRoleId",
   ]);
 
-  const {data: editingRole, isLoading, isSuccess} = useRoleDetail(
+  const { data: editingRole, isLoading, isSuccess } = useRoleDetail(
     Number(editingRoleId)
   );
 
-  const open = () => setCreateRole({createRole: true})
-  const close = () => setUrlParams({editingRoleId: "", createRole: ""});
+  const open = () => setCreateRole({ createRole: true })
+  const close = () => setUrlParams({ editingRoleId: "", createRole: "" });
 
   const startEdit = (id: number) =>
-    setEditingRoleId({editingRoleId: id});
+    setEditingRoleId({ editingRoleId: id });
 
   return {
     ModalOpen: createRole === "true" || Boolean(editingRoleId),

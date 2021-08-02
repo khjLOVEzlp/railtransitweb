@@ -1,16 +1,16 @@
-import {Button, Col, Form, message, Modal, Row, Select, Spin} from "antd";
-import {rules} from "utils/verification";
-import {useUserAll} from "utils/system/user";
-import {useSharePlan} from 'utils/plan/planWork'
-import {useShareModal} from '../util'
+import { Button, Col, Form, message, Modal, Row, Select, Spin } from "antd";
+import { rules } from "utils/verification";
+import { useUserAll } from "views/system/child/user/request";
+import { useSharePlan } from '../request'
+import { useShareModal } from '../util'
 
-const {Option} = Select
+const { Option } = Select
 
 export const ShareModalForm = () => {
   const [form] = Form.useForm();
-  const {ModalOpen, close, publishPlanWorkId, isLoading, editingPlanWork} = useShareModal()
-  const {mutateAsync, isLoading: mutaLoading} = useSharePlan()
-  const {data: personList} = useUserAll()
+  const { ModalOpen, close, publishPlanWorkId, isLoading, editingPlanWork } = useShareModal()
+  const { mutateAsync, isLoading: mutaLoading } = useSharePlan()
+  const { data: personList } = useUserAll()
 
   const closeModal = () => {
     form.resetFields()
@@ -18,7 +18,7 @@ export const ShareModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...value, planId: publishPlanWorkId}).then(() => {
+    mutateAsync({ ...value, planId: publishPlanWorkId }).then(() => {
       message.success("发布成功")
       form.resetFields()
       close()
@@ -53,7 +53,7 @@ export const ShareModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           editingPlanWork?.data.map((item: any) => (
             <Row key={item.id}>
@@ -78,7 +78,7 @@ export const ShareModalForm = () => {
         >
           <Select allowClear mode="multiple">
             {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                                                                        key={index}>{item.name}</Option>)}
+              key={index}>{item.name}</Option>)}
           </Select>
         </Form.Item>
       </Form>
@@ -86,4 +86,4 @@ export const ShareModalForm = () => {
   )
 }
 
-const mb = {marginBottom: "1rem"}
+const mb = { marginBottom: "1rem" }
