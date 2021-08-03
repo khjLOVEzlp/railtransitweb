@@ -1,16 +1,16 @@
-import {Button, Form, Input, message, Modal, Spin, TreeSelect} from "antd";
-import React, {useEffect} from "react";
-import {rules} from "utils/verification";
-import {useLineModal} from '../util'
-import {useAdd, useMod} from "utils/system/line";
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
-import {useInit} from 'utils/system/department'
+import { Button, Form, Input, message, Modal, Spin, TreeSelect } from "antd";
+import React, { useEffect } from "react";
+import { rules } from "utils/verification";
+import { useLineModal } from '../util'
+import { useAdd, useMod } from "utils/system/line";
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
+import { useInit } from 'utils/system/department'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
-  const {data: departmentList} = useInit()
-  const {ModalOpen, isLoading, close, editingLine, editingLineId} = useLineModal()
+  const { data: departmentList } = useInit()
+  const { ModalOpen, isLoading, close, editingLine, editId } = useLineModal()
   const title = editingLine ? "修改" : "新增"
   const msg = editingLine ? () => {
     message.success("修改成功")
@@ -18,10 +18,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createLine: ""})
+    setUrlParams({ index: 1, createLine: "" })
   }
   const useMutateProject = editingLine ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingLine?.data)
@@ -37,7 +37,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingLine, ...value, id: editingLineId}).then((res) => {
+    mutateAsync({ ...editingLine, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -61,7 +61,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin/>
+          <Spin />
         ) : (
           <Form
             form={form}
@@ -76,8 +76,8 @@ export const ModalForm = () => {
             >
               <TreeSelect
                 showSearch
-                style={{width: '100%'}}
-                dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                style={{ width: '100%' }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                 allowClear
                 multiple
                 treeData={departmentList?.data}
@@ -89,14 +89,14 @@ export const ModalForm = () => {
               name="name"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
               label="备注"
               name="remark"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Form>
         )

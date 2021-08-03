@@ -1,15 +1,15 @@
-import {Button, Form, Input, message, Modal, Spin} from "antd";
+import { Button, Form, Input, message, Modal, Spin } from "antd";
 import { rules } from "utils/verification";
-import {useDictItemModal} from "./util";
-import {useAdd, useMod} from "utils/system/dictItem";
-import {useEffect} from "react";
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import { useDictItemModal } from "./util";
+import { useAdd, useMod } from "utils/system/dictItem";
+import { useEffect } from "react";
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const {ModalOpen, isLoading, close, editingDictItem, editingDictItemId} = useDictItemModal()
+  const { ModalOpen, isLoading, close, editingDictItem, editId } = useDictItemModal()
   const title = editingDictItem ? "修改" : "新增"
   const msg = editingDictItem ? () => {
     message.success("修改成功")
@@ -17,10 +17,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createDictItem: ""})
+    setUrlParams({ index: 1, createDictItem: "" })
   }
   const useMutateProject = editingDictItem ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingDictItem?.data)
@@ -36,7 +36,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingDictItem, ...value, id: editingDictItemId}).then((res) => {
+    mutateAsync({ ...editingDictItem, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -53,7 +53,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}

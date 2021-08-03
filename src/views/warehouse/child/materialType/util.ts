@@ -1,33 +1,29 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useMaterialDetail} from "utils/warehouse/materialType";
+import { useAuth } from "context/auth-context";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useMaterialDetail } from "utils/warehouse/materialType";
 
 export const useMaterialModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const [{createMaterial}, setCreateMaterial] = useUrlQueryParam([
-    "createMaterial"
-  ])
-
-  const [{editingMaterialId}, setEditingMaterialId] = useUrlQueryParam([
-    "editingMaterialId",
-  ]);
-
-  const {data: editingMaterial, isLoading} = useMaterialDetail(
-    Number(editingMaterialId)
+  const { data: editingMaterial, isLoading } = useMaterialDetail(
+    Number(editId)
   );
 
-  const open = () => setCreateMaterial({createMaterial: true})
-  const close = () => setUrlParams({editingMaterialId: "", createMaterial: ""});
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingMaterialId({editingMaterialId: id});
+    setEditId(id)
 
   return {
-    ModalOpen: createMaterial === "true" || Boolean(editingMaterialId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingMaterial,
     isLoading,
-    editingMaterialId
+    editId
   };
 };

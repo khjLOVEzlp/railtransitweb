@@ -1,11 +1,16 @@
 import { Form, Table, DatePicker } from 'antd';
 import styled from "@emotion/styled";
-import { useInit, useProjectsSearchParams } from '../../../../utils/warehouse/inWarehouse'
-import { useDebounce } from "../../../../hook/useDebounce";
+import { useInit, useProjectsSearchParams } from 'utils/warehouse/inWarehouse'
+import { useDebounce } from "hook/useDebounce";
 import locale from "antd/es/date-picker/locale/zh_CN";
+import { useState } from 'react';
 
 export const InWarehouse = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    date: ""
+  })
   const { data, isLoading } = useInit(useDebounce(param, 500))
 
   const search = (item: any) => {

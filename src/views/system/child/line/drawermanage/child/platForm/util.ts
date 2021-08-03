@@ -1,33 +1,29 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useLinePlatformDetail} from "utils/system/linePlatform";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useLinePlatformDetail } from "utils/system/linePlatform";
+import { useLineContext } from "../../..";
 
 export const useLinePlatFormModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { platId, openPlatVisible, setPlatId, setOpenPlatVisible } = useLineContext()
 
-  const [{createLinePlatForm}, setCreateLinePlatForm] = useUrlQueryParam([
-    "createLinePlatForm"
-  ])
-
-  const [{editingLinePlatFormId}, setEditingLinePlatFormId] = useUrlQueryParam([
-    "editingLinePlatFormId",
-  ]);
-
-  const {data: editingLinePlatForm, isLoading} = useLinePlatformDetail(
-    Number(editingLinePlatFormId)
+  const { data: editingLinePlatForm, isLoading } = useLinePlatformDetail(
+    Number(platId)
   );
 
-  const open = () => setCreateLinePlatForm({createLinePlatForm: true})
-  const close = () => setUrlParams({editingLinePlatFormId: "", createLinePlatForm: ""});
+  const open = () => setOpenPlatVisible(true)
+  const close = () => {
+    setPlatId(undefined)
+    setOpenPlatVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingLinePlatFormId({editingLinePlatFormId: id});
+    setPlatId(id)
 
   return {
-    ModalOpen: createLinePlatForm === "true" || Boolean(editingLinePlatFormId),
+    ModalOpen: openPlatVisible === true || Boolean(platId),
     open,
     close,
     startEdit,
     editingLinePlatForm,
     isLoading,
-    editingLinePlatFormId
+    platId
   };
 };

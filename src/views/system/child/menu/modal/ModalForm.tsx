@@ -8,7 +8,7 @@ import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
-  const { ModalOpen, isLoading, close, editingMenu, editingMenuId } = useMenuModal()
+  const { ModalOpen, isLoading, close, editingMenu, editId } = useMenuModal()
   const title = editingMenu ? "修改" : "新增"
   const msg = editingMenu ? () => {
     message.success("修改成功")
@@ -35,7 +35,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingMenu, ...value, id: editingMenuId }).then((res) => {
+    mutateAsync({ ...editingMenu, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

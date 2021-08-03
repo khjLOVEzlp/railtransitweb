@@ -1,33 +1,29 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useRfiDetail } from "./request";
 
 export const useRfiModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ createRfi }, setCreateRfi] = useUrlQueryParam([
-    "createRfi"
-  ])
-
-  const [{ editingRfiId }, setEditingRfiId] = useUrlQueryParam([
-    "editingRfiId",
-  ]);
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
   const { data: editingRfi, isLoading } = useRfiDetail(
-    Number(editingRfiId)
+    Number(editId)
   );
 
-  const open = () => setCreateRfi({ createRfi: true })
-  const close = () => setUrlParams({ editingRfiId: "", createRfi: "" });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingRfiId({ editingRfiId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: createRfi === "true" || Boolean(editingRfiId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingRfi,
     isLoading,
-    editingRfiId
+    editId
   };
 };

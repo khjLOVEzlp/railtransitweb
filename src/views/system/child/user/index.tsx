@@ -9,13 +9,16 @@ import { useDebounce } from 'hook/useDebounce';
 import { PassModal } from "components/PassModal";
 import { useUserModal } from './util'
 import { Search } from "utils/typings";
-import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 
 export const User = () => {
   const [passwdVisible, setPasswdVisible] = useState(false)
   const [passId, setPassId] = useState<number>()
   const client = useHttp()
-  const [param, setParam] = useProjectsSearchParams();
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
   const { open, startEdit } = useUserModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()

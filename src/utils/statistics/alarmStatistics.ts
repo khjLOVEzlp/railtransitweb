@@ -4,6 +4,7 @@ import { useHttp } from '../http'
 import { cleanObject } from "../index";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useMemo } from "react";
+import { Search } from 'utils/typings';
 /*项目列表搜索的参数*/
 export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["subwayId", "time", "index", "size"]);
@@ -59,7 +60,7 @@ const getType = (type: number) => {
 }
 
 /*告警统计*/
-export const useAlarmStatistics = (params?: any) => {
+export const useAlarmStatistics = (params: Partial<Search>) => {
   const client = useHttp()
   return useQuery(['AlarmStatistics', cleanObject(params)], async () => {
     const data = await client(`report/getWorkWarn?${qs.stringify(cleanObject(params))}`, { method: "POST" })
@@ -67,7 +68,10 @@ export const useAlarmStatistics = (params?: any) => {
       key["name"] = getType(key["type"])
     })
     return data
-  }
+  },
+    {
+      enabled: Boolean(params.subwayId) && Boolean(params.time)
+    }
   )
 }
 
@@ -75,12 +79,13 @@ export const useAlarmStatistics = (params?: any) => {
 export const useAlarmPagination = (params?: any) => {
   const client = useHttp()
   return useQuery(['AlarmPagination', cleanObject(params)], async () =>
-    client(`report/getWorkWarnMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    client(`report/getWorkWarnMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: Boolean(params.subwayId) && Boolean(params.time)
+  }
   )
 }
 
 /*告警统计弹框*/
-
 export const useAlarmModal = () => {
   const setUrlParams = useSetUrlSearchParam()
 

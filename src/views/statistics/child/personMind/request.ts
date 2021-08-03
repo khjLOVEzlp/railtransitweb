@@ -30,6 +30,8 @@ export const useMindStatistics = (params?: Partial<Search>) => {
       if (key["isTemNormal"]) key["isTemNormal"] = key["isTemNormal"].replace("%", "")
     })
     return data
+  }, {
+    enabled: Boolean(params?.subwayId) && Boolean(params?.time)
   }
   )
 }
@@ -38,7 +40,9 @@ export const useMindStatistics = (params?: Partial<Search>) => {
 export const useMindStatisticsDetail = (params?: any) => {
   const client = useHttp()
   return useQuery(['MindStatisticsDetail', cleanObject(params)], () =>
-    client(`report/getPersonMindMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    client(`report/getPersonMindMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: Boolean(params?.subwayId) && Boolean(params?.time)
+  }
   )
 }
 

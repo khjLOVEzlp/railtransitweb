@@ -10,7 +10,7 @@ export const ModalForm = () => {
   const [form] = Form.useForm();
   const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
   const setUrlParams = useSetUrlSearchParam();
-  const { ModalOpen, isLoading, close, editingRole, editingRoleId } = useRoleModal()
+  const { ModalOpen, isLoading, close, editingRole, editId } = useRoleModal()
   const title = editingRole ? "修改" : "新增"
   const msg = editingRole ? () => {
     message.success("修改成功")
@@ -32,12 +32,13 @@ export const ModalForm = () => {
   }, [form, editingRole])
 
   const closeModal = () => {
+    setCheckedKeys([])
     form.resetFields()
     close()
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingRole, ...value, id: editingRoleId }).then((res) => {
+    mutateAsync({ ...editingRole, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

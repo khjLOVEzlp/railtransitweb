@@ -1,33 +1,29 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useLineRoadDetail} from "utils/system/lineRoad";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useLineRoadDetail } from "utils/system/lineRoad";
+import { useLineContext } from "../../..";
 
 export const useLineRoadModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { roadId, setRoadId, openRoadVisible, setOpenRoadVisible } = useLineContext()
 
-  const [{createLineRoad}, setCreateLineRoad] = useUrlQueryParam([
-    "createLineRoad"
-  ])
-
-  const [{editingLineRoadId}, setEditingLineRoadId] = useUrlQueryParam([
-    "editingLineRoadId",
-  ]);
-
-  const {data: editingLineRoad, isLoading} = useLineRoadDetail(
-    Number(editingLineRoadId)
+  const { data: editingLineRoad, isLoading } = useLineRoadDetail(
+    Number(roadId)
   );
 
-  const open = () => setCreateLineRoad({createLineRoad: true})
-  const close = () => setUrlParams({editingLineRoadId: "", createLineRoad: ""});
+  const open = () => setOpenRoadVisible(true)
+  const close = () => {
+    setRoadId(undefined)
+    setOpenRoadVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingLineRoadId({editingLineRoadId: id});
+    setRoadId(id);
 
   return {
-    ModalOpen: createLineRoad === "true" || Boolean(editingLineRoadId),
+    ModalOpen: openRoadVisible === true || Boolean(roadId),
     open,
     close,
     startEdit,
     editingLineRoad,
     isLoading,
-    editingLineRoadId
+    roadId
   };
 };

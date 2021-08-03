@@ -9,31 +9,32 @@ import {
   useAlarmPagination
 } from 'utils/statistics/alarmStatistics'
 import { useDebounce } from "hook/useDebounce";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const WorkWarn = () => {
-  const { data: lineList } = useLineList()
-  const [param, setParam] = useProjectsSearchParams()
+  const { data: lineList, isSuccess: success, isLoading: loading } = useLineList()
+  const [param, setParam] = useState({
+    time: "",
+    subwayId: ""
+  })
+
   const { open, ModalOpen } = useAlarmModal()
 
-  useEffect(() => {
-    if (lineList) {
-      setParam({ subwayId: lineList?.data[0]?.id, time: 3 })
-    }
-  }, [lineList, ModalOpen])
+  console.log(param);
 
-  const { data: alarmStatistics, isLoading, isError } = useAlarmStatistics(param)
 
-  const lineChange = (value: any) => {
-    setParam({ subwayId: value })
+  const { data: alarmStatistics, isSuccess } = useAlarmStatistics(param)
+
+  const lineChange = (value: string) => {
+    setParam({ ...param, subwayId: value })
   }
 
-  const timeChange = (value: any) => {
-    setParam({ time: value })
+  const timeChange = (value: string) => {
+    setParam({ ...param, time: value })
   }
 
   const config = {
-    data: isLoading || isError ? [] : alarmStatistics?.data,
+    data: isSuccess ? alarmStatistics?.data : [{ name: "1", num: 0 }],
     xField: 'name',
     yField: 'num',
     maxColumnWidth: 100,
@@ -66,6 +67,7 @@ export const WorkWarn = () => {
             name={"subwayId"}
           >
             <Select
+              loading={loading}
               style={{ width: 120 }}
               placeholder={"地铁路线"}
               showSearch

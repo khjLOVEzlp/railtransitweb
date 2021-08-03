@@ -1,16 +1,16 @@
-import React, {useEffect} from "react";
-import {Button, Form, Input, message, Modal, Spin} from "antd";
-import {rules} from "utils/verification";
-import {useLineRoadModal} from './util'
-import {useAdd, useMod} from 'utils/system/lineRoad'
-import {useProjectModal} from "../../../util";
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import React, { useEffect } from "react";
+import { Button, Form, Input, message, Modal, Spin } from "antd";
+import { rules } from "utils/verification";
+import { useLineRoadModal } from './util'
+import { useAdd, useMod } from 'utils/system/lineRoad'
+import { useProjectModal } from "../../../util";
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
-  const {editingProjectId} = useProjectModal()
+  const { editId } = useProjectModal()
   const setUrlParams = useSetUrlSearchParam();
 
-  const {ModalOpen, editingLineRoad, close, isLoading, editingLineRoadId} = useLineRoadModal()
+  const { ModalOpen, editingLineRoad, close, isLoading, roadId } = useLineRoadModal()
   const [form] = Form.useForm();
   const title = editingLineRoad ? "修改" : "新增"
   const msg = editingLineRoad ? () => {
@@ -19,10 +19,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createLineRoad: ""})
+    setUrlParams({ index: 1, createLineRoad: "" })
   }
   const useMutateProject = editingLineRoad ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingLineRoad?.data)
@@ -33,7 +33,7 @@ export const ModalForm = () => {
   };
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingLineRoad, ...value, id: editingLineRoadId, lineId: editingProjectId}).then(() => {
+    mutateAsync({ ...editingLineRoad, ...value, id: roadId, lineId: editId }).then(() => {
       msg()
       form.resetFields();
     }).catch(err => {
@@ -49,7 +49,7 @@ export const ModalForm = () => {
   return (
     <Modal
       forceRender={true}
-      style={{zIndex: 9999999999}}
+      style={{ zIndex: 9999999999 }}
       title={title}
       width={800}
       visible={ModalOpen}
@@ -62,7 +62,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}
@@ -75,14 +75,14 @@ export const ModalForm = () => {
               name="name"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
               label="备注"
               name="remark"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Form>
         )

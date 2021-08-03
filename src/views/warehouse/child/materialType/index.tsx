@@ -1,19 +1,24 @@
-import {Form, Input, Button, message, Popconfirm, Table} from 'antd';
+import { Form, Input, Button, message, Popconfirm, Table } from 'antd';
 import styled from "@emotion/styled";
-import {ModalForm} from "./modal/ModlaForm";
-import {useDel, useInit} from 'utils/warehouse/materialType'
-import {useDebounce} from "hook/useDebounce";
-import {useMaterialModal} from './util'
-import {useProjectsSearchParams} from 'hook/useProjectsSearchParams'
+import { ModalForm } from "./modal/ModlaForm";
+import { useDel, useInit } from 'utils/warehouse/materialType'
+import { useDebounce } from "hook/useDebounce";
+import { useMaterialModal } from './util'
+import { useState } from 'react';
 
 export const MaterialType = () => {
-  const [param, setParam] = useProjectsSearchParams()
-  const {open, startEdit} = useMaterialModal()
-  const {data, isLoading} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Del} = useDel()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
+
+  const { open, startEdit } = useMaterialModal()
+  const { data, isLoading } = useInit(useDebounce(param, 500))
+  const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setParam({...param, name: item.name, index: 1})
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const del = async (id: number) => {
@@ -23,7 +28,7 @@ export const MaterialType = () => {
   const confirm = (item: any) => {
     del(item.id).then(() => {
       message.success('删除成功')
-      setParam({...param, index: 1})
+      setParam({ ...param, index: 1 })
     }).catch(err => {
       message.error(err.msg)
     })
@@ -34,7 +39,7 @@ export const MaterialType = () => {
   }
 
   const handleTableChange = (p: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -50,7 +55,7 @@ export const MaterialType = () => {
             name="name"
           >
             <Input placeholder={"物资类型名称"} value={param.name}
-                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
           <Form.Item>
@@ -99,7 +104,7 @@ export const MaterialType = () => {
             {
               title: '操作',
               key: 'id',
-              render: (item: any) =><>
+              render: (item: any) => <>
                 <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
                   title={`是否要删除${item.name}`}
@@ -113,11 +118,11 @@ export const MaterialType = () => {
               </>
             },
           ]
-        } pagination={{total: data?.count, current: param.index, pageSize: param.size}} onChange={handleTableChange}
-               loading={isLoading} dataSource={data?.data}
-               rowKey={(item: any) => item.id}/>
+        } pagination={{ total: data?.count, current: param.index, pageSize: param.size }} onChange={handleTableChange}
+          loading={isLoading} dataSource={data?.data}
+          rowKey={(item: any) => item.id} />
       </Main>
-      <ModalForm/>
+      <ModalForm />
     </>
   );
 };

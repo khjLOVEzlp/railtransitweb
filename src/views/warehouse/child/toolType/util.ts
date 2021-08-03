@@ -1,59 +1,59 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useToolTypeDetail, useViewToolDetail, useGetMaterialDetail } from "utils/warehouse/toolType";
 
 /*新增修改弹框*/
 export const useToolTypeModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ createToolType }, setCreateToolType] = useUrlQueryParam([
-    "createToolType"
-  ])
-
-  const [{ editingToolTypeId }, setEditingToolTypeId] = useUrlQueryParam([
-    "editingToolTypeId",
-  ]);
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
   const { data: editingToolType, isLoading } = useToolTypeDetail(
-    Number(editingToolTypeId)
+    Number(editId)
   );
 
-  const open = () => setCreateToolType({ createToolType: true })
-  const close = () => setUrlParams({ editingToolTypeId: "", createToolType: "" });
-  const startEdit = (id: number) =>
-    setEditingToolTypeId({ editingToolTypeId: id });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
+  const startEdit = (id: number) => {
+    setEditId(id)
+    setVisible(true)
+  }
 
   return {
-    ModalOpen: createToolType === "true" || Boolean(editingToolTypeId),
+    ModalOpen: visible === true,
     open,
     close,
     startEdit,
     editingToolType,
     isLoading,
-    editingToolTypeId
+    editId
   };
 };
 
 /*查看工具抽屉*/
 
 export const useViewTool = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ viewToolId }, setViewToolId] = useUrlQueryParam([
-    "viewToolId"
-  ])
+  const { drawer, setDrawer, editId, setEditId } = useAuth()
 
   const { data: viewTool, isLoading } = useViewToolDetail(
-    Number(viewToolId)
+    Number(editId)
   )
 
-  const close = () => setUrlParams({ viewToolId: "" });
-  const startEdit = (id: number) =>
-    setViewToolId({ viewToolId: id });
+  const close = () => {
+    setDrawer(false)
+    setEditId(undefined)
+  }
+
+  const startEdit = (id: number) => {
+    setDrawer(true)
+    setEditId(id)
+  }
 
   return {
-    ModalOpen: Boolean(viewToolId),
+    ModalOpen: drawer === true,
     close,
-    viewToolId,
+    editId,
     viewTool,
     startEdit,
     isLoading

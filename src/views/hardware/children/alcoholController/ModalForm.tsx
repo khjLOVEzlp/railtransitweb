@@ -9,7 +9,7 @@ export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const { ModalOpen, isLoading, close, editingAlc, editingAlcId } = useAlcModal()
+  const { ModalOpen, isLoading, close, editingAlc, editId } = useAlcModal()
   const title = editingAlc ? "修改" : "新增"
   const msg = editingAlc ? () => {
     message.success("修改成功")
@@ -32,7 +32,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingAlc, ...value, id: editingAlcId }).then(() => {
+    mutateAsync({ ...editingAlc, ...value, id: editId }).then(() => {
       msg()
       form.resetFields()
     }).catch(err => {

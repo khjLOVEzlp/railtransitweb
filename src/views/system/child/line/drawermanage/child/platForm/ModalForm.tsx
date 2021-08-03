@@ -1,17 +1,17 @@
-import {Button, Form, Input, message, Modal, Select, Spin} from "antd";
-import {rules} from "utils/verification";
-import {useLinePlatFormModal} from './util'
-import {useInit} from 'utils/system/lineRoad'
-import {useMod, useAdd} from 'utils/system/linePlatform'
-import {useProjectModal} from "../../../util";
-import {useEffect} from "react";
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import { Button, Form, Input, message, Modal, Select, Spin } from "antd";
+import { rules } from "utils/verification";
+import { useLinePlatFormModal } from './util'
+import { useInit } from 'utils/system/lineRoad'
+import { useMod, useAdd } from 'utils/system/linePlatform'
+import { useProjectModal } from "../../../util";
+import { useEffect } from "react";
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
-  const {editingProjectId} = useProjectModal()
-  const {editingLinePlatForm, isLoading, close, ModalOpen, editingLinePlatFormId} = useLinePlatFormModal()
+  const { editId } = useProjectModal()
+  const { editingLinePlatForm, isLoading, close, ModalOpen, platId } = useLinePlatFormModal()
   const title = editingLinePlatForm ? "修改" : "新增"
   const msg = editingLinePlatForm ? () => {
     message.success("修改成功")
@@ -19,16 +19,16 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createLinePlatForm: ""})
+    setUrlParams({ index: 1, createLinePlatForm: "" })
   }
   const useMutateProject = editingLinePlatForm ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingLinePlatForm?.data)
   }, [form, editingLinePlatForm])
 
-  const {data: roadList} = useInit({index: 1, size: 1000, lineId: editingProjectId})
+  const { data: roadList } = useInit({ index: 1, size: 1000, lineId: editId })
 
   const closeModal = () => {
     form.resetFields()
@@ -36,7 +36,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingLinePlatForm, ...value, id: editingLinePlatFormId, lineId: editingProjectId}).then((res) => {
+    mutateAsync({ ...editingLinePlatForm, ...value, id: platId, lineId: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -65,7 +65,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}
@@ -102,14 +102,14 @@ export const ModalForm = () => {
               name="name"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
               label="备注"
               name="remark"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Form>
         )

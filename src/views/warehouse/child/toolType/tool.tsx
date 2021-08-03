@@ -3,11 +3,11 @@ import { ToolModalForm } from "./modal/ToolModalForm"
 import { useViewTool, useToolModal } from './util'
 
 export const Tool = () => {
-  const { ModalOpen, close, viewTool, isLoading, viewToolId } = useViewTool()
+  const { ModalOpen, close, viewTool, isLoading, editId } = useViewTool()
   const { startEdit } = useToolModal()
   return (
     <Drawer
-      width={'100%'}
+      width={800}
       title="工具"
       placement="right"
       onClose={close}
@@ -43,7 +43,7 @@ export const Tool = () => {
         {
           title: "操作",
           render: (item: any) => <>
-            <Button type={"link"} onClick={() => startEdit(item.id, Number(viewToolId))}>详情</Button>
+            <Button type={"link"} onClick={() => startEdit(item.id, Number(editId))}>详情</Button>
           </>
         }
       ]} loading={isLoading} rowKey={item => item.id} />

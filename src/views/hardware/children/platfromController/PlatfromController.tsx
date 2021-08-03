@@ -5,7 +5,7 @@ import { useDebounce } from 'hook/useDebounce';
 import { usePlaModal } from './util'
 import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
-import { Header, Main } from '../component/Styled';
+import { Header, Main } from 'components/Styled';
 
 export const PlatfromController = () => {
   const [param, setParam] = useProjectsSearchParams()

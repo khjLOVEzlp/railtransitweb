@@ -1,88 +1,74 @@
-import styled from "@emotion/styled"
-import { Tabs } from "antd"
-import { useState } from "react"
+import styled from "@emotion/styled";
+import { Outlet } from "react-router";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from '../../hook/useDocumentTitle'
-import { AlcoholController } from "./children/alcoholController/AlcoholController"
-import { LabelController } from "./children/labelController/LabelController"
-import { PlatfromController } from "./children/platfromController/PlatfromController"
-import { RfidCardController } from "./children/rfidCardController/RfidCardController"
-import { SeperateController } from './children/seperateController/SeperateController'
-import { SimCardController } from "./children/simCardController/SimCardController"
-import { TemperaterController } from "./children/temperaterController/TemperaterController"
-import {useSetUrlSearchParam} from 'hook/useUrlQueryParam'
-import './index.css'
 
-const { TabPane } = Tabs;
+interface Item {
+  name: string,
+  url: string
+}
+
 export const Hardware = () => {
-  const setUrlParams = useSetUrlSearchParam()
-  const [navList] = useState([
-    {
-      name: "防分离器",
-      id: 1,
-      tem: <SeperateController />,
-    },
-    {
-      name: "酒精测试仪",
-      id: 2,
-      tem: <AlcoholController />,
-    },
-    {
-      name: "流量卡",
-      id: 3,
-      tem: <SimCardController />,
-    },
-    {
-      name: "标签",
-      id: 4,
-      tem: <LabelController />,
-    },
-    {
-      name: "手持机",
-      id: 5,
-      tem: <PlatfromController />,
-    },
-    {
-      name: "工卡",
-      id: 6,
-      tem: <RfidCardController />,
-    },
-    {
-      name: "体温测试仪",
-      id: 7,
-      tem: <TemperaterController />,
-    },
-  ])
+  const menu = JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "设备管理").childMenu
 
-  const callback = () => {
-    setUrlParams({index: "", size: "", name: ""})
-  }
-
-  useDocumentTitle('设备管理')
+  useDocumentTitle("系统管理")
   return (
-    <Container>
-      <Tabs defaultActiveKey="1" onChange={callback}>
+    <SystemStyle>
+      <Left>
         {
-          navList.map((item: any) => <TabPane tab={item.name} key={item.id}>
-            <Main>
-              {item.tem}
-            </Main>
-          </TabPane>)
+          menu.map((item: Item, index: number) => <li key={index}>
+            <img src={`../../icon/${item.name}.png`} alt="" />
+            <NavLink to={item.url} activeStyle={{ color: '#5A7FFA', fontWeight: 'bold' }}>{item.name}</NavLink>
+          </li>)
         }
-      </Tabs>
-    </Container>
+      </Left>
+      <Right>
+        <Outlet />
+      </Right>
+    </SystemStyle>
   )
 }
 
-const Main = styled.div`
-  background: #fff;
-  border-radius: 1rem;
-  height: 73rem;
-  padding: 0 3rem;
-  overflow-y: auto;
+const SystemStyle = styled.div`
+  display: flex;
+  height: 100%;
 `
 
-const Container = styled.div`
+const Left = styled.div`
+  width: 16rem;
+  background: #FFFFFF;
+  border-radius: 14px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 2rem;
+  box-sizing: border-box;
+
+  > li {
+    font-size: 2rem;
+    cursor: pointer;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex: 1;
+
+    > a {
+      color: #747A89;
+      margin-left: 1rem;
+      width: 100%;
+    }
+  }
+`
+
+const Right = styled.div`
+  border-radius: 14px;
+  width: 100%;
+  height: 100%;
+  margin-left: 0.5%;
+  overflow-y: auto;
   display: flex;
   justify-content: space-between;
   flex-direction: column;

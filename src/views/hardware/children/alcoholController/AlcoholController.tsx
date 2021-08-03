@@ -5,7 +5,7 @@ import { useDebounce } from 'hook/useDebounce';
 import { useAlcModal } from './util'
 import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
-import { Header, Main } from '../component/Styled';
+import { Header, Main } from 'components/Styled';
 
 export const AlcoholController = () => {
   const [param, setParam] = useProjectsSearchParams()

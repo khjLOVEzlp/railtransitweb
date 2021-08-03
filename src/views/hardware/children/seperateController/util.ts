@@ -1,33 +1,30 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useSepDetail } from "./request";
 
 export const useSepModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const [{ createSep }, setCreateSep] = useUrlQueryParam([
-    "createSep"
-  ])
-
-  const [{ editingSepId }, setEditingSepId] = useUrlQueryParam([
-    "editingSepId",
-  ]);
 
   const { data: editingSep, isLoading } = useSepDetail(
-    Number(editingSepId)
+    Number(editId)
   );
 
-  const open = () => setCreateSep({ createSep: true })
-  const close = () => setUrlParams({ editingSepId: "", createSep: "" });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingSepId({ editingSepId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: createSep === "true" || Boolean(editingSepId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingSep,
     isLoading,
-    editingSepId
+    editId
   };
 };

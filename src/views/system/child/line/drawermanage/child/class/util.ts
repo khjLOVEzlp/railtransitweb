@@ -1,33 +1,30 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useLineClassDetail} from "utils/system/lineClass";
+import { useAuth } from "context/auth-context";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useLineClassDetail } from "utils/system/lineClass";
+import { useLineContext } from "../../../index";
 
 export const useLineClassModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { openClassVisible, setOpenClassVisible, classId, setClassId } = useLineContext()
 
-  const [{createLineClass}, setCreateLineClass] = useUrlQueryParam([
-    "createLineClass"
-  ])
-
-  const [{editingLineClassId}, setEditingLineClassId] = useUrlQueryParam([
-    "editingLineClassId",
-  ]);
-
-  const {data: editingLineClass, isLoading} = useLineClassDetail(
-    Number(editingLineClassId)
+  const { data: editingLineClass, isLoading } = useLineClassDetail(
+    Number(classId)
   );
 
-  const open = () => setCreateLineClass({createLineClass: true})
-  const close = () => setUrlParams({editingLineClassId: "", createLineClass: ""});
+  const open = () => setOpenClassVisible(true)
+  const close = () => {
+    setClassId(undefined)
+    setOpenClassVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingLineClassId({editingLineClassId: id});
+    setClassId(id)
 
   return {
-    ModalOpen: createLineClass === "true" || Boolean(editingLineClassId),
+    ModalOpen: openClassVisible === true || Boolean(classId),
     open,
     close,
     startEdit,
     editingLineClass,
     isLoading,
-    editingLineClassId
+    classId
   };
 };

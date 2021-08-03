@@ -14,10 +14,16 @@ import { useDebounce } from "hook/useDebounce";
 import { usePlanWorkModal, useShareModal } from './util'
 import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
+import { useState } from 'react';
 
 /*作业计划*/
 export const PlanWork = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
+  
   const { open, startEdit } = usePlanWorkModal()
   const { startEdit: startShareEdit } = useShareModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))

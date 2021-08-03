@@ -8,7 +8,7 @@ export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const { ModalOpen, isLoading, close, editingRfi, editingRfiId } = useRfiModal()
+  const { ModalOpen, isLoading, close, editingRfi, editId } = useRfiModal()
   const title = editingRfi ? "修改" : "新增"
   const msg = editingRfi ? () => {
     message.success("修改成功")
@@ -31,7 +31,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingRfi, ...value, id: editingRfiId }).then((res) => {
+    mutateAsync({ ...editingRfi, ...value, id: editId }).then((res) => {
       msg()
       form.resetFields()
     }).catch(err => {

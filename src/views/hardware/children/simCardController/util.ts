@@ -1,33 +1,29 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useSimDetail } from "./request";
 
 export const useSimModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ createSim }, setCreateSim] = useUrlQueryParam([
-    "createSim"
-  ])
-
-  const [{ editingSimId }, setEditingSimId] = useUrlQueryParam([
-    "editingSimId",
-  ]);
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
   const { data: editingSim, isLoading } = useSimDetail(
-    Number(editingSimId)
+    Number(editId)
   );
 
-  const open = () => setCreateSim({ createSim: true })
-  const close = () => setUrlParams({ editingSimId: "", createSim: "" });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingSimId({ editingSimId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: createSim === "true" || Boolean(editingSimId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingSim,
     isLoading,
-    editingSimId
+    editId
   };
 };

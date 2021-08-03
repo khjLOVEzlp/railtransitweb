@@ -1,59 +1,58 @@
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useAuth } from "context/auth-context";
 import { useLineDetail } from "utils/system/line";
 
 /*抽屉*/
 export const useProjectModal = () => {
-  const [{ editingProjectId }, setEditingProjectId] = useUrlQueryParam([
-    "editingProjectId",
-  ]);
-
-  const setUrlParams = useSetUrlSearchParam();
+  const { drawer, setDrawer, editId, setEditId } = useAuth()
   const { data: editingProject, isLoading } = useLineDetail(
-    Number(editingProjectId)
+    Number(editId)
   );
-  const close = () => setUrlParams({ editingProjectId: "" });
-  const startEdit = (id: number) =>
-    setEditingProjectId({ editingProjectId: id });
+  const close = () => {
+    setDrawer(false)
+    setEditId(undefined)
+  }
+
+  const startEdit = (id: number) => {
+    setDrawer(true)
+    setEditId(id)
+  }
 
   return {
-    ModalOpen: Boolean(editingProjectId),
+    ModalOpen: drawer === true,
     close,
     startEdit,
     editingProject,
     isLoading,
-    editingProjectId
+    editId
   };
 };
 
 /*地铁弹框*/
 
 export const useLineModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const [{createLine}, setCreateLine] = useUrlQueryParam([
-    "createLine"
-  ])
-
-  const [{editingLineId}, setEditingLineId] = useUrlQueryParam([
-    "editingLineId",
-  ]);
-
-  const {data: editingLine, isLoading} = useLineDetail(
-    Number(editingLineId)
+  const { data: editingLine, isLoading } = useLineDetail(
+    Number(editId)
   );
 
-  const open = () => setCreateLine({createLine: true})
-  const close = () => setUrlParams({editingLineId: "", createLine: ""});
-  const startEdit = (id: number) =>
-    setEditingLineId({editingLineId: id});
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
+  const startEdit = (id: number) => {
+    setEditId(id)
+    setVisible(true)
+  }
 
   return {
-    ModalOpen: createLine === "true" || Boolean(editingLineId),
+    ModalOpen: visible === true,
     open,
     close,
     startEdit,
     editingLine,
     isLoading,
-    editingLineId,
+    editId,
   };
 };

@@ -1,33 +1,29 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useAlcDetail } from "./request";
 
 export const useAlcModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ createAlc }, setCreateAlc] = useUrlQueryParam([
-    "createAlc"
-  ])
-
-  const [{ editingAlcId }, setEditingAlcId] = useUrlQueryParam([
-    "editingAlcId",
-  ]);
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
   const { data: editingAlc, isLoading } = useAlcDetail(
-    Number(editingAlcId)
+    Number(editId)
   );
 
-  const open = () => setCreateAlc({ createAlc: true })
-  const close = () => setUrlParams({ editingAlcId: "", createAlc: "" });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingAlcId({ editingAlcId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: createAlc === "true" || Boolean(editingAlcId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingAlc,
     isLoading,
-    editingAlcId
+    editId
   };
 };

@@ -4,14 +4,20 @@ import { ModalForm } from "./modal/ModalForm";
 import { useInit } from './request';
 import { useDebounce } from "hook/useDebounce";
 import { useHistoryModal } from './util'
-import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
+import { useState } from 'react';
+
 export const WorkManage = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
+
   const { startEdit } = useHistoryModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
 
   const search = (item: any) => {
-    setParam({ ...param, name: item.name })
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
@@ -31,7 +37,7 @@ export const WorkManage = () => {
             name="name"
           >
             <Input placeholder={"作业名称"} value={param.name}
-              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
+              onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })} />
           </Form.Item>
 
           <Form.Item>

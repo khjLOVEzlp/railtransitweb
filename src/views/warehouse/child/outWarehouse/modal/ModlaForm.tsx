@@ -1,12 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Form, Input, Modal } from "antd";
-import { useResetFormOnCloseModal } from "../../../../../hook/useResetFormOnCloseModal";
-import { rules } from "../../../../../utils/verification";
-
-/*const layout = {
-  labelCol: {span: 4},
-  wrapperCol: {span: 20},
-};*/
+import { useResetFormOnCloseModal } from "hook/useResetFormOnCloseModal";
+import { rules } from "utils/verification";
 
 interface ModalFormProps {
   visible: boolean;

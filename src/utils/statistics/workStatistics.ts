@@ -21,7 +21,9 @@ export const useProjectsSearchParams = () => {
 export const useWorkStatistics = (params?: any) => {
   const client = useHttp()
   return useQuery(['WorkStatistics', cleanObject(params)], () =>
-    client(`report/getPersonWork?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    client(`report/getPersonWork?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: Boolean(params.subwayId) && Boolean(params.time)
+  }
   )
 }
 
@@ -29,7 +31,9 @@ export const useWorkStatistics = (params?: any) => {
 export const useWorkStatisticsDetail = (params?: any) => {
   const client = useHttp()
   return useQuery(['WorkStatisticsDetail', cleanObject(params)], () =>
-    client(`report/getPersonWorkMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    client(`report/getPersonWorkMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: Boolean(params.subwayId) && Boolean(params.time)
+  }
   )
 }
 

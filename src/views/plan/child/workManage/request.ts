@@ -30,7 +30,13 @@ export const useInit = (params?: Partial<Search>) => {
 /* 查看详情 */
 export const useHistoryDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['historyDetail', id], () => client(`planWork/getWeb/${id}`), {
+  return useQuery(['historyDetail', id], async () => {
+    const data = await client(`planWork/getWeb/${id}`)
+    data.data.webGroupList.map((key: any) => {
+      key["personName"] = key["groupName"]
+    })
+    return data
+  }, {
     enabled: Boolean(id)
   })
 }

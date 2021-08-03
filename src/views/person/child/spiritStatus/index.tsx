@@ -3,9 +3,14 @@ import styled from "@emotion/styled";
 import { useInit, useProjectsSearchParams } from './request';
 import { useDebounce } from 'hook/useDebounce';
 import { Search } from 'utils/typings';
+import { useState } from 'react';
 
 export const SpiritStatus = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
 
   const { data, isLoading } = useInit(useDebounce(param, 500))
 

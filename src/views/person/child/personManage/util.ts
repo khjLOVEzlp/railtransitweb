@@ -1,34 +1,30 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { usePersonDetail } from "./request";
 
 export const usePersonModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ createPerson }, setCreatePerson] = useUrlQueryParam([
-    "createPerson"
-  ])
-
-  const [{ editingPersonId }, setEditingPersonId] = useUrlQueryParam([
-    "editingPersonId",
-  ]);
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
   const { data: editingPerson, isLoading, isSuccess } = usePersonDetail(
-    Number(editingPersonId)
+    Number(editId)
   );
 
-  const open = () => setCreatePerson({ createPerson: true })
-  const close = () => setUrlParams({ editingPersonId: "", createPerson: "" });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingPersonId({ editingPersonId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: createPerson === "true" || Boolean(editingPersonId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingPerson,
     isLoading,
-    editingPersonId,
+    editId,
     isSuccess
   };
 };

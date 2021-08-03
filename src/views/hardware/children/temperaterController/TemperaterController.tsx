@@ -5,7 +5,7 @@ import { useDebounce } from 'hook/useDebounce';
 import { useTemModal } from './util'
 import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
-import { Header, Main } from '../component/Styled';
+import { Header, Main } from 'components/Styled';
 
 export const TemperaterController = () => {
   const [param, setParam] = useProjectsSearchParams()

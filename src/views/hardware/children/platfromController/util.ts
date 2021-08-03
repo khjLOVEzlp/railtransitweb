@@ -1,33 +1,29 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { usePlaDetail } from "./request";
 
 export const usePlaModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ createPla }, setCreatePla] = useUrlQueryParam([
-    "createPla"
-  ])
-
-  const [{ editingPlaId }, setEditingPlaId] = useUrlQueryParam([
-    "editingPlaId",
-  ]);
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
   const { data: editingPla, isLoading } = usePlaDetail(
-    Number(editingPlaId)
+    Number(editId)
   );
 
-  const open = () => setCreatePla({ createPla: true })
-  const close = () => setUrlParams({ editingPlaId: "", createPla: "" });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingPlaId({ editingPlaId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: createPla === "true" || Boolean(editingPlaId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingPla,
     isLoading,
-    editingPlaId
+    editId
   };
 };

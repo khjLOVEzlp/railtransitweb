@@ -1,33 +1,29 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { usePlanTypeDetail } from "./request";
 
 export const usePlanTypeModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ createPlanType }, setCreatePlanType] = useUrlQueryParam([
-    "createPlanType"
-  ])
-
-  const [{ editingPlanTypeId }, setEditingPlanTypeId] = useUrlQueryParam([
-    "editingPlanTypeId",
-  ]);
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
   const { data: editingPlanType, isLoading } = usePlanTypeDetail(
-    Number(editingPlanTypeId)
+    Number(editId)
   );
 
-  const open = () => setCreatePlanType({ createPlanType: true })
-  const close = () => setUrlParams({ editingPlanTypeId: "", createPlanType: "" });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingPlanTypeId({ editingPlanTypeId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: createPlanType === "true" || Boolean(editingPlanTypeId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingPlanType,
     isLoading,
-    editingPlanTypeId
+    editId
   };
 };

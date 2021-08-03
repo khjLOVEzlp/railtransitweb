@@ -4,11 +4,15 @@ import { ModalForm } from "./modal/ModalForm";
 import { useDel, useInit } from './request';
 import { useDebounce } from 'hook/useDebounce';
 import { useMenuModal } from './util'
-import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
+import { useState } from 'react';
 
 export const Menu = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
   const { open, startEdit } = useMenuModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()

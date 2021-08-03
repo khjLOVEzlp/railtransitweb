@@ -24,7 +24,13 @@ export const useProjectsSearchParams = () => {
  */
 export const usePerson = () => {
   const client = useHttp()
-  return useQuery(['person'], () => client(`person/getAllPerson`))
+  return useQuery(['person'], async () => {
+    const data = await client(`person/getAllPerson`)
+    data.data.forEach((key: any, index: number) => {
+      key["key"] = index + 1
+    })
+    return data
+  })
 }
 
 /*

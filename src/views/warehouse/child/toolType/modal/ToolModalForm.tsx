@@ -1,4 +1,4 @@
-import { Modal, Spin } from "antd"
+import { Modal, Spin, Table } from "antd"
 import { useForm } from "antd/lib/form/Form";
 import { useToolModal } from '../util'
 
@@ -30,14 +30,26 @@ export const ToolModalForm = () => {
           isLoading ? (
             <Spin />
           ) : (
-            viewTool?.data.map((item: any) => (
-              <div key={item.id} style={{ marginBottom: "1rem" }}>
-                <div>标签：{item.labelNum ? item.labelNum : "无"}</div>
-                <div>使用状态：{item.useStatus === 0 ? "未使用" : "使用中"}</div>
-                <div>失效状态：{item.status === 0 ? "正常" : "快过期"}</div>
-                <div>失效时间：{item.invalidTimemoment ? (item.invalidTime).format("YYYY-MM-DD HH:mm:ss") : "无"}</div>
-              </div>
-            ))
+            <Table columns={[
+              {
+                title: "标签",
+                dataIndex: "labelNum"
+              },
+              {
+                title: "使用状态",
+                dataIndex: "useStatus"
+              },
+              {
+                title: "失效状态",
+                dataIndex: "status"
+              },
+              {
+                title: "失效时间",
+                dataIndex: "invalidTime"
+              },
+            ]}
+              dataSource={viewTool?.data}
+            />
           )
         }
       </Modal>

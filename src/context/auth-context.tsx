@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Spin } from "antd";
-import React, { createContext, ReactNode, useContext, useEffect } from "react";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import * as auth from '../auth-provider'
 import { useAsync } from "../hook/useAsync";
 import { FullPageErrorFallback } from "../components/lib";
@@ -15,6 +15,12 @@ const AuthContext = createContext<| {
   } | null;
   login: (form: AuthForm) => Promise<void>;
   logout: () => Promise<void>;
+  visible: boolean;
+  setVisible: (visible: boolean) => void;
+  editId: number | undefined
+  setEditId: (editId: number | undefined) => void
+  drawer: boolean
+  setDrawer: (drawer: boolean) => void
 }
   | undefined>(undefined)
 
@@ -61,6 +67,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   } | null>();
   const queryClient = useQueryClient();
 
+  const [visible, setVisible] = useState<boolean>(false)
+  const [editId, setEditId] = useState<number | undefined>(undefined)
+  const [drawer, setDrawer] = useState<boolean>(false)
+
   const login = (form: AuthForm) => auth.login(form).then(setUser)
 
   const logout = () => auth.logout().then(() => {
@@ -81,7 +91,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider children={children} value={{ user, login, logout }} />
+    <AuthContext.Provider children={children} value={{ user, login, logout, visible, setVisible, editId, setEditId, drawer, setDrawer }} />
   )
 }
 

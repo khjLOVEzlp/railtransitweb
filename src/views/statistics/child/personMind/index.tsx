@@ -8,28 +8,26 @@ import {
   useMindStatistics,
   useMindStatisticsDetail
 } from './request'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const PersonMind = () => {
   const { data: lineList } = useLineList()
   const { open } = useMindModal()
-  const [param, setParam] = useProjectsSearchParams()
-  const { data: mindStatistics, isLoading, isError } = useMindStatistics(param)
+  const [param, setParam] = useState({
+    time: "",
+    subwayId: ""
+  })
+
+  const { data: mindStatistics, isSuccess } = useMindStatistics(param)
   console.log(mindStatistics);
 
   const lineChange = (value: any) => {
-    setParam({ subwayId: value })
+    setParam({ ...param, subwayId: value })
   }
 
   const timeChange = (value: any) => {
-    setParam({ time: value })
+    setParam({ ...param, time: value })
   }
-
-  useEffect(() => {
-    if (lineList) {
-      setParam({ subwayId: lineList?.data[0]?.id, time: 3 })
-    }
-  }, [lineList])
 
   /* const config = {
     data: data,
@@ -45,7 +43,7 @@ export const PersonMind = () => {
 
   const Aconfig = {
     appendPadding: 10,
-    data: isLoading || isError ? [] : mindStatistics?.data,
+    data: isSuccess ? mindStatistics?.data : [],
     angleField: 'isAlcNormal',
     colorField: 'className',
     radius: 0.8,
@@ -55,7 +53,7 @@ export const PersonMind = () => {
 
   const Bconfig = {
     appendPadding: 10,
-    data: isLoading || isError ? [] : mindStatistics?.data,
+    data: isSuccess ? mindStatistics?.data : [],
     angleField: 'isBloodNormal',
     colorField: 'className',
     radius: 0.8,
@@ -76,7 +74,7 @@ export const PersonMind = () => {
 
   const Cconfig = {
     appendPadding: 10,
-    data: isLoading || isError ? [] : mindStatistics?.data,
+    data: isSuccess ? mindStatistics?.data : [],
     angleField: 'isTemNormal',
     colorField: 'className',
     radius: 0.8,
@@ -196,7 +194,11 @@ const PersonMindModal = () => {
       footer={false}
       width={1600}
     >
-      <Table columns={columns} pagination={false} />
+      <Table
+        columns={columns}
+        pagination={false}
+        rowKey={(item: any, index: any) => index}
+      />
     </Modal>
   )
 }

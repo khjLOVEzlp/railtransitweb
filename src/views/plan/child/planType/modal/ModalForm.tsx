@@ -15,7 +15,7 @@ export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const { ModalOpen, close, isLoading, editingPlanType, editingPlanTypeId } = usePlanTypeModal()
+  const { ModalOpen, close, isLoading, editingPlanType, editId } = usePlanTypeModal()
   const title = editingPlanType ? "修改" : "新增"
   const msg = editingPlanType ? () => {
     message.success("修改成功")
@@ -39,7 +39,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingPlanType, ...value, id: editingPlanTypeId }).then(() => {
+    mutateAsync({ ...editingPlanType, ...value, id: editId }).then(() => {
       msg()
       form.resetFields()
     })

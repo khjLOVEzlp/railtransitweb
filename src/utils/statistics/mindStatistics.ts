@@ -4,6 +4,7 @@ import { useHttp } from '../http'
 import { cleanObject } from "../index";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useMemo } from "react";
+import { Search } from 'utils/typings';
 
 /*项目列表搜索的参数*/
 export const useProjectsSearchParams = () => {
@@ -18,7 +19,7 @@ export const useProjectsSearchParams = () => {
 };
 
 /*精神分析统计*/
-export const useMindStatistics = (params?: any) => {
+export const useMindStatistics = (params: Partial<Search>) => {
   const client = useHttp()
   return useQuery(['MindStatistics', cleanObject(params)], async () => {
     const data = await client(`report/getPersonMind?${qs.stringify(cleanObject(params))}`, { method: "POST" })
@@ -27,19 +28,20 @@ export const useMindStatistics = (params?: any) => {
       if (key["isBloodNormal"]) key["isBloodNormal"] = key["isBloodNormal"].replace("%", "")
       if (key["isTemNormal"]) key["isTemNormal"] = key["isTemNormal"].replace("%", "")
     })
-
-    console.log(data);
-
     return data
+  }, {
+    enabled: Boolean(params.subwayId) && Boolean(params.time)
   }
   )
 }
 
 /*精神分析统计详情*/
-export const useMindStatisticsDetail = (params?: any) => {
+export const useMindStatisticsDetail = (params: Partial<Search>) => {
   const client = useHttp()
   return useQuery(['MindStatisticsDetail', cleanObject(params)], () =>
-    client(`report/getPersonMindMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    client(`report/getPersonMindMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: Boolean(params.subwayId) && Boolean(params.time)
+  }
   )
 }
 

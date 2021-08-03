@@ -2,13 +2,17 @@ import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from "./modal/ModalForm";
 import { useDel, useInit } from './request';
-import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { useDebounce } from 'hook/useDebounce';
 import { useRoleModal } from './util'
 import { Search } from 'utils/typings';
+import { useState } from 'react';
 
 export const Role = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
   const { open, startEdit } = useRoleModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()

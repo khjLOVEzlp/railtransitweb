@@ -1,33 +1,29 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useDepartmentDetail} from "utils/system/department";
+import { useAuth } from "context/auth-context";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useDepartmentDetail } from "utils/system/department";
 
 export const useDepartmentModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const [{createDepartment}, setCreateDepartment] = useUrlQueryParam([
-    "createDepartment"
-  ])
-
-  const [{editingDepartmentId}, setEditingDepartmentId] = useUrlQueryParam([
-    "editingDepartmentId",
-  ]);
-
-  const {data: editingDepartment, isLoading} = useDepartmentDetail(
-    Number(editingDepartmentId)
+  const { data: editingDepartment, isLoading } = useDepartmentDetail(
+    Number(editId)
   );
 
-  const open = () => setCreateDepartment({createDepartment: true})
-  const close = () => setUrlParams({editingDepartmentId: "", createDepartment: ""});
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingDepartmentId({editingDepartmentId: id});
+    setEditId(id)
 
   return {
-    ModalOpen: createDepartment === "true" || Boolean(editingDepartmentId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingDepartment,
     isLoading,
-    editingDepartmentId
+    editId
   };
 };

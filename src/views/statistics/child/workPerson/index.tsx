@@ -8,31 +8,29 @@ import {
   useWorkModal,
   useWorkStatisticsDetail
 } from 'utils/statistics/workStatistics'
-import { useEffect } from "react";
+import { useState } from "react";
 
 export const WorkPerson = () => {
   const { data: lineList } = useLineList()
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    time: "",
+    subwayId: ""
+  })
+
   const { open, ModalOpen } = useWorkModal()
 
-  useEffect(() => {
-    if (lineList) {
-      setParam({ subwayId: lineList?.data[0]?.id, time: 3 })
-    }
-  }, [lineList, ModalOpen])
-
-  const { data: workStatistics, isLoading, isError } = useWorkStatistics(param)
+  const { data: workStatistics, isSuccess } = useWorkStatistics(param)
 
   const lineChange = (value: any) => {
-    setParam({ subwayId: value })
+    setParam({ ...param, subwayId: value })
   }
 
   const timeChange = (value: any) => {
-    setParam({ time: value })
+    setParam({ ...param, time: value })
   }
 
   const config = {
-    data: isLoading || isError ? [] : workStatistics?.data,
+    data: isSuccess ? workStatistics?.data : [],
     xField: 'className',
     yField: 'classId',
     maxColumnWidth: 100,

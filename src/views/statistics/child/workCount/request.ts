@@ -2,6 +2,7 @@ import qs from 'qs'
 import { useQuery, useMutation } from 'react-query'
 import { cleanObject } from 'utils/index'
 import { useHttp } from 'utils/http'
+import { Search } from 'utils/typings'
 
 /* 所有地铁路线 */
 export const useLineList = () => {
@@ -13,19 +14,23 @@ export const useLineList = () => {
 /*
 日报
  */
-export const useDay = (params: any) => {
+export const useDay = (params: Partial<Search>) => {
   const client = useHttp()
   return useQuery(['getDay', cleanObject(params)], () =>
-    client(`report/getDay?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+    client(`report/getDay?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: Boolean(params.date) && Boolean(params.subwayId)
+  })
 }
 
 /*
-日报
+月报
  */
 export const useMonth = (params: any) => {
   const client = useHttp()
   return useQuery(['getMonth', cleanObject(params)], () =>
-    client(`report/getMonth?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+    client(`report/getMonth?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+    enabled: Boolean(params.date) && Boolean(params.subwayId)
+  })
 }
 
 /*

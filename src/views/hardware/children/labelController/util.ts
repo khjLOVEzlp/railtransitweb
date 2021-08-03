@@ -1,33 +1,30 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useLabDetail } from "./request";
 
 export const useLabModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const [{ createLab }, setCreateLab] = useUrlQueryParam([
-    "createLab"
-  ])
-
-  const [{ editingLabId }, setEditingLabId] = useUrlQueryParam([
-    "editingLabId",
-  ]);
 
   const { data: editingLab, isLoading } = useLabDetail(
-    Number(editingLabId)
+    Number(editId)
   );
 
-  const open = () => setCreateLab({ createLab: true })
-  const close = () => setUrlParams({ editingLabId: "", createLab: "" });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingLabId({ editingLabId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: createLab === "true" || Boolean(editingLabId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingLab,
     isLoading,
-    editingLabId
+    editId
   };
 };

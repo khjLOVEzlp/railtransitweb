@@ -1,15 +1,15 @@
-import {Button, Form, Input, message, Modal, Spin} from "antd";
+import { Button, Form, Input, message, Modal, Spin } from "antd";
 import { rules } from "utils/verification";
-import {useDictTypeModal} from './util'
-import {useAdd, useMod} from "utils/system/dictType";
-import {useEffect} from "react";
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import { useDictTypeModal } from './util'
+import { useAdd, useMod } from "utils/system/dictType";
+import { useEffect } from "react";
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const {ModalOpen, isLoading, close, editingDictType, editingDictTypeId} = useDictTypeModal()
+  const { ModalOpen, isLoading, close, editingDictType, editId } = useDictTypeModal()
   const title = editingDictType ? "修改" : "新增"
   const msg = editingDictType ? () => {
     message.success("修改成功")
@@ -17,10 +17,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createDictType: ""})
+    setUrlParams({ index: 1, createDictType: "" })
   }
   const useMutateProject = editingDictType ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingDictType?.data)
@@ -36,7 +36,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingDictType, ...value, id: editingDictTypeId}).then((res) => {
+    mutateAsync({ ...editingDictType, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -53,7 +53,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}

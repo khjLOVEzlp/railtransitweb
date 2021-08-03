@@ -13,11 +13,11 @@ const { Option } = Select;
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const { data: userList } = useUserList()
-  const { data: personList } = useInit()
+  const { data: personList } = useInit({})
   const { data: roleList } = useRoleAll()
 
   const setUrlParams = useSetUrlSearchParam();
-  const { ModalOpen, isLoading, close, editingUser, editingUserId } = useUserModal()
+  const { ModalOpen, isLoading, close, editingUser, editId } = useUserModal()
   const title = editingUser ? "修改" : "新增"
   const msg = editingUser ? () => {
     message.success("修改成功")
@@ -40,7 +40,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingUser, ...value, id: editingUserId }).then((res) => {
+    mutateAsync({ ...editingUser, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

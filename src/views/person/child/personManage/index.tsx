@@ -7,12 +7,17 @@ import { usePersonModal, useImportModal } from './util'
 import { useAuth } from "../../../../context/auth-context";
 import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
+import { useState } from 'react';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export const PersonManage = () => {
   const { user } = useAuth()
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
   const { open, startEdit } = usePersonModal()
   const { open: openImportModal } = useImportModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))

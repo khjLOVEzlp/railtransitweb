@@ -5,9 +5,15 @@ import { useDel, useInit, useProjectsSearchParams } from './request';
 import { useDebounce } from "hook/useDebounce";
 import { usePlanTypeModal } from './util'
 import { Search } from 'utils/typings';
+import { useState } from 'react';
 
 export const PlanType = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    type: ""
+  })
+
   const { open, startEdit } = usePlanTypeModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()

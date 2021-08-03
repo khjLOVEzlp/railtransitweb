@@ -1,33 +1,29 @@
+import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useMenuDetail } from "./request";
 
 export const useMenuModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ createMenu }, setCreateMenu] = useUrlQueryParam([
-    "createMenu"
-  ])
-
-  const [{ editingMenuId }, setEditingMenuId] = useUrlQueryParam([
-    "editingMenuId",
-  ]);
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
   const { data: editingMenu, isLoading } = useMenuDetail(
-    Number(editingMenuId)
+    Number(editId)
   );
 
-  const open = () => setCreateMenu({ createMenu: true })
-  const close = () => setUrlParams({ editingMenuId: "", createMenu: "" });
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingMenuId({ editingMenuId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: createMenu === "true" || Boolean(editingMenuId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingMenu,
     isLoading,
-    editingMenuId
+    editId
   };
 };

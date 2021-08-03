@@ -1,60 +1,74 @@
 import { useRoutes } from 'react-router-dom'
 /*首页*/
-import { Home } from "../views/home";
+import { Home } from "views/home";
 /*作业计划*/
-import { Plan } from "../views/plan";
-import { PlanWork } from "../views/plan/child/planWork";
+import { Plan } from "views/plan";
+import { PlanWork } from "views/plan/child/planWork";
 /*作业类型*/
-import { PlanType } from "../views/plan/child/planType";
+import { PlanType } from "views/plan/child/planType";
 /*作业历史*/
-import { WorkManage } from "../views/plan/child/workManage";
+import { WorkManage } from "views/plan/child/workManage";
 /*告警上报*/
-import { Alarm } from "../views/alarm";
+import { Alarm } from "views/alarm";
 /*统计分析*/
-import { Statistics } from "../views/statistics";
+import { Statistics } from "views/statistics";
 /*作业统计*/
-import { WorkCount } from "../views/statistics/child/workCount";
+import { WorkCount } from "views/statistics/child/workCount";
 /*告警统计*/
-import { WorkWarn } from "../views/statistics/child/workWarn";
+import { WorkWarn } from "views/statistics/child/workWarn";
 /*到岗统计*/
-import { WorkPerson } from "../views/statistics/child/workPerson";
+import { WorkPerson } from "views/statistics/child/workPerson";
 /*精神分析*/
-import { PersonMind } from "../views/statistics/child/personMind";
+import { PersonMind } from "views/statistics/child/personMind";
 /*人员管理*/
-import { Person } from "../views/person";
-import { PersonManage } from '../views/person/child/personManage';
+import { Person } from "views/person";
+import { PersonManage } from 'views/person/child/personManage';
 /*精神状态*/
-import { SpiritStatus } from '../views/person/child/spiritStatus';
+import { SpiritStatus } from 'views/person/child/spiritStatus';
 /*系统管理*/
-import { System } from "../views/system";
+import { System } from "views/system";
 /*用户管理*/
-import { User } from "../views/system/child/user";
+import { User } from "views/system/child/user";
 /*角色管理*/
-import { Role } from "../views/system/child/role";
+import { Role } from "views/system/child/role";
 /*菜单管理*/
-import { Menu } from "../views/system/child/menu";
+import { Menu } from "views/system/child/menu";
 /*地铁管理*/
-import { Line } from "../views/system/child/line";
+import { Line } from "views/system/child/line";
 /*日志管理*/
-import { Log } from "../views/system/child/log";
+import { Log } from "views/system/child/log";
 /*部门管理*/
-import { Department } from "../views/system/child/department";
+import { Department } from "views/system/child/department";
 /*数据字典*/
-import { DataDictionary } from "../views/system/child/dataDictionary";
+import { DataDictionary } from "views/system/child/dataDictionary";
 /*工具类型*/
-import { MaterialType } from "../views/warehouse/child/materialType";
+import { MaterialType } from "views/warehouse/child/materialType";
 /*仓库管理*/
-import { ToolType } from "../views/warehouse/child/toolType";
+import { ToolType } from "views/warehouse/child/toolType";
 /**/
-// import { Temperature } from "../views/system/child/temperature";
+// import { Temperature } from "views/system/child/temperature";
 /*入库记录*/
-import { InWarehouse } from "../views/warehouse/child/inWarehouse";
+import { InWarehouse } from "views/warehouse/child/inWarehouse";
 /*出库记录*/
-import { OutWarehouse } from "../views/warehouse/child/outWarehouse";
+import { OutWarehouse } from "views/warehouse/child/outWarehouse";
 /*库存管理*/
-import { Warehouse } from "../views/warehouse";
+import { Warehouse } from "views/warehouse";
 /*设备管理*/
-import { Hardware } from "../views/hardware";
+import { Hardware } from "views/hardware";
+/* 防分离器 */
+import { SeperateController } from 'views/hardware/children/seperateController/SeperateController';
+/* 酒精测试仪 */
+import { AlcoholController } from 'views/hardware/children/alcoholController/AlcoholController';
+/* 流量卡 */
+import { SimCardController } from 'views/hardware/children/simCardController/SimCardController';
+/* 标签 */
+import { LabelController } from 'views/hardware/children/labelController/LabelController';
+/* 手持机 */
+import { PlatfromController } from 'views/hardware/children/platfromController/PlatfromController';
+/* 工卡 */
+import { RfidCardController } from 'views/hardware/children/rfidCardController/RfidCardController';
+/* 体温测试仪 */
+import { TemperaterController } from 'views/hardware/children/temperaterController/TemperaterController';
 
 import { Navigate } from "react-router";
 
@@ -107,7 +121,32 @@ export const RouterElement = () => {
     },
     /* 设备管理 */
     {
-      path: "/hardware", element: <Hardware />
+      path: "/hardware", element: <Hardware />, children: [
+        {
+          path: "seperate", element: <SeperateController />
+        },
+        {
+          path: "alcohol", element: <AlcoholController />
+        },
+        {
+          path: "sim", element: <SimCardController />
+        },
+        {
+          path: "label", element: <LabelController />
+        },
+        {
+          path: "platfrom", element: <PlatfromController />
+        },
+        {
+          path: "rfid", element: <RfidCardController />
+        },
+        {
+          path: "temperater", element: <TemperaterController />
+        },
+        {
+          path: "/", element: <Navigate to={"/hardware/seperate"} />
+        }
+      ]
     },
     /* 人员管理 */
     {

@@ -1,19 +1,19 @@
-import React, {useEffect} from "react";
-import {Button, Form, Input, message, Modal, Select, Spin, TreeSelect} from "antd";
-import {useProjectModal} from "../../../util";
-import {useAdd, useMod} from "utils/system/lineClass";
-import {useWarehouse} from "utils/warehouse/toolType";
-import {rules} from "utils/verification";
-import {useLineClassModal} from './util'
-import {useInit} from "utils/system/lineRoad";
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import React, { useEffect } from "react";
+import { Button, Form, Input, message, Modal, Select, Spin, TreeSelect } from "antd";
+import { useProjectModal } from "../../../util";
+import { useAdd, useMod } from "utils/system/lineClass";
+import { useWarehouse } from "utils/warehouse/toolType";
+import { rules } from "utils/verification";
+import { useLineClassModal } from './util'
+import { useInit } from "utils/system/lineRoad";
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 import * as department from 'utils/system/department'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
-  const {editingProjectId} = useProjectModal()
-  const {ModalOpen, close, editingLineClass, editingLineClassId, isLoading} = useLineClassModal()
+  const { editId } = useProjectModal()
+  const { ModalOpen, close, editingLineClass, classId, isLoading } = useLineClassModal()
   const title = editingLineClass ? "修改" : "新增"
   const msg = editingLineClass ? () => {
     message.success("修改成功")
@@ -21,17 +21,17 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createLineClass: ""})
+    setUrlParams({ index: 1, createLineClass: "" })
   }
   const useMutateProject = editingLineClass ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingLineClass?.data)
   }, [form, editingLineClass])
 
-  const {data: roadList} = useInit({index: 1, size: 1000, lineId: editingProjectId})
-  const {data: warehouse} = useWarehouse()
+  const { data: roadList } = useInit({ index: 1, size: 1000, lineId: editId })
+  const { data: warehouse } = useWarehouse()
 
   const closeModal = () => {
     form.resetFields()
@@ -39,7 +39,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingLineClass, ...value, id: editingLineClassId, lineId: editingProjectId}).then((res) => {
+    mutateAsync({ ...editingLineClass, ...value, id: classId, lineId: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -49,10 +49,10 @@ export const ModalForm = () => {
     })
   }
 
-  const {data: departmentList} = department.useInit()
+  const { data: departmentList } = department.useInit()
 
   const onChange = (value: any) => {
-    form.setFieldsValue({parentId: value})
+    form.setFieldsValue({ parentId: value })
   };
 
   const onOk = () => {
@@ -61,12 +61,12 @@ export const ModalForm = () => {
 
   return (
     <Modal title={title} width={800} visible={ModalOpen} onOk={onOk} onCancel={closeModal}
-           footer={[<Button key="back" onClick={closeModal}>取消</Button>,
-             <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>]}
+      footer={[<Button key="back" onClick={closeModal}>取消</Button>,
+      <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>]}
     >
       {
         isLoading ? (
-          <Spin/>
+          <Spin />
         ) : (
           <Form
             form={form}
@@ -80,7 +80,7 @@ export const ModalForm = () => {
               rules={rules}
             >
               <TreeSelect
-                style={{width: '100%'}}
+                style={{ width: '100%' }}
                 treeData={departmentList?.data}
                 treeDefaultExpandAll
                 onChange={onChange}
@@ -99,7 +99,7 @@ export const ModalForm = () => {
                 }
               >
                 {roadList?.data.map((item: any) => <Select.Option value={item.id}
-                                                                  key={item.id}>{item.name}</Select.Option>)}
+                  key={item.id}>{item.name}</Select.Option>)}
               </Select>
             </Form.Item>
 
@@ -117,7 +117,7 @@ export const ModalForm = () => {
                 }
               >
                 {warehouse?.data.map((item: any) => <Select.Option value={item.id}
-                                                                                  key={item.id}>{item.name}</Select.Option>)}
+                  key={item.id}>{item.name}</Select.Option>)}
               </Select>
             </Form.Item>
 
@@ -125,7 +125,7 @@ export const ModalForm = () => {
               label="备注"
               name="remark"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Form>
         )

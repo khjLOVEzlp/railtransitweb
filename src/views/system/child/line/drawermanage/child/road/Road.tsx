@@ -1,21 +1,21 @@
-import {Button, Form, Input, message, Popconfirm, Table} from "antd";
+import { Button, Form, Input, message, Popconfirm, Table } from "antd";
 import styled from "@emotion/styled";
-import {useDel, useInit, useProjectsSearchParams} from "utils/system/lineRoad";
-import {useDebounce} from "hook/useDebounce";
-import {useProjectModal} from '../../../util'
-import {ModalForm} from "./ModalForm";
-import {useLineRoadModal} from './util'
+import { useDel, useInit, useProjectsSearchParams } from "utils/system/lineRoad";
+import { useDebounce } from "hook/useDebounce";
+import { useProjectModal } from '../../../util'
+import { ModalForm } from "./ModalForm";
+import { useLineRoadModal } from './util'
 
 export const Road = () => {
   const [param, setParam] = useProjectsSearchParams()
-  const {editingProjectId} = useProjectModal()
-  const {open, startEdit} = useLineRoadModal()
+  const { editId } = useProjectModal()
+  const { open, startEdit } = useLineRoadModal()
 
-  const {data, isLoading} = useInit(useDebounce({...param, lineId: editingProjectId}, 500))
-  const {mutateAsync: Del} = useDel()
+  const { data, isLoading } = useInit(useDebounce({ ...param, lineId: editId }, 500))
+  const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setParam({...param, name: item.name, index: 1})
+    setParam({ ...param, name: item.name, index: 1 })
   };
 
   const confirm = (id: number) => {
@@ -24,7 +24,7 @@ export const Road = () => {
         message.error(res.msg)
       } else {
         message.success('删除成功')
-        setParam({...param, index: 1})
+        setParam({ ...param, index: 1 })
       }
     })
   }
@@ -34,7 +34,7 @@ export const Road = () => {
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -50,7 +50,7 @@ export const Road = () => {
             name="name"
           >
             <Input placeholder={"区间"} value={param.name}
-                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
           <Form.Item>
@@ -97,13 +97,13 @@ export const Road = () => {
               <Button type="link">删除</Button>
             </Popconfirm></>)
           },
-        ]} pagination={{total: data?.count, current: param.index, pageSize: param.size}}
-               onChange={handleTableChange}
-               loading={isLoading}
-               dataSource={data?.data}
-               rowKey={(item: any) => item.id}
+        ]} pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+          onChange={handleTableChange}
+          loading={isLoading}
+          dataSource={data?.data}
+          rowKey={(item: any) => item.id}
         />
-        <ModalForm/>
+        <ModalForm />
       </Main>
     </Contianer>
   )

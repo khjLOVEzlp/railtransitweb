@@ -15,7 +15,7 @@ import {
 } from "antd";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { getToken } from "../../../../../auth-provider";
 import { rules } from "utils/verification";
 import { usePlanType } from "../../planType/request";
@@ -24,7 +24,7 @@ import { useSite } from "../request";
 import { useMaterialType } from "utils/warehouse/materialType";
 import { usePerson } from "views/person/child/personManage/request";
 import { AddToolModal } from './AddToolModal'
-import { usePlanWorkModal } from '../util'
+import { usePlanWorkModal, useAddToolModal } from '../util'
 import { useAdd, useMod } from "../request";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 import { useInitDepartment } from 'utils/system/department'
@@ -42,8 +42,8 @@ export const ModalForm = () => {
   const [value, setValue] = useState()
   const [id, setId] = useState<number>(0)
   const setUrlParams = useSetUrlSearchParam();
-
-  const { ModalOpen, isLoading, close, editingPlanWork, editingPlanWorkId, isSuccess } = usePlanWorkModal()
+  const { open } = useAddToolModal()
+  const { ModalOpen, isLoading, close, editingPlanWork, editId, isSuccess } = usePlanWorkModal()
   const title = editingPlanWork ? "修改" : "新增"
   const msg = editingPlanWork ? () => {
     message.success("修改成功")
@@ -77,24 +77,25 @@ export const ModalForm = () => {
 
   const onFinish = (value: any) => {
     const { beginTime, dateTime, endTime, warnTime, groupList } = value
-    const temp = JSON.parse(JSON.stringify(value))
-    temp.groupList.forEach((item: any) => {
-      for (let i = 0; i < item.personList.length; i++) {
-        let temp = item.personList[i];
-        item.personList[i] = { personId: temp, id: temp };
-      }
-    });
+    // const temp = JSON.parse(JSON.stringify(value))
+    // temp.groupList.forEach((item: any) => {
+    //   for (let i = 0; i < item.personList.length; i++) {
+    //     let temp = item.personList[i];
+    //     item.personList[i] = { personId: temp, id: temp };
+    //   }
+    // });
 
-    console.log(temp)
+    // console.log(temp)
 
     mutateAsync({
       ...editingPlanWork,
-      ...temp,
+      // ...temp,
+      ...value,
       dateTime: moment(dateTime).format("YYYY-MM-DD"),
       beginTime: moment(beginTime).format("YYYY-MM-DD HH:mm:ss"),
       endTime: moment(endTime).format("YYYY-MM-DD HH:mm:ss"),
       warnTime: moment(warnTime).format("YYYY-MM-DD HH:mm:ss"),
-      id: editingPlanWorkId,
+      id: editId,
     }).then(() => {
       msg()
       form.resetFields()
@@ -285,7 +286,7 @@ export const ModalForm = () => {
                 name="typeList"
                 rules={rules}
               >
-                  <Select style={{ width: "100%" }} allowClear mode="multiple" getPopupContainer={triggerNode => triggerNode.parentElement}>
+                <Select style={{ width: "100%" }} allowClear mode="multiple" getPopupContainer={triggerNode => triggerNode.parentElement}>
                   {planTypeList?.data.map((item: any, index: number) => <Option value={item.id}
                     key={index}>{item.type}</Option>)}
                 </Select>
@@ -414,287 +415,9 @@ export const ModalForm = () => {
               </Form.Item>
             </Space>
 
-            {/*<Form.Item>
-              <Button style={{width: "100%"}} onClick={addTool}>添加工具</Button>
-            </Form.Item>
-
             <Form.Item>
-              <Button style={{width: "100%"}} onClick={addMaterial}>添加物料</Button>
-            </Form.Item>*/}
-
-            {/*添加物料*/}
-            <Form.List name="materialList">
-              {(fields, { add, remove }) => (
-                <>
-                  {fields.map(({ key, name, fieldKey, ...restField }) => (
-                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                      <Form.Item
-                        style={{ width: '100%' }}
-                        {...restField}
-                        name={[name, 'materialId']}
-                        fieldKey={[fieldKey, 'materialId']}
-                        rules={rules}
-                      >
-                        <Select
-                          onChange={materialListChange}
-                          showSearch
-                          filterOption={(input, option: any) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                          }
-                          placeholder={"请选择物料"}
-                        >
-                          {
-                            material?.data.map((item: any) => <Option value={item.id}
-                              key={item.id}>{item.name}</Option>)
-                          }
-                        </Select>
-                      </Form.Item>
-                      <Form.Item
-                        style={{ width: '100%' }}
-                        {...restField}
-                        name={[name, 'num']}
-                        fieldKey={[fieldKey, 'num']}
-                        rules={rules}
-                        getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
-                      >
-                        <Input placeholder="数量" />
-                      </Form.Item>
-                      <MinusCircleOutlined onClick={() => remove(name)} />
-                    </Space>
-                  ))}
-                  <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                      添加物料
-                    </Button>
-                  </Form.Item>
-                </>
-              )}
-            </Form.List>
-
-            {/*添加工具*/}
-            <Form.List name="toolList">
-              {(fields, { add, remove }) => (
-                <>
-                  {fields.map(({ key, name, fieldKey, ...restField }) => (
-                    <Space key={key} style={{ display: 'flex', marginBottom: 8, width: '100%' }} align="baseline">
-                      <Form.Item
-                        style={{ width: '100%' }}
-                        {...restField}
-                        name={[name, 'toolId']}
-                        fieldKey={[fieldKey, 'toolId']}
-                        rules={rules}
-                      >
-                        <Select
-                          onChange={materialListChange}
-                          showSearch
-                          filterOption={(input, option: any) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                          }
-                          placeholder={"请选择工具"}
-                        >
-                          {
-                            material?.data.map((item: any) => <Option value={item.id}
-                              key={item.id}>{item.name}</Option>)
-                          }
-                        </Select>
-                      </Form.Item>
-                      <Form.Item
-                        style={{ width: '100%' }}
-                        {...restField}
-                        name={[name, 'num']}
-                        fieldKey={[fieldKey, 'num']}
-                        rules={rules}
-                        getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
-                      >
-                        <Input placeholder="数量" />
-                      </Form.Item>
-                      <MinusCircleOutlined onClick={() => remove(name)} />
-                    </Space>
-                  ))}
-                  <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                      添加工具
-                    </Button>
-                  </Form.Item>
-                </>
-              )}
-            </Form.List>
-
-            {/*添加小组*/}
-            <Form.List name="groupList">
-              {(fields, { add, remove }) => (
-                <>
-                  {fields.map(({ key, name, fieldKey, ...restField }) => (
-                    <>
-                      <Space style={{ width: "100%" }}>
-                        <Form.Item
-                          style={{ width: '100%' }}
-                          {...restField}
-                          name={[name, 'groupName']}
-                          fieldKey={[fieldKey, 'groupName']}
-                          rules={rules}
-                        >
-                          <Input placeholder={"小组名称"} />
-                        </Form.Item>
-
-                        <Form.Item
-                          style={{ width: '100%' }}
-                          {...restField}
-                          name={[name, 'leader']}
-                          fieldKey={[fieldKey, 'leader']}
-                          rules={rules}
-                        >
-                          <Select
-                            style={{ width: "100%" }}
-                            showSearch
-                            filterOption={(input, option: any) =>
-                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                            placeholder={"小组组长"}
-                          >
-                            {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                              key={index}>{item.name}</Option>)}
-                          </Select>
-                        </Form.Item>
-
-                        <Form.Item
-                          {...restField}
-                          name={[name, 'personList']}
-                          fieldKey={[fieldKey, 'personList']}
-                          rules={rules}
-                        >
-                          <Select
-                            style={{ width: "100%" }}
-                            allowClear
-                            mode="multiple"
-                            showSearch
-                            onChange={personChange}
-                            filterOption={(input, option: any) =>
-                              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                            placeholder={"小组成员"}
-                          >
-                            {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                              key={index}>{item.name}</Option>)}
-                          </Select>
-                        </Form.Item>
-
-                        <Form.Item name={"remark"}>
-                          <Input placeholder={"备注"} />
-                        </Form.Item>
-
-                        <MinusCircleOutlined onClick={() => remove(name)} />
-                      </Space>
-
-                      {/*添加物料*/}
-                      <Form.List
-                        name={[name, 'groupMaterialList']}
-                      >
-                        {(fields, { add, remove }) => (
-                          <>
-                            {fields.map(({ key, name, fieldKey, ...restField }) => (
-                              <Space key={key} style={{ display: 'flex', marginBottom: 8, width: '100%' }}
-                                align="baseline">
-                                <Form.Item
-                                  style={{ width: '100%' }}
-                                  {...restField}
-                                  name={[name, 'materialId']}
-                                  fieldKey={[fieldKey, 'materialId']}
-                                  rules={rules}
-                                >
-                                  <Select
-                                    showSearch
-                                    filterOption={(input, option: any) =>
-                                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                    }
-                                    placeholder={"请选择物料"}
-                                  >
-                                    {
-                                      material?.data.map((item: any) => <Option value={item.id}
-                                        key={item.id}>{item.name}</Option>)
-                                    }
-                                  </Select>
-                                </Form.Item>
-                                <Form.Item
-                                  style={{ width: '100%' }}
-                                  {...restField}
-                                  name={[name, 'num']}
-                                  fieldKey={[fieldKey, 'num']}
-                                  rules={rules}
-                                  getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
-                                >
-                                  <Input placeholder="数量" />
-                                </Form.Item>
-                                <MinusCircleOutlined onClick={() => remove(name)} />
-                              </Space>
-                            ))}
-                            <Form.Item>
-                              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                                物料
-                              </Button>
-                            </Form.Item>
-                          </>
-                        )}
-                      </Form.List>
-
-                      {/*添加工具*/}
-                      <Form.List name={[name, "groupToolList"]}>
-                        {(fields, { add, remove }) => (
-                          <>
-                            {fields.map(({ key, name, fieldKey, ...restField }) => (
-                              <Space key={key} style={{ display: 'flex', marginBottom: 8, width: '100%' }}
-                                align="baseline">
-                                <Form.Item
-                                  style={{ width: '100%' }}
-                                  {...restField}
-                                  name={[name, 'toolId']}
-                                  fieldKey={[fieldKey, 'toolId']}
-                                  rules={rules}
-                                >
-                                  <Select
-                                    showSearch
-                                    filterOption={(input, option: any) =>
-                                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                    }
-                                    placeholder={"请选择工具"}
-                                  >
-                                    {
-                                      material?.data.map((item: any) => <Option value={item.id}
-                                        key={item.id}>{item.name}</Option>)
-                                    }
-                                  </Select>
-                                </Form.Item>
-                                <Form.Item
-                                  style={{ width: '100%' }}
-                                  {...restField}
-                                  name={[name, 'num']}
-                                  fieldKey={[fieldKey, 'num']}
-                                  rules={rules}
-                                  getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
-                                >
-                                  <Input placeholder="数量" />
-                                </Form.Item>
-                                <MinusCircleOutlined onClick={() => remove(name)} />
-                              </Space>
-                            ))}
-                            <Form.Item>
-                              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                                工具
-                              </Button>
-                            </Form.Item>
-                          </>
-                        )}
-                      </Form.List>
-                    </>
-                  ))}
-                  <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                      添加小组
-                    </Button>
-                  </Form.Item>
-                </>
-              )}
-            </Form.List>
+              <Button style={{ width: "100%" }} onClick={open} icon={<PlusOutlined />}>添加小组</Button>
+            </Form.Item>
 
             <Space style={{ display: "flex" }}>
               <Form.Item

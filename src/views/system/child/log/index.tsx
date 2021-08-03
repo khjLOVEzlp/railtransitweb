@@ -3,11 +3,18 @@ import { Button, Form, Input, Table, Space, DatePicker } from "antd";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { useDebounce } from "hook/useDebounce";
-import { useInit, useProjectsSearchParams } from "utils/system/log"
+import { useInit } from "utils/system/log"
+import { useState } from "react";
 const { RangePicker } = DatePicker;
 
 export const Log = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    operName: "",
+    startTime: "",
+    endTime: ""
+  })
 
   const { data, isLoading } = useInit(useDebounce(param, 500))
 

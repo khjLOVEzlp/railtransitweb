@@ -1,33 +1,29 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
-import {useDictTypeDetail} from "utils/system/dictType";
+import { useAuth } from "context/auth-context";
+import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useDictTypeDetail } from "utils/system/dictType";
 
 export const useDictTypeModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const [{createDictType}, setCreateDictType] = useUrlQueryParam([
-    "createDictType"
-  ])
-
-  const [{editingDictTypeId}, setEditingDictTypeId] = useUrlQueryParam([
-    "editingDictTypeId",
-  ]);
-
-  const {data: editingDictType, isLoading} = useDictTypeDetail(
-    Number(editingDictTypeId)
+  const { data: editingDictType, isLoading } = useDictTypeDetail(
+    Number(editId)
   );
 
-  const open = () => setCreateDictType({createDictType: true})
-  const close = () => setUrlParams({editingDictTypeId: "", createDictType: ""});
+  const open = () => setVisible(true)
+  const close = () => {
+    setEditId(undefined)
+    setVisible(false)
+  }
   const startEdit = (id: number) =>
-    setEditingDictTypeId({editingDictTypeId: id});
+    setEditId(id)
 
   return {
-    ModalOpen: createDictType === "true" || Boolean(editingDictTypeId),
+    ModalOpen: visible === true || Boolean(editId),
     open,
     close,
     startEdit,
     editingDictType,
     isLoading,
-    editingDictTypeId
+    editId
   };
 };

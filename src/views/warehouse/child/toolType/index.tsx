@@ -1,22 +1,29 @@
-import {Form, Input, Button, Table, Popconfirm, message, Select} from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message, Select } from 'antd';
 import styled from "@emotion/styled";
-import {useDel, useInit, useProjectsSearchParams} from 'utils/warehouse/toolType';
-import {ModalForm} from './modal/ModalForm';
-import {Tool} from './tool';
-import {useDebounce} from "hook/useDebounce";
-import {useToolTypeModal, useViewTool} from './util'
+import { useDel, useInit, useProjectsSearchParams } from 'utils/warehouse/toolType';
+import { ModalForm } from './modal/ModalForm';
+import { Tool } from './tool';
+import { useDebounce } from "hook/useDebounce";
+import { useToolTypeModal, useViewTool } from './util'
+import { useState } from 'react';
 
-const {Option} = Select;
+const { Option } = Select;
 
 export const ToolType = () => {
-  const [param, setParam] = useProjectsSearchParams()
-  const {open, startEdit} = useToolTypeModal()
-  const {startEdit: startTool} = useViewTool()
-  const {data, isLoading, isSuccess} = useInit(useDebounce(param, 500))
-  const {mutateAsync: Del} = useDel()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: "",
+    type: ""
+  })
+
+  const { open, startEdit } = useToolTypeModal()
+  const { startEdit: startTool } = useViewTool()
+  const { data, isLoading, isSuccess } = useInit(useDebounce(param, 500))
+  const { mutateAsync: Del } = useDel()
 
   const search = (item: any) => {
-    setParam({...param, name: item.name, type: item.type, index: 1})
+    setParam({ ...param, name: item.name, type: item.type, index: 1 })
   };
 
   const del = async (id: number) => {
@@ -26,7 +33,7 @@ export const ToolType = () => {
   const confirm = (item: any) => {
     del(item.id).then(() => {
       message.success('删除成功')
-      setParam({...param, index: 1})
+      setParam({ ...param, index: 1 })
     }).catch(err => {
       message.error(err.msg)
     })
@@ -37,11 +44,11 @@ export const ToolType = () => {
   }
 
   const handleChange = (value: any) => {
-    setParam({...param, type: value})
+    setParam({ ...param, type: value })
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -57,14 +64,14 @@ export const ToolType = () => {
             name="name"
           >
             <Input placeholder={"仓库名称"} value={param.name}
-                   onChange={(evt) => setParam({...param, name: evt.target.value})}/>
+              onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
           <Form.Item
             label=""
             name="type"
           >
-            <Select style={{width: 120}} onChange={handleChange} placeholder={"类型"}>
+            <Select style={{ width: 120 }} onChange={handleChange} placeholder={"类型"}>
               <Option value={""}>所有</Option>
               <Option value={1}>轨行区内</Option>
               <Option value={2}>轨行区外</Option>
@@ -113,7 +120,7 @@ export const ToolType = () => {
                 title: '操作',
                 key: 'id',
                 render: (item: any) => <>
-                  <Button type="link" onClick={() => startTool(item.id)}>查看工具</Button>
+                  <Button type="link" onClick={() => startTool(item.id)}>查看库存</Button>
                   <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
@@ -126,15 +133,15 @@ export const ToolType = () => {
                   </Popconfirm></>
               },
             ]
-          } pagination={{total: data?.count, current: param.index, pageSize: param.size}}
-                 onChange={handleTableChange}
-                 loading={isLoading} dataSource={data?.data}
-                 rowKey={(item: any) => item.id}
+          } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+            onChange={handleTableChange}
+            loading={isLoading} dataSource={data?.data}
+            rowKey={(item: any) => item.id}
           />
         )}
       </Main>
-      <ModalForm/>
-      <Tool/>
+      <ModalForm />
+      <Tool />
     </>
   );
 };

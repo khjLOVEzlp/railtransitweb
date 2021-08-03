@@ -11,7 +11,7 @@ const { Option } = Select
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
-  const { ModalOpen, isLoading, close, editingToolType, editingToolTypeId } = useToolTypeModal()
+  const { ModalOpen, isLoading, close, editingToolType, editId } = useToolTypeModal()
   const title = editingToolType ? "修改" : "新增"
   const msg = editingToolType ? () => {
     message.success("修改成功")
@@ -34,7 +34,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingToolType, ...value, id: editingToolTypeId }).then((res) => {
+    mutateAsync({ ...editingToolType, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

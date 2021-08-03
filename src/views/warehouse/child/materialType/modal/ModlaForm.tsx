@@ -1,15 +1,15 @@
-import {Button, Form, Input, message, Modal, Spin} from "antd";
-import {rules} from "utils/verification";
-import {useMaterialModal} from '../util'
-import {useAdd, useMod} from 'utils/warehouse/materialType'
-import {useEffect} from "react";
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
+import { Button, Form, Input, message, Modal, Spin } from "antd";
+import { rules } from "utils/verification";
+import { useMaterialModal } from '../util'
+import { useAdd, useMod } from 'utils/warehouse/materialType'
+import { useEffect } from "react";
+import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
   const setUrlParams = useSetUrlSearchParam();
 
-  const {ModalOpen, isLoading, close, editingMaterial, editingMaterialId} = useMaterialModal()
+  const { ModalOpen, isLoading, close, editingMaterial, editId } = useMaterialModal()
   const title = editingMaterial ? "修改" : "新增"
   const msg = editingMaterial ? () => {
     message.success("修改成功")
@@ -17,10 +17,10 @@ export const ModalForm = () => {
   } : () => {
     message.success("新增成功")
     close()
-    setUrlParams({index: 1, createMaterial: ""})
+    setUrlParams({ index: 1, createMaterial: "" })
   }
   const useMutateProject = editingMaterial ? useMod : useAdd;
-  const {mutateAsync, isLoading: mutateLoading} = useMutateProject();
+  const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
     form.setFieldsValue(editingMaterial?.data)
@@ -32,7 +32,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({...editingMaterial, ...value, id: editingMaterialId}).then((res) => {
+    mutateAsync({ ...editingMaterial, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -60,7 +60,7 @@ export const ModalForm = () => {
     >
       {
         isLoading ? (
-          <Spin size={"large"}/>
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}
@@ -73,7 +73,7 @@ export const ModalForm = () => {
               name="name"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -81,7 +81,7 @@ export const ModalForm = () => {
               name="perfIndex"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -89,14 +89,14 @@ export const ModalForm = () => {
               name="specsModel"
               rules={rules}
             >
-              <Input/>
+              <Input />
             </Form.Item>
 
             <Form.Item
               label="备注"
               name="remark"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Form>
         )

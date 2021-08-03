@@ -9,10 +9,13 @@ import PlanType from './child/planType'
 import { Spin } from "antd";
 import { usePlanStatistics } from "utils/home";
 import { getType, color } from 'utils/index'
+import { useLine } from 'utils/system/line'
 
 export const Home = () => {
   useDocumentTitle('首页')
   const { data, isLoading } = usePlanStatistics()
+  const { data: lineList, isSuccess } = useLine()
+
   /* const [visible, setVisible] = useState(false);
   const showDrawer = () => {
     setVisible(true);
@@ -23,6 +26,10 @@ export const Home = () => {
 
   /*绑定DOM*/
   useEffect(() => {
+
+    if (isSuccess) {
+      console.log(lineList);
+    }
     // @ts-ignore
     var subway = window.subway
 
@@ -39,13 +46,13 @@ export const Home = () => {
     });
 
     //点击站点，显示此站点的信息窗体
-    /* mysubway.event.on("station.touch", function (ev: any, info: any) {
+    mysubway.event.on("station.touch", function (ev: any, info: any) {
       var id = info.id;
       mysubway.stopAnimation();
       mysubway.addInfoWindow(id, {});
       var center = mysubway.getStCenter(id);
       mysubway.setCenter(center);
-    }); */
+    });
 
     // @ts-ignore
     // echarts.init(document.getElementById('track') as HTMLElement).setOption(option)
