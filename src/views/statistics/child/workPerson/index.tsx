@@ -1,14 +1,14 @@
-import styled from "@emotion/styled";
-import { useLineList } from "utils/statistics/taskStatistics";
+import { useLineList } from "../workCount/request";
 import { Form, Modal, Select, Table } from "antd";
 import { Column } from "@ant-design/charts";
 import {
   useWorkStatistics,
-  useProjectsSearchParams,
   useWorkModal,
   useWorkStatisticsDetail
-} from 'utils/statistics/workStatistics'
+} from './request'
 import { useState } from "react";
+import { Header, Main } from "components/Styled";
+import { useStatisticsContext } from "views/statistics";
 
 export const WorkPerson = () => {
   const { data: lineList } = useLineList()
@@ -29,8 +29,15 @@ export const WorkPerson = () => {
     setParam({ ...param, time: value })
   }
 
+  const noData = [
+    {
+      className: "到岗班别",
+      classId: 0
+    }
+  ]
+
   const config = {
-    data: isSuccess ? workStatistics?.data : [],
+    data: isSuccess ? workStatistics?.data : noData,
     xField: 'className',
     yField: 'classId',
     maxColumnWidth: 100,
@@ -113,7 +120,13 @@ export const WorkPerson = () => {
 
 export const WorkPersonModal = () => {
   const { ModalOpen, close } = useWorkModal()
-  const [param] = useProjectsSearchParams()
+  const { param: modalParam } = useStatisticsContext()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    subwayId: modalParam.subwayId,
+    time: modalParam.time
+  })
   const { data: alarmDetail, isLoading } = useWorkStatisticsDetail(param)
   const columns = [
     {
@@ -152,21 +165,3 @@ export const WorkPersonModal = () => {
     </Modal>
   )
 }
-
-const Header = styled.div`
-  height: 12.5rem;
-  background: #fff;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
-`
-
-const Main = styled.div`
-  background: #fff;
-  height: 100%;
-  border-radius: 1rem;
-  padding: 1.5rem 1.5rem;
-`

@@ -1,34 +1,34 @@
 import styled from "@emotion/styled";
-import React, {useEffect, useState} from "react";
-import {useHttp} from "./utils/http";
+import React, { useEffect, useState } from "react";
+import { useHttp } from "./utils/http";
 import logo from './icon/logo.png'
 import notice from './icon/通知.png'
-import {NavLink} from "react-router-dom";
-import {useAuth} from "./context/auth-context";
-import {Button, Dropdown, Menu, message} from "antd";
-import {DownOutlined} from '@ant-design/icons';
+import { NavLink } from "react-router-dom";
+import { useAuth } from "./context/auth-context";
+import { Button, Dropdown, Menu, message } from "antd";
+import { DownOutlined } from '@ant-design/icons';
 /*
 * 路由
 * */
-import {RouterElement} from "./router";
+import { RouterElement } from "./router";
 import qs from "qs";
 /*
 * 事务通知弹框
 * */
-import {OperModal} from "./views/notice/OperModal";
+import { OperModal } from "./views/notice/OperModal";
 /*
 * 修改密码弹框
 * */
-import {PassModal} from "./components/PassModal";
-import {useNoticeModal} from 'views/notice/util'
+import { PassModal } from "./components/PassModal";
+import { useNoticeModal } from 'views/notice/util'
 /*
 * 用户信息弹框
 * */
-import {useInfoModal, UserInfo} from './components/UserInfo'
+import { useInfoModal, UserInfo } from './components/UserInfo'
 /*
 * 关于、帮助弹框
 * */
-import {OnHelp, useOnHelpModal} from './components/OnHelp'
+import { OnHelp, useOnHelpModal } from './components/OnHelp'
 
 export const PageBox = () => {
 
@@ -39,7 +39,7 @@ export const PageBox = () => {
     client(`info?type=1`, {
       method: "POST"
     }).then(async res => {
-      res.data.unshift({name: '首页', url: '/home'})
+      res.data.unshift({ name: '首页', url: '/home' })
       res.data.forEach((item: { [key: string]: unknown }) => {
         let { name } = item
         switch (name) {
@@ -97,7 +97,7 @@ export const PageBox = () => {
       <HeaderStyle>
         <Logo>
           <div className="img">
-            <img src={logo} alt=""/>
+            <img src={logo} alt="" />
           </div>
           <div className="title" onClick={() => window.location.href = window.location.origin}>
             <p>5G-NB智慧轨行区</p>
@@ -107,14 +107,14 @@ export const PageBox = () => {
         <Nav className={"NavList"}>
           {
             menu.map((item: any, index) => (
-              <li key={index}><NavLink activeStyle={{color: '#5A7FFA'}} to={item.url}>{item.name}</NavLink></li>
+              <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
             ))
           }
         </Nav>
-        <User/>
+        <User />
       </HeaderStyle>
       <ContentStyle>
-        <RouterElement/>
+        <RouterElement />
         {/*<Routes>
           <Route path={"/home"} element={<Home/>}/>
           <Route path={"/plan/*"} element={<Plan/>}/>
@@ -126,21 +126,21 @@ export const PageBox = () => {
           <Navigate to={window.location.pathname + "home"} replace={true}/>
         </Routes>*/}
       </ContentStyle>
-      <UserInfo/>
-      <OnHelp/>
+      <UserInfo />
+      <OnHelp />
     </Container>
   )
 }
 
 const User = () => {
-  const {open} = useNoticeModal()
-  const {startEdit} = useInfoModal()
-  const {logout, user} = useAuth();
-  const {open: OnHelpModal} = useOnHelpModal()
+  const { open } = useNoticeModal()
+  const { startEdit } = useInfoModal()
+  const { logout, user } = useAuth();
+  const { open: OnHelpModal } = useOnHelpModal()
   const [visible, setVisible] = useState(false);
   const client = useHttp()
   const onCreate = (values: any) => {
-    client(`user/editpassword?${qs.stringify(values)}`, {method: "POST"}).then(() => {
+    client(`user/editpassword?${qs.stringify(values)}`, { method: "POST" }).then(() => {
       message.success("修改成功，请重新登陆")
       setVisible(false);
       setTimeout(() => logout(), 3000)
@@ -154,11 +154,11 @@ const User = () => {
   };
 
   return (
-    <div style={{display: "flex", alignItems: "center"}}>
+    <div style={{ display: "flex", alignItems: "center" }}>
       <Button type={"link"} onClick={open}>
-        <img src={notice} alt=""/>
+        <img src={notice} alt="" />
       </Button>
-      <OperModal/>
+      <OperModal />
       <Dropdown
         overlay={
           <Menu>
@@ -185,9 +185,9 @@ const User = () => {
           </Menu>
         }
       >
-        <Button style={{color: '#3A3D44', fontSize: '2rem', fontWeight: 'bold'}} type={"link"}
-                onClick={(e) => e.preventDefault()}>
-          {user?.userName}<DownOutlined/>
+        <Button style={{ color: '#3A3D44', fontSize: '2rem', fontWeight: 'bold' }} type={"link"}
+          onClick={(e) => e.preventDefault()}>
+          {user?.userName}<DownOutlined />
         </Button>
       </Dropdown>
       <PassModal
@@ -259,6 +259,6 @@ const Nav = styled.div`
 
 const ContentStyle = styled.main`
   height: calc(100vh - 8.3vh);
-  padding: 1rem 1.6rem;
+  padding: 1rem 1rem;
   box-sizing: border-box;
 `

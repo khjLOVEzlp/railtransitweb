@@ -1,8 +1,8 @@
 import { Button, Form, Input, message, Modal, Select, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useLinePlatFormModal } from './util'
-import { useInit } from 'utils/system/lineRoad'
-import { useMod, useAdd } from 'utils/system/linePlatform'
+import { useInit } from './request'
+import { useMod, useAdd } from './request'
 import { useProjectModal } from "../../../util";
 import { useEffect } from "react";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
@@ -36,7 +36,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingLinePlatForm, ...value, id: platId, lineId: editId }).then((res) => {
+    mutateAsync({ ...editingLinePlatForm?.data, ...value, id: platId, lineId: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

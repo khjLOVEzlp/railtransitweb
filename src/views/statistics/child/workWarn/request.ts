@@ -1,10 +1,11 @@
 import qs from 'qs'
 import { useQuery } from 'react-query'
-import { useHttp } from '../http'
-import { cleanObject } from "../index";
+import { useHttp } from 'utils/http'
+import { cleanObject } from "utils/index";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useMemo } from "react";
 import { Search } from 'utils/typings';
+import { useStatisticsContext } from 'views/statistics';
 /*项目列表搜索的参数*/
 export const useProjectsSearchParams = () => {
   const [param, setParam] = useUrlQueryParam(["subwayId", "time", "index", "size"]);
@@ -87,19 +88,19 @@ export const useAlarmPagination = (params?: any) => {
 
 /*告警统计弹框*/
 export const useAlarmModal = () => {
-  const setUrlParams = useSetUrlSearchParam()
+  const { visible, setVisible, param, setParam } = useStatisticsContext()
+  const open = (subwayId: string, time: string) => {
+    setParam({ subwayId, time })
+    setVisible(true)
+  }
 
-  const [{ subwayId, time, openAlarm }, setOpenAlarm] = useUrlQueryParam([
-    'subwayId', "time", "openAlarm"
-  ])
-
-  const open = (subwayId: number | string, time: number | string) =>
-    setOpenAlarm({ subwayId: subwayId, time: time, openAlarm: true });
-
-  const close = () => setUrlParams({ subwayId: "", time: "", openAlarm: "" })
+  const close = () => {
+    setParam({ subwayId: "", time: "" })
+    setVisible(false)
+  }
 
   return {
-    ModalOpen: Boolean(subwayId) && Boolean(time) && openAlarm === "true",
+    ModalOpen: Boolean(param.subwayId) && Boolean(param.time) && visible === true,
     open,
     close
   }

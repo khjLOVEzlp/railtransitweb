@@ -1,5 +1,4 @@
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
-import styled from "@emotion/styled";
 /*
 * 新增修改弹框
 * */
@@ -12,9 +11,10 @@ import { useDel, useInit } from './request';
 import { ShareModalForm } from './modal/ShareModalForm';
 import { useDebounce } from "hook/useDebounce";
 import { usePlanWorkModal, useShareModal } from './util'
-import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
 import { useState } from 'react';
+import { noData } from 'utils/verification';
+import { Header, Main } from 'components/Styled';
 
 /*作业计划*/
 export const PlanWork = () => {
@@ -23,7 +23,7 @@ export const PlanWork = () => {
     size: 10,
     name: ""
   })
-  
+
   const { open, startEdit } = usePlanWorkModal()
   const { startEdit: startShareEdit } = useShareModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
@@ -179,31 +179,12 @@ export const PlanWork = () => {
           dataSource={data?.data}
           loading={isLoading}
           rowKey={(item) => item.id}
+          locale={noData}
         />
       </Main>
       <ModalForm />
       <ShareModalForm />
-      {/*<ViewModalForm visible={visibleView} formData={formData} types={types} onCancel={hideViewModal} />*/}
-    </>
+    </ >
   );
 }
 
-const Header = styled.div`
-  width: 100%;
-  height: 12.5rem;
-  background: #fff;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
-`
-
-const Main = styled.div`
-  background: #fff;
-  height: 73rem;
-  border-radius: 1rem;
-  padding: 0 1.5rem;
-  overflow-y: auto;
-`

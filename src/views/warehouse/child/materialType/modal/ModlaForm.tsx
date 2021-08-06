@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useMaterialModal } from '../util'
-import { useAdd, useMod } from 'utils/warehouse/materialType'
+import { useAdd, useMod } from '../request'
 import { useEffect } from "react";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
@@ -32,7 +32,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingMaterial, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingMaterial?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

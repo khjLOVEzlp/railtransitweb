@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Button, Form, Input, message, Modal, Select, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useUserAll } from 'views/system/child/user/request'
 import { useToolTypeModal } from '../util'
-import { useMod, useAdd } from 'utils/warehouse/toolType'
+import { useMod, useAdd } from '../request'
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 const { Option } = Select
@@ -34,7 +34,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingToolType, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingToolType?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

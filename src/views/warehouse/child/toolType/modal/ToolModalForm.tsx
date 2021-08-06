@@ -1,5 +1,6 @@
 import { Modal, Spin, Table } from "antd"
 import { useForm } from "antd/lib/form/Form";
+import { noData } from "utils/verification";
 import { useToolModal } from '../util'
 
 export const ToolModalForm = () => {
@@ -49,6 +50,7 @@ export const ToolModalForm = () => {
               },
             ]}
               dataSource={viewTool?.data}
+              locale={noData}
             />
           )
         }

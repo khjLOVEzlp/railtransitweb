@@ -2,9 +2,9 @@ import { Button, Form, Input, message, Modal, Spin, TreeSelect } from "antd";
 import React, { useEffect } from "react";
 import { rules } from "utils/verification";
 import { useLineModal } from '../util'
-import { useAdd, useMod } from "utils/system/line";
+import { useAdd, useMod } from "../request";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
-import { useInit } from 'utils/system/department'
+import { useInit } from 'views/system/child/department/request'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
@@ -37,7 +37,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingLine, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingLine?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

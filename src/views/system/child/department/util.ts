@@ -1,6 +1,5 @@
 import { useAuth } from "context/auth-context";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useDepartmentDetail } from "utils/system/department";
+import { useDepartmentDetail } from "views/system/child/department/request";
 
 export const useDepartmentModal = () => {
   const { visible, setVisible, editId, setEditId } = useAuth()

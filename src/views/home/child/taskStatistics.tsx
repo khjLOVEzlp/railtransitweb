@@ -1,7 +1,8 @@
-import { Line, Bar, Pie, Funnel } from '@ant-design/charts';
-import { useTaskStatistics, useTaskPagination, useTaskModal, useProjectsSearchParams } from 'utils/home'
+import { Funnel } from '@ant-design/charts';
+import { useTaskStatistics, useTaskPagination, useTaskModal, useProjectsSearchParams } from '../request'
 import { Modal, Spin, Table } from "antd";
 import { useDebounce } from "hook/useDebounce";
+import { noData } from 'utils/verification';
 
 const PlanWorkPage = () => {
   const { data: taskStatistics, isLoading, isError, isIdle } = useTaskStatistics()
@@ -12,7 +13,8 @@ const PlanWorkPage = () => {
     xField: 'name',
     yField: 'num',
     isTransposed: true,
-    minSize: 0.4,
+    autoFit: true,
+    minSize: 0.5,
     maxSize: 0.8,
     conversionTag: false,
     legend: {
@@ -97,6 +99,7 @@ export const OpenModal = () => {
         loading={isLoading}
         onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}
+        locale={noData}
       />
     </Modal>
   )

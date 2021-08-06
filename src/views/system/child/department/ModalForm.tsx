@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Button, Form, Input, message, Modal, Spin, TreeSelect } from "antd";
 import { rules } from "utils/verification";
-import { useAdd, useMod } from 'utils/system/department'
+import { useAdd, useMod } from './request'
 import { useDepartmentModal } from './util'
-import { useInit } from 'utils/system/department'
+import { useInit } from './request'
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
@@ -36,7 +36,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingDepartment, ...value, id: editId }).then(() => {
+    mutateAsync({ ...editingDepartment?.data, ...value, id: editId }).then(() => {
       msg()
       form.resetFields()
     })

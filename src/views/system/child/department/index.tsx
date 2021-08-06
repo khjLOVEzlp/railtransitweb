@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import {Button, Table, Popconfirm, message} from 'antd';
-import styled from "@emotion/styled";
-import {useDel, useInit} from 'utils/system/department';
-import {ModalForm} from "./ModalForm";
-import {useDepartmentModal} from './util'
+import { useState } from 'react';
+import { Button, Table, Popconfirm, message } from 'antd';
+import { useDel, useInit } from './request';
+import { ModalForm } from "./ModalForm";
+import { useDepartmentModal } from './util'
+import { noData } from 'utils/verification';
+import { Header, Main } from 'components/Styled';
 
 export const Department = () => {
   const [pagination, setPagination] = useState({
@@ -12,10 +13,10 @@ export const Department = () => {
     name: ''
   })
 
-  const {open, startEdit} = useDepartmentModal()
+  const { open, startEdit } = useDepartmentModal()
 
-  const {data, isLoading} = useInit({...pagination})
-  const {mutateAsync: Del} = useDel()
+  const { data, isLoading } = useInit({ ...pagination })
+  const { mutateAsync: Del } = useDel()
 
   const confirm = (id: number) => {
     Del(id).then((res) => {
@@ -23,7 +24,7 @@ export const Department = () => {
         message.error(res.msg)
       } else {
         message.success('删除成功')
-        setPagination({...pagination, index: 1})
+        setPagination({ ...pagination, index: 1 })
       }
     })
   }
@@ -33,7 +34,7 @@ export const Department = () => {
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({...pagination, index: p.current, size: p.pageSize})
+    setPagination({ ...pagination, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -86,34 +87,16 @@ export const Department = () => {
                 </Popconfirm></>
             },
           ]
-        } pagination={{total: data?.count, current: pagination.index, pageSize: pagination.size}}
-               onChange={handleTableChange}
-               loading={isLoading}
-               dataSource={data?.data}
-               childrenColumnName="departmentList"
-               rowKey={(item) => item.id}
+        } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
+          onChange={handleTableChange}
+          loading={isLoading}
+          dataSource={data?.data}
+          childrenColumnName="departmentList"
+          rowKey={(item) => item.id}
+          locale={noData}
         />
       </Main>
-      <ModalForm/>
+      <ModalForm />
     </>
   );
 };
-
-const Header = styled.div`
-  height: 12.5rem;
-  background: #fff;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
-`
-
-const Main = styled.div`
-  background: #fff;
-  height: 73rem;
-  border-radius: 1rem;
-  padding: 0 1.5rem;
-  overflow-y: auto;
-`

@@ -35,7 +35,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingMenu, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingMenu?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

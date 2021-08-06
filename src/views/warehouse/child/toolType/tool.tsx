@@ -1,4 +1,5 @@
 import { Button, Drawer, Table } from "antd"
+import { noData } from "utils/verification"
 import { ToolModalForm } from "./modal/ToolModalForm"
 import { useViewTool, useToolModal } from './util'
 
@@ -46,7 +47,9 @@ export const Tool = () => {
             <Button type={"link"} onClick={() => startEdit(item.id, Number(editId))}>详情</Button>
           </>
         }
-      ]} loading={isLoading} rowKey={item => item.id} />
+      ]} loading={isLoading} rowKey={item => item.id}
+        locale={noData}
+      />
 
       <ToolModalForm />
     </Drawer>

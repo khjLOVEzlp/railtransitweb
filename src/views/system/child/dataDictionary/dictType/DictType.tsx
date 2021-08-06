@@ -2,10 +2,10 @@ import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
 import { ModalForm } from './ModalForm'
 import { useDebounce } from 'hook/useDebounce';
-import { useDel, useInit, } from 'utils/system/dictType'
+import { useDel, useInit, } from './request'
 import { useDictTypeModal } from './util'
-import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { useState } from 'react';
+import { noData } from 'utils/verification';
 
 export const DictType = () => {
   const [param, setParam] = useState({
@@ -109,7 +109,9 @@ export const DictType = () => {
           onChange={handleTableChange}
           loading={isLoading}
           dataSource={data?.data}
-          rowKey={(item: any) => item.id} />
+          rowKey={(item: any) => item.id}
+          locale={noData}
+        />
       </Main>
       <ModalForm />
     </>

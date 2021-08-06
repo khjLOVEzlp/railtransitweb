@@ -1,13 +1,19 @@
 import { Button, Form, Input, message, Popconfirm, Table } from "antd";
 import styled from "@emotion/styled";
-import { useDel, useInit, useProjectsSearchParams } from "utils/system/lineRoad";
+import { useDel, useInit } from "./request";
 import { useDebounce } from "hook/useDebounce";
 import { useProjectModal } from '../../../util'
 import { ModalForm } from "./ModalForm";
 import { useLineRoadModal } from './util'
+import { noData } from "utils/verification";
+import { useState } from "react";
 
 export const Road = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
   const { editId } = useProjectModal()
   const { open, startEdit } = useLineRoadModal()
 
@@ -102,6 +108,7 @@ export const Road = () => {
           loading={isLoading}
           dataSource={data?.data}
           rowKey={(item: any) => item.id}
+          locale={noData}
         />
         <ModalForm />
       </Main>

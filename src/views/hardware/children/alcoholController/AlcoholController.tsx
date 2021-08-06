@@ -3,12 +3,13 @@ import { useDel, useInit } from './request';
 import { ModalForm } from './ModalForm';
 import { useDebounce } from 'hook/useDebounce';
 import { useAlcModal } from './util'
-import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
 import { Header, Main } from 'components/Styled';
+import { noData } from 'utils/verification';
+import { useProject } from 'utils';
 
 export const AlcoholController = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const { param, setParam } = useProject()
   const { open, startEdit } = useAlcModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
@@ -95,7 +96,9 @@ export const AlcoholController = () => {
           ]
         } pagination={{ total: data?.count, current: param.index, pageSize: param.size, }} onChange={handleTableChange}
           loading={isLoading} dataSource={data?.data}
-          rowKey={(item) => item.id} />
+          rowKey={(item) => item.id}
+          locale={noData}
+        />
       </Main>
       <ModalForm />
     </>

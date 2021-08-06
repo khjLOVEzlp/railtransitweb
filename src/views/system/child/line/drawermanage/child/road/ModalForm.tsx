@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Form, Input, message, Modal, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useLineRoadModal } from './util'
-import { useAdd, useMod } from 'utils/system/lineRoad'
+import { useAdd, useMod } from './request'
 import { useProjectModal } from "../../../util";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
@@ -33,7 +33,7 @@ export const ModalForm = () => {
   };
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingLineRoad, ...value, id: roadId, lineId: editId }).then(() => {
+    mutateAsync({ ...editingLineRoad?.data, ...value, id: roadId, lineId: editId }).then(() => {
       msg()
       form.resetFields();
     }).catch(err => {

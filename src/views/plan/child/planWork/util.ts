@@ -1,5 +1,5 @@
 import { useAuth } from "context/auth-context";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { usePlanContext } from "views/plan";
 import { usePlanWorkDetail, useShare } from "./request";
 
 export const usePlanWorkModal = () => {
@@ -14,8 +14,11 @@ export const usePlanWorkModal = () => {
     setEditId(undefined)
     setVisible(false)
   }
-  const startEdit = (id: number) =>
+  const startEdit = (id: number) => {
+    console.log(id);
+
     setEditId(id)
+  }
 
   return {
     ModalOpen: visible === true || Boolean(editId),
@@ -31,24 +34,23 @@ export const usePlanWorkModal = () => {
 
 /*发布计划弹框*/
 export const useShareModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ publishPlanWorkId }, setPublishPlanWorkId] = useUrlQueryParam([
-    "publishPlanWorkId",
-  ]);
+  const { editId, setEditId } = usePlanContext()
 
   const { data: editingPlanWork, isLoading } = useShare(
-    Number(publishPlanWorkId)
+    Number(editId)
   );
 
-  const close = () => setUrlParams({ publishPlanWorkId: "" });
+  const close = () => {
+    setEditId(undefined)
+  }
 
-  const startEdit = (id: number) =>
-    setPublishPlanWorkId({ publishPlanWorkId: id });
+  const startEdit = (id: number) => {
+    setEditId(id)
+  }
 
   return {
-    ModalOpen: Boolean(publishPlanWorkId),
-    publishPlanWorkId,
+    ModalOpen: Boolean(editId),
+    editId,
     startEdit,
     close,
     isLoading,
@@ -56,20 +58,14 @@ export const useShareModal = () => {
   }
 }
 
-/*添加工具弹框*/
-
 export const useAddToolModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { visible, setVisible } = usePlanContext()
 
-  const [{ AddTool }, setAddTool] = useUrlQueryParam([
-    "AddTool"
-  ])
-
-  const open = () => setAddTool({ AddTool: true })
-  const close = () => setUrlParams({ AddTool: "" });
+  const open = () => setVisible(true)
+  const close = () => setVisible(false)
 
   return {
-    ModalOpen: AddTool === "true",
+    ModalOpen: visible === true,
     open,
     close,
   };

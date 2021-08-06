@@ -1,21 +1,7 @@
 import qs from 'qs'
-import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { cleanObject } from '..';
-import { useUrlQueryParam } from 'hook/useUrlQueryParam';
-import { useHttp } from '../http';
-
-// 项目列表搜索的参数
-export const useProjectsSearchParams = () => {
-  const [param, setParam] = useUrlQueryParam(["departmentName", "index", "size"]);
-  return [
-    useMemo(
-      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
-      [param]
-    ),
-    setParam,
-  ] as const;
-};
+import { cleanObject } from 'utils';
+import { useHttp } from 'utils/http';
 
 /*
 查询

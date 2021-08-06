@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
-import { useHttp } from "./http"
+import { useHttp } from "utils/http"
 import qs from "qs";
-import { cleanObject, getType } from "./index";
+import { cleanObject, getType } from "utils/index";
 import { useSetUrlSearchParam, useUrlQueryParam } from 'hook/useUrlQueryParam'
 import { useMemo } from "react";
 

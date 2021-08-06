@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   Button,
   DatePicker,
@@ -19,23 +19,24 @@ import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { getToken } from "../../../../../auth-provider";
 import { rules } from "utils/verification";
 import { usePlanType } from "../../planType/request";
-import { useLine } from "utils/system/line";
+import { useLine } from "views/system/child/line/request";
 import { useSite } from "../request";
-import { useMaterialType } from "utils/warehouse/materialType";
+import { useMaterialType } from "views/warehouse/child/materialType/request";
 import { usePerson } from "views/person/child/personManage/request";
 import { AddToolModal } from './AddToolModal'
-import { usePlanWorkModal, useAddToolModal } from '../util'
+import { useAddToolModal, usePlanWorkModal } from '../util'
 import { useAdd, useMod } from "../request";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
-import { useInitDepartment } from 'utils/system/department'
+import { useInitDepartment } from 'views/system/child/department/request'
 import moment from "moment";
-
+import { usePlanContext } from "../../../index";
 const baseUrl = process.env["REACT_APP_API_URL"]
 const { TextArea } = Input;
 const { Option } = Select;
 
 // 新增修改
 export const ModalForm = () => {
+  const { groupList, setGroupList } = usePlanContext()
   const [form] = Form.useForm();
   const token = getToken()
   let document: string[] = []
@@ -44,6 +45,8 @@ export const ModalForm = () => {
   const setUrlParams = useSetUrlSearchParam();
   const { open } = useAddToolModal()
   const { ModalOpen, isLoading, close, editingPlanWork, editId, isSuccess } = usePlanWorkModal()
+  console.log(editingPlanWork);
+
   const title = editingPlanWork ? "修改" : "新增"
   const msg = editingPlanWork ? () => {
     message.success("修改成功")
@@ -57,7 +60,7 @@ export const ModalForm = () => {
   const useMutateProject = editingPlanWork ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (isSuccess && editingPlanWork) {
       form.setFieldsValue({
         ...editingPlanWork?.data,
@@ -68,7 +71,7 @@ export const ModalForm = () => {
       }
       )
     }
-  }, [form, editingPlanWork])
+  }, [form, editingPlanWork]) */
 
   const closeModal = () => {
     form.resetFields()
@@ -88,7 +91,7 @@ export const ModalForm = () => {
     // console.log(temp)
 
     mutateAsync({
-      ...editingPlanWork,
+      ...editingPlanWork?.data,
       // ...temp,
       ...value,
       dateTime: moment(dateTime).format("YYYY-MM-DD"),
@@ -99,7 +102,13 @@ export const ModalForm = () => {
     }).then(() => {
       msg()
       form.resetFields()
+    }).catch((err) => {
+      message.error(err.msg)
     })
+  }
+
+  const onFinishFailed = () => {
+    message.error("请检查是否有必填信息未填写")
   }
 
   const { data: departmentList } = useInitDepartment()
@@ -162,6 +171,12 @@ export const ModalForm = () => {
     return value
   }
 
+  const deleteGroup = (id: number) => {
+    let newList = [...groupList]
+    newList.splice(id, 1)
+    setGroupList(newList)
+  }
+
   return (
     <Modal title={title} width={800} visible={ModalOpen} onOk={onOk} onCancel={closeModal}
       footer={[<Button key="back" onClick={closeModal}>取消</Button>,
@@ -174,6 +189,8 @@ export const ModalForm = () => {
           <Form
             form={form}
             onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            scrollToFirstError={true}
             labelAlign="right"
             layout={"vertical"}
           >
@@ -398,6 +415,22 @@ export const ModalForm = () => {
               </Form.Item>
 
               <Form.Item
+                label="防疫专员"
+                name="preventionPerson"
+              >
+                <Select
+                  style={{ width: "100%" }}
+                  showSearch
+                  filterOption={(input, option: any) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                >
+                  {personList?.data.map((item: any, index: number) => <Option value={item.id}
+                    key={index}>{item.name}</Option>)}
+                </Select>
+              </Form.Item>
+
+              {/* <Form.Item
                 label="作业人员"
                 name="personList"
               >
@@ -412,8 +445,28 @@ export const ModalForm = () => {
                   {personList?.data.map((item: any, index: number) => <Option value={item.id}
                     key={index}>{item.name}</Option>)}
                 </Select>
-              </Form.Item>
+              </Form.Item> */}
             </Space>
+
+            {
+              groupList?.length > 0 ?
+                groupList?.map((item: any, index: number) => <Space style={{ display: "flex" }}>
+                  <Form.Item>
+                    小组名称：{item.groupName}
+                  </Form.Item>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div></div>
+                    <div><Button>修改</Button>
+                      <Button style={{ marginLeft: "1rem" }} onClick={() => deleteGroup(index)
+                      }>删除</Button></div>
+                  </div>
+                </Space>)
+                : (
+                  <div></div>
+                )
+            }
 
             <Form.Item>
               <Button style={{ width: "100%" }} onClick={open} icon={<PlusOutlined />}>添加小组</Button>
@@ -421,19 +474,10 @@ export const ModalForm = () => {
 
             <Space style={{ display: "flex" }}>
               <Form.Item
-                label="防疫专员"
-                name="preventionPerson"
+                label="施工负责人职责"
+                name="leaderDuty"
               >
-                <Select
-                  style={{ width: "100%" }}
-                  showSearch
-                  filterOption={(input, option: any) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                  }
-                >
-                  {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                    key={index}>{item.name}</Option>)}
-                </Select>
+                <Input />
               </Form.Item>
 
               <Form.Item
@@ -455,8 +499,8 @@ export const ModalForm = () => {
 
             <Space style={{ display: "flex" }}>
               <Form.Item
-                label="施工负责人职责"
-                name="leaderDuty"
+                label="安全员职责"
+                name="safeDuty"
               >
                 <Input />
               </Form.Item>
@@ -471,13 +515,6 @@ export const ModalForm = () => {
 
             <Space style={{ display: "flex" }}>
               <Form.Item
-                label="安全员职责"
-                name="safeDuty"
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item
                 label="备注"
                 name="remark"
               >
@@ -491,5 +528,5 @@ export const ModalForm = () => {
       {/*添加工具*/}
       <AddToolModal />
     </Modal>
-  );
+  )
 };

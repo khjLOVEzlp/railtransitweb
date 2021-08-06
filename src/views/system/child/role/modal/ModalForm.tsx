@@ -4,24 +4,28 @@ import { rules } from "utils/verification";
 import { useAdd, useMod } from '../request'
 import { useRoleModal } from '../util'
 import { useInit } from 'views/system/child/menu/request'
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
-export const ModalForm = () => {
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
+export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
-  const setUrlParams = useSetUrlSearchParam();
   const { ModalOpen, isLoading, close, editingRole, editId } = useRoleModal()
   const title = editingRole ? "修改" : "新增"
+  const useMutateProject = editingRole ? useMod : useAdd;
   const msg = editingRole ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createRole: "" })
+    setParam({ ...param, index: 1 })
   }
-  const useMutateProject = editingRole ? useMod : useAdd;
-
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   const { data: menu, isSuccess: success } = useInit()
@@ -38,10 +42,11 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingRole, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingRole?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
-        msg()
         form.resetFields()
+        closeModal()
+        msg()
       } else {
         message.error(res.msg)
       }

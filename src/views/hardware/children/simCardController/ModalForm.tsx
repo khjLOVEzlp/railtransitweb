@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Radio, Select, Spin } from "antd";
 import { useEffect } from "react";
 import { rules } from "utils/verification";
-import { useWarehouse } from "utils/warehouse/toolType";
+import { useWarehouse } from "views/warehouse/child/toolType/request";
 import { useAdd, useMod } from './request'
 import { useSimModal } from './util'
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
@@ -32,7 +32,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingSim, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingSim?.data, ...value, id: editId }).then((res) => {
       msg()
       form.resetFields()
     }).catch(err => {

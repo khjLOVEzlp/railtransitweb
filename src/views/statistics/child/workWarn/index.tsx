@@ -1,43 +1,95 @@
-import styled from "@emotion/styled";
 import { Form, Modal, Select, Table } from "antd";
-import { useLineList } from "utils/statistics/taskStatistics";
+import { useLineList } from "../workCount/request";
 import { Column } from '@ant-design/charts';
 import {
-  useProjectsSearchParams,
   useAlarmModal,
   useAlarmStatistics,
   useAlarmPagination
-} from 'utils/statistics/alarmStatistics'
+} from './request'
 import { useDebounce } from "hook/useDebounce";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useStatisticsContext } from "views/statistics";
+import { Header, Main } from "components/Styled";
 
 export const WorkWarn = () => {
-  const { data: lineList, isSuccess: success, isLoading: loading } = useLineList()
-  const [param, setParam] = useState({
-    time: "",
-    subwayId: ""
-  })
-
-  const { open, ModalOpen } = useAlarmModal()
+  const { data: lineList, isLoading: loading } = useLineList()
+  const { param, setParam } = useStatisticsContext()
 
   console.log(param);
 
+  const { open } = useAlarmModal()
 
   const { data: alarmStatistics, isSuccess } = useAlarmStatistics(param)
 
   const lineChange = (value: string) => {
-    setParam({ ...param, subwayId: value })
+
+    setParam({ ...param, subwayId: String(value) })
   }
 
   const timeChange = (value: string) => {
-    setParam({ ...param, time: value })
+    setParam({ ...param, time: String(value) })
   }
 
+  const noData = [
+    {
+      name: "遗忘",
+      num: 0
+    },
+    {
+      name: "漏带",
+      num: 0
+    },
+    {
+      name: "漏点",
+      num: 0
+    },
+    {
+      name: "遗漏",
+      num: 0
+    },
+    {
+      name: "疫情",
+      num: 0
+    },
+    {
+      name: "酒精",
+      num: 0
+    },
+    {
+      name: "分离告警",
+      num: 0
+    },
+    {
+      name: "离线告警",
+      num: 0
+    },
+    {
+      name: "过时告警",
+      num: 0
+    },
+    {
+      name: "低电告警",
+      num: 0
+    },
+    {
+      name: "血压",
+      num: 0
+    },
+    {
+      name: "遗留",
+      num: 0
+    },
+  ]
+
   const config = {
-    data: isSuccess ? alarmStatistics?.data : [{ name: "1", num: 0 }],
+    data: isSuccess ? alarmStatistics?.data : noData,
     xField: 'name',
     yField: 'num',
     maxColumnWidth: 100,
+    legend: {
+      layout: 'horizontal',
+      position: 'right'
+    },
     label: {
       position: 'middle',
       style: {
@@ -92,9 +144,9 @@ export const WorkWarn = () => {
               style={{ width: 120 }}
               onChange={timeChange}
             >
-              <Select.Option value={1}>本日</Select.Option>
-              <Select.Option value={2}>本周</Select.Option>
-              <Select.Option value={3}>本月</Select.Option>
+              <Select.Option value={"1"}>本日</Select.Option>
+              <Select.Option value={"2"}>本周</Select.Option>
+              <Select.Option value={"3"}>本月</Select.Option>
             </Select>
           </Form.Item>
         </Form>
@@ -106,6 +158,8 @@ export const WorkWarn = () => {
           {...config}
           onReady={(plot: any) => {
             plot.on('plot:click', (evt: any) => {
+              console.log(param);
+
               open(param.subwayId, param.time)
             });
           }}
@@ -119,7 +173,13 @@ export const WorkWarn = () => {
 
 export const AlarmModal = () => {
   const { ModalOpen, close } = useAlarmModal()
-  const [param, setParam] = useProjectsSearchParams()
+  const { param: modalParam } = useStatisticsContext()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    subwayId: modalParam.subwayId,
+    time: modalParam.time
+  })
 
   const { data: alarmPagination, isLoading } = useAlarmPagination(useDebounce(param, 500))
   const columns = [
@@ -162,22 +222,3 @@ export const AlarmModal = () => {
     </Modal>
   )
 }
-
-const Header = styled.div`
-  height: 12.5rem;
-  background: #fff;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
-`
-
-const Main = styled.div`
-  background: #fff;
-  height: 100%;
-  border-radius: 1rem;
-  box-sizing: border-box;
-  padding: 1.5rem 1.5rem;
-`

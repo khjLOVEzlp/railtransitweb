@@ -6,9 +6,12 @@ import { usePlaModal } from './util'
 import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
 import { Header, Main } from 'components/Styled';
+import { noData } from 'utils/verification';
+import { useState } from 'react';
+import { useProject } from 'utils';
 
 export const PlatfromController = () => {
-  const [param, setParam] = useProjectsSearchParams()
+  const { param, setParam } = useProject()
   const { open, startEdit } = usePlaModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
@@ -100,7 +103,9 @@ export const PlatfromController = () => {
           ]
         } pagination={{ total: data?.count, current: param.index, pageSize: param.size, }} onChange={handleTableChange}
           loading={isLoading} dataSource={data?.data}
-          rowKey={(item) => item.id} />
+          rowKey={(item) => item.id}
+          locale={noData}
+        />
       </Main>
       <ModalForm />
     </>

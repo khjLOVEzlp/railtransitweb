@@ -1,14 +1,14 @@
-import styled from "@emotion/styled";
-import { useLineList } from "utils/statistics/taskStatistics";
+import { useLineList } from "../workCount/request";
 import { Form, Modal, Select, Table } from "antd";
 import { Column, Pie } from "@ant-design/charts";
 import {
-  useProjectsSearchParams,
   useMindModal,
   useMindStatistics,
   useMindStatisticsDetail
 } from './request'
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Header, Main } from "components/Styled";
+import { useStatisticsContext } from "views/statistics";
 
 export const PersonMind = () => {
   const { data: lineList } = useLineList()
@@ -41,20 +41,52 @@ export const PersonMind = () => {
     }
   }; */
 
+  const noDataA = [
+    {
+      temRate: 0,
+      className: "体温异常班别"
+    }
+  ]
+
+  const noDataB = [
+    {
+      alcRate: 0,
+      className: "酒精异常班别"
+    }
+  ]
+
+  const noDataC = [
+    {
+      bloodRate: 0,
+      className: "血压异常班别"
+    }
+  ]
+
   const Aconfig = {
     appendPadding: 10,
-    data: isSuccess ? mindStatistics?.data : [],
-    angleField: 'isAlcNormal',
+    data: isSuccess ? mindStatistics?.data : noDataA,
+    angleField: 'temRate',
     colorField: 'className',
     radius: 0.8,
     innerRadius: 0.64,
+    label: {
+      type: 'inner',
+      offset: '-50%',
+      // @ts-ignore
+      content: ({ percent }) => `${percent * 100}%`,
+      style: {
+        fill: '#fff',
+        fontSize: 14,
+        textAlign: 'center',
+      },
+    },
     statistic: null,
   };
 
   const Bconfig = {
     appendPadding: 10,
-    data: isSuccess ? mindStatistics?.data : [],
-    angleField: 'isBloodNormal',
+    data: isSuccess ? mindStatistics?.data : noDataB,
+    angleField: 'alcRate',
     colorField: 'className',
     radius: 0.8,
     innerRadius: 0.64,
@@ -74,8 +106,8 @@ export const PersonMind = () => {
 
   const Cconfig = {
     appendPadding: 10,
-    data: isSuccess ? mindStatistics?.data : [],
-    angleField: 'isTemNormal',
+    data: isSuccess ? mindStatistics?.data : noDataC,
+    angleField: 'bloodRate',
     colorField: 'className',
     radius: 0.8,
     innerRadius: 0.64,
@@ -151,7 +183,6 @@ export const PersonMind = () => {
         <Pie {...Bconfig} />
         {/*@ts-ignore*/}
         <Pie {...Cconfig} />
-
         <PersonMindModal />
       </Main>
     </>
@@ -160,7 +191,13 @@ export const PersonMind = () => {
 
 const PersonMindModal = () => {
   const { ModalOpen, close } = useMindModal()
-  const [param] = useProjectsSearchParams()
+  const { param: modalParam } = useStatisticsContext()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    subwayId: modalParam.subwayId,
+    time: modalParam.time
+  })
   const { data: mindDetail } = useMindStatisticsDetail(param)
 
   const columns = [
@@ -203,26 +240,3 @@ const PersonMindModal = () => {
   )
 }
 
-const Header = styled.div`
-  height: 12.5rem;
-  background: #fff;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
-`
-
-const Main = styled.div`
-  background: #fff;
-  height: 100%;
-  width: 100%;
-  border-radius: 1rem;
-  padding: 1.5rem 1.5rem;
-  display: flex;
-
-  > * {
-    flex: 1;
-  }
-`

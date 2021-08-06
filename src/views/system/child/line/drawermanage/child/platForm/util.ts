@@ -1,5 +1,4 @@
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useLinePlatformDetail } from "utils/system/linePlatform";
+import { useLinePlatformDetail } from "./request";
 import { useLineContext } from "../../..";
 
 export const useLinePlatFormModal = () => {

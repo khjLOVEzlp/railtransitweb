@@ -1,7 +1,8 @@
 import { Column, RadialBar } from '@ant-design/charts';
 import { Modal, Spin, Table } from 'antd';
-import { usePlanStatistics, usePlanPagination, usePlanModal, useProjectsSearchParams } from 'utils/home'
+import { usePlanStatistics, usePlanPagination, usePlanModal, useProjectsSearchParams } from '../request'
 import { useDebounce } from "hook/useDebounce";
+import { noData } from 'utils/verification';
 
 const PlanType = () => {
   const { open } = usePlanModal()
@@ -40,10 +41,11 @@ const PlanType = () => {
     radius: 0.8,
     innerRadius: 0.1,
     maxBarWidth: 10,
-    /* legend: {
+    autoFit: true,
+    legend: {
       layout: 'horizontal',
-      position: 'bottom'
-    }, */
+      position: 'top'
+    },
     tooltip: {
       formatter: function formatter(datum: any) {
         return {
@@ -153,6 +155,7 @@ const OpenModal = () => {
         loading={isLoading}
         onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}
+        locale={noData}
       />
     </Modal>
   )

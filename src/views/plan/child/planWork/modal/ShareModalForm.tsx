@@ -8,9 +8,10 @@ const { Option } = Select
 
 export const ShareModalForm = () => {
   const [form] = Form.useForm();
-  const { ModalOpen, close, publishPlanWorkId, isLoading, editingPlanWork } = useShareModal()
+  const { ModalOpen, close, editId, isLoading, editingPlanWork } = useShareModal()
   const { mutateAsync, isLoading: mutaLoading } = useSharePlan()
   const { data: personList } = useUserAll()
+  console.log(editingPlanWork?.data);
 
   const closeModal = () => {
     form.resetFields()
@@ -18,7 +19,7 @@ export const ShareModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...value, planId: publishPlanWorkId }).then(() => {
+    mutateAsync({ ...value, planId: editId }).then(() => {
       message.success("发布成功")
       form.resetFields()
       close()
@@ -55,21 +56,81 @@ export const ShareModalForm = () => {
         isLoading ? (
           <Spin size={"large"} />
         ) : (
-          editingPlanWork?.data.map((item: any) => (
-            <Row key={item.id}>
-              <Col style={mb} span={12}>人员名称：{item.userName}</Col>
-              <Col span={12}>发布者名称：{item.shareUserName}</Col>
-              <Col style={mb} span={12}>是否通过：{isStatus(item.isPass)}</Col>
-              <Col span={12}>备注：{item.remark}</Col>
-            </Row>
-          ))
+          <>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem" }}>
+              <span style={{ fontWeight: 700, fontSize: "2rem" }}>已发布：</span>
+              <Button type={"primary"}>取消计划</Button>
+            </div>
+            {editingPlanWork?.data["已发布"].length === 0 ? (
+              <div>没有已发布计划</div>
+            ) : (
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
+                {
+                  editingPlanWork?.data["已发布"].map((key: any) => <div style={{ marginBottom: "2rem", width: "50%" }}>
+                    <div>
+                      接收人： {key?.userName || "无"}
+                    </div>
+                    <div>
+                      发布者： {key?.shareUserName || "无"}
+                    </div>
+                    <div>
+                      是否通过： {key?.isPass === 0 ? "未反馈" : key?.isPass === 1 ? "通过" : "驳回" || "无"}
+                    </div>
+                    <div>
+                      备注： {key?.remark || "无"}
+                    </div>
+                    <div>
+                      发布时间： {key?.createTime || "无"}
+                    </div>
+                  </div>
+                  )
+                }
+              </div>
+            )
+            }
+
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem" }}>
+              <span style={{ fontWeight: 700, fontSize: "2rem" }}>已取消：</span>
+            </div>
+            {
+              editingPlanWork?.data["已取消"].length === 0 ? (
+                <div>没有已取消计划</div>
+              ) : (
+                editingPlanWork?.data["已取消"].map((key: any) => <div style={{ marginBottom: "2rem", display: "flex" }}>
+                  <div style={{ width: "50%" }}>
+                    <div>
+                      接收人： {key?.userName || "无"}
+                    </div>
+                    <div>
+                      发布者： {key?.shareUserName || "无"}
+                    </div>
+                    <div>
+                      是否通过： {key?.isPass === 0 ? "未反馈" : key?.isPass === 1 ? "通过" : "驳回" || "无"}
+                    </div>
+                    <div>
+                      备注： {key?.remark || "无"}
+                    </div>
+                    <div>
+                      发布时间： {key?.createTime || "无"}
+                    </div>
+                  </div>
+                </div>
+                )
+              )
+            }
+          </>
         )
       }
+
+      <div style={{ marginTop: "2rem", fontWeight: 700, fontSize: "2rem" }}>
+        发布计划：
+      </div>
       <Form
         form={form}
         onFinish={onFinish}
         labelAlign="right"
         layout={"vertical"}
+        style={{ marginTop: "2rem" }}
       >
         <Form.Item
           label="人员"
@@ -85,5 +146,3 @@ export const ShareModalForm = () => {
     </Modal>
   )
 }
-
-const mb = { marginBottom: "1rem" }

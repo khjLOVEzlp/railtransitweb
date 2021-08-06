@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Button, DatePicker, Form, Input, message, Modal, Radio, Spin, TreeSelect, Upload } from "antd";
+import { useEffect } from "react";
+import { Button, DatePicker, Form, Input, message, Modal, Radio, Select, Spin, TreeSelect, Upload } from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { rules } from "utils/verification";
 import { usePersonModal, useImportModal } from '../util'
@@ -7,8 +7,9 @@ import { useAdd, useMod } from '../request'
 import { InboxOutlined } from '@ant-design/icons';
 import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
-import { useInit } from 'utils/system/department'
+import { useInit } from 'views/system/child/department/request'
 import moment from "moment";
+import { useGetNotUseList } from "views/hardware/children/seperateController/request";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -44,7 +45,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingPerson, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingPerson?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()
@@ -55,6 +56,7 @@ export const ModalForm = () => {
   }
 
   const { data: departmentList } = useInit()
+  const { data: seperate } = useGetNotUseList()
 
   const onChange = (value: any) => {
     form.setFieldsValue({ departmentId: value })
@@ -168,6 +170,20 @@ export const ModalForm = () => {
                 treeDefaultExpandAll
                 onChange={onChange}
               />
+            </Form.Item>
+
+            <Form.Item
+              label="防分离器"
+              name="irfId"
+            >
+              <Select
+                showSearch
+                allowClear
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }>
+                {seperate?.data.map((item: any) => <Select.Option value={item.id} key={item.id}>{item.codeNumber}</Select.Option>)}
+              </Select>
             </Form.Item>
 
             <Form.Item

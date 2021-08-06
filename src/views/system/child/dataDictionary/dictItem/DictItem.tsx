@@ -1,10 +1,11 @@
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import styled from "@emotion/styled";
-import { useDel, useInit, useProjectsSearchParams } from 'utils/system/dictItem';
+import { useDel, useInit } from './request';
 import { ModalForm } from './ModalForm'
 import { useDebounce } from 'hook/useDebounce';
 import { useDictItemModal } from './util'
 import { useState } from 'react';
+import { noData } from 'utils/verification';
 
 export const DictItem = () => {
   const [param, setParam] = useState({
@@ -111,6 +112,7 @@ export const DictItem = () => {
           loading={isLoading}
           dataSource={data?.data}
           rowKey={(item: any) => item.id}
+          locale={noData}
         />
       </Main>
       <ModalForm />
@@ -128,4 +130,5 @@ const Main = styled.div`
   background: #fff;
   border-radius: 1rem;
   padding: 0 1.5rem;
+  height: 100%;
 `

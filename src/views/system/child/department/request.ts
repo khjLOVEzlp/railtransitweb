@@ -1,7 +1,7 @@
 import qs from 'qs'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { cleanObject } from '..'
-import { useHttp } from '../http'
+import { cleanObject } from 'utils'
+import { useHttp } from 'utils/http'
 import { department } from "types/department";
 
 /*

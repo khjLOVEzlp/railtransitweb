@@ -33,7 +33,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingSep, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingSep?.data, ...value, id: editId }).then((res) => {
       msg()
       form.resetFields()
     }).catch(err => {
@@ -78,7 +78,7 @@ export const ModalForm = () => {
               <Input />
             </Form.Item>
 
-            <Form.Item
+            {/* <Form.Item
               label="使用人"
               name="personId"
               rules={rules}
@@ -92,7 +92,7 @@ export const ModalForm = () => {
                 {personList?.data.map((item: any, index: number) => <Select.Option value={item.id}
                   key={index}>{item.name}</Select.Option>)}
               </Select>
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item
               label="imei号"

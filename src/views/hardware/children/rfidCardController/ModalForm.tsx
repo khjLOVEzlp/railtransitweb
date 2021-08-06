@@ -31,7 +31,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingRfi, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingRfi?.data, ...value, id: editId }).then((res) => {
       msg()
       form.resetFields()
     }).catch(err => {

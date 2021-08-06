@@ -2,22 +2,9 @@ import qs from 'qs'
 import { useQuery } from 'react-query'
 import { useHttp } from 'utils/http'
 import { cleanObject } from "utils/index";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useMemo } from "react";
 import { Search } from 'utils/typings';
 import { PersonMind } from './typings';
-
-/*项目列表搜索的参数*/
-export const useProjectsSearchParams = () => {
-  const [param, setParam] = useUrlQueryParam(["subwayId", "time"]);
-  return [
-    useMemo(
-      () => ({ ...param }),
-      [param]
-    ),
-    setParam,
-  ] as const;
-};
+import { useStatisticsContext } from 'views/statistics';
 
 /*精神分析统计*/
 export const useMindStatistics = (params?: Partial<Search>) => {
@@ -25,9 +12,9 @@ export const useMindStatistics = (params?: Partial<Search>) => {
   return useQuery<PersonMind>(['MindStatistics', cleanObject(params)], async () => {
     const data = await client(`report/getPersonMind?${qs.stringify(cleanObject(params))}`, { method: "POST" })
     data.data.forEach((key: any) => {
-      if (key["isAlcNormal"]) key["isAlcNormal"] = key["isAlcNormal"].replace("%", "")
-      if (key["isBloodNormal"]) key["isBloodNormal"] = key["isBloodNormal"].replace("%", "")
-      if (key["isTemNormal"]) key["isTemNormal"] = key["isTemNormal"].replace("%", "")
+      if (key["temRate"]) key["temRate"] = key["temRate"].replace("%", "")
+      if (key["alcRate"]) key["alcRate"] = key["alcRate"].replace("%", "")
+      if (key["bloodRate"]) key["bloodRate"] = key["bloodRate"].replace("%", "")
     })
     return data
   }, {
@@ -46,21 +33,22 @@ export const useMindStatisticsDetail = (params?: any) => {
   )
 }
 
-/*到岗统计弹框*/
+/*精神分析弹框*/
 
 export const useMindModal = () => {
-  const setUrlParams = useSetUrlSearchParam()
+  const { visible, setVisible, param, setParam } = useStatisticsContext()
+  const open = (subwayId: string, time: string) => {
+    setParam({ subwayId, time })
+    setVisible(true)
+  }
 
-  const [{ openMind }, setOpenMind] = useUrlQueryParam([
-    'openMind'
-  ])
-
-  const open = () => setOpenMind({ openMind: true })
-
-  const close = () => setUrlParams({ openMind: "" })
+  const close = () => {
+    setParam({ subwayId: "", time: "" })
+    setVisible(false)
+  }
 
   return {
-    ModalOpen: openMind === 'true',
+    ModalOpen: Boolean(param.subwayId) && Boolean(param.time) && visible === true,
     open,
     close
   }

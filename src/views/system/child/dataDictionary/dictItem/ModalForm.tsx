@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useDictItemModal } from "./util";
-import { useAdd, useMod } from "utils/system/dictItem";
+import { useAdd, useMod } from "./request";
 import { useEffect } from "react";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
@@ -36,7 +36,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingDictItem, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingDictItem?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

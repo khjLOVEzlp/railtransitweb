@@ -1,5 +1,5 @@
 import { useAuth } from "context/auth-context";
-import { useLineDetail } from "utils/system/line";
+import { useLineDetail } from "./request";
 
 /*抽屉*/
 export const useProjectModal = () => {

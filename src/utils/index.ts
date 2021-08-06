@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useLocation } from "react-router";
+
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 /**
  *传入一个对象，去除对象值为空的键
@@ -78,5 +81,32 @@ export const color = (type: number) => {
 
     default:
       break;
+  }
+}
+
+/**
+ * 获取URL路由参数
+ *  */
+
+export const useRouteType = () => {
+  const units = useLocation().pathname.split("/");
+  return units[units.length - 1];
+};
+
+/**
+ * 表格数据搜索参数
+ *  */
+
+export const useProject = () => {
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: "",
+    type: ""
+  })
+
+  return {
+    param,
+    setParam
   }
 }

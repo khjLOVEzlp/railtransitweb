@@ -1,6 +1,4 @@
-import { useAuth } from "context/auth-context";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useLineClassDetail } from "utils/system/lineClass";
+import { useLineClassDetail } from "./request";
 import { useLineContext } from "../../../index";
 
 export const useLineClassModal = () => {

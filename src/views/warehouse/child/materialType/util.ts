@@ -1,6 +1,5 @@
 import { useAuth } from "context/auth-context";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useMaterialDetail } from "utils/warehouse/materialType";
+import { useMaterialDetail } from "./request";
 
 export const useMaterialModal = () => {
   const { visible, setVisible, editId, setEditId } = useAuth()

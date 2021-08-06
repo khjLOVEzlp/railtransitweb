@@ -1,13 +1,13 @@
 import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
-import styled from "@emotion/styled";
 import { ImportModal, ModalForm } from "./modal/ModalForm";
 import { useDel, useInit } from './request';
 import { useDebounce } from 'hook/useDebounce';
 import { usePersonModal, useImportModal } from './util'
 import { useAuth } from "../../../../context/auth-context";
-import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
 import { useState } from 'react';
+import { noData } from 'utils/verification';
+import { Header, Main } from 'components/Styled';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -56,7 +56,7 @@ export const PersonManage = () => {
     }).then((res) => {
       return res.blob();
     }).then(blob => {
-      let bl = new Blob([blob], { type: blob.type });
+      // let bl = new Blob([blob], { type: blob.type });
       let fileName = "模板" + ".xlsx";
       var link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -163,29 +163,12 @@ export const PersonManage = () => {
           onChange={handleTableChange}
           loading={isLoading}
           dataSource={data?.data}
-          rowKey={(item) => item.id} />
+          rowKey={(item) => item.id}
+          locale={noData}
+        />
       </Main>
       <ModalForm />
       <ImportModal />
     </>
   );
 };
-
-const Header = styled.div`
-  height: 12.5rem;
-  background: #fff;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
-`
-
-const Main = styled.div`
-  background: #fff;
-  height: 73rem;
-  border-radius: 1rem;
-  padding: 0 1.5rem;
-  overflow-y: auto;
-`

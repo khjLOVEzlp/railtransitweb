@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Form, Button, Table, Radio, Select, DatePicker } from 'antd';
-import styled from "@emotion/styled";
-import { useDay, useLineList, useMonth } from 'utils/statistics/taskStatistics';
+import { useDay, useLineList, useMonth } from './request';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import qs from "qs";
 import { useAuth } from "context/auth-context";
+import { noData } from 'utils/verification';
+import { Header, Main } from 'components/Styled';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const { Option } = Select
@@ -29,9 +30,6 @@ export const WorkCount = () => {
 
   const birthday = (obj: any, time: string) => {
     setParams({ ...params, date: time })
-    console.log(params);
-    console.log(time);
-
   }
 
   const birthmoth = (obj: any, time: string) => {
@@ -153,6 +151,7 @@ export const WorkCount = () => {
             pagination={false}
             rowKey={(item: any, index: any) => index}
             loading={dayLoading}
+            locale={noData}
           />
           <Table style={{ flex: "1" }} columns={
             [
@@ -173,6 +172,7 @@ export const WorkCount = () => {
             pagination={false}
             rowKey={(item: any, index: any) => index}
             loading={dayLoading}
+            locale={noData}
           />
         </div>) : (
           /* 月报 */
@@ -200,6 +200,7 @@ export const WorkCount = () => {
             } pagination={false} dataSource={monthList?.data?.personMonthVoList || []}
               rowKey={(item: any, index: any) => index}
               loading={monthLoading}
+              locale={noData}
             />
 
             <Table style={{ flex: "1" }} columns={
@@ -220,6 +221,7 @@ export const WorkCount = () => {
             } pagination={false} dataSource={monthList?.data?.toolMonthVoList || []}
               rowKey={(item: any, index: any) => index}
               loading={monthLoading}
+              locale={noData}
             />
           </div>
         )}
@@ -227,22 +229,3 @@ export const WorkCount = () => {
     </>
   );
 };
-
-const Header = styled.div`
-  height: 12.5rem;
-  background: #fff;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
-`
-
-const Main = styled.div`
-  background: #fff;
-  height: 100%;
-  border-radius: 1rem;
-  padding: 0 1.5rem;
-  overflow-y: auto;
-`

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { Button, Form, Input, message, Modal, Select, Spin, TreeSelect } from "antd";
 import { useProjectModal } from "../../../util";
-import { useAdd, useMod } from "utils/system/lineClass";
-import { useWarehouse } from "utils/warehouse/toolType";
+import { useAdd, useMod } from "./request";
+import { useWarehouse } from "views/warehouse/child/toolType/request";
 import { rules } from "utils/verification";
 import { useLineClassModal } from './util'
-import { useInit } from "utils/system/lineRoad";
+import { useInit } from "./request";
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
-import * as department from 'utils/system/department'
+import * as department from 'views/system/child/department/request'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
@@ -39,7 +39,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingLineClass, ...value, id: classId, lineId: editId }).then((res) => {
+    mutateAsync({ ...editingLineClass?.data, ...value, id: classId, lineId: editId }).then((res) => {
       if (res.code === 200) {
         msg()
         form.resetFields()

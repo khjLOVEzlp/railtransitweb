@@ -1,9 +1,10 @@
 import { Form, Table, DatePicker } from 'antd';
-import styled from "@emotion/styled";
-import { useInit, useProjectsSearchParams } from '../../../../utils/warehouse/outWarehouse'
-import { useDebounce } from "../../../../hook/useDebounce";
+import { useInit } from './request'
+import { useDebounce } from "hook/useDebounce";
 import locale from "antd/es/date-picker/locale/zh_CN";
 import { useState } from 'react';
+import { noData } from 'utils/verification';
+import { Header, Main } from 'components/Styled';
 
 export const OutWarehouse = () => {
   const [param, setParam] = useState({
@@ -79,28 +80,11 @@ export const OutWarehouse = () => {
             ]
           } pagination={{ total: data?.count, current: param.index, pageSize: param.size }} onChange={handleTableChange}
             loading={isLoading} dataSource={data?.data}
-            rowKey={(item, index: any) => index} />
+            rowKey={(item, index: any) => index}
+            locale={noData}
+          />
         </Main>
       </Form.Provider>
     </>
   );
 }
-
-const Header = styled.div`
-  height: 12.5rem;
-  background: #fff;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
-`
-
-const Main = styled.div`
-  background: #fff;
-  height: 73rem;
-  border-radius: 1rem;
-  padding: 0 1.5rem;
-  overflow-y: auto;
-`

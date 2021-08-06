@@ -1,6 +1,5 @@
 import { useAuth } from "context/auth-context";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useDictItemDetail } from "utils/system/dictItem";
+import { useDictItemDetail } from "./request";
 
 export const useDictItemModal = () => {
   const { visible, setVisible, editId, setEditId } = useAuth()

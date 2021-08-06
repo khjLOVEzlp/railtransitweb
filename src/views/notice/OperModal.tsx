@@ -1,7 +1,7 @@
 import { Button, Form, message, Modal, Popconfirm, Radio, Table, Input } from "antd"
 import { useForm } from "antd/lib/form/Form";
 import { useEffect, useState } from "react";
-import { rules } from "utils/verification";
+import { noData, rules } from "utils/verification";
 import { useInit, useMod, useFeedBack } from "./request";
 import { useNoticeModal } from './util'
 
@@ -160,6 +160,7 @@ export const OperModal = () => {
         }}
         onChange={handleTableChange}
         rowKey={(item) => item.id}
+        locale={noData}
       />
 
       <Modal

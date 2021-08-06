@@ -18,6 +18,14 @@ export const useProjectsSearchParams = () => {
   ] as const;
 };
 
+/**
+ * 查询未使用防分离器
+ *  */
+export const useGetNotUseList = () => {
+  const client = useHttp()
+  return useQuery(['person'], () => client(`hardware/seperate/getNotUseList`))
+}
+
 /*
 查询
  */

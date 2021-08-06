@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
-import {Drawer, Tabs} from "antd";
-import {useState} from "react";
-import {Platform} from "./child/platForm/Platform";
-import {Class} from "./child/class/Class";
-import {useProjectModal} from '../util'
-import {useSetUrlSearchParam} from "hook/useUrlQueryParam";
-import {Road} from "./child/road/Road";
+import { Drawer, Tabs } from "antd";
+import { useState } from "react";
+import { Platform } from "./child/platForm/Platform";
+import { Class } from "./child/class/Class";
+import { useProjectModal } from '../util'
+import { Road } from "./child/road/Road";
 
-const {TabPane} = Tabs;
+const { TabPane } = Tabs;
 
 export const Drawermanage = () => {
   const {
@@ -16,27 +15,27 @@ export const Drawermanage = () => {
     close
   } = useProjectModal();
 
-  const setUrlParams = useSetUrlSearchParam();
+  // const setUrlParams = useSetUrlSearchParam();
 
   const callback = () => {
-    setUrlParams({index: "", size: "", name: "", departmentName: ""})
+    // setUrlParams({index: "", size: "", name: "", departmentName: ""})
   }
 
   const [navList] = useState([
     {
       name: "区间",
       id: 1,
-      tem: <Road/>,
+      tem: <Road />,
     },
     {
       name: "地铁站台",
       id: 2,
-      tem: <Platform/>,
+      tem: <Platform />,
     },
     {
       name: "地铁班别",
       id: 3,
-      tem: <Class/>,
+      tem: <Class />,
     }
   ])
 

@@ -1,9 +1,9 @@
 import qs from 'qs'
 import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
-import { cleanObject } from '../index'
-import { useHttp } from '../http'
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
+import { cleanObject } from 'utils/index'
+import { useHttp } from 'utils/http'
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {

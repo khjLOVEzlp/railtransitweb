@@ -1,9 +1,9 @@
 import qs from 'qs'
 import { useMemo } from 'react';
 import { useQuery } from 'react-query'
-import { useUrlQueryParam } from '../../hook/useUrlQueryParam';
-import { cleanObject } from '../index'
-import { useHttp } from '../http'
+import { useUrlQueryParam } from 'hook/useUrlQueryParam';
+import { cleanObject } from 'utils/index'
+import { useHttp } from 'utils/http'
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
@@ -22,5 +22,5 @@ export const useProjectsSearchParams = () => {
  */
 export const useInit = (params: any) => {
   const client = useHttp()
-  return useQuery(['warehouseOut', cleanObject(params)], () => client(`warehouseOut/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery(['warehouseIn', cleanObject(params)], () => client(`warehouseIn/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }

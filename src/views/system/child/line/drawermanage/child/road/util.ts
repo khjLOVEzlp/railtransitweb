@@ -1,5 +1,4 @@
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useLineRoadDetail } from "utils/system/lineRoad";
+import { useLineRoadDetail } from "./request";
 import { useLineContext } from "../../..";
 
 export const useLineRoadModal = () => {

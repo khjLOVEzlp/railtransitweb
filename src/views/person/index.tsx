@@ -1,7 +1,15 @@
-import styled from "@emotion/styled";
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hook/useDocumentTitle";
+import { Layout, Menu } from 'antd';
+import {
+  UsergroupAddOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
+import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
+import { useRouteType } from "utils";
+import { useState } from "react";
+const { Sider, Content } = Layout;
 
 interface Item {
   name: string,
@@ -10,63 +18,57 @@ interface Item {
 
 export const Person = () => {
   const menu = JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "人员管理").childMenu
-
+  const routeType = useRouteType();
+  const [collapsed, setCollapsed] = useState(false)
   useDocumentTitle("人员管理")
+
+  menu.forEach((item: any) => {
+    const name = item.name
+    switch (name) {
+      case "人员管理":
+        item["icon"] = UsergroupAddOutlined
+        break;
+
+      case "精神状态":
+        item["icon"] = ExclamationCircleOutlined
+        break;
+
+      default:
+        break;
+    }
+  })
+
+  const onCollapse = () => {
+    setCollapsed(!collapsed);
+  };
+
   return (
-    <SystemStyle>
-      <Left>
-        {
-          menu.map((item: Item, index: number) => <li key={index}>
-            <img src={`../../icon/${item.name}.png`} alt="" />
-            <NavLink to={item.url} activeStyle={{ color: '#5A7FFA', fontWeight: 'bold' }}>{item.name}</NavLink>
-          </li>)
-        }
-      </Left>
-      <Right>
-        <Outlet />
-      </Right>
-    </SystemStyle>
+    <Layout style={layout}>
+      <Sider
+        width={160}
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+        theme="light"
+        style={sider}
+        collapsedWidth={60}
+      // trigger={<span>显示/隐藏</span>}
+      >
+        <Menu selectedKeys={[routeType]} style={menuStyle}>
+          {
+            menu.map((item: any) => (
+              <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
+                <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
+              </Menu.Item>
+            ))
+          }
+        </Menu>
+      </Sider>
+      <Layout className="site-layout">
+        <Content style={{ marginLeft: '1rem', display: "flex", flexDirection: "column", height: "100%" }}>
+          <Outlet />
+        </Content>
+      </Layout>
+    </Layout>
   )
 }
-
-const SystemStyle = styled.div`
-  display: flex;
-  height: 100%;
-`
-
-const Left = styled.div`
-  width: 16rem;
-  background: #FFFFFF;
-  border-radius: 14px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-left: 2rem;
-  box-sizing: border-box;
-
-  > li {
-    font-size: 2rem;
-    cursor: pointer;
-    width: 100%;
-    align-items: center;
-    display: flex;
-    height: 6rem;
-
-    > a {
-      color: #747A89;
-      margin-left: 1rem;
-    }
-  }
-`
-
-const Right = styled.div`
-  border-radius: 14px;
-  width: 100%;
-  height: 100%;
-  margin-left: 0.5%;
-  overflow-y: auto;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-`

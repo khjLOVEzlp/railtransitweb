@@ -1,11 +1,12 @@
 import { Button, Form, Input, message, Popconfirm, Table } from "antd";
 import styled from "@emotion/styled";
-import { useDel, useInit, useProjectsSearchParams } from 'utils/system/lineClass'
+import { useDel, useInit } from './request'
 import { useProjectModal } from "../../../util";
 import { ModalForm } from "./ModalForm";
 import { useDebounce } from "hook/useDebounce";
 import { useLineClassModal } from './util'
 import { useState } from "react";
+import { noData } from "utils/verification";
 
 export const Class = () => {
   const [param, setParam] = useState({
@@ -13,7 +14,7 @@ export const Class = () => {
     size: 10,
     departmentName: ""
   })
-  
+
   const { editId } = useProjectModal();
   const { open, startEdit } = useLineClassModal()
 
@@ -105,7 +106,9 @@ export const Class = () => {
           },
         ]} pagination={{ total: data?.count, current: param.index, pageSize: param.size }} onChange={handleTableChange}
           loading={isLoading} dataSource={data?.data}
-          rowKey={(item: any) => item.id} />
+          rowKey={(item: any) => item.id}
+          locale={noData}
+        />
         <ModalForm />
       </Main>
     </Contianer>

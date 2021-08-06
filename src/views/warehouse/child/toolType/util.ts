@@ -1,6 +1,6 @@
 import { useAuth } from "context/auth-context";
 import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useToolTypeDetail, useViewToolDetail, useGetMaterialDetail } from "utils/warehouse/toolType";
+import { useToolTypeDetail, useViewToolDetail, useGetMaterialDetail } from "./request";
 
 /*新增修改弹框*/
 export const useToolTypeModal = () => {

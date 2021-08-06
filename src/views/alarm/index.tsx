@@ -3,6 +3,7 @@ import { Select, Table } from "antd"
 import { useState } from "react"
 import { useDocumentTitle } from 'hook/useDocumentTitle'
 import { useInit, useWarnCount } from "./request"
+import { noData } from "utils/verification"
 
 const { Option } = Select;
 
@@ -258,6 +259,7 @@ export const Alarm = () => {
           loading={isLoading}
           dataSource={dataList?.data}
           rowKey={(item) => item.id}
+          locale={noData}
         />
       </Main>
     </AlarmStyle>

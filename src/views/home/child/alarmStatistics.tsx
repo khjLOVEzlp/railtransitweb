@@ -1,7 +1,8 @@
 import { Radar } from '@ant-design/charts';
 import { Modal, Spin, Table } from 'antd';
-import { useAlarmStatistics, useAlarmPagination, useAlarmModal, useProjectsSearchParams } from 'utils/home'
+import { useAlarmStatistics, useAlarmPagination, useAlarmModal, useProjectsSearchParams } from '../request'
 import { useDebounce } from "hook/useDebounce";
+import { noData } from 'utils/verification';
 
 const Page = () => {
   const { data: alarmStatistics, isLoading } = useAlarmStatistics()
@@ -12,7 +13,7 @@ const Page = () => {
     // padding: 10,
     xField: "name",
     yField: "num",
-    // padding: [0, 150, 0, 150],
+    padding: [50, 50, 50, 50],
     meta: {
       num: {
         alias: '数量',
@@ -33,6 +34,7 @@ const Page = () => {
     // 开启辅助点
     point: {},
     area: {},
+
   }
 
   return (
@@ -124,6 +126,7 @@ const OpenModal = () => {
         loading={isLoading}
         onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}
+        locale={noData}
       />
     </Modal>
   )

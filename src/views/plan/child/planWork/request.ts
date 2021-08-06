@@ -80,9 +80,7 @@ export const usePlanWorkDetail = (id?: number) => {
   return useQuery(['planWorkDetail', id], async () => {
     const data = await client(`plan/get/${id}`)
     let typeList = data.data.typeList.map((key: any) => key.typeId)
-    let personList = data.data.personList.map((key: any) => key.personId)
     data.data.typeList = typeList
-    data.data.personList = personList
     return data
   }, {
     enabled: Boolean(id),

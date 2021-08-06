@@ -4,3 +4,7 @@
   padding: 0 2rem;
   border-radius: 1rem;
 }
+
+.ant-tabs-content {
+  height: 100%;
+}

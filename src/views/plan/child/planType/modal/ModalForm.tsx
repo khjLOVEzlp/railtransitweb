@@ -6,7 +6,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { usePlanTypeModal } from '../util'
 import { useAdd, useMod } from "../request";
 import { useEffect } from "react";
-import { useMaterialType } from 'utils/warehouse/materialType'
+import { useMaterialType } from 'views/warehouse/child/materialType/request'
 import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 const { Option } = Select;
@@ -39,7 +39,7 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingPlanType, ...value, id: editId }).then(() => {
+    mutateAsync({ ...editingPlanType?.data, ...value, id: editId }).then(() => {
       msg()
       form.resetFields()
     })
