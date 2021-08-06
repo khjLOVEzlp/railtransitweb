@@ -140,7 +140,6 @@ export const useTaskPagination = (params?: any) => {
 
 export const usePlanModal = () => {
   const setUrlParams = useSetUrlSearchParam()
-
   const [{ PlanId }, setPlanId] = useUrlQueryParam([
     "PlanId"
   ])

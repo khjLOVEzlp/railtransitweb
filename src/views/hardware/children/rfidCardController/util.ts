@@ -1,5 +1,4 @@
 import { useAuth } from "context/auth-context";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { useRfiDetail } from "./request";
 
 export const useRfiModal = () => {

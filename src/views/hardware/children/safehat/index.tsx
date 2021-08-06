@@ -9,7 +9,7 @@ import { noData } from 'utils/verification';
 import { useState } from 'react';
 import { useProject } from 'utils';
 
-export const SeperateController = () => {
+export default () => {
   const { param, setParam } = useProject()
   const { open, startEdit } = useSepModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))

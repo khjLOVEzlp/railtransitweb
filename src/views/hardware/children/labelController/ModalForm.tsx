@@ -4,21 +4,16 @@ import { rules } from "utils/verification";
 import { useWarehouse } from "views/warehouse/child/toolType/request";
 import { useAdd, useMod } from './request'
 import { useLabModal } from './util'
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const setUrlParams = useSetUrlSearchParam();
 
   const { ModalOpen, isLoading, close, editingLab, editId } = useLabModal()
   const title = editingLab ? "修改" : "新增"
   const msg = editingLab ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createLab: "" })
   }
   const useMutateProject = editingLab ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -34,8 +29,9 @@ export const ModalForm = () => {
 
   const onFinish = (value: any) => {
     mutateAsync({ ...editingLab?.data, ...value, id: editId }).then((res) => {
-      msg()
       form.resetFields()
+      closeModal()
+      msg()
     }).catch(err => {
       message.error(err.msg)
     })

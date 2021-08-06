@@ -1,5 +1,5 @@
 import { useAuth } from "context/auth-context";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { useWareHouseContext } from "views/warehouse";
 import { useToolTypeDetail, useViewToolDetail, useGetMaterialDetail } from "./request";
 
 /*新增修改弹框*/
@@ -62,22 +62,22 @@ export const useViewTool = () => {
 
 /*查看工具详情弹框*/
 export const useToolModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ type, warehouseId }, setViewToolId] = useUrlQueryParam([
-    "type", "warehouseId"
-  ])
+  const { editId, setEditId } = useWareHouseContext()
+  const { editId: type, setEditId: setType } = useAuth()
 
   const { data: viewTool, isLoading } = useGetMaterialDetail(
-    Number(type), Number(warehouseId)
+    Number(type), Number(editId)
   )
 
-  const close = () => setUrlParams({ type: "", warehouseId: "" });
-  const startEdit = (type: number, warehouseId: number) =>
-    setViewToolId({ type, warehouseId });
+  const close = () => setEditId(undefined)
+  const startEdit = (type: number | undefined, editId: number) => {
+    setType(type)
+    setEditId(editId)
+
+  }
 
   return {
-    ModalOpen: Boolean(type) && Boolean(warehouseId),
+    ModalOpen: Boolean(type) && Boolean(editId),
     close,
     viewTool,
     startEdit,

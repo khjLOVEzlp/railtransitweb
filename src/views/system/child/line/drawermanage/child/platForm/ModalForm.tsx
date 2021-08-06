@@ -5,21 +5,16 @@ import { useInit } from './request'
 import { useMod, useAdd } from './request'
 import { useProjectModal } from "../../../util";
 import { useEffect } from "react";
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const setUrlParams = useSetUrlSearchParam();
   const { editId } = useProjectModal()
   const { editingLinePlatForm, isLoading, close, ModalOpen, platId } = useLinePlatFormModal()
   const title = editingLinePlatForm ? "修改" : "新增"
   const msg = editingLinePlatForm ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createLinePlatForm: "" })
   }
   const useMutateProject = editingLinePlatForm ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -38,8 +33,9 @@ export const ModalForm = () => {
   const onFinish = (value: any) => {
     mutateAsync({ ...editingLinePlatForm?.data, ...value, id: platId, lineId: editId }).then((res) => {
       if (res.code === 200) {
-        msg()
         form.resetFields()
+        closeModal()
+        msg()
       } else {
         message.error(res.msg)
       }

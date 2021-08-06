@@ -1,10 +1,10 @@
 import { useAuth } from "context/auth-context";
-import { useSimDetail } from "./request";
+import { useBloodDetail } from "./request";
 
-export const useSimModal = () => {
+export const useAlcModal = () => {
   const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const { data: editingSim, isLoading } = useSimDetail(
+  const { data: editingAlc, isLoading } = useBloodDetail(
     Number(editId)
   );
 
@@ -21,7 +21,7 @@ export const useSimModal = () => {
     open,
     close,
     startEdit,
-    editingSim,
+    editingAlc,
     isLoading,
     editId
   };

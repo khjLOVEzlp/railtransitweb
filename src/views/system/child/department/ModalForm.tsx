@@ -4,20 +4,15 @@ import { rules } from "utils/verification";
 import { useAdd, useMod } from './request'
 import { useDepartmentModal } from './util'
 import { useInit } from './request'
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const setUrlParams = useSetUrlSearchParam();
   const { ModalOpen, isLoading, close, editingDepartment, editId } = useDepartmentModal()
   const title = editingDepartment ? "修改" : "新增"
   const msg = editingDepartment ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createDepartment: "" })
   }
   const useMutateProject = editingDepartment ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -37,8 +32,9 @@ export const ModalForm = () => {
 
   const onFinish = (value: any) => {
     mutateAsync({ ...editingDepartment?.data, ...value, id: editId }).then(() => {
-      msg()
       form.resetFields()
+      closeModal()
+      msg()
     })
   }
 

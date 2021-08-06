@@ -3,21 +3,16 @@ import { rules } from "utils/verification";
 import { useMaterialModal } from '../util'
 import { useAdd, useMod } from '../request'
 import { useEffect } from "react";
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const setUrlParams = useSetUrlSearchParam();
 
   const { ModalOpen, isLoading, close, editingMaterial, editId } = useMaterialModal()
   const title = editingMaterial ? "修改" : "新增"
   const msg = editingMaterial ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createMaterial: "" })
   }
   const useMutateProject = editingMaterial ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -34,8 +29,9 @@ export const ModalForm = () => {
   const onFinish = (value: any) => {
     mutateAsync({ ...editingMaterial?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
-        msg()
         form.resetFields()
+        closeModal()
+        msg()
       } else {
         message.error(res.msg)
       }

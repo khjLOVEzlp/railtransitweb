@@ -259,6 +259,6 @@ const Nav = styled.div`
 
 const ContentStyle = styled.main`
   height: calc(100vh - 8.3vh);
-  padding: 1rem 1rem;
+  padding: 0.5rem 0.5rem;
   box-sizing: border-box;
 `

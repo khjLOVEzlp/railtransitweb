@@ -2,21 +2,16 @@ import { Button, Form, Input, message, Modal, Radio, Spin } from "antd";
 import { useEffect } from "react";
 import { useAdd, useMod } from './request'
 import { useRfiModal } from './util'
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const setUrlParams = useSetUrlSearchParam();
 
   const { ModalOpen, isLoading, close, editingRfi, editId } = useRfiModal()
   const title = editingRfi ? "修改" : "新增"
   const msg = editingRfi ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createRfi: "" })
   }
   const useMutateProject = editingRfi ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -32,8 +27,9 @@ export const ModalForm = () => {
 
   const onFinish = (value: any) => {
     mutateAsync({ ...editingRfi?.data, ...value, id: editId }).then((res) => {
-      msg()
       form.resetFields()
+      closeModal()
+      msg()
     }).catch(err => {
       message.error(err.msg)
     })

@@ -1,5 +1,4 @@
 import { useAuth } from "context/auth-context";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
 import { usePersonDetail } from "./request";
 
 export const usePersonModal = () => {
@@ -32,18 +31,14 @@ export const usePersonModal = () => {
 /*导入人员弹框*/
 
 export const useImportModal = () => {
-  const setUrlParams = useSetUrlSearchParam()
+  const { drawer, setDrawer } = useAuth()
 
-  const [{ importModal }, setImportModal] = useUrlQueryParam([
-    "importModal"
-  ])
+  const open = () => setDrawer(true)
 
-  const open = () => setImportModal({ importModal: true })
-
-  const close = () => setUrlParams({ importModal: "" })
+  const close = () => setDrawer(false)
 
   return {
-    ModalOpen: importModal === 'true',
+    ModalOpen: drawer === true,
     open,
     close
   }

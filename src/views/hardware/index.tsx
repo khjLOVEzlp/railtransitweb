@@ -11,8 +11,10 @@ import {
   PushpinOutlined,
   BorderOutlined,
   ApiOutlined,
+  NodeIndexOutlined,
+  CustomerServiceOutlined
 } from '@ant-design/icons';
-import { content, layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
+import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { Layout, Menu } from "antd";
 import { useRouteType } from "utils";
 const { Sider, Content } = Layout;
@@ -56,6 +58,14 @@ export const Hardware = () => {
 
       case "工卡":
         item["icon"] = BorderOutlined
+        break;
+
+      case "安全帽":
+        item["icon"] = CustomerServiceOutlined
+        break;
+
+      case "血压测试仪":
+        item["icon"] = NodeIndexOutlined
         break;
 
       default:

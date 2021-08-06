@@ -1,10 +1,11 @@
 import { useAuth } from "context/auth-context";
-import { useSimDetail } from "./request";
+import { useSafDetail } from "./request";
 
-export const useSimModal = () => {
+export const useSepModal = () => {
   const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const { data: editingSim, isLoading } = useSimDetail(
+
+  const { data: editingSep, isLoading } = useSafDetail(
     Number(editId)
   );
 
@@ -21,7 +22,7 @@ export const useSimModal = () => {
     open,
     close,
     startEdit,
-    editingSim,
+    editingSep,
     isLoading,
     editId
   };

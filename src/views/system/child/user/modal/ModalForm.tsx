@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Button, Checkbox, Form, Input, message, Modal, Select, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useUserList } from "../request";
 import { useInit } from 'views/person/child/personManage/request'
 import { useUserModal } from '../util'
 import { useAdd, useMod } from '../request'
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 import { useRoleAll } from "views/system/child/role/request";
 
 const { Option } = Select;
@@ -16,16 +15,12 @@ export const ModalForm = () => {
   const { data: personList } = useInit({})
   const { data: roleList } = useRoleAll()
 
-  const setUrlParams = useSetUrlSearchParam();
   const { ModalOpen, isLoading, close, editingUser, editId } = useUserModal()
   const title = editingUser ? "修改" : "新增"
   const msg = editingUser ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createUser: "" })
   }
   const useMutateProject = editingUser ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -42,8 +37,9 @@ export const ModalForm = () => {
   const onFinish = (value: any) => {
     mutateAsync({ ...editingUser?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
-        msg()
         form.resetFields()
+        closeModal()
+        msg()
       } else {
         message.error(res.msg)
       }

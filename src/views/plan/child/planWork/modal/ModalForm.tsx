@@ -26,7 +26,6 @@ import { usePerson } from "views/person/child/personManage/request";
 import { AddToolModal } from './AddToolModal'
 import { useAddToolModal, usePlanWorkModal } from '../util'
 import { useAdd, useMod } from "../request";
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 import { useInitDepartment } from 'views/system/child/department/request'
 import moment from "moment";
 import { usePlanContext } from "../../../index";
@@ -42,7 +41,6 @@ export const ModalForm = () => {
   let document: string[] = []
   const [value, setValue] = useState()
   const [id, setId] = useState<number>(0)
-  const setUrlParams = useSetUrlSearchParam();
   const { open } = useAddToolModal()
   const { ModalOpen, isLoading, close, editingPlanWork, editId, isSuccess } = usePlanWorkModal()
   console.log(editingPlanWork);
@@ -50,11 +48,8 @@ export const ModalForm = () => {
   const title = editingPlanWork ? "修改" : "新增"
   const msg = editingPlanWork ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createPlanWork: "" })
   }
 
   const useMutateProject = editingPlanWork ? useMod : useAdd;
@@ -100,8 +95,9 @@ export const ModalForm = () => {
       warnTime: moment(warnTime).format("YYYY-MM-DD HH:mm:ss"),
       id: editId,
     }).then(() => {
-      msg()
       form.resetFields()
+      closeModal()
+      msg()
     }).catch((err) => {
       message.error(err.msg)
     })

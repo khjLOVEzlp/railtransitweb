@@ -6,7 +6,6 @@ import { usePersonModal, useImportModal } from '../util'
 import { useAdd, useMod } from '../request'
 import { InboxOutlined } from '@ant-design/icons';
 import { useAuth } from "context/auth-context";
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 import { useInit } from 'views/system/child/department/request'
 import moment from "moment";
 import { useGetNotUseList } from "views/hardware/children/seperateController/request";
@@ -15,17 +14,13 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const setUrlParams = useSetUrlSearchParam();
 
   const { ModalOpen, editId, editingPerson, isLoading, close, isSuccess } = usePersonModal()
   const title = editingPerson ? "修改" : "新增"
   const msg = editingPerson ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createPerson: "" })
   }
   const useMutateProject = editingPerson ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -47,8 +42,9 @@ export const ModalForm = () => {
   const onFinish = (value: any) => {
     mutateAsync({ ...editingPerson?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
-        msg()
         form.resetFields()
+        closeModal()
+        msg()
       } else {
         message.error(res.msg)
       }

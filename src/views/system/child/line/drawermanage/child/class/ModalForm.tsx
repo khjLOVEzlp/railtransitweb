@@ -6,22 +6,17 @@ import { useWarehouse } from "views/warehouse/child/toolType/request";
 import { rules } from "utils/verification";
 import { useLineClassModal } from './util'
 import { useInit } from "./request";
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 import * as department from 'views/system/child/department/request'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const setUrlParams = useSetUrlSearchParam();
   const { editId } = useProjectModal()
   const { ModalOpen, close, editingLineClass, classId, isLoading } = useLineClassModal()
   const title = editingLineClass ? "修改" : "新增"
   const msg = editingLineClass ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createLineClass: "" })
   }
   const useMutateProject = editingLineClass ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -41,8 +36,9 @@ export const ModalForm = () => {
   const onFinish = (value: any) => {
     mutateAsync({ ...editingLineClass?.data, ...value, id: classId, lineId: editId }).then((res) => {
       if (res.code === 200) {
-        msg()
         form.resetFields()
+        closeModal()
+        msg()
       } else {
         message.error(res.msg)
       }

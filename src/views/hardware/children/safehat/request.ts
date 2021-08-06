@@ -17,7 +17,7 @@ export const useGetNotUseList = () => {
  */
 export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery<Sep>(['seperate', cleanObject(params)], () => client(`hardware/seperate/list`, { method: "POST", body: JSON.stringify(params) }))
+  return useQuery<Sep>(['safehat', cleanObject(params)], () => client(`hardware/safehat/list`, { method: "POST", body: JSON.stringify(params) }))
 }
 
 /* 
@@ -26,9 +26,9 @@ export const useInit = (params?: Partial<Search>) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/seperate/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/safehat/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('seperate')
+      queryClient.invalidateQueries('safehat')
     },
     onError: () => {
     }
@@ -41,9 +41,9 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/seperate/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/safehat/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('seperate')
+      queryClient.invalidateQueries('safehat')
     },
     onError: () => {
     }
@@ -56,9 +56,9 @@ export const useMod = () => {
 export const useDel = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((id: number) => client(`hardware/seperate/delete/${id}`), {
+  return useMutation((id: number) => client(`hardware/safehat/delete/${id}`), {
     onSuccess: () => {
-      queryClient.invalidateQueries('seperate')
+      queryClient.invalidateQueries('safehat')
     },
     onError: () => {
     }
@@ -68,9 +68,9 @@ export const useDel = () => {
 /*
 查询详情
 */
-export const useSepDetail = (id?: number) => {
+export const useSafDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['sepDetail', id], () => client(`hardware/seperate/get/${id}`), {
+  return useQuery(['safDetail', id], () => client(`hardware/safehat/get/${id}`), {
     enabled: Boolean(id),
   })
 }

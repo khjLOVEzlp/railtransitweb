@@ -1,11 +1,18 @@
 import { Button, Drawer, Table } from "antd"
+import { useAuth } from "context/auth-context"
 import { noData } from "utils/verification"
+import { useWareHouseContext } from "views/warehouse"
 import { ToolModalForm } from "./modal/ToolModalForm"
 import { useViewTool, useToolModal } from './util'
 
 export const Tool = () => {
-  const { ModalOpen, close, viewTool, isLoading, editId } = useViewTool()
+  const { ModalOpen, close, viewTool, isLoading } = useViewTool()
   const { startEdit } = useToolModal()
+  const { editId, setEditId } = useWareHouseContext()
+  const { editId: type, setEditId: setType } = useAuth()
+
+  console.log(editId, type);
+
   return (
     <Drawer
       width={800}
@@ -44,7 +51,7 @@ export const Tool = () => {
         {
           title: "操作",
           render: (item: any) => <>
-            <Button type={"link"} onClick={() => startEdit(item.id, Number(editId))}>详情</Button>
+            <Button type={"link"} onClick={() => startEdit(type, item.id)}>详情</Button>
           </>
         }
       ]} loading={isLoading} rowKey={item => item.id}

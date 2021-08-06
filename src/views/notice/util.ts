@@ -1,17 +1,13 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
+import { useAuth } from "context/auth-context";
 
 export const useNoticeModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const { notice, setNotice } = useAuth()
 
-  const [{Notice}, setNotice] = useUrlQueryParam([
-    "Notice"
-  ])
-
-  const open = () => setNotice({Notice: true})
-  const close = () => setUrlParams({Notice: ""});
+  const open = () => setNotice(true)
+  const close = () => setNotice(false)
 
   return {
-    ModalOpen: Notice === "true",
+    ModalOpen: notice === true,
     open,
     close,
   };

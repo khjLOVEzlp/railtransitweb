@@ -69,6 +69,8 @@ import { PlatfromController } from 'views/hardware/children/platfromController/P
 import { RfidCardController } from 'views/hardware/children/rfidCardController/RfidCardController';
 /* 体温测试仪 */
 import { TemperaterController } from 'views/hardware/children/temperaterController/TemperaterController';
+import Blood from 'views/hardware/children/blood'
+import Safehat from 'views/hardware/children/safehat'
 
 import { Navigate } from "react-router";
 
@@ -142,6 +144,12 @@ export const RouterElement = () => {
         },
         {
           path: "temperater", element: <TemperaterController />
+        },
+        {
+          path: "blood", element: <Blood />
+        },
+        {
+          path: "safehat", element: <Safehat />
         },
         {
           path: "/", element: <Navigate to={"/hardware/seperate"} />

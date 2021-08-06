@@ -3,7 +3,6 @@ import { useDel, useInit } from './request';
 import { ModalForm } from './ModalForm';
 import { useDebounce } from 'hook/useDebounce';
 import { useLabModal } from './util'
-import { useProjectsSearchParams } from 'hook/useProjectsSearchParams'
 import { Search } from 'utils/typings';
 import { Header, Main } from 'components/Styled';
 import { noData } from 'utils/verification';

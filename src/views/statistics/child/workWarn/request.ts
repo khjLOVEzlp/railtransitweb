@@ -2,21 +2,8 @@ import qs from 'qs'
 import { useQuery } from 'react-query'
 import { useHttp } from 'utils/http'
 import { cleanObject } from "utils/index";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
-import { useMemo } from "react";
 import { Search } from 'utils/typings';
 import { useStatisticsContext } from 'views/statistics';
-/*项目列表搜索的参数*/
-export const useProjectsSearchParams = () => {
-  const [param, setParam] = useUrlQueryParam(["subwayId", "time", "index", "size"]);
-  return [
-    useMemo(
-      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
-      [param]
-    ),
-    setParam,
-  ] as const;
-};
 
 const getType = (type: number) => {
   switch (type) {

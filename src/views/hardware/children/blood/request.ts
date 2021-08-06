@@ -1,15 +1,16 @@
+import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from 'utils/index'
 import { useHttp } from 'utils/http'
-import { Pla } from './typings';
-import { Search } from 'utils/typings';
+import { Alc } from './typings';
+import { Search } from 'utils/typings'
 
 /*
 查询
  */
 export const useInit = (params?: Partial<Search>) => {
   const client = useHttp()
-  return useQuery<Pla>(['platform', cleanObject(params)], () => client(`hardware/platform/list`, { method: "POST", body: JSON.stringify(params) }))
+  return useQuery<Alc>(['blood', cleanObject(params)], () => client(`hardware/blood/list`, { method: "POST", body: JSON.stringify(params) }))
 }
 
 /* 
@@ -18,9 +19,9 @@ export const useInit = (params?: Partial<Search>) => {
 export const useAdd = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/platform/save`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/blood/save`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('platform')
+      queryClient.invalidateQueries('blood')
     },
     onError: () => {
     }
@@ -33,9 +34,9 @@ export const useAdd = () => {
 export const useMod = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((params: any) => client(`hardware/platform/update`, { method: "POST", body: JSON.stringify(params) }), {
+  return useMutation((params: any) => client(`hardware/blood/update`, { method: "POST", body: JSON.stringify(params) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('platform')
+      queryClient.invalidateQueries('blood')
     },
     onError: () => {
     }
@@ -48,9 +49,9 @@ export const useMod = () => {
 export const useDel = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((id: number) => client(`hardware/platform/delete/${id}`), {
+  return useMutation((id: number) => client(`hardware/blood/delete/${id}`), {
     onSuccess: () => {
-      queryClient.invalidateQueries('platform')
+      queryClient.invalidateQueries('blood')
     },
     onError: () => {
     }
@@ -60,9 +61,9 @@ export const useDel = () => {
 /*
 查询详情
 */
-export const usePlaDetail = (id?: number) => {
+export const useBloodDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['plaDetail', id], () => client(`hardware/platform/get/${id}`), {
+  return useQuery(['bloodDetail', id], () => client(`hardware/blood/get/${id}`), {
     enabled: Boolean(id),
   })
 }

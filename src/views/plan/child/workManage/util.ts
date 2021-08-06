@@ -1,25 +1,21 @@
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { usePlanContext } from "views/plan";
 import { useHistoryDetail } from './request'
 
 export const useHistoryModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ planId }, setPlanId] = useUrlQueryParam([
-    "planId",
-  ]);
+  const { editId, setEditId } = usePlanContext()
 
   const { data: planHistory, isLoading } = useHistoryDetail(
-    Number(planId)
+    Number(editId)
   )
 
-  const close = () => setUrlParams({ planId: "" });
+  const close = () => setEditId(undefined)
 
   const startEdit = (id: number) =>
-    setPlanId({ planId: id });
+    setEditId(id)
 
   return {
-    ModalOpen: Boolean(planId),
-    planId,
+    ModalOpen: Boolean(editId),
+    editId,
     startEdit,
     close,
     planHistory,

@@ -1,48 +1,17 @@
 import styled from "@emotion/styled"
-import { useEffect, useState } from "react";
 import { useDocumentTitle } from 'hook/useDocumentTitle'
 import Page from './child/alarmStatistics'
 import PlanWorkPage from './child/taskStatistics'
-import * as echarts from 'echarts';
 import PlanType from './child/planType'
-import { option } from './subwayRoute'
-import { useLine } from 'views/system/child/line/request'
+import { Subway } from "./child/Subway";
 
 export const Home = () => {
   useDocumentTitle('首页')
 
-  const { data: lineList, isSuccess } = useLine()
-
-  /* const [visible, setVisible] = useState(false);
-  const showDrawer = () => {
-    setVisible(true);
-  };
-  const onClose = () => {
-    setVisible(false);
-  }; */
-
-  /*绑定DOM*/
-  useEffect(() => {
-
-    // @ts-ignore
-    echarts.init(document.getElementById('track') as HTMLElement).setOption(option)
-  }, [])
-
   return (
     <Container>
       <Left>
-        <div id="track" style={{ height: "100%" }} />
-        {/*  onClick={showDrawer} */}
-        {/* <div id="mysubway"></div> */}
-        {/* <Drawer
-            title={"地铁线路"}
-            width={"100%"}
-            closable={false}
-            onClose={onClose}
-            visible={visible}
-          >
-            <div id="mysubway" style={{ width: "100%", height: "100%" }}></div>
-          </Drawer> */}
+        <Subway />
       </Left>
       <Right>
         <div className="top">
@@ -76,22 +45,21 @@ const Container = styled.div`
 `
 
 const Left = styled.div`
-/* height: 100vh; */
 height: 100%;
 background: #fff;
-width: 49.9%;
+width: 59.8%;
 border-radius: 8px;
 `
 
 const Right = styled.div`
-width: 49.9%;
+width: 39.8%;
 height: 100%;
 display: flex;
 justify-content: space-between;
 flex-direction: column;
 overflow-y: auto;
 > * {
-  /* flex: 1; */
+  height: 100%;
   background: #fff;
   border-radius: 8px;
   position: relative;

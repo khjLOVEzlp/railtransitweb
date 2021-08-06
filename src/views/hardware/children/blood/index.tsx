@@ -1,17 +1,16 @@
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd'
+import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
 import { useDel, useInit } from './request';
-import { ModalForm } from './ModalForm'
+import { ModalForm } from './ModalForm';
 import { useDebounce } from 'hook/useDebounce';
-import { useSepModal } from './util'
+import { useAlcModal } from './util'
 import { Search } from 'utils/typings';
 import { Header, Main } from 'components/Styled';
 import { noData } from 'utils/verification';
-import { useState } from 'react';
 import { useProject } from 'utils';
 
-export const SeperateController = () => {
+export default () => {
   const { param, setParam } = useProject()
-  const { open, startEdit } = useSepModal()
+  const { open, startEdit } = useAlcModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
 
@@ -27,8 +26,6 @@ export const SeperateController = () => {
     del(id).then(() => {
       message.success('删除成功')
       setParam({ ...param, index: 1 })
-    }).catch(err => {
-      message.error(err.msg)
     })
   }
 
@@ -69,35 +66,25 @@ export const SeperateController = () => {
           [
             {
               title: '设备编号',
-              dataIndex: 'codeNumber',
-              key: 'codeNumber',
+              dataIndex: 'code',
+              key: 'code',
             },
             {
-              title: '使用人',
-              dataIndex: 'name',
-              key: 'name',
-            },
-            {
-              title: '在线状态',
-              key: 'status',
-              render: (item) => item.status === "0" ? '离线' : '在线'
-            },
-            {
-              title: 'imei号',
-              dataIndex: 'imei',
-              key: 'imei',
+              title: "厂商",
+              dataIndex: "operator",
+              key: "operator"
             },
             {
               title: '是否使用',
               key: 'isUse',
-              render: (item) => item.isUse === "0" ? '使用' : '未使用'
+              render: (item) => item.status === "0" ? '使用' : '未使用'
             },
             {
               title: '操作',
               key: 'id',
               render: (item) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
-                  title={`是否要删除${item.codeNumber}`}
+                  title={`是否要删除${item.code}`}
                   onConfirm={() => confirm(item.id)}
                   onCancel={cancel}
                   okText="Yes"

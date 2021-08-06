@@ -3,22 +3,17 @@ import React, { useEffect } from "react";
 import { rules } from "utils/verification";
 import { useLineModal } from '../util'
 import { useAdd, useMod } from "../request";
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 import { useInit } from 'views/system/child/department/request'
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const setUrlParams = useSetUrlSearchParam();
   const { data: departmentList } = useInit()
   const { ModalOpen, isLoading, close, editingLine, editId } = useLineModal()
   const title = editingLine ? "修改" : "新增"
   const msg = editingLine ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createLine: "" })
   }
   const useMutateProject = editingLine ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -39,8 +34,9 @@ export const ModalForm = () => {
   const onFinish = (value: any) => {
     mutateAsync({ ...editingLine?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
-        msg()
         form.resetFields()
+        closeModal()
+        msg()
       } else {
         message.error(res.msg)
       }

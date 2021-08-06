@@ -15,6 +15,8 @@ const AuthContext = createContext<| {
   } | null;
   login: (form: AuthForm) => Promise<void>;
   logout: () => Promise<void>;
+  notice: boolean
+  setNotice: (notice: boolean) => void
   visible: boolean;
   setVisible: (visible: boolean) => void;
   editId: number | undefined
@@ -67,6 +69,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   } | null>();
   const queryClient = useQueryClient();
 
+  const [notice, setNotice] = useState<boolean>(false)
   const [visible, setVisible] = useState<boolean>(false)
   const [editId, setEditId] = useState<number | undefined>(undefined)
   const [drawer, setDrawer] = useState<boolean>(false)
@@ -91,7 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider children={children} value={{ user, login, logout, visible, setVisible, editId, setEditId, drawer, setDrawer }} />
+    <AuthContext.Provider children={children} value={{ user, login, logout, notice, setNotice, visible, setVisible, editId, setEditId, drawer, setDrawer }} />
   )
 }
 

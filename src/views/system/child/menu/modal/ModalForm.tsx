@@ -3,20 +3,15 @@ import { Button, Form, Input, message, Modal, Radio, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useMenuModal } from '../util'
 import { useAdd, useMod } from "../request";
-import { useSetUrlSearchParam } from "hook/useUrlQueryParam";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-  const setUrlParams = useSetUrlSearchParam();
   const { ModalOpen, isLoading, close, editingMenu, editId } = useMenuModal()
   const title = editingMenu ? "修改" : "新增"
   const msg = editingMenu ? () => {
     message.success("修改成功")
-    close()
   } : () => {
     message.success("新增成功")
-    close()
-    setUrlParams({ index: 1, createMenu: "" })
   }
   const useMutateProject = editingMenu ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -37,8 +32,9 @@ export const ModalForm = () => {
   const onFinish = (value: any) => {
     mutateAsync({ ...editingMenu?.data, ...value, id: editId }).then((res) => {
       if (res.code === 200) {
-        msg()
         form.resetFields()
+        closeModal()
+        msg()
       } else {
         message.error(res.msg)
       }
