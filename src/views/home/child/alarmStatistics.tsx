@@ -13,7 +13,7 @@ const Page = () => {
     // padding: 10,
     xField: "name",
     yField: "num",
-    padding: [50, 50, 50, 50],
+    padding: [30, 30, 30, 30],
     meta: {
       num: {
         alias: '数量',

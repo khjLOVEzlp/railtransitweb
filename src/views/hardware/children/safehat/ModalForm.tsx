@@ -7,7 +7,6 @@ import { usePerson } from "views/person/child/personManage/request";
 
 export const ModalForm = () => {
   const [form] = Form.useForm();
-
   const { ModalOpen, isLoading, close, editingSep, editId } = useSepModal()
   const title = editingSep ? "修改" : "新增"
   const msg = editingSep ? () => {
