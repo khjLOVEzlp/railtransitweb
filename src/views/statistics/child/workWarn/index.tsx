@@ -7,27 +7,32 @@ import {
   useAlarmPagination
 } from './request'
 import { useDebounce } from "hook/useDebounce";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useStatisticsContext } from "views/statistics";
 import { Header, Main } from "components/Styled";
+import { noData } from "utils/verification";
 
 export const WorkWarn = () => {
   const { data: lineList, isLoading: loading } = useLineList()
-  const { param, setParam } = useStatisticsContext()
-
-  console.log(param);
+  const { setParam } = useStatisticsContext()
+  const [params, setParams] = useState({
+    time: "",
+    subwayId: ""
+  })
 
   const { open } = useAlarmModal()
 
-  const { data: alarmStatistics, isSuccess } = useAlarmStatistics(param)
+  const { data: alarmStatistics, isSuccess } = useAlarmStatistics(params)
 
   const lineChange = (value: string) => {
 
-    setParam({ ...param, subwayId: String(value) })
+    setParams({ ...params, subwayId: String(value) })
+    setParam({ ...params, subwayId: String(value) })
   }
 
   const timeChange = (value: string) => {
-    setParam({ ...param, time: String(value) })
+    setParams({ ...params, time: String(value) })
+    setParam({ ...params, time: String(value) })
   }
 
   const noData = [
@@ -115,6 +120,10 @@ export const WorkWarn = () => {
         <Form
           layout={"inline"}
         >
+          <>
+            {params.subwayId}
+            {params.time}
+          </>
           <Form.Item
             name={"subwayId"}
           >
@@ -158,9 +167,7 @@ export const WorkWarn = () => {
           {...config}
           onReady={(plot: any) => {
             plot.on('plot:click', (evt: any) => {
-              console.log(param);
-
-              open(param.subwayId, param.time)
+              open(params.subwayId, params.time)
             });
           }}
         />
@@ -174,12 +181,23 @@ export const WorkWarn = () => {
 export const AlarmModal = () => {
   const { ModalOpen, close } = useAlarmModal()
   const { param: modalParam } = useStatisticsContext()
+
   const [param, setParam] = useState({
     index: 1,
     size: 10,
-    subwayId: modalParam.subwayId,
-    time: modalParam.time
+    subwayId: "",
+    time: ""
   })
+
+  useEffect(() => {
+    console.log(modalParam);
+    
+    setParam({
+      ...param,
+      subwayId: modalParam.subwayId,
+      time: modalParam.time
+    })
+  }, [modalParam])
 
   const { data: alarmPagination, isLoading } = useAlarmPagination(useDebounce(param, 500))
   const columns = [
@@ -218,6 +236,7 @@ export const AlarmModal = () => {
         loading={isLoading}
         onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}
+        locale={noData}
       />
     </Modal>
   )

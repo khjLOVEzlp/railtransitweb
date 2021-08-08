@@ -60,24 +60,24 @@ export const getType = (type: number) => {
   }
 }
 
-export const color = (type: number) => {
-  switch (type) {
-    case 1:
-      return "#33E598"
-    case 2:
-      return "#62C4E9"
+export const type = (name: string) => {
+  switch (name) {
+    case "今日":
+      return 1
+    case "本周":
+      return 2
 
-    case 3:
-      return "#FF585D"
+    case "本月":
+      return 3
 
-    case 4:
-      return "#FFD876"
+    case "本季度":
+      return 4
 
-    case 5:
-      return "#9E5AFA"
+    case "半年":
+      return 5
 
-    case 6:
-      return "#5A7FFA"
+    case "今年":
+      return 6
 
     default:
       break;

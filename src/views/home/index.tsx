@@ -1,3 +1,4 @@
+import { createContext, useState, useContext } from 'react'
 import styled from "@emotion/styled"
 import { useDocumentTitle } from 'hook/useDocumentTitle'
 import Page from './child/alarmStatistics'
@@ -5,11 +6,26 @@ import PlanWorkPage from './child/taskStatistics'
 import PlanType from './child/planType'
 import { Subway } from "./child/Subway";
 
+const HomeContext = createContext<
+  {
+alarmId: number | undefined
+setAlarmId: (alarmId: number | undefined) => void
+planId: number | undefined
+setPlanId: (planId: number | undefined) => void
+taskId: number | undefined
+setTaskId: (taskId: number | undefined) => void
+  } | undefined
+>(undefined)
+
 export const Home = () => {
   useDocumentTitle('首页')
+  const [alarmId, setAlarmId] = useState<number | undefined>(undefined)
+  const [planId, setPlanId] = useState<number | undefined>(undefined)
+  const [taskId, setTaskId] = useState<number | undefined>(undefined)
 
   return (
-    <Container>
+    <HomeContext.Provider value={{alarmId, setAlarmId, planId, setPlanId, taskId, setTaskId}}>
+      <Container>
       <Left>
         <Subway />
       </Left>
@@ -33,7 +49,16 @@ export const Home = () => {
         </div>
       </Right>
     </Container>
+    </HomeContext.Provider>
   )
+}
+
+export const useHomeContext = () => {
+  const context = useContext(HomeContext)
+  if (!context) {
+    throw new Error("useHomeContext必须在Home组件中使用")
+  }
+  return context
 }
 
 const Container = styled.div`

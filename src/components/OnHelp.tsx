@@ -1,5 +1,5 @@
-import {useSetUrlSearchParam, useUrlQueryParam} from "hook/useUrlQueryParam";
 import {Col, Modal, Row} from "antd";
+import { usePageBoxContext } from "PageBox";
 
 export const OnHelp = () => {
   const {ModalOpen, close} = useOnHelpModal()
@@ -24,17 +24,13 @@ export const OnHelp = () => {
 }
 
 export const useOnHelpModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
+  const {help, setHelp} = usePageBoxContext()
 
-  const [{OnHelp}, setOnHelp] = useUrlQueryParam([
-    "OnHelp"
-  ])
-
-  const open = () => setOnHelp({OnHelp: true})
-  const close = () => setUrlParams({OnHelp: ""});
+  const open = () => setHelp(true)
+  const close = () => setHelp(false)
 
   return {
-    ModalOpen: OnHelp === "true",
+    ModalOpen: help === true,
     open,
     close,
   };

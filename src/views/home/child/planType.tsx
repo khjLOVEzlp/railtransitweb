@@ -1,6 +1,7 @@
+import {useState} from 'react'
 import { Column, RadialBar } from '@ant-design/charts';
 import { Modal, Spin, Table } from 'antd';
-import { usePlanStatistics, usePlanPagination, usePlanModal, useProjectsSearchParams } from '../request'
+import { usePlanStatistics, usePlanPagination, usePlanModal } from '../request'
 import { useDebounce } from "hook/useDebounce";
 import { noData } from 'utils/verification';
 
@@ -104,10 +105,14 @@ const PlanType = () => {
 };
 
 const OpenModal = () => {
-  const { ModalOpen, close, PlanId } = usePlanModal()
-  const [param, setParam] = useProjectsSearchParams()
+  const { ModalOpen, close, planId } = usePlanModal()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    type: ""
+  })
 
-  const { data: Plan, isLoading } = usePlanPagination(useDebounce({ ...param, type: PlanId }, 500))
+  const { data: Plan, isLoading } = usePlanPagination(useDebounce({ ...param, type: planId }, 500))
   const columns = [
     {
       title: "计划名称",

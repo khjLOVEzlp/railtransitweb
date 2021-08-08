@@ -1,5 +1,5 @@
 import { Col, Modal, Row } from "antd";
-import { useSetUrlSearchParam, useUrlQueryParam } from "hook/useUrlQueryParam";
+import { usePageBoxContext } from "PageBox";
 import { useInfo } from "views/system/child/user/request";
 
 export const UserInfo = () => {
@@ -36,20 +36,16 @@ export const UserInfo = () => {
 }
 
 export const useInfoModal = () => {
-  const setUrlParams = useSetUrlSearchParam();
-
-  const [{ infoId }, setInfoId] = useUrlQueryParam([
-    "infoId",
-  ]);
+  const {infoId, setInfoId} = usePageBoxContext()
 
   const { data: info, isLoading } = useInfo(
     Number(infoId)
   );
 
-  const close = () => setUrlParams({ infoId: "" });
+  const close = () => setInfoId(undefined)
 
   const startEdit = (id: number | undefined) =>
-    setInfoId({ infoId: id });
+    setInfoId(id);
 
   return {
     ModalOpen: Boolean(infoId),

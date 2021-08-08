@@ -1,10 +1,14 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import * as echarts from 'echarts';
-import { useTaskModal, useTaskStatistics } from "../request";
-import { Spin } from "antd";
+import { useTaskModal, useTaskPagination, useTaskStatistics } from "../request";
+import {Modal, Table} from 'antd'
+import { useDebounce } from "hook/useDebounce";
+import {type} from 'utils'
 
 export default () => {
   const { data: list, isSuccess, isLoading } = useTaskStatistics()
+  console.log(list);
+  
   const { open } = useTaskModal()
   const data = [
     {
@@ -102,7 +106,7 @@ export default () => {
   const option = {
     tooltip: {},
     xAxis: [{
-      data: ['今日', '本周', '本月', '本季度', '半年', '本年'],
+      data: ['今日', '本周', '本月', '本季度', '半年', '今年'],
       axisTick: { show: false },
       axisLine: { show: false },
       axisLabel: {
@@ -139,17 +143,79 @@ export default () => {
     const myEcharts = echarts.init(document.getElementById('task') as HTMLElement)
     myEcharts.setOption(option)
     myEcharts.on('click', (params: any) => {
-      console.log(params.name);
+      console.log(type(params.name));
+      open(type(params.name))
     })
   }, [data])
 
   if (isSuccess) {
     data.forEach((key: { [key: string]: unknown }, index: number) => {
       key["value"] = list.data[index]["num"]
+      key["modal"] = list.data[index]['type']
     })
   }
 
   return (
+    <>
     <div id="task" style={{ height: "100%" }}></div>
+    <OpenModal />
+    </>
+  )
+}
+
+export const OpenModal = () => {
+  const { ModalOpen, taskId, close } = useTaskModal()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    type: ""
+  })
+  const { data: Task, isLoading } = useTaskPagination(useDebounce({ ...param, type: taskId }, 500))
+  const columns = [
+    {
+      title: "计划名称",
+      dataIndex: "name"
+    },
+    {
+      title: "地铁线路",
+      dataIndex: "lineName"
+    },
+    {
+      title: "请站点",
+      dataIndex: "pleaseName"
+    },
+    {
+      title: "销站点",
+      dataIndex: "pinName"
+    },
+    {
+      title: "开始时间",
+      dataIndex: "beginTime"
+    },
+    {
+      title: "结束时间",
+      dataIndex: "endTime"
+    },
+  ]
+  const handleTableChange = (p: any, filters: any, sorter: any) => {
+    setParam({ ...param, index: p.current, size: p.pageSize })
+  };
+  return (
+    <Modal
+      visible={ModalOpen}
+      onCancel={close}
+      title={"作业统计"}
+      footer={false}
+      width={1600}
+    >
+      <Table
+        columns={columns}
+        dataSource={Task?.data}
+        pagination={{ total: Task?.count, current: param.index, pageSize: param.size }}
+        loading={isLoading}
+        onChange={handleTableChange}
+        rowKey={(item: any, index: any) => index}
+      />
+    </Modal>
   )
 }

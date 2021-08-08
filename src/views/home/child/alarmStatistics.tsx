@@ -1,8 +1,10 @@
 import { Radar } from '@ant-design/charts';
 import { Modal, Spin, Table } from 'antd';
-import { useAlarmStatistics, useAlarmPagination, useAlarmModal, useProjectsSearchParams } from '../request'
+import { useAlarmStatistics, useAlarmPagination, useAlarmModal } from '../request'
 import { useDebounce } from "hook/useDebounce";
 import { noData } from 'utils/verification';
+import { useHomeContext } from '..';
+import {useState} from 'react'
 
 const Page = () => {
   const { data: alarmStatistics, isLoading } = useAlarmStatistics()
@@ -63,10 +65,15 @@ const Page = () => {
 export default Page;
 
 const OpenModal = () => {
-  const { ModalOpen, close, AlarmId } = useAlarmModal()
-  const [param, setParam] = useProjectsSearchParams()
+  const {alarmId} = useHomeContext()
+  const { ModalOpen, close } = useAlarmModal()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    type: ""
+  })
 
-  const { data: Alarm, isLoading } = useAlarmPagination(useDebounce({ ...param, type: AlarmId }, 500))
+  const { data: Alarm, isLoading } = useAlarmPagination(useDebounce({ ...param, type: alarmId }, 500))
 
   const columns = [
     {

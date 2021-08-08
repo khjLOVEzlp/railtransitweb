@@ -77,7 +77,7 @@ export const useAlarmPagination = (params?: any) => {
 export const useAlarmModal = () => {
   const { visible, setVisible, param, setParam } = useStatisticsContext()
   const open = (subwayId: string, time: string) => {
-    setParam({ subwayId, time })
+    setParam({ subwayId: param.subwayId, time: param.time })
     setVisible(true)
   }
 
@@ -87,7 +87,7 @@ export const useAlarmModal = () => {
   }
 
   return {
-    ModalOpen: Boolean(param.subwayId) && Boolean(param.time) && visible === true,
+    ModalOpen: visible === true,
     open,
     close
   }

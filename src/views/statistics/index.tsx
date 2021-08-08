@@ -10,7 +10,7 @@ import {
   BarChartOutlined,
   PieChartOutlined,
 } from '@ant-design/icons';
-import { content, layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
+import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { useRouteType } from "utils";
 const { Sider, Content } = Layout;
 

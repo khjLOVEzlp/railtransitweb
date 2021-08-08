@@ -2,20 +2,7 @@ import { useQuery } from 'react-query'
 import { useHttp } from "utils/http"
 import qs from "qs";
 import { cleanObject, getType } from "utils/index";
-import { useSetUrlSearchParam, useUrlQueryParam } from 'hook/useUrlQueryParam'
-import { useMemo } from "react";
-
-/*项目列表搜索的参数*/
-export const useProjectsSearchParams = () => {
-  const [param, setParam] = useUrlQueryParam(["type", "index", "size"]);
-  return [
-    useMemo(
-      () => ({ ...param, index: Number(param.index) || undefined, size: Number(param.size) || undefined }),
-      [param]
-    ),
-    setParam,
-  ] as const;
-};
+import {useHomeContext} from './index'
 
 /*
 查询
@@ -139,21 +126,17 @@ export const useTaskPagination = (params?: any) => {
 * */
 
 export const usePlanModal = () => {
-  const setUrlParams = useSetUrlSearchParam()
-  const [{ PlanId }, setPlanId] = useUrlQueryParam([
-    "PlanId"
-  ])
+  const {planId, setPlanId} = useHomeContext()
 
-  const open = (id: number) =>
-    setPlanId({ PlanId: id });
+  const open = (id: number) => setPlanId(id)
 
-  const close = () => setUrlParams({ PlanId: "" })
+  const close = () => setPlanId(undefined)
 
   return {
-    ModalOpen: Boolean(PlanId),
+    ModalOpen: Boolean(planId),
     open,
     close,
-    PlanId,
+    planId,
   }
 }
 
@@ -162,22 +145,17 @@ export const usePlanModal = () => {
 * */
 
 export const useAlarmModal = () => {
-  const setUrlParams = useSetUrlSearchParam()
+  const {alarmId, setAlarmId} = useHomeContext()
 
-  const [{ AlarmId }, setAlarmId] = useUrlQueryParam([
-    "AlarmId"
-  ])
+  const open = (id: number) => setAlarmId(id)
 
-  const open = (id: number) =>
-    setAlarmId({ AlarmId: id });
-
-  const close = () => setUrlParams({ AlarmId: "" })
+  const close = () => setAlarmId(undefined)
 
   return {
-    ModalOpen: Boolean(AlarmId),
+    ModalOpen: Boolean(alarmId),
     open,
     close,
-    AlarmId,
+    alarmId,
   }
 }
 
@@ -186,22 +164,17 @@ export const useAlarmModal = () => {
 * */
 
 export const useTaskModal = () => {
-  const setUrlParams = useSetUrlSearchParam()
+  const {taskId, setTaskId} = useHomeContext()
 
-  const [{ TaskId }, setTaskId] = useUrlQueryParam([
-    "TaskId"
-  ])
+  const open = (id: number | undefined) => setTaskId(id)
 
-  const open = (id: number) =>
-    setTaskId({ TaskId: id });
-
-  const close = () => setUrlParams({ TaskId: "" })
+  const close = () => setTaskId(undefined)
 
   return {
-    ModalOpen: Boolean(TaskId),
+    ModalOpen: Boolean(taskId),
     open,
     close,
-    TaskId,
+    taskId,
   }
 }
 

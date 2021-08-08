@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import { useHttp } from "./utils/http";
 import logo from './icon/logo.png'
 import notice from './icon/通知.png'
@@ -30,8 +30,16 @@ import { useInfoModal, UserInfo } from './components/UserInfo'
 * */
 import { OnHelp, useOnHelpModal } from './components/OnHelp'
 
-export const PageBox = () => {
+const PageBoxContext = createContext<{
+  infoId: number | undefined
+  setInfoId: (infoId: number | undefined) => void
+  help: boolean
+  setHelp: (help: boolean) => void
+} | undefined>(undefined)
 
+export const PageBox = () => {
+  const [infoId, setInfoId] = useState<number | undefined>(undefined)
+  const [help, setHelp] = useState<boolean>(false)
   /*菜单列表*/
   const [menu, setMenu] = useState([])
   const client = useHttp()
@@ -93,7 +101,8 @@ export const PageBox = () => {
   }, [client])
 
   return (
-    <Container>
+    <PageBoxContext.Provider value={{infoId, setInfoId, help, setHelp}}>
+      <Container>
       <HeaderStyle>
         <Logo>
           <div className="img">
@@ -129,6 +138,7 @@ export const PageBox = () => {
       <UserInfo />
       <OnHelp />
     </Container>
+    </PageBoxContext.Provider>
   )
 }
 
@@ -201,6 +211,14 @@ const User = () => {
     </div>
   );
 };
+
+export const usePageBoxContext = () => {
+  const context = useContext(PageBoxContext)
+  if (!context) {
+    throw new Error("usePageBoxContext必须在PageBox组件中使用")
+  }
+  return context
+}
 
 const Container = styled.div`
   height: 100vh;
