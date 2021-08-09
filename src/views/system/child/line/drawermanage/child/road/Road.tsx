@@ -110,7 +110,7 @@ export const Road = () => {
           rowKey={(item: any) => item.id}
           locale={noData}
         />
-        <ModalForm />
+        <ModalForm param={param} setParam={setParam} />
       </Main>
     </Contianer>
   )

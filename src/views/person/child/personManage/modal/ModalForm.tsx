@@ -12,26 +12,33 @@ import { useGetNotUseList } from "views/hardware/children/seperateController/req
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export const ModalForm = () => {
-  const [form] = Form.useForm();
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
 
-  const { ModalOpen, editId, editingPerson, isLoading, close, isSuccess } = usePersonModal()
+export const ModalForm = ({ param, setParam }: Props) => {
+  const [form] = Form.useForm();
+  const { ModalOpen, editId, editingPerson, isLoading, close } = usePersonModal()
   const title = editingPerson ? "修改" : "新增"
   const msg = editingPerson ? () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingPerson ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
-    if (isSuccess) {
-      form.setFieldsValue({
-        ...editingPerson.data,
-        birthday: editingPerson.data.birthday === null ? "" : moment(editingPerson.data.birthday)
-      })
-    }
+    form.setFieldsValue({
+      ...editingPerson?.data,
+      birthday: editingPerson?.data.birthday === null ? "" : moment(editingPerson?.data.birthday)
+    })
   }, [form, editingPerson])
 
   const closeModal = () => {
@@ -40,7 +47,13 @@ export const ModalForm = () => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingPerson?.data, ...value, id: editId }).then((res) => {
+    console.log(value);
+
+    mutateAsync({
+      ...editingPerson?.data,
+      ...value, id: editId,
+      irfId: value.irfId === undefined ? null : value.irfId
+    }).then((res) => {
       if (res.code === 200) {
         form.resetFields()
         closeModal()
@@ -175,6 +188,7 @@ export const ModalForm = () => {
               <Select
                 showSearch
                 allowClear
+                getPopupContainer={triggerNode => triggerNode.parentElement}
                 filterOption={(input, option: any) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }>
@@ -224,7 +238,6 @@ export const ImportModal = () => {
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name}上传成功`);
-        info = null
         close()
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} 上传失败`);
@@ -238,6 +251,7 @@ export const ImportModal = () => {
       visible={ModalOpen}
       onCancel={close}
       footer={false}
+      destroyOnClose={true}
     >
       <Upload.Dragger {...props} maxCount={1}>
         <p className="ant-upload-drag-icon">

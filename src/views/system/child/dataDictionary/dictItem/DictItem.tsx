@@ -115,7 +115,7 @@ export const DictItem = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
     </>
   );
 };

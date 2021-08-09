@@ -4,15 +4,24 @@ import { rules } from "utils/verification";
 import { useTemModal } from './util'
 import { useAdd, useMod } from './request'
 
-export const ModalForm = () => {
-  const [form] = Form.useForm();
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
 
+export const ModalForm = ({ param, setParam }: Props) => {
+  const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingTem, editId } = useTemModal()
   const title = editingTem ? "修改" : "新增"
   const msg = editingTem ? () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingTem ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

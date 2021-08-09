@@ -113,7 +113,7 @@ export const PlanType = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
     </>
   );
 }

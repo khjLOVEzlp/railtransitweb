@@ -3,15 +3,24 @@ import { useEffect } from "react";
 import { useAdd, useMod } from './request'
 import { useRfiModal } from './util'
 
-export const ModalForm = () => {
-  const [form] = Form.useForm();
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
 
+export const ModalForm = ({ param, setParam }: Props) => {
+  const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingRfi, editId } = useRfiModal()
   const title = editingRfi ? "修改" : "新增"
   const msg = editingRfi ? () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingRfi ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
@@ -64,7 +73,7 @@ export const ModalForm = () => {
             <Form.Item
               label="卡号"
               name="rfid"
-            // rules={[{required: true, len: 10, message: "请输入10位卡号"}]}
+              rules={[{ required: true, len: 10, message: "请输入10位卡号" }]}
             >
               <Input />
               {/*<Input type={"number"}/>*/}

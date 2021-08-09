@@ -134,7 +134,7 @@ export const Line = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
       <Drawermanage />
     </LineContext.Provider>
   );

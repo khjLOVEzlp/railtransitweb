@@ -77,11 +77,7 @@ export const useDel = () => {
 */
 export const usePersonDetail = (id?: number) => {
   const client = useHttp()
-  return useQuery(['personDetail', id], async () => {
-    const data = await client(`person/get/${id}`)
-    data.data.number = parseInt(data.data.number)
-    return data
-  }, {
+  return useQuery(['personDetail', id], async () => client(`person/get/${id}`), {
     enabled: Boolean(id),
   })
 }

@@ -10,7 +10,16 @@ import { useMaterialType } from 'views/warehouse/child/materialType/request'
 
 const { Option } = Select;
 
-export const ModalForm = () => {
+type Props = {
+  param: {
+    index: number
+    size: number
+    type: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
+export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
 
   const { ModalOpen, close, isLoading, editingPlanType, editId } = usePlanTypeModal()
@@ -19,6 +28,7 @@ export const ModalForm = () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingPlanType ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

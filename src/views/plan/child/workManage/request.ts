@@ -18,7 +18,7 @@ export const useHistoryDetail = (id?: number) => {
   const client = useHttp()
   return useQuery(['historyDetail', id], async () => {
     const data = await client(`planWork/getWeb/${id}`)
-    data.data.webGroupList.map((key: any) => {
+    data.data.webGroupList.forEach((key: any) => {
       key["personName"] = key["groupName"]
     })
     return data

@@ -8,13 +8,11 @@ import {
 } from './request'
 import { useDebounce } from "hook/useDebounce";
 import { useState, useEffect } from "react";
-import { useStatisticsContext } from "views/statistics";
 import { Header, Main } from "components/Styled";
 import { noData } from "utils/verification";
 
 export const WorkWarn = () => {
   const { data: lineList, isLoading: loading } = useLineList()
-  const { setParam } = useStatisticsContext()
   const [params, setParams] = useState({
     time: "",
     subwayId: ""
@@ -25,14 +23,11 @@ export const WorkWarn = () => {
   const { data: alarmStatistics, isSuccess } = useAlarmStatistics(params)
 
   const lineChange = (value: string) => {
-
     setParams({ ...params, subwayId: String(value) })
-    setParam({ ...params, subwayId: String(value) })
   }
 
   const timeChange = (value: string) => {
     setParams({ ...params, time: String(value) })
-    setParam({ ...params, time: String(value) })
   }
 
   const noData = [
@@ -120,10 +115,6 @@ export const WorkWarn = () => {
         <Form
           layout={"inline"}
         >
-          <>
-            {params.subwayId}
-            {params.time}
-          </>
           <Form.Item
             name={"subwayId"}
           >
@@ -172,15 +163,14 @@ export const WorkWarn = () => {
           }}
         />
 
-        <AlarmModal />
+        <AlarmModal params={params} />
       </Main>
     </>
   )
 }
 
-export const AlarmModal = () => {
+export const AlarmModal = ({ params }: { params: { subwayId: string, time: string } }) => {
   const { ModalOpen, close } = useAlarmModal()
-  const { param: modalParam } = useStatisticsContext()
 
   const [param, setParam] = useState({
     index: 1,
@@ -190,14 +180,12 @@ export const AlarmModal = () => {
   })
 
   useEffect(() => {
-    console.log(modalParam);
-    
     setParam({
       ...param,
-      subwayId: modalParam.subwayId,
-      time: modalParam.time
+      subwayId: params.subwayId,
+      time: params.time
     })
-  }, [modalParam])
+  }, [params, param])
 
   const { data: alarmPagination, isLoading } = useAlarmPagination(useDebounce(param, 500))
   const columns = [

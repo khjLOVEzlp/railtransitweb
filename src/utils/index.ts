@@ -92,21 +92,3 @@ export const useRouteType = () => {
   const units = useLocation().pathname.split("/");
   return units[units.length - 1];
 };
-
-/**
- * 表格数据搜索参数
- *  */
-
-export const useProject = () => {
-  const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: "",
-    type: ""
-  })
-
-  return {
-    param,
-    setParam
-  }
-}

@@ -81,7 +81,7 @@ export const OperModal = () => {
       return <Button type={"link"} disabled>已反馈</Button>
     } else if (status !== 2 && item.type === 10) {
       return <Button type={"link"} onClick={() => {
-        setId(item.foreignId)
+        setId(item.shareId)
         setShareVisible(true)
       }}>反馈</Button>
     }
@@ -92,7 +92,7 @@ export const OperModal = () => {
   };
 
   const handleOk = (value: any) => {
-    sharePlan({ ...value, planId: id }).then(() => {
+    sharePlan({ ...value, shareId: id }).then(() => {
       message.success("反馈成功")
       handleCancel()
     }).catch((err) => {

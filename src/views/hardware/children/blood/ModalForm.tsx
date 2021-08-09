@@ -4,7 +4,16 @@ import { rules } from "utils/verification";
 import { useAdd, useMod } from './request'
 import { useAlcModal } from './util'
 
-export const ModalForm = () => {
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
+export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
 
   const { ModalOpen, isLoading, close, editingAlc, editId } = useAlcModal()
@@ -13,6 +22,7 @@ export const ModalForm = () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingAlc ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

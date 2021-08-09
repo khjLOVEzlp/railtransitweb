@@ -4,15 +4,24 @@ import { rules } from "utils/verification";
 import { useAdd, useMod } from './request'
 import { usePlaModal } from './util'
 
-export const ModalForm = () => {
-  const [form] = Form.useForm();
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
 
+export const ModalForm = ({ param, setParam }: Props) => {
+  const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingPla, editId } = usePlaModal()
   const title = editingPla ? "修改" : "新增"
   const msg = editingPla ? () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingPla ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

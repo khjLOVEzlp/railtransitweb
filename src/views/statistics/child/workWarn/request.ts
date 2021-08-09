@@ -75,9 +75,9 @@ export const useAlarmPagination = (params?: any) => {
 
 /*告警统计弹框*/
 export const useAlarmModal = () => {
-  const { visible, setVisible, param, setParam } = useStatisticsContext()
+  const { visible, setVisible, setParam } = useStatisticsContext()
   const open = (subwayId: string, time: string) => {
-    setParam({ subwayId: param.subwayId, time: param.time })
+    setParam({ subwayId, time })
     setVisible(true)
   }
 

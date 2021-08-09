@@ -182,7 +182,7 @@ export const PlanWork = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
       <ShareModalForm />
     </ >
   );

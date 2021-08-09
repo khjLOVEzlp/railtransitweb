@@ -5,7 +5,16 @@ import { useLineModal } from '../util'
 import { useAdd, useMod } from "../request";
 import { useInit } from 'views/system/child/department/request'
 
-export const ModalForm = () => {
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
+export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const { data: departmentList } = useInit()
   const { ModalOpen, isLoading, close, editingLine, editId } = useLineModal()
@@ -14,6 +23,7 @@ export const ModalForm = () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingLine ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

@@ -5,18 +5,18 @@ import { useWareHouseContext } from "views/warehouse"
 import { ToolModalForm } from "./modal/ToolModalForm"
 import { useViewTool, useToolModal } from './util'
 
-export const Tool = () => {
+export const Tool = ({ name }: { name: string }) => {
   const { ModalOpen, close, viewTool, isLoading } = useViewTool()
   const { startEdit } = useToolModal()
-  const { editId, setEditId } = useWareHouseContext()
-  const { editId: type, setEditId: setType } = useAuth()
+  const { editId } = useWareHouseContext()
+  const { editId: type } = useAuth()
 
   console.log(editId, type);
 
   return (
     <Drawer
       width={800}
-      title="工具"
+      title={name}
       placement="right"
       onClose={close}
       visible={ModalOpen}

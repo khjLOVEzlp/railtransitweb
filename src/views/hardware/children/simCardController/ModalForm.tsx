@@ -5,7 +5,16 @@ import { useWarehouse } from "views/warehouse/child/toolType/request";
 import { useAdd, useMod } from './request'
 import { useSimModal } from './util'
 
-export const ModalForm = () => {
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
+export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingSim, editId } = useSimModal()
   const title = editingSim ? "修改" : "新增"
@@ -13,6 +22,7 @@ export const ModalForm = () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingSim ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

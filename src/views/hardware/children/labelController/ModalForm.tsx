@@ -5,15 +5,24 @@ import { useWarehouse } from "views/warehouse/child/toolType/request";
 import { useAdd, useMod } from './request'
 import { useLabModal } from './util'
 
-export const ModalForm = () => {
-  const [form] = Form.useForm();
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
 
+export const ModalForm = ({ param, setParam }: Props) => {
+  const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingLab, editId } = useLabModal()
   const title = editingLab ? "修改" : "新增"
   const msg = editingLab ? () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingLab ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

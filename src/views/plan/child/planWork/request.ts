@@ -94,6 +94,20 @@ export const useSharePlan = () => {
   })
 }
 
+/* 取消发布计划 */
+export const useCancelSharePlan = () => {
+  const queryClient = useQueryClient()
+  const client = useHttp()
+  return useMutation((planId: number | undefined) => client(`plan/cancelShare/${planId}`), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('plan')
+      queryClient.invalidateQueries('transactionNotice')
+    },
+    onError: () => {
+    }
+  })
+}
+
 /* 反馈 */
 export const useFeedBack = () => {
   const queryClient = useQueryClient()

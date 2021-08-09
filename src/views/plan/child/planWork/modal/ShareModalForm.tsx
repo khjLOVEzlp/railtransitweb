@@ -1,17 +1,17 @@
 import { Button, Col, Form, message, Modal, Select, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useUserAll } from "views/system/child/user/request";
-import { useSharePlan } from '../request'
+import { useSharePlan, useCancelSharePlan } from '../request'
 import { useShareModal } from '../util'
 
 const { Option } = Select
 
 export const ShareModalForm = () => {
   const [form] = Form.useForm();
+  const { mutateAsync: muta } = useCancelSharePlan()
   const { ModalOpen, close, editId, isLoading, editingPlanWork } = useShareModal()
   const { mutateAsync, isLoading: mutaLoading } = useSharePlan()
   const { data: personList } = useUserAll()
-  console.log(editingPlanWork?.data);
 
   const closeModal = () => {
     form.resetFields()
@@ -30,14 +30,11 @@ export const ShareModalForm = () => {
     form.submit();
   };
 
-  const isStatus = (id: number) => {
-    if (id === 2) {
-      return "驳回"
-    } else if (id === 1) {
-      return "通过"
-    } else {
-      return "未反馈"
-    }
+
+  const cancel = () => {
+    muta(editId).then(() => {
+      message.success("取消成功")
+    })
   }
 
   return (
@@ -59,7 +56,7 @@ export const ShareModalForm = () => {
           <>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem" }}>
               <span style={{ fontWeight: 700, fontSize: "2rem" }}>已发布：</span>
-              <Button type={"primary"}>取消计划</Button>
+              <Button type={"primary"} onClick={() => cancel()}>取消计划</Button>
             </div>
             {editingPlanWork?.data["已发布"].length === 0 ? (
               <div>没有已发布计划</div>

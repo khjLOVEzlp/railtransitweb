@@ -125,7 +125,7 @@ export const MaterialType = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
     </>
   );
 };

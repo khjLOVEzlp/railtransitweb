@@ -110,7 +110,7 @@ export const Platform = () => {
           rowKey={(item: any) => item.id}
           locale={noData}
         />
-        <ModalForm />
+        <ModalForm param={param} setParam={setParam} />
       </Main>
     </Contianer>
   )

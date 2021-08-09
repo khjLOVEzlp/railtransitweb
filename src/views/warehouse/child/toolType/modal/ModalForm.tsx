@@ -7,7 +7,17 @@ import { useMod, useAdd } from '../request'
 
 const { Option } = Select
 
-export const ModalForm = () => {
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+    type: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
+export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingToolType, editId } = useToolTypeModal()
   const title = editingToolType ? "修改" : "新增"
@@ -15,6 +25,7 @@ export const ModalForm = () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingToolType ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

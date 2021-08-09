@@ -5,14 +5,19 @@ import { Tool } from './tool';
 import { useDebounce } from "hook/useDebounce";
 import { useToolTypeModal, useViewTool } from './util'
 import { noData } from 'utils/verification';
-import { useProject } from 'utils';
 import { Header, Main } from 'components/Styled';
+import { useState } from 'react';
 
 const { Option } = Select;
 
 export const ToolType = () => {
-  const { param, setParam } = useProject()
-
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: "",
+    type: ""
+  })
+  const [name, setName] = useState("")
   const { open, startEdit } = useToolTypeModal()
   const { startEdit: startTool } = useViewTool()
   const { data, isLoading, isSuccess } = useInit(useDebounce(param, 500))
@@ -116,7 +121,10 @@ export const ToolType = () => {
                 title: '操作',
                 key: 'id',
                 render: (item: any) => <>
-                  <Button type="link" onClick={() => startTool(item.id)}>查看库存</Button>
+                  <Button type="link" onClick={() => {
+                    setName(item.name)
+                    startTool(item.id)
+                  }}>查看库存</Button>
                   <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
@@ -137,8 +145,8 @@ export const ToolType = () => {
           />
         )}
       </Main>
-      <ModalForm />
-      <Tool />
+      <ModalForm param={param} setParam={setParam} />
+      <Tool name={name} />
     </>
   );
 };

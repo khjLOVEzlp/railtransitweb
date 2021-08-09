@@ -4,15 +4,24 @@ import { useMaterialModal } from '../util'
 import { useAdd, useMod } from '../request'
 import { useEffect } from "react";
 
-export const ModalForm = () => {
-  const [form] = Form.useForm();
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
 
+export const ModalForm = ({ param, setParam }: Props) => {
+  const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingMaterial, editId } = useMaterialModal()
   const title = editingMaterial ? "修改" : "新增"
   const msg = editingMaterial ? () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingMaterial ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

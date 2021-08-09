@@ -7,10 +7,13 @@ import { Search } from 'utils/typings';
 import { Header, Main } from 'components/Styled';
 import { noData } from 'utils/verification';
 import { useState } from 'react';
-import { useProject } from 'utils';
 
 export const LabelController = () => {
-  const { param, setParam } = useProject()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
   const { open, startEdit } = useLabModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
@@ -106,7 +109,7 @@ export const LabelController = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
     </>
   );
 };

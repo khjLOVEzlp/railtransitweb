@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   DatePicker,
@@ -28,13 +28,22 @@ import { useAddToolModal, usePlanWorkModal } from '../util'
 import { useAdd, useMod } from "../request";
 import { useInitDepartment } from 'views/system/child/department/request'
 import moment from "moment";
-import { usePlanContext } from "../../../index";
+import { usePlanContext } from "views/plan";
 const baseUrl = process.env["REACT_APP_API_URL"]
 const { TextArea } = Input;
 const { Option } = Select;
 
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
 // 新增修改
-export const ModalForm = () => {
+export const ModalForm = ({ param, setParam }: Props) => {
   const { groupList, setGroupList } = usePlanContext()
   const [form] = Form.useForm();
   const token = getToken()
@@ -42,31 +51,28 @@ export const ModalForm = () => {
   const [value, setValue] = useState()
   const [id, setId] = useState<number>(0)
   const { open } = useAddToolModal()
-  const { ModalOpen, isLoading, close, editingPlanWork, editId, isSuccess } = usePlanWorkModal()
-  console.log(editingPlanWork);
+  const { ModalOpen, isLoading, close, editingPlanWork, editId } = usePlanWorkModal()
 
   const title = editingPlanWork ? "修改" : "新增"
   const msg = editingPlanWork ? () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
 
   const useMutateProject = editingPlanWork ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
-  /* useEffect(() => {
-    if (isSuccess && editingPlanWork) {
-      form.setFieldsValue({
-        ...editingPlanWork?.data,
-        dateTime: moment(editingPlanWork?.data?.dateTime),
-        beginTime: moment(editingPlanWork?.data?.beginTime),
-        endTime: moment(editingPlanWork?.data?.endTime),
-        warnTime: moment(editingPlanWork?.data?.warnTime),
-      }
-      )
-    }
-  }, [form, editingPlanWork]) */
+  useEffect(() => {
+    form.setFieldsValue({
+      ...editingPlanWork?.data,
+      dateTime: moment(editingPlanWork?.data?.dateTime),
+      beginTime: moment(editingPlanWork?.data?.beginTime),
+      endTime: moment(editingPlanWork?.data?.endTime),
+      warnTime: moment(editingPlanWork?.data?.warnTime),
+    })
+  }, [form, editingPlanWork])
 
   const closeModal = () => {
     form.resetFields()
@@ -205,6 +211,7 @@ export const ModalForm = () => {
                 rules={rules}
               >
                 <TreeSelect
+                  getPopupContainer={triggerNode => triggerNode.parentElement}
                   showSearch
                   style={{ width: '100%' }}
                   treeData={departmentList?.data}
@@ -219,6 +226,7 @@ export const ModalForm = () => {
                 rules={rules}
               >
                 <Select
+                  getPopupContainer={triggerNode => triggerNode.parentElement}
                   style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>
@@ -238,6 +246,7 @@ export const ModalForm = () => {
                 <Select
                   style={{ width: "100%" }}
                   showSearch
+                  getPopupContainer={triggerNode => triggerNode.parentElement}
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
@@ -264,6 +273,7 @@ export const ModalForm = () => {
                 rules={rules}
               >
                 <Select
+                  getPopupContainer={triggerNode => triggerNode.parentElement}
                   style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>
@@ -285,6 +295,7 @@ export const ModalForm = () => {
                 <Select
                   style={{ width: "100%" }}
                   showSearch
+                  getPopupContainer={triggerNode => triggerNode.parentElement}
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
@@ -415,6 +426,7 @@ export const ModalForm = () => {
                 name="preventionPerson"
               >
                 <Select
+                  getPopupContainer={triggerNode => triggerNode.parentElement}
                   style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>
@@ -481,6 +493,7 @@ export const ModalForm = () => {
                 name="safePerson"
               >
                 <Select
+                  getPopupContainer={triggerNode => triggerNode.parentElement}
                   style={{ width: "100%" }}
                   showSearch
                   filterOption={(input, option: any) =>

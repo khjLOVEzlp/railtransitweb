@@ -7,10 +7,13 @@ import { Search } from 'utils/typings';
 import { Header, Main } from 'components/Styled';
 import { noData } from 'utils/verification';
 import { useState } from 'react';
-import { useProject } from 'utils';
 
 export const PlatfromController = () => {
-  const { param, setParam } = useProject()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
   const { open, startEdit } = usePlaModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
@@ -73,7 +76,7 @@ export const PlatfromController = () => {
             {
               title: '在线状态',
               key: 'status',
-              render: (item) => item.status === "0" ? '离线' : '在线'
+              render: (item) => item.isUse === "0" ? '离线' : '在线'
             },
             {
               title: '厂商',
@@ -83,7 +86,7 @@ export const PlatfromController = () => {
             {
               title: '是否使用',
               key: 'isUse',
-              render: (item) => item.isUse === "0" ? '使用' : '未使用'
+              render: (item) => item.status === "0" ? '使用' : '未使用'
             },
             {
               title: '操作',
@@ -106,7 +109,7 @@ export const PlatfromController = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
     </>
   );
 };

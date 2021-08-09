@@ -6,7 +6,16 @@ import { useMod, useAdd } from './request'
 import { useProjectModal } from "../../../util";
 import { useEffect } from "react";
 
-export const ModalForm = () => {
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
+export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const { editId } = useProjectModal()
   const { editingLinePlatForm, isLoading, close, ModalOpen, platId } = useLinePlatFormModal()
@@ -15,6 +24,7 @@ export const ModalForm = () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingLinePlatForm ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

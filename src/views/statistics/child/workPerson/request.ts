@@ -26,7 +26,7 @@ export const useWorkStatisticsDetail = (params?: any) => {
 
 /*到岗统计弹框*/
 export const useWorkModal = () => {
-  const { visible, setVisible, param, setParam } = useStatisticsContext()
+  const { visible, setVisible, setParam } = useStatisticsContext()
   const open = (subwayId: string, time: string) => {
     setParam({ subwayId, time })
     setVisible(true)
@@ -38,7 +38,7 @@ export const useWorkModal = () => {
   }
 
   return {
-    ModalOpen: Boolean(param.subwayId) && Boolean(param.time) && visible === true,
+    ModalOpen: visible === true,
     open,
     close
   }

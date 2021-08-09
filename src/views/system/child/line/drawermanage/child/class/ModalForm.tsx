@@ -8,7 +8,16 @@ import { useLineClassModal } from './util'
 import { useInit } from "./request";
 import * as department from 'views/system/child/department/request'
 
-export const ModalForm = () => {
+type Props = {
+  param: {
+    index: number
+    size: number
+    departmentName: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
+export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const { editId } = useProjectModal()
   const { ModalOpen, close, editingLineClass, classId, isLoading } = useLineClassModal()
@@ -17,6 +26,7 @@ export const ModalForm = () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingLineClass ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

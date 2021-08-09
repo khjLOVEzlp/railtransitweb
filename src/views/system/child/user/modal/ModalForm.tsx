@@ -9,7 +9,16 @@ import { useRoleAll } from "views/system/child/role/request";
 
 const { Option } = Select;
 
-export const ModalForm = () => {
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
+
+export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const { data: userList } = useUserList()
   const { data: personList } = useInit({})
@@ -21,6 +30,7 @@ export const ModalForm = () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingUser ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

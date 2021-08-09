@@ -5,15 +5,24 @@ import { useSepModal } from './util'
 import { useMod, useAdd } from './request'
 import { usePerson } from "views/person/child/personManage/request";
 
-export const ModalForm = () => {
-  const [form] = Form.useForm();
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
 
+export const ModalForm = ({ param, setParam }: Props) => {
+  const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingSep, editId } = useSepModal()
   const title = editingSep ? "修改" : "新增"
   const msg = editingSep ? () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingSep ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

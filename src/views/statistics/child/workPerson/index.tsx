@@ -6,27 +6,26 @@ import {
   useWorkModal,
   useWorkStatisticsDetail
 } from './request'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header, Main } from "components/Styled";
-import { useStatisticsContext } from "views/statistics";
 
 export const WorkPerson = () => {
   const { data: lineList } = useLineList()
-  const [param, setParam] = useState({
+  const [params, setParams] = useState({
     time: "",
     subwayId: ""
   })
 
-  const { open, ModalOpen } = useWorkModal()
+  const { open } = useWorkModal()
 
-  const { data: workStatistics, isSuccess } = useWorkStatistics(param)
+  const { data: workStatistics, isSuccess } = useWorkStatistics(params)
 
   const lineChange = (value: any) => {
-    setParam({ ...param, subwayId: value })
+    setParams({ ...params, subwayId: value })
   }
 
   const timeChange = (value: any) => {
-    setParam({ ...param, time: value })
+    setParams({ ...params, time: value })
   }
 
   const noData = [
@@ -56,7 +55,7 @@ export const WorkPerson = () => {
     },
     meta: {
       className: { alias: '班别' },
-      classId: { alias: '数量' },
+      classId: { alias: '人数' },
     },
   };
 
@@ -108,26 +107,33 @@ export const WorkPerson = () => {
           {...config}
           onReady={(plot: any) => {
             plot.on('plot:click', (evt: any) => {
-              open(param.subwayId, param.time)
+              open(params.subwayId, params.time)
             });
           }}
         />
-        <WorkPersonModal />
+        <WorkPersonModal params={params} />
       </Main>
     </>
   )
 }
 
-export const WorkPersonModal = () => {
+export const WorkPersonModal = ({ params }: { params: { subwayId: string, time: string } }) => {
   const { ModalOpen, close } = useWorkModal()
-  const { param: modalParam } = useStatisticsContext()
   const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    subwayId: modalParam.subwayId,
-    time: modalParam.time
+    subwayId: "",
+    time: ""
   })
+
+  useEffect(() => {
+    setParam({
+      ...param,
+      subwayId: params.subwayId,
+      time: params.time
+    })
+  }, [params, param])
+
   const { data: alarmDetail, isLoading } = useWorkStatisticsDetail(param)
+
   const columns = [
     {
       title: "部门",

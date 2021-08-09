@@ -1,4 +1,4 @@
-import { Col, Divider, Modal, Row, Spin, Table, Tabs } from "antd";
+import { Col, Modal, Row, Spin, Table, Tabs } from "antd";
 import { useHistoryModal } from '../util'
 const { TabPane } = Tabs;
 
@@ -139,7 +139,5 @@ export const ModalForm = () => {
     </Modal>
   )
 }
-
-const fw = { fontWeight: 800, fontSize: "1.6rem", width: "100%" }
 
 const mb = { marginBottom: "1rem" }

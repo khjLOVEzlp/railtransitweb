@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
 import { Button, Dropdown, Menu, message } from "antd";
 import { DownOutlined } from '@ant-design/icons';
+import { useInit } from 'views/notice/request'
 /*
 * 路由
 * */
@@ -101,30 +102,30 @@ export const PageBox = () => {
   }, [client])
 
   return (
-    <PageBoxContext.Provider value={{infoId, setInfoId, help, setHelp}}>
+    <PageBoxContext.Provider value={{ infoId, setInfoId, help, setHelp }}>
       <Container>
-      <HeaderStyle>
-        <Logo>
-          <div className="img">
-            <img src={logo} alt="" />
-          </div>
-          <div className="title" onClick={() => window.location.href = window.location.origin}>
-            <p>5G-NB智慧轨行区</p>
-            <p>数字化维养安全管控系统</p>
-          </div>
-        </Logo>
-        <Nav className={"NavList"}>
-          {
-            menu.map((item: any, index) => (
-              <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
-            ))
-          }
-        </Nav>
-        <User />
-      </HeaderStyle>
-      <ContentStyle>
-        <RouterElement />
-        {/*<Routes>
+        <HeaderStyle>
+          <Logo>
+            <div className="img">
+              <img src={logo} alt="" />
+            </div>
+            <div className="title" onClick={() => window.location.href = window.location.origin}>
+              <p>5G-NB智慧轨行区</p>
+              <p>数字化维养安全管控系统</p>
+            </div>
+          </Logo>
+          <Nav className={"NavList"}>
+            {
+              menu.map((item: any, index) => (
+                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
+              ))
+            }
+          </Nav>
+          <User />
+        </HeaderStyle>
+        <ContentStyle>
+          <RouterElement />
+          {/*<Routes>
           <Route path={"/home"} element={<Home/>}/>
           <Route path={"/plan/*"} element={<Plan/>}/>
           <Route path={"/alarm"} element={<Alarm/>}/>
@@ -134,15 +135,16 @@ export const PageBox = () => {
           <Route path={"/system/*"} element={<System/>}/>
           <Navigate to={window.location.pathname + "home"} replace={true}/>
         </Routes>*/}
-      </ContentStyle>
-      <UserInfo />
-      <OnHelp />
-    </Container>
+        </ContentStyle>
+        <UserInfo />
+        <OnHelp />
+      </Container>
     </PageBoxContext.Provider>
   )
 }
 
 const User = () => {
+  const { data } = useInit()
   const { open } = useNoticeModal()
   const { startEdit } = useInfoModal()
   const { logout, user } = useAuth();
@@ -167,6 +169,7 @@ const User = () => {
     <div style={{ display: "flex", alignItems: "center" }}>
       <Button type={"link"} onClick={open}>
         <img src={notice} alt="" />
+        <i style={{ background: "red", color: "white", borderRadius: "50%", fontSize: "12px", position: "absolute", right: "3px" }}>{data?.count}</i>
       </Button>
       <OperModal />
       <Dropdown

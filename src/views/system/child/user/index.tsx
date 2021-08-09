@@ -146,7 +146,7 @@ export const User = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
       <PassModal
         passwd={"reset"}
         visible={passwdVisible}

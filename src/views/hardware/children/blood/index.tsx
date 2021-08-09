@@ -6,10 +6,14 @@ import { useAlcModal } from './util'
 import { Search } from 'utils/typings';
 import { Header, Main } from 'components/Styled';
 import { noData } from 'utils/verification';
-import { useProject } from 'utils';
+import { useState } from 'react';
 
 export default () => {
-  const { param, setParam } = useProject()
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
   const { open, startEdit } = useAlcModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
@@ -94,13 +98,14 @@ export default () => {
                 </Popconfirm></>
             },
           ]
-        } pagination={{ total: data?.count, current: param.index, pageSize: param.size, }} onChange={handleTableChange}
+        } pagination={{ total: data?.count, current: param.index, pageSize: param.size, }}
+          onChange={handleTableChange}
           loading={isLoading} dataSource={data?.data}
           rowKey={(item) => item.id}
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
     </>
   );
 };

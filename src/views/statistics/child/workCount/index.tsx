@@ -51,7 +51,6 @@ export const WorkCount = () => {
       console.log(res)
       return res.blob();
     }).then(blob => {
-      let bl = new Blob([blob], { type: blob.type });
       let fileName = params.date + ".doc";
       var link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -71,7 +70,6 @@ export const WorkCount = () => {
     }).then((res) => {
       return res.blob();
     }).then(blob => {
-      let bl = new Blob([blob], { type: blob.type });
       let fileName = params.date + ".doc";
       var link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);

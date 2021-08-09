@@ -1,5 +1,4 @@
-import styled from "@emotion/styled"
-import React, { createContext, useContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom"
 import { useDocumentTitle } from '../../hook/useDocumentTitle'
@@ -88,70 +87,11 @@ export const Plan = () => {
   )
 }
 
-{/* <PlanStyle>
-  <Left>
-    {
-      asid.map((item: any, index: number) => <li key={index}>
-        <img src={`../../icon/${item.name}.png`} alt="" />
-        <NavLink to={item.url} activeStyle={{ color: '#5A7FFA', fontWeight: 'bold' }}>
-          {item.name}
-        </NavLink>
-      </li>)
-    }
-  </Left>
-  <Right>
-    <PlanContext.Provider value={{ groupList, setGroupList, visible, setVisible, editId, setEditId }}>
-      <Outlet />
-    </PlanContext.Provider>
-  </Right>
-</PlanStyle> */}
-
 export const usePlanContext = () => {
   const context = useContext(PlanContext)
   if (!context) {
-    throw new Error("usePlanContext必须在作业计划模块中使用")
+    throw new Error("usePlanContext必须在Plan组件中使用")
   }
+
   return context
 }
-
-const PlanStyle = styled.div`
-  display: flex;
-  height: 100%;
-`
-
-const Left = styled.div`
-  width: 16rem;
-  background: #FFFFFF;
-  border-radius: 14px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-left: 2rem;
-  box-sizing: border-box;
-
-  > li {
-    font-size: 2rem;
-    cursor: pointer;
-    width: 100%;
-    align-items: center;
-    display: flex;
-    height: 6rem;
-
-    > a {
-      color: #747A89;
-      margin-left: 1rem;
-    }
-  }
-`
-
-const Right = styled.div`
-  border-radius: 14px;
-  height: 100%;
-  margin-left: 0.5%;
-  width: 100%;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`

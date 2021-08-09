@@ -36,7 +36,7 @@ export const useMindStatisticsDetail = (params?: any) => {
 /*精神分析弹框*/
 
 export const useMindModal = () => {
-  const { visible, setVisible, param, setParam } = useStatisticsContext()
+  const { visible, setVisible, setParam } = useStatisticsContext()
   const open = (subwayId: string, time: string) => {
     setParam({ subwayId, time })
     setVisible(true)
@@ -48,7 +48,7 @@ export const useMindModal = () => {
   }
 
   return {
-    ModalOpen: Boolean(param.subwayId) && Boolean(param.time) && visible === true,
+    ModalOpen: visible === true,
     open,
     close
   }

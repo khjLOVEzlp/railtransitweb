@@ -6,47 +6,27 @@ import {
   useMindStatistics,
   useMindStatisticsDetail
 } from './request'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header, Main } from "components/Styled";
-import { useStatisticsContext } from "views/statistics";
 
 export const PersonMind = () => {
   const { data: lineList } = useLineList()
   const { open } = useMindModal()
-  const [param, setParam] = useState({
+  const [params, setParams] = useState({
     time: "",
     subwayId: ""
   })
 
-  const { data: mindStatistics, isSuccess } = useMindStatistics(param)
-  console.log(mindStatistics);
+  const { data: mindStatistics, isSuccess } = useMindStatistics(params)
+  console.log(mindStatistics?.data);
 
   const lineChange = (value: any) => {
-    setParam({ ...param, subwayId: value })
+    setParams({ ...params, subwayId: value })
   }
 
   const timeChange = (value: any) => {
-    setParam({ ...param, time: value })
+    setParams({ ...params, time: value })
   }
-
-  /* const config = {
-    data: data,
-    xField: "className",
-    yField: "value",
-    seriesField: "type",
-    maxColumnWidth: 100,
-    isGroup: "true",
-    columnStyle: {
-      radius: [20, 20, 0, 0]
-    }
-  }; */
-
-  const noDataA = [
-    {
-      temRate: 0,
-      className: "体温异常班别"
-    }
-  ]
 
   const noDataB = [
     {
@@ -59,6 +39,13 @@ export const PersonMind = () => {
     {
       bloodRate: 0,
       className: "血压异常班别"
+    }
+  ]
+
+  const noDataA = [
+    {
+      temRate: 0,
+      className: "体温异常班别"
     }
   ]
 
@@ -178,26 +165,47 @@ export const PersonMind = () => {
           }}
         /> */}
         {/*@ts-ignore*/}
-        <Pie {...Aconfig} />
+        <Pie {...Aconfig} onReady={(plot: any) => {
+          plot.on('plot:click', (evt: any) => {
+            open(params.subwayId, params.time)
+          });
+        }} />
         {/*@ts-ignore*/}
-        <Pie {...Bconfig} />
+        <Pie {...Bconfig} onReady={(plot: any) => {
+          plot.on('plot:click', (evt: any) => {
+            open(params.subwayId, params.time)
+          });
+        }} />
         {/*@ts-ignore*/}
-        <Pie {...Cconfig} />
-        <PersonMindModal />
+        <Pie {...Cconfig} onReady={(plot: any) => {
+          plot.on('plot:click', (evt: any) => {
+            open(params.subwayId, params.time)
+          });
+        }} />
+        <PersonMindModal params={params} />
       </Main>
     </>
   )
 }
 
-const PersonMindModal = () => {
+const PersonMindModal = ({ params }: { params: { subwayId: string, time: string } }) => {
   const { ModalOpen, close } = useMindModal()
-  const { param: modalParam } = useStatisticsContext()
+
   const [param, setParam] = useState({
     index: 1,
     size: 10,
-    subwayId: modalParam.subwayId,
-    time: modalParam.time
+    subwayId: "",
+    time: ""
   })
+
+  useEffect(() => {
+    setParam({
+      ...param,
+      subwayId: params.subwayId,
+      time: params.time
+    })
+  }, [params])
+
   const { data: mindDetail } = useMindStatisticsDetail(param)
 
   const columns = [
@@ -234,6 +242,7 @@ const PersonMindModal = () => {
       <Table
         columns={columns}
         pagination={false}
+        dataSource={mindDetail?.data}
         rowKey={(item: any, index: any) => index}
       />
     </Modal>

@@ -7,7 +7,7 @@ import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
 
 export const Department = () => {
-  const [pagination, setPagination] = useState({
+  const [param, setParam] = useState({
     index: 1,
     size: 10,
     name: ''
@@ -15,7 +15,7 @@ export const Department = () => {
 
   const { open, startEdit } = useDepartmentModal()
 
-  const { data, isLoading } = useInit({ ...pagination })
+  const { data, isLoading } = useInit({ ...param })
   const { mutateAsync: Del } = useDel()
 
   const confirm = (id: number) => {
@@ -24,7 +24,7 @@ export const Department = () => {
         message.error(res.msg)
       } else {
         message.success('删除成功')
-        setPagination({ ...pagination, index: 1 })
+        setParam({ ...param, index: 1 })
       }
     })
   }
@@ -34,7 +34,7 @@ export const Department = () => {
   }
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setPagination({ ...pagination, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
   return (
@@ -87,7 +87,7 @@ export const Department = () => {
                 </Popconfirm></>
             },
           ]
-        } pagination={{ total: data?.count, current: pagination.index, pageSize: pagination.size }}
+        } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
           onChange={handleTableChange}
           loading={isLoading}
           dataSource={data?.data}
@@ -96,7 +96,7 @@ export const Department = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
     </>
   );
 };

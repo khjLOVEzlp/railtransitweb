@@ -5,9 +5,17 @@ import { useLineRoadModal } from './util'
 import { useAdd, useMod } from './request'
 import { useProjectModal } from "../../../util";
 
-export const ModalForm = () => {
-  const { editId } = useProjectModal()
+type Props = {
+  param: {
+    index: number
+    size: number
+    name: string
+  }
+  setParam: (param: Props["param"]) => void
+}
 
+export const ModalForm = ({ param, setParam }: Props) => {
+  const { editId } = useProjectModal()
   const { ModalOpen, editingLineRoad, close, isLoading, roadId } = useLineRoadModal()
   const [form] = Form.useForm();
   const title = editingLineRoad ? "修改" : "新增"
@@ -15,6 +23,7 @@ export const ModalForm = () => {
     message.success("修改成功")
   } : () => {
     message.success("新增成功")
+    setParam({ ...param, index: 1 })
   }
   const useMutateProject = editingLineRoad ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();

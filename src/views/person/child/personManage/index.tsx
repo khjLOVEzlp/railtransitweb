@@ -112,7 +112,7 @@ export const PersonManage = () => {
             {
               title: '性别',
               key: 'sex',
-              render: (item) => <>{item.sex === 1 ? '男' : '女'}</>
+              render: (item) => <>{item.sex === 0 ? '男' : '女'}</>
             },
             {
               title: '员工卡号',
@@ -167,7 +167,7 @@ export const PersonManage = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm />
+      <ModalForm param={param} setParam={setParam} />
       <ImportModal />
     </>
   );
