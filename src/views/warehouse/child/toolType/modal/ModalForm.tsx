@@ -31,8 +31,11 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
+    if (title === "新增") {
+      form.setFieldsValue(null)
+    }
     form.setFieldsValue(editingToolType?.data)
-  }, [form, editingToolType])
+  }, [form, editingToolType, title])
 
   const closeModal = () => {
     form.resetFields()

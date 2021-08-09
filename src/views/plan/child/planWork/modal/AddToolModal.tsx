@@ -13,17 +13,19 @@ const PersonLIst = ({ setState }: any) => {
   const { data, isLoading } = usePerson()
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
-  const [person, setPerson] = useState<any>([])
-
+  const [personList, setPersonList] = useState<any>([])
+  const { groupList, setGroupList } = usePlanContext()
   const start = () => {
-    const list = person
+    const list = personList
     list.forEach((key: any) => {
       key["a"] = true
     })
     setLoading(true)
     setTimeout(() => {
       setSelectedRowKeys([])
-      setPerson(list)
+      setPersonList(list)
+      // setGroupList([{ personList }])
+      sessionStorage.setItem("personList", JSON.stringify(personList))
       setState("1")
       setLoading(false)
     }, 1000)
@@ -33,7 +35,7 @@ const PersonLIst = ({ setState }: any) => {
     value.forEach((key: any) => {
       key["personId"] = key["id"]
     })
-    setPerson(value)
+    setPersonList(value)
     setSelectedRowKeys(keys);
   };
 
@@ -88,6 +90,8 @@ const EditableContext = React.createContext(null);
 const Tool = ({ setState }: any) => {
   const { data, isLoading, isSuccess } = useMaterialType()
   const [dataSu, setDataSu] = useState<any>([])
+  const [groupToolList, setGroupToolList] = useState<any>([])
+  const { groupList, setGroupList } = usePlanContext()
 
   useEffect(() => {
     if (isSuccess) {
@@ -187,6 +191,8 @@ const Tool = ({ setState }: any) => {
     setLoading(true)
     setTimeout(() => {
       setSelectedRowKeys([])
+      // setGroupList([{ groupToolList }])
+      sessionStorage.setItem("groupToolList", JSON.stringify(groupToolList))
       setLoading(false)
       setState("1")
     }, 1000)
@@ -194,7 +200,7 @@ const Tool = ({ setState }: any) => {
 
   const onSelectChange = (selectedRowKeys: any, value: any) => {
     setSelectedRowKeys(selectedRowKeys);
-    console.log(value);
+    setGroupToolList(value)
   };
 
   const hasSelected = selectedRowKeys.length > 0;
@@ -286,6 +292,7 @@ const Tool = ({ setState }: any) => {
 const Mater = ({ setState }: any) => {
   const { data, isLoading, isSuccess } = useMaterialType()
   const [dataSu, setDataSu] = useState<any>([])
+  const [groupMaterialList, setGroupMaterialList] = useState<any>([])
 
   useEffect(() => {
     if (isSuccess) {
@@ -385,6 +392,7 @@ const Mater = ({ setState }: any) => {
     setLoading(true)
     setTimeout(() => {
       setSelectedRowKeys([])
+      sessionStorage.setItem("groupMaterialList", JSON.stringify(groupMaterialList))
       setLoading(false)
       setState("1")
     }, 1000)
@@ -392,7 +400,7 @@ const Mater = ({ setState }: any) => {
 
   const onSelectChange = (selectedRowKeys: any, value: any) => {
     setSelectedRowKeys(selectedRowKeys);
-    console.log(value);
+    setGroupMaterialList(value)
   };
 
   const hasSelected = selectedRowKeys.length > 0;
@@ -487,16 +495,25 @@ export const AddToolModal = () => {
   const { data: personList } = usePerson()
   const { ModalOpen, close } = useAddToolModal()
   const { groupList, setGroupList } = usePlanContext()
+  const [param, setParam] = useState({
+    groupName: "",
+    leader: "",
+    remark: ""
+  })
   /* const handleTableChange = (p: any) => {
     setParam({...param, index: p.current, size: p.pageSize})
   }; */
 
-  useEffect(() => {
-    console.log(groupList)
-  }, [groupList])
+  const obj = {
+    groupName: param.groupName,
+    leader: param.leader,
+    remark: param.remark,
+    personList: JSON.parse(sessionStorage.getItem("personList") || "[]"),
+    groupToolList: JSON.parse(sessionStorage.getItem("groupToolList") || "[]"),
+    groupMaterialList: JSON.parse(sessionStorage.getItem("groupMaterialList") || "[]")
+  }
 
   const closeModal = () => {
-    // setGroupList(undefined)
     close()
   }
 
@@ -505,15 +522,7 @@ export const AddToolModal = () => {
   }
 
   const submit = () => {
-    let list = [
-      {
-        groupName: "养护一组"
-      },
-      {
-        groupName: "养护二组"
-      }
-    ]
-    setGroupList(list)
+    setGroupList([...groupList, obj])
     closeModal()
   }
 
@@ -540,7 +549,7 @@ export const AddToolModal = () => {
                 name={"groupName"}
                 style={{ flex: 1, padding: "0 1rem" }}
               >
-                <Input />
+                <Input onChange={(evt) => setParam({ ...param, groupName: evt.target.value })} />
               </Form.Item>
 
               <Form.Item
@@ -554,6 +563,8 @@ export const AddToolModal = () => {
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
+                  // @ts-ignore
+                  onChange={(value) => setParam({ ...param, leader: value })}
                 >
                   {personList?.data.map((item: any, index: number) => <Select.Option value={item.id}
                     key={index}>{item.name}</Select.Option>)}
@@ -570,38 +581,40 @@ export const AddToolModal = () => {
             </Form>
 
             <div style={flex}>作业组员：</div>
-            <List.Item>
-              管理员
-            </List.Item>
-            <List.Item>
-              测试者
-            </List.Item>
+            {
+              obj?.personList ? obj?.personList.map((key: any) => (
+                <List.Item>
+                  {key.name}
+                </List.Item>
+              )) : ""
+            }
 
             <div style={flex}>作业工具：</div>
-            <List.Item>
-              <span>锤子</span>
-              <span>数量：10</span>
-            </List.Item>
-            <List.Item>
-              <span>铁锹</span>
-              <span>数量：10</span>
-            </List.Item>
+            {
+              obj?.groupToolList ? obj?.groupToolList.map((key: any) => (
+                <List.Item>
+                  <span>{key.name}</span>
+                  <span>{key.count}</span>
+                </List.Item>
+              )) : ""
+            }
 
             <div style={flex}>作业物料：</div>
-            <List.Item>
-              <span>锤子</span>
-              <span>数量：10</span>
-            </List.Item>
-            <List.Item>
-              <span>铁锹</span>
-              <span>数量：10</span>
-            </List.Item>
+            {
+              obj?.groupMaterialList ? obj?.groupMaterialList.map((key: any) => (
+                <List.Item>
+                  <span>{key.name}</span>
+                  <span>{key.count}</span>
+                </List.Item>
+              )) : ""
+            }
 
             <List.Item style={{ display: "flex", justifyContent: "space-between" }}>
               <div></div>
               <Button type={"primary"} style={{ textAlign: "right", marginTop: "1rem" }} onClick={() => submit()}>确定</Button>
             </List.Item>
           </List>
+
         </TabPane>
         <TabPane tab="作业组员" key="2">
           <PersonLIst setState={setState} />

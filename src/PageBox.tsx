@@ -7,7 +7,8 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
 import { Button, Dropdown, Menu, message } from "antd";
 import { DownOutlined } from '@ant-design/icons';
-import { useInit } from 'views/notice/request'
+import { useInit, useUnread } from 'views/notice/request'
+
 /*
 * 路由
 * */
@@ -144,7 +145,7 @@ export const PageBox = () => {
 }
 
 const User = () => {
-  const { data } = useInit()
+  const { data } = useUnread()
   const { open } = useNoticeModal()
   const { startEdit } = useInfoModal()
   const { logout, user } = useAuth();
@@ -169,7 +170,7 @@ const User = () => {
     <div style={{ display: "flex", alignItems: "center" }}>
       <Button type={"link"} onClick={open}>
         <img src={notice} alt="" />
-        <i style={{ background: "red", color: "white", borderRadius: "50%", fontSize: "12px", position: "absolute", right: "3px" }}>{data?.count}</i>
+        <i style={{ background: "red", color: "white", borderRadius: "50%", fontSize: "12px", position: "absolute", right: "3px" }}>{data?.data}</i>
       </Button>
       <OperModal />
       <Dropdown

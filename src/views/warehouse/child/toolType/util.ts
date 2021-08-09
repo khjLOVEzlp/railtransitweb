@@ -6,11 +6,14 @@ import { useToolTypeDetail, useViewToolDetail, useGetMaterialDetail } from "./re
 export const useToolTypeModal = () => {
   const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const { data: editingToolType, isLoading } = useToolTypeDetail(
+  const { data: editingToolType, isLoading, isSuccess } = useToolTypeDetail(
     Number(editId)
   );
 
-  const open = () => setVisible(true)
+  const open = () => {
+    setEditId(undefined)
+    setVisible(true)
+  }
   const close = () => {
     setEditId(undefined)
     setVisible(false)
@@ -27,7 +30,8 @@ export const useToolTypeModal = () => {
     startEdit,
     editingToolType,
     isLoading,
-    editId
+    editId,
+    isSuccess
   };
 };
 
@@ -41,8 +45,8 @@ export const useViewTool = () => {
   )
 
   const close = () => {
-    setDrawer(false)
     setEditId(undefined)
+    setDrawer(false)
   }
 
   const startEdit = (id: number) => {

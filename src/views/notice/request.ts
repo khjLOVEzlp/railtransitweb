@@ -13,6 +13,15 @@ export const useInit = (params?: Partial<Search>) => {
   return useQuery<Notice>(['transactionNotice', cleanObject(params)], () => client(`transactionNotice/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
 }
 
+/**
+ * 查询未读消息条数
+ *  */
+
+export const useUnread = () => {
+  const client = useHttp()
+  return useQuery<Notice>(['unread'], () => client(`transactionNotice/unread`, { method: "POST" }))
+}
+
 /* 反馈 */
 export const useFeedBack = () => {
   const queryClient = useQueryClient()
@@ -21,6 +30,7 @@ export const useFeedBack = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('plan')
       queryClient.invalidateQueries('transactionNotice')
+      queryClient.invalidateQueries('unread')
     },
     onError: () => {
     }
@@ -34,6 +44,7 @@ export const useMod = () => {
   return useMutation((id: number) => client(`transactionNotice/updateState/${id}`), {
     onSuccess: () => {
       queryClient.invalidateQueries('transactionNotice')
+      queryClient.invalidateQueries('unread')
     },
     onError: () => {
     }

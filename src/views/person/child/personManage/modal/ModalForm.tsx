@@ -9,6 +9,7 @@ import { useAuth } from "context/auth-context";
 import { useInit } from 'views/system/child/department/request'
 import moment from "moment";
 import { useGetNotUseList } from "views/hardware/children/seperateController/request";
+import { useQueryClient } from "react-query";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -51,7 +52,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
 
     mutateAsync({
       ...editingPerson?.data,
-      ...value, id: editId,
+      ...value,
+      id: editId,
       irfId: value.irfId === undefined ? null : value.irfId
     }).then((res) => {
       if (res.code === 200) {
@@ -226,7 +228,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
 export const ImportModal = () => {
   const { ModalOpen, close } = useImportModal()
   const { user } = useAuth()
-
+  const queryClient = useQueryClient()
   const props = {
     name: 'file',
     action: `${apiUrl}person/import`,
@@ -238,6 +240,7 @@ export const ImportModal = () => {
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name}上传成功`);
+        queryClient.invalidateQueries('person')
         close()
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} 上传失败`);

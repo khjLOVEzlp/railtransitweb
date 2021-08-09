@@ -65,13 +65,15 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
-    form.setFieldsValue({
-      ...editingPlanWork?.data,
-      dateTime: moment(editingPlanWork?.data?.dateTime),
-      beginTime: moment(editingPlanWork?.data?.beginTime),
-      endTime: moment(editingPlanWork?.data?.endTime),
-      warnTime: moment(editingPlanWork?.data?.warnTime),
-    })
+    if (editingPlanWork) {
+      form.setFieldsValue({
+        ...editingPlanWork?.data,
+        dateTime: moment(editingPlanWork?.data?.dateTime),
+        beginTime: moment(editingPlanWork?.data?.beginTime),
+        endTime: moment(editingPlanWork?.data?.endTime),
+        warnTime: moment(editingPlanWork?.data?.warnTime),
+      })
+    }
   }, [form, editingPlanWork])
 
   const closeModal = () => {

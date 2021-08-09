@@ -3,9 +3,9 @@ import { ImportModal, ModalForm } from "./modal/ModalForm";
 import { useDel, useInit } from './request';
 import { useDebounce } from 'hook/useDebounce';
 import { usePersonModal, useImportModal } from './util'
-import { useAuth } from "../../../../context/auth-context";
+import { useAuth } from "context/auth-context";
 import { Search } from 'utils/typings';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
 
@@ -18,10 +18,19 @@ export const PersonManage = () => {
     size: 10,
     name: ""
   })
+
   const { open, startEdit } = usePersonModal()
-  const { open: openImportModal } = useImportModal()
+  const { open: openImportModal, ModalOpen } = useImportModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
+
+  useEffect(() => {
+    setParam({
+      index: 1,
+      size: 10,
+      name: ""
+    })
+  }, [ModalOpen])
 
   const search = (item: Search) => {
     setParam({ ...param, name: item.name, index: 1 })

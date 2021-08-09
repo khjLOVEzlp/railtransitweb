@@ -1,5 +1,6 @@
 import { Button, Drawer, Table } from "antd"
 import { useAuth } from "context/auth-context"
+import { useEffect } from "react"
 import { noData } from "utils/verification"
 import { useWareHouseContext } from "views/warehouse"
 import { ToolModalForm } from "./modal/ToolModalForm"
@@ -9,16 +10,19 @@ export const Tool = ({ name }: { name: string }) => {
   const { ModalOpen, close, viewTool, isLoading } = useViewTool()
   const { startEdit } = useToolModal()
   const { editId } = useWareHouseContext()
-  const { editId: type } = useAuth()
+  const { editId: type, setEditId } = useAuth()
 
-  console.log(editId, type);
+  const closeModal = () => {
+    setEditId(undefined)
+    close()
+  }
 
   return (
     <Drawer
       width={800}
       title={name}
       placement="right"
-      onClose={close}
+      onClose={closeModal}
       visible={ModalOpen}
     >
       <Table dataSource={viewTool?.data

@@ -55,7 +55,7 @@ export const Log = () => {
   ]
 
   return (
-    <div>
+    <>
       <Header>
         <Form
           name="basic"
@@ -95,6 +95,6 @@ export const Log = () => {
           locale={noData}
         />
       </Main>
-    </div>
+    </>
   )
 }
