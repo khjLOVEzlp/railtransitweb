@@ -185,7 +185,7 @@ export const AlarmModal = ({ params }: { params: { subwayId: string, time: strin
       subwayId: params.subwayId,
       time: params.time
     })
-  }, [params, param])
+  }, [params])
 
   const { data: alarmPagination, isLoading } = useAlarmPagination(useDebounce(param, 500))
   const columns = [

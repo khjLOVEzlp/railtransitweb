@@ -68,6 +68,9 @@ export const usePlanWorkDetail = (id?: number) => {
     const data = await client(`plan/get/${id}`)
     let typeList = data.data.typeList.map((key: any) => key.typeId)
     data.data.typeList = typeList
+    data.data.documentList.forEach((key: any) => {
+      key["name"] = key["documentName"]
+    })
     return data
   }, {
     enabled: Boolean(id),
@@ -102,6 +105,7 @@ export const useCancelSharePlan = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('plan')
       queryClient.invalidateQueries('transactionNotice')
+      queryClient.invalidateQueries('share')
     },
     onError: () => {
     }

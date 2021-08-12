@@ -6,9 +6,16 @@ import { useDebounce } from "hook/useDebounce";
 import { useToolTypeModal, useViewTool } from './util'
 import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
-import { useState } from 'react';
+import { createContext, useState, useContext } from 'react';
 
 const { Option } = Select;
+
+const ToolTypeContext = createContext<{
+  drawerId: number | undefined
+  setDrawerId: (drawerId: number | undefined) => void
+  editId: number | undefined
+  setEditId: (editId: number | undefined) => void
+} | undefined>(undefined)
 
 export const ToolType = () => {
   const [param, setParam] = useState({
@@ -17,6 +24,8 @@ export const ToolType = () => {
     name: "",
     type: ""
   })
+  const [drawerId, setDrawerId] = useState<number | undefined>(undefined)
+  const [editId, setEditId] = useState<number | undefined>(undefined)
   const [name, setName] = useState("")
   const { open, startEdit } = useToolTypeModal()
   const { startEdit: startTool } = useViewTool()
@@ -53,7 +62,7 @@ export const ToolType = () => {
   };
 
   return (
-    <>
+    <ToolTypeContext.Provider value={{ drawerId, setDrawerId, editId, setEditId }}>
       <Header>
         <Form
           name="basic"
@@ -147,6 +156,14 @@ export const ToolType = () => {
       </Main>
       <ModalForm param={param} setParam={setParam} />
       <Tool name={name} />
-    </>
+    </ToolTypeContext.Provider>
   );
 };
+
+export const useToolTypeContext = () => {
+  const context = useContext(ToolTypeContext)
+  if (!context) {
+    throw new Error("useToolTypeContext必须在ToolType组件中使用")
+  }
+  return context
+}

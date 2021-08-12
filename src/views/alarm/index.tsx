@@ -32,6 +32,11 @@ export const Alarm = () => {
     setPagination({ ...pagination, time: value })
   }
 
+  const navClick = (id: string) => {
+    console.log(id);
+    setPagination({ ...pagination, state: id, time })
+  }
+
   const handleTableChange = (p: any) => {
     setPagination({ ...pagination, index: p.current, size: p.pageSize })
   };
@@ -173,10 +178,9 @@ export const Alarm = () => {
         </Select>
         <Nav>
           {navList?.data.map((item: any) => (<li key={item.id}>
-            <img onClick={() => {
-            }} src={`../../icon/${getType(item.type)}.png`} alt="" />
+            <img onClick={() => navClick(item.type)} src={`../../icon/${getType(item.type)}.png`} alt="" />
             <div>
-              <div style={{ marginBottom: '1rem' }}>{getType(item.type)}</div>
+              <div style={{ marginBottom: '1rem', fontSize: '1.5rem' }}>{getType(item.type)}</div>
               <div style={{ fontSize: '2rem', color: '#5A7FFA' }}>{item.num}</div>
             </div>
           </li>))}
@@ -278,7 +282,7 @@ const Header = styled.div`
   background: #fff;
   border-radius: 1rem;
   margin-bottom: 1rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
 `
 
 const Main = styled.div`

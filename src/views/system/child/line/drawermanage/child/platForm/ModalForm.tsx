@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Select, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useLinePlatFormModal } from './util'
-import { useInit } from './request'
+import { useInit } from '../road/request'
 import { useMod, useAdd } from './request'
 import { useProjectModal } from "../../../util";
 import { useEffect } from "react";
@@ -80,7 +80,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
             layout={"vertical"}
           >
             <Form.Item
-              label="路段"
+              label="区间"
               name="roadId"
               rules={rules}
             >

@@ -1,5 +1,6 @@
 import { useAuth } from "context/auth-context";
 import { useWareHouseContext } from "views/warehouse";
+import { useToolTypeContext } from ".";
 import { useToolTypeDetail, useViewToolDetail, useGetMaterialDetail } from "./request";
 
 /*新增修改弹框*/
@@ -38,26 +39,24 @@ export const useToolTypeModal = () => {
 /*查看工具抽屉*/
 
 export const useViewTool = () => {
-  const { drawer, setDrawer, editId, setEditId } = useAuth()
+  const { drawerId, setDrawerId } = useWareHouseContext()
 
   const { data: viewTool, isLoading } = useViewToolDetail(
-    Number(editId)
+    Number(drawerId)
   )
 
   const close = () => {
-    setEditId(undefined)
-    setDrawer(false)
+    setDrawerId(undefined)
   }
 
   const startEdit = (id: number) => {
-    setDrawer(true)
-    setEditId(id)
+    setDrawerId(id)
   }
 
   return {
-    ModalOpen: drawer === true,
+    ModalOpen: Boolean(drawerId),
     close,
-    editId,
+    drawerId,
     viewTool,
     startEdit,
     isLoading
@@ -66,22 +65,20 @@ export const useViewTool = () => {
 
 /*查看工具详情弹框*/
 export const useToolModal = () => {
-  const { editId, setEditId } = useWareHouseContext()
-  const { editId: type, setEditId: setType } = useAuth()
+  const { drawerId, setDrawerId, editId, setEditId } = useWareHouseContext()
 
   const { data: viewTool, isLoading } = useGetMaterialDetail(
-    Number(type), Number(editId)
+    Number(drawerId), Number(editId)
   )
 
   const close = () => setEditId(undefined)
-  const startEdit = (type: number | undefined, editId: number) => {
-    setType(type)
+  const startEdit = (drawerId: number | undefined, editId: number) => {
+    setDrawerId(drawerId)
     setEditId(editId)
-
   }
 
   return {
-    ModalOpen: Boolean(type) && Boolean(editId),
+    ModalOpen: Boolean(drawerId) && Boolean(editId),
     close,
     viewTool,
     startEdit,

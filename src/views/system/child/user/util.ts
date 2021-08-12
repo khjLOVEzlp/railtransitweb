@@ -4,7 +4,7 @@ import { useUserDetail } from "./request";
 export const useUserModal = () => {
   const { visible, setVisible, editId, setEditId } = useAuth()
 
-  const { data: editingUser, isLoading } = useUserDetail(
+  const { data: editingUser, isLoading, isSuccess } = useUserDetail(
     Number(editId)
   );
 
@@ -25,6 +25,7 @@ export const useUserModal = () => {
     startEdit,
     editingUser,
     isLoading,
-    editId
+    editId,
+    isSuccess
   };
 };

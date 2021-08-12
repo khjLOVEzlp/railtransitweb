@@ -32,7 +32,7 @@ export const WorkPerson = () => {
     {
       className: "到岗班别",
       classId: 0
-    }
+    },
   ]
 
   const config = {
@@ -130,7 +130,7 @@ export const WorkPersonModal = ({ params }: { params: { subwayId: string, time: 
       subwayId: params.subwayId,
       time: params.time
     })
-  }, [params, param])
+  }, [params])
 
   const { data: alarmDetail, isLoading } = useWorkStatisticsDetail(param)
 

@@ -38,6 +38,7 @@ export const WorkCount = () => {
 
   const onChange = (e: any) => {
     setValue(e.target.value);
+    form.resetFields()
   };
 
   const downDay = () => {

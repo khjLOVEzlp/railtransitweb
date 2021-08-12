@@ -2,7 +2,7 @@ import { useQuery } from 'react-query'
 import { useHttp } from "utils/http"
 import qs from "qs";
 import { cleanObject, getType } from "utils/index";
-import {useHomeContext} from './index'
+import { useHomeContext } from './index'
 
 /*
 查询
@@ -34,7 +34,7 @@ export const usePlanPagination = (params?: any) => {
   })
 }
 
-const Type = (type: number) => {
+export const Type = (type: number) => {
   switch (type) {
     case 1:
       return "遗忘"
@@ -126,7 +126,7 @@ export const useTaskPagination = (params?: any) => {
 * */
 
 export const usePlanModal = () => {
-  const {planId, setPlanId} = useHomeContext()
+  const { planId, setPlanId } = useHomeContext()
 
   const open = (id: number) => setPlanId(id)
 
@@ -145,7 +145,7 @@ export const usePlanModal = () => {
 * */
 
 export const useAlarmModal = () => {
-  const {alarmId, setAlarmId} = useHomeContext()
+  const { alarmId, setAlarmId } = useHomeContext()
 
   const open = (id: number) => setAlarmId(id)
 
@@ -164,7 +164,7 @@ export const useAlarmModal = () => {
 * */
 
 export const useTaskModal = () => {
-  const {taskId, setTaskId} = useHomeContext()
+  const { taskId, setTaskId } = useHomeContext()
 
   const open = (id: number | undefined) => setTaskId(id)
 

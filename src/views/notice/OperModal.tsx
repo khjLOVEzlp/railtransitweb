@@ -70,7 +70,6 @@ export const OperModal = () => {
             <Button disabled type={"link"}>已读</Button>
           </span>
         )
-
       default:
         break;
     }
@@ -79,7 +78,11 @@ export const OperModal = () => {
   const isFankui = (status: number, item: any) => {
     if (status === 2 && item.type === 10) {
       return <Button type={"link"} disabled>已反馈</Button>
-    } else if (status !== 2 && item.type === 10) {
+    }
+    else if (status == 3 && item.type === 10) {
+      return <Button style={{ color: "red" }} type={"link"} disabled>已取消</Button>
+    }
+    else if (status !== 2 && item.type === 10) {
       return <Button type={"link"} onClick={() => {
         setId(item.shareId)
         setShareVisible(true)

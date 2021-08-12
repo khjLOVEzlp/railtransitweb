@@ -18,19 +18,19 @@ interface Item {
 }
 
 const WareHouseContext = createContext<{
-  visible: boolean
-  setVisible: (visible: boolean) => void
+  drawerId: number | undefined
+  setDrawerId: (drawerId: number | undefined) => void
   editId: number | undefined
   setEditId: (editId: number | undefined) => void
 } | undefined>(undefined)
 
 export const Warehouse = () => {
   useDocumentTitle("库存管理")
+  const [drawerId, setDrawerId] = useState<number | undefined>(undefined)
+  const [editId, setEditId] = useState<number | undefined>(undefined)
   const [menu] = useState(JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "库存管理").childMenu)
   const routeType = useRouteType();
   const [collapsed, setCollapsed] = useState(false)
-  const [visible, setVisible] = useState<boolean>(false)
-  const [editId, setEditId] = useState<number | undefined>(undefined)
 
   menu.forEach((item: any) => {
     const name = item.name
@@ -84,7 +84,7 @@ export const Warehouse = () => {
       </Sider>
       <Layout className="site-layout">
         <Content style={{ marginLeft: '1rem', display: "flex", flexDirection: "column", height: "100%" }}>
-          <WareHouseContext.Provider value={{ visible, setVisible, editId, setEditId }}>
+          <WareHouseContext.Provider value={{ drawerId, setDrawerId, editId, setEditId }}>
             <Outlet />
           </WareHouseContext.Provider>
         </Content>

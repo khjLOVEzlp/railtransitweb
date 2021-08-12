@@ -24,7 +24,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { data: personList } = useInit({})
   const { data: roleList } = useRoleAll()
 
-  const { ModalOpen, isLoading, close, editingUser, editId } = useUserModal()
+  const { ModalOpen, isLoading, close, editingUser, editId, isSuccess } = useUserModal()
   const title = editingUser ? "修改" : "新增"
   const msg = editingUser ? () => {
     message.success("修改成功")
@@ -36,7 +36,10 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
-    form.setFieldsValue(editingUser?.data)
+    if (isSuccess) {
+      editingUser.data.personId = personList?.data.map(item => item.id).includes(editingUser.data.personId) ? editingUser.data.personId : null
+      form.setFieldsValue(editingUser?.data)
+    }
   }, [form, editingUser])
 
   const closeModal = () => {
@@ -112,14 +115,14 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 filterOption={(input, option: any) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }>
-                {userList?.data.map((item: any) => <Option value={item.personId}
+                {userList?.data.map((item: any) => <Option disabled={item.disabled} value={item.personId}
                   key={item.id}>{item.name}</Option>)}
               </Select>) : (<Select
                 showSearch
                 filterOption={(input, option: any) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }>
-                {personList?.data.map((item: any) => <Option value={item.id}
+                {personList?.data.map((item: any) => <Option disabled={item.disabled} value={item.id}
                   key={item.id}>{item.name}</Option>)}
               </Select>)
             }

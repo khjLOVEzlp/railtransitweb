@@ -1,54 +1,11 @@
-import { useEffect, useState } from "react"
+import { Drawer } from "antd";
+import { useEffect } from "react";
 import * as echarts from 'echarts';
-import { useLine } from 'views/system/child/line/request'
-import { ModalDrawer } from "./subwayModal";
-import subList from './index.js'
-export const Subway = () => {
-  const { data: lineList, isLoading, isSuccess } = useLine()
-  const [visible, setVisible] = useState(false);
 
-  /**
-   * 地铁路线接口数据
-   */
-
-  const dataList = [
-    {
-      name: "地铁1号线"
-    },
-    {
-      name: "地铁2号线"
-    }
-  ]
-
-  let newData: any = subList.filter((v, i) => dataList.find((vi: { [key: string]: unknown }) => vi.name == v.name))
-  console.log(newData);
-
-
-  newData.forEach((v: { [key: string]: [] }) => {
-    newData = [
-      ...newData,
-      { name: v.name, tooltip: v.tooltip, symbolSize: v.symbolSize, value: v.value, fixed: v.fixed, category: v.category, label: v.label, itemStyle: v.itemStyle },
-      ...v.stations
-    ]
-  })
-
-  console.log(newData);
-
-
-  const showDrawer = () => {
-    setVisible(true);
-  };
-
-  const onClose = () => {
-    setVisible(false);
-  };
-
+export const ModalDrawer = ({ onClose, visible }: any) => {
   const data = [
     {
       name: "地铁1号线",
-      itemList: [{
-        formatter: "{b}:地铁1号线<br />",
-      }],
       tooltip: {
         formatter: "{b}:地铁1号线<br />",
       },
@@ -7896,96 +7853,20 @@ export const Subway = () => {
     ],
   };
 
-  useEffect(() => {
-    const myEcharts = echarts.init(document.getElementById('subway') as HTMLElement)
+  /* useEffect(() => {
+    const myEcharts = echarts.init(document.getElementById('aaaaa') as HTMLElement)
     myEcharts.setOption(option)
-    myEcharts.on('click', (params: any) => {
-      showDrawer()
-    })
-  }, [])
+  }, []) */
 
   return (
-    <>
-      <div id="subway" style={{ height: "100%" }} />
-      <ModalDrawer onClose={onClose} visivle={visible} />
-    </>
+    <Drawer
+      closable={false}
+      onClose={onClose}
+      visible={visible}
+      width="100%"
+      height="100%"
+    >
+      <div id="aaaaa" style={{ height: "100%" }} />
+    </Drawer>
   )
 }
-
-/* const list = [
-  { name: '王五' },
-  { name: '李四' },
-]
-
-const dataList = [
-  {
-    name: '张三',
-    age: 12,
-  },
-  {
-    name: '李四',
-    age: 13,
-  },
-  {
-    name: '王五',
-    age: 14,
-  },
-  {
-    name: '马六',
-    age: 15,
-  },
-]
-
-let newData = dataList.filter((v, i) => list.find((vi) => vi.name == v.name)) */
-
-const lineList = [
-  {
-    name: "地铁1号线",
-    stations: [
-      {
-        name: "1"
-      },
-      {
-        name: "2"
-      }
-    ]
-  },
-  {
-    name: "地铁2号线",
-    stations: [
-      {
-        name: "3"
-      },
-      {
-        name: "4"
-      }
-    ]
-  }
-]
-
-const newLineList = [
-  {
-    name: "地铁1号线"
-  },
-  {
-    name: "1"
-  },
-  {
-    name: "2"
-  },
-  {
-    name: "地铁2号线",
-  },
-  {
-    name: "3"
-  },
-  {
-    name: "4"
-  }
-]
-let newlist: any = []
-lineList.forEach((v) => {
-  newlist = [...newlist, { name: v.name }, ...v.stations]
-})
-
-console.log(newlist);

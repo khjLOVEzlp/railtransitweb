@@ -66,6 +66,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
 
   useEffect(() => {
     if (editingPlanWork) {
+      setGroupList(editingPlanWork?.data.groupList)
       form.setFieldsValue({
         ...editingPlanWork?.data,
         dateTime: moment(editingPlanWork?.data?.dateTime),
@@ -82,21 +83,11 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const onFinish = (value: any) => {
-    const { beginTime, dateTime, endTime, warnTime, groupList } = value
-    // const temp = JSON.parse(JSON.stringify(value))
-    // temp.groupList.forEach((item: any) => {
-    //   for (let i = 0; i < item.personList.length; i++) {
-    //     let temp = item.personList[i];
-    //     item.personList[i] = { personId: temp, id: temp };
-    //   }
-    // });
-
-    // console.log(temp)
-
+    const { beginTime, dateTime, endTime, warnTime } = value
     mutateAsync({
       ...editingPlanWork?.data,
-      // ...temp,
       ...value,
+      groupList: groupList,
       dateTime: moment(dateTime).format("YYYY-MM-DD"),
       beginTime: moment(beginTime).format("YYYY-MM-DD HH:mm:ss"),
       endTime: moment(endTime).format("YYYY-MM-DD HH:mm:ss"),
@@ -145,7 +136,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
     },
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
-        document = [...document, info.file.response.data + ""]
+        document = [...document, info.file.response?.data + ""]
         form.setFieldsValue({ documentList: document })
       }
       if (info.file.status === 'done') {
@@ -154,6 +145,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
         message.error(`${info.file.name} 上传失败`);
       }
     },
+    defaultFileList: editingPlanWork?.data.documentList
+
   };
 
   const onOk = () => {
@@ -392,6 +385,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 label="文档"
                 name="documentList"
               >
+                {/* @ts-ignore */}
                 <Upload {...props} style={{ width: "100%" }}>
                   <Button style={{ width: "100%" }} icon={<UploadOutlined />}>上传</Button>
                 </Upload>
@@ -458,25 +452,26 @@ export const ModalForm = ({ param, setParam }: Props) => {
               </Form.Item> */}
             </Space>
 
-            {
-              groupList?.length > 0 ?
-                groupList?.map((item: any, index: number) => <Space style={{ display: "flex" }}>
-                  <Form.Item>
-                    小组名称：{item.groupName}
-                  </Form.Item>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
+            <Form.Item name="groupList">
+              {
+                groupList?.length > 0 ?
+                  groupList?.map((item: any, index: number) => <Space style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
+                    <div>
+                      小组名称：{item.groupName}
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                      <div></div>
+                      <div>
+                        {/* <Button>修改</Button> */}
+                        <Button style={{ marginLeft: "1rem" }} onClick={() => deleteGroup(index)}>删除</Button>
+                      </div>
+                    </div>
+                  </Space>)
+                  : (
                     <div></div>
-                    <div><Button>修改</Button>
-                      <Button style={{ marginLeft: "1rem" }} onClick={() => deleteGroup(index)
-                      }>删除</Button></div>
-                  </div>
-                </Space>)
-                : (
-                  <div></div>
-                )
-            }
+                  )
+              }
+            </Form.Item>
 
             <Form.Item>
               <Button style={{ width: "100%" }} onClick={open} icon={<PlusOutlined />}>添加小组</Button>

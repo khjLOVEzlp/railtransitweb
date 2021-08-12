@@ -37,10 +37,14 @@ export const ModalForm = ({ param, setParam }: Props) => {
   };
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingLineRoad?.data, ...value, id: roadId, lineId: editId }).then(() => {
-      form.resetFields();
-      closeModal()
-      msg()
+    mutateAsync({ ...editingLineRoad?.data, ...value, id: roadId, lineId: editId }).then((res) => {
+      if (res.code === 200) {
+        form.resetFields();
+        closeModal()
+        msg()
+      } else {
+        message.error(res.msg)
+      }
     }).catch(err => {
       message.error(err.msg)
     })

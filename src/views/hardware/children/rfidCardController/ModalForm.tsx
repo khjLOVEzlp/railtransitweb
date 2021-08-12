@@ -73,7 +73,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
             <Form.Item
               label="卡号"
               name="rfid"
-              rules={[{ required: true, len: 10, message: "请输入10位卡号" }]}
+            // rules={[{ required: true, len: 10, message: "请输入10位卡号" }]}
             >
               <Input />
               {/*<Input type={"number"}/>*/}

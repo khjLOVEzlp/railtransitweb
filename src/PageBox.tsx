@@ -170,7 +170,9 @@ const User = () => {
     <div style={{ display: "flex", alignItems: "center" }}>
       <Button type={"link"} onClick={open}>
         <img src={notice} alt="" />
-        <i style={{ background: "red", color: "white", borderRadius: "50%", fontSize: "12px", position: "absolute", right: "3px" }}>{data?.data}</i>
+        {
+          data?.data ? (<i style={{ background: "red", color: "white", borderRadius: "50%", fontSize: "12px", width: "16px", height: "16px", position: "absolute", right: "3px" }}>{data?.data}</i>) : (<div></div>)
+        }
       </Button>
       <OperModal />
       <Dropdown

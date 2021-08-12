@@ -200,6 +200,10 @@ const Tool = ({ setState }: any) => {
 
   const onSelectChange = (selectedRowKeys: any, value: any) => {
     setSelectedRowKeys(selectedRowKeys);
+    value.forEach((key: any) => {
+      key["num"] = key["count"]
+      key["toolId"] = key["id"]
+    })
     setGroupToolList(value)
   };
 
@@ -400,6 +404,10 @@ const Mater = ({ setState }: any) => {
 
   const onSelectChange = (selectedRowKeys: any, value: any) => {
     setSelectedRowKeys(selectedRowKeys);
+    value.forEach((key: any) => {
+      key["num"] = key["count"]
+      key["materialId"] = key["id"]
+    })
     setGroupMaterialList(value)
   };
 
@@ -533,6 +541,7 @@ export const AddToolModal = () => {
       visible={ModalOpen}
       onCancel={closeModal}
       footer={false}
+      destroyOnClose={true}
     >
       <Tabs activeKey={state} onChange={onChange}>
         <TabPane tab="人物详情" key="1">

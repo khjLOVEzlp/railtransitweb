@@ -5,7 +5,7 @@ import { useAdd, useMod } from "./request";
 import { useWarehouse } from "views/warehouse/child/toolType/request";
 import { rules } from "utils/verification";
 import { useLineClassModal } from './util'
-import { useInit } from "./request";
+import { useInit } from "../road/request";
 import * as department from 'views/system/child/department/request'
 
 type Props = {

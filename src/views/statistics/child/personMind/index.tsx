@@ -7,7 +7,8 @@ import {
   useMindStatisticsDetail
 } from './request'
 import { useEffect, useState } from "react";
-import { Header, Main } from "components/Styled";
+import { Header } from "components/Styled";
+import styled from "@emotion/styled";
 
 export const PersonMind = () => {
   const { data: lineList } = useLineList()
@@ -49,27 +50,6 @@ export const PersonMind = () => {
     }
   ]
 
-  const Aconfig = {
-    appendPadding: 10,
-    data: isSuccess ? mindStatistics?.data : noDataA,
-    angleField: 'temRate',
-    colorField: 'className',
-    radius: 0.8,
-    innerRadius: 0.64,
-    label: {
-      type: 'inner',
-      offset: '-50%',
-      // @ts-ignore
-      content: ({ percent }) => `${percent * 100}%`,
-      style: {
-        fill: '#fff',
-        fontSize: 14,
-        textAlign: 'center',
-      },
-    },
-    statistic: null,
-  };
-
   const Bconfig = {
     appendPadding: 10,
     data: isSuccess ? mindStatistics?.data : noDataB,
@@ -95,6 +75,27 @@ export const PersonMind = () => {
     appendPadding: 10,
     data: isSuccess ? mindStatistics?.data : noDataC,
     angleField: 'bloodRate',
+    colorField: 'className',
+    radius: 0.8,
+    innerRadius: 0.64,
+    label: {
+      type: 'inner',
+      offset: '-50%',
+      // @ts-ignore
+      content: ({ percent }) => `${percent * 100}%`,
+      style: {
+        fill: '#fff',
+        fontSize: 14,
+        textAlign: 'center',
+      },
+    },
+    statistic: null,
+  };
+
+  const Aconfig = {
+    appendPadding: 10,
+    data: isSuccess ? mindStatistics?.data : noDataA,
+    angleField: 'temRate',
     colorField: 'className',
     radius: 0.8,
     innerRadius: 0.64,
@@ -249,3 +250,13 @@ const PersonMindModal = ({ params }: { params: { subwayId: string, time: string 
   )
 }
 
+const Main = styled.div`
+  flex: 8;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 0 1.5rem;
+  overflow-y: auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+`
