@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { rules } from "utils/verification";
 import { useSepModal } from './util'
 import { useMod, useAdd } from './request'
-import { usePerson } from "views/person/child/personManage/request";
+// import { usePerson } from "views/person/child/personManage/request";
 
 type Props = {
   param: {
@@ -46,7 +46,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
     })
   }
 
-  const { data: personList } = usePerson()
+  // const { data: personList } = usePerson()
 
   const onOk = () => {
     form.submit();

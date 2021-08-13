@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLocation } from "react-router";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);

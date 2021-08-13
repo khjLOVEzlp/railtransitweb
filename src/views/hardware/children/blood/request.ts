@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from 'utils/index'
 import { useHttp } from 'utils/http'

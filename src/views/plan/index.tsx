@@ -5,11 +5,14 @@ import { useDocumentTitle } from '../../hook/useDocumentTitle'
 import {
   FileSearchOutlined,
   AppstoreOutlined,
-  ClockCircleOutlined
+  ClockCircleOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined
 } from '@ant-design/icons';
-import { Layout, Menu } from "antd";
+import { Button, Layout, Menu } from "antd";
 import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { useRouteType } from "utils";
+import React from "react";
 const { Sider, Content } = Layout;
 
 const PlanContext = createContext<{
@@ -64,7 +67,9 @@ export const Plan = () => {
         theme="light"
         style={sider}
         collapsedWidth={60}
-      // trigger={<span>显示/隐藏</span>}
+        trigger={<Button type="link" onClick={onCollapse} style={{ marginBottom: 16 }}>
+          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, { className: "trigger" })}
+        </Button>}
       >
         <Menu selectedKeys={[routeType]} style={menuStyle}>
           {

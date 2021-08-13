@@ -238,6 +238,9 @@ a {
     padding: 0 !important;
     font-size: 1.2rem !important;
   }
+  .title {
+    font-size: 1.2rem !important;
+  }
 }
 
 /* chrome */
@@ -261,7 +264,7 @@ input[type="number"]{
 
 .ant-layout-sider-trigger {
   position: absolute;
-  top: 0;
+  top: 0.5rem;
   border-radius: 14px 14px 0 0;
   /* background:#edf4f7 !important; */
 }

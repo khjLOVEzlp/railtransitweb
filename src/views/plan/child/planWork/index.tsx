@@ -1,4 +1,4 @@
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message, Tag, Dropdown, Menu, Modal } from 'antd';
 /*
 * 新增修改弹框
 * */
@@ -42,10 +42,6 @@ export const PlanWork = () => {
     })
   }
 
-  const cancel = () => {
-    message.error('取消删除');
-  }
-
   /*搜索*/
   const search = (item: Search) => {
     setParam({ ...param, name: item.name, index: 1 })
@@ -60,17 +56,42 @@ export const PlanWork = () => {
   const isStatus = (type: number) => {
     switch (type) {
       case 0:
-        return "未执行"
+        return <Tag color="default">未执行</Tag>
       case 1:
-        return "执行中"
+        return <Tag color="processing" >执行中</Tag>
 
       case 2:
-        return "已完成"
+        return <Tag color="success">已完成</Tag>
 
       default:
         break;
     }
   }
+
+  /*是否自动执行*/
+  const isWarn = (type: number) => {
+    switch (type) {
+      case 0:
+        return <Tag color="error">否</Tag>
+      case 1:
+        return <Tag color="success" >是</Tag>
+
+      default:
+        break;
+    }
+  }
+
+  const confirmDeleteProject = (item: any) => {
+    Modal.confirm({
+      title: `是否要删除${item.name}`,
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk() {
+        confirm(item.id);
+      },
+    });
+  };
 
   return (
     <>
@@ -104,72 +125,92 @@ export const PlanWork = () => {
               title: '计划名称',
               dataIndex: 'name',
               key: 'name',
+              ellipsis: true
             },
             {
               title: "负责人",
               dataIndex: 'leaderName',
               key: 'leaderName',
+              ellipsis: true
             },
             {
               title: '开始时间',
               dataIndex: 'beginTime',
               key: 'beginTime',
+              ellipsis: true
             },
             {
               title: '结束时间',
               dataIndex: 'endTime',
               key: 'endTime',
+              ellipsis: true
             },
             {
               title: '线路',
               dataIndex: 'lineName',
               key: 'lineName',
+              ellipsis: true
             },
             {
               title: '请站点',
               dataIndex: 'pinName',
               key: 'pinName',
+              ellipsis: true
             },
             {
               title: '销站点',
               dataIndex: 'pleaseName',
               key: 'pleaseName',
+              ellipsis: true
             },
             {
               title: '状态',
               render: (item) => (<span>{isStatus(item.status)}</span>),
               key: 'status',
+              ellipsis: true
             },
             {
               title: '是否自动提醒',
               key: 'isWarn',
-              render: (item) => (<span>{item.isWarn === 0 ? '否' : '是'}</span>)
+              render: (item) => (<span>{isWarn(item.isWarn)}</span>),
+              ellipsis: true
             },
             {
               title: '备注',
               dataIndex: 'remark',
               key: 'remark',
+              ellipsis: true
             },
             {
               title: '操作',
               key: 'id',
               align: "center",
+              ellipsis: true,
               render: (item) => (
                 <>
-                  <Button type="link" onClick={() => startShareEdit(item.id)}>发布计划</Button>
-                  {/*<Button type="link" onClick={() => view(item)}>查看</Button>*/}
-                  <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
-                  <Popconfirm
-                    title={`是否要删除${item.name}`}
-                    onConfirm={() => confirm(item.id)}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                  >
-                    {
-                      item.status === 2 ? <Button disabled type={"link"}>删除</Button> : <Button type={"link"}>删除</Button>
+                  <Dropdown
+                    overlay={
+                      <Menu>
+                        <Menu.Item onClick={() => startShareEdit(item.id)} key={"shareEdit"}>
+                          发布计划
+                        </Menu.Item>
+                        <Menu.Item
+                          onClick={() => startEdit(item.id)}
+                          key={"edit"}
+                        >
+                          修改
+                        </Menu.Item>
+                        <Menu.Item
+                          onClick={() => confirmDeleteProject(item)}
+                          key={"delete"}
+                        >
+                          删除
+                        </Menu.Item>
+                      </Menu>
                     }
-                  </Popconfirm>
+                  >
+                    <Button style={{ padding: 0 }} type={"link"}>...</Button>
+                  </Dropdown>
                 </>
               )
             },

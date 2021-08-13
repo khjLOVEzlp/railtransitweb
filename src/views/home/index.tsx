@@ -8,12 +8,12 @@ import { Subway } from "./child/Subway";
 
 const HomeContext = createContext<
   {
-alarmId: number | undefined
-setAlarmId: (alarmId: number | undefined) => void
-planId: number | undefined
-setPlanId: (planId: number | undefined) => void
-taskId: number | undefined
-setTaskId: (taskId: number | undefined) => void
+    alarmId: number | undefined
+    setAlarmId: (alarmId: number | undefined) => void
+    planId: number | undefined
+    setPlanId: (planId: number | undefined) => void
+    taskId: number | undefined
+    setTaskId: (taskId: number | undefined) => void
   } | undefined
 >(undefined)
 
@@ -24,31 +24,31 @@ export const Home = () => {
   const [taskId, setTaskId] = useState<number | undefined>(undefined)
 
   return (
-    <HomeContext.Provider value={{alarmId, setAlarmId, planId, setPlanId, taskId, setTaskId}}>
+    <HomeContext.Provider value={{ alarmId, setAlarmId, planId, setPlanId, taskId, setTaskId }}>
       <Container>
-      <Left>
-        <Subway />
-      </Left>
-      <Right>
-        <div className="top">
-          {/*告警统计*/}
-          <Title>告警统计</Title>
-          <Page />
-        </div>
+        <Left>
+          <Subway />
+        </Left>
+        <Right>
+          <div className="top">
+            {/*告警统计*/}
+            <Title>告警统计</Title>
+            <Page />
+          </div>
 
-        {/*计划统计*/}
-        <div className="main">
-          <Title>计划统计</Title>
-          <PlanType />
+          {/*计划统计*/}
+          <div className="main">
+            <Title>计划统计</Title>
+            <PlanType />
 
-        </div>
-        {/*作业统计*/}
-        <div className="bottom">
-          <Title>作业统计</Title>
-          <PlanWorkPage />
-        </div>
-      </Right>
-    </Container>
+          </div>
+          {/*作业统计*/}
+          <div className="bottom">
+            <Title>作业统计</Title>
+            <PlanWorkPage />
+          </div>
+        </Right>
+      </Container>
     </HomeContext.Provider>
   )
 }

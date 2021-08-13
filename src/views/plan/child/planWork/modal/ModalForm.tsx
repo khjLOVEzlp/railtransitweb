@@ -65,6 +65,10 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
+    console.log(groupList);
+  }, [groupList])
+
+  useEffect(() => {
     if (editingPlanWork) {
       setGroupList(editingPlanWork?.data.groupList)
       form.setFieldsValue({
@@ -78,15 +82,25 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }, [form, editingPlanWork])
 
   const closeModal = () => {
+    setGroupList(undefined)
     form.resetFields()
     close()
   }
 
   const onFinish = (value: any) => {
-    const { beginTime, dateTime, endTime, warnTime } = value
+    const { beginTime, dateTime, endTime, warnTime, documentList } = value
+    console.log(editingPlanWork?.data.documentList);
+
+    console.log(document);
+
+    const documentId = editingPlanWork?.data.documentList.map((key: { [key: string]: unknown }) => key.documentId + "").concat(document)
+    console.log(documentId);
+
+
     mutateAsync({
       ...editingPlanWork?.data,
       ...value,
+      documentList: documentId,
       groupList: groupList,
       dateTime: moment(dateTime).format("YYYY-MM-DD"),
       beginTime: moment(beginTime).format("YYYY-MM-DD HH:mm:ss"),
@@ -137,7 +151,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
         document = [...document, info.file.response?.data + ""]
-        form.setFieldsValue({ documentList: document })
+        /*
+        form.setFieldsValue({ documentList: document }) */
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name}上传成功`);

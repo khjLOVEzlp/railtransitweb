@@ -1,4 +1,4 @@
-import { Form, Input, Button, Table } from 'antd';
+import { Form, Input, Button, Table, Tag } from 'antd';
 import { useInit } from './request';
 import { useDebounce } from 'hook/useDebounce';
 import { Search } from 'utils/typings';
@@ -27,17 +27,17 @@ export const SpiritStatus = () => {
     switch (status) {
       case 0:
         return (
-          <span>无状态</span>
+          <Tag color="processing">无状态</Tag>
         )
 
       case 1:
         return (
-          <span>正常</span>
+          <Tag color="success" >正常</Tag>
         )
 
       case 2:
         return (
-          <span style={{ color: "red" }}>异常</span>
+          <Tag color="error" >异常</Tag>
         )
 
       default:
@@ -80,33 +80,40 @@ export const SpiritStatus = () => {
                 title: '姓名',
                 dataIndex: 'name',
                 key: 'name',
+                ellipsis: true
               },
               {
                 title: '归属部门',
                 dataIndex: 'departmentName',
                 key: 'departmentName',
+                ellipsis: true
               },
               {
                 title: '作业名称',
                 dataIndex: 'workName',
                 key: 'workName',
+                ellipsis: true
               },
               {
                 title: '创建时间',
                 dataIndex: 'createTime',
                 key: 'createTime',
+                ellipsis: true
               },
               {
                 title: "体温状态",
-                render: (item) => <>{isStatus(item.isTemNormal)}</>
+                render: (item) => <>{isStatus(item.isTemNormal)}</>,
+                ellipsis: true
               },
               {
                 title: "酒精状态",
-                render: (item) => <>{isStatus(item.isAlcNormal)}</>
+                render: (item) => <>{isStatus(item.isAlcNormal)}</>,
+                ellipsis: true
               },
               {
                 title: "血压状态",
-                render: (item) => <>{isStatus(item.isBloodNormal)}</>
+                render: (item) => <>{isStatus(item.isBloodNormal)}</>,
+                ellipsis: true
               },
             ]
           } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}

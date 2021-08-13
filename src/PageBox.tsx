@@ -5,9 +5,9 @@ import logo from './icon/logo.png'
 import notice from './icon/通知.png'
 import { NavLink } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
-import { Button, Dropdown, Menu, message } from "antd";
+import { Avatar, Badge, Button, Dropdown, Menu, message } from "antd";
 import { DownOutlined } from '@ant-design/icons';
-import { useInit, useUnread } from 'views/notice/request'
+import { useUnread } from 'views/notice/request'
 
 /*
 * 路由
@@ -169,10 +169,9 @@ const User = () => {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <Button type={"link"} onClick={open}>
-        <img src={notice} alt="" />
-        {
-          data?.data ? (<i style={{ background: "red", color: "white", borderRadius: "50%", fontSize: "12px", width: "16px", height: "16px", position: "absolute", right: "3px" }}>{data?.data}</i>) : (<div></div>)
-        }
+        <Badge size="small" count={data?.data}>
+          <Avatar src={notice} shape="square" size="small" />
+        </Badge>
       </Button>
       <OperModal />
       <Dropdown

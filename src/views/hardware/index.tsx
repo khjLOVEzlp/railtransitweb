@@ -12,11 +12,14 @@ import {
   BorderOutlined,
   ApiOutlined,
   NodeIndexOutlined,
-  CustomerServiceOutlined
+  CustomerServiceOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined
 } from '@ant-design/icons';
 import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
-import { Layout, Menu } from "antd";
+import { Button, Layout, Menu } from "antd";
 import { useRouteType } from "utils";
+import React from "react";
 const { Sider, Content } = Layout;
 
 interface Item {
@@ -79,7 +82,18 @@ export const Hardware = () => {
 
   return (
     <Layout style={layout}>
-      <Sider width={160} collapsible collapsed={collapsed} onCollapse={onCollapse} theme="light" style={sider} collapsedWidth={60}>
+      <Sider
+        width={160}
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+        theme="light"
+        style={sider}
+        collapsedWidth={60}
+        trigger={<Button type="link" onClick={onCollapse} style={{ marginBottom: 16 }}>
+          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, { className: "trigger" })}
+        </Button>}
+      >
         <Menu selectedKeys={[routeType]} style={menuStyle}>
           {
             menu.map((item: any) => (

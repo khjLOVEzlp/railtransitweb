@@ -19,6 +19,14 @@ export const useMaterialType = () => {
 /*
 分页查询
  */
+export const useListBy = (params: any) => {
+  const client = useHttp()
+  return useQuery(['listBy', cleanObject(params)], () => client(`materialType/listBy?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+}
+
+/*
+分页查询
+ */
 export const useInit = (params: any) => {
   const client = useHttp()
   return useQuery(['materialType', cleanObject(params)], () => client(`materialType/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))

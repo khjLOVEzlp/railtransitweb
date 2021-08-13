@@ -1,4 +1,4 @@
-import { Form, Input, Button, Table } from 'antd';
+import { Form, Input, Button, Table, Tag } from 'antd';
 import { ModalForm } from "./modal/ModalForm";
 import { useInit } from './request';
 import { useDebounce } from "hook/useDebounce";
@@ -23,6 +23,19 @@ export const WorkManage = () => {
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize })
   };
+
+  /*是否自动执行*/
+  const isWarn = (type: number) => {
+    switch (type) {
+      case 0:
+        return <Tag color="error">否</Tag>
+      case 1:
+        return <Tag color="success" >是</Tag>
+
+      default:
+        break;
+    }
+  }
 
   return (
     <>
@@ -68,7 +81,7 @@ export const WorkManage = () => {
             {
               title: '是否自动提醒',
               key: 'isWarn',
-              render: (item) => (<span>{item.isWarn === 0 ? '否' : '是'}</span>)
+              render: (item) => (<span>{isWarn(item.isWarn)}</span>)
             },
             {
               title: '备注',

@@ -211,46 +211,55 @@ export const Alarm = () => {
                 title: '作业名称',
                 dataIndex: 'workName',
                 key: 'workName',
+                ellipsis: true
               },
               {
                 title: '告警类型',
                 key: 'type',
-                render: (item) => <>{getType(item.type)}</>
+                render: (item) => <>{getType(item.type)}</>,
+                ellipsis: true
               },
               {
                 title: '工具名称',
                 dataIndex: 'toolName',
                 key: 'toolName',
+                ellipsis: true
               },
               {
                 title: '小组名称',
                 dataIndex: 'groupName',
                 key: 'groupName',
+                ellipsis: true
               },
               {
                 title: '解除时间',
                 dataIndex: 'relieveTime',
                 key: 'relieveTime',
+                ellipsis: true
               },
               {
                 title: '设备标签',
                 dataIndex: 'labelNum',
-                key: 'labelNum'
+                key: 'labelNum',
+                ellipsis: true
               },
               {
                 title: '人员',
                 dataIndex: 'personName',
                 key: 'personName',
+                ellipsis: true
               },
               {
                 title: '告警时间',
                 dataIndex: 'warnTime',
                 key: 'warnTime',
+                ellipsis: true
               },
               {
                 title: '告警内容',
                 dataIndex: 'content',
                 key: 'content',
+                ellipsis: true
               },
             ]
           }

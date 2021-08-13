@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { Column, RadialBar } from '@ant-design/charts';
 import { Modal, Spin, Table } from 'antd';
 import { usePlanStatistics, usePlanPagination, usePlanModal } from '../request'
@@ -45,7 +45,7 @@ const PlanType = () => {
     autoFit: true,
     legend: {
       layout: 'horizontal',
-      position: 'top'
+      position: 'bottom'
     },
     tooltip: {
       formatter: function formatter(datum: any) {

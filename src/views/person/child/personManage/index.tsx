@@ -117,45 +117,54 @@ export const PersonManage = () => {
               title: '姓名',
               dataIndex: 'name',
               key: 'name',
+              ellipsis: true
             },
             {
               title: '性别',
               key: 'sex',
-              render: (item) => <>{item.sex === 0 ? '男' : '女'}</>
+              render: (item) => <>{item.sex === 0 ? '男' : '女'}</>,
+              ellipsis: true
             },
             {
               title: '员工卡号',
               dataIndex: 'number',
               key: 'number',
+              ellipsis: true
             },
             {
               title: '归属部门',
               dataIndex: 'departmentName',
               key: 'departmentName',
+              ellipsis: true
             },
             {
               title: '创建者',
               dataIndex: 'createBy',
               key: 'id',
+              ellipsis: true
             },
             {
               title: '创建时间',
               dataIndex: 'createTime',
               key: 'createTime',
+              ellipsis: true
             },
             {
               title: '出生日期',
               dataIndex: 'birthday',
               key: 'birthday',
+              ellipsis: true
             },
             {
               title: '备注',
               dataIndex: 'remark',
               key: 'remark',
+              ellipsis: true
             },
             {
               title: '操作',
               key: 'id',
+              ellipsis: true,
               render: (item) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 <Popconfirm
                   title={`是否要删除${item.name}`}

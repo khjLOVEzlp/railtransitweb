@@ -94,35 +94,42 @@ export const User = () => {
                 title: '用户名',
                 dataIndex: 'name',
                 key: 'id',
+                ellipsis: true
               },
               {
                 title: '账号',
                 dataIndex: 'loginName',
                 key: 'id',
+                ellipsis: true
               },
               {
                 title: "归属部门",
                 dataIndex: 'departmentName',
                 key: 'id',
+                ellipsis: true
               },
               {
                 title: "登陆日期",
                 dataIndex: 'loginDate',
                 key: 'id',
+                ellipsis: true
               },
               {
                 title: "创建时间",
                 dataIndex: 'createTime',
                 key: 'id',
+                ellipsis: true
               },
               {
                 title: '备注',
                 dataIndex: 'remark',
                 key: 'remark',
+                ellipsis: true
               },
               {
                 title: '操作',
                 key: 'id',
+                ellipsis: true,
                 render: (item) => <>
                   <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                   <Button type="link" onClick={() => modPass(item.id)}>重置密码</Button>

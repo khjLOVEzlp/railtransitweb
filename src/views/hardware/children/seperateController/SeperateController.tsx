@@ -1,4 +1,4 @@
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd'
+import { Form, Input, Button, Table, Popconfirm, message, Tag } from 'antd'
 import { useDel, useInit } from './request';
 import { ModalForm } from './ModalForm'
 import { useDebounce } from 'hook/useDebounce';
@@ -83,7 +83,7 @@ export const SeperateController = () => {
             {
               title: '在线状态',
               key: 'status',
-              render: (item) => item.status === "0" ? '离线' : '在线'
+              render: (item) => item.status === "0" ? <Tag color="processing" >离线</Tag> : <Tag color="success" >在线</Tag>
             },
             {
               title: 'imei号',
@@ -93,7 +93,7 @@ export const SeperateController = () => {
             {
               title: '是否使用',
               key: 'isUse',
-              render: (item) => item.isUse === "0" ? '使用' : '未使用'
+              render: (item) => item.isUse === "0" ? <Tag color="success" >使用</Tag> : <Tag color="processing" >未使用</Tag>
             },
             {
               title: '操作',

@@ -1,20 +1,27 @@
 import { Button, Form, Input, List, Modal, Select, Spin, Table, Tabs } from "antd";
 import { useAddToolModal } from '../util'
-import { usePerson } from "views/person/child/personManage/request";
-import { useMaterialType } from "views/warehouse/child/materialType/request";
+import * as usePersonList from "views/person/child/personManage/request";
+import { useListBy } from "views/warehouse/child/materialType/request";
 import { useContext, useEffect, useRef, useState } from "react";
 import React from "react";
 import { usePlanContext } from "../../../index";
 import TextArea from "antd/lib/input/TextArea";
 import './style.css'
+import { useDebounce } from "hook/useDebounce";
 const { TabPane } = Tabs;
 
-const PersonLIst = ({ setState }: any) => {
-  const { data, isLoading } = usePerson()
+/* 添加小组成员 */
+
+const PersonLIst = ({ setState }: { setState: (state: string) => void }) => {
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
+  const { data, isLoading } = usePersonList.useInit(useDebounce(param, 500))
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
   const [personList, setPersonList] = useState<any>([])
-  const { groupList, setGroupList } = usePlanContext()
   const start = () => {
     const list = personList
     list.forEach((key: any) => {
@@ -24,7 +31,6 @@ const PersonLIst = ({ setState }: any) => {
     setTimeout(() => {
       setSelectedRowKeys([])
       setPersonList(list)
-      // setGroupList([{ personList }])
       sessionStorage.setItem("personList", JSON.stringify(personList))
       setState("1")
       setLoading(false)
@@ -57,9 +63,21 @@ const PersonLIst = ({ setState }: any) => {
         ) : (
           <>
             <div style={{ marginBottom: 16 }}>
-              <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-                确定
-              </Button>
+              <Form layout={"inline"}>
+                <Form.Item>
+                  <Input
+                    placeholder={"姓名"}
+                    value={param.name}
+                    onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })}
+                  />
+                </Form.Item>
+
+                <Form.Item>
+                  <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+                    确定
+                  </Button>
+                </Form.Item>
+              </Form>
               <span style={{ marginLeft: 8 }}>
                 {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
               </span>
@@ -85,19 +103,29 @@ const PersonLIst = ({ setState }: any) => {
   )
 }
 
+/* 添加工具 */
+
 const EditableContext = React.createContext(null);
 
-const Tool = ({ setState }: any) => {
-  const { data, isLoading, isSuccess } = useMaterialType()
+const Tool = ({ setState }: { setState: (state: string) => void }) => {
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
+  const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
   const [dataSu, setDataSu] = useState<any>([])
   const [groupToolList, setGroupToolList] = useState<any>([])
-  const { groupList, setGroupList } = usePlanContext()
 
   useEffect(() => {
     if (isSuccess) {
       setDataSu(data.data)
     }
   }, [])
+
+  const handleTableChange = (p: any) => {
+    setParam({ ...param, index: p.current, size: p.pageSize })
+  };
 
   // @ts-ignore
   const EditableRow = ({ index, ...props }) => {
@@ -272,9 +300,21 @@ const Tool = ({ setState }: any) => {
         ) : (
           <>
             <div style={{ marginBottom: 16 }}>
-              <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-                确定
-              </Button>
+              <Form layout={"inline"}>
+                <Form.Item>
+                  <Input
+                    placeholder={"物料"}
+                    value={param.name}
+                    onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })}
+                  />
+                </Form.Item>
+
+                <Form.Item>
+                  <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+                    确定
+                  </Button>
+                </Form.Item>
+              </Form>
               <span style={{ marginLeft: 8 }}>
                 {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
               </span>
@@ -285,6 +325,8 @@ const Tool = ({ setState }: any) => {
               rowKey={(item: any) => item.id}
               dataSource={dataSu}
               rowSelection={rowSelection}
+              pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+              onChange={handleTableChange}
             />
           </>
         )
@@ -293,8 +335,15 @@ const Tool = ({ setState }: any) => {
   )
 }
 
-const Mater = ({ setState }: any) => {
-  const { data, isLoading, isSuccess } = useMaterialType()
+/* 添加物料 */
+
+const Mater = ({ setState }: { setState: (state: string) => void }) => {
+  const [param, setParam] = useState({
+    index: 1,
+    size: 10,
+    name: ""
+  })
+  const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
   const [dataSu, setDataSu] = useState<any>([])
   const [groupMaterialList, setGroupMaterialList] = useState<any>([])
 
@@ -303,6 +352,10 @@ const Mater = ({ setState }: any) => {
       setDataSu(data.data)
     }
   }, [])
+
+  const handleTableChange = (p: any) => {
+    setParam({ ...param, index: p.current, size: p.pageSize })
+  };
 
   // @ts-ignore
   const EditableRow = ({ index, ...props }) => {
@@ -477,9 +530,22 @@ const Mater = ({ setState }: any) => {
         ) : (
           <>
             <div style={{ marginBottom: 16 }}>
-              <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-                确定
-              </Button>
+              <Form layout={"inline"}>
+                <Form.Item>
+                  <Input
+                    placeholder={"物料"}
+                    value={param.name}
+                    onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })}
+                  />
+                </Form.Item>
+
+                <Form.Item>
+                  <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+                    确定
+                  </Button>
+                </Form.Item>
+              </Form>
+
               <span style={{ marginLeft: 8 }}>
                 {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
               </span>
@@ -490,6 +556,8 @@ const Mater = ({ setState }: any) => {
               rowKey={(item: any) => item.id}
               dataSource={dataSu}
               rowSelection={rowSelection}
+              pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+              onChange={handleTableChange}
             />
           </>
         )
@@ -499,8 +567,9 @@ const Mater = ({ setState }: any) => {
 }
 
 export const AddToolModal = () => {
+  const [form] = Form.useForm()
   const [state, setState] = useState("1")
-  const { data: personList } = usePerson()
+  const { data: personList } = usePersonList.useInit()
   const { ModalOpen, close } = useAddToolModal()
   const { groupList, setGroupList } = usePlanContext()
   const [param, setParam] = useState({
@@ -522,6 +591,7 @@ export const AddToolModal = () => {
   }
 
   const closeModal = () => {
+    form.resetFields()
     close()
   }
 
@@ -531,6 +601,9 @@ export const AddToolModal = () => {
 
   const submit = () => {
     setGroupList([...groupList, obj])
+    sessionStorage.removeItem("personList")
+    sessionStorage.removeItem("groupToolList")
+    sessionStorage.removeItem("groupMaterialList")
     closeModal()
   }
 
@@ -552,7 +625,7 @@ export const AddToolModal = () => {
           } */}
 
           <List>
-            <Form style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between" }}>
+            <Form style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between" }} form={form}>
               <Form.Item
                 label={"小组名称"}
                 name={"groupName"}

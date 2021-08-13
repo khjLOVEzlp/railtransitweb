@@ -1,14 +1,17 @@
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hook/useDocumentTitle";
-import { Layout, Menu } from 'antd';
+import { Button, Layout, Menu } from 'antd';
 import {
   UsergroupAddOutlined,
   ExclamationCircleOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined
 } from '@ant-design/icons';
 import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { useRouteType } from "utils";
 import { useState } from "react";
+import React from "react";
 const { Sider, Content } = Layout;
 
 interface Item {
@@ -52,7 +55,9 @@ export const Person = () => {
         theme="light"
         style={sider}
         collapsedWidth={60}
-      // trigger={<span>显示/隐藏</span>}
+        trigger={<Button type="link" onClick={onCollapse} style={{ marginBottom: 16 }}>
+          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, { className: "trigger" })}
+        </Button>}
       >
         <Menu selectedKeys={[routeType]} style={menuStyle}>
           {

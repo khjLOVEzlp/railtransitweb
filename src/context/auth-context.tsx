@@ -1,56 +1,66 @@
 import styled from "@emotion/styled";
 import { Spin } from "antd";
-import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import * as auth from '../auth-provider'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import * as auth from "../auth-provider";
 import { useAsync } from "../hook/useAsync";
 import { FullPageErrorFallback } from "../components/lib";
 import { useQueryClient } from "react-query";
 
-const AuthContext = createContext<| {
-  user: {
-    jwtToken: string,
-    loginName?: string
-    userName?: string
-    userId?: number
-  } | null;
-  login: (form: AuthForm) => Promise<void>;
-  logout: () => Promise<void>;
-  notice: boolean
-  setNotice: (notice: boolean) => void
-  visible: boolean;
-  setVisible: (visible: boolean) => void;
-  editId: number | undefined
-  setEditId: (editId: number | undefined) => void
-  drawer: boolean
-  setDrawer: (drawer: boolean) => void
-}
-  | undefined>(undefined)
+const AuthContext = createContext<
+  {
+    user: {
+      jwtToken: string;
+      loginName?: string;
+      userName?: string;
+      userId?: number;
+    } | null;
+    login: (form: AuthForm) => Promise<void>;
+    logout: () => Promise<void>;
+    notice: boolean;
+    setNotice: (notice: boolean) => void;
+    visible: boolean;
+    setVisible: (visible: boolean) => void;
+    editId: number | undefined;
+    setEditId: (editId: number | undefined) => void;
+    drawer: boolean;
+    setDrawer: (drawer: boolean) => void;
+  }
+  | undefined
+>(undefined);
 
 const FullPage = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
-export const FullPageLoading = () => <FullPage>
-  <Spin size={'large'} />
-</FullPage>
+export const FullPageLoading = () => (
+  <FullPage>
+    <Spin size={"large"} />
+  </FullPage>
+);
 
 interface AuthForm {
-  loginName: string,
-  password: string
+  loginName: string;
+  password: string;
 }
 
 const bootstrapUser = async () => {
   let user = null;
-  const users = sessionStorage.getItem('user')
+  const users = sessionStorage.getItem("user");
   if (users) {
-    const data = JSON.parse(users)
-    user = data
+    const data = JSON.parse(users);
+    user = data;
   }
   return user;
-}
+};
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const {
@@ -62,46 +72,62 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     run,
     setData: setUser,
   } = useAsync<{
-    jwtToken: string,
-    loginName?: string,
-    userName?: string
-    userId?: number
+    jwtToken: string;
+    loginName?: string;
+    userName?: string;
+    userId?: number;
   } | null>();
   const queryClient = useQueryClient();
 
-  const [notice, setNotice] = useState<boolean>(false)
-  const [visible, setVisible] = useState<boolean>(false)
-  const [editId, setEditId] = useState<number | undefined>(undefined)
-  const [drawer, setDrawer] = useState<boolean>(false)
+  const [notice, setNotice] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [editId, setEditId] = useState<number | undefined>(undefined);
+  const [drawer, setDrawer] = useState<boolean>(false);
 
-  const login = (form: AuthForm) => auth.login(form).then(setUser)
+  const login = (form: AuthForm) => auth.login(form).then(setUser);
 
-  const logout = () => auth.logout().then(() => {
-    setUser(null)
-    queryClient.clear()
-  })
+  const logout = () =>
+    auth.logout().then(() => {
+      setUser(null);
+      queryClient.clear();
+    });
 
   useEffect(() => {
-    run(bootstrapUser())
-  }, [run])
+    run(bootstrapUser());
+  }, [run]);
 
   if (isIdle || isLoading) {
-    return <FullPageLoading />
+    return <FullPageLoading />;
   }
 
   if (isError) {
-    return <FullPageErrorFallback error={error} />
+    return <FullPageErrorFallback error={error} />;
   }
 
   return (
-    <AuthContext.Provider children={children} value={{ user, login, logout, notice, setNotice, visible, setVisible, editId, setEditId, drawer, setDrawer }} />
-  )
-}
+    <AuthContext.Provider
+      children={children}
+      value={{
+        user,
+        login,
+        logout,
+        notice,
+        setNotice,
+        visible,
+        setVisible,
+        editId,
+        setEditId,
+        drawer,
+        setDrawer,
+      }}
+    />
+  );
+};
 
 export const useAuth = () => {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth必须在AuthProvider中使用')
+    throw new Error("useAuth必须在AuthProvider中使用");
   }
-  return context
-}
+  return context;
+};
