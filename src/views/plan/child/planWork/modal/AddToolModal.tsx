@@ -8,11 +8,12 @@ import { usePlanContext } from "../../../index";
 import TextArea from "antd/lib/input/TextArea";
 import './style.css'
 import { useDebounce } from "hook/useDebounce";
+import { FormInstance } from 'antd/lib/form';
 const { TabPane } = Tabs;
 
 /* 添加小组成员 */
 
-const PersonLIst = ({ setState }: { setState: (state: string) => void }) => {
+const PersonLIst = () => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -32,7 +33,6 @@ const PersonLIst = ({ setState }: { setState: (state: string) => void }) => {
       setSelectedRowKeys([])
       setPersonList(list)
       sessionStorage.setItem("personList", JSON.stringify(personList))
-      setState("1")
       setLoading(false)
     }, 1000)
   }
@@ -105,9 +105,9 @@ const PersonLIst = ({ setState }: { setState: (state: string) => void }) => {
 
 /* 添加工具 */
 
-const EditableContext = React.createContext(null);
+const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
-const Tool = ({ setState }: { setState: (state: string) => void }) => {
+const Tool = () => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -121,7 +121,7 @@ const Tool = ({ setState }: { setState: (state: string) => void }) => {
     if (isSuccess) {
       setDataSu(data.data)
     }
-  }, [])
+  }, [isSuccess])
 
   const handleTableChange = (p: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize })
@@ -222,7 +222,6 @@ const Tool = ({ setState }: { setState: (state: string) => void }) => {
       // setGroupList([{ groupToolList }])
       sessionStorage.setItem("groupToolList", JSON.stringify(groupToolList))
       setLoading(false)
-      setState("1")
     }, 1000)
   }
 
@@ -337,7 +336,7 @@ const Tool = ({ setState }: { setState: (state: string) => void }) => {
 
 /* 添加物料 */
 
-const Mater = ({ setState }: { setState: (state: string) => void }) => {
+const Mater = () => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -351,7 +350,7 @@ const Mater = ({ setState }: { setState: (state: string) => void }) => {
     if (isSuccess) {
       setDataSu(data.data)
     }
-  }, [])
+  }, [isSuccess])
 
   const handleTableChange = (p: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize })
@@ -384,7 +383,7 @@ const Mater = ({ setState }: { setState: (state: string) => void }) => {
     const form = useContext(EditableContext);
     useEffect(() => {
       if (editing) {
-        // @ts-ignore
+        // @ts-ignore        
         inputRef.current.focus();
       }
     }, [editing]);
@@ -451,7 +450,6 @@ const Mater = ({ setState }: { setState: (state: string) => void }) => {
       setSelectedRowKeys([])
       sessionStorage.setItem("groupMaterialList", JSON.stringify(groupMaterialList))
       setLoading(false)
-      setState("1")
     }, 1000)
   }
 
@@ -568,7 +566,7 @@ const Mater = ({ setState }: { setState: (state: string) => void }) => {
 
 export const AddToolModal = () => {
   const [form] = Form.useForm()
-  const [state, setState] = useState("1")
+  const [state, setState] = useState("2")
   const { data: personList } = usePersonList.useInit()
   const { ModalOpen, close } = useAddToolModal()
   const { groupList, setGroupList } = usePlanContext()
@@ -617,6 +615,17 @@ export const AddToolModal = () => {
       destroyOnClose={true}
     >
       <Tabs activeKey={state} onChange={onChange}>
+
+        <TabPane tab="作业组员" key="2">
+          <PersonLIst />
+        </TabPane>
+        <TabPane tab="作业工具" key="3">
+          <Tool />
+        </TabPane>
+        <TabPane tab="作业物料" key="4">
+          <Mater />
+        </TabPane>
+
         <TabPane tab="人物详情" key="1">
           {/* {
             groupList?.map((item: any, index: number) => (
@@ -697,15 +706,6 @@ export const AddToolModal = () => {
             </List.Item>
           </List>
 
-        </TabPane>
-        <TabPane tab="作业组员" key="2">
-          <PersonLIst setState={setState} />
-        </TabPane>
-        <TabPane tab="作业工具" key="3">
-          <Tool setState={setState} />
-        </TabPane>
-        <TabPane tab="作业物料" key="4">
-          <Mater setState={setState} />
         </TabPane>
       </Tabs>
     </Modal>

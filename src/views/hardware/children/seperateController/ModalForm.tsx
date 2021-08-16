@@ -46,7 +46,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
     })
   }
 
-  const { data: personList } = usePerson()
+  // const { data: personList } = usePerson()
 
   const onOk = () => {
     form.submit();

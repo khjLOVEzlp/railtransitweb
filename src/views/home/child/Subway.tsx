@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import * as echarts from 'echarts';
 import { useLine } from 'views/system/child/line/request'
 import { ModalDrawer } from "./subwayModal";
-import { subWayList } from './index.js'
+import { subWayList, subwaylist } from './index.js'
 
 export const Subway = () => {
   const { data: lineList, isLoading, isSuccess } = useLine()
@@ -13,23 +13,43 @@ export const Subway = () => {
     {
       name: "地铁1号线"
     },
-    /* {
+    {
       name: "地铁2号线"
-    } */
+    },
+    {
+      name: "地铁3号线"
+    }
   ]
 
-  let newData: any = subWayList.filter((v, i) => dataList.find((vi: { [key: string]: unknown }) => vi.name == v.name))
+  let newData: any = subwaylist.filter((v) => dataList.find((vi: { [key: string]: unknown }) => vi.name === v.name))
 
   let newlist: any = []
 
   newData.forEach((v: { [key: string]: [] }) => {
     newlist = [
       ...newlist,
+      { name: v.name, tooltip: v.tooltip, symbolSize: v.symbolSize, value: v.value, fixed: v.fixed, category: v.category, label: v.label, itemStyle: v.itemStyle },
       ...v.stations
     ]
   })
 
-  console.log(newlist);
+  let obj: any = {}
+
+  let str = newlist.reduce((cur: any, next: any) => {
+    if (obj[next.name]) {
+      cur.map((item: any) => {
+        if (item.name == next.name) {
+          return item.isFlag = true
+        }
+      })
+    } else {
+      obj[next.name] = true && cur.push(next)
+    }
+    return cur;
+  }, [])
+
+  console.log(str);
+
 
 
   const showDrawer = () => {
@@ -43,9 +63,6 @@ export const Subway = () => {
   const data = [
     {
       name: "地铁1号线",
-      itemList: [{
-        formatter: "{b}:地铁1号线<br />",
-      }],
       tooltip: {
         formatter: "{b}:地铁1号线<br />",
       },
@@ -5457,7 +5474,7 @@ export const Subway = () => {
             show: true,
           },
         },
-        data: data,
+        data: str,
         links: [
           {
             source: "西塱",
@@ -7897,15 +7914,12 @@ export const Subway = () => {
     const myEcharts = echarts.init(document.getElementById('subway') as HTMLElement)
     myEcharts.setOption(option)
     myEcharts.on('click', (params: any) => {
-      showDrawer()
+      console.log(params);
     })
   }, [])
 
   return (
-    <>
-      <div id="subway" style={{ height: "100%" }} />
-      <ModalDrawer onClose={onClose} visivle={visible} />
-    </>
+    <div id="subway" style={{ height: "100%" }} />
   )
 }
 

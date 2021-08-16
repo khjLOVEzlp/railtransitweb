@@ -4,7 +4,7 @@ import { useAlarmStatistics, useAlarmPagination, useAlarmModal } from '../reques
 import { useDebounce } from "hook/useDebounce";
 import { noData } from 'utils/verification';
 import { useHomeContext } from '..';
-import {useState} from 'react'
+import { useState } from 'react'
 
 const Page = () => {
   const { data: alarmStatistics, isLoading } = useAlarmStatistics()
@@ -16,6 +16,7 @@ const Page = () => {
     xField: "name",
     yField: "num",
     padding: [30, 30, 30, 30],
+    autoFit: true,
     meta: {
       num: {
         alias: '数量',
@@ -65,7 +66,7 @@ const Page = () => {
 export default Page;
 
 const OpenModal = () => {
-  const {alarmId} = useHomeContext()
+  const { alarmId } = useHomeContext()
   const { ModalOpen, close } = useAlarmModal()
   const [param, setParam] = useState({
     index: 1,

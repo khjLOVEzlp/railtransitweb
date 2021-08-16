@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react"
 import * as echarts from 'echarts';
 import { useTaskModal, useTaskPagination, useTaskStatistics } from "../request";
-import {Modal, Table} from 'antd'
+import { Modal, Table } from 'antd'
 import { useDebounce } from "hook/useDebounce";
-import {type} from 'utils'
+import { type } from 'utils'
 
 export default () => {
-  const { data: list, isSuccess, isLoading } = useTaskStatistics()
-  console.log(list);
-  
+  const { data: list, isSuccess } = useTaskStatistics()
+
   const { open } = useTaskModal()
   const data = [
     {
@@ -135,7 +134,6 @@ export default () => {
         color: '#000'
       },
       data,
-
     }]
   };
 
@@ -146,7 +144,7 @@ export default () => {
       console.log(type(params.name));
       open(type(params.name))
     })
-  }, [data])
+  }, [data, option])
 
   if (isSuccess) {
     data.forEach((key: { [key: string]: unknown }, index: number) => {
@@ -157,8 +155,8 @@ export default () => {
 
   return (
     <>
-    <div id="task" style={{ height: "100%" }}></div>
-    <OpenModal />
+      <div id="task" style={{ height: "100%" }}></div>
+      <OpenModal />
     </>
   )
 }

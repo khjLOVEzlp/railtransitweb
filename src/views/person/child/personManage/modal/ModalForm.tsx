@@ -38,7 +38,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
   useEffect(() => {
     form.setFieldsValue({
       ...editingPerson?.data,
-      birthday: editingPerson?.data.birthday === null ? "" : moment(editingPerson?.data.birthday)
+      birthday: editingPerson?.data.birthday === null ? "" : moment(editingPerson?.data.birthday),
+      irfId: editingPerson?.data.irfId === 0 ? undefined : editingPerson?.data.irfId
     })
   }, [form, editingPerson])
 
@@ -48,8 +49,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const onFinish = (value: any) => {
-    console.log(value);
-
     mutateAsync({
       ...editingPerson?.data,
       ...value,

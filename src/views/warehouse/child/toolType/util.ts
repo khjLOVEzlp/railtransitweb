@@ -1,6 +1,5 @@
 import { useAuth } from "context/auth-context";
 import { useWareHouseContext } from "views/warehouse";
-import { useToolTypeContext } from ".";
 import { useToolTypeDetail, useViewToolDetail, useGetMaterialDetail } from "./request";
 
 /*新增修改弹框*/

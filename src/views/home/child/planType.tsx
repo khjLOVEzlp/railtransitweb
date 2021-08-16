@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Column, RadialBar } from '@ant-design/charts';
+import { RadialBar } from '@ant-design/charts';
 import { Modal, Spin, Table } from 'antd';
 import { usePlanStatistics, usePlanPagination, usePlanModal } from '../request'
 import { useDebounce } from "hook/useDebounce";

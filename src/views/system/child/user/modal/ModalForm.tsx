@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { Button, Checkbox, Form, Input, message, Modal, Select, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useUserList } from "../request";
-import { useInit } from 'views/person/child/personManage/request'
 import { useUserModal } from '../util'
 import { useAdd, useMod } from '../request'
 import { useRoleAll } from "views/system/child/role/request";
+import { PersonSelect } from "components/PersonSelect";
 
 const { Option } = Select;
 
@@ -21,7 +21,7 @@ type Props = {
 export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const { data: userList } = useUserList()
-  const { data: personList } = useInit({})
+  // const { data: personList } = usePerson()
   const { data: roleList } = useRoleAll()
 
   const { ModalOpen, isLoading, close, editingUser, editId, isSuccess } = useUserModal()
@@ -37,10 +37,10 @@ export const ModalForm = ({ param, setParam }: Props) => {
 
   useEffect(() => {
     if (isSuccess) {
-      editingUser.data.personId = personList?.data.map(item => item.id).includes(editingUser.data.personId) ? editingUser.data.personId : null
+      // editingUser.data.personId = personList?.data.map(item => item.id).includes(editingUser.data.personId) ? editingUser.data.personId : null
       form.setFieldsValue(editingUser?.data)
     }
-  }, [form, editingUser])
+  }, [form, editingUser, isSuccess])
 
   const closeModal = () => {
     form.resetFields()
@@ -104,29 +104,26 @@ export const ModalForm = ({ param, setParam }: Props) => {
             </Form.Item> : ""
           }
 
-          <Form.Item
-            label="人员"
-            name="personId"
-            rules={rules}
-          >
-            {
-              !editingUser ? (<Select
-                showSearch
-                filterOption={(input, option: any) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }>
-                {userList?.data.map((item: any) => <Option disabled={item.disabled} value={item.personId}
-                  key={item.id}>{item.name}</Option>)}
-              </Select>) : (<Select
-                showSearch
-                filterOption={(input, option: any) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }>
-                {personList?.data.map((item: any) => <Option disabled={item.disabled} value={item.id}
-                  key={item.id}>{item.name}</Option>)}
-              </Select>)
-            }
-          </Form.Item>
+          {
+            !editingUser ? (
+              <Form.Item
+                label="人员"
+                name="personId"
+                rules={rules}
+              >
+                <Select
+                  showSearch
+                  filterOption={(input, option: any) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }>
+                  {userList?.data.map((item: any) => <Option value={item.personId}
+                    key={item.id}>{item.name}</Option>)}
+                </Select>
+              </Form.Item>
+            ) : (
+              <PersonSelect label="人员" name="personId" rul={true} />
+            )
+          }
 
           <Form.Item
             label="角色集合"

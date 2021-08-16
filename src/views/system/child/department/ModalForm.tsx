@@ -88,7 +88,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
                   name="parentId"
                 >
                   <TreeSelect
-                    style={{ width: '100%' }}
                     treeData={data?.data}
                     treeDefaultExpandAll
                     onChange={onChange}

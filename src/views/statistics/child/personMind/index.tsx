@@ -1,6 +1,6 @@
 import { useLineList } from "../workCount/request";
 import { Form, Modal, Select, Table } from "antd";
-import { Column, Pie } from "@ant-design/charts";
+import { Pie } from "@ant-design/charts";
 import {
   useMindModal,
   useMindStatistics,

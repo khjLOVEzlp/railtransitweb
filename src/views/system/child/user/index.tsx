@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
+import { Form, Input, Button, Table, message, Modal, Dropdown, Menu } from 'antd';
 import { ModalForm } from "./modal/ModalForm";
 import { useDel, useInit } from './request';
 import { useHttp } from 'utils/http';
@@ -35,9 +35,17 @@ export const User = () => {
     })
   }
 
-  const cancel = () => {
-    message.error('取消删除');
-  }
+  const confirmDeleteProject = (item: any) => {
+    Modal.confirm({
+      title: `是否要删除${item.name}`,
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk() {
+        confirm(item.id);
+      },
+    });
+  };
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize })
@@ -130,18 +138,31 @@ export const User = () => {
                 title: '操作',
                 key: 'id',
                 ellipsis: true,
-                render: (item) => <>
-                  <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
-                  <Button type="link" onClick={() => modPass(item.id)}>重置密码</Button>
-                  <Popconfirm
-                    title={`是否要删除${item.name}`}
-                    onConfirm={() => confirm(item.id)}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
+                render: (item) => (
+                  <Dropdown
+                    overlay={
+                      <Menu>
+                        <Menu.Item onClick={() => modPass(item.id)} key={"pass"}>
+                          重置密码
+                        </Menu.Item>
+                        <Menu.Item
+                          onClick={() => startEdit(item.id)}
+                          key={"edit"}
+                        >
+                          修改
+                        </Menu.Item>
+                        <Menu.Item
+                          onClick={() => confirmDeleteProject(item)}
+                          key={"delete"}
+                        >
+                          删除
+                        </Menu.Item>
+                      </Menu>
+                    }
                   >
-                    <Button type="link">删除</Button>
-                  </Popconfirm></>
+                    <Button style={{ padding: 0 }} type={"link"}>...</Button>
+                  </Dropdown>
+                )
               },
             ]
           }

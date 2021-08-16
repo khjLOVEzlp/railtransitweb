@@ -29,6 +29,7 @@ import { useAdd, useMod } from "../request";
 import { useInitDepartment } from 'views/system/child/department/request'
 import moment from "moment";
 import { usePlanContext } from "views/plan";
+import { PersonSelect } from "components/PersonSelect";
 const baseUrl = process.env["REACT_APP_API_URL"]
 const { TextArea } = Input;
 const { Option } = Select;
@@ -88,14 +89,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const onFinish = (value: any) => {
-    const { beginTime, dateTime, endTime, warnTime, documentList } = value
-    console.log(editingPlanWork?.data.documentList);
-
-    console.log(document);
-
+    const { beginTime, dateTime, endTime, warnTime } = value
     const documentId = editingPlanWork?.data.documentList.map((key: { [key: string]: unknown }) => key.documentId + "").concat(document)
-    console.log(documentId);
-
 
     mutateAsync({
       ...editingPlanWork?.data,
@@ -230,23 +225,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
             </Space>
 
             <Space style={{ display: 'flex' }}>
-              <Form.Item
-                label="施工负责人"
-                name="leaderPerson"
-                rules={rules}
-              >
-                <Select
-                  getPopupContainer={triggerNode => triggerNode.parentElement}
-                  style={{ width: "100%" }}
-                  showSearch
-                  filterOption={(input, option: any) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                  }
-                >
-                  {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                    key={index}>{item.name}</Option>)}
-                </Select>
-              </Form.Item>
+              <PersonSelect label="施工负责人" name="leaderPerson" rul={true} />
 
               <Form.Item
                 label="线路"
@@ -432,22 +411,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="防疫专员"
-                name="preventionPerson"
-              >
-                <Select
-                  getPopupContainer={triggerNode => triggerNode.parentElement}
-                  style={{ width: "100%" }}
-                  showSearch
-                  filterOption={(input, option: any) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                  }
-                >
-                  {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                    key={index}>{item.name}</Option>)}
-                </Select>
-              </Form.Item>
+              <PersonSelect label="防疫专员" name="preventionPerson" />
 
               {/* <Form.Item
                 label="作业人员"
@@ -500,22 +464,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="安全员"
-                name="safePerson"
-              >
-                <Select
-                  getPopupContainer={triggerNode => triggerNode.parentElement}
-                  style={{ width: "100%" }}
-                  showSearch
-                  filterOption={(input, option: any) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                  }
-                >
-                  {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                    key={index}>{item.name}</Option>)}
-                </Select>
-              </Form.Item>
+              <PersonSelect label="安全员" name="safePerson" />
             </Space>
 
             <Space style={{ display: "flex" }}>

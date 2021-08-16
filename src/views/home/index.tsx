@@ -5,6 +5,7 @@ import Page from './child/alarmStatistics'
 import PlanWorkPage from './child/taskStatistics'
 import PlanType from './child/planType'
 import { Subway } from "./child/Subway";
+import { Button } from 'antd'
 
 const HomeContext = createContext<
   {
@@ -22,32 +23,43 @@ export const Home = () => {
   const [alarmId, setAlarmId] = useState<number | undefined>(undefined)
   const [planId, setPlanId] = useState<number | undefined>(undefined)
   const [taskId, setTaskId] = useState<number | undefined>(undefined)
+  const [show, setShow] = useState<boolean>(true)
 
   return (
     <HomeContext.Provider value={{ alarmId, setAlarmId, planId, setPlanId, taskId, setTaskId }}>
       <Container>
         <Left>
+          <Title>
+            <Button type={"link"} onClick={() => {
+              setShow(!show)
+
+            }}>{show ? "放大" : "缩小"}</Button>
+          </Title>
           <Subway />
         </Left>
-        <Right>
-          <div className="top">
-            {/*告警统计*/}
-            <Title>告警统计</Title>
-            <Page />
-          </div>
+        {
+          show ? (
+            <Right>
+              <div className="top">
+                {/*告警统计*/}
+                <Title>告警统计</Title>
+                <Page />
+              </div>
 
-          {/*计划统计*/}
-          <div className="main">
-            <Title>计划统计</Title>
-            <PlanType />
+              {/*计划统计*/}
+              <div className="main">
+                <Title>计划统计</Title>
+                <PlanType />
 
-          </div>
-          {/*作业统计*/}
-          <div className="bottom">
-            <Title>作业统计</Title>
-            <PlanWorkPage />
-          </div>
-        </Right>
+              </div>
+              {/*作业统计*/}
+              <div className="bottom">
+                <Title>作业统计</Title>
+                <PlanWorkPage />
+              </div>
+            </Right>
+          ) : ""
+        }
       </Container>
     </HomeContext.Provider>
   )
@@ -72,17 +84,17 @@ const Container = styled.div`
 const Left = styled.div`
 height: 100%;
 background: #fff;
-width: 59.8%;
+flex: 2;
+margin-right: 0.5rem;
 border-radius: 8px;
+position: relative;
 `
-
 const Right = styled.div`
-width: 39.8%;
-height: 100%;
+/* height: 100%; */
+flex: 1;
 display: flex;
 justify-content: space-between;
 flex-direction: column;
-overflow-y: auto;
 > * {
   height: 100%;
   background: #fff;
@@ -101,94 +113,5 @@ const Title = styled.h3`
   position: absolute;
   left: 0.1rem;
   top: 0.1rem;
+  z-index: 1000
 `
-
-// const Header = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-
-//   > .left {
-//     /* height: 50vh; */
-//     background: #FFFFFF;
-//     border-radius: 14px;
-//     width: 69%;
-//     box-sizing: border-box;
-//     overflow: hidden;
-//     position: relative;
-
-//     > .data {
-//       display: flex;
-//       align-items: center;
-//       justify-content: space-around;
-//       flex-direction: column;
-
-//       > li {
-//         display: flex;
-//         align-items: center;
-//         font-size: 1.8rem;
-//         color: #3A3D44;
-
-//         > .count {
-//           margin-left: 1rem;
-//           color: #5A7FFA;
-//           font-size: 3rem;
-//         }
-//       }
-//     }
-
-//     > .title {
-//       width: 100%;
-//       text-align: center;
-//       font-size: 2rem;
-//       font-weight: bold;
-//       color: #989EAC;
-//     }
-//   }
-
-//   > .right {
-//     height: 50vh;
-//     background: #FFFFFF;
-//     border-radius: 14px;
-//     width: 30.5%;
-//     box-sizing: border-box;
-//     position: relative;
-
-//     > .title {
-//       margin-left: 2rem;
-//       font-size: 2rem;
-//       font-weight: bold;
-//       color: #3A3D44;
-//     }
-//   }
-// `
-
-// const Footer = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-
-//   > .left {
-//     height: 39vh;
-//     background: #fff;
-//     border-radius: 14px;
-//     width: 49.8%;
-//     box-sizing: border-box;
-//     position: relative;
-
-//     > .title {
-//       margin-left: 2rem;
-//       font-size: 2rem;
-//       font-weight: bold;
-//       color: #3A3D44;
-//     }
-//   }
-
-//   > .right {
-//     height: 39vh;
-//     background: #fff;
-//     border-radius: 14px;
-//     width: 49.8%;
-//     box-sizing: border-box;
-//     position: relative;
-//   }
-// `

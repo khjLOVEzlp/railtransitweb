@@ -17,11 +17,17 @@ export const useMaterialType = () => {
 }
 
 /*
-分页查询
+新增计划小组分页查询
  */
 export const useListBy = (params: any) => {
   const client = useHttp()
-  return useQuery(['listBy', cleanObject(params)], () => client(`materialType/listBy?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery([cleanObject(params)], async () => {
+    const data = await client(`materialType/listBy?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    data.data.forEach((key: any, index: number) => {
+      key["key"] = index + 1
+    })
+    return data
+  })
 }
 
 /*

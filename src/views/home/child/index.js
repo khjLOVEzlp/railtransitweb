@@ -5785,7 +5785,7 @@ export const subwaylist = [
   {
     name: "地铁1号线",
     tooltip: {
-      formatter: "{b}:地铁1号线<br />",
+      formatter: "{b}<br />班别数：2<br />仓库数：3<br />区间：6<br />",
     },
     symbolSize: 0.1,
     value: [502, -1204],
@@ -5809,6 +5809,9 @@ export const subwaylist = [
     stations: [
       {
         name: "西塱",
+        tooltip: {
+          formatter: "{b}<br />班别数：2<br />仓库数：3<br />区间：6<br />",
+        },
         value: [562, -1470],
         fixed: true,
         symbol: "circle",

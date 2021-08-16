@@ -130,17 +130,3 @@ export const System = () => {
     </Layout>
   )
 }
-
-{/* <SystemStyle>
-      <Left>
-        {
-          menu.map((item: Item, index: number) => <li key={index}>
-            <img src={`../../icon/${item.name}.png`} alt="" />
-            <NavLink to={item.url} activeStyle={{ color: '#5A7FFA', fontWeight: 'bold' }}>{item.name}</NavLink>
-          </li>)
-        }
-      </Left>
-      <Right>
-        <Outlet />
-      </Right>
-    </SystemStyle> */}
