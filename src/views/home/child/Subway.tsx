@@ -1,59 +1,61 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import * as echarts from 'echarts';
 import { useLine } from 'views/system/child/line/request'
-import { ModalDrawer } from "./subwayModal";
-import { subWayList, subwaylist } from './index.js'
+import { useLinePlatStatistics } from 'views/system/child/line/drawermanage/child/platForm/request'
+import { subwaylist } from './index.js'
+import { Modal } from "antd";
 
 export const Subway = () => {
   const { data: lineList, isLoading, isSuccess } = useLine()
   const [visible, setVisible] = useState(false);
+  const [id, setId] = useState<any>(undefined)
+  const { data: lineStatistics, isSuccess: success } = useLinePlatStatistics(id)
 
-  // 地铁接口数据
-  const dataList = [
-    {
-      name: "地铁1号线"
-    },
-    {
-      name: "地铁2号线"
-    },
-    {
-      name: "地铁3号线"
-    }
-  ]
-
-  let newData: any = subwaylist.filter((v) => dataList.find((vi: { [key: string]: unknown }) => vi.name === v.name))
-
-  let newlist: any = []
-
-  newData.forEach((v: { [key: string]: [] }) => {
-    newlist = [
-      ...newlist,
-      { name: v.name, tooltip: v.tooltip, symbolSize: v.symbolSize, value: v.value, fixed: v.fixed, category: v.category, label: v.label, itemStyle: v.itemStyle },
-      ...v.stations
-    ]
-  })
-
-  let obj: any = {}
-
-  let str = newlist.reduce((cur: any, next: any) => {
-    if (obj[next.name]) {
-      cur.map((item: any) => {
-        if (item.name == next.name) {
-          return item.isFlag = true
+  if (isSuccess) {
+    var newData: any = subwaylist.filter((v) => lineList.data.find((vi: { [key: string]: unknown }) => vi.name === v.name))
+    newData.forEach((item: any, index: number) => {
+      item.stations.forEach((key: any, i: number) => {
+        if (lineList.data[index]["platformList"].find((vi: any) => vi.name === key["name"])) {
+          key["a"] = lineList.data[index]["platformList"].find((vi: any) => vi.name === key["name"]).id
         }
       })
-    } else {
-      obj[next.name] = true && cur.push(next)
-    }
-    return cur;
-  }, [])
+    })
 
-  console.log(str);
+    newData.forEach((item: any, index: number) => {
+      item.tooltip.formatter = `{b}<br />班别数：${lineList?.data[index].classCount || "无"}<br />仓库数：${lineList?.data[index].warehouseCount || "无"}<br />区间：${lineList?.data[index].platformCount || "无"}<br />`
+      item.tooltip.alwaysShowContent = true
+    })
+
+    var newlist: any = []
+
+    newData.forEach((v: { [key: string]: [] }) => {
+      newlist = [
+        ...newlist,
+        { name: v.name, tooltip: v.tooltip, symbolSize: v.symbolSize, value: v.value, fixed: v.fixed, category: v.category, label: v.label, itemStyle: v.itemStyle },
+        ...v.stations
+      ]
+    })
+
+    var obj: any = {}
+
+    var str = newlist.reduce((cur: any, next: any) => {
+      if (obj[next.name]) {
+        cur.map((item: any) => {
+          if (item.name == next.name) {
+            return item.isFlag = true
+          }
+        })
+      } else {
+        obj[next.name] = true && cur.push(next)
+      }
+      return cur;
+    }, [])
+  }
 
 
-
-  const showDrawer = () => {
+  const showDrawer = (id: number) => {
     setVisible(true);
+    setId(id)
   };
 
   const onClose = () => {
@@ -7910,19 +7912,52 @@ export const Subway = () => {
     ],
   };
 
+  const refs = useRef(null);
+
   useEffect(() => {
     const myEcharts = echarts.init(document.getElementById('subway') as HTMLElement)
     myEcharts.setOption(option)
     myEcharts.on('click', (params: any) => {
-      console.log(params);
+      console.log(params.data.a);
+      showDrawer(params.data.a)
     })
-  }, [])
+
+    if (success) {
+      console.log(lineStatistics);
+    }
+
+    window.addEventListener('resize', () => {
+      if (myEcharts != null) {
+        myEcharts.resize()
+      }
+    })
+    // @ts-ignore
+    if (refs.current?.offsetWidth) {
+      myEcharts.resize()
+    }
+    // @ts-ignore
+  }, [option, refs.current?.offsetWidth])
 
   return (
-    <div id="subway" style={{ height: "100%" }} />
+    <>
+      <div id="subway" style={{ height: "100%", width: "100%" }} ref={refs} />
+      <Modal
+        title={"区间信息"}
+        width={300}
+        footer={false}
+        visible={visible}
+        onCancel={onClose}
+      >
+        {
+          lineStatistics?.data.map((item: any) => (
+            <div>
+              <p>归属部门：{item.departmentName}</p>
+              <p>区间：{item.roadName}</p>
+              <p>工具数量：{item.count}</p>
+            </div>
+          ))
+        }
+      </Modal>
+    </>
   )
 }
-
-/**
- *{ name: v.name, tooltip: v.tooltip, symbolSize: v.symbolSize, value: v.value, fixed: v.fixed, category: v.category, label: v.label, itemStyle: v.itemStyle },
- */

@@ -169,7 +169,8 @@ const User = () => {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <Button type={"link"} onClick={open}>
-        <Badge size="small" count={data?.data}>
+        {/* @ts-ignore */}
+        <Badge size="small" count={data?.data > "99" ? "99+" : data?.data}>
           <Avatar src={notice} shape="square" size="small" />
         </Badge>
       </Button>

@@ -63,3 +63,11 @@ export const useLinePlatformDetail = (id: number) => {
     enabled: Boolean(id),
   })
 }
+
+/* 根据站台id获取统计信息 */
+export const useLinePlatStatistics = (id: number) => {
+  const client = useHttp()
+  return useQuery(["linePlatStatistics", id], () => client(`linePlatform/getInfo/${id}`), {
+    enabled: Boolean(id),
+  })
+}

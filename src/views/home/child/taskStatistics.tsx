@@ -3,7 +3,7 @@ import * as echarts from 'echarts';
 import { useTaskModal, useTaskPagination, useTaskStatistics } from "../request";
 import { Modal, Table } from 'antd'
 import { useDebounce } from "hook/useDebounce";
-import { type } from 'utils'
+import { context } from 'utils'
 
 export default () => {
   const { data: list, isSuccess } = useTaskStatistics()
@@ -141,8 +141,13 @@ export default () => {
     const myEcharts = echarts.init(document.getElementById('task') as HTMLElement)
     myEcharts.setOption(option)
     myEcharts.on('click', (params: any) => {
-      console.log(type(params.name));
-      open(type(params.name))
+      open(context(params.name))
+    })
+
+    window.addEventListener('resize', () => {
+      if (myEcharts != null) {
+        myEcharts.resize()
+      }
     })
   }, [data, option])
 
@@ -155,7 +160,7 @@ export default () => {
 
   return (
     <>
-      <div id="task" style={{ height: "100%" }}></div>
+      <div id="task" style={{ height: "100%", width: "100%" }}></div>
       <OpenModal />
     </>
   )

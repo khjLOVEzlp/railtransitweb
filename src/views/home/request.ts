@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 import { useHttp } from "utils/http"
 import qs from "qs";
-import { cleanObject, getType } from "utils/index";
+import { cleanObject, context } from "utils/index";
 import { useHomeContext } from './index'
 
 /*
@@ -18,7 +18,7 @@ export const usePlanStatistics = () => {
   return useQuery(['planStatistics'], async () => {
     const data = await client(`report/webPlan`)
     data.data.forEach((key: any) => {
-      key["name"] = getType(key["type"])
+      key["name"] = context(key["type"])
     })
     return data
   })
@@ -105,7 +105,7 @@ export const useTaskStatistics = () => {
   return useQuery(['taskStatistics'], async () => {
     const data = await client(`report/webWork`)
     data.data.forEach((key: any) => {
-      key["name"] = getType(key["type"])
+      key["name"] = context(key["type"])
     })
     return data
   })

@@ -200,12 +200,19 @@ export const PlanWork = () => {
                         >
                           修改
                         </Menu.Item>
-                        <Menu.Item
-                          onClick={() => confirmDeleteProject(item)}
-                          key={"delete"}
-                        >
-                          删除
-                        </Menu.Item>
+                        {
+                          item.status === 2 ? (<Menu.Item
+                            disabled
+                            key={"delete"}
+                          >
+                            删除
+                          </Menu.Item>) : (<Menu.Item
+                            onClick={() => confirmDeleteProject(item)}
+                            key={"delete"}
+                          >
+                            删除
+                          </Menu.Item>)
+                        }
                       </Menu>
                     }
                   >

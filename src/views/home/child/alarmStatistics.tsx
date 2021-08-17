@@ -15,7 +15,7 @@ const Page = () => {
     // padding: 10,
     xField: "name",
     yField: "num",
-    padding: [30, 30, 30, 30],
+    padding: [30, 0, 30, 0],
     autoFit: true,
     meta: {
       num: {

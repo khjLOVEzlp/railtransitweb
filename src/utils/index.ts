@@ -1,17 +1,3 @@
-import {
-  ApartmentOutlined,
-  TabletOutlined,
-  DeploymentUnitOutlined,
-  ShakeOutlined,
-  PushpinOutlined,
-  BorderOutlined,
-  ApiOutlined,
-  NodeIndexOutlined,
-  CustomerServiceOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined
-} from '@ant-design/icons';
-
 import { useLocation } from "react-router";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
@@ -30,7 +16,7 @@ export const cleanObject = (object?: { [key: string]: unknown }) => {
 };
 
 
-export const getType = (type: number) => {
+/* export const getType = (type: number) => {
   switch (type) {
     case 1:
       return "今日"
@@ -52,9 +38,9 @@ export const getType = (type: number) => {
     default:
       break;
   }
-}
+} */
 
-export const type = (name: string) => {
+/* export const type = (name: string) => {
   switch (name) {
     case "今日":
       return 1
@@ -76,6 +62,49 @@ export const type = (name: string) => {
     default:
       break;
   }
+} */
+
+const strategy: any = {
+  ["今日"]() {
+    return 1
+  },
+  ["本周"]() {
+    return 2
+  },
+  ["本月"]() {
+    return 3
+  },
+  ["本季度"]() {
+    return 4
+  },
+  ["半年"]() {
+    return 5
+  },
+  ["今年"]() {
+    return 6
+  },
+  [1]() {
+    return "今日"
+  },
+  [2]() {
+    return "本周"
+  },
+  [3]() {
+    return "本月"
+  },
+  [4]() {
+    return "本季度"
+  },
+  [5]() {
+    return "半年"
+  },
+  [6]() {
+    return "今年"
+  }
+}
+
+export const context = <T>(type: string, ...result: T[]) => {
+  return strategy[type] && strategy[type](...result)
 }
 
 /**
