@@ -21,8 +21,6 @@ import { rules } from "utils/verification";
 import { usePlanType } from "../../planType/request";
 import { useLine } from "views/system/child/line/request";
 import { useSite } from "../request";
-import { useMaterialType } from "views/warehouse/child/materialType/request";
-import { usePerson } from "views/person/child/personManage/request";
 import { AddToolModal } from './AddToolModal'
 import { useAddToolModal, usePlanWorkModal } from '../util'
 import { useAdd, useMod } from "../request";
@@ -30,6 +28,7 @@ import { useInitDepartment } from 'views/system/child/department/request'
 import moment from "moment";
 import { usePlanContext } from "views/plan";
 import { PersonSelect } from "components/PersonSelect";
+import { useQueryClient } from "react-query";
 const baseUrl = process.env["REACT_APP_API_URL"]
 const { TextArea } = Input;
 const { Option } = Select;
@@ -53,7 +52,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const [id, setId] = useState<number>(0)
   const { open } = useAddToolModal()
   const { ModalOpen, isLoading, close, editingPlanWork, editId } = usePlanWorkModal()
-
+  const queryClient = useQueryClient()
   const title = editingPlanWork ? "修改" : "新增"
   const msg = editingPlanWork ? () => {
     message.success("修改成功")
@@ -71,6 +70,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
 
   useEffect(() => {
     if (editingPlanWork) {
+      queryClient.invalidateQueries('lineAll')
       setGroupList(editingPlanWork?.data.groupList)
       form.setFieldsValue({
         ...editingPlanWork?.data,
@@ -83,7 +83,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }, [form, editingPlanWork])
 
   const closeModal = () => {
-    setGroupList(undefined)
+    setGroupList([])
     form.resetFields()
     close()
   }
@@ -116,10 +116,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const { data: departmentList } = useInitDepartment()
-  const { data: material } = useMaterialType()
   const { data: planTypeList } = usePlanType()
   const { data: lineLIst } = useLine()
-  const { data: personList } = usePerson()
   const { data: allList } = useSite(id)
 
   const radioChange = (e: any) => {
@@ -162,21 +160,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const onOk = () => {
     form.submit();
   };
-
-  const materialListChange = (value: any) => {
-
-  }
-
-  const personChange = (value: any) => {
-    let arr: any = []
-    let obj: any = {}
-    value.forEach((key: any) => {
-      obj["personId"] = key
-      obj["id"] = key
-      arr.push(obj)
-    })
-    return value
-  }
 
   const deleteGroup = (id: number) => {
     let newList = [...groupList]
@@ -434,7 +417,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
             <Form.Item name="groupList">
               {
                 groupList?.length > 0 ?
-                  groupList?.map((item: any, index: number) => <Space style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
+                  groupList?.map((item: any, index: number) => <Space style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }} key={index}>
                     <div>
                       小组名称：{item.groupName}
                     </div>

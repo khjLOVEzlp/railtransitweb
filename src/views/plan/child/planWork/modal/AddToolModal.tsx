@@ -107,131 +107,125 @@ const PersonLIst = () => {
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
-const Tool = () => {
+const EditableRow: React.FC<any> = ({ index, ...props }) => {
+  const [form] = Form.useForm();
+  return (
+    <Form form={form} component={false}>
+      <EditableContext.Provider value={form}>
+        <tr {...props} />
+      </EditableContext.Provider>
+    </Form>
+  );
+};
+
+const EditableCell: React.FC<any> = ({
+  title,
+  editable,
+  children,
+  dataIndex,
+  record,
+  handleSave,
+  ...restProps
+}) => {
+  const [editing, setEditing] = useState(false);
+  const inputRef = useRef<Input>(null);
+  const form = useContext(EditableContext)!;
+
+  useEffect(() => {
+    if (editing) {
+      inputRef.current!.focus();
+    }
+  }, [editing]);
+
+  const toggleEdit = () => {
+    setEditing(!editing);
+    form.setFieldsValue({ [dataIndex]: record[dataIndex] });
+  };
+
+  const save = async () => {
+    try {
+      const values = await form.validateFields();
+
+      toggleEdit();
+      handleSave({ ...record, ...values });
+    } catch (errInfo) {
+      console.log('Save failed:', errInfo);
+    }
+  };
+
+  let childNode = children;
+
+  if (editable) {
+    childNode = editing ? (
+      <Form.Item
+        style={{ margin: 0 }}
+        name={dataIndex}
+        rules={[
+          {
+            required: true,
+            message: `${title} is required.`,
+          },
+        ]}
+      >
+        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+      </Form.Item>
+    ) : (
+      <div className="editable-cell-value-wrap" style={{ paddingRight: 24 }} onClick={toggleEdit}>
+        {children}
+      </div>
+    );
+  }
+
+  return <td {...restProps}>{childNode}</td>;
+};
+
+const EditableTable = () => {
+  const columns = [
+    {
+      title: "物料",
+      dataIndex: "name"
+    },
+    {
+      title: "数量",
+      dataIndex: "count",
+      editable: true,
+      disabled: true
+    }
+  ]
+
   const [param, setParam] = useState({
     index: 1,
     size: 10,
     name: ""
   })
+
   const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
-  const [dataSu, setDataSu] = useState<any>([])
-  const [groupToolList, setGroupToolList] = useState<any>([])
 
-  useEffect(() => {
-    if (isSuccess) {
-      setDataSu(data.data)
-    }
-  }, [isSuccess])
+  // const [dataSource, setDataSource] = useState<any>([])
 
-  const handleTableChange = (p: any) => {
-    setParam({ ...param, index: p.current, size: p.pageSize })
-  };
-
-  // @ts-ignore
-  const EditableRow = ({ index, ...props }) => {
-    const [form] = Form.useForm();
-    return (
-      <Form form={form} component={false}>
-        {/* @ts-ignore */}
-        <EditableContext.Provider value={form}>
-          <tr {...props} />
-        </EditableContext.Provider>
-      </Form>
-    );
-  };
-
-  const EditableCell = ({
-    title,
-    editable,
-    children,
-    dataIndex,
-    record,
-    handleSave,
-    ...restProps
-  }: any) => {
-    const [editing, setEditing] = useState(false);
-    const inputRef = useRef(null);
-    const form = useContext(EditableContext);
-    useEffect(() => {
-      if (editing) {
-        // @ts-ignore
-        inputRef.current.focus();
-      }
-    }, [editing]);
-
-    const toggleEdit = () => {
-      setEditing(!editing);
-      // @ts-ignore
-      form.setFieldsValue({
-        [dataIndex]: record[dataIndex]
-      });
-    };
-
-    const save = async () => {
-      try {
-        // @ts-ignore
-        const values = await form.validateFields();
-        toggleEdit();
-        handleSave({ ...record, ...values });
-      } catch (errInfo) {
-        console.log("Save failed:", errInfo);
-      }
-    };
-
-    let childNode = children;
-
-    if (editable) {
-      childNode = editing ? (
-        <Form.Item
-          style={{
-            margin: 0
-          }}
-          name={dataIndex}
-          rules={[
-            {
-              required: true,
-              message: `${title} is required.`
-            }
-          ]}
-        >
-          <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-        </Form.Item>
-      ) : (
-        <div
-          className="editable-cell-value-wrap"
-          style={{
-            paddingRight: 24
-          }}
-          onClick={toggleEdit}
-        >
-          {children}
-        </div>
-      );
-    }
-
-    return <td {...restProps}>{childNode}</td>;
-  };
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
+  const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
-
+  const [groupToolList, setGroupToolList] = useState<any>([])
   const start = () => {
+    const list = groupToolList
+    list.forEach((key: any) => {
+      key["a"] = true
+    })
     setLoading(true)
     setTimeout(() => {
       setSelectedRowKeys([])
-      // setGroupList([{ groupToolList }])
+      setGroupToolList(list)
       sessionStorage.setItem("groupToolList", JSON.stringify(groupToolList))
       setLoading(false)
     }, 1000)
   }
 
-  const onSelectChange = (selectedRowKeys: any, value: any) => {
-    setSelectedRowKeys(selectedRowKeys);
+  const onSelectChange = (keys: any, value: any) => {
     value.forEach((key: any) => {
-      key["num"] = key["count"]
-      key["toolId"] = key["id"]
+      key["personId"] = key["id"]
     })
     setGroupToolList(value)
+    setSelectedRowKeys(keys);
   };
 
   const hasSelected = selectedRowKeys.length > 0;
@@ -240,41 +234,26 @@ const Tool = () => {
     selectedRowKeys,
     onChange: onSelectChange,
     getCheckboxProps: (record: any) => ({
-      disabled: record.count === 0,
-      name: record.name,
-    }),
+      disabled: record.a === true,
+    })
   }
-
-  const cloumns = [
-    {
-      title: "工具",
-      dataIndex: "name"
-    },
-    {
-      title: "数量",
-      dataIndex: "count",
-      editable: true,
-    }
-  ]
 
   const handleSave = (row: any) => {
     const newData = [...data?.data];
-    const index = newData.findIndex((item) => {
-      return row.key == item.key
-    });
+    // @ts-ignore
+    const index = newData.findIndex(item => row.key === item.key);
     const item = newData[index];
-    newData.splice(index, 1, { ...item, ...row });
-    setDataSu(newData)
+    // @ts-ignore
+    newData.splice(index, 1, {
+      // @ts-ignore
+      ...item,
+      ...row,
+    });
+    // @ts-ignore
+
   };
 
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell
-    }
-  };
-
-  const clo = cloumns.map((col) => {
+  const newColumns = columns.map(col => {
     if (!col.editable) {
       return col;
     }
@@ -287,52 +266,280 @@ const Tool = () => {
         dataIndex: col.dataIndex,
         title: col.title,
         handleSave
-      })
+      }),
     };
   });
 
-  return (
-    <>
-      {
-        isLoading ? (
-          <Spin />
-        ) : (
-          <>
-            <div style={{ marginBottom: 16 }}>
-              <Form layout={"inline"}>
-                <Form.Item>
-                  <Input
-                    placeholder={"物料"}
-                    value={param.name}
-                    onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })}
-                  />
-                </Form.Item>
+  const components = {
+    body: {
+      row: EditableRow,
+      cell: EditableCell,
+    },
+  };
 
-                <Form.Item>
-                  <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-                    确定
-                  </Button>
-                </Form.Item>
-              </Form>
-              <span style={{ marginLeft: 8 }}>
-                {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
-              </span>
-            </div>
-            <Table
-              columns={clo}
-              components={components}
-              rowKey={(item: any) => item.id}
-              dataSource={dataSu}
-              rowSelection={rowSelection}
-              pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
-              onChange={handleTableChange}
+  return (
+    <div>
+      <div style={{ marginBottom: 16 }}>
+        <Form layout={"inline"}>
+          <Form.Item>
+            <Input
+              placeholder={"姓名"}
+              value={param.name}
+              onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })}
             />
-          </>
-        )
-      }
-    </>
-  )
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+              确定
+            </Button>
+          </Form.Item>
+        </Form>
+        <span style={{ marginLeft: 8 }}>
+          {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
+        </span>
+      </div>
+      <Table
+        loading={isLoading}
+        components={components}
+        rowClassName={() => 'editable-row'}
+        bordered
+        dataSource={data?.data}
+        columns={newColumns as any}
+        rowKey={(item: any) => item.id}
+        rowSelection={rowSelection}
+      />
+    </div>
+  );
+
 }
+// const Tool = () => {
+//   const [param, setParam] = useState({
+//     index: 1,
+//     size: 10,
+//     name: ""
+//   })
+//   const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
+//   const [dataSu, setDataSu] = useState<any>([])
+//   const [groupToolList, setGroupToolList] = useState<any>([])
+
+//   useEffect(() => {
+//     if (isSuccess) {
+//       setDataSu(data.data)
+//     }
+//   }, [isSuccess])
+
+//   const handleTableChange = (p: any) => {
+//     setParam({ ...param, index: p.current, size: p.pageSize })
+//   };
+
+//   // @ts-ignore
+//   const EditableRow = ({ index, ...props }) => {
+//     const [form] = Form.useForm();
+//     return (
+//       <Form form={form} component={false}>
+//         {/* @ts-ignore */}
+//         <EditableContext.Provider value={form}>
+//           <tr {...props} />
+//         </EditableContext.Provider>
+//       </Form>
+//     );
+//   };
+
+//   const EditableCell = ({
+//     title,
+//     editable,
+//     children,
+//     dataIndex,
+//     record,
+//     handleSave,
+//     ...restProps
+//   }: any) => {
+//     const [editing, setEditing] = useState(false);
+//     const inputRef = useRef(null);
+//     const form = useContext(EditableContext);
+//     useEffect(() => {
+//       if (editing) {
+//         // @ts-ignore
+//         inputRef.current!.focus();
+//       }
+//     }, [editing]);
+
+//     const toggleEdit = () => {
+//       setEditing(!editing);
+//       // @ts-ignore
+//       form.setFieldsValue({
+//         [dataIndex]: record[dataIndex]
+//       });
+//     };
+
+//     const save = async () => {
+//       try {
+//         // @ts-ignore
+//         const values = await form.validateFields();
+//         toggleEdit();
+
+//         handleSave({ ...record, ...values });
+//       } catch (errInfo) {
+//         console.log("Save failed:", errInfo);
+//       }
+//     };
+
+//     let childNode = children;
+
+//     if (editable) {
+//       childNode = editing ? (
+//         <Form.Item
+//           style={{
+//             margin: 0
+//           }}
+//           name={dataIndex}
+//           rules={[
+//             {
+//               required: true,
+//               message: `${title} is required.`
+//             }
+//           ]}
+//         >
+//           <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+//         </Form.Item>
+//       ) : (
+//         <div
+//           className="editable-cell-value-wrap"
+//           style={{
+//             paddingRight: 24
+//           }}
+//           onClick={toggleEdit}
+//         >
+//           {children}
+//         </div>
+//       );
+//     }
+
+//     return <td {...restProps}>{childNode}</td>;
+//   };
+
+//   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
+//   const [loading, setLoading] = useState<boolean>(false)
+
+//   const start = () => {
+//     setLoading(true)
+//     setTimeout(() => {
+//       setSelectedRowKeys([])
+//       // setGroupList([{ groupToolList }])
+//       sessionStorage.setItem("groupToolList", JSON.stringify(groupToolList))
+//       setLoading(false)
+//     }, 1000)
+//   }
+
+//   const onSelectChange = (selectedRowKeys: any, value: any) => {
+//     setSelectedRowKeys(selectedRowKeys);
+//     value.forEach((key: any) => {
+//       key["num"] = key["count"]
+//       key["toolId"] = key["id"]
+//     })
+//     setGroupToolList(value)
+//   };
+
+//   const hasSelected = selectedRowKeys.length > 0;
+
+//   const rowSelection = {
+//     selectedRowKeys,
+//     onChange: onSelectChange,
+//     getCheckboxProps: (record: any) => ({
+//       disabled: record.count === 0,
+//       name: record.name,
+//     }),
+//   }
+
+//   const cloumns = [
+//     {
+//       title: "工具",
+//       dataIndex: "name"
+//     },
+//     {
+//       title: "数量",
+//       dataIndex: "count",
+//       editable: true,
+//     }
+//   ]
+
+//   const handleSave = (row: any) => {
+//     const newData = [...data?.data];
+//     const index = newData.findIndex((item) => {
+//       return row.key == item.key
+//     });
+//     const item = newData[index];
+//     newData.splice(index, 1, { ...item, ...row });
+//     setDataSu(newData)
+//   };
+
+//   const components = {
+//     body: {
+//       row: EditableRow,
+//       cell: EditableCell
+//     }
+//   };
+
+//   const clo = cloumns.map((col) => {
+//     if (!col.editable) {
+//       return col;
+//     }
+
+//     return {
+//       ...col,
+//       onCell: (record: any) => ({
+//         record,
+//         editable: col.editable,
+//         dataIndex: col.dataIndex,
+//         title: col.title,
+//         handleSave
+//       })
+//     };
+//   });
+
+//   return (
+//     <>
+//       {
+//         isLoading ? (
+//           <Spin />
+//         ) : (
+//           <>
+//             <div style={{ marginBottom: 16 }}>
+//               <Form layout={"inline"}>
+//                 <Form.Item>
+//                   <Input
+//                     placeholder={"工具"}
+//                     value={param.name}
+//                     onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })}
+//                   />
+//                 </Form.Item>
+
+//                 <Form.Item>
+//                   <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+//                     确定
+//                   </Button>
+//                 </Form.Item>
+//               </Form>
+//               <span style={{ marginLeft: 8 }}>
+//                 {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
+//               </span>
+//             </div>
+//             <Table
+//               columns={clo}
+//               components={components}
+//               rowKey={(item: any) => item.id}
+//               dataSource={dataSu}
+//               rowSelection={rowSelection}
+//               pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+//               onChange={handleTableChange}
+//             />
+//           </>
+//         )
+//       }
+//     </>
+//   )
+// }
 
 /* 添加物料 */
 
@@ -620,7 +827,8 @@ export const AddToolModal = () => {
           <PersonLIst />
         </TabPane>
         <TabPane tab="作业工具" key="3">
-          <Tool />
+          {/* <Tool /> */}
+          <EditableTable />
         </TabPane>
         <TabPane tab="作业物料" key="4">
           <Mater />

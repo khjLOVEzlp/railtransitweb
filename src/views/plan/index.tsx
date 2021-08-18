@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react"
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom"
-import { useDocumentTitle } from '../../hook/useDocumentTitle'
+import { useDocumentTitle } from 'hook/useDocumentTitle'
 import {
   FileSearchOutlined,
   AppstoreOutlined,

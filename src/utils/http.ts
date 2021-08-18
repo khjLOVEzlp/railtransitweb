@@ -34,7 +34,7 @@ export const http = async (
     .then(async (response) => {
       if (response.status === 401) {
         message.error("权限不足，请重新登陆")
-        await setTimeout(() => auth.logout(), 3000)
+        // await setTimeout(() => auth.logout(), 3000)
         return Promise.reject({ message: "请重新登录" });
       }
 

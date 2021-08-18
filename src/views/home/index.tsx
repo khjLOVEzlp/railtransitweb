@@ -5,7 +5,8 @@ import Page from './child/alarmStatistics'
 import PlanWorkPage from './child/taskStatistics'
 import PlanType from './child/planType'
 import { Subway } from "./child/Subway";
-import { Button } from 'antd'
+import { Button, Card, Space } from 'antd'
+import { useLine } from 'views/system/child/line/request'
 
 const HomeContext = createContext<
   {
@@ -24,17 +25,41 @@ export const Home = () => {
   const [planId, setPlanId] = useState<number | undefined>(undefined)
   const [taskId, setTaskId] = useState<number | undefined>(undefined)
   const [show, setShow] = useState<boolean>(true)
+  const { data, isSuccess } = useLine()
 
   return (
     <HomeContext.Provider value={{ alarmId, setAlarmId, planId, setPlanId, taskId, setTaskId }}>
       <Container>
         <Left>
           <Title>
-            <Button type={"link"} onClick={() => {
+            <Button onClick={() => {
               setShow(!show)
-
             }}>{show ? "放大" : "缩小"}</Button>
           </Title>
+          {
+            isSuccess ? (
+              <Space style={{
+                position: "absolute",
+                right: "0.1rem",
+                bottom: "0.1rem",
+                zIndex: 1000
+              }}>
+                {
+                  data.data.map((item: any) => (
+                    <Card hoverable={true} style={{ borderColor: `${item.color}`, borderWidth: '0.2rem' }}>
+                      <p>线路：{item.name}</p>
+                      <p>人数：{item.personCount || "无"}</p>
+                      <p>班别数：{item.classCount || "无"}</p>
+                      <p>区间：{item.platformCount || "无"}</p>
+                      <p>仓库数：{item.warehouseCount || "无"}</p>
+                    </Card>
+                  ))
+                }
+              </Space>
+            ) : (
+              <div></div>
+            )
+          }
           <Subway />
         </Left>
         {
@@ -89,6 +114,7 @@ margin-right: 0.5rem;
 border-radius: 8px;
 position: relative;
 `
+
 const Right = styled.div`
 /* height: 100%; */
 flex: 1;

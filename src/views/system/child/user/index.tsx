@@ -160,7 +160,7 @@ export const User = () => {
                       </Menu>
                     }
                   >
-                    <Button style={{ padding: 0 }} type={"link"}>...</Button>
+                    <Button style={{ padding: 0 }} type={"link"} onClick={() => modPass(item.id)}>重置密码 ...</Button>
                   </Dropdown>
                 )
               },

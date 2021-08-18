@@ -1,22 +1,18 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import * as echarts from 'echarts';
 import { useLine } from 'views/system/child/line/request'
-import { useLinePlatStatistics } from 'views/system/child/line/drawermanage/child/platForm/request'
 import { subwaylist } from './index.js'
-import { Modal } from "antd";
+import { useHttp } from "utils/http"
 
 export const Subway = () => {
-  const { data: lineList, isLoading, isSuccess } = useLine()
-  const [visible, setVisible] = useState(false);
-  const [id, setId] = useState<any>(undefined)
-  const { data: lineStatistics, isSuccess: success } = useLinePlatStatistics(id)
-
+  const { data: lineList, isSuccess } = useLine()
+  const client = useHttp()
   if (isSuccess) {
     var newData: any = subwaylist.filter((v) => lineList.data.find((vi: { [key: string]: unknown }) => vi.name === v.name))
     newData.forEach((item: any, index: number) => {
       item.stations.forEach((key: any, i: number) => {
         if (lineList.data[index]["platformList"].find((vi: any) => vi.name === key["name"])) {
-          key["a"] = lineList.data[index]["platformList"].find((vi: any) => vi.name === key["name"]).id
+          key["subwayId"] = lineList.data[index]["platformList"].find((vi: any) => vi.name === key["name"]).id
         }
       })
     })
@@ -51,16 +47,6 @@ export const Subway = () => {
       return cur;
     }, [])
   }
-
-
-  const showDrawer = (id: number) => {
-    setVisible(true);
-    setId(id)
-  };
-
-  const onClose = () => {
-    setVisible(false);
-  };
 
   const data = [
     {
@@ -5436,6 +5422,12 @@ export const Subway = () => {
       },
     },
     tooltip: {},
+    grid: {
+      x: 50,
+      y: 50,
+      x2: 50,
+      y2: 50,
+    },
     //  legend: {
     //     show: false
     //  },
@@ -5445,12 +5437,18 @@ export const Subway = () => {
         xAxisIndex: [0],
         start: 20,
         end: 100,
+        textStyle: {
+          fontSize: 20
+        }
       },
       {
         type: "inside",
         yAxisIndex: [0],
         start: 20,
         end: 100,
+        textStyle: {
+          fontSize: 16
+        }
       },
     ],
     series: [
@@ -7917,14 +7915,19 @@ export const Subway = () => {
   useEffect(() => {
     const myEcharts = echarts.init(document.getElementById('subway') as HTMLElement)
     myEcharts.setOption(option)
-    myEcharts.on('click', (params: any) => {
-      console.log(params.data.a);
-      showDrawer(params.data.a)
-    })
 
-    if (success) {
-      console.log(lineStatistics);
-    }
+    myEcharts.on("mouseover", (params: any) => {
+      if (params.data.subwayId) {
+        client(`linePlatform/getInfo/${params.data.subwayId}`).then(async (res) => {
+          const data = await res.data
+          params.data.tooltip.formatter = `{b}<br />班别：${data[0].departmentName || "无"}<br />区间：${data[0].roadName || "无"}<br />材料数量：${data[0].count || "无"}`
+        })
+
+        // params.data.tooltip.formatter = `{b}<br />班别数："无"<br />仓库数："无"<br />区间："无"<br />`
+      } else {
+        return false
+      }
+    })
 
     window.addEventListener('resize', () => {
       if (myEcharts != null) {
@@ -7936,28 +7939,35 @@ export const Subway = () => {
       myEcharts.resize()
     }
     // @ts-ignore
-  }, [option, refs.current?.offsetWidth])
+  }, [refs.current?.offsetWidth])
 
   return (
     <>
       <div id="subway" style={{ height: "100%", width: "100%" }} ref={refs} />
-      <Modal
-        title={"区间信息"}
+      {/* <Modal
         width={300}
         footer={false}
         visible={visible}
         onCancel={onClose}
       >
         {
-          lineStatistics?.data.map((item: any) => (
+          isLoading ? (
+            <Spin />
+          ) : (
             <div>
-              <p>归属部门：{item.departmentName}</p>
-              <p>区间：{item.roadName}</p>
-              <p>工具数量：{item.count}</p>
+              {
+                lineStatistics?.data.map((item: any) => (
+                  <div>
+                    <p>班别：{item.departmentName}</p>
+                    <p>区间：{item.roadName}</p>
+                    <p>材料数量：{item.count}</p>
+                  </div>
+                ))
+              }
             </div>
-          ))
+          )
         }
-      </Modal>
+      </Modal> */}
     </>
   )
 }

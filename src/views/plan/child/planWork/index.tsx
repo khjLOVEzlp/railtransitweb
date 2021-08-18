@@ -56,12 +56,12 @@ export const PlanWork = () => {
   const isStatus = (type: number) => {
     switch (type) {
       case 0:
-        return <Tag color="default">未执行</Tag>
+        return <Tag color="default">未开始</Tag>
       case 1:
-        return <Tag color="processing" >执行中</Tag>
+        return <Tag color="processing" >已发布</Tag>
 
       case 2:
-        return <Tag color="success">已完成</Tag>
+        return <Tag color="success">已执行</Tag>
 
       default:
         break;
@@ -191,15 +191,34 @@ export const PlanWork = () => {
                   <Dropdown
                     overlay={
                       <Menu>
-                        <Menu.Item onClick={() => startShareEdit(item.id)} key={"shareEdit"}>
-                          发布计划
-                        </Menu.Item>
-                        <Menu.Item
-                          onClick={() => startEdit(item.id)}
-                          key={"edit"}
-                        >
-                          修改
-                        </Menu.Item>
+                        {
+                          item.status === 2 ? (
+                            <Menu.Item disabled key={"shareEdit"}>
+                              发布计划
+                            </Menu.Item>
+                          ) : (
+                            <Menu.Item onClick={() => startShareEdit(item.id)} key={"shareEdit"}>
+                              发布计划
+                            </Menu.Item>
+                          )
+                        }
+                        {
+                          item.status === 2 ? (
+                            <Menu.Item
+                              disabled
+                              key={"edit"}
+                            >
+                              修改
+                            </Menu.Item>
+                          ) : (
+                            <Menu.Item
+                              onClick={() => startEdit(item.id)}
+                              key={"edit"}
+                            >
+                              修改
+                            </Menu.Item>
+                          )
+                        }
                         {
                           item.status === 2 ? (<Menu.Item
                             disabled
@@ -216,7 +235,17 @@ export const PlanWork = () => {
                       </Menu>
                     }
                   >
-                    <Button style={{ padding: 0 }} type={"link"}>...</Button>
+                    {
+                      item.status === 2 ? (
+                        <Button style={{ padding: 0 }} type={"link"} disabled>
+                          发布计划 ...
+                        </Button>
+                      ) : (
+                        <Button style={{ padding: 0 }} type={"link"} onClick={() => startShareEdit(item.id)}>
+                          发布计划 ...
+                        </Button>
+                      )
+                    }
                   </Dropdown>
                 </>
               )

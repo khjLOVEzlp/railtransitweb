@@ -2,11 +2,18 @@ import qs from 'qs'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from 'utils';
 import { useHttp } from 'utils/http';
+import { subwaylist } from 'views/home/child/index'
 
 /* 查所有 */
 export const useLine = () => {
   const client = useHttp()
-  return useQuery(['line'], () => client(`line/listLineAndPlatform`, { method: "POST" }))
+  return useQuery(['lineAll'], async () => {
+    const data = await client(`line/listLineAndPlatform`, { method: "POST" })
+    data.data.forEach((item: any, index: number) => {
+      item["color"] = subwaylist.find((key: any) => item.name === key.name)?.label.color
+    })
+    return data
+  })
 }
 
 /*

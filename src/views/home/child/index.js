@@ -11,7 +11,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -31,7 +31,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -51,7 +51,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -71,7 +71,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -91,7 +91,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -111,7 +111,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -131,7 +131,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -151,7 +151,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -171,7 +171,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -191,7 +191,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -211,7 +211,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -231,7 +231,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -251,7 +251,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -271,7 +271,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -291,7 +291,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -311,7 +311,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -336,7 +336,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -356,7 +356,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -376,7 +376,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -396,7 +396,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -416,7 +416,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -436,7 +436,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -456,7 +456,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -476,7 +476,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -496,7 +496,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -516,7 +516,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -536,7 +536,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -556,7 +556,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -576,7 +576,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -596,7 +596,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -616,7 +616,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -636,7 +636,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -656,7 +656,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -676,7 +676,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -696,7 +696,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -716,7 +716,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -736,7 +736,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -756,7 +756,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -776,7 +776,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -796,7 +796,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -821,7 +821,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -841,7 +841,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -861,7 +861,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -881,7 +881,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -901,7 +901,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -921,7 +921,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -941,7 +941,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -961,7 +961,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -981,7 +981,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1001,7 +1001,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1021,7 +1021,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1041,7 +1041,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1061,7 +1061,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1081,7 +1081,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1101,7 +1101,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1121,7 +1121,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1146,7 +1146,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1166,7 +1166,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1186,7 +1186,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1206,7 +1206,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1226,7 +1226,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1246,7 +1246,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1266,7 +1266,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1286,7 +1286,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1306,7 +1306,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1326,7 +1326,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1346,7 +1346,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1366,7 +1366,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1386,7 +1386,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1406,7 +1406,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1426,7 +1426,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1451,7 +1451,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1471,7 +1471,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1491,7 +1491,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1511,7 +1511,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1531,7 +1531,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1551,7 +1551,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1571,7 +1571,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1591,7 +1591,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1611,7 +1611,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1631,7 +1631,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1651,7 +1651,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1671,7 +1671,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1691,7 +1691,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1711,7 +1711,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1731,7 +1731,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1751,7 +1751,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1771,7 +1771,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1791,7 +1791,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1811,7 +1811,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1831,7 +1831,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1851,7 +1851,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1871,7 +1871,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1891,7 +1891,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1916,7 +1916,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1936,7 +1936,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1956,7 +1956,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1976,7 +1976,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -1996,7 +1996,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2016,7 +2016,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2036,7 +2036,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2056,7 +2056,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2076,7 +2076,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2096,7 +2096,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2116,7 +2116,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2136,7 +2136,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2156,7 +2156,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2176,7 +2176,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2196,7 +2196,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2216,7 +2216,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2236,7 +2236,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2256,7 +2256,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2276,7 +2276,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2296,7 +2296,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2316,7 +2316,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2336,7 +2336,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2356,7 +2356,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2376,7 +2376,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2401,7 +2401,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2421,7 +2421,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2441,7 +2441,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2461,7 +2461,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2481,7 +2481,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2501,7 +2501,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2521,7 +2521,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2541,7 +2541,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2561,7 +2561,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2581,7 +2581,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2601,7 +2601,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2621,7 +2621,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2641,7 +2641,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2661,7 +2661,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2681,7 +2681,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2701,7 +2701,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2721,7 +2721,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2741,7 +2741,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2761,7 +2761,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2781,7 +2781,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2801,7 +2801,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2821,7 +2821,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2841,7 +2841,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2861,7 +2861,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2881,7 +2881,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2901,7 +2901,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2921,7 +2921,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2941,7 +2941,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2961,7 +2961,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -2981,7 +2981,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3001,7 +3001,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3026,7 +3026,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3046,7 +3046,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3066,7 +3066,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3086,7 +3086,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3106,7 +3106,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3126,7 +3126,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3146,7 +3146,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3166,7 +3166,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3186,7 +3186,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3211,7 +3211,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3231,7 +3231,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3251,7 +3251,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3271,7 +3271,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3291,7 +3291,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3311,7 +3311,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3331,7 +3331,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3351,7 +3351,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3371,7 +3371,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3391,7 +3391,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3411,7 +3411,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3431,7 +3431,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3451,7 +3451,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3471,7 +3471,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3491,7 +3491,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3511,7 +3511,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3531,7 +3531,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3551,7 +3551,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3571,7 +3571,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3591,7 +3591,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3611,7 +3611,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3631,7 +3631,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3651,7 +3651,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3671,7 +3671,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3691,7 +3691,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3711,7 +3711,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3731,7 +3731,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3756,7 +3756,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3776,7 +3776,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3796,7 +3796,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3816,7 +3816,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3836,7 +3836,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3856,7 +3856,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3876,7 +3876,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3896,7 +3896,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3916,7 +3916,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3936,7 +3936,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3956,7 +3956,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -3981,7 +3981,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4001,7 +4001,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4021,7 +4021,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4041,7 +4041,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4061,7 +4061,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4081,7 +4081,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4101,7 +4101,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4121,7 +4121,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4141,7 +4141,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4161,7 +4161,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4181,7 +4181,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4206,7 +4206,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4226,7 +4226,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4246,7 +4246,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4266,7 +4266,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4286,7 +4286,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4306,7 +4306,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4326,7 +4326,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4346,7 +4346,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4366,7 +4366,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4386,7 +4386,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4406,7 +4406,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4426,7 +4426,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4446,7 +4446,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4471,7 +4471,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4491,7 +4491,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4511,7 +4511,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4531,7 +4531,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4551,7 +4551,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4571,7 +4571,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4591,7 +4591,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4611,7 +4611,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4631,7 +4631,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4651,7 +4651,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4671,7 +4671,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4691,7 +4691,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4711,7 +4711,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4731,7 +4731,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4751,7 +4751,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4771,7 +4771,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4791,7 +4791,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4811,7 +4811,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4831,7 +4831,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4851,7 +4851,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4871,7 +4871,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4896,7 +4896,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4916,7 +4916,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4936,7 +4936,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4956,7 +4956,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4976,7 +4976,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -4996,7 +4996,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5016,7 +5016,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5036,7 +5036,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5056,7 +5056,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5076,7 +5076,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5096,7 +5096,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5116,7 +5116,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5136,7 +5136,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5156,7 +5156,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5176,7 +5176,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5196,7 +5196,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5216,7 +5216,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5236,7 +5236,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5256,7 +5256,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5276,7 +5276,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5296,7 +5296,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5316,7 +5316,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5336,7 +5336,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5356,7 +5356,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5376,7 +5376,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5401,7 +5401,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5421,7 +5421,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5441,7 +5441,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5461,7 +5461,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5481,7 +5481,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5501,7 +5501,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5521,7 +5521,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5541,7 +5541,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5561,7 +5561,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5586,7 +5586,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5606,7 +5606,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5626,7 +5626,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5646,7 +5646,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5666,7 +5666,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5686,7 +5686,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5706,7 +5706,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5726,7 +5726,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5746,7 +5746,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5766,7 +5766,7 @@ export const subWayList = [
         label: {
           color: "#000",
           position: "top",
-          fontSize: 8,
+          fontSize: 16,
         },
         category: 1,
         itemStyle: {
@@ -5799,58 +5799,34 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#F9E103",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 3 },
       },
     },
     stations: [
       {
         name: "西塱",
-        tooltip: {
-          formatter: "{b}<br />班别数：2<br />仓库数：3<br />区间：6<br />",
-        },
+        tooltip: { formatter: "{b}" },
         value: [562, -1470],
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
       },
       {
         name: "坑口",
-        tooltip: {
-          formatter: "{b}:地铁1号线<br />",
-        },
+        tooltip: { formatter: "" },
         value: [562, -1398],
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
       },
       {
@@ -5859,19 +5835,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "芳村",
@@ -5879,19 +5848,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "黄沙",
@@ -5899,19 +5861,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "长寿路",
@@ -5919,19 +5874,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "陈家祠",
@@ -5939,19 +5887,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "西门口",
@@ -5959,19 +5900,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "公园前",
@@ -5979,19 +5913,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "农讲所",
@@ -5999,19 +5926,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "烈士陵园",
@@ -6019,19 +5939,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "东山口",
@@ -6039,19 +5952,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "杨箕",
@@ -6059,19 +5965,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "体育西路",
@@ -6079,19 +5978,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "体育中心",
@@ -6099,19 +5991,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "广州东站",
@@ -6119,27 +6004,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#F9E103",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#F9E103", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁2号线",
-    tooltip: {
-      formatter: "{b}:地铁2号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁2号线<br />" },
     symbolSize: 0.1,
     value: [844, -835],
     fixed: true,
@@ -6152,11 +6028,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#4f90cb",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 3 },
       },
     },
     stations: [
@@ -6166,19 +6038,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "黄边",
@@ -6186,19 +6051,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "江夏",
@@ -6206,19 +6064,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "萧岗",
@@ -6226,19 +6077,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "白云文化广场",
@@ -6246,19 +6090,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "白云公园",
@@ -6266,19 +6103,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "飞翔公园",
@@ -6286,19 +6116,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "三元里",
@@ -6306,19 +6129,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "广州火车站",
@@ -6326,19 +6142,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "越秀公园",
@@ -6346,19 +6155,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "纪念堂",
@@ -6366,19 +6168,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "公园前",
@@ -6386,19 +6181,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "海珠广场",
@@ -6406,19 +6194,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "市二宫",
@@ -6426,19 +6207,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "江南西",
@@ -6446,19 +6220,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "昌岗",
@@ -6466,19 +6233,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "江泰路",
@@ -6486,19 +6246,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "东晓南",
@@ -6506,19 +6259,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "南洲",
@@ -6526,19 +6272,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "洛溪",
@@ -6546,19 +6285,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "南浦",
@@ -6566,19 +6298,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "会江",
@@ -6586,19 +6311,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "石壁",
@@ -6606,19 +6324,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "广州南站",
@@ -6626,27 +6337,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#4f90cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#4f90cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁3号线",
-    tooltip: {
-      formatter: "{b}:地铁3号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁3号线<br />" },
     symbolSize: 0.1,
     value: [1276, -1018],
     fixed: true,
@@ -6659,11 +6361,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#EA6632",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 3 },
       },
     },
     stations: [
@@ -6673,19 +6371,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "五山",
@@ -6693,19 +6384,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "华师",
@@ -6713,19 +6397,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "岗顶",
@@ -6733,19 +6410,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "石牌桥",
@@ -6753,19 +6423,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "体育西路",
@@ -6773,19 +6436,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "珠江新城",
@@ -6793,19 +6449,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "广州塔",
@@ -6813,19 +6462,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "客村",
@@ -6833,19 +6475,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大塘",
@@ -6853,19 +6488,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "沥滘",
@@ -6873,19 +6501,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "厦滘",
@@ -6893,19 +6514,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大石",
@@ -6913,19 +6527,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "汉溪长隆",
@@ -6933,19 +6540,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "市桥",
@@ -6953,19 +6553,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "番禺广场",
@@ -6973,27 +6566,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁3号线北延段",
-    tooltip: {
-      formatter: "{b}:地铁3号线北延段<br />",
-    },
+    tooltip: { formatter: "{b}:地铁3号线北延段<br />" },
     symbolSize: 0.1,
     value: [1000, -803],
     fixed: true,
@@ -7006,11 +6590,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#EA6632",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 3 },
       },
     },
     stations: [
@@ -7020,19 +6600,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "林和西",
@@ -7040,19 +6613,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "广州东站",
@@ -7060,19 +6626,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "燕塘",
@@ -7080,19 +6639,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "梅花园",
@@ -7100,19 +6652,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "京溪南方医院",
@@ -7120,19 +6665,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "同和",
@@ -7140,19 +6678,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "永泰",
@@ -7160,19 +6691,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "白云大道北",
@@ -7180,19 +6704,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "嘉禾望岗",
@@ -7200,19 +6717,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "龙归",
@@ -7220,19 +6730,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "人和",
@@ -7240,19 +6743,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "高增",
@@ -7260,19 +6756,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "机场南(1号航站楼)",
@@ -7280,19 +6769,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "机场北(2号航站楼)",
@@ -7300,27 +6782,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#EA6632",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#EA6632", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁4号线",
-    tooltip: {
-      formatter: "{b}:地铁4号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁4号线<br />" },
     symbolSize: 0.1,
     value: [1888, -1965],
     fixed: true,
@@ -7333,11 +6806,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#009900",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#009900", borderWidth: 3 },
       },
     },
     stations: [
@@ -7347,19 +6816,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "车陂",
@@ -7367,19 +6829,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "车陂南",
@@ -7387,19 +6842,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "万胜围",
@@ -7407,19 +6855,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "官洲",
@@ -7427,19 +6868,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大学城北",
@@ -7447,19 +6881,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大学城南",
@@ -7467,19 +6894,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "新造",
@@ -7487,19 +6907,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "石碁",
@@ -7507,19 +6920,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "海傍",
@@ -7527,19 +6933,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "低涌",
@@ -7547,19 +6946,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "东涌",
@@ -7567,19 +6959,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "庆盛",
@@ -7587,19 +6972,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "黄阁汽车城",
@@ -7607,19 +6985,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "黄阁",
@@ -7627,19 +6998,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "蕉门",
@@ -7647,19 +7011,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "金洲",
@@ -7667,19 +7024,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "飞沙角",
@@ -7687,19 +7037,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "广隆",
@@ -7707,19 +7050,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大涌",
@@ -7727,19 +7063,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "塘坑",
@@ -7747,19 +7076,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "南横",
@@ -7767,19 +7089,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "南沙客运港",
@@ -7787,27 +7102,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#009900",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#009900", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁5号线",
-    tooltip: {
-      formatter: "{b}:地铁5号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁5号线<br />" },
     symbolSize: 0.1,
     value: [362, -1138],
     fixed: true,
@@ -7820,11 +7126,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#FF0000",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 3 },
       },
     },
     stations: [
@@ -7834,19 +7136,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "坦尾",
@@ -7854,19 +7149,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "中山八",
@@ -7874,19 +7162,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "西场",
@@ -7894,19 +7175,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "西村",
@@ -7914,19 +7188,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "广州火车站",
@@ -7934,19 +7201,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "小北",
@@ -7954,19 +7214,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "淘金",
@@ -7974,19 +7227,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "区庄",
@@ -7994,19 +7240,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "动物园",
@@ -8014,19 +7253,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "杨箕",
@@ -8034,19 +7266,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "五羊邨",
@@ -8054,19 +7279,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "珠江新城",
@@ -8074,19 +7292,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "猎德",
@@ -8094,19 +7305,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "潭村",
@@ -8114,19 +7318,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "员村",
@@ -8134,19 +7331,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "科韵路",
@@ -8154,19 +7344,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "车陂南",
@@ -8174,19 +7357,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "东圃",
@@ -8194,19 +7370,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "三溪",
@@ -8214,19 +7383,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "鱼珠",
@@ -8234,19 +7396,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大沙地",
@@ -8254,19 +7409,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大沙东",
@@ -8274,19 +7422,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "文冲",
@@ -8294,27 +7435,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#FF0000",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁6号线",
-    tooltip: {
-      formatter: "{b}:地铁5号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁5号线<br />" },
     symbolSize: 0.1,
     value: [362, -1138],
     fixed: true,
@@ -8327,11 +7459,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#FF0000",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#FF0000", borderWidth: 3 },
       },
     },
     stations: [
@@ -8341,19 +7469,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "萝岗",
@@ -8361,19 +7482,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "苏元",
@@ -8381,19 +7495,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "暹岗",
@@ -8401,19 +7508,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "金峰",
@@ -8421,19 +7521,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "黄陂",
@@ -8441,19 +7534,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "高塘石",
@@ -8461,19 +7547,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "柯木塱",
@@ -8481,19 +7560,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "龙洞",
@@ -8501,19 +7573,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "植物园",
@@ -8521,19 +7586,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "长湴",
@@ -8541,19 +7599,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "天河客运站",
@@ -8561,19 +7612,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "燕塘",
@@ -8581,19 +7625,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "天平架",
@@ -8601,19 +7638,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "沙河顶",
@@ -8621,19 +7651,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "黄花岗",
@@ -8641,19 +7664,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "区庄",
@@ -8661,19 +7677,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "东山口",
@@ -8681,19 +7690,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "东湖",
@@ -8701,19 +7703,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "团一大广场",
@@ -8721,19 +7716,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "北京路",
@@ -8741,19 +7729,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "海珠广场",
@@ -8761,19 +7742,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "一德路",
@@ -8781,19 +7755,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "文化公园",
@@ -8801,19 +7768,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "黄沙",
@@ -8821,19 +7781,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "如意坊",
@@ -8841,19 +7794,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "坦尾",
@@ -8861,19 +7807,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "河沙",
@@ -8881,19 +7820,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "沙贝",
@@ -8901,19 +7833,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "横沙",
@@ -8921,19 +7846,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "浔峰岗",
@@ -8941,27 +7859,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#8B1F5C",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#8B1F5C", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁7号线",
-    tooltip: {
-      formatter: "{b}:地铁7号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁7号线<br />" },
     symbolSize: 0.1,
     value: [802, -1813],
     fixed: true,
@@ -8974,11 +7883,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#3FA37E",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 3 },
       },
     },
     stations: [
@@ -8988,19 +7893,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#3FA37E",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "石壁",
@@ -9008,19 +7906,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#3FA37E",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "谢村",
@@ -9028,19 +7919,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#3FA37E",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "钟村",
@@ -9048,19 +7932,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#3FA37E",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "汉溪长隆",
@@ -9068,19 +7945,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#3FA37E",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "南村万博",
@@ -9088,19 +7958,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#3FA37E",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "员岗",
@@ -9108,19 +7971,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#3FA37E",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "板桥",
@@ -9128,19 +7984,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#3FA37E",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大学城南",
@@ -9148,27 +7997,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#3FA37E",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#3FA37E", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁8号线",
-    tooltip: {
-      formatter: "{b}:地铁8号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁8号线<br />" },
     symbolSize: 0.1,
     value: [583, -568],
     fixed: true,
@@ -9181,11 +8021,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#00A1CC",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 3 },
       },
     },
     stations: [
@@ -9195,19 +8031,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "亭岗",
@@ -9215,19 +8044,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "石井",
@@ -9235,19 +8057,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "小坪",
@@ -9255,19 +8070,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "石潭",
@@ -9275,19 +8083,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "聚龙",
@@ -9295,19 +8096,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "上步",
@@ -9315,19 +8109,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "同德",
@@ -9335,19 +8122,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "鹅掌坦",
@@ -9355,19 +8135,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "西村",
@@ -9375,19 +8148,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "陈家祠",
@@ -9395,19 +8161,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "华林寺",
@@ -9415,19 +8174,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "文化公园",
@@ -9435,19 +8187,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "同福西",
@@ -9455,19 +8200,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "凤凰新村",
@@ -9475,19 +8213,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "沙园",
@@ -9495,19 +8226,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "宝岗大道",
@@ -9515,19 +8239,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "昌岗",
@@ -9535,19 +8252,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "晓港",
@@ -9555,19 +8265,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "中大",
@@ -9575,19 +8278,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "鹭江",
@@ -9595,19 +8291,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "客村",
@@ -9615,19 +8304,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "赤岗",
@@ -9635,19 +8317,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "磨碟沙",
@@ -9655,19 +8330,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "新港东",
@@ -9675,19 +8343,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "琶洲",
@@ -9695,19 +8356,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "万胜围",
@@ -9715,27 +8369,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00A1CC",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00A1CC", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁9号线",
-    tooltip: {
-      formatter: "{b}:地铁9号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁9号线<br />" },
     symbolSize: 0.1,
     value: [140, -565],
     fixed: true,
@@ -9748,11 +8393,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#99c857",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#99c857", borderWidth: 3 },
       },
     },
     stations: [
@@ -9762,19 +8403,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "清塘",
@@ -9782,19 +8416,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "清布",
@@ -9802,19 +8429,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "莲塘",
@@ -9822,19 +8442,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "马鞍山公园",
@@ -9842,19 +8455,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "花都广场",
@@ -9862,19 +8468,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "花果山公园",
@@ -9882,19 +8481,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "花城路",
@@ -9902,19 +8494,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "广州北站",
@@ -9922,19 +8507,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "花都汽车城",
@@ -9942,19 +8520,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "飞鹅岭",
@@ -9962,27 +8533,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#99c857",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#99c857", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁13号线",
-    tooltip: {
-      formatter: "{b}:地铁13号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁13号线<br />" },
     symbolSize: 0.1,
     value: [2107, -1459],
     fixed: true,
@@ -9995,11 +8557,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#a7b942",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 3 },
       },
     },
     stations: [
@@ -10009,19 +8567,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "裕丰围",
@@ -10029,19 +8580,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "双岗",
@@ -10049,19 +8593,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "南海神庙",
@@ -10069,19 +8606,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "夏园",
@@ -10089,19 +8619,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "南岗",
@@ -10109,19 +8632,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "沙村",
@@ -10129,19 +8645,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "白江",
@@ -10149,19 +8658,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "新塘",
@@ -10169,19 +8671,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "官湖",
@@ -10189,19 +8684,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "新沙",
@@ -10209,27 +8697,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#a7b942",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#a7b942", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁14号线",
-    tooltip: {
-      formatter: "{b}:地铁14号线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁14号线<br />" },
     symbolSize: 0.1,
     value: [1458, -100],
     fixed: true,
@@ -10242,11 +8721,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#721920",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#721920", borderWidth: 3 },
       },
     },
     stations: [
@@ -10256,19 +8731,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "白云东平",
@@ -10276,19 +8744,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "夏良",
@@ -10296,19 +8757,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "太和",
@@ -10316,19 +8770,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "竹料",
@@ -10336,19 +8783,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "钟落潭",
@@ -10356,19 +8796,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "马沥",
@@ -10376,19 +8809,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "新和",
@@ -10396,19 +8822,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "太平",
@@ -10416,19 +8835,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "神岗",
@@ -10436,19 +8848,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "赤草",
@@ -10456,19 +8861,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "从化客运站",
@@ -10476,19 +8874,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "东风",
@@ -10496,19 +8887,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
@@ -10529,11 +8913,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#203082",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#203082", borderWidth: 3 },
       },
     },
     stations: [
@@ -10543,19 +8923,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "天河公园",
@@ -10563,19 +8936,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "棠东",
@@ -10583,19 +8949,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "黄村",
@@ -10603,19 +8962,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大观南路",
@@ -10623,19 +8975,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "天河智慧城",
@@ -10643,19 +8988,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "神舟路",
@@ -10663,19 +9001,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "科学城",
@@ -10683,19 +9014,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "苏元",
@@ -10703,19 +9027,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "水西",
@@ -10723,19 +9040,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "长平",
@@ -10743,19 +9053,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "金坑",
@@ -10763,19 +9066,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "镇龙西",
@@ -10783,19 +9079,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "镇龙",
@@ -10803,19 +9092,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "中新",
@@ -10823,19 +9105,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "坑贝",
@@ -10843,19 +9118,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "凤岗",
@@ -10863,19 +9131,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "朱村",
@@ -10883,19 +9144,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "山田",
@@ -10903,19 +9157,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "钟岗",
@@ -10923,19 +9170,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "增城广场",
@@ -10943,27 +9183,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#203082",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#203082", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "广佛线",
-    tooltip: {
-      formatter: "{b}:广佛线<br />",
-    },
+    tooltip: { formatter: "{b}:广佛线<br />" },
     symbolSize: 0.1,
     value: [447, -1934],
     fixed: true,
@@ -10976,11 +9207,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#c9e887",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 3 },
       },
     },
     stations: [
@@ -10990,19 +9217,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "南洲",
@@ -11010,19 +9230,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "石溪",
@@ -11030,19 +9243,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "燕岗",
@@ -11050,19 +9256,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "沙园",
@@ -11070,19 +9269,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "沙涌",
@@ -11090,19 +9282,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "鹤洞",
@@ -11110,19 +9295,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "西塱",
@@ -11130,19 +9308,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "菊树",
@@ -11150,19 +9321,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "龙溪",
@@ -11170,19 +9334,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "金融高新区",
@@ -11190,19 +9347,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "千灯湖",
@@ -11210,19 +9360,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "礌岗",
@@ -11230,19 +9373,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "南桂路",
@@ -11250,19 +9386,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "桂城",
@@ -11270,19 +9399,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "朝安",
@@ -11290,19 +9412,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "普君北路",
@@ -11310,19 +9425,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "祖庙",
@@ -11330,19 +9438,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "同济路",
@@ -11350,19 +9451,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "季华园",
@@ -11370,19 +9464,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "魁奇路",
@@ -11390,19 +9477,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "澜石",
@@ -11410,19 +9490,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "世纪莲",
@@ -11430,19 +9503,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "东平",
@@ -11450,19 +9516,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "新城东",
@@ -11470,27 +9529,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#c9e887",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#c9e887", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "apm线",
-    tooltip: {
-      formatter: "{b}:apm线<br />",
-    },
+    tooltip: { formatter: "{b}:apm线<br />" },
     symbolSize: 0.1,
     value: [1127, -951],
     fixed: true,
@@ -11503,11 +9553,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#00a1cb",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 3 },
       },
     },
     stations: [
@@ -11517,19 +9563,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00a1cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "体育中心南",
@@ -11537,19 +9576,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00a1cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "天河南",
@@ -11557,19 +9589,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00a1cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "黄埔大道",
@@ -11577,19 +9602,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00a1cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "妇儿中心",
@@ -11597,19 +9615,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00a1cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "花城大道",
@@ -11617,19 +9628,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00a1cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "大剧院",
@@ -11637,19 +9641,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00a1cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "海心沙",
@@ -11657,19 +9654,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00a1cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "广州塔",
@@ -11677,27 +9667,18 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#00a1cb",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#00a1cb", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
   {
     name: "地铁14号线支线",
-    tooltip: {
-      formatter: "{b}:地铁14号线支线<br />",
-    },
+    tooltip: { formatter: "{b}:地铁14号线支线<br />" },
     symbolSize: 0.1,
     value: [1625, -523],
     fixed: true,
@@ -11710,11 +9691,7 @@ export const subwaylist = [
     },
     itemStyle: {
       normal: {
-        normal: {
-          color: "#fff",
-          borderColor: "#721920",
-          borderWidth: 3,
-        },
+        normal: { color: "#fff", borderColor: "#721920", borderWidth: 3 },
       },
     },
     stations: [
@@ -11724,19 +9701,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "红卫",
@@ -11744,19 +9714,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "新南",
@@ -11764,19 +9727,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "枫下",
@@ -11784,19 +9740,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "知识城",
@@ -11804,19 +9753,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "何棠下",
@@ -11824,19 +9766,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "旺村",
@@ -11844,19 +9779,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "汤村",
@@ -11864,19 +9792,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "镇龙北",
@@ -11884,19 +9805,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
       {
         name: "镇龙",
@@ -11904,19 +9818,12 @@ export const subwaylist = [
         fixed: true,
         symbol: "circle",
         symbolSize: [10, 10],
-        label: {
-          color: "#000",
-          position: "top",
-          fontSize: 8,
-        },
+        label: { color: "#000", position: "top", fontSize: 16 },
         category: 1,
         itemStyle: {
-          normal: {
-            color: "#fff",
-            borderColor: "#721920",
-            borderWidth: 2,
-          },
+          normal: { color: "#fff", borderColor: "#721920", borderWidth: 2 },
         },
+        tooltip: { formatter: "" },
       },
     ],
   },
