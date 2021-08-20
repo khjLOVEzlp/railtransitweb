@@ -10,11 +10,18 @@ import { useEffect, useState } from "react";
 import { Header, Main } from "components/Styled";
 
 export const WorkPerson = () => {
-  const { data: lineList } = useLineList()
+  const [form] = Form.useForm()
+  const { data: lineList, isSuccess: success } = useLineList()
   const [params, setParams] = useState({
     time: "",
     subwayId: ""
   })
+
+  useEffect(() => {
+    if (success && lineList.data && lineList.data.length > 0) {
+      form.setFieldsValue({ subwayId: lineList.data[0].id })
+    }
+  }, [success])
 
   const { open } = useWorkModal()
 
@@ -64,6 +71,7 @@ export const WorkPerson = () => {
       <Header>
         <Form
           layout={"inline"}
+          form={form}
         >
           <Form.Item
             name={"subwayId"}
@@ -87,6 +95,7 @@ export const WorkPerson = () => {
 
           <Form.Item
             name={"time"}
+            initialValue={3}
           >
             <Select
               placeholder={"时间"}

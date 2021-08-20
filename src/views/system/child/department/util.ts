@@ -1,8 +1,8 @@
-import { useAuth } from "context/auth-context";
+import { useModalContext } from "context/modal-context";
 import { useDepartmentDetail } from "views/system/child/department/request";
 
 export const useDepartmentModal = () => {
-  const { visible, setVisible, editId, setEditId } = useAuth()
+  const { visible, setVisible, editId, setEditId } = useModalContext()
 
   const { data: editingDepartment, isLoading } = useDepartmentDetail(
     Number(editId)

@@ -12,11 +12,18 @@ import { Header, Main } from "components/Styled";
 import { noData } from "utils/verification";
 
 export const WorkWarn = () => {
-  const { data: lineList, isLoading: loading } = useLineList()
+  const [form] = Form.useForm()
+  const { data: lineList, isLoading: loading, isSuccess: success } = useLineList()
   const [params, setParams] = useState({
     time: "",
     subwayId: ""
   })
+
+  useEffect(() => {
+    if (success && lineList.data && lineList.data.length > 0) {
+      form.setFieldsValue({ subwayId: lineList.data[0].id })
+    }
+  }, [success])
 
   const { open } = useAlarmModal()
 
@@ -113,6 +120,7 @@ export const WorkWarn = () => {
     <>
       <Header>
         <Form
+          form={form}
           layout={"inline"}
         >
           <Form.Item
@@ -138,15 +146,16 @@ export const WorkWarn = () => {
 
           <Form.Item
             name={"time"}
+            initialValue={3}
           >
             <Select
               placeholder={"时间"}
               style={{ width: 120 }}
               onChange={timeChange}
             >
-              <Select.Option value={"1"}>本日</Select.Option>
-              <Select.Option value={"2"}>本周</Select.Option>
-              <Select.Option value={"3"}>本月</Select.Option>
+              <Select.Option value={1}>本日</Select.Option>
+              <Select.Option value={2}>本周</Select.Option>
+              <Select.Option value={3}>本月</Select.Option>
             </Select>
           </Form.Item>
         </Form>

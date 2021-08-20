@@ -1,8 +1,8 @@
-import { useAuth } from "context/auth-context";
+import { useModalContext } from "context/modal-context";
 import { useBloodDetail } from "./request";
 
 export const useAlcModal = () => {
-  const { visible, setVisible, editId, setEditId } = useAuth()
+  const { visible, setVisible, editId, setEditId } = useModalContext()
 
   const { data: editingAlc, isLoading } = useBloodDetail(
     Number(editId)

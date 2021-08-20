@@ -1,4 +1,5 @@
 import { useAuth } from "context/auth-context";
+import { useModalContext } from "context/modal-context";
 import { useLineDetail } from "./request";
 
 /*抽屉*/
@@ -30,7 +31,7 @@ export const useProjectModal = () => {
 /*地铁弹框*/
 
 export const useLineModal = () => {
-  const { visible, setVisible, editId, setEditId } = useAuth()
+  const { visible, setVisible, editId, setEditId } = useModalContext()
 
   const { data: editingLine, isLoading } = useLineDetail(
     Number(editId)

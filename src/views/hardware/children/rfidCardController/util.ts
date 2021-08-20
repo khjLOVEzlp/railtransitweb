@@ -1,8 +1,8 @@
-import { useAuth } from "context/auth-context";
+import { useModalContext } from "context/modal-context";
 import { useRfiDetail } from "./request";
 
 export const useRfiModal = () => {
-  const { visible, setVisible, editId, setEditId } = useAuth()
+  const { visible, setVisible, editId, setEditId } = useModalContext()
 
   const { data: editingRfi, isLoading } = useRfiDetail(
     Number(editId)

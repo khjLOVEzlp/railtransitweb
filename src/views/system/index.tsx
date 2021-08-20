@@ -17,6 +17,7 @@ import {
 import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { useRouteType } from "utils";
 import React from "react";
+import { ModalProvider } from "context/modal-context";
 const { Sider, Content } = Layout;
 /**
  * 用户管理<UserOutlined />
@@ -124,7 +125,9 @@ export const System = () => {
       </Sider>
       <Layout className="site-layout">
         <Content style={{ marginLeft: '1rem', display: "flex", flexDirection: "column", height: "100%" }}>
-          <Outlet />
+          <ModalProvider>
+            <Outlet />
+          </ModalProvider>
         </Content>
       </Layout>
     </Layout>

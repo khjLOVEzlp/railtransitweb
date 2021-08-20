@@ -1,8 +1,8 @@
-import { useAuth } from "context/auth-context";
+import { useModalContext } from "context/modal-context";
 import { usePlaDetail } from "./request";
 
 export const usePlaModal = () => {
-  const { visible, setVisible, editId, setEditId } = useAuth()
+  const { visible, setVisible, editId, setEditId } = useModalContext()
 
   const { data: editingPla, isLoading } = usePlaDetail(
     Number(editId)

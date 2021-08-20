@@ -37,7 +37,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingSep?.data, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingSep?.data, ...value, id: editId, isUse: 1 }).then((res) => {
       form.resetFields()
       closeModal()
       msg()
@@ -116,7 +116,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
               <Input type={"number"} />
             </Form.Item>
 
-            <Form.Item
+            {/* <Form.Item
               label="是否使用"
               name="isUse"
               initialValue={"1"}
@@ -125,7 +125,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 <Radio value={"1"}>否</Radio>
                 <Radio value={"0"}>是</Radio>
               </Radio.Group>
-            </Form.Item>
+            </Form.Item> */}
           </Form>
         )
       }

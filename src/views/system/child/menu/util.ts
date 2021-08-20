@@ -1,8 +1,8 @@
-import { useAuth } from "context/auth-context";
+import { useModalContext } from "context/modal-context";
 import { useMenuDetail } from "./request";
 
 export const useMenuModal = () => {
-  const { visible, setVisible, editId, setEditId } = useAuth()
+  const { visible, setVisible, editId, setEditId } = useModalContext()
 
   const { data: editingMenu, isLoading } = useMenuDetail(
     Number(editId)

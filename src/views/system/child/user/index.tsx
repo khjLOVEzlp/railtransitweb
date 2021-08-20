@@ -116,12 +116,12 @@ export const User = () => {
                 key: 'id',
                 ellipsis: true
               },
-              {
+              /* {
                 title: "登陆日期",
                 dataIndex: 'loginDate',
                 key: 'id',
                 ellipsis: true
-              },
+              }, */
               {
                 title: "创建时间",
                 dataIndex: 'createTime',

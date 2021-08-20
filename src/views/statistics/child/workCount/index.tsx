@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Button, Table, Radio, Select, DatePicker } from 'antd';
 import { useDay, useLineList, useMonth } from './request';
 import locale from 'antd/es/date-picker/locale/zh_CN';
@@ -6,6 +6,7 @@ import qs from "qs";
 import { useAuth } from "context/auth-context";
 import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
+import moment from 'moment';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const { Option } = Select
@@ -18,11 +19,19 @@ export const WorkCount = () => {
     date: ""
   })
 
+  const { data: lineList, isSuccess } = useLineList()
+
+
+  useEffect(() => {
+    if (isSuccess && lineList.data && lineList.data.length > 0) {
+      form.setFieldsValue({ subwayId: lineList.data[0].id })
+    }
+  }, [isSuccess, value])
+
   const { user } = useAuth()
 
   const { data: dayList, isLoading: dayLoading } = useDay(params)
   const { data: monthList, isLoading: monthLoading } = useMonth(params)
-  const { data: lineList } = useLineList()
 
   const lineChange = (value: any) => {
     setParams({ ...params, subwayId: value })
@@ -80,6 +89,9 @@ export const WorkCount = () => {
     })
   }
 
+  const dateFormat = 'YYYY-MM-DD';
+  const monthFormat = 'YYYY-MM';
+
   return (
     <>
       <Header>
@@ -117,8 +129,8 @@ export const WorkCount = () => {
             name="date"
           >
             {
-              value === 0 ? <DatePicker locale={locale} onChange={birthday} /> :
-                <DatePicker locale={locale} picker="month" onChange={birthmoth} />
+              value === 0 ? <DatePicker locale={locale} onChange={birthday} defaultValue={moment(moment().format(), dateFormat)} format={dateFormat} /> :
+                <DatePicker locale={locale} picker="month" onChange={birthmoth} defaultValue={moment(moment().format(), monthFormat)} format={monthFormat} />
             }
           </Form.Item>
         </Form>
@@ -130,8 +142,8 @@ export const WorkCount = () => {
       </Header>
       <Main>
         {/* 日报 */}
-        {value === 0 ? (<div style={{ display: "flex" }}>
-          <Table style={{ flex: "1" }} columns={
+        {value === 0 ? (<div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+          <Table style={{ width: "49%" }} columns={
             [
               {
                 title: '人员',
@@ -151,8 +163,9 @@ export const WorkCount = () => {
             rowKey={(item: any, index: any) => index}
             loading={dayLoading}
             locale={noData}
+            bordered
           />
-          <Table style={{ flex: "1" }} columns={
+          <Table style={{ width: "49%" }} columns={
             [
               {
                 title: '工具',
@@ -160,11 +173,7 @@ export const WorkCount = () => {
               },
               {
                 title: '数量',
-                dataIndex: 'userNum',
-              },
-              {
-                title: '返回编号',
-                dataIndex: 'backNum',
+                dataIndex: 'useNum',
               },
             ]
           } dataSource={dayList?.data?.toolDayVoList || []}
@@ -172,11 +181,12 @@ export const WorkCount = () => {
             rowKey={(item: any, index: any) => index}
             loading={dayLoading}
             locale={noData}
+            bordered
           />
         </div>) : (
           /* 月报 */
-          <div style={{ display: "flex" }}>
-            <Table style={{ flex: "1" }} columns={
+          <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+            <Table style={{ width: "49%" }} columns={
               [
                 {
                   title: '人员',
@@ -191,7 +201,7 @@ export const WorkCount = () => {
                   dataIndex: 'offlineNum',
                 },
                 {
-                  title: '时间区别',
+                  title: '时间差额',
                   dataIndex: 'timeDifference',
                 },
 
@@ -200,9 +210,10 @@ export const WorkCount = () => {
               rowKey={(item: any, index: any) => index}
               loading={monthLoading}
               locale={noData}
+              bordered
             />
 
-            <Table style={{ flex: "1" }} columns={
+            <Table style={{ width: "49%" }} columns={
               [
                 {
                   title: '工具',
@@ -221,6 +232,7 @@ export const WorkCount = () => {
               rowKey={(item: any, index: any) => index}
               loading={monthLoading}
               locale={noData}
+              bordered
             />
           </div>
         )}

@@ -11,15 +11,21 @@ import { Header } from "components/Styled";
 import styled from "@emotion/styled";
 
 export const PersonMind = () => {
-  const { data: lineList } = useLineList()
+  const { data: lineList, isSuccess: success } = useLineList()
+  const [form] = Form.useForm()
   const { open } = useMindModal()
   const [params, setParams] = useState({
     time: "",
     subwayId: ""
   })
 
+  useEffect(() => {
+    if (success && lineList.data && lineList.data.length > 0) {
+      form.setFieldsValue({ subwayId: lineList.data[0].id })
+    }
+  }, [success])
+
   const { data: mindStatistics, isSuccess } = useMindStatistics(params)
-  console.log(mindStatistics?.data);
 
   const lineChange = (value: any) => {
     setParams({ ...params, subwayId: value })
@@ -118,6 +124,7 @@ export const PersonMind = () => {
       <Header>
         <Form
           layout={"inline"}
+          form={form}
         >
           <Form.Item
             name={"subwayId"}
@@ -141,6 +148,7 @@ export const PersonMind = () => {
 
           <Form.Item
             name={"time"}
+            initialValue={3}
           >
             <Select
               placeholder={"时间"}

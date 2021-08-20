@@ -1,4 +1,3 @@
-import * as auth from '../auth-provider'
 import { useCallback } from "react";
 import { useAuth } from "../context/auth-context";
 import { message } from "antd";
@@ -72,4 +71,3 @@ export const useHttp = () => {
     [user?.jwtToken]
   );
 };
-

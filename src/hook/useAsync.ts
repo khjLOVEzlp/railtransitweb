@@ -1,5 +1,5 @@
 import { useCallback, useReducer, useState } from "react";
-import {useMountedRef} from "./useMountedRef";
+import { useMountedRef } from "./useMountedRef";
 
 interface State<D> {
   error: Error | null;
@@ -40,7 +40,7 @@ export const useAsync = <D>(
   const safeDispatch = useSafeDispatch(dispatch);
   // useState直接传入函数的含义是：惰性初始化；所以，要用useState保存函数，不能直接传入函数
   // https://codesandbox.io/s/blissful-water-230u4?file=/src/App.js
-  const [retry, setRetry] = useState(() => () => {});
+  const [retry, setRetry] = useState(() => () => { });
 
   const setData = useCallback(
     (data: D) =>

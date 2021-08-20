@@ -132,6 +132,8 @@ export const ToolType = () => {
                 render: (item: any) => <>
                   <Button type="link" onClick={() => {
                     setName(item.name)
+                    console.log(item.id);
+
                     startTool(item.id)
                   }}>查看库存</Button>
                   <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>

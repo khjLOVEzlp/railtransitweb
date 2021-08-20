@@ -8,7 +8,7 @@ import { subwaylist } from 'views/home/child/index'
 export const useLine = () => {
   const client = useHttp()
   return useQuery(['lineAll'], async () => {
-    const data = await client(`line/listLineAndPlatform`, { method: "POST" })
+    const data = await client(`line/getIndex`, { method: "POST" })
     data.data.forEach((item: any, index: number) => {
       item["color"] = subwaylist.find((key: any) => item.name === key.name)?.label.color
     })

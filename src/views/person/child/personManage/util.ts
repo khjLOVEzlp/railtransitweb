@@ -1,8 +1,9 @@
 import { useAuth } from "context/auth-context";
+import { useModalContext } from "context/modal-context";
 import { usePersonDetail } from "./request";
 
 export const usePersonModal = () => {
-  const { visible, setVisible, editId, setEditId } = useAuth()
+  const { visible, setVisible, editId, setEditId } = useModalContext()
 
   const { data: editingPerson, isLoading, isSuccess } = usePersonDetail(
     Number(editId)

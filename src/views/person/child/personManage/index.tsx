@@ -132,6 +132,12 @@ export const PersonManage = () => {
               ellipsis: true
             },
             {
+              title: '防分离器',
+              dataIndex: 'codeNumber',
+              key: 'codeNumber',
+              ellipsis: true
+            },
+            {
               title: '归属部门',
               dataIndex: 'departmentName',
               key: 'departmentName',

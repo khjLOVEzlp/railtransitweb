@@ -20,6 +20,7 @@ import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { Button, Layout, Menu } from "antd";
 import { useRouteType } from "utils";
 import React from "react";
+import { ModalProvider } from "context/modal-context";
 const { Sider, Content } = Layout;
 
 interface Item {
@@ -105,9 +106,10 @@ export const Hardware = () => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        {/* @ */}
         <Content style={{ marginLeft: '1rem', display: "flex", flexDirection: "column", height: "100%" }}>
-          <Outlet />
+          <ModalProvider>
+            <Outlet />
+          </ModalProvider>
         </Content>
       </Layout>
     </Layout>

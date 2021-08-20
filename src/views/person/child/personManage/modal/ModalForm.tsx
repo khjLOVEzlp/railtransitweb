@@ -36,11 +36,13 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
-    form.setFieldsValue({
-      ...editingPerson?.data,
-      birthday: editingPerson?.data.birthday === null ? "" : moment(editingPerson?.data.birthday),
-      irfId: editingPerson?.data.irfId === 0 ? undefined : editingPerson?.data.irfId
-    })
+    if (editingPerson) {
+      form.setFieldsValue({
+        ...editingPerson?.data,
+        birthday: editingPerson?.data.birthday === null ? "" : moment(editingPerson?.data.birthday),
+        irfId: editingPerson?.data.irfId === 0 ? undefined : editingPerson?.data.irfId
+      })
+    }
   }, [form, editingPerson])
 
   const closeModal = () => {
@@ -62,6 +64,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
       } else {
         message.error(res.msg)
       }
+    }).catch(err => {
+      message.error(err.msg)
     })
   }
 

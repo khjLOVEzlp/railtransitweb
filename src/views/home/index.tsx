@@ -40,18 +40,20 @@ export const Home = () => {
             isSuccess ? (
               <Space style={{
                 position: "absolute",
-                right: "0.1rem",
+                right: 0,
                 bottom: "0.1rem",
-                zIndex: 1000
-              }}>
+                zIndex: 1000,
+                height: "250px",
+                overflow: "auto"
+              }} direction={"vertical"}>
                 {
                   data.data.map((item: any) => (
-                    <Card hoverable={true} style={{ borderColor: `${item.color}`, borderWidth: '0.2rem' }}>
-                      <p>线路：{item.name}</p>
-                      <p>人数：{item.personCount || "无"}</p>
-                      <p>班别数：{item.classCount || "无"}</p>
-                      <p>区间：{item.platformCount || "无"}</p>
-                      <p>仓库数：{item.warehouseCount || "无"}</p>
+                    <Card hoverable={true} style={{ borderColor: `${item.color}`, borderWidth: '0.2rem', width: 120, padding: 0 }} bodyStyle={{ padding: 10 }}>
+                      <p>{item.name}</p>
+                      <p>人数：{item.personCount || "0"}</p>
+                      <p>班别数：{item.classCount || "0"}</p>
+                      <p>站台数：{item.platformCount || "0"}</p>
+                      <p>仓库数：{item.warehouseCount || "0"}</p>
                     </Card>
                   ))
                 }
