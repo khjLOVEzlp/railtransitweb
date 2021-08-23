@@ -8,6 +8,7 @@ import {
 } from './request'
 import { useEffect, useState } from "react";
 import { Header, Main } from "components/Styled";
+import { useDebounce } from "hook/useDebounce";
 
 export const WorkPerson = () => {
   const [form] = Form.useForm()
@@ -16,6 +17,12 @@ export const WorkPerson = () => {
     time: "",
     subwayId: ""
   })
+
+  useEffect(() => {
+    if (success && lineList.data && lineList.data.length > 0) {
+      setParams({ time: "3", subwayId: lineList.data[0].id })
+    }
+  }, [])
 
   useEffect(() => {
     if (success && lineList.data && lineList.data.length > 0) {
@@ -45,7 +52,7 @@ export const WorkPerson = () => {
   const config = {
     data: isSuccess ? workStatistics?.data : noData,
     xField: 'className',
-    yField: 'classId',
+    yField: 'dutyRate',
     maxColumnWidth: 100,
     label: {
       position: 'middle',
@@ -62,7 +69,7 @@ export const WorkPerson = () => {
     },
     meta: {
       className: { alias: '班别' },
-      classId: { alias: '人数' },
+      dutyRate: { alias: '到岗率' },
     },
   };
 
@@ -95,16 +102,16 @@ export const WorkPerson = () => {
 
           <Form.Item
             name={"time"}
-            initialValue={3}
+            initialValue={"3"}
           >
             <Select
               placeholder={"时间"}
               style={{ width: 120 }}
               onChange={timeChange}
             >
-              <Select.Option value={1}>本日</Select.Option>
-              <Select.Option value={2}>本周</Select.Option>
-              <Select.Option value={3}>本月</Select.Option>
+              <Select.Option value={"1"}>本日</Select.Option>
+              <Select.Option value={"2"}>本周</Select.Option>
+              <Select.Option value={"3"}>本月</Select.Option>
             </Select>
           </Form.Item>
         </Form>
@@ -141,7 +148,7 @@ export const WorkPersonModal = ({ params }: { params: { subwayId: string, time: 
     })
   }, [params])
 
-  const { data: alarmDetail, isLoading } = useWorkStatisticsDetail(param)
+  const { data: alarmDetail, isLoading } = useWorkStatisticsDetail(useDebounce(param, 500))
 
   const columns = [
     {
@@ -153,26 +160,24 @@ export const WorkPersonModal = ({ params }: { params: { subwayId: string, time: 
       dataIndex: "personName"
     },
     {
-      title: "到岗人数",
+      title: "未到岗人数",
       dataIndex: "isWork"
     }
   ]
-  /*const handleTableChange = (p: any, filters: any, sorter: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
-  };*/
+
   return (
     <Modal
       visible={ModalOpen}
       onCancel={close}
-      title={"到岗统计"}
+      title={"未到岗统计"}
       footer={false}
       width={1600}
     >
       <Table
         columns={columns}
-        pagination={false}
         dataSource={alarmDetail?.data}
-        // pagination={{total: alarmPagination?.count, current: param.index, pageSize: param.size}}
+        // pagination={{ total: alarmDetail?.count, current: param.index, pageSize: param.size }}
+        pagination={false}
         loading={isLoading}
         // onChange={handleTableChange}
         rowKey={(item: any, index: any) => index}

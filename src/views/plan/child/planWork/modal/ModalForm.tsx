@@ -205,11 +205,11 @@ export const ModalForm = ({ param, setParam }: Props) => {
                   treeData={departmentList?.data}
                 />
               </Form.Item>
+
+              <PersonSelect label="施工负责人" name="leaderPerson" rul={true} />
             </Space>
 
             <Space style={{ display: 'flex' }}>
-              <PersonSelect label="施工负责人" name="leaderPerson" rul={true} />
-
               <Form.Item
                 label="线路"
                 name="lineId"
@@ -228,9 +228,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                     key={index}>{item.name}</Option>)}
                 </Select>
               </Form.Item>
-            </Space>
 
-            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="作业区域"
                 name="workAddr"
@@ -287,9 +285,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                     key={index}>{item.type}</Option>)}
                 </Select>
               </Form.Item>
-            </Space>
 
-            <Space style={{ display: 'flex', justifyContent: "space-between", width: "100%" }}>
               <Form.Item
                 label="开始时间"
                 name="beginTime"
@@ -304,7 +300,9 @@ export const ModalForm = ({ param, setParam }: Props) => {
                   placeholder="开始时间"
                 />
               </Form.Item>
+            </Space>
 
+            <Space style={{ display: "flex" }}>
               <Form.Item
                 label="结束时间"
                 name="endTime"
@@ -319,9 +317,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                   placeholder="结束时间"
                 />
               </Form.Item>
-            </Space>
 
-            <Space style={{ display: "flex" }}>
               <Form.Item
                 label="提醒时间"
                 name="warnTime"
@@ -352,24 +348,23 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 label="是否自动提醒"
                 name="isWarn"
               >
-                <Radio.Group onChange={radioChange} value={value}>
-                  <Radio value={1}>是</Radio>
-                  <Radio value={2}>否</Radio>
-                </Radio.Group>
+                <Select>
+                  <Select.Option value={1}>是</Select.Option>
+                  <Select.Option value={2}>否</Select.Option>
+                </Select>
               </Form.Item>
 
               <Form.Item
                 label="文档"
                 name="documentList"
+                style={{ width: "100%" }}
               >
                 {/* @ts-ignore */}
                 <Upload {...props} style={{ width: "100%" }}>
                   <Button style={{ width: "100%" }} icon={<UploadOutlined />}>上传</Button>
                 </Upload>
               </Form.Item>
-            </Space>
 
-            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="作业人数"
                 name="workPerson"
@@ -377,16 +372,16 @@ export const ModalForm = ({ param, setParam }: Props) => {
               >
                 <Input />
               </Form.Item>
+            </Space>
 
+            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="作业内容"
                 name="workContent"
               >
                 <Input />
               </Form.Item>
-            </Space>
 
-            <Space style={{ display: 'flex' }}>
               <Form.Item
                 label="计划令号"
                 name="num"
@@ -395,23 +390,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
               </Form.Item>
 
               <PersonSelect label="防疫专员" name="preventionPerson" />
-
-              {/* <Form.Item
-                label="作业人员"
-                name="personList"
-              >
-                <Select
-                  style={{ width: "100%" }}
-                  allowClear mode="multiple"
-                  showSearch
-                  filterOption={(input, option: any) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                  }
-                >
-                  {personList?.data.map((item: any, index: number) => <Option value={item.id}
-                    key={index}>{item.name}</Option>)}
-                </Select>
-              </Form.Item> */}
             </Space>
 
             <Form.Item name="groupList">
@@ -425,6 +403,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                       <div></div>
                       <div>
                         {/* <Button>修改</Button> */}
+                        <Button style={{ marginLeft: "1rem" }} >修改</Button>
                         <Button style={{ marginLeft: "1rem" }} onClick={() => deleteGroup(index)}>删除</Button>
                       </div>
                     </div>
@@ -448,15 +427,17 @@ export const ModalForm = ({ param, setParam }: Props) => {
               </Form.Item>
 
               <PersonSelect label="安全员" name="safePerson" />
-            </Space>
 
-            <Space style={{ display: "flex" }}>
               <Form.Item
                 label="安全员职责"
                 name="safeDuty"
               >
                 <Input />
               </Form.Item>
+            </Space>
+
+            <Space style={{ display: "flex" }}>
+
 
               <Form.Item
                 label="防疫专员职责"
@@ -464,9 +445,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
               >
                 <Input />
               </Form.Item>
-            </Space>
 
-            <Space style={{ display: "flex" }}>
               <Form.Item
                 label="备注"
                 name="remark"

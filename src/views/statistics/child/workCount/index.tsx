@@ -21,7 +21,6 @@ export const WorkCount = () => {
 
   const { data: lineList, isSuccess } = useLineList()
 
-
   useEffect(() => {
     if (isSuccess && lineList.data && lineList.data.length > 0) {
       form.setFieldsValue({ subwayId: lineList.data[0].id })

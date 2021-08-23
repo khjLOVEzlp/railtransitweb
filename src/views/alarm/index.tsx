@@ -33,7 +33,6 @@ export const Alarm = () => {
   }
 
   const navClick = (id: string) => {
-    console.log(id);
     setPagination({ ...pagination, state: id, time })
   }
 

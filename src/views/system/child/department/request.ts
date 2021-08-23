@@ -40,7 +40,7 @@ const fuc1 = (data: any) => {
 export const useInitDepartment = () => {
   const client = useHttp()
   return useQuery<department>(['department'], async () => {
-    const data = await client(`department/getDepartmentAndPerson`)
+    const data = await client(`department/getDepartment`)
     fuc1(data.data)
     return data
   }

@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Spin } from "antd";
+import { Button, Form, Input, message, Modal, Radio, Spin } from "antd";
 import { rules } from "utils/verification";
 import { useMaterialModal } from '../util'
 import { useAdd, useMod } from '../request'
@@ -8,7 +8,8 @@ type Props = {
   param: {
     index: number
     size: number
-    name: string
+    name: string,
+    type: string
   }
   setParam: (param: Props["param"]) => void
 }
@@ -17,6 +18,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingMaterial, editId } = useMaterialModal()
   const title = editingMaterial ? "修改" : "新增"
+  const name = param.type === "1" ? "工具名称" : "物料名称"
   const msg = editingMaterial ? () => {
     message.success("修改成功")
   } : () => {
@@ -36,7 +38,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingMaterial?.data, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingMaterial?.data, ...value, id: editId, type: param.type }).then((res) => {
       if (res.code === 200) {
         form.resetFields()
         closeModal()
@@ -74,7 +76,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
             layout={"vertical"}
           >
             <Form.Item
-              label="物资类型名称"
+              label={name}
               name="name"
               rules={rules}
             >

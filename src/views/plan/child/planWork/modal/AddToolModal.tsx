@@ -13,7 +13,7 @@ const { TabPane } = Tabs;
 
 /* 添加小组成员 */
 
-const PersonLIst = () => {
+const PersonLIst = ({ setState }: any) => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -34,6 +34,7 @@ const PersonLIst = () => {
       setPersonList(list)
       sessionStorage.setItem("personList", JSON.stringify(personList))
       setLoading(false)
+      setState("3")
     }, 1000)
   }
 
@@ -133,8 +134,10 @@ const EditableCell: React.FC<any> = ({
 
   useEffect(() => {
     if (editing) {
+      console.log(inputRef.current);
       inputRef.current!.focus();
     }
+
   }, [editing]);
 
   const toggleEdit = () => {
@@ -145,7 +148,6 @@ const EditableCell: React.FC<any> = ({
   const save = async () => {
     try {
       const values = await form.validateFields();
-
       toggleEdit();
       handleSave({ ...record, ...values });
     } catch (errInfo) {
@@ -163,11 +165,12 @@ const EditableCell: React.FC<any> = ({
         rules={[
           {
             required: true,
-            message: `${title} is required.`,
+            message: `${title} 必填`,
+
           },
         ]}
       >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+        <Input type={"number"} ref={inputRef} onPressEnter={save} onBlur={save} />
       </Form.Item>
     ) : (
       <div className="editable-cell-value-wrap" style={{ paddingRight: 24 }} onClick={toggleEdit}>
@@ -179,7 +182,7 @@ const EditableCell: React.FC<any> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-const Tool = () => {
+const Tool = ({ setState }: any) => {
   const columns = [
     {
       title: "物料",
@@ -196,7 +199,8 @@ const Tool = () => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
-    name: ""
+    name: "",
+    type: 1
   })
 
   const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
@@ -209,7 +213,7 @@ const Tool = () => {
   const start = () => {
     const list = groupToolList
     list.forEach((key: any) => {
-      key["a"] = true
+      key["groupToolList"] = true
     })
     setLoading(true)
     setTimeout(() => {
@@ -217,14 +221,17 @@ const Tool = () => {
       setGroupToolList(list)
       sessionStorage.setItem("groupToolList", JSON.stringify(groupToolList))
       setLoading(false)
+      setState("4")
     }, 1000)
   }
 
   const onSelectChange = (keys: any, value: any) => {
     value.forEach((key: any) => {
-      key["personId"] = key["id"]
+      key["num"] = key["count"]
+      key["toolId"] = key["id"]
     })
     setGroupToolList(value)
+
     setSelectedRowKeys(keys);
   };
 
@@ -234,7 +241,7 @@ const Tool = () => {
     selectedRowKeys,
     onChange: onSelectChange,
     getCheckboxProps: (record: any) => ({
-      disabled: record.a === true,
+      disabled: record.groupToolList === true || record.count === 0,
     })
   }
 
@@ -326,7 +333,7 @@ const Tool = () => {
 
 /* 添加物料 */
 
-const Mater = () => {
+const Mater = ({ setState }: any) => {
   const columns = [
     {
       title: "物料",
@@ -343,7 +350,8 @@ const Mater = () => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
-    name: ""
+    name: "",
+    type: 2
   })
 
   const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
@@ -356,7 +364,7 @@ const Mater = () => {
   const start = () => {
     const list = groupMaterialList
     list.forEach((key: any) => {
-      key["a"] = true
+      key["groupMaterialList"] = true
     })
     setLoading(true)
     setTimeout(() => {
@@ -364,12 +372,14 @@ const Mater = () => {
       setGroupMaterialList(list)
       sessionStorage.setItem("groupMaterialList", JSON.stringify(groupMaterialList))
       setLoading(false)
+      setState("1")
     }, 1000)
   }
 
   const onSelectChange = (keys: any, value: any) => {
     value.forEach((key: any) => {
-      key["personId"] = key["id"]
+      key["num"] = key["count"]
+      key["materialId"] = key["id"]
     })
     setGroupMaterialList(value)
     setSelectedRowKeys(keys);
@@ -381,7 +391,7 @@ const Mater = () => {
     selectedRowKeys,
     onChange: onSelectChange,
     getCheckboxProps: (record: any) => ({
-      disabled: record.a === true,
+      disabled: record.groupMaterialList === true || record.count === 0,
     })
   }
 
@@ -524,14 +534,14 @@ export const AddToolModal = () => {
       <Tabs activeKey={state} onChange={onChange}>
 
         <TabPane tab="作业组员" key="2">
-          <PersonLIst />
+          <PersonLIst setState={setState} />
         </TabPane>
         <TabPane tab="作业工具" key="3">
-          <Tool />
+          <Tool setState={setState} />
           {/* <EditableTable /> */}
         </TabPane>
         <TabPane tab="作业物料" key="4">
-          <Mater />
+          <Mater setState={setState} />
         </TabPane>
 
         <TabPane tab="人物详情" key="1">
@@ -548,7 +558,7 @@ export const AddToolModal = () => {
                 name={"groupName"}
                 style={{ flex: 1, padding: "0 1rem" }}
               >
-                <Input onChange={(evt) => setParam({ ...param, groupName: evt.target.value })} />
+                <Input placeholder={"请输入小组名称"} onChange={(evt) => setParam({ ...param, groupName: evt.target.value })} />
               </Form.Item>
 
               <Form.Item
@@ -559,6 +569,7 @@ export const AddToolModal = () => {
                 <Select
                   style={{ width: "100%" }}
                   showSearch
+                  placeholder={"请选择小组组长"}
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
@@ -575,7 +586,7 @@ export const AddToolModal = () => {
                 name={"remark"}
                 style={{ flex: 1, padding: "0 1rem" }}
               >
-                <TextArea rows={1} />
+                <TextArea placeholder={"请填写备注"} rows={1} />
               </Form.Item>
             </Form>
 

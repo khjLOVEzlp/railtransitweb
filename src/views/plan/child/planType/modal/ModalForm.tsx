@@ -32,7 +32,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
   const useMutateProject = editingPlanType ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
-  const { data: material } = useMaterialType()
+  const { data: tool } = useMaterialType(1)
+  const { data: material } = useMaterialType(2)
 
   useEffect(() => {
     form.setFieldsValue(editingPlanType?.data)
@@ -153,7 +154,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                           onChange={materialListChange}
                         >
                           {
-                            material?.data.map((item: any) => <Option value={item.id}
+                            tool?.data.map((item: any) => <Option value={item.id}
                               key={item.id}>{item.name}</Option>)
                           }
                         </Select>

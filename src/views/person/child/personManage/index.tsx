@@ -13,6 +13,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export const PersonManage = () => {
   const { user } = useAuth()
+  const [detail, setDetail] = useState<any>(undefined)
   const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -171,7 +172,10 @@ export const PersonManage = () => {
               title: '操作',
               key: 'id',
               ellipsis: true,
-              render: (item) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+              render: (item) => <><Button type="link" onClick={() => {
+                setDetail(item)
+                startEdit(item.id)
+              }}>修改</Button>
                 <Popconfirm
                   title={`是否要删除${item.name}`}
                   onConfirm={() => confirm(item.id)}
@@ -191,7 +195,7 @@ export const PersonManage = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm param={param} setParam={setParam} />
+      <ModalForm param={param} setParam={setParam} detail={detail} />
       <ImportModal />
     </>
   );

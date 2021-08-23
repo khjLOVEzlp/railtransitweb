@@ -21,13 +21,23 @@ export const WorkWarn = () => {
 
   useEffect(() => {
     if (success && lineList.data && lineList.data.length > 0) {
+      setParams({ time: "3", subwayId: lineList.data[0].id })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (success && lineList.data && lineList.data.length > 0) {
       form.setFieldsValue({ subwayId: lineList.data[0].id })
+      setParams({ time: "3", subwayId: lineList.data[0].id })
     }
   }, [success])
 
   const { open } = useAlarmModal()
 
   const { data: alarmStatistics, isSuccess } = useAlarmStatistics(params)
+
+  console.log(alarmStatistics);
+
 
   const lineChange = (value: string) => {
     setParams({ ...params, subwayId: String(value) })
@@ -89,7 +99,7 @@ export const WorkWarn = () => {
   ]
 
   const config = {
-    data: isSuccess ? alarmStatistics?.data : noData,
+    data: isSuccess && alarmStatistics?.data.length > 0 ? alarmStatistics?.data : noData,
     xField: 'name',
     yField: 'num',
     maxColumnWidth: 100,
@@ -146,16 +156,16 @@ export const WorkWarn = () => {
 
           <Form.Item
             name={"time"}
-            initialValue={3}
+            initialValue={"3"}
           >
             <Select
               placeholder={"时间"}
               style={{ width: 120 }}
               onChange={timeChange}
             >
-              <Select.Option value={1}>本日</Select.Option>
-              <Select.Option value={2}>本周</Select.Option>
-              <Select.Option value={3}>本月</Select.Option>
+              <Select.Option value={"1"}>本日</Select.Option>
+              <Select.Option value={"2"}>本周</Select.Option>
+              <Select.Option value={"3"}>本月</Select.Option>
             </Select>
           </Form.Item>
         </Form>
@@ -218,6 +228,7 @@ export const AlarmModal = ({ params }: { params: { subwayId: string, time: strin
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize })
   };
+
   return (
     <Modal
       visible={ModalOpen}

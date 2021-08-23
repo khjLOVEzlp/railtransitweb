@@ -4,10 +4,10 @@ import { cleanObject } from 'utils/index'
 import { useHttp } from 'utils/http'
 
 /* 查询所有 */
-export const useMaterialType = () => {
+export const useMaterialType = (type: number) => {
   const client = useHttp()
-  return useQuery(['materialType'], async () => {
-    const data = await client(`materialType/getAll`, { method: "POST" })
+  return useQuery(['materialType', type], async () => {
+    const data = await client(`materialType/getAll?type=${type}`, { method: "POST" })
     data.data.forEach((key: any, index: number) => {
       key["key"] = index + 1
     })

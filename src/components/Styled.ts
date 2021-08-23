@@ -22,7 +22,7 @@ export const Main = styled.div`
   flex: 8;
   background: #fff;
   border-radius: 1rem;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
   overflow-y: auto;
   height: 100%;
 `

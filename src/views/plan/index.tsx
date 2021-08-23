@@ -82,7 +82,7 @@ export const Plan = () => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Content style={{ marginLeft: '1rem', display: "flex", flexDirection: "column", height: "100%" }}>
+        <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <PlanContext.Provider value={{ groupList, setGroupList, visible, setVisible, editId, setEditId }}>
             <Outlet />
           </PlanContext.Provider>

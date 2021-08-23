@@ -7,6 +7,7 @@ import { useToolTypeModal, useViewTool } from './util'
 import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
 import { createContext, useState, useContext } from 'react';
+import { useQueryClient } from 'react-query';
 
 const { Option } = Select;
 
@@ -31,6 +32,7 @@ export const ToolType = () => {
   const { startEdit: startTool } = useViewTool()
   const { data, isLoading, isSuccess } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
+  const queryClient = useQueryClient()
 
   const search = (item: any) => {
     setParam({ ...param, name: item.name, type: item.type, index: 1 })
@@ -132,17 +134,16 @@ export const ToolType = () => {
                 render: (item: any) => <>
                   <Button type="link" onClick={() => {
                     setName(item.name)
-                    console.log(item.id);
-
                     startTool(item.id)
+                    queryClient.invalidateQueries('viewToolDetail')
                   }}>查看库存</Button>
                   <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                   <Popconfirm
                     title={`是否要删除${item.name}`}
                     onConfirm={() => confirm(item)}
                     onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
+                    okText="是"
+                    cancelText="否"
                   >
                     <Button type="link">删除</Button>
                   </Popconfirm></>
@@ -156,8 +157,13 @@ export const ToolType = () => {
           />
         )}
       </Main>
-      <ModalForm param={param} setParam={setParam} />
-      <Tool name={name} />
+      <ModalForm
+        param={param}
+        setParam={setParam}
+      />
+      <Tool
+        name={name}
+      />
     </ToolTypeContext.Provider>
   );
 };

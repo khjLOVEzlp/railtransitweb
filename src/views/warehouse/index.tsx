@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import { createContext, useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useDocumentTitle } from "../../hook/useDocumentTitle";
+import { useDocumentTitle } from "hook/useDocumentTitle";
 import { Button, Layout, Menu } from 'antd';
 import {
   DatabaseOutlined,
@@ -42,7 +42,7 @@ export const Warehouse = () => {
         item["icon"] = DatabaseOutlined
         break;
 
-      case "工具类型":
+      case "物资类型":
         item["icon"] = ToolOutlined
         break;
 
@@ -88,7 +88,7 @@ export const Warehouse = () => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Content style={{ marginLeft: '1rem', display: "flex", flexDirection: "column", height: "100%" }}>
+        <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <WareHouseContext.Provider value={{ drawerId, setDrawerId, editId, setEditId }}>
             <Outlet />
           </WareHouseContext.Provider>

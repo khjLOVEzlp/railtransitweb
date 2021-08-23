@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, DatePicker, Form, Input, message, Modal, Radio, Select, Spin, TreeSelect, Upload } from "antd";
+import { Button, DatePicker, Form, Input, message, Modal, Radio, Select, Space, Spin, TreeSelect, Upload } from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { rules } from "utils/verification";
 import { usePersonModal, useImportModal } from '../util'
@@ -10,7 +10,7 @@ import { useInit } from 'views/system/child/department/request'
 import moment from "moment";
 import { useGetNotUseList } from "views/hardware/children/seperateController/request";
 import { useQueryClient } from "react-query";
-
+const { TextArea } = Input;
 const apiUrl = process.env.REACT_APP_API_URL;
 
 type Props = {
@@ -20,9 +20,10 @@ type Props = {
     name: string
   }
   setParam: (param: Props["param"]) => void
+  detail: any
 }
 
-export const ModalForm = ({ param, setParam }: Props) => {
+export const ModalForm = ({ param, setParam, detail }: Props) => {
   const [form] = Form.useForm();
   const { ModalOpen, editId, editingPerson, isLoading, close } = usePersonModal()
   const title = editingPerson ? "修改" : "新增"
@@ -34,6 +35,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
   const useMutateProject = editingPerson ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
+  const { data: seperate } = useGetNotUseList()
 
   useEffect(() => {
     if (editingPerson) {
@@ -70,7 +72,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const { data: departmentList } = useInit()
-  const { data: seperate } = useGetNotUseList()
 
   const onChange = (value: any) => {
     form.setFieldsValue({ departmentId: value })
@@ -106,121 +107,128 @@ export const ModalForm = ({ param, setParam }: Props) => {
             labelAlign="right"
             layout={"vertical"}
           >
-            <Form.Item
-              label="姓名"
-              name="name"
-              rules={rules}
-            >
-              <Input />
-            </Form.Item>
+            <Space style={{ width: "100%" }}>
+              <Form.Item
+                label="姓名"
+                name="name"
+                rules={rules}
+              >
+                <Input />
+              </Form.Item>
 
-            <Form.Item
-              label="性别"
-              name="sex"
-              rules={rules}
-            >
-              <Radio.Group>
-                <Radio value={0}>男</Radio>
-                <Radio value={1}>女</Radio>
-              </Radio.Group>
-            </Form.Item>
+              <Form.Item
+                label="身份证号"
+                name="identityCard"
+                rules={[
+                  {
+                    required: true, message: "请输入身份证号"
+                  },
+                  {
+                    pattern: new RegExp(/(^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$)|(^\d{6}(18|19|20)\d{2}(0[1-9]|10|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$)/),
+                    message: "请输入正确的身份证"
+                  }
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </Space>
 
-            <Form.Item
-              label="身份证号"
-              name="identityCard"
-              rules={[
-                {
-                  required: true, message: "请输入身份证号"
-                },
-                {
-                  pattern: new RegExp(/(^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$)|(^\d{6}(18|19|20)\d{2}(0[1-9]|10|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$)/),
-                  message: "请输入正确的身份证"
-                }
-              ]}
-            >
-              <Input />
-            </Form.Item>
+            <Space style={{ width: "100%" }}>
+              <Form.Item
+                label="性别"
+                name="sex"
+                rules={rules}
+              >
+                <Select>
+                  <Select.Option value={0}>男</Select.Option>
+                  <Select.Option value={1}>女</Select.Option>
+                </Select>
+              </Form.Item>
 
-            <Form.Item
-              label="联系方式"
-              name="phone"
-              rules={[
-                {
-                  required: true, message: "请输入联系方式"
-                },
-                {
-                  pattern: new RegExp(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/),
-                  message: "请输入正确的联系方式"
-                }
-              ]}
-            >
-              <Input />
-            </Form.Item>
+              <Form.Item
+                label="出生日期"
+                name="birthday"
+              >
+                <DatePicker
+                  disabledDate={disabledDate}
+                  locale={locale}
+                  style={{ width: "100%" }}
+                />
+              </Form.Item>
+            </Space>
 
-            <Form.Item
-              label="员工卡号"
-              name="number"
-              rules={rules}
-            >
-              {/*<Select
-                showSearch
-                filterOption={(input, option: any) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }>
-                {data?.data.map((item: any) => <Option value={item.rfid} key={item.id}>{item.rfid}</Option>)}
-              </Select>*/}
-              <Input />
-            </Form.Item>
+            <Space style={{ width: "100%" }}>
+              <Form.Item
+                label="联系方式"
+                name="phone"
+                rules={[
+                  {
+                    required: true, message: "请输入联系方式"
+                  },
+                  {
+                    pattern: new RegExp(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/),
+                    message: "请输入正确的联系方式"
+                  }
+                ]}
+              >
+                <Input />
+              </Form.Item>
 
-            <Form.Item
-              label="归属部门"
-              name="departmentId"
-              rules={rules}
-            >
-              <TreeSelect
-                getPopupContainer={triggerNode => triggerNode.parentElement}
-                style={{ width: '100%' }}
-                treeData={departmentList?.data}
-                treeDefaultExpandAll
-                onChange={onChange}
-              />
-            </Form.Item>
+              <Form.Item
+                label="员工卡号"
+                name="number"
+                rules={rules}
+              >
+                <Input />
+              </Form.Item>
+            </Space>
 
-            <Form.Item
-              label="防分离器"
-              name="irfId"
-            >
-              <Select
-                showSearch
-                allowClear
-                getPopupContainer={triggerNode => triggerNode.parentElement}
-                filterOption={(input, option: any) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }>
-                {seperate?.data.map((item: any) => <Select.Option value={item.id} key={item.id}>{item.codeNumber}</Select.Option>)}
-              </Select>
-            </Form.Item>
+            <Space style={{ width: "100%" }}>
+              <Form.Item
+                label="归属部门"
+                name="departmentId"
+                rules={rules}
+              >
+                <TreeSelect
+                  getPopupContainer={triggerNode => triggerNode.parentElement}
+                  style={{ width: '100%' }}
+                  treeData={departmentList?.data}
+                  treeDefaultExpandAll
+                  onChange={onChange}
+                />
+              </Form.Item>
 
-            <Form.Item
-              label="出生日期"
-              name="birthday"
-            >
-              <DatePicker disabledDate={disabledDate} locale={locale} />
-            </Form.Item>
+              <Form.Item
+                label="防分离器"
+                name="irfId"
+              >
+                <Select
+                  showSearch
+                  allowClear
+                  getPopupContainer={triggerNode => triggerNode.parentElement}
+                  filterOption={(input, option: any) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }>
+                  {seperate?.data.map((item: any) => <Select.Option value={item.id} key={item.id}>{item.codeNumber}</Select.Option>)}
+                </Select>
+              </Form.Item>
+            </Space>
 
-            <Form.Item
-              label="家庭住址"
-              name="address"
-            >
-              <Input />
-            </Form.Item>
+            <Space style={{ width: "100%" }}>
+              <Form.Item
+                label="家庭住址"
+                name="address"
+              >
+                <Input />
+              </Form.Item>
 
-            <Form.Item
-              label="备注"
-              name="remark"
-            >
-              <Input />
-            </Form.Item>
+              <Form.Item
+                label="备注"
+                name="remark"
+              >
+                <TextArea rows={1} />
+              </Form.Item>
+            </Space>
           </Form>
         )
       }

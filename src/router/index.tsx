@@ -41,7 +41,7 @@ import { Log } from "views/system/child/log";
 import { Department } from "views/system/child/department";
 /*数据字典*/
 import { DataDictionary } from "views/system/child/dataDictionary";
-/*工具类型*/
+/*物资类型*/
 import { MaterialType } from "views/warehouse/child/materialType";
 /*仓库管理*/
 import { ToolType } from "views/warehouse/child/toolType";

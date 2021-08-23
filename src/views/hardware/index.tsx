@@ -32,7 +32,7 @@ export const Hardware = () => {
   const routeType = useRouteType();
   const menu = JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "设备管理").childMenu
   const [collapsed, setCollapsed] = useState(false)
-  useDocumentTitle("系统管理")
+  useDocumentTitle("设备管理")
   menu.forEach((item: any) => {
     const name = item.name
     switch (name) {
@@ -106,7 +106,7 @@ export const Hardware = () => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Content style={{ marginLeft: '1rem', display: "flex", flexDirection: "column", height: "100%" }}>
+        <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <ModalProvider>
             <Outlet />
           </ModalProvider>

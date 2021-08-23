@@ -173,26 +173,36 @@ export const PersonMind = () => {
             });
           }}
         /> */}
-        {/*@ts-ignore*/}
-        <Pie {...Aconfig} onReady={(plot: any) => {
-          plot.on('plot:click', (evt: any) => {
-            open(params.subwayId, params.time)
-          });
-        }} />
-        {/*@ts-ignore*/}
-        <Pie {...Bconfig} onReady={(plot: any) => {
-          plot.on('plot:click', (evt: any) => {
-            open(params.subwayId, params.time)
-          });
-        }} />
-        {/*@ts-ignore*/}
-        <Pie {...Cconfig} onReady={(plot: any) => {
-          plot.on('plot:click', (evt: any) => {
-            open(params.subwayId, params.time)
-          });
-        }} />
-        <PersonMindModal params={params} />
+
+
+        <div>
+          {/*@ts-ignore*/}
+          <Pie {...Aconfig} onReady={(plot: any) => {
+            plot.on('plot:click', (evt: any) => {
+              open(params.subwayId, params.time)
+            });
+          }} />
+        </div>
+
+        <div>
+          {/*@ts-ignore*/}
+          <Pie {...Bconfig} onReady={(plot: any) => {
+            plot.on('plot:click', (evt: any) => {
+              open(params.subwayId, params.time)
+            });
+          }} />
+        </div>
+
+        <div>
+          {/*@ts-ignore*/}
+          <Pie {...Cconfig} onReady={(plot: any) => {
+            plot.on('plot:click', (evt: any) => {
+              open(params.subwayId, params.time)
+            });
+          }} />
+        </div>
       </Main>
+      <PersonMindModal params={params} />
     </>
   )
 }
@@ -262,9 +272,10 @@ const Main = styled.div`
   flex: 8;
   background: #fff;
   border-radius: 1rem;
-  padding: 0 1.5rem;
-  overflow-y: auto;
+  padding: 0 1rem;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `

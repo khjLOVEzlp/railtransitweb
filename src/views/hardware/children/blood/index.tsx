@@ -91,8 +91,8 @@ export default () => {
                   title={`是否要删除${item.code}`}
                   onConfirm={() => confirm(item.id)}
                   onCancel={cancel}
-                  okText="Yes"
-                  cancelText="No"
+                  okText="是"
+                  cancelText="否"
                 >
                   <Button type={"link"}>删除</Button>
                 </Popconfirm></>

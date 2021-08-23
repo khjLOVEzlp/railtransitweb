@@ -52,6 +52,9 @@ export const useAlarmStatistics = (params: Partial<Search>) => {
   const client = useHttp()
   return useQuery(['AlarmStatistics', cleanObject(params)], async () => {
     const data = await client(`report/getWorkWarn?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    if (data.data === null) {
+      data.data = []
+    }
     data.data.forEach((key: any) => {
       key["name"] = getType(key["type"])
     })

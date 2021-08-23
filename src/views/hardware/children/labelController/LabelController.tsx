@@ -96,8 +96,8 @@ export const LabelController = () => {
                   title={`是否要删除${item.codeHex10}`}
                   onConfirm={() => confirm(item.id)}
                   onCancel={cancel}
-                  okText="Yes"
-                  cancelText="No"
+                  okText="是"
+                  cancelText="否"
                 >
                   <Button type={"link"}>删除</Button>
                 </Popconfirm></>

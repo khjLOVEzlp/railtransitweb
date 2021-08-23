@@ -1,4 +1,4 @@
-import { Form, Input, Button, message, Popconfirm, Table } from 'antd';
+import { Form, Input, Button, message, Popconfirm, Table, Radio } from 'antd';
 import { ModalForm } from "./modal/ModlaForm";
 import { useDel, useInit } from './request'
 import { useDebounce } from "hook/useDebounce";
@@ -11,12 +11,20 @@ export const MaterialType = () => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
-    name: ""
+    name: "",
+    type: "1"
   })
 
   const { open, startEdit } = useMaterialModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
+
+  const onChange = (e: any) => {
+    setParam({
+      ...param,
+      type: e.target.value
+    })
+  };
 
   const search = (item: any) => {
     setParam({ ...param, name: item.name, index: 1 })
@@ -43,6 +51,8 @@ export const MaterialType = () => {
     setParam({ ...param, index: p.current, size: p.pageSize })
   };
 
+  const title = param.type === "1" ? "工具名称" : "物料名称"
+
   return (
     <>
       <Header>
@@ -51,11 +61,15 @@ export const MaterialType = () => {
           onFinish={search}
           layout={"inline"}
         >
+          <Radio.Group defaultValue={"1"} onChange={onChange}>
+            <Radio value={"1"}>工具</Radio>
+            <Radio value={"2"}>物料</Radio>
+          </Radio.Group>
           <Form.Item
             label=""
             name="name"
           >
-            <Input placeholder={"物资类型名称"} value={param.name}
+            <Input placeholder={title} value={param.name}
               onChange={(evt) => setParam({ ...param, name: evt.target.value })} />
           </Form.Item>
 
@@ -83,7 +97,7 @@ export const MaterialType = () => {
         <Table columns={
           [
             {
-              title: '物资类型名称',
+              title: title,
               dataIndex: 'name',
               key: 'name',
             },
@@ -111,8 +125,8 @@ export const MaterialType = () => {
                   title={`是否要删除${item.name}`}
                   onConfirm={() => confirm?.(item)}
                   onCancel={cancel}
-                  okText="Yes"
-                  cancelText="No"
+                  okText="是"
+                  cancelText="否"
                 >
                   <Button type="link">删除</Button>
                 </Popconfirm>
