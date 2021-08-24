@@ -3,7 +3,6 @@ import * as echarts from 'echarts';
 import { useLine } from 'views/system/child/line/request'
 import { subwaylist } from './index.js'
 import { useHttp } from "utils/http"
-import { Spin } from "antd";
 
 export const Subway = () => {
   const { data: lineList, isSuccess, isLoading } = useLine()
@@ -2587,7 +2586,7 @@ export const Subway = () => {
       if (params.data.subwayId) {
         client(`linePlatform/getInfo/${params.data.subwayId}`).then(async (res) => {
           const data = await res.data
-          params.data.tooltip.formatter = `{b}<br />班别：${data[0].departmentName || "无"}<br />区间：${data[0].roadName || "无"}<br />材料数量：${data[0].count || "0"}`
+          params.data.tooltip.formatter = `{b}<br />班别：${data[0]?.departmentName || "无"}<br />区间：${data[0]?.roadName || "无"}<br />材料数量：${data[0]?.count || "0"}`
         })
       } else {
         return false

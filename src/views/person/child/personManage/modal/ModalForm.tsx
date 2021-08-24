@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Button, DatePicker, Form, Input, message, Modal, Radio, Select, Space, Spin, TreeSelect, Upload } from "antd";
+import { useEffect, useState } from "react";
+import { Button, DatePicker, Form, Input, message, Modal, Select, Space, Spin, TreeSelect, Upload } from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { rules } from "utils/verification";
 import { usePersonModal, useImportModal } from '../util'
@@ -35,7 +35,18 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
   }
   const useMutateProject = editingPerson ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
-  const { data: seperate } = useGetNotUseList()
+  const { data, isSuccess } = useGetNotUseList()
+  const [seperate, setSeperate] = useState<any>([])
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (detail?.irfId && detail?.codeNumber) {
+        setSeperate([...data.data, { id: detail?.irfId, codeNumber: detail?.codeNumber }])
+      } else {
+        setSeperate(data.data)
+      }
+    }
+  }, [isSuccess])
 
   useEffect(() => {
     if (editingPerson) {
@@ -209,7 +220,7 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }>
-                  {seperate?.data.map((item: any) => <Select.Option value={item.id} key={item.id}>{item.codeNumber}</Select.Option>)}
+                  {seperate?.map((item: any) => <Select.Option value={item.id} key={item.id}>{item.codeNumber}</Select.Option>)}
                 </Select>
               </Form.Item>
             </Space>

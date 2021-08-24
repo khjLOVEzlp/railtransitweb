@@ -3,6 +3,8 @@ import { useQuery, useMutation } from 'react-query'
 import { cleanObject } from 'utils/index'
 import { useHttp } from 'utils/http'
 import { Search } from 'utils/typings'
+import { useAuth } from "context/auth-context";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 /* 所有地铁路线 */
 export const useLineList = () => {
@@ -14,22 +16,22 @@ export const useLineList = () => {
 /*
 日报
  */
-export const useDay = (params: Partial<Search>) => {
+export const useDay = (params: Partial<Search>, value: number) => {
   const client = useHttp()
   return useQuery(['getDay', cleanObject(params)], () =>
     client(`report/getDay?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
-    enabled: Boolean(params.date) && Boolean(params.subwayId)
+    enabled: Boolean(params.date) && Boolean(params.subwayId) && value === 0
   })
 }
 
 /*
 月报
  */
-export const useMonth = (params: any) => {
+export const useMonth = (params: any, value: number) => {
   const client = useHttp()
   return useQuery(['getMonth', cleanObject(params)], () =>
     client(`report/getMonth?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
-    enabled: Boolean(params.date) && Boolean(params.subwayId)
+    enabled: Boolean(params.date) && Boolean(params.subwayId) && value === 1
   })
 }
 
@@ -37,23 +39,28 @@ export const useMonth = (params: any) => {
 下载日报
 */
 export const useDownloadDay = () => {
-  const client = useHttp()
-  return useMutation((params: any) =>
-    client(`report/downloadDay?${qs.stringify(cleanObject(params))}`, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-    }))
+  const { user } = useAuth()
+  return useMutation((params: any) => fetch(`${apiUrl}report/downloadDay?${qs.stringify(params)}`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Authorization": `${user?.jwtToken}`
+    },
+  }).then((res) => {
+    return res.blob();
+  }))
 }
 
 /*
 下载月报
 */
 export const useDownloadMonth = () => {
-  const client = useHttp()
-  return useMutation((params: any) => client(`report/downloadMonth?${qs.stringify(cleanObject(params))}`, {
+  const { user } = useAuth()
+  return useMutation((params: any) => fetch(`${apiUrl}report/downloadMonth?${qs.stringify(params)}`, {
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Authorization": `${user?.jwtToken}`
+    },
+  }).then((res) => {
+    return res.blob();
   }))
 }

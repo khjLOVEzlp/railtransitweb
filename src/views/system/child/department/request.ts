@@ -4,8 +4,8 @@ import { cleanObject } from 'utils'
 import { useHttp } from 'utils/http'
 import { department } from "types/department";
 
-/*
-查询
+/**
+ * 查询
  */
 
 const fuc = (data: any) => {
@@ -35,13 +35,13 @@ const fuc1 = (data: any) => {
 }
 
 /**
- * 查询登录人员拥有的组织机构信息及人员信息(app)
+ * 查询登录人员拥有的组织机构信息及人员信息
  *  */
 export const useInitDepartment = () => {
   const client = useHttp()
   return useQuery<department>(['department'], async () => {
     const data = await client(`department/getDepartment`)
-    fuc1(data.data)
+    fuc(data.data)
     return data
   }
   )
@@ -50,7 +50,7 @@ export const useInitDepartment = () => {
 export const useInit = (params?: any) => {
   const client = useHttp()
   return useQuery<department>(['department', cleanObject(params)], async () => {
-    const data = await client(`department/getAll?${qs.stringify(cleanObject(params))}`)
+    const data = await client(`department/getDepartment?${qs.stringify(cleanObject(params))}`)
     fuc(data.data)
     return data
   }

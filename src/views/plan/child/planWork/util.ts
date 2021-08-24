@@ -1,4 +1,5 @@
 import { useAuth } from "context/auth-context";
+import { useState } from "react";
 import { usePlanContext } from "views/plan";
 import { usePlanWorkDetail, useShare } from "./request";
 
@@ -59,14 +60,21 @@ export const useShareModal = () => {
 }
 
 export const useAddToolModal = () => {
-  const { visible, setVisible } = usePlanContext()
-
+  const { visible, setVisible, detailVisible, setDetailVisible } = usePlanContext()
   const open = () => setVisible(true)
-  const close = () => setVisible(false)
+  const close = () => {
+    setDetailVisible(false)
+    setVisible(false)
+  }
+  const startEdit = (item: any) => {
+    setDetailVisible(true)
+    sessionStorage.setItem("group", JSON.stringify(item))
+  }
 
   return {
-    ModalOpen: visible === true,
+    ModalOpen: visible === true || detailVisible === true,
     open,
     close,
+    startEdit
   };
 }

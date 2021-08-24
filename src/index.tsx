@@ -2,13 +2,13 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AppProviders } from "./context";
-import '@ant-design/pro-form/dist/form.less';
-import '@ant-design/pro-table/dist/table.less';
-import '@ant-design/pro-layout/dist/layout.less';
-
+import zhCN from 'antd/lib/locale/zh_CN';
+import { ConfigProvider } from 'antd';
 ReactDOM.render(
   <AppProviders>
-    <App />
+    <ConfigProvider locale={zhCN}>
+      <App />
+    </ConfigProvider>
   </AppProviders>,
   document.getElementById('root')
 );

@@ -49,11 +49,11 @@ export const Home = () => {
                 {
                   data.data.map((item: any) => (
                     <Card hoverable={true} style={{ borderColor: `${item.color}`, borderWidth: '0.2rem', width: 120, padding: 0 }} bodyStyle={{ padding: 10 }}>
-                      <p>{item.name}</p>
-                      <p>人数：{item.personCount || "0"}</p>
-                      <p>班别数：{item.classCount || "0"}</p>
-                      <p>站台数：{item.platformCount || "0"}</p>
-                      <p>仓库数：{item.warehouseCount || "0"}</p>
+                      <p style={{ fontSize: "12px" }}>{item.name}</p>
+                      <p style={{ fontSize: "12px" }}>人数：{item.personCount || "0"}</p>
+                      <p style={{ fontSize: "12px" }}>班别数：{item.classCount || "0"}</p>
+                      <p style={{ fontSize: "12px" }}>站台数：{item.platformCount || "0"}</p>
+                      <p style={{ fontSize: "12px" }}>仓库数：{item.warehouseCount || "0"}</p>
                     </Card>
                   ))
                 }

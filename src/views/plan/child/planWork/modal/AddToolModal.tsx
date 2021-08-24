@@ -13,7 +13,7 @@ const { TabPane } = Tabs;
 
 /* 添加小组成员 */
 
-const PersonLIst = ({ setState }: any) => {
+const PersonLIst = ({ setState, setObj, obj }: any) => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -25,14 +25,15 @@ const PersonLIst = ({ setState }: any) => {
   const [personList, setPersonList] = useState<any>([])
   const start = () => {
     const list = personList
-    list.forEach((key: any) => {
-      key["a"] = true
-    })
     setLoading(true)
     setTimeout(() => {
       setSelectedRowKeys([])
       setPersonList(list)
       sessionStorage.setItem("personList", JSON.stringify(personList))
+      setObj({
+        ...obj,
+        personList
+      })
       setLoading(false)
       setState("3")
     }, 1000)
@@ -52,7 +53,6 @@ const PersonLIst = ({ setState }: any) => {
     selectedRowKeys,
     onChange: onSelectChange,
     getCheckboxProps: (record: any) => ({
-      disabled: record.a === true,
     })
   }
 
@@ -134,7 +134,6 @@ const EditableCell: React.FC<any> = ({
 
   useEffect(() => {
     if (editing) {
-      console.log(inputRef.current);
       inputRef.current!.focus();
     }
 
@@ -165,9 +164,12 @@ const EditableCell: React.FC<any> = ({
         rules={[
           {
             required: true,
-            message: `${title} 必填`,
-
+            message: "请输入数量"
           },
+          {
+            pattern: new RegExp(/^[1-9]\d*$/),
+            message: "数量不能为负"
+          }
         ]}
       >
         <Input type={"number"} ref={inputRef} onPressEnter={save} onBlur={save} />
@@ -182,7 +184,7 @@ const EditableCell: React.FC<any> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-const Tool = ({ setState }: any) => {
+const Tool = ({ setState, setObj, obj }: any) => {
   const columns = [
     {
       title: "物料",
@@ -212,14 +214,18 @@ const Tool = ({ setState }: any) => {
   const [groupToolList, setGroupToolList] = useState<any>([])
   const start = () => {
     const list = groupToolList
-    list.forEach((key: any) => {
+    /* list.forEach((key: any) => {
       key["groupToolList"] = true
-    })
+    }) */
     setLoading(true)
     setTimeout(() => {
       setSelectedRowKeys([])
       setGroupToolList(list)
       sessionStorage.setItem("groupToolList", JSON.stringify(groupToolList))
+      setObj({
+        ...obj,
+        groupToolList
+      })
       setLoading(false)
       setState("4")
     }, 1000)
@@ -333,7 +339,7 @@ const Tool = ({ setState }: any) => {
 
 /* 添加物料 */
 
-const Mater = ({ setState }: any) => {
+const Mater = ({ setState, obj, setObj }: any) => {
   const columns = [
     {
       title: "物料",
@@ -363,14 +369,18 @@ const Mater = ({ setState }: any) => {
   const [groupMaterialList, setGroupMaterialList] = useState<any>([])
   const start = () => {
     const list = groupMaterialList
-    list.forEach((key: any) => {
+    /* list.forEach((key: any) => {
       key["groupMaterialList"] = true
-    })
+    }) */
     setLoading(true)
     setTimeout(() => {
       setSelectedRowKeys([])
       setGroupMaterialList(list)
       sessionStorage.setItem("groupMaterialList", JSON.stringify(groupMaterialList))
+      setObj({
+        ...obj,
+        groupMaterialList
+      })
       setLoading(false)
       setState("1")
     }, 1000)
@@ -487,29 +497,43 @@ export const AddToolModal = () => {
   const { data: personList } = usePersonList.useInit()
   const { ModalOpen, close } = useAddToolModal()
   const { groupList, setGroupList } = usePlanContext()
-  const [param, setParam] = useState({
+  /* const [param, setParam] = useState({
     groupName: "",
     leader: "",
     remark: ""
-  })
-  /* const handleTableChange = (p: any) => {
-    setParam({...param, index: p.current, size: p.pageSize})
-  }; */
+  }) */
 
-  const obj = {
-    groupName: param.groupName,
-    leader: param.leader,
-    remark: param.remark,
-    personList: JSON.parse(sessionStorage.getItem("personList") || "[]"),
-    groupToolList: JSON.parse(sessionStorage.getItem("groupToolList") || "[]"),
-    groupMaterialList: JSON.parse(sessionStorage.getItem("groupMaterialList") || "[]")
-  }
+  const [obj, setObj] = useState<any>({
+    groupName: "",
+    leader: "",
+    remark: "",
+    personList: [],
+    groupToolList: [],
+    groupMaterialList: []
+  })
+
+  useEffect(() => {
+    try {
+      const data = JSON.parse(sessionStorage.getItem("group") || "")
+      form.setFieldsValue(data)
+      setObj({
+        ...obj,
+        personList: data.personList,
+        groupToolList: data.groupToolList,
+        groupMaterialList: data.groupMaterialList
+      })
+    } catch (error) {
+
+    }
+  }, [ModalOpen])
 
   const closeModal = () => {
     form.resetFields()
-    sessionStorage.removeItem("personList")
+    /* sessionStorage.removeItem("personList")
     sessionStorage.removeItem("groupToolList")
-    sessionStorage.removeItem("groupMaterialList")
+    sessionStorage.removeItem("groupMaterialList") */
+    sessionStorage.removeItem("group")
+    setObj(undefined)
     close()
   }
 
@@ -518,7 +542,7 @@ export const AddToolModal = () => {
   }
 
   const submit = () => {
-    setGroupList([...groupList, obj])
+    setGroupList([obj])
     closeModal()
   }
 
@@ -532,16 +556,15 @@ export const AddToolModal = () => {
       destroyOnClose={true}
     >
       <Tabs activeKey={state} onChange={onChange}>
-
         <TabPane tab="作业组员" key="2">
-          <PersonLIst setState={setState} />
+          <PersonLIst setState={setState} setObj={setObj} obj={obj} />
         </TabPane>
         <TabPane tab="作业工具" key="3">
-          <Tool setState={setState} />
+          <Tool setState={setState} setObj={setObj} obj={obj} />
           {/* <EditableTable /> */}
         </TabPane>
         <TabPane tab="作业物料" key="4">
-          <Mater setState={setState} />
+          <Mater setState={setState} setObj={setObj} obj={obj} />
         </TabPane>
 
         <TabPane tab="人物详情" key="1">
@@ -558,7 +581,7 @@ export const AddToolModal = () => {
                 name={"groupName"}
                 style={{ flex: 1, padding: "0 1rem" }}
               >
-                <Input placeholder={"请输入小组名称"} onChange={(evt) => setParam({ ...param, groupName: evt.target.value })} />
+                <Input placeholder={"请输入小组名称"} onChange={(evt) => setObj({ ...obj, groupName: evt.target.value })} />
               </Form.Item>
 
               <Form.Item
@@ -574,7 +597,7 @@ export const AddToolModal = () => {
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
                   // @ts-ignore
-                  onChange={(value) => setParam({ ...param, leader: value })}
+                  onChange={(value) => setObj({ ...obj, leader: value })}
                 >
                   {personList?.data.map((item: any, index: number) => <Select.Option value={item.id}
                     key={index}>{item.name}</Select.Option>)}

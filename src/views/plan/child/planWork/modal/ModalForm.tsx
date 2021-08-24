@@ -6,7 +6,6 @@ import {
   Input,
   message,
   Modal,
-  Radio,
   Select,
   Space,
   Upload,
@@ -16,7 +15,7 @@ import {
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
-import { getToken } from "../../../../../auth-provider";
+import { getToken } from "auth-provider";
 import { rules } from "utils/verification";
 import { usePlanType } from "../../planType/request";
 import { useLine } from "views/system/child/line/request";
@@ -48,9 +47,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const token = getToken()
   let document: string[] = []
-  const [value, setValue] = useState()
   const [id, setId] = useState<number>(0)
-  const { open } = useAddToolModal()
+  const { open, startEdit } = useAddToolModal()
   const { ModalOpen, isLoading, close, editingPlanWork, editId } = usePlanWorkModal()
   const queryClient = useQueryClient()
   const title = editingPlanWork ? "修改" : "新增"
@@ -63,10 +61,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
 
   const useMutateProject = editingPlanWork ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
-
-  useEffect(() => {
-    console.log(groupList);
-  }, [groupList])
 
   useEffect(() => {
     if (editingPlanWork) {
@@ -119,10 +113,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { data: planTypeList } = usePlanType()
   const { data: lineLIst } = useLine()
   const { data: allList } = useSite(id)
-
-  const radioChange = (e: any) => {
-    setValue(e.target.value);
-  }
 
   /* 添加小组 */
   const addGroup = () => {
@@ -347,6 +337,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
               <Form.Item
                 label="是否自动提醒"
                 name="isWarn"
+                initialValue={2}
               >
                 <Select>
                   <Select.Option value={1}>是</Select.Option>
@@ -403,7 +394,9 @@ export const ModalForm = ({ param, setParam }: Props) => {
                       <div></div>
                       <div>
                         {/* <Button>修改</Button> */}
-                        <Button style={{ marginLeft: "1rem" }} >修改</Button>
+                        <Button style={{ marginLeft: "1rem" }} onClick={() => {
+                          startEdit(item)
+                        }}>修改</Button>
                         <Button style={{ marginLeft: "1rem" }} onClick={() => deleteGroup(index)}>删除</Button>
                       </div>
                     </div>

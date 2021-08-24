@@ -20,6 +20,8 @@ const PlanContext = createContext<{
   setGroupList: (groupList: any) => void
   visible: boolean
   setVisible: (visible: boolean) => void
+  detailVisible: boolean
+  setDetailVisible: (detailVisible: boolean) => void
   editId: number | undefined
   setEditId: (editid: number | undefined) => void
 } | undefined>(undefined)
@@ -29,6 +31,7 @@ export const Plan = () => {
   useDocumentTitle("作业计划")
   const [groupList, setGroupList] = useState<any>([])
   const [visible, setVisible] = useState<boolean>(false)
+  const [detailVisible, setDetailVisible] = useState<boolean>(false)
   const [editId, setEditId] = useState<number | undefined>(undefined)
   const routeType = useRouteType();
   const [collapsed, setCollapsed] = useState(false)
@@ -83,7 +86,7 @@ export const Plan = () => {
       </Sider>
       <Layout className="site-layout">
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
-          <PlanContext.Provider value={{ groupList, setGroupList, visible, setVisible, editId, setEditId }}>
+          <PlanContext.Provider value={{ groupList, setGroupList, visible, setVisible, editId, setEditId, detailVisible, setDetailVisible }}>
             <Outlet />
           </PlanContext.Provider>
         </Content>

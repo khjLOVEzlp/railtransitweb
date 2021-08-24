@@ -71,7 +71,7 @@ export const useToolModal = () => {
   )
 
   const close = () => setEditId(undefined)
-  const startEdit = (drawerId: number | undefined, editId: number) => {
+  const startEdit = (drawerId: number | undefined, editId: number | undefined) => {
     setDrawerId(drawerId)
     setEditId(editId)
   }

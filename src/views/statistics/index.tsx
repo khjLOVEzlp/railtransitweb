@@ -41,7 +41,7 @@ export const Statistics = () => {
   const [visible, setVisible] = useState<boolean>(false)
   const [param, setParam] = useState({
     time: "",
-    subwayId: ""
+    subwayId: "",
   })
 
   const routeType = useRouteType();

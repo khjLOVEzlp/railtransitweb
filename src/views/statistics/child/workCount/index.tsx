@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Form, Button, Table, Radio, Select, DatePicker } from 'antd';
-import { useDay, useLineList, useMonth } from './request';
+import { useDay, useLineList, useMonth, useDownloadDay, useDownloadMonth } from './request';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import qs from "qs";
-import { useAuth } from "context/auth-context";
 import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
 import moment from 'moment';
 
-const apiUrl = process.env.REACT_APP_API_URL;
 const { Option } = Select
 
 export const WorkCount = () => {
@@ -23,14 +20,25 @@ export const WorkCount = () => {
 
   useEffect(() => {
     if (isSuccess && lineList.data && lineList.data.length > 0) {
+      if (value === 0) {
+        setParams({ ...params, date: String(moment().format('YYYY-MM-DD')), subwayId: lineList.data[0].id })
+      } else {
+        setParams({ ...params, date: String(moment().format('YYYY-MM')), subwayId: lineList.data[0].id })
+      }
+    }
+  }, [value])
+
+  useEffect(() => {
+    if (isSuccess && lineList.data && lineList.data.length > 0) {
       form.setFieldsValue({ subwayId: lineList.data[0].id })
     }
   }, [isSuccess, value])
 
-  const { user } = useAuth()
+  const { data: dayList, isLoading: dayLoading } = useDay(params, value)
+  const { data: monthList, isLoading: monthLoading } = useMonth(params, value)
 
-  const { data: dayList, isLoading: dayLoading } = useDay(params)
-  const { data: monthList, isLoading: monthLoading } = useMonth(params)
+  const { mutateAsync: mutaDay } = useDownloadDay()
+  const { mutateAsync: mutaMonth } = useDownloadMonth()
 
   const lineChange = (value: any) => {
     setParams({ ...params, subwayId: value })
@@ -50,16 +58,7 @@ export const WorkCount = () => {
   };
 
   const downDay = () => {
-    fetch(`${apiUrl}report/downloadDay?${qs.stringify(params)}`, {
-      method: 'get',
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": `${user?.jwtToken}`
-      },
-    }).then((res) => {
-      console.log(res)
-      return res.blob();
-    }).then(blob => {
+    mutaDay(params).then(blob => {
       let fileName = params.date + ".doc";
       var link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -70,15 +69,7 @@ export const WorkCount = () => {
   }
 
   const downMonth = () => {
-    fetch(`${apiUrl}report/downloadMonth?${qs.stringify(params)}`, {
-      method: 'get',
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": `${user?.jwtToken}`
-      },
-    }).then((res) => {
-      return res.blob();
-    }).then(blob => {
+    mutaMonth(params).then(blob => {
       let fileName = params.date + ".doc";
       var link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);

@@ -71,6 +71,14 @@ export const WorkPerson = () => {
       className: { alias: '班别' },
       dutyRate: { alias: '到岗率' },
     },
+    tooltip: {
+      formatter: function formatter(item: any) {
+        return {
+          name: "到岗率",
+          value: item.dutyRate + "%",
+        };
+      },
+    },
   };
 
   return (
@@ -160,8 +168,8 @@ export const WorkPersonModal = ({ params }: { params: { subwayId: string, time: 
       dataIndex: "personName"
     },
     {
-      title: "未到岗人数",
-      dataIndex: "isWork"
+      title: "签到时间",
+      dataIndex: "createTime"
     }
   ]
 
