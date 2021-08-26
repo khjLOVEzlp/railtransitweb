@@ -36,21 +36,21 @@ export const Warehouse = () => {
   const [collapsed, setCollapsed] = useState(false)
 
   menu.forEach((item: any) => {
-    const name = item.name
-    switch (name) {
-      case "仓库管理":
+    const url = item.url
+    switch (url) {
+      case "toolType":
         item["icon"] = DatabaseOutlined
         break;
 
-      case "物资类型":
+      case "materialType":
         item["icon"] = ToolOutlined
         break;
 
-      case "入库记录":
+      case "inWarehouse":
         item["icon"] = ArrowDownOutlined
         break;
 
-      case "出库记录":
+      case "outWarehouse":
         item["icon"] = ArrowUpOutlined
         break;
 

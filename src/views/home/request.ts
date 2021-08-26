@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 import { useHttp } from "utils/http"
 import qs from "qs";
-import { cleanObject, context } from "utils/index";
+import { cleanObject, getType } from "utils/index";
 import { useHomeContext } from './index'
 
 /*
@@ -18,7 +18,7 @@ export const usePlanStatistics = () => {
   return useQuery(['planStatistics'], async () => {
     const data = await client(`report/webPlan`)
     data.data.forEach((key: any) => {
-      key["name"] = context(key["type"])
+      key["name"] = getType(key["type"])
     })
     return data
   })
@@ -59,8 +59,8 @@ export const Type = (type: number) => {
     case 8:
       return "离线告警"
 
-    case 9:
-      return "过时告警"
+    /* case 9:
+      return "过时告警" */
 
     case 10:
       return "低电告警"
@@ -105,7 +105,7 @@ export const useTaskStatistics = () => {
   return useQuery(['taskStatistics'], async () => {
     const data = await client(`report/webWork`)
     data.data.forEach((key: any) => {
-      key["name"] = context(key["type"])
+      key["name"] = getType(key["type"])
     })
     return data
   })

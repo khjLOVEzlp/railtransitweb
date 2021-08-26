@@ -1,4 +1,5 @@
 import { Button, Drawer, Table } from "antd"
+import { useQueryClient } from "react-query"
 import { noData } from "utils/verification"
 import { useWareHouseContext } from "views/warehouse"
 import { ToolModalForm } from "./modal/ToolModalForm"
@@ -7,6 +8,7 @@ import { useViewTool, useToolModal } from './util'
 export const Tool = ({ name }: { name: string }) => {
   const { ModalOpen, close, viewTool, isLoading } = useViewTool()
   const { startEdit } = useToolModal()
+  const queryClient = useQueryClient()
   const { drawerId, setDrawerId } = useWareHouseContext()
 
   const closeModal = () => {
@@ -53,7 +55,10 @@ export const Tool = ({ name }: { name: string }) => {
           {
             title: "操作",
             render: (item: any) => <>
-              <Button type={"link"} onClick={() => startEdit(item.id, drawerId)}>详情</Button>
+              <Button type={"link"} onClick={() => {
+                startEdit(item.id, drawerId)
+                queryClient.invalidateQueries('GetMaterialDetail')
+              }}>详情</Button>
             </>
           }
         ]} loading={isLoading} rowKey={item => item.id}

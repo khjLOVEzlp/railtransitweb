@@ -60,33 +60,33 @@ export const System = () => {
   const routeType = useRouteType();
   const [collapsed, setCollapsed] = useState(false)
   menu.forEach((item: any) => {
-    const name = item.name
-    switch (name) {
-      case "用户管理":
+    const url = item.url
+    switch (url) {
+      case "user":
         item["icon"] = UserOutlined
         break;
 
-      case "角色管理":
+      case "role":
         item["icon"] = UsergroupAddOutlined
         break;
 
-      case "菜单管理":
+      case "menu":
         item["icon"] = MenuOutlined
         break;
 
-      case "日志管理":
+      case "log":
         item["icon"] = LoginOutlined
         break;
 
-      case "部门管理":
+      case "department":
         item["icon"] = SecurityScanOutlined
         break;
 
-      case "数据字典":
+      case "dataDictionary":
         item["icon"] = DatabaseOutlined
         break;
 
-      case "地铁管理":
+      case "line":
         item["icon"] = NodeExpandOutlined
         break;
 

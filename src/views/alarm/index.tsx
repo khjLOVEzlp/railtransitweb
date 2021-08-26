@@ -65,9 +65,6 @@ export const Alarm = () => {
       case 8:
         return "离线告警"
 
-      case 9:
-        return "过时告警"
-
       case 10:
         return "低电告警"
 
@@ -119,10 +116,7 @@ export const Alarm = () => {
       name: "离线告警",
       value: "8"
     },
-    {
-      name: "过时告警",
-      value: "9"
-    },
+
     {
       name: "低电告警",
       value: "10"

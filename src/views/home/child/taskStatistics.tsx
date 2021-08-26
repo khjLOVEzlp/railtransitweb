@@ -3,7 +3,7 @@ import * as echarts from 'echarts';
 import { useTaskModal, useTaskPagination, useTaskStatistics } from "../request";
 import { Modal, Table } from 'antd'
 import { useDebounce } from "hook/useDebounce";
-import { context } from 'utils'
+import { type } from "utils";
 
 export default () => {
   const { data: list, isSuccess } = useTaskStatistics()
@@ -25,7 +25,7 @@ export default () => {
         color: 'rgba(255,0,0, 0.2)'
       }
     }, {
-      value: 4,
+      value: 6,
       // symbol: 'image://' + paperDataURI,
       symbol: 'diamond',
       z: 20,
@@ -40,7 +40,7 @@ export default () => {
         color: 'rgba(255,165,0, 0.5)'
       }
     }, {
-      value: 5,
+      value: 200,
       // symbol: 'image://' + paperDataURI,
       symbol: 'diamond',
       z: 20,
@@ -55,7 +55,7 @@ export default () => {
         color: 'rgba(205,205,205, 0.5)'
       }
     }, {
-      value: 6,
+      value: 300,
       // symbol: 'image://' + paperDataURI,
       symbol: 'diamond',
       z: 20,
@@ -70,7 +70,7 @@ export default () => {
         color: 'rgba(0,100,0, 0.2)'
       }
     }, {
-      value: 7,
+      value: 400,
       // symbol: 'image://' + paperDataURI,
       symbol: 'diamond',
       z: 20,
@@ -85,7 +85,7 @@ export default () => {
         color: 'rgba(0,127,255, 0.5)'
       }
     }, {
-      value: 9,
+      value: 700,
       // symbol: 'image://' + paperDataURI,
       symbol: 'diamond',
       z: 20,
@@ -141,7 +141,7 @@ export default () => {
     const myEcharts = echarts.init(document.getElementById('task') as HTMLElement)
     myEcharts.setOption(option)
     myEcharts.on('click', (params: any) => {
-      open(context(params.name))
+      open(type(params.name))
     })
 
     window.addEventListener('resize', () => {
@@ -149,7 +149,7 @@ export default () => {
         myEcharts.resize()
       }
     })
-  }, [data, option])
+  }, [data, option, open])
 
   if (isSuccess) {
     data.forEach((key: { [key: string]: unknown }, index: number) => {

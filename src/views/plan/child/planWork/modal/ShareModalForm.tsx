@@ -34,13 +34,6 @@ export const ShareModalForm = () => {
     form.submit();
   };
 
-
-  const cancel = () => {
-    muta(editId).then(() => {
-      message.success("取消成功")
-    })
-  }
-
   const confirmDeleteProject = (id: number | undefined) => {
     Modal.confirm({
       title: "确定取消计划吗?",

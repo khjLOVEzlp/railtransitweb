@@ -21,19 +21,6 @@ const fuc = (data: any) => {
   return data
 }
 
-const fuc1 = (data: any) => {
-  if (data && data.length > 0) {
-    data.forEach((item: any) => {
-      item.title = item.name
-      item.value = item.id
-      item.children = fuc(item.personList)
-    });
-  } else {
-    data = []
-  }
-  return data
-}
-
 /**
  * 查询登录人员拥有的组织机构信息及人员信息
  *  */

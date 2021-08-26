@@ -44,7 +44,7 @@ export const Subway = () => {
     var str = newlist.reduce((cur: any, next: any) => {
       if (obj[next.name]) {
         cur.map((item: any) => {
-          if (item.name == next.name) {
+          if (item.name === next.name) {
             return item.isFlag = true
           }
         })

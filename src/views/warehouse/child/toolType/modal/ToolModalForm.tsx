@@ -1,4 +1,4 @@
-import { Modal, Spin, Table } from "antd"
+import { Modal, Spin, Table, Tag } from "antd"
 import { useForm } from "antd/lib/form/Form";
 import { noData } from "utils/verification";
 import { useToolModal } from '../util'
@@ -15,6 +15,32 @@ export const ToolModalForm = () => {
   const onOk = () => {
     form.submit();
   };
+
+  const seStatus = (status: number) => {
+    switch (status) {
+      case 0:
+        return <Tag color="processing">未使用</Tag>
+      case 1:
+        return <Tag color="success" >使用中</Tag>
+
+      default:
+        break;
+    }
+  }
+
+  const status = (status: number) => {
+    switch (status) {
+      case 0:
+        return <Tag color="success">正常</Tag>
+      case 1:
+        return <Tag color="processing" >快过期</Tag>
+      case 2:
+        return <Tag color="error" >已过期</Tag>
+
+      default:
+        break;
+    }
+  }
 
   return (
     <>
@@ -38,11 +64,11 @@ export const ToolModalForm = () => {
               },
               {
                 title: "使用状态",
-                dataIndex: "useStatus"
+                render: (item) => (<span>{seStatus(item.useStatus)}</span>)
               },
               {
                 title: "失效状态",
-                dataIndex: "status"
+                render: (item) => (<span>{status(item.status)}</span>)
               },
               {
                 title: "失效时间",

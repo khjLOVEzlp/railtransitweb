@@ -37,17 +37,17 @@ export const Plan = () => {
   const [collapsed, setCollapsed] = useState(false)
 
   menu.forEach((item: any) => {
-    const name = item.name
-    switch (name) {
-      case "作业计划":
+    const url = item.url
+    switch (url) {
+      case "planWork":
         item["icon"] = FileSearchOutlined
         break;
 
-      case "作业类型":
+      case "planType":
         item["icon"] = AppstoreOutlined
         break;
 
-      case "作业历史":
+      case "workManage":
         item["icon"] = ClockCircleOutlined
         break;
 

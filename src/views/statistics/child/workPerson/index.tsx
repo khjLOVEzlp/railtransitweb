@@ -22,13 +22,13 @@ export const WorkPerson = () => {
     if (success && lineList.data && lineList.data.length > 0) {
       setParams({ time: "3", subwayId: lineList.data[0].id })
     }
-  }, [])
+  }, [lineList?.data, success])
 
   useEffect(() => {
     if (success && lineList.data && lineList.data.length > 0) {
       form.setFieldsValue({ subwayId: lineList.data[0].id })
     }
-  }, [success])
+  }, [success, form, lineList?.data])
 
   const { open } = useWorkModal()
 
@@ -49,8 +49,10 @@ export const WorkPerson = () => {
     },
   ]
 
+  const data = isSuccess && workStatistics?.data.length > 0 ? workStatistics?.data : noData
+
   const config = {
-    data: isSuccess ? workStatistics?.data : noData,
+    data,
     xField: 'className',
     yField: 'dutyRate',
     maxColumnWidth: 100,
@@ -75,7 +77,7 @@ export const WorkPerson = () => {
       formatter: function formatter(item: any) {
         return {
           name: "到岗率",
-          value: item.dutyRate + "%",
+          value: item.dutyRate ? item.dutyRate + "%" : "0%",
         };
       },
     },

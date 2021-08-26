@@ -11,23 +11,13 @@ export const useMindStatistics = (params: Partial<Search>) => {
   const client = useHttp()
   return useQuery<PersonMind>(['MindStatistics', cleanObject(params)], async () => {
     const data = await client(`report/getPersonMind?${qs.stringify(cleanObject(params))}`, { method: "POST" })
-    data.data.forEach((key: any) => {
-      if (key["temRate"]) {
-        key["temRate"] = key["temRate"].replace("%", "")
-      } else {
-        key["temRate"] = 0
-      }
-      if (key["alcRate"]) {
-        key["alcRate"] = key["alcRate"].replace("%", "")
-      } else {
-        key["alcRate"] = 0
-      }
-      if (key["bloodRate"]) {
-        key["bloodRate"] = key["bloodRate"].replace("%", "")
-      } else {
-        key["bloodRate"] = 0
-      }
-    })
+    if (data.data && data.data.length > 0) {
+      data.data.forEach((key: { [key: string]: any }) => {
+        key["体温异常率"] = key["temRate"].replace("%", "")
+        key["血压异常率"] = key["bloodRate"].replace("%", "")
+        key["酒精异常率"] = key["alcRate"].replace("%", "")
+      })
+    }
     return data
   }, {
     enabled: Boolean(params?.subwayId) && Boolean(params?.time)

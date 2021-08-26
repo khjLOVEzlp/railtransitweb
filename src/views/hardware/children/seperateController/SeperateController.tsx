@@ -23,16 +23,20 @@ export const SeperateController = () => {
   };
 
   const del = async (id: number) => {
-    Del(id)
-  }
-
-  const confirm = (id: number) => {
-    del(id).then(() => {
-      message.success('删除成功')
-      setParam({ ...param, index: 1 })
+    Del(id).then((res) => {
+      if (res.code === 200) {
+        message.success('删除成功')
+        setParam({ ...param, index: 1 })
+      } else {
+        message.error(res.msg)
+      }
     }).catch(err => {
       message.error(err.msg)
     })
+  }
+
+  const confirm = (id: number) => {
+    del(id)
   }
 
   const cancel = () => {

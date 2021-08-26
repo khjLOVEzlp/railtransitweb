@@ -9,6 +9,7 @@ import TextArea from "antd/lib/input/TextArea";
 import './style.css'
 import { useDebounce } from "hook/useDebounce";
 import { FormInstance } from 'antd/lib/form';
+import { rules } from "utils/verification";
 const { TabPane } = Tabs;
 
 /* 添加小组成员 */
@@ -180,14 +181,13 @@ const EditableCell: React.FC<any> = ({
       </div>
     );
   }
-
   return <td {...restProps}>{childNode}</td>;
 };
 
 const Tool = ({ setState, setObj, obj }: any) => {
   const columns = [
     {
-      title: "物料",
+      title: "工具",
       dataIndex: "name"
     },
     {
@@ -259,7 +259,7 @@ const Tool = ({ setState, setObj, obj }: any) => {
     if (isSuccess) {
       setDataSource([...data.data])
     }
-  }, [isSuccess])
+  }, [isSuccess, data?.data])
 
   const handleSave = (row: any) => {
     const newData = [...dataSource];
@@ -413,7 +413,7 @@ const Mater = ({ setState, obj, setObj }: any) => {
     if (isSuccess) {
       setDataSource([...data.data])
     }
-  }, [isSuccess])
+  }, [isSuccess, data?.data])
 
   const handleSave = (row: any) => {
     const newData = [...dataSource];
@@ -496,7 +496,7 @@ export const AddToolModal = () => {
   const [state, setState] = useState("2")
   const { data: personList } = usePersonList.useInit()
   const { ModalOpen, close } = useAddToolModal()
-  const { groupList, setGroupList } = usePlanContext()
+  const { setGroupList } = usePlanContext()
   /* const [param, setParam] = useState({
     groupName: "",
     leader: "",
@@ -525,7 +525,7 @@ export const AddToolModal = () => {
     } catch (error) {
 
     }
-  }, [ModalOpen])
+  }, [ModalOpen, form, obj])
 
   const closeModal = () => {
     form.resetFields()
@@ -541,10 +541,14 @@ export const AddToolModal = () => {
     setState(key)
   }
 
-  const submit = () => {
+  const onFinish = () => {
     setGroupList([obj])
     closeModal()
   }
+
+  const onOk = () => {
+    form.submit();
+  };
 
   return (
     <Modal
@@ -552,8 +556,10 @@ export const AddToolModal = () => {
       title={"人物清单"}
       visible={ModalOpen}
       onCancel={closeModal}
-      footer={false}
       destroyOnClose={true}
+      footer={state === "1" ? [
+        <Button key="submit" type="primary" onClick={onOk} >提交</Button>
+      ] : false}
     >
       <Tabs activeKey={state} onChange={onChange}>
         <TabPane tab="作业组员" key="2">
@@ -568,17 +574,12 @@ export const AddToolModal = () => {
         </TabPane>
 
         <TabPane tab="人物详情" key="1">
-          {/* {
-            groupList?.map((item: any, index: number) => (
-              
-            ))
-          } */}
-
           <List>
-            <Form style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between" }} form={form}>
+            <Form style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between" }} form={form} onFinish={onFinish}>
               <Form.Item
                 label={"小组名称"}
                 name={"groupName"}
+                rules={rules}
                 style={{ flex: 1, padding: "0 1rem" }}
               >
                 <Input placeholder={"请输入小组名称"} onChange={(evt) => setObj({ ...obj, groupName: evt.target.value })} />
@@ -587,6 +588,7 @@ export const AddToolModal = () => {
               <Form.Item
                 label="组长"
                 name="leader"
+                rules={rules}
                 style={{ flex: 1, padding: "0 1rem" }}
               >
                 <Select
@@ -596,7 +598,6 @@ export const AddToolModal = () => {
                   filterOption={(input, option: any) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
-                  // @ts-ignore
                   onChange={(value) => setObj({ ...obj, leader: value })}
                 >
                   {personList?.data.map((item: any, index: number) => <Select.Option value={item.id}
@@ -612,8 +613,10 @@ export const AddToolModal = () => {
                 <TextArea placeholder={"请填写备注"} rows={1} />
               </Form.Item>
             </Form>
+            {
+              obj?.personList && obj?.personList.length > 0 ? <div style={flex}>作业组员：</div> : undefined
+            }
 
-            <div style={flex}>作业组员：</div>
             {
               obj?.personList ? obj?.personList.map((key: any) => (
                 <List.Item>
@@ -622,7 +625,9 @@ export const AddToolModal = () => {
               )) : ""
             }
 
-            <div style={flex}>作业工具：</div>
+            {
+              obj?.groupToolList && obj?.groupToolList.length > 0 ? <div style={flex}>作业工具：</div> : undefined
+            }
             {
               obj?.groupToolList ? obj?.groupToolList.map((key: any) => (
                 <List.Item>
@@ -632,7 +637,10 @@ export const AddToolModal = () => {
               )) : ""
             }
 
-            <div style={flex}>作业物料：</div>
+            {
+              obj?.groupMaterialList && obj?.groupMaterialList.length > 0 ? <div style={flex}>作业物料：</div> : undefined
+            }
+
             {
               obj?.groupMaterialList ? obj?.groupMaterialList.map((key: any) => (
                 <List.Item>
@@ -641,13 +649,7 @@ export const AddToolModal = () => {
                 </List.Item>
               )) : ""
             }
-
-            <List.Item style={{ display: "flex", justifyContent: "space-between" }}>
-              <div></div>
-              <Button type={"primary"} style={{ textAlign: "right", marginTop: "1rem" }} onClick={() => submit()}>确定</Button>
-            </List.Item>
           </List>
-
         </TabPane>
       </Tabs>
     </Modal>

@@ -76,6 +76,9 @@ export const useToolModal = () => {
     setEditId(editId)
   }
 
+  console.log(drawerId, editId);
+
+
   return {
     ModalOpen: Boolean(drawerId) && Boolean(editId),
     close,

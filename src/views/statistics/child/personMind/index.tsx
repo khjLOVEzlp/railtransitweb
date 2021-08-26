@@ -1,6 +1,6 @@
 import { useLineList } from "../workCount/request";
 import { Form, Modal, Select, Table } from "antd";
-import { Pie } from "@ant-design/charts";
+import * as echarts from 'echarts';
 import {
   useMindModal,
   useMindStatistics,
@@ -25,13 +25,13 @@ export const PersonMind = () => {
     if (success && lineList.data && lineList.data.length > 0) {
       setParams({ time: "3", subwayId: lineList.data[0].id })
     }
-  }, [])
+  }, [success, lineList?.data])
 
   useEffect(() => {
     if (success && lineList.data && lineList.data.length > 0) {
       form.setFieldsValue({ subwayId: lineList.data[0].id })
     }
-  }, [success])
+  }, [success, form, lineList?.data])
 
   const { data: mindStatistics, isSuccess } = useMindStatistics(params)
 
@@ -43,89 +43,53 @@ export const PersonMind = () => {
     setParams({ ...params, time: value })
   }
 
-  const noDataB = [
+  const newList = [
     {
-      alcRate: 0,
-      className: "酒精异常班别"
-    }
-  ]
-
-  const noDataC = [
-    {
-      bloodRate: 0,
-      className: "血压异常班别"
-    }
-  ]
-
-  const noDataA = [
-    {
-      temRate: 0,
-      className: "体温异常班别"
-    }
-  ]
-
-  const Bconfig = {
-    appendPadding: 10,
-    data: isSuccess ? mindStatistics?.data : noDataB,
-    angleField: 'alcRate',
-    colorField: 'className',
-    radius: 0.8,
-    innerRadius: 0.64,
-    label: {
-      type: 'inner',
-      offset: '-50%',
-      // @ts-ignore
-      content: ({ percent }) => `${percent * 100}%`,
-      style: {
-        fill: '#fff',
-        fontSize: 14,
-        textAlign: 'center',
-      },
+      className: "班别名称",
+      "体温异常率": "0",
+      "血压异常率": "0",
+      "酒精异常率": "0",
     },
-    statistic: null,
+  ];
+
+  const newData = isSuccess && mindStatistics?.data && mindStatistics?.data.length > 0 ? mindStatistics?.data : newList
+
+  const option = {
+    legend: {},
+    tooltip: {},
+    grid: {
+      x: 50,
+      y: 50,
+      x2: 50,
+      y2: 50,
+    },
+    dataset: {
+      dimensions: ['className', '体温异常率', '酒精异常率', '血压异常率'],
+      source: newData
+    },
+    xAxis: { type: 'category' },
+    yAxis: {},
+    series: [
+      { type: 'bar', barWidth: 50 },
+      { type: 'bar', barWidth: 50 },
+      { type: 'bar', barWidth: 50 }
+    ]
   };
 
-  const Cconfig = {
-    appendPadding: 10,
-    data: isSuccess ? mindStatistics?.data : noDataC,
-    angleField: 'bloodRate',
-    colorField: 'className',
-    radius: 0.8,
-    innerRadius: 0.64,
-    label: {
-      type: 'inner',
-      offset: '-50%',
-      // @ts-ignore
-      content: ({ percent }) => `${percent * 100}%`,
-      style: {
-        fill: '#fff',
-        fontSize: 14,
-        textAlign: 'center',
-      },
-    },
-    statistic: null,
-  };
+  useEffect(() => {
+    const myEcharts = echarts.init(document.getElementById('mind') as HTMLElement)
+    myEcharts.setOption(option)
+    myEcharts.on('click', (param: any) => {
+      open(params.subwayId, params.time)
+      setType(param.seriesName)
+    })
 
-  const Aconfig = {
-    appendPadding: 10,
-    data: isSuccess ? mindStatistics?.data : noDataA,
-    angleField: 'temRate',
-    colorField: 'className',
-    radius: 0.8,
-    innerRadius: 0.64,
-    label: {
-      type: 'inner',
-      offset: '-50%',
-      // @ts-ignore
-      content: ({ percent }) => `${percent * 100}%`,
-      style: {
-        fill: '#fff',
-        fontSize: 14,
-        textAlign: 'center',
-      },
-    },
-    statistic: null,
-  };
+    window.addEventListener('resize', () => {
+      if (myEcharts != null) {
+        myEcharts.resize()
+      }
+    })
+  }, [option, open])
 
   return (
     <>
@@ -172,46 +136,7 @@ export const PersonMind = () => {
       </Header>
 
       <Main>
-        {/*@ts-ignore*/}
-        {/* <Column
-          {...config}
-          onReady={(plot: any) => {
-            plot.on('plot:click', (evt: any) => {
-              open()
-            });
-          }}
-        /> */}
-
-
-        <div>
-          {/*@ts-ignore*/}
-          <Pie {...Aconfig} onReady={(plot: any) => {
-            plot.on('plot:click', (evt: any) => {
-              open(params.subwayId, params.time)
-              setType("体温异常")
-            });
-          }} />
-        </div>
-
-        <div>
-          {/*@ts-ignore*/}
-          <Pie {...Bconfig} onReady={(plot: any) => {
-            plot.on('plot:click', (evt: any) => {
-              open(params.subwayId, params.time)
-              setType("酒精异常")
-            });
-          }} />
-        </div>
-
-        <div>
-          {/*@ts-ignore*/}
-          <Pie {...Cconfig} onReady={(plot: any) => {
-            plot.on('plot:click', (evt: any) => {
-              open(params.subwayId, params.time)
-              setType("血压异常")
-            });
-          }} />
-        </div>
+        <div id={"mind"} style={{ height: "100%", width: "100%" }}></div>
       </Main>
       <PersonMindModal params={params} type={type} />
     </>
@@ -240,7 +165,7 @@ const PersonMindModal = ({ params, type }: { params: { subwayId: string, time: s
 
   const { data: mindDetail } = useMindStatisticsDetail(param)
 
-  console.log(mindDetail?.data);
+  const dataSource = title === "体温异常率" ? mindDetail?.data?.temPerson : title === "酒精异常率" ? mindDetail?.data?.alcPerson : title === "血压异常率" ? mindDetail?.data?.bloodPerson : []
 
   const columns = [
     {
@@ -252,8 +177,8 @@ const PersonMindModal = ({ params, type }: { params: { subwayId: string, time: s
       dataIndex: "className"
     },
     {
-      title: `${title === "体温异常" ? "体温异常率" : title === "血压异常" ? "血压异常率" : title === "酒精异常" ? "酒精异常率" : ""}`,
-      dataIndex: `${title === "体温异常" ? "temRate" : title === "血压异常" ? "bloodRate" : title === "酒精异常" ? "alcRate" : ""}`
+      title: `${title}`,
+      dataIndex: `${title === "体温异常率" ? "temRate" : title === "血压异常率" ? "bloodRate" : title === "酒精异常率" ? "alcRate" : ""}`
     }
   ]
 
@@ -268,7 +193,7 @@ const PersonMindModal = ({ params, type }: { params: { subwayId: string, time: s
       <Table
         columns={columns}
         pagination={false}
-        dataSource={title === "体温异常" ? mindDetail?.data?.temPerson : title === "酒精异常" ? mindDetail?.data?.alcPerson : title === "血压异常" ? mindDetail?.data?.bloodPerson : []}
+        dataSource={dataSource}
         rowKey={(item: any, index: any) => index}
       />
     </Modal>

@@ -74,7 +74,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
         warnTime: moment(editingPlanWork?.data?.warnTime),
       })
     }
-  }, [form, editingPlanWork])
+  }, [form, editingPlanWork, queryClient])
 
   const closeModal = () => {
     setGroupList([])
@@ -113,11 +113,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { data: planTypeList } = usePlanType()
   const { data: lineLIst } = useLine()
   const { data: allList } = useSite(id)
-
-  /* 添加小组 */
-  const addGroup = () => {
-    message.success("添加小组待开发")
-  }
 
   /* 选择线路 */
   const onGenderChange = (value: number) => {
@@ -158,9 +153,16 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   return (
-    <Modal title={title} width={800} visible={ModalOpen} onOk={onOk} onCancel={closeModal}
-      footer={[<Button key="back" onClick={closeModal}>取消</Button>,
-      <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>]}
+    <Modal
+      title={title}
+      width={800}
+      visible={ModalOpen}
+      onOk={onOk}
+      onCancel={closeModal}
+      footer={[
+        <Button key="back" onClick={closeModal}>取消</Button>,
+        <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>
+      ]}
     >
       {
         isLoading ? (
@@ -283,6 +285,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 style={{ width: "100%" }}
               >
                 <DatePicker
+                  getPopupContainer={triggerNode => triggerNode}
                   style={{ width: "100%" }}
                   showTime
                   locale={locale}
@@ -300,6 +303,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 style={{ width: "100%" }}
               >
                 <DatePicker
+                  getPopupContainer={triggerNode => triggerNode}
                   style={{ width: "100%" }}
                   showTime
                   locale={locale}
@@ -313,6 +317,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 name="warnTime"
               >
                 <DatePicker
+                  getPopupContainer={triggerNode => triggerNode}
                   style={{ width: "100%" }}
                   showTime
                   locale={locale}
@@ -326,6 +331,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 name="dateTime"
               >
                 <DatePicker
+                  getPopupContainer={triggerNode => triggerNode}
                   style={{ width: "100%" }}
                   locale={locale}
                   placeholder="作业日期"

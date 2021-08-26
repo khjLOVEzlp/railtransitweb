@@ -46,7 +46,7 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
         setSeperate(data.data)
       }
     }
-  }, [isSuccess])
+  }, [isSuccess, data?.data, detail?.irfId, detail?.codeNumber])
 
   useEffect(() => {
     if (editingPerson) {
@@ -128,24 +128,6 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
               </Form.Item>
 
               <Form.Item
-                label="身份证号"
-                name="identityCard"
-                rules={[
-                  {
-                    required: true, message: "请输入身份证号"
-                  },
-                  {
-                    pattern: new RegExp(/(^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$)|(^\d{6}(18|19|20)\d{2}(0[1-9]|10|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$)/),
-                    message: "请输入正确的身份证"
-                  }
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </Space>
-
-            <Space style={{ width: "100%" }}>
-              <Form.Item
                 label="性别"
                 name="sex"
                 rules={rules}
@@ -154,17 +136,6 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
                   <Select.Option value={0}>男</Select.Option>
                   <Select.Option value={1}>女</Select.Option>
                 </Select>
-              </Form.Item>
-
-              <Form.Item
-                label="出生日期"
-                name="birthday"
-              >
-                <DatePicker
-                  disabledDate={disabledDate}
-                  locale={locale}
-                  style={{ width: "100%" }}
-                />
               </Form.Item>
             </Space>
 
@@ -234,12 +205,22 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
               </Form.Item>
 
               <Form.Item
-                label="备注"
-                name="remark"
+                label="出生日期"
+                name="birthday"
               >
-                <TextArea rows={1} />
+                <DatePicker
+                  disabledDate={disabledDate}
+                  locale={locale}
+                  style={{ width: "100%" }}
+                />
               </Form.Item>
             </Space>
+            <Form.Item
+              label="备注"
+              name="remark"
+            >
+              <TextArea rows={1} />
+            </Form.Item>
           </Form>
         )
       }

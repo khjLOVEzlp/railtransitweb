@@ -15,5 +15,10 @@ export const useInit = (params?: Partial<Search>) => {
 /* 统计各个类型告警个数 */
 export const useWarnCount = (time: string) => {
   const client = useHttp()
-  return useQuery(['alarm', time], () => client(`planWork/getWarnCount/${time}`))
+  return useQuery(['alarm', time], async () => {
+    const data = await client(`planWork/getWarnCount/${time}`)
+    const newData = data.data.filter((key: { [key: string]: unknown }) => key.type != 9)
+    data.data = newData
+    return data
+  })
 }

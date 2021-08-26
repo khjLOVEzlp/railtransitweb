@@ -119,7 +119,10 @@ export const ModalForm = ({ param, setParam }: Props) => {
                         {...restField}
                         name={[name, 'num']}
                         fieldKey={[fieldKey, 'num']}
-                        rules={rules}
+                        rules={[...rules, {
+                          pattern: new RegExp(/^[1-9]\d*$/),
+                          message: "数量不能为负"
+                        }]}
                         label={"数量"}
                         getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                       >
@@ -164,7 +167,10 @@ export const ModalForm = ({ param, setParam }: Props) => {
                         {...restField}
                         name={[name, 'num']}
                         fieldKey={[fieldKey, 'num']}
-                        rules={rules}
+                        rules={[...rules, {
+                          pattern: new RegExp(/^[1-9]\d*$/),
+                          message: "数量不能为负"
+                        }]}
                         label={"数量"}
                         getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
                       >

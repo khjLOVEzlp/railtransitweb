@@ -23,21 +23,18 @@ export const WorkWarn = () => {
     if (success && lineList.data && lineList.data.length > 0) {
       setParams({ time: "3", subwayId: lineList.data[0].id })
     }
-  }, [])
+  }, [success, lineList?.data])
 
   useEffect(() => {
     if (success && lineList.data && lineList.data.length > 0) {
       form.setFieldsValue({ subwayId: lineList.data[0].id })
       setParams({ time: "3", subwayId: lineList.data[0].id })
     }
-  }, [success])
+  }, [success, form, lineList?.data])
 
   const { open } = useAlarmModal()
 
   const { data: alarmStatistics, isSuccess } = useAlarmStatistics(params)
-
-  console.log(alarmStatistics);
-
 
   const lineChange = (value: string) => {
     setParams({ ...params, subwayId: String(value) })

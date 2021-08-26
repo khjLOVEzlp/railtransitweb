@@ -47,21 +47,21 @@ export const Statistics = () => {
   const routeType = useRouteType();
   const [collapsed, setCollapsed] = useState(false)
   menu.forEach((item: any) => {
-    const name = item.name
-    switch (name) {
-      case "作业统计":
+    const url = item.url
+    switch (url) {
+      case "workCount":
         item["icon"] = FileTextOutlined
         break;
 
-      case "告警统计":
+      case "workWarn":
         item["icon"] = AlertOutlined
         break;
 
-      case "到岗统计":
+      case "workPerson":
         item["icon"] = BarChartOutlined
         break;
 
-      case "精神分析":
+      case "personMind":
         item["icon"] = PieChartOutlined
         break;
 

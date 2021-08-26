@@ -1,9 +1,8 @@
-import { Button, Form, Input, message, Modal, Radio, Spin } from "antd";
+import { Button, Form, Input, message, Modal, Spin } from "antd";
 import { useEffect } from "react";
 import { rules } from "utils/verification";
 import { useSepModal } from './util'
 import { useMod, useAdd } from './request'
-import { usePerson } from "views/person/child/personManage/request";
 
 type Props = {
   param: {

@@ -27,13 +27,13 @@ export const Person = () => {
   useDocumentTitle("人员管理")
 
   menu.forEach((item: any) => {
-    const name = item.name
-    switch (name) {
-      case "人员管理":
+    const url = item.url
+    switch (url) {
+      case "personManage":
         item["icon"] = UsergroupAddOutlined
         break;
 
-      case "精神状态":
+      case "spiritStatus":
         item["icon"] = ExclamationCircleOutlined
         break;
 

@@ -43,9 +43,11 @@ export const Home = () => {
                 right: 0,
                 bottom: "0.1rem",
                 zIndex: 1000,
-                height: "250px",
+                height: "100%",
                 overflow: "auto"
-              }} direction={"vertical"}>
+              }}
+                direction={"vertical"}
+              >
                 {
                   data.data.map((item: any) => (
                     <Card hoverable={true} style={{ borderColor: `${item.color}`, borderWidth: '0.2rem', width: 120, padding: 0 }} bodyStyle={{ padding: 10 }}>
