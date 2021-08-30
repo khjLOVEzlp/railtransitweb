@@ -2588,10 +2588,10 @@ export const Subway = () => {
           const data = await res.data
           params.data.tooltip.formatter = `{b}<br />班别：${data[0]?.departmentName || "无"}<br />区间：${data[0]?.roadName || "无"}<br />材料数量：${data[0]?.count || "0"}`
         })
+      } else if (params.data.tooltip) {
+        params.data.tooltip.formatter = `{b}<br />班别：无<br />区间：无<br />材料数量：0`
       } else {
         return false
-        // params.data.tooltip.formatter = `{b}<br />班别：无<br />区间：无<br />材料数量：0`
-        // console.log(params.data);
       }
     })
 

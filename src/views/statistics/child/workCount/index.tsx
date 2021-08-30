@@ -89,7 +89,7 @@ export const WorkCount = () => {
           name="basic"
           layout={"inline"}
         >
-          <Radio.Group defaultValue={0} onChange={onChange}>
+          <Radio.Group onChange={onChange}>
             <Radio value={0}>日报</Radio>
             <Radio value={1}>月报</Radio>
           </Radio.Group>
@@ -143,9 +143,11 @@ export const WorkCount = () => {
 
             <List header={<div>二、作业人员情况</div>}>
               <Table
+                rowKey={key => key.id}
                 dataSource={dayList?.data?.personDayVoList}
                 pagination={false}
                 loading={dayLoading}
+
                 columns={[
                   {
                     title: "姓名",
@@ -177,6 +179,7 @@ export const WorkCount = () => {
 
             <List header={<div>三、工器具使用情况</div>}>
               <Table
+                rowKey={key => key.id}
                 dataSource={dayList?.data?.toolDayVoList}
                 pagination={false}
                 loading={dayLoading}
@@ -214,6 +217,7 @@ export const WorkCount = () => {
 
             <List header={<div>二、作业人员情况</div>}>
               <Table
+                rowKey={key => key.id}
                 dataSource={monthList?.data?.personMonthVoList}
                 pagination={false}
                 loading={monthLoading}
@@ -244,6 +248,7 @@ export const WorkCount = () => {
 
             <List header={<div>三、工器具使用情况</div>}>
               <Table
+                rowKey={key => key.id}
                 dataSource={monthList?.data?.toolMonthVoList}
                 pagination={false}
                 loading={monthLoading}
