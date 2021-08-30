@@ -40,7 +40,20 @@ export const logout = async () => {
   }).then((res) => {
     if (res.ok) {
       window.sessionStorage.clear()
-      window.location.href = window.location.origin
+    }
+  })
+}
+
+export const menuRender = async () => {
+  return fetch(`${apiUrl}info?type=1`, {
+    method: "POST",
+    headers: {
+      "Authorization": getToken() ? `${getToken()}` : ''
+    }
+  }).then(async (res) => {
+    if (res.ok) {
+      const data = await res.json()
+      return data
     }
   })
 }

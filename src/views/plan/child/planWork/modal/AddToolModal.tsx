@@ -92,6 +92,9 @@ const PersonLIst = ({ setState, setObj, obj }: any) => {
               {
                 title: "卡号",
                 dataIndex: "number"
+              },
+              {
+
               }
             ]}
               rowKey={(item: any) => item.id}
@@ -496,7 +499,7 @@ export const AddToolModal = () => {
   const [state, setState] = useState("2")
   const { data: personList } = usePersonList.useInit()
   const { ModalOpen, close } = useAddToolModal()
-  const { setGroupList } = usePlanContext()
+  const { groupList, setGroupList } = usePlanContext()
   /* const [param, setParam] = useState({
     groupName: "",
     leader: "",
@@ -514,6 +517,8 @@ export const AddToolModal = () => {
 
   useEffect(() => {
     try {
+      console.log(groupList);
+
       const data = JSON.parse(sessionStorage.getItem("group") || "")
       form.setFieldsValue(data)
       setObj({
@@ -542,7 +547,7 @@ export const AddToolModal = () => {
   }
 
   const onFinish = () => {
-    setGroupList([obj])
+    setGroupList([...groupList, obj])
     closeModal()
   }
 
@@ -600,7 +605,7 @@ export const AddToolModal = () => {
                   }
                   onChange={(value) => setObj({ ...obj, leader: value })}
                 >
-                  {personList?.data.map((item: any, index: number) => <Select.Option value={item.id}
+                  {personList?.data.map((item: any, index: number) => <Select.Option value={item.id} disabled={groupList.find((key: any) => key.leader === item.id)}
                     key={index}>{item.name}</Select.Option>)}
                 </Select>
               </Form.Item>

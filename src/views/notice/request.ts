@@ -50,3 +50,16 @@ export const useMod = () => {
     }
   })
 }
+
+/* 批量修改已读状态 */
+
+export const useAllMod = () => {
+  const queryClient = useQueryClient()
+  const client = useHttp()
+  return useMutation((ids: any) => client(`transactionNotice/updateStates/${ids}`), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('transactionNotice')
+      queryClient.invalidateQueries('unread')
+    },
+  })
+}

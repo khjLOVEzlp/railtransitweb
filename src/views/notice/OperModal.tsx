@@ -2,16 +2,48 @@ import { Button, Form, message, Modal, Popconfirm, Radio, Table, Input } from "a
 import { useForm } from "antd/lib/form/Form";
 import { useEffect, useState } from "react";
 import { noData, rules } from "utils/verification";
-import { useInit, useMod, useFeedBack } from "./request";
+import { useInit, useMod, useFeedBack, useAllMod } from "./request";
 import { useNoticeModal } from './util'
 
 const { TextArea } = Input
 
 export const OperModal = () => {
   const { ModalOpen, close } = useNoticeModal()
+  const { mutateAsync, isLoading: mutaLoading } = useAllMod()
   const [shareVisible, setShareVisible] = useState(false)
   const [id, setId] = useState<number | undefined>(undefined)
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
   const [form] = useForm()
+
+  const start = () => {
+    const ids = selectedRowKeys.join(",")
+    mutateAsync(ids).then((res => {
+      if (res.code === 200) {
+        setSelectedRowKeys([])
+      } else {
+        message.error(res.msg)
+      }
+    })).catch(err => {
+      message.error(err.msg)
+    })
+  }
+
+  const onSelectChange = (keys: any, value: any) => {
+    console.log(keys.join(','));
+
+    setSelectedRowKeys(keys);
+  };
+
+  const hasSelected = selectedRowKeys.length > 0;
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    getCheckboxProps: (record: any) => ({
+      disabled: record.state == 1
+    })
+  }
+
   const [pagination, setPagination] = useState({
     index: 1,
     size: 10
@@ -117,6 +149,16 @@ export const OperModal = () => {
       onCancel={close}
       footer={false}
       title={"事务通知"}>
+      <div>
+        <Form.Item>
+          <Button type="primary" onClick={start} disabled={!hasSelected} loading={mutaLoading}>
+            批量已读
+          </Button>
+        </Form.Item>
+        <span style={{ marginLeft: 8 }}>
+          {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
+        </span>
+      </div>
       <Table
         columns={
           [
@@ -162,6 +204,7 @@ export const OperModal = () => {
           pageSize: pagination.size
         }}
         onChange={handleTableChange}
+        rowSelection={rowSelection}
         rowKey={(item) => item.id}
         locale={noData}
       />

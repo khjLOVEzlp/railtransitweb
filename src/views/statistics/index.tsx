@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Navigate, Outlet, Route, Routes } from "react-router";
 import { createContext, useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hook/useDocumentTitle";
@@ -14,6 +14,10 @@ import {
 import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { useRouteType } from "utils";
 import React from "react";
+import { WorkCount } from "./child/workCount";
+import { WorkWarn } from "./child/workWarn";
+import { WorkPerson } from "./child/workPerson";
+import { PersonMind } from "./child/personMind";
 const { Sider, Content } = Layout;
 
 interface Item {
@@ -101,7 +105,16 @@ export const Statistics = () => {
       <Layout className="site-layout">
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <StatisticsContext.Provider value={{ param, setParam, visible, setVisible }}>
-            <Outlet />
+            {/* <Outlet /> */}
+            <Routes>
+              {/*projects/:projectId/kanban*/}
+              <Route path={"/workCount"} element={<WorkCount />} />
+              {/*projects/:projectId/epic*/}
+              <Route path={"/workWarn"} element={<WorkWarn />} />
+              <Route path={"/workPerson"} element={<WorkPerson />} />
+              <Route path={"/personMind"} element={<PersonMind />} />
+              <Navigate to={window.location.pathname + "/workCount"} replace={true} />
+            </Routes>
           </StatisticsContext.Provider>
         </Content>
       </Layout>

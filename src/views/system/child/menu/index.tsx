@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
 
-export const Menu = () => {
+export const MenuRender = () => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,

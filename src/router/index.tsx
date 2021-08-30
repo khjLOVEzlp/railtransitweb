@@ -32,7 +32,7 @@ import { User } from "views/system/child/user";
 /*角色管理*/
 import { Role } from "views/system/child/role";
 /*菜单管理*/
-import { Menu } from "views/system/child/menu";
+import { MenuRender } from "views/system/child/menu";
 /*地铁管理*/
 import { Line } from "views/system/child/line";
 /*日志管理*/
@@ -200,7 +200,7 @@ export const RouterElement = () => {
           path: "role", element: <Role />
         },
         {
-          path: "menu", element: <Menu />
+          path: "menu", element: <MenuRender />
         },
         {
           path: "line", element: <Line />

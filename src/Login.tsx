@@ -7,8 +7,10 @@ import { rules } from "./utils/verification";
 import { useState } from "react";
 import { ErrorBox } from "./components/lib";
 import { useAsync } from "./hook/useAsync";
+import { useNavigate } from 'react-router'
 
 export const Login = () => {
+  const navigate = useNavigate()
   const [error, setError] = useState<Error | null>(null);
   const { isLoading, run } = useAsync(undefined, { throwOnError: true });
   const { login } = useAuth()
@@ -16,7 +18,6 @@ export const Login = () => {
     try {
       await run(login(values))
     } catch (e) {
-      console.log(e)
       setError(e)
     }
   };
@@ -31,8 +32,8 @@ export const Login = () => {
       <div />
       <div>
         <Title>
-          <li>5G-NB智慧轨行区</li>
-          <li>数字化维养安全管控系统</li>
+          <li>智慧轨行区数字化</li>
+          <li>维养安全管控系统</li>
         </Title>
         <ErrorBox error={error} />
         <Form

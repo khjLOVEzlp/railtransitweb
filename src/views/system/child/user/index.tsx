@@ -9,12 +9,14 @@ import { PassModal } from "components/PassModal";
 import { useUserModal } from './util'
 import { Search } from "utils/typings";
 import { noData } from 'utils/verification';
-import { Header, Main } from 'components/Styled';
+import { Footer, Header, Main } from 'components/Styled';
 
 export const User = () => {
   const [passwdVisible, setPasswdVisible] = useState(false)
   const [passId, setPassId] = useState<number>()
   const client = useHttp()
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
+  const hasSelected = selectedRowKeys.length > 0;
   const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -22,7 +24,7 @@ export const User = () => {
   })
   const { open, startEdit } = useUserModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
-  const { mutateAsync: Del } = useDel()
+  const { mutateAsync: Del, isLoading: mutaLoading } = useDel()
 
   const confirm = (id: number) => {
     Del(id).then((res) => {
@@ -49,6 +51,7 @@ export const User = () => {
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize })
+    setSelectedRowKeys([])
   };
 
   const search = (item: Search) => {
@@ -68,6 +71,32 @@ export const User = () => {
       message.error(error.msg)
     })
   };
+
+  const onSelectChange = (keys: any, value: any) => {
+    setSelectedRowKeys(keys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    getCheckboxProps: (record: any) => ({
+      disabled: record.state == 1
+    })
+  }
+
+  const start = () => {
+    const ids = selectedRowKeys.join(",")
+    Modal.confirm({
+      title: `是否要删除${selectedRowKeys.length}条数据`,
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk() {
+        confirm(ids);
+        setSelectedRowKeys([])
+      },
+    });
+  }
 
   return (
     <>
@@ -172,8 +201,17 @@ export const User = () => {
           loading={isLoading}
           rowKey={(item) => item.id}
           locale={noData}
+          rowSelection={rowSelection}
         />
       </Main>
+      {
+        hasSelected ? <Footer>
+          <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
+          <Button type="primary" onClick={start} loading={mutaLoading}>
+            {hasSelected ? `批量删除` : ''}
+          </Button>
+        </Footer> : undefined
+      }
       <ModalForm param={param} setParam={setParam} />
       <PassModal
         passwd={"reset"}

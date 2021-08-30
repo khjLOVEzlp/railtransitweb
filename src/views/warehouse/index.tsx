@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Navigate, Outlet, Route, Routes } from "react-router";
 import { createContext, useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "hook/useDocumentTitle";
@@ -14,6 +14,10 @@ import {
 import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { useRouteType } from "utils";
 import React from "react";
+import { MaterialType } from "./child/materialType";
+import { ToolType } from "./child/toolType";
+import { InWarehouse } from "./child/inWarehouse";
+import { OutWarehouse } from "./child/outWarehouse";
 const { Sider, Content } = Layout;
 interface Item {
   name: string,
@@ -90,7 +94,16 @@ export const Warehouse = () => {
       <Layout className="site-layout">
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <WareHouseContext.Provider value={{ drawerId, setDrawerId, editId, setEditId }}>
-            <Outlet />
+            {/* <Outlet /> */}
+            <Routes>
+              {/*projects/:projectId/kanban*/}
+              <Route path={"/materialType"} element={<MaterialType />} />
+              {/*projects/:projectId/epic*/}
+              <Route path={"/toolType"} element={<ToolType />} />
+              <Route path={"/inWarehouse"} element={<InWarehouse />} />
+              <Route path={"/outWarehouse"} element={<OutWarehouse />} />
+              <Navigate to={window.location.pathname + "/materialType"} replace={true} />
+            </Routes>
           </WareHouseContext.Provider>
         </Content>
       </Layout>

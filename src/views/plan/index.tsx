@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react"
-import { Outlet } from "react-router";
+import { Navigate, Outlet, Route, Routes } from "react-router";
 import { NavLink } from "react-router-dom"
 import { useDocumentTitle } from 'hook/useDocumentTitle'
 import {
@@ -13,6 +13,9 @@ import { Button, Layout, Menu } from "antd";
 import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { useRouteType } from "utils";
 import React from "react";
+import { PlanWork } from "./child/planWork";
+import { WorkManage } from "./child/workManage";
+import { PlanType } from "./child/planType";
 const { Sider, Content } = Layout;
 
 const PlanContext = createContext<{
@@ -87,7 +90,15 @@ export const Plan = () => {
       <Layout className="site-layout">
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <PlanContext.Provider value={{ groupList, setGroupList, visible, setVisible, editId, setEditId, detailVisible, setDetailVisible }}>
-            <Outlet />
+            {/* <Outlet /> */}
+            <Routes>
+              {/*projects/:projectId/kanban*/}
+              <Route path={"/planWork"} element={<PlanWork />} />
+              {/*projects/:projectId/epic*/}
+              <Route path={"/workManage"} element={<WorkManage />} />
+              <Route path={"/planType"} element={<PlanType />} />
+              <Navigate to={window.location.pathname + "/planWork"} replace={true} />
+            </Routes>
           </PlanContext.Provider>
         </Content>
       </Layout>

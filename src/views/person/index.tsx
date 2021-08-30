@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Navigate, Outlet, Route, Routes } from "react-router";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hook/useDocumentTitle";
 import { Button, Layout, Menu } from 'antd';
@@ -13,6 +13,8 @@ import { useRouteType } from "utils";
 import { useState } from "react";
 import React from "react";
 import { ModalProvider } from "context/modal-context";
+import { PersonManage } from "./child/personManage";
+import { SpiritStatus } from "./child/spiritStatus";
 const { Sider, Content } = Layout;
 
 interface Item {
@@ -73,7 +75,14 @@ export const Person = () => {
       <Layout className="site-layout">
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <ModalProvider>
-            <Outlet />
+            {/* <Outlet /> */}
+            <Routes>
+              {/*projects/:projectId/kanban*/}
+              <Route path={"/personManage"} element={<PersonManage />} />
+              {/*projects/:projectId/epic*/}
+              <Route path={"/spiritStatus"} element={<SpiritStatus />} />
+              <Navigate to={window.location.pathname + "/personManage"} replace={true} />
+            </Routes>
           </ModalProvider>
         </Content>
       </Layout>

@@ -25,4 +25,19 @@ export const Main = styled.div`
   padding: 0 1rem;
   overflow-y: auto;
   height: 100%;
+  padding-bottom: 5rem;
+`
+
+export const Footer = styled.div`
+position: fixed;
+right: 0;
+bottom: 0;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 2rem;
+border-top: 1px solid #f0f0f0;
+background: #fff;
+width: 100%;
+line-height: 48px;
 `

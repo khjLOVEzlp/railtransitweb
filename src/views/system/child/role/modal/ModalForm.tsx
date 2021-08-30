@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Select, Spin, Tree } from "antd";
+import { Button, Form, Input, message, Modal, Select, Spin, Tree, TreeSelect } from "antd";
 import React, { useEffect, useState } from "react";
 import { rules } from "utils/verification";
 import { useAdd, useMod } from '../request'
@@ -66,19 +66,16 @@ export const ModalForm = ({ param, setParam }: Props) => {
       name: '本部门及以下数据权限',
       value: 3
     },
-    {
-      name: '仅本人数据权限',
-      value: 4
-    }
   ])
 
   /* const onCheck = (checkedKeys: any) => {
     form.setFieldsValue({ menuList: checkedKeys })
   }; */
 
-  const onCheck = (checkedKeysValue: any) => {
+  const onCheck = (checkedKeysValue: any, e: any) => {
+    const data = [...e.halfCheckedKeys, ...checkedKeysValue]
     setCheckedKeys(checkedKeysValue);
-    form.setFieldsValue({ menuList: checkedKeysValue })
+    form.setFieldsValue({ menuList: data })
   };
 
   const onOk = () => {
@@ -111,8 +108,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
             >
               <Select>
                 {options.map((item: any, index: number) => <Select.Option
-                  value={item.value
-                  }
+                  value={item.value}
                   key={index}>{item.name}</Select.Option>)}
               </Select>
             </Form.Item>
@@ -129,6 +125,15 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 // @ts-ignore
                 treeData={success ? menu.data : []}
               />
+
+              {/* <TreeSelect
+                showSearch
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                allowClear
+                treeDefaultExpandAll
+                multiple
+                treeData={menu?.data}
+              /> */}
             </Form.Item>
 
             <Form.Item

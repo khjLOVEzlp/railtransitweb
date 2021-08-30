@@ -1,4 +1,4 @@
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message, Modal } from 'antd';
 import styled from "@emotion/styled";
 import { useDel, useInit } from './request';
 import { ModalForm } from './ModalForm'
@@ -6,6 +6,7 @@ import { useDebounce } from 'hook/useDebounce';
 import { useDictItemModal } from './util'
 import { useState } from 'react';
 import { noData } from 'utils/verification';
+import { Footer } from 'components/Styled';
 
 export const DictItem = () => {
   const [param, setParam] = useState({
@@ -15,7 +16,7 @@ export const DictItem = () => {
   })
   const { open, startEdit } = useDictItemModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
-  const { mutateAsync: Del } = useDel()
+  const { mutateAsync: Del, isLoading: mutaLoading } = useDel()
 
   const search = (item: any) => {
     setParam({ ...param, value: item.name, index: 1 })
@@ -39,6 +40,36 @@ export const DictItem = () => {
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize })
   };
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
+
+  const hasSelected = selectedRowKeys.length > 0;
+
+  const onSelectChange = (keys: any, value: any) => {
+    setSelectedRowKeys(keys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    getCheckboxProps: (record: any) => ({
+      disabled: record.state == 1
+    })
+  }
+
+  const start = () => {
+    const ids = selectedRowKeys.join(",")
+    Modal.confirm({
+      title: `是否要删除${selectedRowKeys.length}条数据`,
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk() {
+        confirm(ids);
+        setSelectedRowKeys([])
+      },
+    });
+  }
 
   return (
     <>
@@ -113,7 +144,14 @@ export const DictItem = () => {
           dataSource={data?.data}
           rowKey={(item: any) => item.id}
           locale={noData}
+          rowSelection={rowSelection}
         />
+        <Footer>
+          <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
+          <Button type="primary" onClick={start} loading={mutaLoading}>
+            {hasSelected ? `批量删除` : ''}
+          </Button>
+        </Footer>
       </Main>
       <ModalForm param={param} setParam={setParam} />
     </>
@@ -131,4 +169,5 @@ const Main = styled.div`
   border-radius: 1rem;
   padding: 0 1.5rem;
   height: 100%;
+  margin-bottom: 10rem;
 `

@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Navigate, Outlet, Route, Routes } from "react-router";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from '../../hook/useDocumentTitle'
@@ -18,6 +18,13 @@ import { layout, menuItem, menuStyle, navLink, sider } from "components/Styled";
 import { useRouteType } from "utils";
 import React from "react";
 import { ModalProvider } from "context/modal-context";
+import { User } from "./child/user";
+import { Role } from "./child/role";
+import { Log } from "./child/log";
+import { MenuRender } from './child/menu'
+import { Department } from "./child/department";
+import { DataDictionary } from "./child/dataDictionary";
+import { Line } from "./child/line";
 const { Sider, Content } = Layout;
 /**
  * 用户管理<UserOutlined />
@@ -126,7 +133,19 @@ export const System = () => {
       <Layout className="site-layout">
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <ModalProvider>
-            <Outlet />
+            {/* <Outlet /> */}
+            <Routes>
+              {/*projects/:projectId/kanban*/}
+              <Route path={"/user"} element={<User />} />
+              {/*projects/:projectId/epic*/}
+              <Route path={"/role"} element={<Role />} />
+              <Route path={"/menu"} element={<MenuRender />} />
+              <Route path={"/log"} element={<Log />} />
+              <Route path={"/department"} element={<Department />} />
+              <Route path={"/dataDictionary"} element={<DataDictionary />} />
+              <Route path={"/line"} element={<Line />} />
+              <Navigate to={window.location.pathname + "/user"} replace={true} />
+            </Routes>
           </ModalProvider>
         </Content>
       </Layout>

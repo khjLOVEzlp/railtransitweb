@@ -215,7 +215,7 @@ export const WorkCount = () => {
               </List.Item>
             </List>
 
-            <List header={<div>二、作业人员情况</div>}>
+            <List header={<div>二、作业人员情况<span style={{ color: "red", fontSize: "10px" }}>（工时差额=当月天数-实际工作天数）</span></div>}>
               <Table
                 rowKey={key => key.id}
                 dataSource={monthList?.data?.personMonthVoList}
@@ -246,7 +246,7 @@ export const WorkCount = () => {
               />
             </List>
 
-            <List header={<div>三、工器具使用情况</div>}>
+            <List header={<div>三、工器具使用情况<span style={{ color: "red", fontSize: "10px" }}>（工具使用率=）</span></div>}>
               <Table
                 rowKey={key => key.id}
                 dataSource={monthList?.data?.toolMonthVoList}

@@ -77,19 +77,19 @@ export const PersonMind = () => {
   };
 
   useEffect(() => {
-    const myEcharts = echarts.init(document.getElementById('mind') as HTMLElement)
-    myEcharts.setOption(option)
-    myEcharts.on('click', (param: any) => {
+    const Echarts = echarts.init(document.getElementById('mind') as HTMLElement)
+    Echarts.setOption(option)
+    Echarts.on('click', (param: any) => {
       open(params.subwayId, params.time)
       setType(param.seriesName)
     })
 
     window.addEventListener('resize', () => {
-      if (myEcharts != null) {
-        myEcharts.resize()
+      if (Echarts != null) {
+        Echarts.resize()
       }
     })
-  }, [option, open])
+  }, [option])
 
   return (
     <>
@@ -176,10 +176,6 @@ const PersonMindModal = ({ params, type }: { params: { subwayId: string, time: s
       title: "班别",
       dataIndex: "className"
     },
-    {
-      title: `${title}`,
-      dataIndex: `${title === "体温异常率" ? "temRate" : title === "血压异常率" ? "bloodRate" : title === "酒精异常率" ? "alcRate" : ""}`
-    }
   ]
 
   return (

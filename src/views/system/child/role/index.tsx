@@ -1,4 +1,4 @@
-import { Form, Input, Button, Table, Popconfirm, message } from 'antd';
+import { Form, Input, Button, Table, Popconfirm, message, Modal } from 'antd';
 import { ModalForm } from "./modal/ModalForm";
 import { useDel, useInit } from './request';
 import { useDebounce } from 'hook/useDebounce';
@@ -6,7 +6,7 @@ import { useRoleModal } from './util'
 import { Search } from 'utils/typings';
 import { useState } from 'react';
 import { noData } from 'utils/verification';
-import { Header, Main } from 'components/Styled';
+import { Footer, Header, Main } from 'components/Styled';
 
 export const Role = () => {
   const [param, setParam] = useState({
@@ -16,7 +16,7 @@ export const Role = () => {
   })
   const { open, startEdit } = useRoleModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
-  const { mutateAsync: Del } = useDel()
+  const { mutateAsync: Del, isLoading: mutaLoading } = useDel()
 
   const search = (item: Search) => {
     setParam({ ...param, name: item.name, index: 1 })
@@ -39,7 +39,38 @@ export const Role = () => {
 
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize })
+    setSelectedRowKeys([])
   };
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
+
+  const hasSelected = selectedRowKeys.length > 0;
+
+  const onSelectChange = (keys: any, value: any) => {
+    setSelectedRowKeys(keys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    getCheckboxProps: (record: any) => ({
+      disabled: record.state == 1
+    })
+  }
+
+  const start = () => {
+    const ids = selectedRowKeys.join(",")
+    Modal.confirm({
+      title: `是否要删除${selectedRowKeys.length}条数据`,
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk() {
+        confirm(ids);
+        setSelectedRowKeys([])
+      },
+    });
+  }
 
   return (
     <>
@@ -105,8 +136,17 @@ export const Role = () => {
           dataSource={data?.data}
           rowKey={(item) => item.id}
           locale={noData}
+          rowSelection={rowSelection}
         />
       </Main>
+      {
+        hasSelected ? <Footer>
+          <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
+          <Button type="primary" onClick={start} loading={mutaLoading}>
+            {hasSelected ? `批量删除` : ''}
+          </Button>
+        </Footer> : undefined
+      }
       <ModalForm param={param} setParam={setParam} />
     </>
   );

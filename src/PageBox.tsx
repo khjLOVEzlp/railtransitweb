@@ -3,7 +3,7 @@ import { useEffect, useState, createContext, useContext } from "react";
 import { useHttp } from "./utils/http";
 import logo from './icon/logo.png'
 import notice from './icon/通知.png'
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
 import { Avatar, Badge, Button, Dropdown, Menu, message } from "antd";
 import { DownOutlined } from '@ant-design/icons';
@@ -31,6 +31,14 @@ import { useInfoModal, UserInfo } from './components/UserInfo'
 * 关于、帮助弹框
 * */
 import { OnHelp, useOnHelpModal } from './components/OnHelp'
+import { Home } from "views/home";
+import { Plan } from "views/plan";
+import { Alarm } from "views/alarm";
+import { Statistics } from "views/statistics";
+import { Hardware } from "views/hardware";
+import { Person } from "views/person";
+import { System } from "views/system";
+import { Warehouse } from "views/warehouse";
 
 const PageBoxContext = createContext<{
   infoId: number | undefined
@@ -111,8 +119,8 @@ export const PageBox = () => {
               <img src={logo} alt="" />
             </div>
             <div className="title" onClick={() => window.location.href = window.location.origin}>
-              <p>5G-NB智慧轨行区</p>
-              <p>数字化维养安全管控系统</p>
+              <p>智慧轨行区数字化</p>
+              <p>维养安全管控系统</p>
             </div>
           </Logo>
           <Nav className={"NavList"}>
@@ -125,17 +133,18 @@ export const PageBox = () => {
           <User />
         </HeaderStyle>
         <ContentStyle>
-          <RouterElement />
-          {/*<Routes>
-          <Route path={"/home"} element={<Home/>}/>
-          <Route path={"/plan/*"} element={<Plan/>}/>
-          <Route path={"/alarm"} element={<Alarm/>}/>
-          <Route path={"/statistics"} element={<Statistics/>}/>
-          <Route path={"/hardware"} element={<Hardware/>}/>
-          <Route path={"/person"} element={<Person/>}/>
-          <Route path={"/system/*"} element={<System/>}/>
-          <Navigate to={window.location.pathname + "home"} replace={true}/>
-        </Routes>*/}
+          {/* <RouterElement /> */}
+          <Routes>
+            <Route path={"/home"} element={<Home />} />
+            <Route path={"/plan/*"} element={<Plan />} />
+            <Route path={"/alarm"} element={<Alarm />} />
+            <Route path={"/statistics/*"} element={<Statistics />} />
+            <Route path={"/warehouse/*"} element={<Warehouse />} />
+            <Route path={"/hardware/*"} element={<Hardware />} />
+            <Route path={"/person/*"} element={<Person />} />
+            <Route path={"/system/*"} element={<System />} />
+            <Navigate to={"/home"} />
+          </Routes>
         </ContentStyle>
         <UserInfo />
         <OnHelp />
