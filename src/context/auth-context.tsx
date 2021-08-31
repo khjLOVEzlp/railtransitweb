@@ -11,7 +11,6 @@ import * as auth from "../auth-provider";
 import { useAsync } from "../hook/useAsync";
 import { FullPageErrorFallback } from "../components/lib";
 import { useQueryClient } from "react-query";
-
 const AuthContext = createContext<
   {
     user: {
@@ -23,6 +22,7 @@ const AuthContext = createContext<
     login: (form: AuthForm) => Promise<void>;
     logout: () => Promise<void>;
     notice: boolean;
+    menu: any
     setNotice: (notice: boolean) => void;
     visible: boolean;
     setVisible: (visible: boolean) => void;
@@ -30,6 +30,7 @@ const AuthContext = createContext<
     setEditId: (editId: number | undefined) => void;
     drawer: boolean;
     setDrawer: (drawer: boolean) => void;
+    menuRender: any
   }
   | undefined
 >(undefined);
@@ -62,6 +63,16 @@ const bootstrapUser = async () => {
   return user;
 };
 
+const bootstrapMenu = async () => {
+  let menu = null;
+  const menus = sessionStorage.getItem("menu");
+  if (menus) {
+    const data = JSON.parse(menus);
+    menu = data;
+  }
+  return menu;
+};
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const {
     data: user,
@@ -77,6 +88,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     userName?: string;
     userId?: number;
   } | null>();
+
+  const {
+    data: menu,
+    run: menuRun,
+    setData: setMenu,
+    isLoading: menuLoading,
+    isIdle: isMenuIdle
+  } = useAsync<any>();
+
   const queryClient = useQueryClient();
 
   const [notice, setNotice] = useState<boolean>(false);
@@ -85,6 +105,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [drawer, setDrawer] = useState<boolean>(false);
 
   const login = (form: AuthForm) => auth.login(form).then(setUser);
+  // @ts-ignore
+  const menuRender = () => auth.menuRender().then(setMenu)
 
   const logout = () =>
     auth.logout().then(() => {
@@ -96,7 +118,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     run(bootstrapUser());
   }, [run]);
 
-  if (isIdle || isLoading) {
+  useEffect(() => {
+    menuRun(bootstrapMenu())
+  }, [menuRun])
+
+  if (isIdle || isLoading || menuLoading || isMenuIdle) {
     return <FullPageLoading />;
   }
 
@@ -111,6 +137,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         user,
         login,
         logout,
+        menu,
         notice,
         setNotice,
         visible,
@@ -119,6 +146,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setEditId,
         drawer,
         setDrawer,
+        menuRender
       }}
     />
   );

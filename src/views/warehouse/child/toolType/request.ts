@@ -85,7 +85,7 @@ export const useViewToolDetail = (id: number) => {
 /* 根据仓库id获取库存信息 */
 export const useGetMaterialDetail = (type: number, warehouseId: number) => {
   const client = useHttp()
-  return useQuery(['GetMaterialDetail', type, warehouseId], () => client(`warehouse/getMaterialDetail?type=${type}&warehouseId=${warehouseId}`, { method: "POST" }), {
+  return useQuery(['GetMaterialDetail', type, warehouseId], () => client(`warehouse/getMaterialDetail?type=${warehouseId}&warehouseId=${type}`, { method: "POST" }), {
     enabled: Boolean(type) && Boolean(warehouseId)
   })
 }

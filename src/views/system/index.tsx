@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from '../../hook/useDocumentTitle'
@@ -25,6 +25,7 @@ import { MenuRender } from './child/menu'
 import { Department } from "./child/department";
 import { DataDictionary } from "./child/dataDictionary";
 import { Line } from "./child/line";
+import { useAuth } from "context/auth-context";
 const { Sider, Content } = Layout;
 /**
  * 用户管理<UserOutlined />
@@ -63,10 +64,11 @@ interface Item {
 
 export const System = () => {
   useDocumentTitle("系统管理")
-  const menu = JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "系统管理").childMenu
+  const { menu = [] } = useAuth()
+  const menuList = menu.find((item: Item) => item.name === "系统管理").childMenu
   const routeType = useRouteType();
   const [collapsed, setCollapsed] = useState(false)
-  menu.forEach((item: any) => {
+  menuList?.forEach((item: any) => {
     const url = item.url
     switch (url) {
       case "user":
@@ -122,7 +124,7 @@ export const System = () => {
       >
         <Menu selectedKeys={[routeType]} style={menuStyle}>
           {
-            menu.map((item: any) => (
+            menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
                 <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
               </Menu.Item>

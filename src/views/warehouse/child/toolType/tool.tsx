@@ -57,6 +57,7 @@ export const Tool = ({ name }: { name: string }) => {
             render: (item: any) => <>
               <Button type={"link"} onClick={() => {
                 startEdit(item.id, drawerId)
+
                 queryClient.invalidateQueries('GetMaterialDetail')
               }}>详情</Button>
             </>

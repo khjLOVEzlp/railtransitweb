@@ -241,12 +241,13 @@ export const ImportModal = () => {
     onChange(info: any) {
       if (info.file.status !== 'uploading') {
       }
-      if (info.file.status === 'done') {
+
+      if (info.file.status === 'done' && info.file.response?.code === 200) {
         message.success(`${info.file.name}上传成功`);
         queryClient.invalidateQueries('person')
         close()
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} 上传失败`);
+      } else if (info.file.status === 'error' || info.file.response?.code != 200) {
+        message.error("请检查文件的格式")
       }
     },
   };

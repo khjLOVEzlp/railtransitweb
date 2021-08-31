@@ -174,7 +174,9 @@ export const WorkWarn = () => {
           {...config}
           onReady={(plot: any) => {
             plot.on('plot:click', (evt: any) => {
-              open(params.subwayId, params.time)
+              const { x, y } = evt;
+              const tooltipData = plot.chart.getTooltipItems({ x, y });
+              open(params.subwayId, params.time, tooltipData[0]?.data?.type)
             });
           }}
         />

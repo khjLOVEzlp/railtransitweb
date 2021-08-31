@@ -38,14 +38,14 @@ export const useWorkStatisticsDetail = (params?: any) => {
 
 /*到岗统计弹框*/
 export const useWorkModal = () => {
-  const { visible, setVisible, setParam } = useStatisticsContext()
+  const { visible, setVisible, setParam, param } = useStatisticsContext()
   const open = (subwayId: string, time: string) => {
-    setParam({ subwayId, time })
+    setParam({ ...param, subwayId, time })
     setVisible(true)
   }
 
   const close = () => {
-    setParam({ subwayId: "", time: "" })
+    setParam({ ...param, subwayId: "", time: "" })
     setVisible(false)
   }
 

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react"
-import { Navigate, Outlet, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { NavLink } from "react-router-dom"
 import { useDocumentTitle } from 'hook/useDocumentTitle'
 import {
@@ -16,6 +16,7 @@ import React from "react";
 import { PlanWork } from "./child/planWork";
 import { WorkManage } from "./child/workManage";
 import { PlanType } from "./child/planType";
+import { useAuth } from "context/auth-context";
 const { Sider, Content } = Layout;
 
 const PlanContext = createContext<{
@@ -30,7 +31,8 @@ const PlanContext = createContext<{
 } | undefined>(undefined)
 
 export const Plan = () => {
-  const [menu] = useState(JSON.parse(sessionStorage.menu).find((res: any) => res.name === '作业计划').childMenu)
+  const { menu = [] } = useAuth()
+  const menuList = menu?.find((res: any) => res.name === '作业计划').childMenu
   useDocumentTitle("作业计划")
   const [groupList, setGroupList] = useState<any>([])
   const [visible, setVisible] = useState<boolean>(false)
@@ -39,7 +41,7 @@ export const Plan = () => {
   const routeType = useRouteType();
   const [collapsed, setCollapsed] = useState(false)
 
-  menu.forEach((item: any) => {
+  menuList?.forEach((item: any) => {
     const url = item.url
     switch (url) {
       case "planWork":
@@ -79,7 +81,7 @@ export const Plan = () => {
       >
         <Menu selectedKeys={[routeType]} style={menuStyle}>
           {
-            menu.map((item: any) => (
+            menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
                 <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
               </Menu.Item>

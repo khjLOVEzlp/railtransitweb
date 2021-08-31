@@ -2578,8 +2578,15 @@ export const Subway = () => {
 
   const refs = useRef(null);
 
+  let myEcharts: any
+
+  if (myEcharts != null && myEcharts != "" && myEcharts != undefined) {
+    // @ts-ignore
+    myEcharts.dispose();
+  }
+
   useEffect(() => {
-    const myEcharts = echarts.init(document.getElementById('subway') as HTMLElement)
+    myEcharts = echarts.init(document.getElementById('subway') as HTMLElement)
     myEcharts.setOption(option)
 
     myEcharts.on("mouseover", (params: any) => {

@@ -51,10 +51,7 @@ export const DictItem = () => {
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: onSelectChange,
-    getCheckboxProps: (record: any) => ({
-      disabled: record.state == 1
-    })
+    onChange: onSelectChange
   }
 
   const start = () => {

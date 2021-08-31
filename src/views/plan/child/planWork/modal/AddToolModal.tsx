@@ -1,4 +1,4 @@
-import { Button, Form, Input, List, Modal, Select, Spin, Table, Tabs } from "antd";
+import { Button, Form, Input, Modal, Select, Spin, Table, Tabs } from "antd";
 import { useAddToolModal } from '../util'
 import * as usePersonList from "views/person/child/personManage/request";
 import { useListBy } from "views/warehouse/child/materialType/request";
@@ -517,8 +517,6 @@ export const AddToolModal = () => {
 
   useEffect(() => {
     try {
-      console.log(groupList);
-
       const data = JSON.parse(sessionStorage.getItem("group") || "")
       form.setFieldsValue(data)
       setObj({
@@ -566,6 +564,44 @@ export const AddToolModal = () => {
         <Button key="submit" type="primary" onClick={onOk} >提交</Button>
       ] : false}
     >
+      <Form style={{ display: "flex", justifyContent: "space-between" }} form={form} onFinish={onFinish}>
+        <Form.Item
+          label={"小组名称"}
+          name={"groupName"}
+          rules={rules}
+          style={{ flex: 1, padding: "0 1rem" }}
+        >
+          <Input placeholder={"请输入小组名称"} onChange={(evt) => setObj({ ...obj, groupName: evt.target.value })} />
+        </Form.Item>
+
+        <Form.Item
+          label="组长"
+          name="leader"
+          rules={rules}
+          style={{ flex: 1, padding: "0 1rem" }}
+        >
+          <Select
+            style={{ width: "100%" }}
+            showSearch
+            placeholder={"请选择小组组长"}
+            filterOption={(input, option: any) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+            onChange={(value) => setObj({ ...obj, leader: value })}
+          >
+            {personList?.data.map((item: any, index: number) => <Select.Option value={item.id} disabled={groupList.find((key: any) => key.leader === item.id)}
+              key={index}>{item.name}</Select.Option>)}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label={"备注"}
+          name={"remark"}
+          style={{ flex: 1, padding: "0 1rem" }}
+        >
+          <TextArea placeholder={"请填写备注"} rows={1} />
+        </Form.Item>
+      </Form>
       <Tabs activeKey={state} onChange={onChange}>
         <TabPane tab="作业组员" key="2">
           <PersonLIst setState={setState} setObj={setObj} obj={obj} />
@@ -578,46 +614,8 @@ export const AddToolModal = () => {
           <Mater setState={setState} setObj={setObj} obj={obj} />
         </TabPane>
 
-        <TabPane tab="人物详情" key="1">
+        {/* <TabPane tab="人物详情" key="1">
           <List>
-            <Form style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between" }} form={form} onFinish={onFinish}>
-              <Form.Item
-                label={"小组名称"}
-                name={"groupName"}
-                rules={rules}
-                style={{ flex: 1, padding: "0 1rem" }}
-              >
-                <Input placeholder={"请输入小组名称"} onChange={(evt) => setObj({ ...obj, groupName: evt.target.value })} />
-              </Form.Item>
-
-              <Form.Item
-                label="组长"
-                name="leader"
-                rules={rules}
-                style={{ flex: 1, padding: "0 1rem" }}
-              >
-                <Select
-                  style={{ width: "100%" }}
-                  showSearch
-                  placeholder={"请选择小组组长"}
-                  filterOption={(input, option: any) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                  }
-                  onChange={(value) => setObj({ ...obj, leader: value })}
-                >
-                  {personList?.data.map((item: any, index: number) => <Select.Option value={item.id} disabled={groupList.find((key: any) => key.leader === item.id)}
-                    key={index}>{item.name}</Select.Option>)}
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label={"备注"}
-                name={"remark"}
-                style={{ flex: 1, padding: "0 1rem" }}
-              >
-                <TextArea placeholder={"请填写备注"} rows={1} />
-              </Form.Item>
-            </Form>
             {
               obj?.personList && obj?.personList.length > 0 ? <div style={flex}>作业组员：</div> : undefined
             }
@@ -655,10 +653,8 @@ export const AddToolModal = () => {
               )) : ""
             }
           </List>
-        </TabPane>
+        </TabPane> */}
       </Tabs>
     </Modal>
   )
 }
-
-const flex = { display: "flex", alignItems: "center", margin: "15px 0" }

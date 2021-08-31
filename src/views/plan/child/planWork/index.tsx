@@ -14,7 +14,7 @@ import { usePlanWorkModal, useShareModal } from './util'
 import { Search } from 'utils/typings';
 import { useState } from 'react';
 import { noData } from 'utils/verification';
-import { Header, Main } from 'components/Styled';
+import { Footer, Header, Main } from 'components/Styled';
 
 /*作业计划*/
 export const PlanWork = () => {
@@ -27,7 +27,7 @@ export const PlanWork = () => {
   const { open, startEdit } = usePlanWorkModal()
   const { startEdit: startShareEdit } = useShareModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
-  const { mutateAsync: Del } = useDel()
+  const { mutateAsync: Del, isLoading: mutaLoading } = useDel()
   // const { mutateAsync: SharePlan } = useSharePlan()
 
   /*删除*/
@@ -62,6 +62,8 @@ export const PlanWork = () => {
 
       case 2:
         return <Tag color="success">已执行</Tag>
+      case 3:
+        return <Tag color="error">已取消发布</Tag>
 
       default:
         break;
@@ -92,6 +94,36 @@ export const PlanWork = () => {
       },
     });
   };
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
+
+  const hasSelected = selectedRowKeys.length > 0;
+
+  const onSelectChange = (keys: any, value: any) => {
+    setSelectedRowKeys(keys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    getCheckboxProps: (record: any) => ({
+      disabled: record.status === 2
+    })
+  }
+
+  const start = () => {
+    const ids = selectedRowKeys.join(",")
+    Modal.confirm({
+      title: `是否要删除${selectedRowKeys.length}条数据`,
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk() {
+        confirm(ids);
+        setSelectedRowKeys([])
+      },
+    });
+  }
 
   return (
     <>
@@ -257,8 +289,17 @@ export const PlanWork = () => {
           loading={isLoading}
           rowKey={(item) => item.id}
           locale={noData}
+          rowSelection={rowSelection}
         />
       </Main>
+      {
+        hasSelected ? <Footer>
+          <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
+          <Button type="primary" onClick={start} loading={mutaLoading}>
+            {hasSelected ? `批量删除` : ''}
+          </Button>
+        </Footer> : undefined
+      }
       <ModalForm param={param} setParam={setParam} />
       <ShareModalForm />
     </ >

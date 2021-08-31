@@ -29,6 +29,7 @@ import { SimCardController } from "./children/simCardController/SimCardControlle
 import { SeperateController } from "./children/seperateController/SeperateController";
 import { TemperaterController } from "./children/temperaterController/TemperaterController";
 import { AlcoholController } from "./children/alcoholController/AlcoholController";
+import { useAuth } from "context/auth-context";
 const { Sider, Content } = Layout;
 
 interface Item {
@@ -38,10 +39,11 @@ interface Item {
 
 export const Hardware = () => {
   const routeType = useRouteType();
-  const menu = JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "设备管理").childMenu
+  const { menu = [] } = useAuth()
+  const menuList = menu.find((item: Item) => item.name === "设备管理").childMenu
   const [collapsed, setCollapsed] = useState(false)
   useDocumentTitle("设备管理")
-  menu.forEach((item: any) => {
+  menuList?.forEach((item: any) => {
     const name = item.name
     switch (name) {
       case "防分离器":
@@ -105,7 +107,7 @@ export const Hardware = () => {
       >
         <Menu selectedKeys={[routeType]} style={menuStyle}>
           {
-            menu.map((item: any) => (
+            menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
                 <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
               </Menu.Item>

@@ -50,8 +50,10 @@ const PageBoxContext = createContext<{
 export const PageBox = () => {
   const [infoId, setInfoId] = useState<number | undefined>(undefined)
   const [help, setHelp] = useState<boolean>(false)
+  const { menu = [] } = useAuth()
+
   /*菜单列表*/
-  const [menu, setMenu] = useState([])
+  /* const [menu, setMenu] = useState([])
   const client = useHttp()
   useEffect(() => {
     client(`info?type=1`, {
@@ -89,7 +91,11 @@ export const PageBox = () => {
       setMenu(res.data)
       sessionStorage.setItem('menu', JSON.stringify(res.data))
 
-      /*const { data } = res
+      
+    })
+  }, [client]) */
+
+  /*const { data } = res
       // 递归菜单
       const recursionTreeData = (treeData: any) => {
         let nodeData: any = [];
@@ -107,8 +113,6 @@ export const PageBox = () => {
         });
         return nodeData;
       };*/
-    })
-  }, [client])
 
   return (
     <PageBoxContext.Provider value={{ infoId, setInfoId, help, setHelp }}>
@@ -125,7 +129,7 @@ export const PageBox = () => {
           </Logo>
           <Nav className={"NavList"}>
             {
-              menu.map((item: any, index) => (
+              menu?.map((item: any, index: any) => (
                 <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
               ))
             }

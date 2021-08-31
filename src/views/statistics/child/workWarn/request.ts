@@ -71,7 +71,7 @@ export const useAlarmPagination = (params?: any) => {
   const client = useHttp()
   return useQuery(['AlarmPagination', cleanObject(params)], async () =>
     client(`report/getWorkWarnMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
-    enabled: Boolean(params.subwayId) && Boolean(params.time)
+    enabled: Boolean(params.subwayId) && Boolean(params.time) && Boolean(params.type)
   }
   )
 }
@@ -79,13 +79,13 @@ export const useAlarmPagination = (params?: any) => {
 /*告警统计弹框*/
 export const useAlarmModal = () => {
   const { visible, setVisible, setParam } = useStatisticsContext()
-  const open = (subwayId: string, time: string) => {
-    setParam({ subwayId, time })
+  const open = (subwayId: string, time: string, type: string) => {
+    setParam({ subwayId, time, type })
     setVisible(true)
   }
 
   const close = () => {
-    setParam({ subwayId: "", time: "" })
+    setParam({ subwayId: "", time: "", type: "" })
     setVisible(false)
   }
 

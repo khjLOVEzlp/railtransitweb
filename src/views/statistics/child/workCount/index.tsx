@@ -89,7 +89,7 @@ export const WorkCount = () => {
           name="basic"
           layout={"inline"}
         >
-          <Radio.Group onChange={onChange}>
+          <Radio.Group onChange={onChange} defaultValue={0}>
             <Radio value={0}>日报</Radio>
             <Radio value={1}>月报</Radio>
           </Radio.Group>
@@ -116,6 +116,7 @@ export const WorkCount = () => {
 
           <Form.Item
             name="date"
+            initialValue={value === 0 ? moment(moment().format(), dateFormat) : moment(moment().format(), monthFormat)}
           >
             {
               value === 0 ? <DatePicker locale={locale} onChange={birthday} defaultValue={moment(moment().format(), dateFormat)} format={dateFormat} /> :
@@ -143,7 +144,7 @@ export const WorkCount = () => {
 
             <List header={<div>二、作业人员情况</div>}>
               <Table
-                rowKey={key => key.id}
+                rowKey={key => key.key}
                 dataSource={dayList?.data?.personDayVoList}
                 pagination={false}
                 loading={dayLoading}
@@ -179,7 +180,7 @@ export const WorkCount = () => {
 
             <List header={<div>三、工器具使用情况</div>}>
               <Table
-                rowKey={key => key.id}
+                rowKey={key => key.key}
                 dataSource={dayList?.data?.toolDayVoList}
                 pagination={false}
                 loading={dayLoading}
@@ -217,7 +218,7 @@ export const WorkCount = () => {
 
             <List header={<div>二、作业人员情况<span style={{ color: "red", fontSize: "10px" }}>（工时差额=当月天数-实际工作天数）</span></div>}>
               <Table
-                rowKey={key => key.id}
+                rowKey={key => key.key}
                 dataSource={monthList?.data?.personMonthVoList}
                 pagination={false}
                 loading={monthLoading}
@@ -248,7 +249,7 @@ export const WorkCount = () => {
 
             <List header={<div>三、工器具使用情况<span style={{ color: "red", fontSize: "10px" }}>（工具使用率=）</span></div>}>
               <Table
-                rowKey={key => key.id}
+                rowKey={key => key.key}
                 dataSource={monthList?.data?.toolMonthVoList}
                 pagination={false}
                 loading={monthLoading}

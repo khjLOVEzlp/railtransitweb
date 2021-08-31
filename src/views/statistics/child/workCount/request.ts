@@ -18,8 +18,22 @@ export const useLineList = () => {
  */
 export const useDay = (params: Partial<Search>, value: number) => {
   const client = useHttp()
-  return useQuery(['getDay', cleanObject(params)], () =>
-    client(`report/getDay?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+  return useQuery(['getDay', cleanObject(params)], async () => {
+    const data = await client(`report/getDay?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    if (data.data.personDayVoList && data.data.personDayVoList.length > 0) {
+      data.data.personDayVoList.forEach((key: any, index: number) => {
+        key["key"] = index
+      })
+    }
+
+    if (data.data.toolDayVoList && data.data.toolDayVoList.length > 0) {
+      data.data.toolDayVoList.forEach((key: any, index: number) => {
+        key["key"] = index
+      })
+    }
+
+    return data
+  }, {
     enabled: Boolean(params.date) && Boolean(params.subwayId) && value === 0
   })
 }
@@ -29,8 +43,21 @@ export const useDay = (params: Partial<Search>, value: number) => {
  */
 export const useMonth = (params: any, value: number) => {
   const client = useHttp()
-  return useQuery(['getMonth', cleanObject(params)], () =>
-    client(`report/getMonth?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+  return useQuery(['getMonth', cleanObject(params)], async () => {
+    const data = await client(`report/getMonth?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    if (data.data.personMonthVoList && data.data.personMonthVoList.length > 0) {
+      data.data.personMonthVoList.forEach((key: any, index: number) => {
+        key["key"] = index
+      })
+    }
+
+    if (data.data.toolMonthVoList && data.data.toolMonthVoList.length > 0) {
+      data.data.toolMonthVoList.forEach((key: any, index: number) => {
+        key["key"] = index
+      })
+    }
+    return data
+  }, {
     enabled: Boolean(params.date) && Boolean(params.subwayId) && value === 1
   })
 }

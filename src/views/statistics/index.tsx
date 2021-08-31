@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { createContext, useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hook/useDocumentTitle";
@@ -18,6 +18,7 @@ import { WorkCount } from "./child/workCount";
 import { WorkWarn } from "./child/workWarn";
 import { WorkPerson } from "./child/workPerson";
 import { PersonMind } from "./child/personMind";
+import { useAuth } from "context/auth-context";
 const { Sider, Content } = Layout;
 
 interface Item {
@@ -31,26 +32,30 @@ const StatisticsContext = createContext<{
   param: {
     time: string
     subwayId: string
+    type: string
   }
   setParam: (param: {
     time: string
     subwayId: string
+    type: string
   }) => void
 } | undefined>(undefined)
 
 export const Statistics = () => {
-  const [menu] = useState(JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "统计分析").childMenu)
+  const { menu = [] } = useAuth()
+  const menuList = menu?.find((item: Item) => item.name === "统计分析").childMenu
   useDocumentTitle("统计分析")
 
   const [visible, setVisible] = useState<boolean>(false)
   const [param, setParam] = useState({
     time: "",
     subwayId: "",
+    type: ""
   })
 
   const routeType = useRouteType();
   const [collapsed, setCollapsed] = useState(false)
-  menu.forEach((item: any) => {
+  menuList?.forEach((item: any) => {
     const url = item.url
     switch (url) {
       case "workCount":
@@ -94,7 +99,7 @@ export const Statistics = () => {
       >
         <Menu selectedKeys={[routeType]} style={menuStyle}>
           {
-            menu.map((item: any) => (
+            menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
                 <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
               </Menu.Item>

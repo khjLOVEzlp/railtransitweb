@@ -49,9 +49,6 @@ export const Department = () => {
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
-    getCheckboxProps: (record: any) => ({
-      disabled: record.state == 1
-    })
   }
 
   const start = () => {

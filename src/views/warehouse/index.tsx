@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { createContext, useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "hook/useDocumentTitle";
@@ -18,6 +18,7 @@ import { MaterialType } from "./child/materialType";
 import { ToolType } from "./child/toolType";
 import { InWarehouse } from "./child/inWarehouse";
 import { OutWarehouse } from "./child/outWarehouse";
+import { useAuth } from "context/auth-context";
 const { Sider, Content } = Layout;
 interface Item {
   name: string,
@@ -33,13 +34,16 @@ const WareHouseContext = createContext<{
 
 export const Warehouse = () => {
   useDocumentTitle("库存管理")
+  // 仓库种类Id
   const [drawerId, setDrawerId] = useState<number | undefined>(undefined)
+  // 物资种类Id
   const [editId, setEditId] = useState<number | undefined>(undefined)
-  const [menu] = useState(JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "库存管理").childMenu)
+  const { menu = [] } = useAuth()
+  const menuList = menu?.find((item: Item) => item.name === "库存管理").childMenu
   const routeType = useRouteType();
   const [collapsed, setCollapsed] = useState(false)
 
-  menu.forEach((item: any) => {
+  menuList?.forEach((item: any) => {
     const url = item.url
     switch (url) {
       case "toolType":
@@ -83,7 +87,7 @@ export const Warehouse = () => {
       >
         <Menu selectedKeys={[routeType]} style={menuStyle}>
           {
-            menu.map((item: any) => (
+            menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
                 <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
               </Menu.Item>

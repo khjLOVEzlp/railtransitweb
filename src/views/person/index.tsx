@@ -15,6 +15,7 @@ import React from "react";
 import { ModalProvider } from "context/modal-context";
 import { PersonManage } from "./child/personManage";
 import { SpiritStatus } from "./child/spiritStatus";
+import { useAuth } from "context/auth-context";
 const { Sider, Content } = Layout;
 
 interface Item {
@@ -23,12 +24,13 @@ interface Item {
 }
 
 export const Person = () => {
-  const menu = JSON.parse(sessionStorage.menu).find((item: Item) => item.name === "人员管理").childMenu
+  const { menu = [] } = useAuth()
+  const menuList = menu.find((item: Item) => item.name === "人员管理").childMenu
   const routeType = useRouteType();
   const [collapsed, setCollapsed] = useState(false)
   useDocumentTitle("人员管理")
 
-  menu.forEach((item: any) => {
+  menuList?.forEach((item: any) => {
     const url = item.url
     switch (url) {
       case "personManage":
@@ -64,7 +66,7 @@ export const Person = () => {
       >
         <Menu selectedKeys={[routeType]} style={menuStyle}>
           {
-            menu.map((item: any) => (
+            menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
                 <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
               </Menu.Item>

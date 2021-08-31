@@ -8,15 +8,16 @@ import { useState } from "react";
 import { ErrorBox } from "./components/lib";
 import { useAsync } from "./hook/useAsync";
 import { useNavigate } from 'react-router'
-
 export const Login = () => {
   const navigate = useNavigate()
   const [error, setError] = useState<Error | null>(null);
-  const { isLoading, run } = useAsync(undefined, { throwOnError: true });
-  const { login } = useAuth()
+  const { isLoading, run, } = useAsync(undefined, { throwOnError: true });
+  const { login, menuRender } = useAuth()
   const onFinish = async (values: any) => {
     try {
-      await run(login(values))
+      await run(login(values)).then(() => {
+        run(menuRender())
+      })
     } catch (e) {
       setError(e)
     }

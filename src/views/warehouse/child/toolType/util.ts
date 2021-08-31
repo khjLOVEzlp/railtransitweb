@@ -71,13 +71,11 @@ export const useToolModal = () => {
   )
 
   const close = () => setEditId(undefined)
-  const startEdit = (drawerId: number | undefined, editId: number | undefined) => {
-    setDrawerId(drawerId)
+
+  const startEdit = (editId: number | undefined, drawerId: number | undefined) => {
     setEditId(editId)
+    setDrawerId(drawerId)
   }
-
-  console.log(drawerId, editId);
-
 
   return {
     ModalOpen: Boolean(drawerId) && Boolean(editId),

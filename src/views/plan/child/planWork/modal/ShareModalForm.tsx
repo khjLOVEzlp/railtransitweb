@@ -48,6 +48,8 @@ export const ShareModalForm = () => {
     });
   };
 
+  const disible = editingPlanWork?.data["已取消"].length > 0
+
   return (
     <Modal
       title={"发布计划"}
@@ -126,7 +128,7 @@ export const ShareModalForm = () => {
             </Form.Item>
 
             <Form.Item style={{ textAlign: "right" }}>
-              <Button style={{ marginRight: "1rem" }} onClick={() => confirmDeleteProject(editId)}>取消计划</Button>
+              <Button style={{ marginRight: "1rem" }} disabled={disible} onClick={() => confirmDeleteProject(editId)}>取消计划</Button>
               <Button key="submit" type="primary" onClick={onOk} loading={mutaLoading}>提交</Button>
             </Form.Item>
           </Form>
