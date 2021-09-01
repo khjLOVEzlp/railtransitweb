@@ -68,7 +68,7 @@ export const Person = () => {
           {
             menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
-                <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
+                <NavLink to={item.url.replace('/', '')} style={navLink}>{item.name}</NavLink>
               </Menu.Item>
             ))
           }
@@ -83,7 +83,7 @@ export const Person = () => {
               <Route path={"/personManage"} element={<PersonManage />} />
               {/*projects/:projectId/epic*/}
               <Route path={"/spiritStatus"} element={<SpiritStatus />} />
-              <Navigate to={window.location.pathname + "/personManage"} replace={true} />
+              <Navigate to={window.location.pathname + "/" + menuList[0].url} replace={true} />
             </Routes>
           </ModalProvider>
         </Content>

@@ -3,7 +3,7 @@ import { useEffect, useState, createContext, useContext } from "react";
 import { useHttp } from "./utils/http";
 import logo from './icon/logo.png'
 import notice from './icon/通知.png'
-import { Navigate, NavLink, Route, Routes } from "react-router-dom";
+import { Navigate, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
 import { Avatar, Badge, Button, Dropdown, Menu, message } from "antd";
 import { DownOutlined } from '@ant-design/icons';
@@ -130,7 +130,7 @@ export const PageBox = () => {
           <Nav className={"NavList"}>
             {
               menu?.map((item: any, index: any) => (
-                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url}>{item.name}</NavLink></li>
+                <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url.replace('/', '')}>{item.name}</NavLink></li>
               ))
             }
           </Nav>
@@ -147,7 +147,8 @@ export const PageBox = () => {
             <Route path={"/hardware/*"} element={<Hardware />} />
             <Route path={"/person/*"} element={<Person />} />
             <Route path={"/system/*"} element={<System />} />
-            <Navigate to={"/home"} />
+            {/* <Navigate to={"/home"} /> */}
+            <Navigate to={window.location.pathname + "/home"} replace={true} />
           </Routes>
         </ContentStyle>
         <UserInfo />
@@ -158,6 +159,7 @@ export const PageBox = () => {
 }
 
 const User = () => {
+  const navigate = useNavigate()
   const { data } = useUnread()
   const { open } = useNoticeModal()
   const { startEdit } = useInfoModal()
@@ -202,7 +204,10 @@ const User = () => {
               </Button>
             </Menu.Item>
             <Menu.Item key={"logout"}>
-              <Button onClick={logout} type={"link"}>
+              <Button onClick={() => {
+                logout()
+                navigate("/login")
+              }} type={"link"}>
                 登出
               </Button>
             </Menu.Item>

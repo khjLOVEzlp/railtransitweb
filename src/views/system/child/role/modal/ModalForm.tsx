@@ -157,3 +157,5 @@ export const ModalForm = ({ param, setParam }: Props) => {
     </Modal>
   );
 };
+
+let arr = ["0-1", "0-1-0-0"]

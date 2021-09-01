@@ -4,16 +4,25 @@ import { Login } from "./Login";
 import { PageBox } from "./PageBox";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { FullPageErrorFallback } from "./components/lib";
-// import { Navigate, Route, Routes } from 'react-router';
+import { Route, Routes, useNavigate, Navigate } from 'react-router';
 
 const App = () => {
+  const navigate = useNavigate()
   const { user } = useAuth()
+
   return (
     <div className="App">
       <ErrorBoundary fallbackRender={FullPageErrorFallback}>
-        {
+        <Routes>
+          {
+            user ? <Route path={'/*'} element={<PageBox />} /> : <Route path={'/login'} element={<Login />} />
+          }
+
+          <Navigate to={user ? "/" : "/login"} />
+        </Routes>
+        {/* {
           user ? <PageBox /> : <Login />
-        }
+        } */}
       </ErrorBoundary>
     </div>
   );

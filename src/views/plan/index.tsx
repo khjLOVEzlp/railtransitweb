@@ -83,7 +83,7 @@ export const Plan = () => {
           {
             menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
-                <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
+                <NavLink to={item.url.replace('/', '')} style={navLink}>{item.name}</NavLink>
               </Menu.Item>
             ))
           }
@@ -99,7 +99,7 @@ export const Plan = () => {
               {/*projects/:projectId/epic*/}
               <Route path={"/workManage"} element={<WorkManage />} />
               <Route path={"/planType"} element={<PlanType />} />
-              <Navigate to={window.location.pathname + "/planWork"} replace={true} />
+              <Navigate to={window.location.pathname + "/" + menuList[0].url} replace={true} />
             </Routes>
           </PlanContext.Provider>
         </Content>

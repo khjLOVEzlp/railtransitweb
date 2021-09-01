@@ -126,7 +126,7 @@ export const System = () => {
           {
             menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
-                <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
+                <NavLink to={item.url.replace('/', '')} style={navLink}>{item.name}</NavLink>
               </Menu.Item>
             ))
           }
@@ -146,7 +146,7 @@ export const System = () => {
               <Route path={"/department"} element={<Department />} />
               <Route path={"/dataDictionary"} element={<DataDictionary />} />
               <Route path={"/line"} element={<Line />} />
-              <Navigate to={window.location.pathname + "/user"} replace={true} />
+              <Navigate to={window.location.pathname + "/" + menuList[0].url} replace={true} />
             </Routes>
           </ModalProvider>
         </Content>

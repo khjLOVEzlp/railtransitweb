@@ -109,7 +109,7 @@ export const Hardware = () => {
           {
             menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
-                <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
+                <NavLink to={item.url.replace('/', '')} style={navLink}>{item.name}</NavLink>
               </Menu.Item>
             ))
           }
@@ -131,7 +131,7 @@ export const Hardware = () => {
               <Route path={"/temperater"} element={<TemperaterController />} />
               <Route path={"/alcohol"} element={<AlcoholController />} />
               <Route path={"/blood"} element={<Blood />} />
-              <Navigate to={window.location.pathname + "/label"} replace={true} />
+              <Navigate to={window.location.pathname + "/" + menuList[0].url} replace={true} />
             </Routes>
           </ModalProvider>
         </Content>

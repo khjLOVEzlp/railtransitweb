@@ -101,7 +101,7 @@ export const Statistics = () => {
           {
             menuList?.map((item: any) => (
               <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>
-                <NavLink to={item.url} style={navLink}>{item.name}</NavLink>
+                <NavLink to={item.url.replace('/', '')} style={navLink}>{item.name}</NavLink>
               </Menu.Item>
             ))
           }
@@ -118,7 +118,7 @@ export const Statistics = () => {
               <Route path={"/workWarn"} element={<WorkWarn />} />
               <Route path={"/workPerson"} element={<WorkPerson />} />
               <Route path={"/personMind"} element={<PersonMind />} />
-              <Navigate to={window.location.pathname + "/workCount"} replace={true} />
+              <Navigate to={window.location.pathname + "/" + menuList[0].url} replace={true} />
             </Routes>
           </StatisticsContext.Provider>
         </Content>

@@ -17,6 +17,7 @@ export const Login = () => {
     try {
       await run(login(values)).then(() => {
         run(menuRender())
+        navigate("/home")
       })
     } catch (e) {
       setError(e)
