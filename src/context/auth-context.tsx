@@ -116,11 +116,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     run(bootstrapUser());
-  }, [run]);
-
-  useEffect(() => {
     menuRun(bootstrapMenu())
-  }, [menuRun])
+  }, [run, menuRun]);
 
   if (isIdle || isLoading || menuLoading || isMenuIdle) {
     return <FullPageLoading />;

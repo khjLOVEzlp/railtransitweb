@@ -165,12 +165,12 @@ export const Alarm = () => {
       <Header>
         <Select style={{ width: 120, margin: '1rem 0' }} defaultValue={"1"} onChange={navChange}>
           {
-            timeList.map((item: { name: string, value: string }) => <Option key={item.value}
+            timeList.map((item: any, index: number) => <Option key={index}
               value={item.value}>{item.name}</Option>)
           }
         </Select>
         <Nav>
-          {navList?.data.map((item: any) => (<li key={item.id}>
+          {navList?.data.map((item: any, index: number) => (<li key={index}>
             <img onClick={() => navClick(item.type)} src={`../../icon/${getType(item.type)}.png`} alt="" />
             <div>
               <div style={{ marginBottom: '1rem', fontSize: '1.5rem' }}>{getType(item.type)}</div>
@@ -187,13 +187,13 @@ export const Alarm = () => {
           getPopupContainer={triggerNode => triggerNode.parentElement}
         >
           {
-            stateList.map((item: { name: string, value: string }) => <Option key={item.value}
+            stateList.map((item: any, index: number) => <Option key={index}
               value={item.value}>{item.name}</Option>)
           }
         </Select>
         <Select getPopupContainer={triggerNode => triggerNode.parentElement} style={{ width: 120, margin: '1rem 0', marginLeft: '1rem' }} defaultValue={"1"} onChange={timeChange}>
           {
-            timeList.map((item: { name: string, value: string }) => <Option key={item.value}
+            timeList.map((item: any, index: number) => <Option key={index}
               value={item.value}>{item.name}</Option>)
           }
         </Select>

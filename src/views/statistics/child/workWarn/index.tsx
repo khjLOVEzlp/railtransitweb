@@ -242,7 +242,7 @@ export const AlarmModal = ({ params }: { params: { subwayId: string, time: strin
         pagination={{ total: alarmPagination?.count, current: param.index, pageSize: param.size }}
         loading={isLoading}
         onChange={handleTableChange}
-        rowKey={(item: any, index: any) => index}
+        rowKey={(item) => item.key}
         locale={noData}
       />
     </Modal>

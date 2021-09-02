@@ -14,7 +14,7 @@ const { TabPane } = Tabs;
 
 /* 添加小组成员 */
 
-const PersonLIst = ({ setState, setObj, obj }: any) => {
+const PersonList = ({ setState, setObj, obj }: any) => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -342,7 +342,7 @@ const Tool = ({ setState, setObj, obj }: any) => {
 
 /* 添加物料 */
 
-const Mater = ({ setState, obj, setObj }: any) => {
+const Mater = ({ obj, setObj }: any) => {
   const columns = [
     {
       title: "物料",
@@ -385,7 +385,6 @@ const Mater = ({ setState, obj, setObj }: any) => {
         groupMaterialList
       })
       setLoading(false)
-      setState("1")
     }, 1000)
   }
 
@@ -560,9 +559,9 @@ export const AddToolModal = () => {
       visible={ModalOpen}
       onCancel={closeModal}
       destroyOnClose={true}
-      footer={state === "1" ? [
+      footer={[
         <Button key="submit" type="primary" onClick={onOk} >提交</Button>
-      ] : false}
+      ]}
     >
       <Form style={{ display: "flex", justifyContent: "space-between" }} form={form} onFinish={onFinish}>
         <Form.Item
@@ -604,7 +603,7 @@ export const AddToolModal = () => {
       </Form>
       <Tabs activeKey={state} onChange={onChange}>
         <TabPane tab="作业组员" key="2">
-          <PersonLIst setState={setState} setObj={setObj} obj={obj} />
+          <PersonList setState={setState} setObj={setObj} obj={obj} />
         </TabPane>
         <TabPane tab="作业工具" key="3">
           <Tool setState={setState} setObj={setObj} obj={obj} />

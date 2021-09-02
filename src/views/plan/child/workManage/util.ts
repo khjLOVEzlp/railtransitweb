@@ -4,7 +4,7 @@ import { useHistoryDetail } from './request'
 export const useHistoryModal = () => {
   const { editId, setEditId } = usePlanContext()
 
-  const { data: planHistory, isLoading } = useHistoryDetail(
+  const { data: planHistory, isLoading, isSuccess } = useHistoryDetail(
     Number(editId)
   )
 
@@ -19,6 +19,7 @@ export const useHistoryModal = () => {
     startEdit,
     close,
     planHistory,
-    isLoading
+    isLoading,
+    isSuccess
   }
 }

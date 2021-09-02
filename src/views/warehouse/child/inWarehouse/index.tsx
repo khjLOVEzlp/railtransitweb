@@ -77,9 +77,11 @@ export const InWarehouse = () => {
               },
 
             ]
-          } pagination={{ total: data?.count, current: param.index, pageSize: param.size }} onChange={handleTableChange}
+          }
+            pagination={{ total: data?.count, current: param.index, pageSize: param.size }}
+            onChange={handleTableChange}
             loading={isLoading} dataSource={data?.data}
-            rowKey={(item, index: any) => index}
+            rowKey={(item) => item.key}
             locale={noData}
           />
         </Main>

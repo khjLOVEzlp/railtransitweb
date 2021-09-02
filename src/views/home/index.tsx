@@ -37,7 +37,7 @@ export const Home = () => {
             }}>{show ? "放大" : "缩小"}</Button>
           </Title>
           {
-            isSuccess ? (
+            isSuccess && (
               <Space style={{
                 position: "absolute",
                 right: 0,
@@ -49,8 +49,8 @@ export const Home = () => {
                 direction={"vertical"}
               >
                 {
-                  data.data.map((item: any) => (
-                    <Card hoverable={true} style={{ borderColor: `${item.color}`, borderWidth: '0.2rem', width: 120, padding: 0 }} bodyStyle={{ padding: 10 }}>
+                  data.data.map((item: any, index: number) => (
+                    <Card hoverable={true} style={{ borderColor: `${item.color}`, borderWidth: '0.2rem', width: 120, padding: 0 }} bodyStyle={{ padding: 10 }} key={index}>
                       <p style={{ fontSize: "12px" }}>{item.name}</p>
                       <p style={{ fontSize: "12px" }}>人数：{item.personCount || "0"}</p>
                       <p style={{ fontSize: "12px" }}>班别数：{item.classCount || "0"}</p>
@@ -60,8 +60,6 @@ export const Home = () => {
                   ))
                 }
               </Space>
-            ) : (
-              <div></div>
             )
           }
           <Subway />

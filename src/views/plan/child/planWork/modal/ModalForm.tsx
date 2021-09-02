@@ -49,7 +49,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   let document: string[] = []
   const [id, setId] = useState<number>(0)
   const { open, startEdit } = useAddToolModal()
-  const { ModalOpen, isLoading, close, editingPlanWork, editId } = usePlanWorkModal()
+  const { ModalOpen, isLoading, close, editingPlanWork, editId, isSuccess } = usePlanWorkModal()
   const queryClient = useQueryClient()
   const title = editingPlanWork ? "修改" : "新增"
   const msg = editingPlanWork ? () => {
@@ -61,20 +61,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
 
   const useMutateProject = editingPlanWork ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
-
-  useEffect(() => {
-    if (editingPlanWork) {
-      queryClient.invalidateQueries('lineAll')
-      setGroupList(editingPlanWork?.data.groupList)
-      form.setFieldsValue({
-        ...editingPlanWork?.data,
-        dateTime: moment(editingPlanWork?.data?.dateTime),
-        beginTime: moment(editingPlanWork?.data?.beginTime),
-        endTime: moment(editingPlanWork?.data?.endTime),
-        warnTime: moment(editingPlanWork?.data?.warnTime),
-      })
-    }
-  }, [form, editingPlanWork, queryClient])
 
   const closeModal = () => {
     setGroupList([])
@@ -114,6 +100,21 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { data: lineLIst } = useLine()
   const { data: allList } = useSite(id)
 
+  useEffect(() => {
+    if (editingPlanWork) {
+      setId(editingPlanWork?.data.lineId)
+      queryClient.invalidateQueries('lineAll')
+      setGroupList(editingPlanWork?.data.groupList)
+      form.setFieldsValue({
+        ...editingPlanWork?.data,
+        dateTime: moment(editingPlanWork?.data?.dateTime),
+        beginTime: moment(editingPlanWork?.data?.beginTime),
+        endTime: moment(editingPlanWork?.data?.endTime),
+        warnTime: moment(editingPlanWork?.data?.warnTime),
+      })
+    }
+  }, [form, editingPlanWork, queryClient])
+
   /* 选择线路 */
   const onGenderChange = (value: number) => {
     setId(value)
@@ -138,7 +139,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
         message.error(`${info.file.name} 上传失败`);
       }
     },
-    defaultFileList: editingPlanWork?.data.documentList
+    defaultFileList: isSuccess && editingPlanWork?.data.documentList
 
   };
 

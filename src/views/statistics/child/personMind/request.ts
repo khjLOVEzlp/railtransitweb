@@ -28,8 +28,19 @@ export const useMindStatistics = (params: Partial<Search>) => {
 /*精神分析统计详情*/
 export const useMindStatisticsDetail = (params?: any) => {
   const client = useHttp()
-  return useQuery(['MindStatisticsDetail', cleanObject(params)], () =>
-    client(`report/getPersonMindMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+  return useQuery(['MindStatisticsDetail', cleanObject(params)], async () => {
+    const data = await client(`report/getPersonMindMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    data?.data?.alcPerson?.forEach((key: { [key: string]: unknown }, index: number) => {
+      key["key"] = index
+    })
+    data?.data?.bloodPerson?.forEach((key: { [key: string]: unknown }, index: number) => {
+      key["key"] = index
+    })
+    data?.data?.temPerson?.forEach((key: { [key: string]: unknown }, index: number) => {
+      key["key"] = index
+    })
+    return data
+  }, {
     enabled: Boolean(params?.subwayId) && Boolean(params?.time)
   }
   )

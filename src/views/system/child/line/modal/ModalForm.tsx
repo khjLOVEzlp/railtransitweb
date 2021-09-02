@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Spin, TreeSelect } from "antd";
+import { Button, Form, Input, message, Modal, Select, Spin, TreeSelect } from "antd";
 import React, { useEffect } from "react";
 import { rules } from "utils/verification";
 import { useLineModal } from '../util'
@@ -13,6 +13,25 @@ type Props = {
   }
   setParam: (param: Props["param"]) => void
 }
+
+const lineList = [
+  "地铁1号线",
+  "地铁2号线",
+  "地铁3号线",
+  "地铁3号线北延段",
+  "地铁4号线",
+  "地铁5号线",
+  "地铁6号线",
+  "地铁7号线",
+  "地铁8号线",
+  "地铁9号线",
+  "地铁13号线",
+  "地铁14号线",
+  "地铁21号线",
+  "广佛线",
+  "apm线",
+  "地铁14号线支线(知识城线)"
+]
 
 export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
@@ -90,12 +109,26 @@ export const ModalForm = ({ param, setParam }: Props) => {
               />
             </Form.Item>
 
-            <Form.Item
+            {/* <Form.Item
               label="地铁线路名称"
               name="name"
               rules={rules}
             >
               <Input />
+            </Form.Item> */}
+
+            <Form.Item
+              label="地铁线路名称"
+              name="name"
+              rules={rules}
+            >
+              <Select>
+                {
+                  lineList.map((item, index) => (
+                    <Select.Option value={item} key={index}>{item}</Select.Option>
+                  ))
+                }
+              </Select>
             </Form.Item>
 
             <Form.Item

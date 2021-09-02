@@ -190,7 +190,7 @@ export const WorkPersonModal = ({ params }: { params: { subwayId: string, time: 
         pagination={false}
         loading={isLoading}
         // onChange={handleTableChange}
-        rowKey={(item: any, index: any) => index}
+        rowKey={(item) => item.key}
       />
     </Modal>
   )

@@ -8,12 +8,11 @@ import { useAuth } from "./context/auth-context";
 import { Avatar, Badge, Button, Dropdown, Menu, message } from "antd";
 import { DownOutlined } from '@ant-design/icons';
 import { useUnread } from 'views/notice/request'
+import qs from "qs";
 
 /*
 * 路由
 * */
-import { RouterElement } from "./router";
-import qs from "qs";
 /*
 * 事务通知弹框
 * */

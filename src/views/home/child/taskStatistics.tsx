@@ -205,6 +205,7 @@ export const OpenModal = () => {
   };
   return (
     <Modal
+      forceRender={true}
       visible={ModalOpen}
       onCancel={close}
       title={"作业统计"}
@@ -217,7 +218,7 @@ export const OpenModal = () => {
         pagination={{ total: Task?.count, current: param.index, pageSize: param.size }}
         loading={isLoading}
         onChange={handleTableChange}
-        rowKey={(item: any, index: any) => index}
+        rowKey={(item) => item.key}
       />
     </Modal>
   )

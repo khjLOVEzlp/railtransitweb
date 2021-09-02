@@ -69,8 +69,13 @@ export const useAlarmStatistics = (params: Partial<Search>) => {
 /*告警统计分页查询*/
 export const useAlarmPagination = (params?: any) => {
   const client = useHttp()
-  return useQuery(['AlarmPagination', cleanObject(params)], async () =>
-    client(`report/getWorkWarnMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+  return useQuery(['AlarmPagination', cleanObject(params)], async () => {
+    const data = await client(`report/getWorkWarnMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    data.data.forEach((key: { [key: string]: unknown }, index: number) => {
+      key["key"] = index
+    })
+    return data
+  }, {
     enabled: Boolean(params.subwayId) && Boolean(params.time) && Boolean(params.type)
   }
   )

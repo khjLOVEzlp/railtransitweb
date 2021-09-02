@@ -147,6 +147,7 @@ const OpenModal = () => {
 
   return (
     <Modal
+      forceRender={true}
       footer={false}
       visible={ModalOpen}
       onCancel={close}
@@ -159,7 +160,7 @@ const OpenModal = () => {
         pagination={{ total: Plan?.count, current: param.index, pageSize: param.size }}
         loading={isLoading}
         onChange={handleTableChange}
-        rowKey={(item: any, index: any) => index}
+        rowKey={(item) => item.key}
         locale={noData}
       />
     </Modal>

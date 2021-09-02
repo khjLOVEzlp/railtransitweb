@@ -190,7 +190,7 @@ const PersonMindModal = ({ params, type }: { params: { subwayId: string, time: s
         columns={columns}
         pagination={false}
         dataSource={dataSource}
-        rowKey={(item: any, index: any) => index}
+        rowKey={(item) => item.key}
       />
     </Modal>
   )

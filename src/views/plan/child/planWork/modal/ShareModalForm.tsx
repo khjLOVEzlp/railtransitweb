@@ -121,7 +121,7 @@ export const ShareModalForm = () => {
               name="users"
               rules={rules}
             >
-              <Select allowClear mode="multiple">
+              <Select allowClear mode="multiple" getPopupContainer={triggerNode => triggerNode.parentElement}>
                 {personList?.data.map((item: any, index: number) => <Option value={item.id}
                   key={index}>{item.name}</Option>)}
               </Select>

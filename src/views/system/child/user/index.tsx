@@ -10,8 +10,11 @@ import { useUserModal } from './util'
 import { Search } from "utils/typings";
 import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
+import { useAuth } from 'context/auth-context';
 
 export const User = () => {
+  const { menu = [] } = useAuth()
+  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "系统管理").childMenu.find((item: { [item: string]: unknown }) => item.name === "用户管理").childMenu
   const [passwdVisible, setPasswdVisible] = useState(false)
   const [passId, setPassId] = useState<number>()
   const client = useHttp()
@@ -118,7 +121,9 @@ export const User = () => {
           </Form.Item>
         </Form>
 
-        <Button onClick={open}>新增</Button>
+        {
+          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+        }
       </Header>
       <Main>
         <Table
@@ -171,18 +176,23 @@ export const User = () => {
                         <Menu.Item onClick={() => modPass(item.id)} key={"pass"}>
                           重置密码
                         </Menu.Item>
-                        <Menu.Item
-                          onClick={() => startEdit(item.id)}
-                          key={"edit"}
-                        >
-                          修改
-                        </Menu.Item>
-                        <Menu.Item
-                          onClick={() => confirmDeleteProject(item)}
-                          key={"delete"}
-                        >
-                          删除
-                        </Menu.Item>
+                        {
+                          menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && <Menu.Item
+                            onClick={() => startEdit(item.id)}
+                            key={"edit"}
+                          >
+                            修改
+                          </Menu.Item>
+                        }
+                        {
+                          menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && <Menu.Item
+                            onClick={() => confirmDeleteProject(item)}
+                            key={"delete"}
+                          >
+                            删除
+                          </Menu.Item>
+                        }
+
                       </Menu>
                     }
                   >

@@ -121,6 +121,7 @@ const OpenModal = () => {
 
   return (
     <Modal
+      forceRender={true}
       visible={ModalOpen}
       onCancel={close}
       title={"告警统计"}
@@ -133,7 +134,7 @@ const OpenModal = () => {
         pagination={{ total: Alarm?.count, current: param.index, pageSize: param.size }}
         loading={isLoading}
         onChange={handleTableChange}
-        rowKey={(item: any, index: any) => index}
+        rowKey={(item) => item.key}
         locale={noData}
       />
     </Modal>

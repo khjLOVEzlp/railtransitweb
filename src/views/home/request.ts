@@ -28,8 +28,13 @@ export const usePlanStatistics = () => {
 export const usePlanPagination = (params?: any) => {
   const p = params.type ? true : false
   const client = useHttp()
-  return useQuery(['planPagination', cleanObject(params)], () =>
-    client(`report/webPlanMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+  return useQuery(['planPagination', cleanObject(params)], async () => {
+    const data = await client(`report/webPlanMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    data.data.forEach((key: { [key: string]: unknown }, index: number) => {
+      key["key"] = index
+    })
+    return data
+  }, {
     enabled: p
   })
 }
@@ -93,8 +98,13 @@ export const useAlarmPagination = (params?: any) => {
   const p = params.type ? true : false
 
   const client = useHttp()
-  return useQuery(['alarmPagination', cleanObject(params)], () =>
-    client(`report/webWarnMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+  return useQuery(['alarmPagination', cleanObject(params)], async () => {
+    const data = await client(`report/webWarnMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    data.data.forEach((key: { [key: string]: unknown }, index: number) => {
+      key["key"] = index
+    })
+    return data
+  }, {
     enabled: p
   })
 }
@@ -115,8 +125,13 @@ export const useTaskStatistics = () => {
 export const useTaskPagination = (params?: any) => {
   const p = params.type ? true : false
   const client = useHttp()
-  return useQuery(['taskPagination', cleanObject(params)], () =>
-    client(`report/webWorkMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+  return useQuery(['taskPagination', cleanObject(params)], async () => {
+    const data = await client(`report/webWorkMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    data.data.forEach((key: { [key: string]: unknown }, index: number) => {
+      key["key"] = index
+    })
+    return data
+  }, {
     enabled: p
   })
 }

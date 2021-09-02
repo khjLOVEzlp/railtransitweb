@@ -29,8 +29,13 @@ export const useWorkStatistics = (params: Partial<Search>) => {
 /*到岗详情*/
 export const useWorkStatisticsDetail = (params?: any) => {
   const client = useHttp()
-  return useQuery(['WorkStatisticsDetail', cleanObject(params)], () =>
-    client(`report/getPersonWorkMore?${qs.stringify(cleanObject(params))}`, { method: "POST" }), {
+  return useQuery(['WorkStatisticsDetail', cleanObject(params)], async () => {
+    const data = await client(`report/getPersonWorkMore?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    data.data.forEach((key: { [key: string]: unknown }, index: number) => {
+      key["key"] = index
+    })
+    return data
+  }, {
     enabled: Boolean(params.subwayId) && Boolean(params.time)
   }
   )

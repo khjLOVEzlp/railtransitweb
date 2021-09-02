@@ -119,8 +119,8 @@ export const WorkCount = () => {
             initialValue={value === 0 ? moment(moment().format(), dateFormat) : moment(moment().format(), monthFormat)}
           >
             {
-              value === 0 ? <DatePicker locale={locale} onChange={birthday} defaultValue={moment(moment().format(), dateFormat)} format={dateFormat} /> :
-                <DatePicker locale={locale} picker="month" onChange={birthmoth} defaultValue={moment(moment().format(), monthFormat)} format={monthFormat} />
+              value === 0 ? <DatePicker locale={locale} onChange={birthday} format={dateFormat} /> :
+                <DatePicker locale={locale} picker="month" onChange={birthmoth} format={monthFormat} />
             }
           </Form.Item>
         </Form>
@@ -132,7 +132,7 @@ export const WorkCount = () => {
       </Header>
       <Main>
         {/* 日报 */}
-        {value === 0 ? (
+        {value === 0 && (
           <div>
             <List header={<div>一、作业概况</div>}>
               <List.Item>
@@ -205,7 +205,9 @@ export const WorkCount = () => {
               />
             </List>
           </div>
-        ) : (
+        )}
+
+        {value === 1 && (
           /* 月报 */
           <div>
             <List header={<div>一、作业概况</div>}>

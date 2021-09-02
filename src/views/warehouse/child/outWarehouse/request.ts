@@ -8,5 +8,11 @@ import { useHttp } from 'utils/http'
  */
 export const useInit = (params: any) => {
   const client = useHttp()
-  return useQuery(['warehouseOut', cleanObject(params)], () => client(`warehouseOut/list?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+  return useQuery(['warehouseOut', cleanObject(params)], async () => {
+    const data = await client(`warehouseOut/list?${qs.stringify(cleanObject(params))}`, { method: "POST" })
+    data.data.forEach((key: { [key: string]: unknown }, index: number) => {
+      key["key"] = index
+    })
+    return data
+  })
 }
