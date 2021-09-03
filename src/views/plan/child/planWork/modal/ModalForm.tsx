@@ -27,7 +27,6 @@ import { useInitDepartment } from 'views/system/child/department/request'
 import moment from "moment";
 import { usePlanContext } from "views/plan";
 import { PersonSelect } from "components/PersonSelect";
-import { useQueryClient } from "react-query";
 const baseUrl = process.env["REACT_APP_API_URL"]
 const { TextArea } = Input;
 const { Option } = Select;
@@ -50,7 +49,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const [id, setId] = useState<number>(0)
   const { open, startEdit } = useAddToolModal()
   const { ModalOpen, isLoading, close, editingPlanWork, editId, isSuccess } = usePlanWorkModal()
-  const queryClient = useQueryClient()
   const title = editingPlanWork ? "修改" : "新增"
   const msg = editingPlanWork ? () => {
     message.success("修改成功")
@@ -103,7 +101,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
   useEffect(() => {
     if (editingPlanWork) {
       setId(editingPlanWork?.data.lineId)
-      queryClient.invalidateQueries('lineAll')
       setGroupList(editingPlanWork?.data.groupList)
       form.setFieldsValue({
         ...editingPlanWork?.data,
@@ -113,7 +110,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
         warnTime: moment(editingPlanWork?.data?.warnTime),
       })
     }
-  }, [form, editingPlanWork, queryClient])
+  }, [form, editingPlanWork])
 
   /* 选择线路 */
   const onGenderChange = (value: number) => {

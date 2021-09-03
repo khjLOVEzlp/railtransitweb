@@ -4,7 +4,7 @@ import { cleanObject } from 'utils'
 import { useHttp } from 'utils/http'
 import { Search } from 'utils/typings';
 import { WorkManage } from './typings';
-
+const baseUrl = process.env["REACT_APP_API_URL"]
 /*
 分页查询
  */
@@ -21,6 +21,10 @@ export const useHistoryDetail = (id?: number) => {
     const data = await client(`planWork/getWeb/${id}`)
     data.data.webGroupList.forEach((key: any) => {
       key["personName"] = key["groupName"]
+    })
+    data.data.documentList.forEach((key: any) => {
+      key["name"] = key["documentName"]
+      key["url"] = `${baseUrl}file/download/` + key["documentId"]
     })
     return data
   }, {

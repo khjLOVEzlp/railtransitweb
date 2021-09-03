@@ -1,4 +1,4 @@
-import { Col, Modal, Row, Spin, Table, Tabs, Space, Card, Upload, Image, Tag, List, Empty, Descriptions } from "antd";
+import { Col, Modal, Row, Spin, Table, Tabs, Space, Card, Upload, Image, Tag, List, Empty, Descriptions, Button } from "antd";
 import { useState } from "react";
 import { noData } from "utils/verification";
 import { Type } from "views/home/request";
@@ -7,6 +7,10 @@ const { TabPane } = Tabs;
 const baseUrl = process.env["REACT_APP_API_URL"]
 export const ModalForm = () => {
   const { ModalOpen, planHistory, close, isLoading, isSuccess } = useHistoryModal()
+  const [pic, setPic] = useState({
+    id: "",
+    show: false
+  })
   const [visible, setVisible] = useState({
     show: false,
     photoList: []
@@ -62,7 +66,9 @@ export const ModalForm = () => {
               <Descriptions.Item label="作业内容">{planHistory?.data.workContent}</Descriptions.Item>
               <Descriptions.Item label="计划令号">{planHistory?.data.num}</Descriptions.Item>
               <Descriptions.Item label="文档">
-                <Upload {...props} style={{ width: "100%" }}></Upload></Descriptions.Item>
+                {/*@ts-ignore */}
+                <Upload {...props} style={{ width: "100%" }}></Upload>
+              </Descriptions.Item>
               <Descriptions.Item label="备注">{planHistory?.data.remark}</Descriptions.Item>
             </Descriptions>
             {/* <Row>
@@ -170,6 +176,9 @@ export const ModalForm = () => {
                                 item.legacyToolList.map((key: any) => (
                                   <p style={{ display: "flex", justifyContent: "space-between" }}>
                                     <span>{key.name}</span>
+                                    <span>{key.address}</span>
+                                    <Button onClick={() => setPic({ ...pic, id: key.pic, show: true })} type={"link"}>图片</Button>
+                                    {/* <Image width={"50px"} height={"50px"} preview={false} src={`${baseUrl}file/perview/${key.pic}`} /> */}
                                     <span>{key.num}</span>
                                   </p>))
                               }
@@ -405,6 +414,15 @@ export const ModalForm = () => {
             />)
           }
         </Image.PreviewGroup>
+      </Modal>
+
+      <Modal
+        width={500}
+        visible={pic.show}
+        footer={false}
+        onCancel={() => setPic({ ...pic, show: false })}
+      >
+        <Image width={"100%"} height={"100%"} src={`${baseUrl}file/perview/${pic.id}`} />
       </Modal>
     </Modal>
   )

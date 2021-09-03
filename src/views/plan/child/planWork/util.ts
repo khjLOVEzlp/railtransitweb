@@ -15,8 +15,6 @@ export const usePlanWorkModal = () => {
     setVisible(false)
   }
   const startEdit = (id: number) => {
-    console.log(id);
-
     setEditId(id)
   }
 

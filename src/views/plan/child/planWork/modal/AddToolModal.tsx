@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Select, Spin, Table, Tabs } from "antd";
+import { Button, Form, Input, Modal, Radio, Select, Spin, Table, Tabs } from "antd";
 import { useAddToolModal } from '../util'
 import * as usePersonList from "views/person/child/personManage/request";
 import { useListBy } from "views/warehouse/child/materialType/request";
@@ -20,15 +20,28 @@ const PersonList = ({ setState, setObj, obj }: any) => {
     size: 10,
     name: ""
   })
-  const { data, isLoading } = usePersonList.useInit(useDebounce(param, 500))
+  const { data, isLoading, isSuccess } = usePersonList.useInit(useDebounce(param, 500))
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
   const [personList, setPersonList] = useState<any>([])
+  const [value, setValue] = React.useState<any>(undefined);
+
+  const onChange = (e: any) => {
+    setObj({ ...obj, leader: e.target.value })
+    setValue(e.target.value);
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setValue(data?.data[0].id)
+    }
+  }, [isSuccess])
+
   const start = () => {
     const list = personList
     setLoading(true)
     setTimeout(() => {
-      setSelectedRowKeys([])
+      // setSelectedRowKeys([])
       setPersonList(list)
       sessionStorage.setItem("personList", JSON.stringify(personList))
       setObj({
@@ -41,6 +54,8 @@ const PersonList = ({ setState, setObj, obj }: any) => {
   }
 
   const onSelectChange = (keys: any, value: any) => {
+    console.log(value);
+
     value.forEach((key: any) => {
       key["personId"] = key["id"]
     })
@@ -54,6 +69,7 @@ const PersonList = ({ setState, setObj, obj }: any) => {
     selectedRowKeys,
     onChange: onSelectChange,
     getCheckboxProps: (record: any) => ({
+      disabled: record.id === value,
     })
   }
 
@@ -94,7 +110,13 @@ const PersonList = ({ setState, setObj, obj }: any) => {
                 dataIndex: "number"
               },
               {
-
+                title: "组长",
+                render: (item: any) => (
+                  <Radio.Group onChange={onChange} value={value}>
+                    <Radio value={item.id}></Radio>
+                    {item["a"] = true}
+                  </Radio.Group>
+                )
               }
             ]}
               rowKey={(item: any) => item.id}
@@ -222,7 +244,7 @@ const Tool = ({ setState, setObj, obj }: any) => {
     }) */
     setLoading(true)
     setTimeout(() => {
-      setSelectedRowKeys([])
+      // setSelectedRowKeys([])
       setGroupToolList(list)
       sessionStorage.setItem("groupToolList", JSON.stringify(groupToolList))
       setObj({
@@ -377,7 +399,7 @@ const Mater = ({ obj, setObj }: any) => {
     }) */
     setLoading(true)
     setTimeout(() => {
-      setSelectedRowKeys([])
+      // setSelectedRowKeys([])
       setGroupMaterialList(list)
       sessionStorage.setItem("groupMaterialList", JSON.stringify(groupMaterialList))
       setObj({
@@ -514,9 +536,18 @@ export const AddToolModal = () => {
     groupMaterialList: []
   })
 
+  const bootData = () => {
+    let data = null
+    const newData = sessionStorage.getItem("group")
+    if (newData) {
+      data = JSON.parse(newData)
+    }
+    return data
+  }
+
   useEffect(() => {
     try {
-      const data = JSON.parse(sessionStorage.getItem("group") || "")
+      const data = bootData()
       form.setFieldsValue(data)
       setObj({
         ...obj,
@@ -527,7 +558,7 @@ export const AddToolModal = () => {
     } catch (error) {
 
     }
-  }, [ModalOpen, form, obj])
+  }, [ModalOpen, form])
 
   const closeModal = () => {
     form.resetFields()
@@ -544,7 +575,12 @@ export const AddToolModal = () => {
   }
 
   const onFinish = () => {
-    setGroupList([...groupList, obj])
+    if (bootData()) {
+      setGroupList([...groupList, obj])
+    } else {
+      setGroupList([...groupList, obj])
+    }
+
     closeModal()
   }
 
@@ -573,7 +609,7 @@ export const AddToolModal = () => {
           <Input placeholder={"请输入小组名称"} onChange={(evt) => setObj({ ...obj, groupName: evt.target.value })} />
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           label="组长"
           name="leader"
           rules={rules}
@@ -591,7 +627,7 @@ export const AddToolModal = () => {
             {personList?.data.map((item: any, index: number) => <Select.Option value={item.id} disabled={groupList.find((key: any) => key.leader === item.id)}
               key={index}>{item.name}</Select.Option>)}
           </Select>
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item
           label={"备注"}

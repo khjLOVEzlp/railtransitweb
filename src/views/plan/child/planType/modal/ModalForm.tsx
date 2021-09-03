@@ -436,7 +436,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingPlanType?.data, ...value, id: editId }).then(() => {
+    mutateAsync({ ...editingPlanType?.data, ...obj, id: editId }).then(() => {
       form.resetFields()
       closeModal()
       msg()
@@ -477,14 +477,14 @@ export const ModalForm = ({ param, setParam }: Props) => {
               rules={rules}
               style={{ flex: 1 }}
             >
-              <Input placeholder={"请输入作业类型"} />
+              <Input onChange={(e) => setObj({ ...obj, type: e.target.value })} placeholder={"请输入作业类型"} />
             </Form.Item>
 
             <Form.Item
               name="remark"
               style={{ flex: 1 }}
             >
-              <TextArea rows={1} placeholder={"请填写备注"} />
+              <TextArea onChange={(e) => setObj({ ...obj, remark: e.target.value })} rows={1} placeholder={"请填写备注"} />
             </Form.Item>
           </Form>
         )
