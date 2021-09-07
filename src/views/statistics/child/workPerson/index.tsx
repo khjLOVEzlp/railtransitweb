@@ -1,18 +1,18 @@
-import { useLineList } from "../workCount/request";
-import { Form, Modal, Select, Table } from "antd";
-import { Column } from "@ant-design/charts";
+import {useLineList} from "../workCount/request";
+import {Form, Modal, Select, Table} from "antd";
+import {Column} from "@ant-design/charts";
 import {
   useWorkStatistics,
   useWorkModal,
   useWorkStatisticsDetail
 } from './request'
-import { useEffect, useState } from "react";
-import { Header, Main } from "components/Styled";
-import { useDebounce } from "hook/useDebounce";
+import {useEffect, useState} from "react";
+import {Header, Main} from "components/Styled";
+import {useDebounce} from "hook/useDebounce";
 
 export const WorkPerson = () => {
   const [form] = Form.useForm()
-  const { data: lineList, isSuccess: success } = useLineList()
+  const {data: lineList, isSuccess: success} = useLineList()
   const [params, setParams] = useState({
     time: "",
     subwayId: ""
@@ -20,26 +20,26 @@ export const WorkPerson = () => {
 
   useEffect(() => {
     if (success && lineList.data && lineList.data.length > 0) {
-      setParams({ time: "3", subwayId: lineList.data[0].id })
+      setParams({time: "3", subwayId: lineList.data[0].id})
     }
   }, [lineList?.data, success])
 
   useEffect(() => {
     if (success && lineList.data && lineList.data.length > 0) {
-      form.setFieldsValue({ subwayId: lineList.data[0].id })
+      form.setFieldsValue({subwayId: lineList.data[0].id})
     }
   }, [success, form, lineList?.data])
 
-  const { open } = useWorkModal()
+  const {open} = useWorkModal()
 
-  const { data: workStatistics, isSuccess } = useWorkStatistics(params)
+  const {data: workStatistics, isSuccess} = useWorkStatistics(params)
 
   const lineChange = (value: any) => {
-    setParams({ ...params, subwayId: value })
+    setParams({...params, subwayId: value})
   }
 
   const timeChange = (value: any) => {
-    setParams({ ...params, time: value })
+    setParams({...params, time: value})
   }
 
   const noData = [
@@ -70,8 +70,8 @@ export const WorkPerson = () => {
       },
     },
     meta: {
-      className: { alias: '班别' },
-      dutyRate: { alias: '到岗率' },
+      className: {alias: '班别'},
+      dutyRate: {alias: '到岗率'},
     },
     tooltip: {
       formatter: function formatter(item: any) {
@@ -94,7 +94,7 @@ export const WorkPerson = () => {
             name={"subwayId"}
           >
             <Select
-              style={{ width: 120 }}
+              style={{width: 120}}
               placeholder={"地铁路线"}
               showSearch
               onChange={lineChange}
@@ -116,7 +116,7 @@ export const WorkPerson = () => {
           >
             <Select
               placeholder={"时间"}
-              style={{ width: 120 }}
+              style={{width: 120}}
               onChange={timeChange}
             >
               <Select.Option value={"1"}>本日</Select.Option>
@@ -137,14 +137,14 @@ export const WorkPerson = () => {
             });
           }}
         />
-        <WorkPersonModal params={params} />
+        <WorkPersonModal params={params}/>
       </Main>
     </>
   )
 }
 
-export const WorkPersonModal = ({ params }: { params: { subwayId: string, time: string } }) => {
-  const { ModalOpen, close } = useWorkModal()
+export const WorkPersonModal = ({params}: { params: { subwayId: string, time: string } }) => {
+  const {ModalOpen, close} = useWorkModal()
   const [param, setParam] = useState({
     subwayId: "",
     time: ""
@@ -158,7 +158,7 @@ export const WorkPersonModal = ({ params }: { params: { subwayId: string, time: 
     })
   }, [params])
 
-  const { data: alarmDetail, isLoading } = useWorkStatisticsDetail(useDebounce(param, 500))
+  const {data: alarmDetail, isLoading} = useWorkStatisticsDetail(useDebounce(param, 500))
 
   const columns = [
     {

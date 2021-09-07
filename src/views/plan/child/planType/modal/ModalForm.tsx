@@ -120,10 +120,22 @@ const Tool = ({ setObj, obj }: any) => {
 
   const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
   const [dataSource, setDataSource] = useState<any>([])
-
+  const { editingPlanType } = usePlanTypeModal()
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
   const [toolList, setToolList] = useState<any>([])
+
+  useEffect(() => {
+    if (editingPlanType) {
+      setObj({
+        ...obj,
+        toolList: editingPlanType?.data?.toolList
+      })
+      const toolList = editingPlanType?.data?.toolList.map((key: { [key: string]: unknown }) => key.toolId)
+      setSelectedRowKeys(toolList)
+    }
+  }, [editingPlanType])
+
   const start = () => {
     const list = toolList
     /* list.forEach((key: any) => {
@@ -147,7 +159,6 @@ const Tool = ({ setObj, obj }: any) => {
       key["toolId"] = key["id"]
     })
     setToolList(value)
-
     setSelectedRowKeys(keys);
   };
 
@@ -275,10 +286,22 @@ const Mater = ({ obj, setObj }: any) => {
   const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
 
   const [dataSource, setDataSource] = useState<any>([])
-
+  const { editingPlanType } = usePlanTypeModal()
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
   const [materialList, setMaterialList] = useState<any>([])
+
+  useEffect(() => {
+    if (editingPlanType) {
+      setObj({
+        ...obj,
+        materialList: editingPlanType?.data?.materialList
+      })
+      const materialList = editingPlanType?.data?.materialList.map((key: { [key: string]: unknown }) => key.materialId)
+      setSelectedRowKeys(materialList)
+    }
+  }, [editingPlanType])
+
   const start = () => {
     const list = setMaterialList
     /* list.forEach((key: any) => {
@@ -425,18 +448,13 @@ export const ModalForm = ({ param, setParam }: Props) => {
     form.setFieldsValue(editingPlanType?.data)
   }, [form, editingPlanType])
 
-  useEffect(() => {
-    console.log(obj);
-
-  }, [obj])
-
   const closeModal = () => {
     form.resetFields()
     close()
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingPlanType?.data, ...obj, id: editId }).then(() => {
+    mutateAsync({ ...editingPlanType?.data, ...obj, ...value, id: editId }).then(() => {
       form.resetFields()
       closeModal()
       msg()

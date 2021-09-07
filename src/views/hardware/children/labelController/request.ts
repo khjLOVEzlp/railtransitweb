@@ -3,6 +3,7 @@ import { cleanObject } from 'utils/index'
 import { useHttp } from 'utils/http'
 import { Lab } from './typings';
 import { Search } from 'utils/typings';
+import { useAuth } from 'context/auth-context';
 
 /*
 查询
@@ -65,4 +66,21 @@ export const useLabDetail = (id?: number) => {
   return useQuery(['labDetail', id], () => client(`hardware/label/get/${id}`), {
     enabled: Boolean(id),
   })
+}
+
+/* 导入标签弹框 */
+/*导入人员弹框*/
+
+export const useImportModal = () => {
+  const { drawer, setDrawer } = useAuth()
+
+  const open = () => setDrawer(true)
+
+  const close = () => setDrawer(false)
+
+  return {
+    ModalOpen: drawer === true,
+    open,
+    close
+  }
 }

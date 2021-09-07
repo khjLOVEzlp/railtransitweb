@@ -10,6 +10,7 @@ import { useDebounce } from "hook/useDebounce";
 import { useState, useEffect } from "react";
 import { Header, Main } from "components/Styled";
 import { noData } from "utils/verification";
+import { useStatisticsContext } from "views/statistics";
 
 export const WorkWarn = () => {
   const [form] = Form.useForm()
@@ -45,10 +46,10 @@ export const WorkWarn = () => {
   }
 
   const noData = [
-    {
+    /* {
       name: "遗忘",
       num: 0
-    },
+    }, */
     {
       name: "漏带",
       num: 0
@@ -73,14 +74,10 @@ export const WorkWarn = () => {
       name: "分离告警",
       num: 0
     },
-    {
-      name: "离线告警",
-      num: 0
-    },
-    {
+    /* {
       name: "过时告警",
       num: 0
-    },
+    }, */
     {
       name: "低电告警",
       num: 0
@@ -176,7 +173,7 @@ export const WorkWarn = () => {
             plot.on('plot:click', (evt: any) => {
               const { x, y } = evt;
               const tooltipData = plot.chart.getTooltipItems({ x, y });
-              open(params.subwayId, params.time, tooltipData[0]?.data?.type)
+              open(params.subwayId, params.time, tooltipData[0].data.type)
             });
           }}
         />
@@ -188,24 +185,27 @@ export const WorkWarn = () => {
 }
 
 export const AlarmModal = ({ params }: { params: { subwayId: string, time: string } }) => {
-  const { ModalOpen, close } = useAlarmModal()
+  const { ModalOpen, close, param: p } = useAlarmModal()
 
   const [param, setParam] = useState({
     index: 1,
     size: 10,
     subwayId: "",
-    time: ""
+    time: "",
   })
 
   useEffect(() => {
     setParam({
       ...param,
       subwayId: params.subwayId,
-      time: params.time
+      time: params.time,
     })
   }, [params])
 
-  const { data: alarmPagination, isLoading } = useAlarmPagination(useDebounce(param, 500))
+  console.log(param);
+
+
+  const { data: alarmPagination, isLoading } = useAlarmPagination(useDebounce({ ...param, type: p.type }, 500))
   const columns = [
     {
       title: "作业名",

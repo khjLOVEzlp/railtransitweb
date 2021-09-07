@@ -1,10 +1,13 @@
-import { Button, Form, Input, message, Modal, Radio, Select, Spin } from "antd";
-import { useEffect } from "react";
+import { Button, Checkbox, Form, Input, message, Modal, Radio, Select, Spin, Tag, Upload } from "antd";
+import { useAuth } from "context/auth-context";
+import { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import { rules } from "utils/verification";
 import { useWarehouse } from "views/warehouse/child/toolType/request";
-import { useAdd, useMod } from './request'
+import { useAdd, useImportModal, useMod } from './request'
 import { useLabModal } from './util'
-
+import { InboxOutlined } from '@ant-design/icons';
+const apiUrl = process.env.REACT_APP_API_URL;
 type Props = {
   param: {
     index: number
@@ -16,6 +19,7 @@ type Props = {
 
 export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
+  const [checked, setChecked] = useState(['2.4G'])
   const { ModalOpen, isLoading, close, editingLab, editId } = useLabModal()
   const title = editingLab ? "修改" : "新增"
   const msg = editingLab ? () => {
@@ -52,6 +56,12 @@ export const ModalForm = ({ param, setParam }: Props) => {
     form.submit();
   };
 
+  function onChange(checkedValues: any) {
+    setChecked(checkedValues)
+  }
+
+  const plainOptions = ['915M', '2.4G'];
+
   return (
     <Modal
       title={title}
@@ -75,19 +85,33 @@ export const ModalForm = ({ param, setParam }: Props) => {
             layout={"vertical"}
           >
             <Form.Item
-              label="编号"
-              name="codeHex10"
+              label="编码类型"
+              name="type"
+              initialValue={['2.4G']}
               rules={rules}
             >
-              <Input />
+              <Checkbox.Group options={plainOptions} defaultValue={checked} onChange={onChange} />
             </Form.Item>
 
-            <Form.Item
-              label="915编码"
-              name="codeHex915"
-            >
-              <Input />
-            </Form.Item>
+            {
+              checked.find((key: any) => key === '2.4G') && <Form.Item
+                label="2.4G编码"
+                name="codeHex10"
+                rules={rules}
+              >
+                <Input />
+              </Form.Item>
+            }
+
+            {
+              checked.find((key: any) => key === '915M') && <Form.Item
+                label="915编码"
+                name="codeHex915"
+                rules={rules}
+              >
+                <Input />
+              </Form.Item>
+            }
 
             <Form.Item
               label="归属仓库"
@@ -121,3 +145,49 @@ export const ModalForm = ({ param, setParam }: Props) => {
     </Modal>
   );
 };
+
+
+export const ImportModal = () => {
+  const { ModalOpen, close } = useImportModal()
+  const { user } = useAuth()
+  const queryClient = useQueryClient()
+  const props = {
+    name: 'file',
+    action: `${apiUrl}hardware/label/import`,
+    headers: {
+      authorization: `${user?.jwtToken}`,
+    },
+    onChange(info: any) {
+      if (info.file.status !== 'uploading') {
+      }
+
+      if (info.file.status === 'done' && info.file.response?.code === 200) {
+        message.success(`${info.file.name}上传成功`);
+        queryClient.invalidateQueries('label')
+        close()
+      } else if (info.file.status === 'error' || info.file.response?.code != 200) {
+        if (info?.file?.response?.msg) {
+          message.error(info?.file?.response?.msg)
+        }
+      }
+    },
+  };
+
+  return (
+    <Modal
+      title={"导入标签"}
+      visible={ModalOpen}
+      onCancel={close}
+      footer={false}
+      destroyOnClose={true}
+    >
+      <Upload.Dragger {...props} maxCount={1}>
+        <p className="ant-upload-drag-icon">
+          <InboxOutlined />
+        </p>
+        <p className="ant-upload-text">点击导入标签</p>
+      </Upload.Dragger>
+      <Tag style={{ marginTop: "10px" }} color="processing">请上传 xls 或者 xlsx 格式文件</Tag>
+    </Modal>
+  )
+}

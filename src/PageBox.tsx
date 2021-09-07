@@ -121,7 +121,7 @@ export const PageBox = () => {
             <div className="img">
               <img src={logo} alt="" />
             </div>
-            <div className="title" onClick={() => window.location.href = window.location.origin}>
+            <div className="title" onClick={() => window.location.href = window.location.origin + '/home'}>
               <p>智慧轨行区数字化</p>
               <p>维养安全管控系统</p>
             </div>

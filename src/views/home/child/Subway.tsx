@@ -3,12 +3,13 @@ import * as echarts from 'echarts';
 import { useLine } from 'views/system/child/line/request'
 import { subwaylist } from './index.js'
 import { useHttp } from "utils/http"
+import { FullPageLoading } from "components/FullPageLoading";
 
 export const Subway = () => {
   const { data: lineList, isSuccess, isLoading } = useLine()
   const client = useHttp()
   if (isSuccess) {
-    var newData: any = subwaylist.filter((v) => lineList.data.find((vi: { [key: string]: unknown }) => vi.name === v.name))
+    let newData: any = subwaylist.filter((v) => lineList.data.find((vi: { [key: string]: unknown }) => vi.name === v.name))
     newData.forEach((item: any, index: number) => {
       if (lineList.data.find(((v: any) => v.name === item.name))) {
         item.stations.forEach((key: any, i: number) => {
@@ -2617,12 +2618,10 @@ export const Subway = () => {
   return (
     <>
       {
-        isLoading ? (
-          <div id="subway" style={{ height: "100%", width: "100%" }} ref={refs} />
-        ) : (
-          <div id="subway" style={{ height: "100%", width: "100%" }} ref={refs} />
-        )
+        isLoading && <FullPageLoading />
       }
+
+      <div id="subway" style={{ height: "100%", width: "100%" }} ref={refs} />
 
       {/* <Modal
         width={300}

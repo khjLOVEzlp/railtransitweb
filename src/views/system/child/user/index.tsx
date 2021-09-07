@@ -11,6 +11,7 @@ import { Search } from "utils/typings";
 import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
 import { useAuth } from 'context/auth-context';
+import { useParam } from 'hook/useParam';
 
 export const User = () => {
   const { menu = [] } = useAuth()
@@ -20,11 +21,7 @@ export const User = () => {
   const client = useHttp()
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
   const hasSelected = selectedRowKeys.length > 0;
-  const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: ""
-  })
+  const {param, setParam} = useParam()
   const { open, startEdit } = useUserModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del, isLoading: mutaLoading } = useDel()

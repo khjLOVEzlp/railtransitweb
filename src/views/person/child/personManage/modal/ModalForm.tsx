@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, DatePicker, Form, Input, message, Modal, Select, Space, Spin, TreeSelect, Upload } from "antd";
+import { Button, DatePicker, Form, Input, message, Modal, Select, Space, Spin, Tag, TreeSelect, Upload } from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { rules } from "utils/verification";
 import { usePersonModal, useImportModal } from '../util'
-import { useAdd, useMod } from '../request'
+import { useAdd, useMod, useAddPost } from '../request'
 import { InboxOutlined } from '@ant-design/icons';
 import { useAuth } from "context/auth-context";
 import { useInit } from 'views/system/child/department/request'
@@ -25,6 +25,7 @@ type Props = {
 
 export const ModalForm = ({ param, setParam, detail }: Props) => {
   const [form] = Form.useForm();
+  const [post, setPost] = useState<any>()
   const { ModalOpen, editId, editingPerson, isLoading, close } = usePersonModal()
   const title = editingPerson ? "修改" : "新增"
   const msg = editingPerson ? () => {
@@ -33,6 +34,7 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
     message.success("新增成功")
     setParam({ ...param, index: 1 })
   }
+  const { mutateAsync: mutateAddPost } = useAddPost()
   const useMutateProject = editingPerson ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
   const { data, isSuccess } = useGetNotUseList()
@@ -95,6 +97,14 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
   const onOk = () => {
     form.submit();
   };
+
+  const onSearch = (value: any) => {
+    setPost(value)
+  }
+
+  const handleClick = () => {
+    mutateAddPost(post).then(() => { })
+  }
 
   return (
     <Modal
@@ -215,12 +225,30 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
                 />
               </Form.Item>
             </Space>
-            <Form.Item
-              label="备注"
-              name="remark"
-            >
-              <TextArea rows={1} />
-            </Form.Item>
+
+            <Space style={{ width: "100%" }}>
+              <Form.Item
+                label={"职务"}
+              >
+                <Select
+                  onSearch={onSearch}
+                  showSearch
+                  notFoundContent={<Button type={"link"}
+                    onClick={() => handleClick()}>添加</Button>}
+                >
+                  <Select.Option value={"AAA"}>AAA</Select.Option>
+                  <Select.Option value={"BBB"}>BBB</Select.Option>
+                  <Select.Option value={"CCC"}>CCC</Select.Option>
+                </Select>
+              </Form.Item>
+
+              <Form.Item
+                label="备注"
+                name="remark"
+              >
+                <TextArea rows={1} />
+              </Form.Item>
+            </Space>
           </Form>
         )
       }
@@ -247,7 +275,9 @@ export const ImportModal = () => {
         queryClient.invalidateQueries('person')
         close()
       } else if (info.file.status === 'error' || info.file.response?.code != 200) {
-        message.error("请检查文件的格式")
+        if (info?.file?.response?.msg) {
+          message.error(info?.file?.response?.msg)
+        }
       }
     },
   };
@@ -266,6 +296,8 @@ export const ImportModal = () => {
         </p>
         <p className="ant-upload-text">点击导入人员</p>
       </Upload.Dragger>
+
+      <Tag style={{ marginTop: "10px" }} color="processing">请上传 xls 或者 xlsx 格式文件</Tag>
     </Modal>
   )
 }

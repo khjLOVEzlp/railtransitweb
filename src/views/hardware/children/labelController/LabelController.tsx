@@ -1,20 +1,22 @@
 import { Form, Input, Button, Table, Popconfirm, message, Tag, Modal } from 'antd';
-import { useDel, useInit } from './request';
-import { ModalForm } from './ModalForm';
+import { useDel, useImportModal, useInit } from './request';
+import { ImportModal, ModalForm } from './ModalForm';
 import { useDebounce } from 'hook/useDebounce';
 import { useLabModal } from './util'
 import { Search } from 'utils/typings';
 import { Footer, Header, Main } from 'components/Styled';
 import { noData } from 'utils/verification';
 import { useState } from 'react';
+import { useParam } from 'hook/useParam';
+import { useAuth } from 'context/auth-context';
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const LabelController = () => {
-  const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: ""
-  })
+  const { user } = useAuth()
+  const { param, setParam } = useParam()
   const { open, startEdit } = useLabModal()
+  const { open: openImportModal } = useImportModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del, isLoading: mutaLoading } = useDel()
 
@@ -71,6 +73,26 @@ export const LabelController = () => {
     });
   }
 
+  const downTemplate = () => {
+    fetch(`${apiUrl}hardware/label/downTemplate`, {
+      method: 'get',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": `${user?.jwtToken}`
+      },
+    }).then((res) => {
+      return res.blob();
+    }).then(blob => {
+      // let bl = new Blob([blob], { type: blob.type });
+      let fileName = "模板" + ".xlsx";
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+      window.URL.revokeObjectURL(link.href);
+    })
+  }
+
   return (
     <>
       <Header>
@@ -91,6 +113,18 @@ export const LabelController = () => {
               搜索
             </Button>
           </Form.Item>
+
+          <Form.Item>
+            <Button onClick={downTemplate}>
+              模板下载
+            </Button>
+          </Form.Item>
+
+          <Form.Item>
+            <Button onClick={openImportModal}>
+              导入
+            </Button>
+          </Form.Item>
         </Form>
 
         <Button onClick={open}>新增</Button>
@@ -99,7 +133,7 @@ export const LabelController = () => {
         <Table columns={
           [
             {
-              title: '编号',
+              title: '2.4G编码',
               dataIndex: 'codeHex10',
               key: 'codeHex10',
             },
@@ -149,6 +183,7 @@ export const LabelController = () => {
         </Footer> : undefined
       }
       <ModalForm param={param} setParam={setParam} />
+      <ImportModal />
     </>
   );
 };

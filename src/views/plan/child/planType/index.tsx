@@ -7,6 +7,7 @@ import { Search } from 'utils/typings';
 import { useState } from 'react';
 import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
+import { useAuth } from 'context/auth-context';
 
 export const PlanType = () => {
   const [param, setParam] = useState({
@@ -14,6 +15,9 @@ export const PlanType = () => {
     size: 10,
     type: ""
   })
+
+  const { menu } = useAuth()
+  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "作业计划").childMenu.find((item: { [item: string]: unknown }) => item.name === "作业类型").childMenu
 
   const { open, startEdit } = usePlanTypeModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
@@ -95,7 +99,9 @@ export const PlanType = () => {
           </Form.Item>
         </Form>
 
-        <Button onClick={open}>新增</Button>
+        {
+          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+        }
       </Header>
       <Main>
         <Table columns={
@@ -121,7 +127,9 @@ export const PlanType = () => {
               align: "center",
               render: (item) => (
                 <>
-                  <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                  {
+                    menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                  }
                   <Popconfirm
                     title={`是否要删除${item.type}`}
                     onConfirm={() => confirm(item.id)}
@@ -129,7 +137,10 @@ export const PlanType = () => {
                     okText="是"
                     cancelText="否"
                   >
-                    <Button type="link">删除</Button>
+
+                    {
+                      menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && <Button type={"link"}>删除</Button>
+                    }
                   </Popconfirm>
                 </>
               )

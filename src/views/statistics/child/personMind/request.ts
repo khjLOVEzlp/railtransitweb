@@ -61,7 +61,7 @@ export const useMindModal = () => {
   }
 
   return {
-    ModalOpen: visible === true,
+    ModalOpen: visible,
     open,
     close
   }

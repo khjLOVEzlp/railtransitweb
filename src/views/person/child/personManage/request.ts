@@ -20,6 +20,14 @@ export const usePerson = () => {
 }
 
 /*
+分页查询无权限
+ */
+export const useAllList = (params?: Partial<Search>) => {
+  const client = useHttp()
+  return useQuery<Person>(['person', cleanObject(params)], () => client(`person/allList?${qs.stringify(cleanObject(params))}`, { method: "POST" }))
+}
+
+/*
 查询
  */
 export const useInit = (params?: Partial<Search>) => {
@@ -61,6 +69,19 @@ export const useMod = () => {
 删除
 */
 export const useDel = () => {
+  const queryClient = useQueryClient()
+  const client = useHttp()
+  return useMutation((id: number) => client(`person/delete/${id}`), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('person')
+    },
+    onError: () => {
+    }
+  })
+}
+
+/* 添加职务 */
+export const useAddPost = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
   return useMutation((id: number) => client(`person/delete/${id}`), {

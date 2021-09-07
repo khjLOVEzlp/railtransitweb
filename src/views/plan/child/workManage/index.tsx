@@ -5,13 +5,10 @@ import { useDebounce } from "hook/useDebounce";
 import { useHistoryModal } from './util'
 import { useState } from 'react';
 import { Header, Main } from 'components/Styled';
+import { useParam } from 'hook/useParam';
 
 export const WorkManage = () => {
-  const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: ""
-  })
+  const { param, setParam } = useParam()
 
   const { startEdit } = useHistoryModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))

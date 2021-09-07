@@ -10,10 +10,11 @@ import {
 
 const { Option } = Select
 
-export const ShareModalForm = () => {
+export const ShareModalForm = ({ status }: { status: number | undefined }) => {
   const [form] = Form.useForm();
   const { mutateAsync: muta } = useCancelSharePlan()
   const { ModalOpen, close, editId, isLoading, editingPlanWork } = useShareModal()
+
   const { mutateAsync, isLoading: mutaLoading } = useSharePlan()
   const { data: personList } = useUserAll()
 
@@ -48,7 +49,7 @@ export const ShareModalForm = () => {
     });
   };
 
-  const disible = editingPlanWork?.data["已取消"].length > 0
+  const disible = status === 3
 
   return (
     <Modal

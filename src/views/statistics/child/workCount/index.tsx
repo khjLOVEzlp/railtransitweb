@@ -249,7 +249,7 @@ export const WorkCount = () => {
               />
             </List>
 
-            <List header={<div>三、工器具使用情况<span style={{ color: "red", fontSize: "10px" }}>（工具使用率=）</span></div>}>
+            <List header={<div>三、工器具使用情况<span style={{ color: "red", fontSize: "10px" }}>（工具使用率=使用次数/库存总数）</span></div>}>
               <Table
                 rowKey={key => key.key}
                 dataSource={monthList?.data?.toolMonthVoList}

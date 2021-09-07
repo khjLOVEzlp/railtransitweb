@@ -7,13 +7,10 @@ import { Search } from 'utils/typings';
 import { Footer, Header, Main } from 'components/Styled';
 import { noData } from 'utils/verification';
 import { useState } from 'react';
+import { useParam } from 'hook/useParam';
 
 export default () => {
-  const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: ""
-  })
+  const { param, setParam } = useParam()
   const { open, startEdit } = useSepModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del, isLoading: mutaLoading } = useDel()

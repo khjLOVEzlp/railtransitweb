@@ -20,7 +20,8 @@ const PersonList = ({ setState, setObj, obj }: any) => {
     size: 10,
     name: ""
   })
-  const { data, isLoading, isSuccess } = usePersonList.useInit(useDebounce(param, 500))
+  const { ModalOpen } = useAddToolModal()
+  const { data, isLoading, isSuccess } = usePersonList.useAllList(useDebounce(param, 500))
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
   const [personList, setPersonList] = useState<any>([])
@@ -34,8 +35,20 @@ const PersonList = ({ setState, setObj, obj }: any) => {
   useEffect(() => {
     if (isSuccess) {
       setValue(data?.data[0].id)
+      setObj({ ...obj, leader: data?.data[0].id })
     }
   }, [isSuccess])
+
+  useEffect(() => {
+    setObj({
+      ...obj,
+      personList: obj?.personList,
+      leader: obj?.leader
+    })
+    setValue(obj?.leader)
+    const personList = obj?.personList?.map((key: { [key: string]: unknown }) => key.id)
+    setSelectedRowKeys(personList)
+  }, [ModalOpen])
 
   const start = () => {
     const list = personList
@@ -54,8 +67,6 @@ const PersonList = ({ setState, setObj, obj }: any) => {
   }
 
   const onSelectChange = (keys: any, value: any) => {
-    console.log(value);
-
     value.forEach((key: any) => {
       key["personId"] = key["id"]
     })
@@ -63,7 +74,7 @@ const PersonList = ({ setState, setObj, obj }: any) => {
     setSelectedRowKeys(keys);
   };
 
-  const hasSelected = selectedRowKeys.length > 0;
+  const hasSelected = selectedRowKeys?.length > 0;
 
   const rowSelection = {
     selectedRowKeys,
@@ -112,9 +123,11 @@ const PersonList = ({ setState, setObj, obj }: any) => {
               {
                 title: "组长",
                 render: (item: any) => (
-                  <Radio.Group onChange={onChange} value={value}>
+                  <Radio.Group
+                    onChange={onChange}
+                    value={value}
+                  >
                     <Radio value={item.id}></Radio>
-                    {item["a"] = true}
                   </Radio.Group>
                 )
               }
@@ -131,9 +144,7 @@ const PersonList = ({ setState, setObj, obj }: any) => {
 }
 
 /* 添加工具 */
-
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
-
 const EditableRow: React.FC<any> = ({ index, ...props }) => {
   const [form] = Form.useForm();
   return (
@@ -162,7 +173,6 @@ const EditableCell: React.FC<any> = ({
     if (editing) {
       inputRef.current!.focus();
     }
-
   }, [editing]);
 
   const toggleEdit = () => {
@@ -231,12 +241,22 @@ const Tool = ({ setState, setObj, obj }: any) => {
   })
 
   const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
-
+  const { ModalOpen } = useAddToolModal()
   const [dataSource, setDataSource] = useState<any>([])
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
   const [groupToolList, setGroupToolList] = useState<any>([])
+
+  useEffect(() => {
+    setObj({
+      ...obj,
+      groupToolList: obj?.groupToolList,
+    })
+    const groupToolList = obj?.groupToolList?.map((key: { [key: string]: unknown }) => key.toolId)
+    setSelectedRowKeys(groupToolList)
+  }, [ModalOpen])
+
   const start = () => {
     const list = groupToolList
     /* list.forEach((key: any) => {
@@ -266,7 +286,7 @@ const Tool = ({ setState, setObj, obj }: any) => {
     setSelectedRowKeys(keys);
   };
 
-  const hasSelected = selectedRowKeys.length > 0;
+  const hasSelected = selectedRowKeys?.length > 0;
 
   const rowSelection = {
     selectedRowKeys,
@@ -386,12 +406,22 @@ const Mater = ({ obj, setObj }: any) => {
   })
 
   const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
-
+  const { ModalOpen } = useAddToolModal()
   const [dataSource, setDataSource] = useState<any>([])
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [loading, setLoading] = useState<boolean>(false)
   const [groupMaterialList, setGroupMaterialList] = useState<any>([])
+
+  useEffect(() => {
+    setObj({
+      ...obj,
+      groupMaterialList: obj?.groupMaterialList,
+    })
+    const groupMaterialList = obj?.groupMaterialList?.map((key: { [key: string]: unknown }) => key.materialId)
+    setSelectedRowKeys(groupMaterialList)
+  }, [ModalOpen])
+
   const start = () => {
     const list = groupMaterialList
     /* list.forEach((key: any) => {
@@ -419,7 +449,7 @@ const Mater = ({ obj, setObj }: any) => {
     setSelectedRowKeys(keys);
   };
 
-  const hasSelected = selectedRowKeys.length > 0;
+  const hasSelected = selectedRowKeys?.length > 0;
 
   const rowSelection = {
     selectedRowKeys,
@@ -515,10 +545,9 @@ const Mater = ({ obj, setObj }: any) => {
 
 }
 
-export const AddToolModal = () => {
+export const AddToolModal = ({ groupIndex }: { groupIndex: number }) => {
   const [form] = Form.useForm()
   const [state, setState] = useState("2")
-  const { data: personList } = usePersonList.useInit()
   const { ModalOpen, close } = useAddToolModal()
   const { groupList, setGroupList } = usePlanContext()
   /* const [param, setParam] = useState({
@@ -551,6 +580,7 @@ export const AddToolModal = () => {
       form.setFieldsValue(data)
       setObj({
         ...obj,
+        leader: data.leader,
         personList: data.personList,
         groupToolList: data.groupToolList,
         groupMaterialList: data.groupMaterialList
@@ -576,7 +606,9 @@ export const AddToolModal = () => {
 
   const onFinish = () => {
     if (bootData()) {
-      setGroupList([...groupList, obj])
+      let newObj = groupList
+      newObj.splice(groupIndex, 1, obj)
+      setGroupList(newObj)
     } else {
       setGroupList([...groupList, obj])
     }

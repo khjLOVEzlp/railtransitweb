@@ -11,6 +11,7 @@ import * as auth from "../auth-provider";
 import { useAsync } from "../hook/useAsync";
 import { FullPageErrorFallback } from "../components/lib";
 import { useQueryClient } from "react-query";
+import { FullPageLoading } from "components/FullPageLoading";
 const AuthContext = createContext<
   {
     user: {
@@ -34,19 +35,6 @@ const AuthContext = createContext<
   }
   | undefined
 >(undefined);
-
-const FullPage = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const FullPageLoading = () => (
-  <FullPage>
-    <Spin size={"large"} />
-  </FullPage>
-);
 
 interface AuthForm {
   loginName: string;

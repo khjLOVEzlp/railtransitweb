@@ -15,19 +15,19 @@ import { Search } from 'utils/typings';
 import { useState } from 'react';
 import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
+import { useParam } from 'hook/useParam';
+import { useAuth } from 'context/auth-context';
 
 /*作业计划*/
 export const PlanWork = () => {
-  const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: ""
-  })
-
+  const { param, setParam } = useParam()
+  const { menu } = useAuth()
+  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "作业计划").childMenu.find((item: { [item: string]: unknown }) => item.name === "作业计划").childMenu
   const { open, startEdit } = usePlanWorkModal()
   const { startEdit: startShareEdit } = useShareModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del, isLoading: mutaLoading } = useDel()
+  const [status, setStatus] = useState<number | undefined>(undefined)
   // const { mutateAsync: SharePlan } = useSharePlan()
 
   /*删除*/
@@ -147,8 +147,9 @@ export const PlanWork = () => {
             </Button>
           </Form.Item>
         </Form>
-
-        <Button onClick={open}>新增</Button>
+        {
+          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+        }
       </Header>
       <Main>
         <Table columns={
@@ -224,25 +225,28 @@ export const PlanWork = () => {
                     overlay={
                       <Menu>
                         {
-                          item.status === 2 ? (
+                          item.status === 2 && menuList.find((key: { [key: string]: unknown }) => key.name === '发布') ? (
                             <Menu.Item disabled key={"shareEdit"}>
                               发布计划
                             </Menu.Item>
-                          ) : (
-                            <Menu.Item onClick={() => startShareEdit(item.id)} key={"shareEdit"}>
+                          ) : menuList.find((key: { [key: string]: unknown }) => key.name === '发布') && (
+                            <Menu.Item onClick={() => {
+                              startShareEdit(item.id)
+                              setStatus(item.status)
+                            }} key={"shareEdit"}>
                               发布计划
                             </Menu.Item>
                           )
                         }
                         {
-                          item.status === 2 ? (
+                          item.status === 2 && menuList.find((key: { [key: string]: unknown }) => key.name === '修改') ? (
                             <Menu.Item
                               disabled
                               key={"edit"}
                             >
                               修改
                             </Menu.Item>
-                          ) : (
+                          ) : menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && (
                             <Menu.Item
                               onClick={() => startEdit(item.id)}
                               key={"edit"}
@@ -252,12 +256,12 @@ export const PlanWork = () => {
                           )
                         }
                         {
-                          item.status === 2 ? (<Menu.Item
+                          item.status === 2 && menuList.find((key: { [key: string]: unknown }) => key.name === '删除') ? (<Menu.Item
                             disabled
                             key={"delete"}
                           >
                             删除
-                          </Menu.Item>) : (<Menu.Item
+                          </Menu.Item>) : menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && (<Menu.Item
                             onClick={() => confirmDeleteProject(item)}
                             key={"delete"}
                           >
@@ -273,7 +277,7 @@ export const PlanWork = () => {
                           发布计划 ...
                         </Button>
                       ) : (
-                        <Button style={{ padding: 0 }} type={"link"} onClick={() => startShareEdit(item.id)}>
+                        <Button style={{ padding: 0 }} type={"link"}>
                           发布计划 ...
                         </Button>
                       )
@@ -301,7 +305,7 @@ export const PlanWork = () => {
         </Footer> : undefined
       }
       <ModalForm param={param} setParam={setParam} />
-      <ShareModalForm />
+      <ShareModalForm status={status} />
     </ >
   );
 }

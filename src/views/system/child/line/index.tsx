@@ -7,6 +7,8 @@ import { useProjectModal, useLineModal } from './util'
 import { createContext, useState, useContext } from "react";
 import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
+import { useParam } from 'hook/useParam';
+import { useAuth } from 'context/auth-context';
 
 const LineContext = createContext<| {
   openClassVisible: boolean,
@@ -31,7 +33,9 @@ export const Line = () => {
   const [classId, setClassId] = useState<number | undefined>(undefined)
   const [platId, setPlatId] = useState<number | undefined>(undefined)
   const [roadId, setRoadId] = useState<number | undefined>(undefined)
-  const [param, setParam] = useState({ index: 1, size: 10, name: '' })
+  const { param, setParam } = useParam()
+  const { menu } = useAuth()
+  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "系统管理").childMenu.find((item: { [item: string]: unknown }) => item.name === "地铁管理").childMenu
   const { startEdit } = useProjectModal();
   const editProject = (id: number) => () => startEdit(id);
   const { open, startEdit: startEditLine } = useLineModal()
@@ -111,7 +115,9 @@ export const Line = () => {
           </Form.Item>
         </Form>
 
-        <Button onClick={open}>新增</Button>
+        {
+          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+        }
       </Header>
       <Main>
         <Table columns={
@@ -139,9 +145,20 @@ export const Line = () => {
             {
               title: '操作',
               key: 'id',
-              render: (item) => <><Button type="link" onClick={editProject(item.id)}>管理</Button><Button
-                type="link"
-                onClick={() => startEditLine(item.id)}>修改</Button>
+              render: (item) => (<>
+                <Button
+                  type="link"
+                  onClick={editProject(item.id)}>
+                  管理
+                </Button>
+                {
+                  menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && <Button
+                    type="link"
+                    onClick={() => startEditLine(item.id)}>
+                    修改
+                  </Button>
+                }
+
                 <Popconfirm
                   title={`是否要删除${item.name}`}
                   onConfirm={() => confirm(item.id)}
@@ -149,8 +166,10 @@ export const Line = () => {
                   okText="是"
                   cancelText="否"
                 >
-                  <Button type="link">删除</Button>
-                </Popconfirm></>
+                  {
+                    menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && <Button type="link">删除</Button>
+                  }
+                </Popconfirm></>)
             },
           ]
         } pagination={{ total: data?.count, current: param.index, pageSize: param.size }}

@@ -4,16 +4,15 @@ import { useDel, useInit } from './request';
 import { useDebounce } from 'hook/useDebounce';
 import { useMenuModal } from './util'
 import { Search } from 'utils/typings';
-import { useState } from 'react';
 import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
+import { useParam } from 'hook/useParam';
+import { useAuth } from 'context/auth-context';
 
 export const MenuRender = () => {
-  const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: ""
-  })
+  const { menu } = useAuth()
+  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "系统管理").childMenu.find((item: { [item: string]: unknown }) => item.name === "菜单管理").childMenu
+  const { param, setParam } = useParam()
   const { open, startEdit } = useMenuModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
@@ -64,7 +63,9 @@ export const MenuRender = () => {
           </Form.Item>
         </Form>
 
-        <Button onClick={open}>新增</Button>
+        {
+          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+        }
       </Header>
       <Main>
         <Table columns={
@@ -88,8 +89,12 @@ export const MenuRender = () => {
               title: '操作',
               key: 'id',
               render: (item) => <>
-                <Button type="link" onClick={open}>新增</Button>
-                <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                {
+                  menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button type={"link"} onClick={open}>新增</Button>
+                }
+                {
+                  menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && <Button type={"link"} onClick={() => startEdit(item.id)}>修改</Button>
+                }
                 <Popconfirm
                   title={`是否要删除${item.name}`}
                   onConfirm={() => confirm(item.id)}
@@ -97,7 +102,9 @@ export const MenuRender = () => {
                   okText="是"
                   cancelText="否"
                 >
-                  <Button type="link">删除</Button>
+                  {
+                    menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && <Button type="link">删除</Button>
+                  }
                 </Popconfirm></>
             },
           ]

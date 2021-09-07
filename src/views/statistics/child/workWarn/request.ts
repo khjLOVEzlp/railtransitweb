@@ -7,8 +7,8 @@ import { useStatisticsContext } from 'views/statistics';
 
 const getType = (type: number) => {
   switch (type) {
-    case 1:
-      return "遗忘"
+    /* case 1:
+      return "遗忘" */
     case 2:
       return "漏带"
 
@@ -27,11 +27,11 @@ const getType = (type: number) => {
     case 7:
       return "分离告警"
 
-    case 8:
-      return "离线告警"
+    /* case 8:
+      return "离线告警" */
 
-    case 9:
-      return "过时告警"
+    /* case 9:
+      return "过时告警" */
 
     case 10:
       return "低电告警"
@@ -83,11 +83,14 @@ export const useAlarmPagination = (params?: any) => {
 
 /*告警统计弹框*/
 export const useAlarmModal = () => {
-  const { visible, setVisible, setParam } = useStatisticsContext()
+  const { visible, setVisible, param, setParam } = useStatisticsContext()
   const open = (subwayId: string, time: string, type: string) => {
     setParam({ subwayId, time, type })
     setVisible(true)
   }
+
+  console.log(param);
+
 
   const close = () => {
     setParam({ subwayId: "", time: "", type: "" })
@@ -95,8 +98,9 @@ export const useAlarmModal = () => {
   }
 
   return {
-    ModalOpen: visible === true,
+    ModalOpen: visible,
     open,
-    close
+    close,
+    param
   }
 }

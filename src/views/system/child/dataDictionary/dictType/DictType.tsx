@@ -7,13 +7,10 @@ import { useDictTypeModal } from './util'
 import { useState } from 'react';
 import { noData } from 'utils/verification';
 import { Footer } from 'components/Styled';
+import { useParam } from 'hook/useParam';
 
 export const DictType = () => {
-  const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: ""
-  })
+  const { param, setParam } = useParam()
   const { open, startEdit } = useDictTypeModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del, isLoading: mutaLoading } = useDel()

@@ -43,6 +43,7 @@ type Props = {
 // 新增修改
 export const ModalForm = ({ param, setParam }: Props) => {
   const { groupList, setGroupList } = usePlanContext()
+  const [groupIndex, setGroupIndex] = useState<any>()
   const [form] = Form.useForm();
   const token = getToken()
   let document: string[] = []
@@ -184,7 +185,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
               </Form.Item>
 
               <Form.Item
-                label="作业部门"
+                label="作业班别"
                 name="departmentId"
                 rules={rules}
               >
@@ -400,6 +401,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                         {/* <Button>修改</Button> */}
                         <Button style={{ marginLeft: "1rem" }} onClick={() => {
                           startEdit(item)
+                          setGroupIndex(index)
                         }}>修改</Button>
                         <Button style={{ marginLeft: "1rem" }} onClick={() => deleteGroup(index)}>删除</Button>
                       </div>
@@ -455,7 +457,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
       }
 
       {/*添加工具*/}
-      <AddToolModal />
+      <AddToolModal groupIndex={groupIndex} />
     </Modal>
   )
 };

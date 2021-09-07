@@ -5,13 +5,10 @@ import { Search } from 'utils/typings';
 import { useState } from 'react';
 import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
+import { useParam } from 'hook/useParam';
 
 export const SpiritStatus = () => {
-  const [param, setParam] = useState({
-    index: 1,
-    size: 10,
-    name: ""
-  })
+  const { param, setParam } = useParam()
 
   const { data, isLoading } = useInit(useDebounce(param, 500))
 
