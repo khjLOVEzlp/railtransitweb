@@ -3,7 +3,6 @@ import { ModalForm } from "./modal/ModalForm";
 import { useInit } from './request';
 import { useDebounce } from "hook/useDebounce";
 import { useHistoryModal } from './util'
-import { useState } from 'react';
 import { Header, Main } from 'components/Styled';
 import { useParam } from 'hook/useParam';
 

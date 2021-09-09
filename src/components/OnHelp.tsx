@@ -1,6 +1,7 @@
-import { Col, Modal, Row } from "antd";
+import { Col, Modal, Row, Image } from "antd";
 import { usePageBoxContext } from "PageBox";
-
+import logo from '../icon/logo1.png'
+import logo2 from '../icon/logo2.png'
 export const OnHelp = () => {
   const { ModalOpen, close } = useOnHelpModal()
   return (
@@ -19,6 +20,8 @@ export const OnHelp = () => {
       <Row style={{ padding: "0.5rem" }}>
         <Col span={24}>系统名称：智慧轨行区数字化维养安全管控系统</Col>
       </Row>
+      <Image width={"100px"} height={"100px"} src={logo} />
+      <Image width={"100px"} height={"100px"} src={logo2} />
     </Modal>
   )
 }

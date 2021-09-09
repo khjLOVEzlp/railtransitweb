@@ -32,6 +32,7 @@ export const Platform = () => {
       } else {
         message.success('删除成功')
         setParam({ ...param, index: 1 })
+        selectedRowKeys([])
       }
     })
   }

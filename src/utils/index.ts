@@ -72,3 +72,12 @@ export const useRouteType = () => {
   const units = useLocation().pathname.split("/");
   return units[units.length - 1];
 };
+
+/* 按钮显示隐藏 */
+export const isButton = (menuList: any, name: string) => {
+  if (menuList.find((key: { [key: string]: unknown }) => key.name === name)) {
+    return true
+  } else {
+    return false
+  }
+}

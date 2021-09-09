@@ -17,6 +17,7 @@ import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
 import { useParam } from 'hook/useParam';
 import { useAuth } from 'context/auth-context';
+import { isButton } from 'utils';
 
 /*作业计划*/
 export const PlanWork = () => {
@@ -38,6 +39,7 @@ export const PlanWork = () => {
       } else {
         message.success('删除成功')
         setParam({ ...param, index: 1 })
+        selectedRowKeys([])
       }
     })
   }
@@ -148,7 +150,7 @@ export const PlanWork = () => {
           </Form.Item>
         </Form>
         {
-          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+          isButton(menuList, "新增") && <Button onClick={open}>新增</Button>
         }
       </Header>
       <Main>
@@ -225,11 +227,11 @@ export const PlanWork = () => {
                     overlay={
                       <Menu>
                         {
-                          item.status === 2 && menuList.find((key: { [key: string]: unknown }) => key.name === '发布') ? (
+                          item.status === 2 && isButton(menuList, "发布") ? (
                             <Menu.Item disabled key={"shareEdit"}>
                               发布计划
                             </Menu.Item>
-                          ) : menuList.find((key: { [key: string]: unknown }) => key.name === '发布') && (
+                          ) : isButton(menuList, "发布") && (
                             <Menu.Item onClick={() => {
                               startShareEdit(item.id)
                               setStatus(item.status)
@@ -239,14 +241,14 @@ export const PlanWork = () => {
                           )
                         }
                         {
-                          item.status === 2 && menuList.find((key: { [key: string]: unknown }) => key.name === '修改') ? (
+                          item.status === 2 && isButton(menuList, "修改") ? (
                             <Menu.Item
                               disabled
                               key={"edit"}
                             >
                               修改
                             </Menu.Item>
-                          ) : menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && (
+                          ) : isButton(menuList, "修改") && (
                             <Menu.Item
                               onClick={() => startEdit(item.id)}
                               key={"edit"}
@@ -256,12 +258,12 @@ export const PlanWork = () => {
                           )
                         }
                         {
-                          item.status === 2 && menuList.find((key: { [key: string]: unknown }) => key.name === '删除') ? (<Menu.Item
+                          item.status === 2 && isButton(menuList, "删除") ? (<Menu.Item
                             disabled
                             key={"delete"}
                           >
                             删除
-                          </Menu.Item>) : menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && (<Menu.Item
+                          </Menu.Item>) : isButton(menuList, "删除") && (<Menu.Item
                             onClick={() => confirmDeleteProject(item)}
                             key={"delete"}
                           >
@@ -274,11 +276,11 @@ export const PlanWork = () => {
                     {
                       item.status === 2 ? (
                         <Button style={{ padding: 0 }} type={"link"} disabled>
-                          发布计划 ...
+                          ...
                         </Button>
                       ) : (
                         <Button style={{ padding: 0 }} type={"link"}>
-                          发布计划 ...
+                          ...
                         </Button>
                       )
                     }
@@ -297,12 +299,12 @@ export const PlanWork = () => {
         />
       </Main>
       {
-        hasSelected ? <Footer>
+        hasSelected && isButton(menuList, "删除") && <Footer>
           <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
           <Button type="primary" onClick={start} loading={mutaLoading}>
             {hasSelected ? `批量删除` : ''}
           </Button>
-        </Footer> : undefined
+        </Footer>
       }
       <ModalForm param={param} setParam={setParam} />
       <ShareModalForm status={status} />

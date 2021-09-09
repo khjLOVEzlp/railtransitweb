@@ -60,7 +60,7 @@ export const http = async (
       } else {
         return Promise.reject(data);
       }
-    });
+    })
 };
 
 export const useHttp = () => {

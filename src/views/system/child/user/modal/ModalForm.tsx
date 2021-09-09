@@ -21,9 +21,7 @@ type Props = {
 export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const { data: userList } = useUserList()
-  // const { data: personList } = usePerson()
   const { data: roleList } = useRoleAll()
-
   const { ModalOpen, isLoading, close, editingUser, editId, isSuccess } = useUserModal()
   const title = editingUser ? "修改" : "新增"
   const msg = editingUser ? () => {

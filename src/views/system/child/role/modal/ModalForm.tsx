@@ -73,9 +73,15 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }; */
 
   const onCheck = (checkedKeysValue: any, e: any) => {
-    const data = [...e.halfCheckedKeys, ...checkedKeysValue]
-    setCheckedKeys(checkedKeysValue);
-    form.setFieldsValue({ menuList: data })
+    if (!editingRole) {
+      const data = [...e.halfCheckedKeys, ...checkedKeysValue]
+      setCheckedKeys(checkedKeysValue);
+      form.setFieldsValue({ menuList: data })
+    } else {
+      console.log(checkedKeysValue);
+      setCheckedKeys(checkedKeysValue.checked)
+      form.setFieldsValue({ menuList: checkedKeysValue.checked })
+    }
   };
 
   const onOk = () => {
@@ -93,7 +99,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
     >
       {
         isLoading ? (
-          <Spin />
+          <Spin size={"large"} />
         ) : (
           <Form
             form={form}
@@ -124,6 +130,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                 checkedKeys={checkedKeys}
                 // @ts-ignore
                 treeData={success ? menu.data : []}
+                checkStrictly={editingRole && true}
               />
 
               {/* <TreeSelect

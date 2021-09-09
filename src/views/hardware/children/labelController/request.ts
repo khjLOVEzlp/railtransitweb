@@ -69,7 +69,6 @@ export const useLabDetail = (id?: number) => {
 }
 
 /* 导入标签弹框 */
-/*导入人员弹框*/
 
 export const useImportModal = () => {
   const { drawer, setDrawer } = useAuth()

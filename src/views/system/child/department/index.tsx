@@ -7,6 +7,7 @@ import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
 import { useParam } from 'hook/useParam';
 import { useAuth } from 'context/auth-context';
+import { isButton } from 'utils';
 
 export const Department = () => {
   const { param, setParam } = useParam()
@@ -24,6 +25,7 @@ export const Department = () => {
       } else {
         message.success('删除成功')
         setParam({ ...param, index: 1 })
+        selectedRowKeys([])
       }
     })
   }
@@ -69,7 +71,7 @@ export const Department = () => {
       <Header>
         <div>部门管理</div>
         {
-          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+          isButton(menuList, "新增") && <Button onClick={open}>新增</Button>
         }
       </Header>
       <Main>
@@ -105,7 +107,7 @@ export const Department = () => {
               key: 'id',
               render: (item) => <>
                 {
-                  menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                  isButton(menuList, "修改") && <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
                 }
                 <Popconfirm
                   title={`是否要删除${item.name}`}
@@ -115,7 +117,7 @@ export const Department = () => {
                   cancelText="否"
                 >
                   {
-                    menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && <Button type="link">删除</Button>
+                    isButton(menuList, "删除") && <Button type="link">删除</Button>
                   }
                 </Popconfirm></>
             },
@@ -131,12 +133,12 @@ export const Department = () => {
         />
       </Main>
       {
-        hasSelected ? <Footer>
+        hasSelected && isButton(menuList, "删除") && <Footer>
           <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
           <Button type="primary" onClick={start} loading={mutaLoading}>
             {hasSelected ? `批量删除` : ''}
           </Button>
-        </Footer> : undefined
+        </Footer>
       }
       <ModalForm param={param} setParam={setParam} />
     </>

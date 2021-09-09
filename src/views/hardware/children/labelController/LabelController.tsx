@@ -1,6 +1,6 @@
 import { Form, Input, Button, Table, Popconfirm, message, Tag, Modal } from 'antd';
 import { useDel, useImportModal, useInit } from './request';
-import { ImportModal, ModalForm } from './ModalForm';
+import { ModalForm } from './ModalForm';
 import { useDebounce } from 'hook/useDebounce';
 import { useLabModal } from './util'
 import { Search } from 'utils/typings';
@@ -9,6 +9,8 @@ import { noData } from 'utils/verification';
 import { useState } from 'react';
 import { useParam } from 'hook/useParam';
 import { useAuth } from 'context/auth-context';
+import { ImportModal } from 'components/ImportModal';
+import { isButton } from 'utils';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -19,6 +21,8 @@ export const LabelController = () => {
   const { open: openImportModal } = useImportModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del, isLoading: mutaLoading } = useDel()
+  const { menu } = useAuth()
+  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "设备管理").childMenu.find((item: { [item: string]: unknown }) => item.name === "标签").childMenu
 
   const search = (item: Search) => {
     setParam({ ...param, name: item.name, index: 1 })
@@ -32,6 +36,9 @@ export const LabelController = () => {
     del(id).then(() => {
       message.success('删除成功')
       setParam({ ...param, index: 1 })
+      setSelectedRowKeys([])
+    }).catch((err) => {
+      message.error(err.msg)
     })
   }
 
@@ -114,20 +121,24 @@ export const LabelController = () => {
             </Button>
           </Form.Item>
 
-          <Form.Item>
-            <Button onClick={downTemplate}>
-              模板下载
-            </Button>
-          </Form.Item>
+          {
+            isButton(menuList, "新增") && <Form.Item>
+              <Button onClick={() => downTemplate()}>
+                模板下载
+              </Button>
+            </Form.Item>
+          }
 
-          <Form.Item>
-            <Button onClick={openImportModal}>
-              导入
-            </Button>
-          </Form.Item>
+          {
+            isButton(menuList, "新增") && <Form.Item>
+              <Button onClick={openImportModal}>导入标签</Button>
+            </Form.Item>
+          }
         </Form>
 
-        <Button onClick={open}>新增</Button>
+        {
+          isButton(menuList, "新增") && <Button onClick={open}>新增</Button>
+        }
       </Header>
       <Main>
         <Table columns={
@@ -155,7 +166,11 @@ export const LabelController = () => {
             {
               title: '操作',
               key: 'id',
-              render: (item) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+              render: (item) => <>
+
+                {
+                  isButton(menuList, "修改") && <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                }
                 <Popconfirm
                   title={`是否要删除${item.codeHex10}`}
                   onConfirm={() => confirm(item.id)}
@@ -163,7 +178,9 @@ export const LabelController = () => {
                   okText="是"
                   cancelText="否"
                 >
-                  <Button type={"link"}>删除</Button>
+                  {
+                    isButton(menuList, "删除") && <Button type="link">删除</Button>
+                  }
                 </Popconfirm></>
             },
           ]
@@ -175,15 +192,35 @@ export const LabelController = () => {
         />
       </Main>
       {
-        hasSelected ? <Footer>
+        hasSelected && isButton(menuList, "删除") && <Footer>
           <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
           <Button type="primary" onClick={start} loading={mutaLoading}>
             {hasSelected ? `批量删除` : ''}
           </Button>
-        </Footer> : undefined
+        </Footer>
       }
       <ModalForm param={param} setParam={setParam} />
-      <ImportModal />
+      <ImportModal title={"导入标签"} url={"hardware/label/import"} query={"label"} />
     </>
   );
 };
+
+
+/* const RenderItem = ({ codeHex10, id }: { codeHex10: string, id: number | undefined }) => {
+  return (
+    <>
+      <Button>
+        修改
+      </Button>
+      <Popconfirm
+        title={`是否要删除${codeHex10}`}
+        onConfirm={() => confirm(id)}
+        onCancel={cancel}
+        okText="是"
+        cancelText="否"
+      >
+        <Button type={"link"}>删除</Button>
+      </Popconfirm>
+    </>
+  )
+} */

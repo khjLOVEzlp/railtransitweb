@@ -1,13 +1,9 @@
-import { Button, Checkbox, Form, Input, message, Modal, Radio, Select, Spin, Tag, Upload } from "antd";
-import { useAuth } from "context/auth-context";
+import { Button, Checkbox, Form, Input, message, Modal, Radio, Select, Spin } from "antd";
 import { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
 import { rules } from "utils/verification";
 import { useWarehouse } from "views/warehouse/child/toolType/request";
-import { useAdd, useImportModal, useMod } from './request'
+import { useAdd, useMod } from './request'
 import { useLabModal } from './util'
-import { InboxOutlined } from '@ant-design/icons';
-const apiUrl = process.env.REACT_APP_API_URL;
 type Props = {
   param: {
     index: number
@@ -19,7 +15,7 @@ type Props = {
 
 export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
-  const [checked, setChecked] = useState(['2.4G'])
+  const [checked, setChecked] = useState<any>(["2.4G"])
   const { ModalOpen, isLoading, close, editingLab, editId } = useLabModal()
   const title = editingLab ? "修改" : "新增"
   const msg = editingLab ? () => {
@@ -32,7 +28,15 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   useEffect(() => {
-    form.setFieldsValue(editingLab?.data)
+    if (title === "新增") {
+      setChecked(['2.4G'])
+    }
+  }, [title])
+
+  useEffect(() => {
+    const s = editingLab?.data.type.split(",")
+    setChecked(s)
+    form.setFieldsValue({ ...editingLab?.data, type: s })
   }, [form, editingLab])
 
   const closeModal = () => {
@@ -41,7 +45,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingLab?.data, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingLab?.data, ...value, type: Array.isArray(value.type) ? value.type.join(",") : value.type, id: editId }).then((res) => {
       form.resetFields()
       closeModal()
       msg()
@@ -90,11 +94,11 @@ export const ModalForm = ({ param, setParam }: Props) => {
               initialValue={['2.4G']}
               rules={rules}
             >
-              <Checkbox.Group options={plainOptions} defaultValue={checked} onChange={onChange} />
+              <Checkbox.Group options={plainOptions} onChange={onChange} />
             </Form.Item>
 
             {
-              checked.find((key: any) => key === '2.4G') && <Form.Item
+              checked?.find((key: any) => key === '2.4G') && <Form.Item
                 label="2.4G编码"
                 name="codeHex10"
                 rules={rules}
@@ -104,7 +108,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
             }
 
             {
-              checked.find((key: any) => key === '915M') && <Form.Item
+              checked?.find((key: any) => key === '915M') && <Form.Item
                 label="915编码"
                 name="codeHex915"
                 rules={rules}
@@ -145,49 +149,3 @@ export const ModalForm = ({ param, setParam }: Props) => {
     </Modal>
   );
 };
-
-
-export const ImportModal = () => {
-  const { ModalOpen, close } = useImportModal()
-  const { user } = useAuth()
-  const queryClient = useQueryClient()
-  const props = {
-    name: 'file',
-    action: `${apiUrl}hardware/label/import`,
-    headers: {
-      authorization: `${user?.jwtToken}`,
-    },
-    onChange(info: any) {
-      if (info.file.status !== 'uploading') {
-      }
-
-      if (info.file.status === 'done' && info.file.response?.code === 200) {
-        message.success(`${info.file.name}上传成功`);
-        queryClient.invalidateQueries('label')
-        close()
-      } else if (info.file.status === 'error' || info.file.response?.code != 200) {
-        if (info?.file?.response?.msg) {
-          message.error(info?.file?.response?.msg)
-        }
-      }
-    },
-  };
-
-  return (
-    <Modal
-      title={"导入标签"}
-      visible={ModalOpen}
-      onCancel={close}
-      footer={false}
-      destroyOnClose={true}
-    >
-      <Upload.Dragger {...props} maxCount={1}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">点击导入标签</p>
-      </Upload.Dragger>
-      <Tag style={{ marginTop: "10px" }} color="processing">请上传 xls 或者 xlsx 格式文件</Tag>
-    </Modal>
-  )
-}

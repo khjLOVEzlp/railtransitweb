@@ -2,7 +2,6 @@ import { Form, Input, Button, Table, Tag } from 'antd';
 import { useInit } from './request';
 import { useDebounce } from 'hook/useDebounce';
 import { Search } from 'utils/typings';
-import { useState } from 'react';
 import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
 import { useParam } from 'hook/useParam';
@@ -44,10 +43,7 @@ export const SpiritStatus = () => {
 
   return (
     <>
-      <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
-        }}
-      >
+      <Form.Provider>
         <Header>
           <Form
             name="basic"
@@ -67,8 +63,6 @@ export const SpiritStatus = () => {
               </Button>
             </Form.Item>
           </Form>
-
-          {/* <Button onClick={() => add()}>新增</Button> */}
         </Header>
         <Main>
           <Table columns={

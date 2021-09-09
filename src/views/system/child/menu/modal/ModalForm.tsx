@@ -11,9 +11,10 @@ type Props = {
     name: string
   }
   setParam: (param: Props["param"]) => void
+  parentId: any
 }
 
-export const ModalForm = ({ param, setParam }: Props) => {
+export const ModalForm = ({ param, setParam, parentId }: Props) => {
   const [form] = Form.useForm();
   const { ModalOpen, isLoading, close, editingMenu, editId } = useMenuModal()
   const title = editingMenu ? "修改" : "新增"
@@ -40,7 +41,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingMenu?.data, ...value, id: editId }).then((res) => {
+    mutateAsync({ ...editingMenu?.data, ...value, orderNum: Number(value.orderNum), type: 1, id: editId, parentId }).then((res) => {
       if (res.code === 200) {
         form.resetFields()
         closeModal()
@@ -77,10 +78,12 @@ export const ModalForm = ({ param, setParam }: Props) => {
               label="菜单类型"
               name="menuType"
               rules={rules}
+              initialValue={1}
             >
               <Radio.Group>
-                <Radio value={0}>web</Radio>
-                <Radio value={1}>app</Radio>
+                <Radio value={0}>目录</Radio>
+                <Radio value={1}>菜单</Radio>
+                <Radio value={2}>按钮</Radio>
               </Radio.Group>
             </Form.Item>
 

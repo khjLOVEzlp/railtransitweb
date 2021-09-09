@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-import { Button, DatePicker, Form, Input, message, Modal, Select, Space, Spin, Tag, TreeSelect, Upload } from "antd";
+import { Button, DatePicker, Divider, Form, Input, message, Modal, Select, Space, Spin, TreeSelect } from "antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { rules } from "utils/verification";
-import { usePersonModal, useImportModal } from '../util'
-import { useAdd, useMod, useAddPost } from '../request'
-import { InboxOutlined } from '@ant-design/icons';
-import { useAuth } from "context/auth-context";
+import { usePersonModal } from '../util'
+import { useAdd, useMod, useAddPost, usePostList } from '../request'
 import { useInit } from 'views/system/child/department/request'
 import moment from "moment";
 import { useGetNotUseList } from "views/hardware/children/seperateController/request";
-import { useQueryClient } from "react-query";
+import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
-const apiUrl = process.env.REACT_APP_API_URL;
 
 type Props = {
   param: {
@@ -25,7 +22,7 @@ type Props = {
 
 export const ModalForm = ({ param, setParam, detail }: Props) => {
   const [form] = Form.useForm();
-  const [post, setPost] = useState<any>()
+  const [value, setValue] = useState<any>()
   const { ModalOpen, editId, editingPerson, isLoading, close } = usePersonModal()
   const title = editingPerson ? "修改" : "新增"
   const msg = editingPerson ? () => {
@@ -34,7 +31,8 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
     message.success("新增成功")
     setParam({ ...param, index: 1 })
   }
-  const { mutateAsync: mutateAddPost } = useAddPost()
+  const { data: postList } = usePostList()
+  const { mutateAsync: mutateAddPost, isLoading: addLoading } = useAddPost()
   const useMutateProject = editingPerson ? useMod : useAdd;
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
   const { data, isSuccess } = useGetNotUseList()
@@ -97,14 +95,6 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
   const onOk = () => {
     form.submit();
   };
-
-  const onSearch = (value: any) => {
-    setPost(value)
-  }
-
-  const handleClick = () => {
-    mutateAddPost(post).then(() => { })
-  }
 
   return (
     <Modal
@@ -229,16 +219,40 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
             <Space style={{ width: "100%" }}>
               <Form.Item
                 label={"职务"}
+                name={"postId"}
               >
                 <Select
-                  onSearch={onSearch}
                   showSearch
-                  notFoundContent={<Button type={"link"}
-                    onClick={() => handleClick()}>添加</Button>}
+                  dropdownRender={menu => (
+                    <div>
+                      {menu}
+                      <Divider style={{ margin: '4px 0' }} />
+                      <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+                        <Input style={{ flex: 'auto' }} value={value} onChange={(e) => setValue(e.target.value)} />
+                        <Button
+                          type={"link"}
+                          loading={addLoading}
+                          style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
+                          onClick={() => {
+                            if (value) {
+                              setValue("")
+                              mutateAddPost(value)
+                            }
+                          }}
+                        >
+                          <PlusOutlined /> 添加职务
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 >
-                  <Select.Option value={"AAA"}>AAA</Select.Option>
-                  <Select.Option value={"BBB"}>BBB</Select.Option>
-                  <Select.Option value={"CCC"}>CCC</Select.Option>
+                  {
+                    postList?.data.map((key: any) => (
+                      <Select.Option value={key.id} style={{ display: "flex" }}>
+                        {key.name}
+                      </Select.Option>
+                    ))
+                  }
                 </Select>
               </Form.Item>
 
@@ -255,49 +269,3 @@ export const ModalForm = ({ param, setParam, detail }: Props) => {
     </Modal>
   );
 };
-
-export const ImportModal = () => {
-  const { ModalOpen, close } = useImportModal()
-  const { user } = useAuth()
-  const queryClient = useQueryClient()
-  const props = {
-    name: 'file',
-    action: `${apiUrl}person/import`,
-    headers: {
-      authorization: `${user?.jwtToken}`,
-    },
-    onChange(info: any) {
-      if (info.file.status !== 'uploading') {
-      }
-
-      if (info.file.status === 'done' && info.file.response?.code === 200) {
-        message.success(`${info.file.name}上传成功`);
-        queryClient.invalidateQueries('person')
-        close()
-      } else if (info.file.status === 'error' || info.file.response?.code != 200) {
-        if (info?.file?.response?.msg) {
-          message.error(info?.file?.response?.msg)
-        }
-      }
-    },
-  };
-
-  return (
-    <Modal
-      title={"导入人员"}
-      visible={ModalOpen}
-      onCancel={close}
-      footer={false}
-      destroyOnClose={true}
-    >
-      <Upload.Dragger {...props} maxCount={1}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">点击导入人员</p>
-      </Upload.Dragger>
-
-      <Tag style={{ marginTop: "10px" }} color="processing">请上传 xls 或者 xlsx 格式文件</Tag>
-    </Modal>
-  )
-}

@@ -40,7 +40,7 @@ export const OperModal = () => {
     selectedRowKeys,
     onChange: onSelectChange,
     getCheckboxProps: (record: any) => ({
-      disabled: record.state == 1
+      disabled: record.state === 1
     })
   }
 

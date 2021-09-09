@@ -8,12 +8,16 @@ import { Footer, Header, Main } from 'components/Styled';
 import { noData } from 'utils/verification';
 import { useState } from 'react';
 import { useParam } from 'hook/useParam';
+import { useAuth } from 'context/auth-context';
+import { isButton } from 'utils';
 
 export const SimCardController = () => {
   const { param, setParam } = useParam()
   const { open, startEdit } = useSimModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del, isLoading: mutaLoading } = useDel()
+  const { menu } = useAuth()
+  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "设备管理").childMenu.find((item: { [item: string]: unknown }) => item.name === "流量卡").childMenu
 
   const search = (item: Search) => {
     setParam({ ...param, name: item.name, index: 1 })
@@ -27,7 +31,8 @@ export const SimCardController = () => {
     del(id).then(() => {
       message.success('删除成功')
       setParam({ ...param, index: 1 })
-    }).catch(err => {
+      setSelectedRowKeys([])
+    }).catch((err) => {
       message.error(err.msg)
     })
   }
@@ -91,8 +96,9 @@ export const SimCardController = () => {
             </Button>
           </Form.Item>
         </Form>
-
-        <Button onClick={open}>新增</Button>
+        {
+          isButton(menuList, "新增") && <Button onClick={open}>新增</Button>
+        }
       </Header>
       <Main>
         <Table columns={
@@ -120,7 +126,12 @@ export const SimCardController = () => {
             {
               title: '操作',
               key: 'id',
-              render: (item) => <><Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+              render: (item) => <>
+
+                {
+                  isButton(menuList, "修改") && <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                }
+
                 <Popconfirm
                   title={`是否要删除${item.cardNo}`}
                   onConfirm={() => confirm(item.id)}
@@ -128,7 +139,10 @@ export const SimCardController = () => {
                   okText="是"
                   cancelText="否"
                 >
-                  <Button type={"link"}>删除</Button>
+
+                  {
+                    isButton(menuList, "删除") && <Button type={"link"}>删除</Button>
+                  }
                 </Popconfirm></>
             },
           ]
@@ -140,12 +154,12 @@ export const SimCardController = () => {
         />
       </Main>
       {
-        hasSelected ? <Footer>
+        hasSelected && isButton(menuList, "删除") && <Footer>
           <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
           <Button type="primary" onClick={start} loading={mutaLoading}>
             {hasSelected ? `批量删除` : ''}
           </Button>
-        </Footer> : undefined
+        </Footer>
       }
       <ModalForm param={param} setParam={setParam} />
     </>

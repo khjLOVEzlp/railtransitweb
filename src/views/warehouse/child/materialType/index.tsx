@@ -6,6 +6,8 @@ import { useMaterialModal } from './util'
 import { useState } from 'react';
 import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
+import { isButton } from 'utils';
+import { useAuth } from 'context/auth-context';
 
 export const MaterialType = () => {
   const [param, setParam] = useState({
@@ -14,6 +16,9 @@ export const MaterialType = () => {
     name: "",
     type: "1"
   })
+  const { menu } = useAuth()
+  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "库存管理").childMenu.find((item: { [item: string]: unknown }) => item.name === "物资类型").childMenu
+
 
   const { open, startEdit } = useMaterialModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
@@ -38,6 +43,7 @@ export const MaterialType = () => {
     del(item.id).then(() => {
       message.success('删除成功')
       setParam({ ...param, index: 1 })
+      selectedRowKeys([])
     }).catch(err => {
       message.error(err.msg)
     })
@@ -110,7 +116,9 @@ export const MaterialType = () => {
           </Form.Item>
         </Form>
 
-        <Button onClick={open}>新增</Button>
+        {
+          isButton(menuList, "新增") && <Button onClick={open}>新增</Button>
+        }
       </Header>
       <Main>
         {/*<ToolTypeModal
@@ -150,7 +158,10 @@ export const MaterialType = () => {
               title: '操作',
               key: 'id',
               render: (item: any) => <>
-                <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                {
+                  isButton(menuList, "修改") && <Button type="link" onClick={() => startEdit(item.id)}>修改</Button>
+                }
+
                 <Popconfirm
                   title={`是否要删除${item.name}`}
                   onConfirm={() => confirm?.(item)}
@@ -158,7 +169,10 @@ export const MaterialType = () => {
                   okText="是"
                   cancelText="否"
                 >
-                  <Button type="link">删除</Button>
+                  {
+                    isButton(menuList, "删除") && <Button type="link">删除</Button>
+                  }
+
                 </Popconfirm>
               </>
             },
@@ -171,12 +185,12 @@ export const MaterialType = () => {
         />
       </Main>
       {
-        hasSelected ? <Footer>
+        hasSelected && isButton(menuList, "删除") && <Footer>
           <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
           <Button type="primary" onClick={start} loading={mutaLoading}>
             {hasSelected ? `批量删除` : ''}
           </Button>
-        </Footer> : undefined
+        </Footer>
       }
       <ModalForm param={param} setParam={setParam} />
     </>

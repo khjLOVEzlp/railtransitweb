@@ -1,5 +1,5 @@
 import { Form, Input, Button, Table, Popconfirm, message, Modal } from 'antd';
-import { ImportModal, ModalForm } from "./modal/ModalForm";
+import { ModalForm } from "./modal/ModalForm";
 import { useDel, useInit } from './request';
 import { useDebounce } from 'hook/useDebounce';
 import { usePersonModal, useImportModal } from './util'
@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
 import { useParam } from 'hook/useParam';
+import { ImportModal } from 'components/ImportModal';
+import { isButton } from 'utils';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -17,7 +19,7 @@ export const PersonManage = () => {
   const [detail, setDetail] = useState<any>(undefined)
   const { param, setParam } = useParam()
   const { menu } = useAuth()
-  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "系统管理").childMenu.find((item: { [item: string]: unknown }) => item.name === "菜单管理").childMenu
+  const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "人员管理").childMenu.find((item: { [item: string]: unknown }) => item.name === "人员管理").childMenu
   const { open, startEdit } = usePersonModal()
   const { open: openImportModal, ModalOpen } = useImportModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
@@ -42,6 +44,7 @@ export const PersonManage = () => {
       } else {
         message.success('删除成功')
         setParam({ ...param, index: 1 })
+        setSelectedRowKeys([])
       }
     })
   }
@@ -126,19 +129,23 @@ export const PersonManage = () => {
             </Button>
           </Form.Item>
 
-          <Form.Item>
-            <Button onClick={() => downTemplate()}>
-              模板下载
-            </Button>
-          </Form.Item>
+          {
+            isButton(menuList, "新增") && <Form.Item>
+              <Button onClick={() => downTemplate()}>
+                模板下载
+              </Button>
+            </Form.Item>
+          }
 
-          <Form.Item>
-            <Button onClick={openImportModal}>导入人员</Button>
-          </Form.Item>
+          {
+            isButton(menuList, "新增") && <Form.Item>
+              <Button onClick={openImportModal}>导入人员</Button>
+            </Form.Item>
+          }
         </Form>
 
         {
-          menuList.find((key: { [key: string]: unknown }) => key.name === "新增") && <Button onClick={open}>新增</Button>
+          isButton(menuList, "新增") && <Button onClick={open}>新增</Button>
         }
       </Header>
       <Main>
@@ -204,7 +211,7 @@ export const PersonManage = () => {
               ellipsis: true,
               render: (item) => <>
                 {
-                  menuList.find((key: { [key: string]: unknown }) => key.name === "修改") && <Button type="link" onClick={() => {
+                  isButton(menuList, "修改") && <Button type="link" onClick={() => {
                     setDetail(item)
                     startEdit(item.id)
                   }}>修改</Button>
@@ -217,7 +224,7 @@ export const PersonManage = () => {
                   cancelText="否"
                 >
                   {
-                    menuList.find((key: { [key: string]: unknown }) => key.name === "删除") && <Button type="link">删除</Button>
+                    isButton(menuList, "删除") && <Button type="link">删除</Button>
                   }
                 </Popconfirm></>
             },
@@ -232,15 +239,15 @@ export const PersonManage = () => {
         />
       </Main>
       {
-        hasSelected ? <Footer>
+        hasSelected && isButton(menuList, "删除") && <Footer>
           <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
           <Button type="primary" onClick={start} loading={mutaLoading}>
             {hasSelected ? `批量删除` : ''}
           </Button>
-        </Footer> : undefined
+        </Footer>
       }
       <ModalForm param={param} setParam={setParam} detail={detail} />
-      <ImportModal />
+      <ImportModal title={"导入人员"} url={"person/import"} query={"person"} />
     </>
   );
 };

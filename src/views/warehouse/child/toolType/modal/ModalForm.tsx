@@ -51,8 +51,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
       } else {
         message.error(res.msg)
       }
-    }).catch(err => {
-      message.error(err.msg)
     })
   }
 

@@ -1,4 +1,18 @@
-import { Col, Modal, Row, Spin, Table, Tabs, Space, Card, Upload, Image, Tag, List, Empty, Descriptions, Button } from "antd";
+import {
+  Modal,
+  Spin,
+  Table,
+  Tabs,
+  Space,
+  Card,
+  Upload,
+  Image,
+  Tag,
+  List,
+  Empty,
+  Descriptions,
+  Button
+} from "antd";
 import { useState } from "react";
 import { noData } from "utils/verification";
 import { Type } from "views/home/request";

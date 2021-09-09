@@ -51,68 +51,6 @@ export const PageBox = () => {
   const [help, setHelp] = useState<boolean>(false)
   const { menu = [] } = useAuth()
 
-  /*菜单列表*/
-  /* const [menu, setMenu] = useState([])
-  const client = useHttp()
-  useEffect(() => {
-    client(`info?type=1`, {
-      method: "POST"
-    }).then(async res => {
-      res.data.unshift({ name: '首页', url: '/home' })
-      res.data.forEach((item: { [key: string]: unknown }) => {
-        let { name } = item
-        switch (name) {
-          case '设备管理':
-            item.url = '/hardware'
-            break;
-          case '统计分析':
-            item.url = '/statistics'
-            break;
-          case '告警上报':
-            item.url = '/alarm'
-            break;
-          case '作业计划':
-            item.url = '/plan'
-            break;
-          case '人员管理':
-            item.url = '/person'
-            break;
-          case '系统管理':
-            item.url = '/system'
-            break;
-          case '库存管理':
-            item.url = '/warehouse'
-            break;
-          default:
-            break;
-        }
-      })
-      setMenu(res.data)
-      sessionStorage.setItem('menu', JSON.stringify(res.data))
-
-      
-    })
-  }, [client]) */
-
-  /*const { data } = res
-      // 递归菜单
-      const recursionTreeData = (treeData: any) => {
-        let nodeData: any = [];
-        treeData.forEach((item:  { [key: string]: unknown }) => {
-          if (item.childMenu) {
-            item.childMenu = recursionTreeData(item.childMenu);
-          }
-          nodeData.push({
-            childMenu: item.childMenu,
-            children: item.childMenu,
-            path: item.url,
-            icon: item.icon,
-            element: <item.url />
-          });
-        });
-        return nodeData;
-      };*/
-
   return (
     <PageBoxContext.Provider value={{ infoId, setInfoId, help, setHelp }}>
       <Container>
@@ -128,7 +66,7 @@ export const PageBox = () => {
           </Logo>
           <Nav className={"NavList"}>
             {
-              menu?.map((item: any, index: any) => (
+              menu?.map((item: any, index: number) => (
                 <li key={index}><NavLink activeStyle={{ color: '#5A7FFA' }} to={item.url.replace('/', '')}>{item.name}</NavLink></li>
               ))
             }
@@ -293,7 +231,6 @@ const Nav = styled.div`
       display: block;
       width: 100%;
       color: #3A3D44;
-
     }
   }
 `

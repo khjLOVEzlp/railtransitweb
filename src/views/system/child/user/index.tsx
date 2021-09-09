@@ -12,6 +12,7 @@ import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
 import { useAuth } from 'context/auth-context';
 import { useParam } from 'hook/useParam';
+import { isButton } from 'utils';
 
 export const User = () => {
   const { menu = [] } = useAuth()
@@ -21,7 +22,7 @@ export const User = () => {
   const client = useHttp()
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([])
   const hasSelected = selectedRowKeys.length > 0;
-  const {param, setParam} = useParam()
+  const { param, setParam } = useParam()
   const { open, startEdit } = useUserModal()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del, isLoading: mutaLoading } = useDel()
@@ -33,6 +34,7 @@ export const User = () => {
       } else {
         message.success('删除成功')
         setParam({ ...param, index: 1 })
+        selectedRowKeys([])
       }
     })
   }
@@ -119,7 +121,7 @@ export const User = () => {
         </Form>
 
         {
-          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+          isButton(menuList, "新增") && <Button onClick={open}>新增</Button>
         }
       </Header>
       <Main>
@@ -170,11 +172,15 @@ export const User = () => {
                   <Dropdown
                     overlay={
                       <Menu>
-                        <Menu.Item onClick={() => modPass(item.id)} key={"pass"}>
-                          重置密码
-                        </Menu.Item>
                         {
-                          menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && <Menu.Item
+                          isButton(menuList, "重置密码") && <Menu.Item
+                            onClick={() => modPass(item.id)}
+                            key={"pass"}>重置密码
+                          </Menu.Item>
+                        }
+
+                        {
+                          isButton(menuList, "修改") && <Menu.Item
                             onClick={() => startEdit(item.id)}
                             key={"edit"}
                           >
@@ -182,7 +188,7 @@ export const User = () => {
                           </Menu.Item>
                         }
                         {
-                          menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && <Menu.Item
+                          isButton(menuList, "删除") && <Menu.Item
                             onClick={() => confirmDeleteProject(item)}
                             key={"delete"}
                           >
@@ -193,7 +199,7 @@ export const User = () => {
                       </Menu>
                     }
                   >
-                    <Button style={{ padding: 0 }} type={"link"} onClick={() => modPass(item.id)}>重置密码 ...</Button>
+                    <Button type={"link"}>...</Button>
                   </Dropdown>
                 )
               },
@@ -209,12 +215,12 @@ export const User = () => {
         />
       </Main>
       {
-        hasSelected ? <Footer>
+        hasSelected && isButton(menuList, "删除") && <Footer>
           <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
           <Button type="primary" onClick={start} loading={mutaLoading}>
             {hasSelected ? `批量删除` : ''}
           </Button>
-        </Footer> : undefined
+        </Footer>
       }
       <ModalForm param={param} setParam={setParam} />
       <PassModal

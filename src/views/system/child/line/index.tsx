@@ -9,6 +9,7 @@ import { noData } from 'utils/verification';
 import { Footer, Header, Main } from 'components/Styled';
 import { useParam } from 'hook/useParam';
 import { useAuth } from 'context/auth-context';
+import { isButton } from 'utils';
 
 const LineContext = createContext<| {
   openClassVisible: boolean,
@@ -53,6 +54,7 @@ export const Line = () => {
       } else {
         message.success('删除成功')
         setParam({ ...param, index: 1 })
+        selectedRowKeys([])
       }
     })
   }
@@ -116,7 +118,7 @@ export const Line = () => {
         </Form>
 
         {
-          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+          isButton(menuList, "新增") && <Button onClick={open}>新增</Button>
         }
       </Header>
       <Main>
@@ -146,13 +148,15 @@ export const Line = () => {
               title: '操作',
               key: 'id',
               render: (item) => (<>
-                <Button
-                  type="link"
-                  onClick={editProject(item.id)}>
-                  管理
-                </Button>
                 {
-                  menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && <Button
+                  isButton(menuList, "管理") && <Button
+                    type="link"
+                    onClick={editProject(item.id)}>
+                    管理
+                  </Button>
+                }
+                {
+                  isButton(menuList, "修改") && <Button
                     type="link"
                     onClick={() => startEditLine(item.id)}>
                     修改
@@ -167,7 +171,7 @@ export const Line = () => {
                   cancelText="否"
                 >
                   {
-                    menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && <Button type="link">删除</Button>
+                    isButton(menuList, "删除") && <Button type="link">删除</Button>
                   }
                 </Popconfirm></>)
             },
@@ -182,12 +186,12 @@ export const Line = () => {
         />
       </Main>
       {
-        hasSelected ? <Footer>
+        hasSelected && isButton(menuList, "删除") && <Footer>
           <div>{hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}</div>
           <Button type="primary" onClick={start} loading={mutaLoading}>
             {hasSelected ? `批量删除` : ''}
           </Button>
-        </Footer> : undefined
+        </Footer>
       }
       <ModalForm param={param} setParam={setParam} />
       <Drawermanage />

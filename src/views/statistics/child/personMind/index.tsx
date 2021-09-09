@@ -89,7 +89,7 @@ export const PersonMind = () => {
         Echarts.resize()
       }
     })
-  }, [option])
+  }, [option, open])
 
   return (
     <>

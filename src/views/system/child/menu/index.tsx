@@ -8,12 +8,15 @@ import { noData } from 'utils/verification';
 import { Header, Main } from 'components/Styled';
 import { useParam } from 'hook/useParam';
 import { useAuth } from 'context/auth-context';
+import { useState } from 'react';
+import { isButton } from 'utils';
 
 export const MenuRender = () => {
   const { menu } = useAuth()
   const menuList = menu.find((item: { [item: string]: unknown }) => item.name === "系统管理").childMenu.find((item: { [item: string]: unknown }) => item.name === "菜单管理").childMenu
   const { param, setParam } = useParam()
   const { open, startEdit } = useMenuModal()
+  const [parentId, setParentId] = useState<any>()
   const { data, isLoading } = useInit(useDebounce(param, 500))
   const { mutateAsync: Del } = useDel()
 
@@ -64,7 +67,10 @@ export const MenuRender = () => {
         </Form>
 
         {
-          menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button onClick={open}>新增</Button>
+          isButton(menuList, "新增") && <Button onClick={() => {
+            open()
+            setParentId(0)
+          }}>新增</Button>
         }
       </Header>
       <Main>
@@ -90,10 +96,16 @@ export const MenuRender = () => {
               key: 'id',
               render: (item) => <>
                 {
-                  menuList.find((key: { [key: string]: unknown }) => key.name === '新增') && <Button type={"link"} onClick={open}>新增</Button>
+                  isButton(menuList, "新增") && <Button type={"link"} onClick={() => {
+                    open()
+                    setParentId(item.id)
+                  }}>新增</Button>
                 }
                 {
-                  menuList.find((key: { [key: string]: unknown }) => key.name === '修改') && <Button type={"link"} onClick={() => startEdit(item.id)}>修改</Button>
+                  isButton(menuList, "修改") && <Button type={"link"} onClick={() => {
+                    startEdit(item.id)
+                    setParentId(item.id)
+                  }}>修改</Button>
                 }
                 <Popconfirm
                   title={`是否要删除${item.name}`}
@@ -103,7 +115,7 @@ export const MenuRender = () => {
                   cancelText="否"
                 >
                   {
-                    menuList.find((key: { [key: string]: unknown }) => key.name === '删除') && <Button type="link">删除</Button>
+                    isButton(menuList, "删除") && <Button type="link">删除</Button>
                   }
                 </Popconfirm></>
             },
@@ -117,7 +129,7 @@ export const MenuRender = () => {
           locale={noData}
         />
       </Main>
-      <ModalForm param={param} setParam={setParam} />
+      <ModalForm param={param} setParam={setParam} parentId={parentId} />
     </>
   );
 };

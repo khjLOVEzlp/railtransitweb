@@ -80,13 +80,19 @@ export const useDel = () => {
   })
 }
 
+/* 职务列表 */
+export const usePostList = () => {
+  const client = useHttp()
+  return useQuery(['PostList'], async () => client(`posts/allList`, { method: "POST" }))
+}
+
 /* 添加职务 */
 export const useAddPost = () => {
   const queryClient = useQueryClient()
   const client = useHttp()
-  return useMutation((id: number) => client(`person/delete/${id}`), {
+  return useMutation((name: string) => client(`posts/save`, { method: "POST", body: JSON.stringify({ name }) }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('person')
+      queryClient.invalidateQueries('PostList')
     },
     onError: () => {
     }
