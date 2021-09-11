@@ -7,6 +7,160 @@ import { noData } from "utils/verification"
 
 const { Option } = Select;
 
+const getType = (type: number) => {
+  switch (type) {
+    case 1:
+      return "遗忘"
+    case 2:
+      return "漏带"
+
+    case 3:
+      return "漏点"
+
+    case 4:
+      return "遗漏"
+
+    case 5:
+      return "疫情"
+
+    case 6:
+      return "酒精"
+
+    case 7:
+      return "分离告警"
+
+    case 8:
+      return "离线告警"
+
+    case 10:
+      return "低电告警"
+
+    case 11:
+      return "血压"
+
+    case 12:
+      return "遗留"
+
+    default:
+      break;
+  }
+}
+
+const stateList = [
+  {
+    name: "查所有",
+    value: "0"
+  },
+  /*{
+    name: "防遗忘",
+    value: "1"
+  },*/
+  {
+    name: "漏带",
+    value: "2"
+  },
+  {
+    name: "漏点",
+    value: "3"
+  },
+  {
+    name: "遗漏",
+    value: "4"
+  },
+  {
+    name: "疫请",
+    value: "5"
+  },
+  {
+    name: "酒精",
+    value: "6"
+  },
+  {
+    name: "分离告警",
+    value: "7"
+  },
+  {
+    name: "离线告警",
+    value: "8"
+  },
+
+  {
+    name: "低电告警",
+    value: "10"
+  },
+  {
+    name: "血压",
+    value: "11"
+  },
+  {
+    name: "遗留",
+    value: "12"
+  },
+]
+
+const workName = {
+  title: "作业名称",
+  dataIndex: 'workName',
+  key: 'workName',
+  ellipsis: true,
+}
+
+const type = {
+  title: '告警类型',
+  key: 'type',
+  render: (item: any) => <>{getType(item.type)}</>,
+  ellipsis: true
+}
+
+const toolName = {
+  title: '工具名称',
+  dataIndex: 'toolName',
+  key: 'toolName',
+  ellipsis: true,
+}
+
+const groupName = {
+  title: '小组名称',
+  dataIndex: 'groupName',
+  key: 'groupName',
+  ellipsis: true
+}
+
+const relieveTime = {
+  title: '解除时间',
+  dataIndex: 'relieveTime',
+  key: 'relieveTime',
+  ellipsis: true
+}
+
+const labelNum = {
+  title: '设备标签',
+  dataIndex: 'labelNum',
+  key: 'labelNum',
+  ellipsis: true
+}
+
+const personName = {
+  title: '人员',
+  dataIndex: 'personName',
+  key: 'personName',
+  ellipsis: true
+}
+
+const warnTime = {
+  title: '告警时间',
+  dataIndex: 'warnTime',
+  key: 'warnTime',
+  ellipsis: true
+}
+
+const content = {
+  title: '告警内容',
+  dataIndex: 'content',
+  key: 'content',
+  ellipsis: true
+}
+
 export const Alarm = () => {
   const [pagination, setPagination] = useState({
     index: 1,
@@ -14,6 +168,8 @@ export const Alarm = () => {
     state: "0",
     time: "1"
   })
+
+  const [alarmType, setAlarmType] = useState<any>([workName, type, toolName, groupName, relieveTime, labelNum, personName, warnTime, content])
 
   const [time, setTime] = useState("1")
 
@@ -24,112 +180,13 @@ export const Alarm = () => {
     setTime(value)
   }
 
-  const stateChange = (value: string) => {
-    setPagination({ ...pagination, state: value })
-  }
-
   const timeChange = (value: string) => {
     setPagination({ ...pagination, time: value })
-  }
-
-  const navClick = (id: string) => {
-    setPagination({ ...pagination, state: id, time })
   }
 
   const handleTableChange = (p: any) => {
     setPagination({ ...pagination, index: p.current, size: p.pageSize })
   };
-
-  const getType = (type: number) => {
-    switch (type) {
-      case 1:
-        return "遗忘"
-      case 2:
-        return "漏带"
-
-      case 3:
-        return "漏点"
-
-      case 4:
-        return "遗漏"
-
-      case 5:
-        return "疫情"
-
-      case 6:
-        return "酒精"
-
-      case 7:
-        return "分离告警"
-
-      case 8:
-        return "离线告警"
-
-      case 10:
-        return "低电告警"
-
-      case 11:
-        return "血压"
-
-      case 12:
-        return "遗留"
-
-      default:
-        break;
-    }
-  }
-
-  const stateList = [
-    {
-      name: "查所有",
-      value: "0"
-    },
-    /*{
-      name: "防遗忘",
-      value: "1"
-    },*/
-    {
-      name: "漏带",
-      value: "2"
-    },
-    {
-      name: "漏点",
-      value: "3"
-    },
-    {
-      name: "遗漏",
-      value: "4"
-    },
-    {
-      name: "疫请",
-      value: "5"
-    },
-    {
-      name: "酒精",
-      value: "6"
-    },
-    {
-      name: "分离告警",
-      value: "7"
-    },
-    {
-      name: "离线告警",
-      value: "8"
-    },
-
-    {
-      name: "低电告警",
-      value: "10"
-    },
-    {
-      name: "血压",
-      value: "11"
-    },
-    {
-      name: "遗留",
-      value: "12"
-    },
-  ]
 
   const timeList = [
     {
@@ -159,6 +216,69 @@ export const Alarm = () => {
   ]
 
   useDocumentTitle('告警上报')
+
+  const stateChange = (value: string) => {
+    setPagination({ ...pagination, state: value })
+    if (value === "0") {
+      setAlarmType([workName, type, toolName, groupName, relieveTime, labelNum, personName, warnTime, content])
+    }
+    if (value === "2") {
+      setAlarmType([workName, type, groupName, warnTime, content])
+    }
+    if (value === "3") {
+      setAlarmType([workName, type, groupName, warnTime, content])
+    }
+    if (value === "4") {
+      setAlarmType([workName, type, groupName, warnTime, content])
+    }
+    if (value === "5") {
+      setAlarmType([workName, type, personName, warnTime, content])
+    }
+    if (value === "6") {
+      setAlarmType([workName, type, personName, warnTime, content])
+    }
+    if (value === "7") {
+      setAlarmType([workName, type, toolName, groupName, relieveTime, labelNum, warnTime, content])
+    }
+    if (value === "11") {
+      setAlarmType([workName, type, warnTime, content])
+    }
+    if (value === "12") {
+      setAlarmType([workName, type, groupName, warnTime, content])
+    }
+  }
+
+  const navClick = async (value: string) => {
+    await setPagination({ ...pagination, state: value, time })
+
+    if (String(value) === "0") {
+      setAlarmType([workName, type, toolName, groupName, relieveTime, labelNum, personName, warnTime, content])
+    }
+    if (String(value) === "2") {
+      setAlarmType([workName, type, groupName, warnTime, content])
+    }
+    if (String(value) === "3") {
+      setAlarmType([workName, type, groupName, warnTime, content])
+    }
+    if (String(value) === "4") {
+      setAlarmType([workName, type, groupName, warnTime, content])
+    }
+    if (String(value) === "5") {
+      setAlarmType([workName, type, personName, warnTime, content])
+    }
+    if (String(value) === "6") {
+      setAlarmType([workName, type, personName, warnTime, content])
+    }
+    if (String(value) === "7") {
+      setAlarmType([workName, type, toolName, groupName, relieveTime, labelNum, warnTime, content])
+    }
+    if (String(value) === "11") {
+      setAlarmType([workName, type, warnTime, content])
+    }
+    if (String(value) === "12") {
+      setAlarmType([workName, type, groupName, warnTime, content])
+    }
+  }
 
   return (
     <AlarmStyle>
@@ -198,64 +318,7 @@ export const Alarm = () => {
           }
         </Select>
         <Table
-          columns={
-            [
-              {
-                title: '作业名称',
-                dataIndex: 'workName',
-                key: 'workName',
-                ellipsis: true
-              },
-              {
-                title: '告警类型',
-                key: 'type',
-                render: (item) => <>{getType(item.type)}</>,
-                ellipsis: true
-              },
-              {
-                title: '工具名称',
-                dataIndex: 'toolName',
-                key: 'toolName',
-                ellipsis: true
-              },
-              {
-                title: '小组名称',
-                dataIndex: 'groupName',
-                key: 'groupName',
-                ellipsis: true
-              },
-              {
-                title: '解除时间',
-                dataIndex: 'relieveTime',
-                key: 'relieveTime',
-                ellipsis: true
-              },
-              {
-                title: '设备标签',
-                dataIndex: 'labelNum',
-                key: 'labelNum',
-                ellipsis: true
-              },
-              {
-                title: '人员',
-                dataIndex: 'personName',
-                key: 'personName',
-                ellipsis: true
-              },
-              {
-                title: '告警时间',
-                dataIndex: 'warnTime',
-                key: 'warnTime',
-                ellipsis: true
-              },
-              {
-                title: '告警内容',
-                dataIndex: 'content',
-                key: 'content',
-                ellipsis: true
-              },
-            ]
-          }
+          columns={alarmType}
           pagination={{
             total: dataList?.count,
             current: pagination.index,

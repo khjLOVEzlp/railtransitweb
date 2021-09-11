@@ -25,6 +25,7 @@ const App = () => {
             user ? <Route path={'/*'} element={<PageBox />} /> : <Route path={'/login'} element={<Login />} />
           }
           <Navigate to={user ? "/" : "/login"} />
+
         </Routes>
         {/* {
           user ? <PageBox /> : <Login />

@@ -10,7 +10,6 @@ import { useDebounce } from "hook/useDebounce";
 import { useState, useEffect } from "react";
 import { Header, Main } from "components/Styled";
 import { noData } from "utils/verification";
-import { useStatisticsContext } from "views/statistics";
 
 export const WorkWarn = () => {
   const [form] = Form.useForm()
@@ -78,10 +77,10 @@ export const WorkWarn = () => {
       name: "过时告警",
       num: 0
     }, */
-    {
+    /* {
       name: "低电告警",
       num: 0
-    },
+    }, */
     {
       name: "血压",
       num: 0

@@ -33,8 +33,8 @@ const getType = (type: number) => {
     /* case 9:
       return "过时告警" */
 
-    case 10:
-      return "低电告警"
+    /* case 10:
+      return "低电告警" */
 
     case 11:
       return "血压"

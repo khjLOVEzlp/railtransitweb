@@ -29,14 +29,16 @@ export const ModalForm = ({ param, setParam }: Props) => {
 
   useEffect(() => {
     if (title === "新增") {
-      setChecked(['2.4G'])
+      setChecked(["2.4G"])
     }
   }, [title])
 
   useEffect(() => {
-    const s = editingLab?.data.type.split(",")
-    setChecked(s)
-    form.setFieldsValue({ ...editingLab?.data, type: s })
+    if (editingLab) {
+      const s = editingLab?.data.type.split(",")
+      setChecked(s)
+      form.setFieldsValue({ ...editingLab?.data, type: s })
+    }
   }, [form, editingLab])
 
   const closeModal = () => {
@@ -73,6 +75,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
       visible={ModalOpen}
       onOk={onOk}
       onCancel={closeModal}
+      afterClose={() => setChecked(['2.4G'])}
       footer={[
         <Button key="back" onClick={closeModal}>取消</Button>,
         <Button key="submit" type="primary" onClick={onOk} loading={mutateLoading}>提交</Button>

@@ -38,6 +38,7 @@ import { Hardware } from "views/hardware";
 import { Person } from "views/person";
 import { System } from "views/system";
 import { Warehouse } from "views/warehouse";
+import { Not } from "views/error/404";
 
 const PageBoxContext = createContext<{
   infoId: number | undefined
@@ -86,6 +87,7 @@ export const PageBox = () => {
             <Route path={"/system/*"} element={<System />} />
             {/* <Navigate to={"/home"} /> */}
             <Navigate to={window.location.pathname + "/home"} replace={true} />
+            <Route path={"*"} element={<Not />} />
           </Routes>
         </ContentStyle>
         <UserInfo />

@@ -36,7 +36,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
   }
 
   const onFinish = (value: any) => {
-    mutateAsync({ ...editingSep?.data, ...value, id: editId, isUse: 1 }).then((res) => {
+    const { codeNumber, imei, phone } = value
+    mutateAsync({ codeNumber, imei, phone, id: editId, isUse: 1 }).then((res) => {
       form.resetFields()
       closeModal()
       msg()
