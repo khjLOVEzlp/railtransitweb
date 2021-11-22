@@ -138,7 +138,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
       }
     },
     defaultFileList: isSuccess && editingPlanWork?.data.documentList
-
   };
 
   const onOk = () => {
