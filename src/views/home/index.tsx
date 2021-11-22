@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react'
+import { createContext, useState, useContext, useEffect } from 'react'
 import styled from "@emotion/styled"
 import { useDocumentTitle } from 'hook/useDocumentTitle'
 import Page from './child/alarmStatistics'
@@ -6,7 +6,7 @@ import PlanWorkPage from './child/taskStatistics'
 import PlanType from './child/planType'
 import { Subway } from "./child/Subway";
 import { Button, Card, Space } from 'antd'
-import { useLine } from 'views/system/child/line/request'
+import { useLine, useSubwayList } from 'views/system/child/line/request'
 
 const HomeContext = createContext<
   {
@@ -26,6 +26,12 @@ export const Home = () => {
   const [taskId, setTaskId] = useState<number | undefined>(undefined)
   const [show, setShow] = useState<boolean>(true)
   const { data, isSuccess } = useLine()
+  // const { data: subwayList, isSuccess: success } = useSubwayList()
+  
+
+  // data?.data.forEach((item: any, index: number) => {
+  //   item["color"] = subwayList?.data[0].find((key: any) => item.name === key.name)?.label.color
+  // })
 
   return (
     <HomeContext.Provider value={{ alarmId, setAlarmId, planId, setPlanId, taskId, setTaskId }}>

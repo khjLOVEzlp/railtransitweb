@@ -1,15 +1,20 @@
 import { useEffect, useRef } from "react"
 import * as echarts from 'echarts';
-import { useLine } from 'views/system/child/line/request'
-import { subwaylist } from './index.js'
+import { useLine, useSubwayList } from 'views/system/child/line/request'
+import { subwaylist, newArr, line } from './index'
 import { useHttp } from "utils/http"
 import { FullPageLoading } from "components/FullPageLoading";
 
 export const Subway = () => {
   const { data: lineList, isSuccess, isLoading } = useLine()
+  // const { data: subwayList, isSuccess:success } = useSubwayList()
+  
   const client = useHttp()
   if (isSuccess) {
-    let newData: any = subwaylist.filter((v) => lineList.data.find((vi: { [key: string]: unknown }) => vi.name === v.name))
+    // @ts-ignore
+    let newData: any = newArr.filter((v) => lineList.data.find((vi: { [key: string]: unknown }) => vi.name === v.name))
+    console.log(newData);
+    
     newData.forEach((item: any, index: number) => {
       if (lineList.data.find(((v: any) => v.name === item.name))) {
         item.stations.forEach((key: any, i: number) => {
@@ -58,7 +63,8 @@ export const Subway = () => {
 
   const option = {
     title: {
-      text: "广州地铁线路图",
+      text: "上海地铁线路图",
+      // text: "广州地铁线路图",
       textStyle: {
         color: "#000",
         fontSize: 20,
@@ -123,16 +129,7 @@ export const Subway = () => {
         type: "graph",
         zlevel: 5,
         draggable: false,
-        coordinateSystem: "cartesian2d", //使用二维的直角坐标系（也称笛卡尔坐标系）
-
-        // edgeSymbolSize: [0, 8], //边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定
-        // edgeLabel: {
-        //   normal: {
-        //     textStyle: {
-        //       fontSize: 60
-        //     }
-        //   }
-        // },
+        coordinateSystem: "cartesian2d",
         symbol: "rect",
         symbolOffset: [0, 0],
 
@@ -142,7 +139,10 @@ export const Subway = () => {
           },
         },
         data: str,
-        links: [
+        links: line,
+        // links: subwayList?.data[1],
+        /* 
+        [
           {
             source: "西塱",
             target: "坑口",
@@ -2564,7 +2564,8 @@ export const Subway = () => {
               },
             },
           },
-        ],
+        ]
+        */
         lineStyle: {
           normal: {
             opacity: 0.6, //线条透明度

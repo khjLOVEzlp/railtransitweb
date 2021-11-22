@@ -94,7 +94,7 @@ export const ModalForm = () => {
                   {
                     planHistory?.data.webGroupList.length > 0 && planHistory?.data.webGroupList ? (
                       planHistory?.data.webGroupList.map((item: any) => (
-                        <Card title={<Tag color="#2db7f5">{item.groupName}</Tag>} extra={<><Tag color="geekblue">小组成员</Tag>{item.personList.map((key: any) => (<span>{key.personName}，</span>))}</>} style={{ width: "100%" }}>
+                        <Card title={<Tag color="#2db7f5">{item.groupName}</Tag>} extra={<><Tag color="geekblue">小组成员</Tag>{(item.personList.map((key: any) => key.personName) || []).join(',')}</>} style={{ width: "100%" }}>
                           <Space direction="horizontal" style={{ width: "100%" }}>
                             <Card
                               title={"计划需要的工具"}
