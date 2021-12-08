@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Form, Button, Table, Radio, Select, DatePicker, List, Typography } from 'antd';
 import { useDay, useLineList, useMonth, useDownloadDay, useDownloadMonth } from './request';
 import locale from 'antd/es/date-picker/locale/zh_CN';
-import { Header, Main } from 'components/Styled';
+import { Header, Main, SearchForm } from 'components/Styled';
 import moment from 'moment';
 
 const { Option } = Select
@@ -84,6 +84,11 @@ export const WorkCount = () => {
   return (
     <>
       <Header>
+      <div className="left"></div>
+        <div className="right">作业统计</div>
+      </Header>
+      <Main>
+        <SearchForm>
         <Form
           form={form}
           name="basic"
@@ -129,8 +134,7 @@ export const WorkCount = () => {
           <Button onClick={downDay} style={{ marginRight: "1rem" }}>下载日报</Button>
           <Button onClick={downMonth}>下载月报</Button>
         </div>
-      </Header>
-      <Main>
+        </SearchForm>
         {/* 日报 */}
         {value === 0 && (
           <div>

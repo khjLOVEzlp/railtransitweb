@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router";
 import { useDocumentTitle } from 'hook/useDocumentTitle'
 import { Layout } from 'antd';
-import { layout } from "components/Styled";
+import { layout, paddingLayout } from "components/Styled";
 import { ModalProvider } from "context/modal-context";
 import { User } from "./child/user";
 import { Role } from "./child/role";
@@ -57,7 +57,7 @@ export const System = () => {
   return (
     <Layout style={layout}>
       <SiderMenu menuList={menuIcon(menuList)} />
-      <Layout className="site-layout">
+      <Layout className="site-layout" style={paddingLayout}>
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <ModalProvider>
             {/* <Outlet /> */}

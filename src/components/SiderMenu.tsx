@@ -24,14 +24,13 @@ export const SiderMenu = ({ menuList }: { menuList: any }) => {
       collapsible
       collapsed={collapsed}
       onCollapse={onCollapse}
-      theme="light"
       style={sider}
       collapsedWidth={60}
       trigger={<Button type="link" onClick={onCollapse} style={{ marginBottom: 16 }}>
         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, { className: "trigger" })}
       </Button>}
     >
-      <Menu selectedKeys={[routeType]} style={menuStyle}>
+      <Menu selectedKeys={[routeType]} style={menuStyle} theme={"dark"}>
         {
           menuList?.map((item: any) => (
             <Menu.Item key={item.url} style={menuItem} icon={<item.icon />}>

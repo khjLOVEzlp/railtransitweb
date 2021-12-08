@@ -7,7 +7,7 @@ import {
   useMindStatisticsDetail
 } from './request'
 import { useEffect, useState } from "react";
-import { Header } from "components/Styled";
+import { Header, SearchForm } from "components/Styled";
 import styled from "@emotion/styled";
 
 export const PersonMind = () => {
@@ -94,6 +94,13 @@ export const PersonMind = () => {
   return (
     <>
       <Header>
+      <div className="left"></div>
+        <div className="right">精神分析</div>
+        
+      </Header>
+
+      <Main>
+        <SearchForm>
         <Form
           layout={"inline"}
           form={form}
@@ -133,9 +140,7 @@ export const PersonMind = () => {
             </Select>
           </Form.Item>
         </Form>
-      </Header>
-
-      <Main>
+        </SearchForm>
         <div id={"mind"} style={{ height: "100%", width: "100%" }}></div>
       </Main>
       <PersonMindModal params={params} type={type} />
@@ -201,9 +206,10 @@ const Main = styled.div`
   background: #fff;
   border-radius: 1rem;
   padding: 0 1rem;
-  width: 100%;
+  overflow-y: auto;
   height: 100%;
+  box-shadow: 0px 0px 8px 0px rgba(87, 87, 87, 0.15);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
+  justify-ontent: space-between;
+  flex-direction: column;
+`;

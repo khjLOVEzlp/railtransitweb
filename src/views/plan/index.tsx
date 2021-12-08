@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react"
 import { Navigate, Route, Routes } from "react-router";
 import { useDocumentTitle } from 'hook/useDocumentTitle'
 import { Layout } from "antd";
-import { layout } from "components/Styled";
+import { layout, paddingLayout } from "components/Styled";
 import { PlanWork } from "./child/planWork";
 import { WorkManage } from "./child/workManage";
 import { PlanType } from "./child/planType";
@@ -34,7 +34,7 @@ export const Plan = () => {
   return (
     <Layout style={layout}>
       <SiderMenu menuList={menuIcon(menuList)} />
-      <Layout className="site-layout">
+      <Layout className="site-layout" style={paddingLayout}>
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <PlanContext.Provider value={{ groupList, setGroupList, visible, setVisible, editId, setEditId, detailVisible, setDetailVisible }}>
             {/* <Outlet /> */}

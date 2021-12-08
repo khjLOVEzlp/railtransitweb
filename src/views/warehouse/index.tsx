@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router";
 import { createContext, useContext, useState } from "react";
 import { useDocumentTitle } from "hook/useDocumentTitle";
 import { Layout } from 'antd';
-import { layout } from "components/Styled";
+import { layout, paddingLayout } from "components/Styled";
 import { MaterialType } from "./child/materialType";
 import { ToolType } from "./child/toolType";
 import { InWarehouse } from "./child/inWarehouse";
@@ -35,7 +35,7 @@ export const Warehouse = () => {
   return (
     <Layout style={layout}>
       <SiderMenu menuList={menuIcon(menuList)} />
-      <Layout className="site-layout">
+      <Layout className="site-layout" style={paddingLayout}>
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <WareHouseContext.Provider value={{ drawerId, setDrawerId, editId, setEditId }}>
             {/* <Outlet /> */}

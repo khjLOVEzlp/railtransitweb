@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router";
 import { createContext, useContext, useState } from "react";
 import { useDocumentTitle } from "hook/useDocumentTitle";
 import { Layout } from 'antd';
-import { layout } from "components/Styled";
+import { layout, paddingLayout } from "components/Styled";
 import { WorkCount } from "./child/workCount";
 import { WorkWarn } from "./child/workWarn";
 import { WorkPerson } from "./child/workPerson";
@@ -47,7 +47,7 @@ export const Statistics = () => {
   return (
     <Layout style={layout}>
       <SiderMenu menuList={menuIcon(menuList)} />
-      <Layout className="site-layout">
+      <Layout className="site-layout" style={paddingLayout}>
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <StatisticsContext.Provider value={{ param, setParam, visible, setVisible }}>
             {/* <Outlet /> */}

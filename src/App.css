@@ -237,11 +237,25 @@ a {
   width: 100%;
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1600px){
   .NavList {
     padding: 0 !important;
     font-size: 1.2rem !important;
   }
+
+  .NavList p {
+    /* margin: 0 20px !important; */
+    display: none;
+  }
+
+  .NavList .left li a {
+    font-size: 12px !important;
+  }
+
+  .NavList .right li a {
+    font-size: 12px !important;
+  }
+
   .title {
     font-size: 1.2rem !important;
   }
@@ -271,4 +285,41 @@ input[type="number"]{
   top: 0.5rem;
   border-radius: 14px 14px 0 0;
   /* background:#edf4f7 !important; */
+}
+
+th.ant-table-cell{          
+  background-color: #1B81FF !important;
+  color: #fff !important;     
+}
+
+
+th.ant-table-selection-column {
+  background-color: #1B81FF !important;
+}
+
+.ant-table-pagination-right {
+  justify-content: center !important;
+}
+.ant-modal-content {
+  overflow-y: auto !important;
+}
+.ant-modal-header {
+  background: #1B81FF !important;
+}
+.ant-modal-header .ant-modal-title {
+  color: #fff !important;
+}
+.ant-modal-close-x {
+  color: #fff !important;
+}
+.ant-modal-footer {
+  background: #F2F2F2 !important;
+  text-align: center !important;
+}
+.ant-tabs-nav {
+  height: 50px!important;
+}
+
+.CardClass {
+  width: 100% !important;
 }

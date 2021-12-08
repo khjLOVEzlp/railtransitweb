@@ -39,13 +39,22 @@ const PlanType = () => {
     xField: 'name',
     yField: 'num',
     maxAngle: 250,
-    radius: 0.8,
+    radius: 0.7,
     innerRadius: 0.1,
     maxBarWidth: 10,
     autoFit: true,
+    // legend: {
+    //   layout: 'horizontal',
+    //   position: 'bottom'
+    // },
     legend: {
-      layout: 'horizontal',
-      position: 'bottom'
+      layout: "vertical",
+      position: "right",
+      itemName: {
+        style: {
+          fill: "#fff",
+        },
+      },
     },
     tooltip: {
       formatter: function formatter(datum: any) {

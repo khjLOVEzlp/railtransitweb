@@ -1,63 +1,65 @@
 import styled from "@emotion/styled";
-import login from './icon/login.png'
-import {Form, Input, Button} from 'antd';
-import {useAuth} from "./context/auth-context";
-import {useDocumentTitle} from "./hook/useDocumentTitle";
-import {rules} from "./utils/verification";
-import {useState} from "react";
-import {ErrorBox} from "./components/lib";
-import {useAsync} from "./hook/useAsync";
-import {useNavigate} from 'react-router'
+import login from "./assets/login/login_bg.png";
+import logo from "./assets/login/login_logo.png";
+import { Form, Input, Button } from "antd";
+import { useAuth } from "./context/auth-context";
+import { useDocumentTitle } from "./hook/useDocumentTitle";
+import { rules } from "./utils/verification";
+import { useState } from "react";
+import { ErrorBox } from "./components/lib";
+import { useAsync } from "./hook/useAsync";
+import { useNavigate } from "react-router";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 export const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [error, setError] = useState<Error | null>(null);
-  const {isLoading, run,} = useAsync(undefined, {throwOnError: true});
-  const {login, menuRender} = useAuth()
+  const { isLoading, run } = useAsync(undefined, { throwOnError: true });
+  const { login, menuRender } = useAuth();
   const onFinish = async (values: any) => {
     try {
       await run(login(values)).then(() => {
-        run(menuRender())
-        navigate("/home")
-      })
+        run(menuRender());
+        navigate("/home");
+      });
     } catch (e) {
-      setError(e)
+      // @ts-ignore
+      setError(e);
     }
   };
 
-  useDocumentTitle('登陆')
+  useDocumentTitle("登陆");
   return (
     <LoginStyle>
-      {/* <TopTimer>
-        <div className="left">{dayjs().format('YYYY-MM-DD')}</div>
-        <div className="right">{dayjs().format('HH:mm:ss')}</div>
-      </TopTimer> */}
-      <div/>
-      <div>
+      <Logo>
+        <img src={logo} alt="" />
+      </Logo>
+      <LoginForm>
         <Title>
-          <li>智慧轨行区数字化</li>
-          <li>维养安全管控系统</li>
+          <li>欢迎使用</li>
+          <div>智慧轨行区数字化维养安全管控系统</div>
         </Title>
-        <ErrorBox
-          error={error}
-        />
+        <ErrorBox error={error} />
         <Form
-          size={'large'}
+          size={"large"}
           name="basic"
-          initialValues={{remember: true}}
+          initialValues={{ remember: true }}
           onFinish={onFinish}
         >
           <Form.Item
             name="loginName"
             rules={rules}
-            getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
+            getValueFromEvent={(event) =>
+              event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, "")
+            }
           >
             <Input
-              style={{height: "6rem", borderRadius: "10px"}}
+              style={{ height: "50px", borderRadius: "10px" }}
+              prefix={<UserOutlined className="site-form-item-icon" />}
               size="large"
-              placeholder="账号：请输入您的账号"
+              placeholder="请输入用户名"
               onChange={() => {
-                setError(null)
+                setError(null);
               }}
             />
           </Form.Item>
@@ -65,13 +67,16 @@ export const Login = () => {
           <Form.Item
             name="password"
             rules={rules}
-            getValueFromEvent={event => event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, '')}
+            getValueFromEvent={(event) =>
+              event.target.value.replace(/[\u4e00-\u9fa5]|\s+/g, "")
+            }
           >
             <Input.Password
-              style={{height: "6rem", borderRadius: "10px"}}
+              style={{ height: "50px", borderRadius: "10px" }}
               size="large"
-              placeholder="密码：请输入您的密码"
+              placeholder="请输入密码"
               onChange={() => setError(null)}
+              prefix={<LockOutlined className="site-form-item-icon" />}
             />
           </Form.Item>
 
@@ -80,31 +85,45 @@ export const Login = () => {
               loading={isLoading}
               type="primary"
               htmlType="submit"
-              style={{width: "100%", height: "6rem", borderRadius: "10px"}}
+              style={{ width: "100%", height: "50px", borderRadius: "10px" }}
             >
               登录
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </LoginForm>
     </LoginStyle>
-  )
-}
+  );
+};
 
 const LoginStyle = styled.div`
   min-height: 100vh;
   background: url(${login}) center center no-repeat;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-`
+`;
+
+const Logo = styled.div`
+  position: absolute;
+  color: #fff;
+  font-size: 18px;
+  left: 40px;
+  top: 40px;
+`;
+
+const LoginForm = styled.div`
+  width: 400px;
+  height: 300px;
+  margin-left: 350px;
+`;
 
 const Title = styled.div`
-  font-size: 4.8rem;
-  font-weight: bold;
-  color: #5A7FFA;
-  /* margin: 10rem 0 5rem; */
+  font-family: Source Han Sans CN;
+  font-size: 30px;
+  color: #fff;
   margin: 5rem 0;
-  overflow: hidden;
-  text-align: center;
-`
+  div {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+`;

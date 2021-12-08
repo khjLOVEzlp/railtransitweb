@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router";
 import { useDocumentTitle } from 'hook/useDocumentTitle'
-import { layout } from "components/Styled";
+import { layout, paddingLayout } from "components/Styled";
 import { Layout } from "antd";
 import { ModalProvider } from "context/modal-context";
 import { LabelController } from "./children/labelController/LabelController";
@@ -31,7 +31,7 @@ export const Hardware = () => {
   return (
     <Layout style={layout}>
       <SiderMenu menuList={menuIcon(menuList)} />
-      <Layout className="site-layout">
+      <Layout className="site-layout" style={paddingLayout}>
         <Content
           style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}
         >
