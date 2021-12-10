@@ -50,7 +50,7 @@ export const ToolType = () => {
   const [editId, setEditId] = useState<number | undefined>(undefined);
   const [name, setName] = useState("");
   const { open, startEdit } = useToolTypeModal();
-  const { startEdit: startTool } = useViewTool();
+  const { startEdit: startTool } = useViewTool({});
   const { data, isLoading, isSuccess } = useInit(useDebounce(param, 500));
   const { mutateAsync: Del, isLoading: mutaLoading } = useDel();
   const queryClient = useQueryClient();

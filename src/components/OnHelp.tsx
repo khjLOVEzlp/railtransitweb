@@ -1,7 +1,7 @@
 import { Col, Modal, Row, Image } from "antd";
 import { usePageBoxContext } from "PageBox";
-import logo from '../icon/logo1.png'
-import logo2 from '../icon/logo2.png'
+import logo from 'assets/logo1.png'
+import logo2 from 'assets/logo2.png'
 export const OnHelp = () => {
   const { ModalOpen, close } = useOnHelpModal()
   return (

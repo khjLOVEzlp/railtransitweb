@@ -37,12 +37,10 @@ export const useToolTypeModal = () => {
 
 /*查看工具抽屉*/
 
-export const useViewTool = () => {
+export const useViewTool = (params: any) => {
   const { drawerId, setDrawerId } = useWareHouseContext()
 
-  const { data: viewTool, isLoading } = useViewToolDetail(
-    Number(drawerId)
-  )
+  const { data: viewTool, isLoading } = useViewToolDetail({...params, id: drawerId})
 
   const close = () => {
     setDrawerId(undefined)

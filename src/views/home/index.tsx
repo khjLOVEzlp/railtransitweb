@@ -1,15 +1,15 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useDocumentTitle } from "hook/useDocumentTitle";
-import Page from "./child/alarmStatistics";
-import PlanWorkPage from "./child/taskStatistics";
-import PlanType from "./child/planType";
-import { Subway } from "./child/Subway";
+import Page from "./component/alarmStatistics";
+import PlanWorkPage from "./component/taskStatistics";
+import PlanType from "./component/planType";
+import { Subway } from "./component/Subway";
 import { Space } from "antd";
-import { useLine } from "views/system/child/line/request";
 import { DoubleRightOutlined, DoubleLeftOutlined } from "@ant-design/icons";
 import title from "assets/home/home-left-titlebg.png";
 import bg from "assets/home/home-right-bg1.png";
+import { useLine } from "api/home/subway";
 const style = {
   fontSize: "14px",
   color: "#1BAAFF",
@@ -180,9 +180,12 @@ const Left = styled.div`
   background: #00225c;
   > * {
     flex: 1;
-    position: relative;
+    // position: relative;
     height: 100%;
-    padding: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
   }
 `;
 
@@ -222,8 +225,8 @@ const Title = styled.h3`
   padding: 1rem;
   width: 100%;
   font-size: 12px;
-  position: absolute;
-  left: 0.1rem;
+  // position: absolute;
+  // left: 0.1rem;
   z-index: 1000;
   color: #fff;
   background: url(${title}) center center no-repeat;

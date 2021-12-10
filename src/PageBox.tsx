@@ -41,7 +41,7 @@ import { useInfoModal, UserInfo } from "./components/UserInfo";
  * */
 import { OnHelp, useOnHelpModal } from "./components/OnHelp";
 import { Home } from "views/home";
-import { Plan } from "views/plan";
+import { Plan } from "views/work-plan/work-plan";
 import { Alarm } from "views/alarm";
 import { Statistics } from "views/statistics";
 import { Hardware } from "views/hardware";
@@ -74,7 +74,7 @@ export const PageBox = () => {
           </Logo>
           <Nav className={"NavList"}>
             <div className="left">
-              {menu.find((item: any) => item.name === "首页") && (
+              {menu?.find((item: any) => item.name === "首页") ? (
                 <li>
                   <NavLink
                     to={"home"}
@@ -87,9 +87,11 @@ export const PageBox = () => {
                     首页
                   </NavLink>
                 </li>
+              ) : (
+                <></>
               )}
 
-              {menu.find((item: any) => item.name === "作业计划") && (
+              {menu?.find((item: any) => item.name === "作业计划") ? (
                 <li>
                   <NavLink
                     to={"plan"}
@@ -102,9 +104,11 @@ export const PageBox = () => {
                     作业计划
                   </NavLink>
                 </li>
+              ) : (
+                <></>
               )}
 
-              {menu.find((item: any) => item.name === "告警上报") && (
+              {menu?.find((item: any) => item.name === "告警上报") ? (
                 <li>
                   <NavLink
                     to={"alarm"}
@@ -117,9 +121,11 @@ export const PageBox = () => {
                     告警上报
                   </NavLink>
                 </li>
+              ) : (
+                <></>
               )}
 
-              {menu.find((item: any) => item.name === "统计分析") && (
+              {menu?.find((item: any) => item.name === "统计分析") ? (
                 <li>
                   <NavLink
                     to={"statistics"}
@@ -132,6 +138,8 @@ export const PageBox = () => {
                     统计分析
                   </NavLink>
                 </li>
+              ) : (
+                <></>
               )}
             </div>
 
@@ -140,7 +148,7 @@ export const PageBox = () => {
             </p>
 
             <div className="right">
-              {menu.find((item: any) => item.name === "库存管理") && (
+              {menu?.find((item: any) => item.name === "库存管理") ? (
                 <li>
                   <NavLink
                     to={"warehouse"}
@@ -153,9 +161,11 @@ export const PageBox = () => {
                     库存管理
                   </NavLink>
                 </li>
+              ) : (
+                <></>
               )}
 
-              {menu.find((item: any) => item.name === "人员管理") && (
+              {menu?.find((item: any) => item.name === "人员管理") ? (
                 <li>
                   <NavLink
                     to={"person"}
@@ -168,9 +178,11 @@ export const PageBox = () => {
                     人员管理
                   </NavLink>
                 </li>
+              ) : (
+                <></>
               )}
 
-              {menu.find((item: any) => item.name === "设备管理") && (
+              {menu?.find((item: any) => item.name === "设备管理") ? (
                 <li>
                   <NavLink
                     to={"hardware"}
@@ -183,9 +195,11 @@ export const PageBox = () => {
                     设备管理
                   </NavLink>
                 </li>
+              ) : (
+                <></>
               )}
 
-              {menu.find((item: any) => item.name === "系统管理") && (
+              {menu?.find((item: any) => item.name === "系统管理") ? (
                 <li>
                   <NavLink
                     to={"system"}
@@ -198,6 +212,8 @@ export const PageBox = () => {
                     系统管理
                   </NavLink>
                 </li>
+              ) : (
+                <></>
               )}
             </div>
 
@@ -214,7 +230,6 @@ export const PageBox = () => {
           <User />
         </HeaderStyle>
         <ContentStyle>
-          {/* <RouterElement /> */}
           <Routes>
             <Route path={"/home"} element={<Home />} />
             <Route path={"/plan/*"} element={<Plan />} />
@@ -224,7 +239,6 @@ export const PageBox = () => {
             <Route path={"/hardware/*"} element={<Hardware />} />
             <Route path={"/person/*"} element={<Person />} />
             <Route path={"/system/*"} element={<System />} />
-            {/* <Navigate to={"/home"} /> */}
             <Navigate to={window.location.pathname + "/home"} replace={true} />
             <Route path={"*"} element={<Not />} />
           </Routes>
@@ -354,12 +368,12 @@ const Container = styled.div`
 `;
 
 const HeaderStyle = styled.header`
-  height: 50px;
+  height: 55px;
   display: flex;
   align-items: center;
   padding: 0 1rem;
   justify-content: space-between;
-  background: url(${bg}) center center no-repeat;
+  background: url(${bg}) center center no-repeat #00225C;
 `;
 
 const Logo = styled.div`
@@ -417,6 +431,6 @@ const Nav = styled.div`
 `;
 
 const ContentStyle = styled.main`
-  height: calc(100vh - 50px);
+  height: calc(100vh - 55px);
   box-sizing: border-box;
 `;

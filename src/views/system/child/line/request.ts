@@ -2,26 +2,12 @@ import qs from 'qs'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from 'utils';
 import { useHttp } from 'utils/http';
-import { subwaylist,newArr } from 'views/home/child/index'
 
 /* 查询地铁线路站点 */
 
 export const useSubwayList = () => {
   const client = useHttp()
   return useQuery(['subwayList'], async () => client(`subway/list`, { method: "POST" }))
-}
-
-/* 查所有 */
-export const useLine = () => {
-  const client = useHttp()
-  return useQuery(['lineAll'], async () => {
-    const data = await client(`line/getIndex`, { method: "POST" })
-    data.data = data.data.filter((key: { [key: string]: unknown }) => key.status === 1)
-    data.data.forEach((item: any, index: number) => {
-      item["color"] = newArr.find((key: any) => item.name === key.name)?.label.color
-    })
-    return data
-  })
 }
 
 /*
