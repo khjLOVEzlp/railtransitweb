@@ -35,7 +35,7 @@ export const LineManageModal = () => {
       visible={ModalOpen}
       onCancel={close}
       width="80%"
-      style={{ height: "80vh", overflowY: "auto" }}
+      footer={false}
     >
       <div>
         <LineTitle>

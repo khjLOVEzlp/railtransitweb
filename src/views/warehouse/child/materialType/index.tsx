@@ -49,10 +49,14 @@ export const MaterialType = () => {
 
   const confirm = (item: any) => {
     Del(item.id)
-      .then(() => {
-        message.success("删除成功");
+      .then((res) => {
+        if (res.code === 200) {
+          message.success("删除成功");
         setParam({ ...param, index: 1 });
         setSelectedRowKeys([]);
+        } else {
+          message.error(res.msg);
+        }
       })
       .catch((err) => {
         message.error(err.msg);

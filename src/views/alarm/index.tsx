@@ -4,16 +4,16 @@ import { useState } from "react";
 import { useDocumentTitle } from "hook/useDocumentTitle";
 import { useInit, useWarnCount } from "./request";
 import { noData } from "utils/verification";
-import didian from 'assets/alert/低电告警.png'
-import fenli from 'assets/alert/分离告警.png'
-import jiujing from 'assets/alert/酒精.png'
-import lixian from 'assets/alert/离线告警.png'
-import loudai from 'assets/alert/漏带.png'
-import loudian from 'assets/alert/漏点.png'
-import xueya from 'assets/alert/血压.png'
-import yiliu from 'assets/alert/遗留.png'
-import yilou from 'assets/alert/遗漏.png'
-import yiqing from 'assets/alert/疫情.png'
+import didian from "assets/alert/低电告警.png";
+import fenli from "assets/alert/分离告警.png";
+import jiujing from "assets/alert/酒精.png";
+import lixian from "assets/alert/离线告警.png";
+import loudai from "assets/alert/漏带.png";
+import loudian from "assets/alert/漏点.png";
+import xueya from "assets/alert/血压.png";
+import yiliu from "assets/alert/遗留.png";
+import yilou from "assets/alert/遗漏.png";
+import yiqing from "assets/alert/疫情.png";
 const { Option } = Select;
 
 const getType = (type: number) => {
@@ -21,66 +21,66 @@ const getType = (type: number) => {
     case 1:
       return {
         name: "遗忘",
-        img: ''
+        img: "",
       };
     case 2:
       return {
         name: "漏带",
-        img: loudai
+        img: loudai,
       };
 
     case 3:
       return {
         name: "漏点",
-        img: loudian
+        img: loudian,
       };
 
     case 4:
       return {
         name: "遗漏",
-        img: yilou
+        img: yilou,
       };
 
     case 5:
       return {
         name: "疫情",
-        img: yiqing
+        img: yiqing,
       };
 
     case 6:
       return {
         name: "酒精",
-        img: jiujing
+        img: jiujing,
       };
 
     case 7:
       return {
         name: "分离告警",
-        img: fenli
+        img: fenli,
       };
 
     case 8:
       return {
         name: "离线告警",
-        img: lixian
+        img: lixian,
       };
 
     case 10:
       return {
         name: "低电告警",
-        img: didian
+        img: didian,
       };
 
     case 11:
       return {
         name: "血压",
-        img: xueya
+        img: xueya,
       };
 
     case 12:
       return {
         name: "遗留",
-        img: yiliu
+        img: yiliu,
       };
 
     default:
@@ -213,7 +213,7 @@ const content = {
 };
 
 export const Alarm = () => {
-  useDocumentTitle("告警上报")
+  useDocumentTitle("告警上报");
 
   const [pagination, setPagination] = useState({
     index: 1,
@@ -329,7 +329,7 @@ export const Alarm = () => {
   };
 
   const navClick = async (value: string) => {
-    await setPagination({ ...pagination, state: value, time });
+    await setPagination({ ...pagination, index: 1, state: value, time });
 
     if (String(value) === "0") {
       setAlarmType([
@@ -398,12 +398,10 @@ export const Alarm = () => {
             <li key={index} onClick={() => navClick(item.type)}>
               {/* <img src={`../../assets/alert/${getType(item.type)}.png`} alt="" /> */}
               <img src={`${getType(item.type)?.img}`} alt="" />
-              <div style={{  fontSize: "1.6rem" }}>
+              <div style={{ fontSize: "1.6rem" }}>
                 {getType(item.type)?.name}
               </div>
-              <div style={{ fontSize: "4rem", color: "#333" }}>
-                {item.num}
-              </div>
+              <div style={{ fontSize: "4rem", color: "#333" }}>{item.num}</div>
             </li>
           ))}
         </Nav>
@@ -439,7 +437,7 @@ export const Alarm = () => {
             total: dataList?.count,
             current: pagination.index,
             pageSize: pagination.size,
-            hideOnSinglePage: true
+            hideOnSinglePage: true,
           }}
           onChange={handleTableChange}
           loading={isLoading}

@@ -10,9 +10,10 @@ import {
   useAlarmStatistics,
 } from "api/home/alarm-statistics";
 
-const DemoPie = () => {
+const DemoPie = ({ show }: { show: boolean }) => {
   const { data: alarmStatistics } = useAlarmStatistics();
   const { open } = useAlarmModal();
+
   const color = [
     "#35AAF6",
     "#05AEA5",
@@ -50,7 +51,7 @@ const DemoPie = () => {
           },
         },
       },
-      data: alarmStatistics?.data,
+      data: alarmStatistics,
     },
   ];
   const option = {
@@ -84,17 +85,12 @@ const DemoPie = () => {
     const myEcharts = echarts.init(
       document.getElementById("task") as HTMLElement
     );
+    myEcharts.resize();
     myEcharts.setOption(option);
     myEcharts.on("click", (params: any) => {
       open(params.data.type);
     });
-
-    window.addEventListener("resize", () => {
-      if (myEcharts != null) {
-        myEcharts.resize();
-      }
-    });
-  }, [alarmStatistics, option]);
+  }, [alarmStatistics, option, show]);
 
   return (
     <>
@@ -141,12 +137,12 @@ const OpenModal = () => {
       dataIndex: "relieveTime",
     },
     {
-      title: "设备编号",
-      dataIndex: "groupId",
+      title: "标签编号",
+      dataIndex: "labelNum",
     },
     {
-      title: "绑定人",
-      dataIndex: "createBy",
+      title: "人员",
+      dataIndex: "personName",
     },
     {
       title: "告警时间",

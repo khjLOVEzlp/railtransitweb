@@ -243,13 +243,17 @@ a {
     font-size: 1.2rem !important;
   }
 
-  .NavList p {
+  .handerStyle p {
     /* margin: 0 20px !important; */
     display: none;
   }
 
   .NavList .left li a {
     font-size: 12px !important;
+  }
+
+  .NavList .placeholder {
+    display: none;
   }
 
   .NavList .right li a {

@@ -56,7 +56,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const [form] = Form.useForm();
   const token = getToken();
   let document: string[] = [];
-  const [id, setId] = useState<number>(0);
+  const [id, setId] = useState<number | undefined>(undefined);
   const { open, startEdit } = useAddToolModal();
   const { ModalOpen, isLoading, close, editingPlanWork, editId, isSuccess } =
     usePlanWorkModal();
@@ -74,6 +74,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   const closeModal = () => {
+    setId(undefined)
     setGroupList([]);
     form.resetFields();
     close();
@@ -81,14 +82,11 @@ export const ModalForm = ({ param, setParam }: Props) => {
 
   const onFinish = (value: any) => {
     const { beginTime, dateTime, endTime, warnTime } = value;
-    const documentId = editingPlanWork?.data.documentList
-      .map((key: { [key: string]: unknown }) => key.documentId + "")
-      .concat(document);
 
     mutateAsync({
       ...editingPlanWork?.data,
       ...value,
-      documentList: documentId,
+      documentList:document,
       groupList: groupList,
       dateTime: moment(dateTime).format("YYYY-MM-DD"),
       beginTime: moment(beginTime).format("YYYY-MM-DD HH:mm:ss"),
@@ -117,6 +115,9 @@ export const ModalForm = ({ param, setParam }: Props) => {
 
   useEffect(() => {
     if (editingPlanWork) {
+      document = editingPlanWork?.data.documentList.map(
+        (key: any) => key.documentId + ""
+      )
       setId(editingPlanWork?.data.lineId);
       setGroupList(editingPlanWork?.data.groupList);
       form.setFieldsValue({
@@ -265,7 +266,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                   <Input />
                 </Form.Item>
 
-                <Form.Item label="请销站点" name="pleaseStand" rules={rules}>
+                <Form.Item label="请站点" name="pleaseStand" rules={rules}>
                   <Select
                     getPopupContainer={(triggerNode) =>
                       triggerNode.parentElement

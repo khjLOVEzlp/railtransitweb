@@ -68,7 +68,10 @@ export const PageBox = () => {
   return (
     <PageBoxContext.Provider value={{ infoId, setInfoId, help, setHelp }}>
       <Container>
-        <HeaderStyle>
+        <HeaderStyle className="handerStyle">
+          <p>
+            <img src={title} alt="" />
+          </p>
           <Logo>
             <img src={logo} alt="" />
           </Logo>
@@ -143,9 +146,7 @@ export const PageBox = () => {
               )}
             </div>
 
-            <p>
-              <img src={title} alt="" />
-            </p>
+            <div className="placeholder" style={{margin: "0 400px"}}></div>
 
             <div className="right">
               {menu?.find((item: any) => item.name === "库存管理") ? (
@@ -264,7 +265,10 @@ const User = () => {
       .then(() => {
         message.success("修改成功，请重新登陆");
         setVisible(false);
-        setTimeout(() => logout(), 3000);
+        setTimeout(() => {
+          sessionStorage.clear()
+          navigate("/login")
+        }, 3000);
       })
       .catch((error) => {
         message.error(error.msg);
@@ -324,7 +328,7 @@ const User = () => {
       >
         <Button
           style={{
-            color: "#3A3D44",
+            color: "#FFF",
             fontSize: "2rem",
             fontWeight: "bold",
             lineHeight: "100%",
@@ -373,7 +377,14 @@ const HeaderStyle = styled.header`
   align-items: center;
   padding: 0 1rem;
   justify-content: space-between;
-  background: url(${bg}) center center no-repeat #00225C;
+  background: url(${bg}) center center no-repeat #00225c;
+  p {
+    margin: 0 auto;
+    width: 460px;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
 `;
 
 const Logo = styled.div`
@@ -388,10 +399,6 @@ const Nav = styled.div`
   align-items: center;
   // width: 100%;
   box-sizing: border-box;
-
-  p {
-    margin: 0 160px;
-  }
 
   .on {
     background: url(${on}) center center no-repeat;

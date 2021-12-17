@@ -15,7 +15,6 @@ export const Subway = () => {
     let newData: any = subwaylist.filter((v) =>
       lineList.data.find((vi: { [key: string]: unknown }) => vi.name === v.name)
     );
-    console.log(newData);
 
     newData.forEach((item: any, index: number) => {
       if (lineList.data.find((v: any) => v.name === item.name)) {

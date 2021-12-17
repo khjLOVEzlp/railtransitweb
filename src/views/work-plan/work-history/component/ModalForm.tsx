@@ -153,7 +153,7 @@ export const ModalForm = () => {
                 <Input disabled />
               </Form.Item>
 
-              <Form.Item label="提醒时间" name="warnTime">
+              <Form.Item label="计划令号" name="num">
                 <Input disabled />
               </Form.Item>
 
@@ -164,7 +164,10 @@ export const ModalForm = () => {
 
             <Space style={{ display: "flex" }}>
               <Form.Item label="是否提醒" name="isWarn">
-                <Input disabled />
+              <Select>
+                <Select.Option value={"0"}>是</Select.Option>
+                <Select.Option value={"1"}>否</Select.Option>
+              </Select>
               </Form.Item>
 
               <Form.Item label="作业人数" name="workPerson">
@@ -177,10 +180,6 @@ export const ModalForm = () => {
             </Space>
 
             <Space style={{ display: "flex" }}>
-              <Form.Item label="计划令号" name="num">
-                <Input disabled />
-              </Form.Item>
-
               <Form.Item label="备注" name="remark">
                 <Input disabled />
               </Form.Item>
@@ -188,6 +187,7 @@ export const ModalForm = () => {
               <Form.Item label="文档">
                 <Upload {...props} style={{ width: "100%" }}></Upload>
               </Form.Item>
+              <div></div>
             </Space>
           </Form>
 

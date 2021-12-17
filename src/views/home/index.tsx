@@ -73,14 +73,14 @@ export const Home = () => {
               <Title>
                 <p>告警统计</p>{" "}
               </Title>
-              <Page />
+              <Page show={show} />
             </div>
 
-            <div>
+            <div className="main">
               <Title>
                 <p>计划统计</p>{" "}
               </Title>
-              <PlanWorkPage />
+              <PlanWorkPage show={show} />
             </div>
 
             <div>
@@ -93,7 +93,7 @@ export const Home = () => {
         ) : (
           ""
         )}
-        <Main>
+        <Main style={show ? { width: "60%" } : { width: "100%" }}>
           <Subway />
         </Main>
         {isSuccess && show ? (
@@ -172,32 +172,31 @@ const Container = styled.div`
 `;
 
 const Left = styled.div`
-  /* height: 100%; */
-  flex: 1;
+  width: 20%;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   background: #00225c;
   > * {
     flex: 1;
-    // position: relative;
     height: 100%;
-    padding: 10px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+  }
+  .main {
+    padding: 10px;
   }
 `;
 
 const Main = styled.div`
   height: 100%;
   background: #fff;
-  flex: 3;
   position: relative;
 `;
 
 const Right = styled.div`
-  flex: 1;
+  width: 20%;
   position: relative;
   background: #00265f;
 `;
@@ -225,8 +224,6 @@ const Title = styled.h3`
   padding: 1rem;
   width: 100%;
   font-size: 12px;
-  // position: absolute;
-  // left: 0.1rem;
   z-index: 1000;
   color: #fff;
   background: url(${title}) center center no-repeat;

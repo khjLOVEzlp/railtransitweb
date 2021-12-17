@@ -69,7 +69,7 @@ const EditableCell: React.FC<any> = ({
 
   let childNode = children;
 
-  if (editable && record.count > 0) {
+  if (editable) {
     childNode = editing ? (
       <Form.Item
         style={{ margin: 0 }}
@@ -249,6 +249,12 @@ const Tool = ({ setObj, obj }: any) => {
         components={components}
         rowClassName={() => 'editable-row'}
         bordered
+        pagination={{
+          total: data?.count,
+          current: param.index,
+          pageSize: param.size,
+          hideOnSinglePage: true
+        }}
         dataSource={dataSource}
         columns={newColumns as any}
         rowKey={(item: any) => item.id}
@@ -423,6 +429,12 @@ const Mater = ({ obj, setObj }: any) => {
         rowKey={(item: any) => item.id}
         rowSelection={rowSelection}
         onChange={handleTableChange}
+        pagination={{
+          total: data?.count,
+          current: param.index,
+          pageSize: param.size,
+          hideOnSinglePage: true
+        }}
       />
     </div>
   );

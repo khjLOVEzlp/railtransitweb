@@ -1,5 +1,5 @@
 import { Form, Input, Button, Table, Tag } from "antd";
-import { ModalForm } from "./modal/ModalForm";
+import { ModalForm } from "./component/ModalForm";
 import { useDebounce } from "hook/useDebounce";
 import { useHistoryModal } from "./util";
 import { Header, Main, SearchForm } from "components/Styled";
@@ -24,9 +24,9 @@ export const WorkManage = () => {
   const isWarn = (type: number) => {
     switch (type) {
       case 0:
-        return <Tag color="error">否</Tag>;
-      case 1:
         return <Tag color="success">是</Tag>;
+      case 1:
+        return <Tag color="error">否</Tag>;
 
       default:
         break;
@@ -80,9 +80,9 @@ export const WorkManage = () => {
               className: "hb",
             },
             {
-              title: "是否自动提醒",
-              key: "isWarn",
-              render: (item) => <span>{isWarn(item.isWarn)}</span>,
+              title: "线路",
+              key: "lineName",
+              dataIndex: "lineName",
               className: "hb",
             },
             {

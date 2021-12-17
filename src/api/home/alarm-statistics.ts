@@ -51,11 +51,16 @@ export const useAlarmStatistics = () => {
   const client = useHttp();
   return useQuery(["alarmStatistics"], async () => {
     const data = await client(`report/webWarn`);
-    data.data.forEach((key: any) => {
+    const dataList = data.data.filter((item: any) => item.num > 0)
+    dataList.forEach((key: any) => {
       key["name"] = Type(key["type"]);
-      key['value'] = key['num']
+      key["value"] = key["num"];
     });
-    return data;
+    dataList.splice(
+      data.data.findIndex((item: any) => item.type === 9),
+      1
+    );
+    return dataList;
   });
 };
 
@@ -83,20 +88,20 @@ export const useAlarmPagination = (params?: any) => {
 };
 
 /*
-* 告警统计弹框
-* */
+ * 告警统计弹框
+ * */
 
 export const useAlarmModal = () => {
-    const { alarmId, setAlarmId } = useHomeContext()
-  
-    const open = (id: number) => setAlarmId(id)
-  
-    const close = () => setAlarmId(undefined)
-  
-    return {
-      ModalOpen: Boolean(alarmId),
-      open,
-      close,
-      alarmId,
-    }
-  }
+  const { alarmId, setAlarmId } = useHomeContext();
+
+  const open = (id: number) => setAlarmId(id);
+
+  const close = () => setAlarmId(undefined);
+
+  return {
+    ModalOpen: Boolean(alarmId),
+    open,
+    close,
+    alarmId,
+  };
+};

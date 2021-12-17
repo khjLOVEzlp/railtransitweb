@@ -2,18 +2,17 @@ import * as echarts from "echarts";
 import { useDebounce } from "hook/useDebounce";
 
 import { useState, useEffect } from "react";
-import { Line } from "@ant-design/charts";
-import { Modal, Spin, Table } from "antd";
-import { Datum } from "@ant-design/charts/es/graphs/types";
+import { Modal, Table } from "antd";
 import {
   useTaskModal,
   useTaskPagination,
   useTaskStatistics,
 } from "api/home/work-statistics";
 import { type } from "utils";
+import { FullPageLoading } from "components/FullPageLoading";
 
-const PlanWorkPage = () => {
-  const { data: list, isSuccess } = useTaskStatistics();
+const PlanWorkPage = ({ show }: { show: boolean }) => {
+  const { data: list, isLoading } = useTaskStatistics();
   const { open } = useTaskModal();
 
   let xLabel = ["今日", "本周", "本月", "本季度", "半年", "今年"];
@@ -136,21 +135,17 @@ const PlanWorkPage = () => {
     const myEcharts = echarts.init(
       document.getElementById("statistics") as HTMLElement
     );
+    myEcharts.resize();
     myEcharts.setOption(option);
     myEcharts.on("click", (params: any) => {
       open(type(params.name));
     });
-
-    window.addEventListener("resize", () => {
-      if (myEcharts != null) {
-        myEcharts.resize();
-      }
-    });
-  }, [option]);
+  }, [option, list, show]);
 
   return (
     <>
-      <div id="statistics" style={{ height: "100%", width: "100%" }}></div>
+    {isLoading && <FullPageLoading />}
+    <div id="statistics" style={{ height: "100%", width: "100%" }}></div>
 
       <OpenModal />
     </>

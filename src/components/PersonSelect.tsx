@@ -6,9 +6,10 @@ type Props = {
   label: string
   name: string
   rul?: boolean
+  width?: number
 }
 
-export const PersonSelect = ({ label, name, rul }: Props) => {
+export const PersonSelect = ({ label, name, rul, width }: Props) => {
   const { data } = usePerson()
   return (
     <Form.Item
@@ -18,6 +19,7 @@ export const PersonSelect = ({ label, name, rul }: Props) => {
     >
       {
         <Select
+        style={{width}}
           showSearch
           filterOption={(input, option: any) =>
             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0

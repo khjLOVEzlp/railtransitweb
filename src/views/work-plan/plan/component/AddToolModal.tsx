@@ -1,348 +1,182 @@
-import { Button, Form, Input, Modal, Radio, Select, Spin, Table, Tabs } from "antd";
-import { useAddToolModal } from '../util'
-import * as usePersonList from "views/person/child/personManage/request";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Spin,
+  Table,
+  Tabs,
+} from "antd";
+import { useAddToolModal } from "../util";
 import { useListBy } from "views/warehouse/child/materialType/request";
-import { useContext, useEffect, useRef, useState } from "react";
-import React from "react";
+import { useEffect, useState } from "react";
+import * as usePersonList from "views/person/child/personManage/request";
 import TextArea from "antd/lib/input/TextArea";
-import './style.css'
+import "./style.css";
 import { useDebounce } from "hook/useDebounce";
-import { FormInstance } from 'antd/lib/form';
 import { rules } from "utils/verification";
 import { usePlanContext } from "views/work-plan/work-plan";
+import { PersonSelect } from "components/PersonSelect";
 const { TabPane } = Tabs;
 
 /* 添加小组成员 */
-
-const PersonList = ({ setState, setObj, obj }: any) => {
+const PersonList = () => {
   const [param, setParam] = useState({
     index: 1,
     size: 10,
-    name: ""
-  })
-  const { ModalOpen } = useAddToolModal()
-  const { data, isLoading, isSuccess } = usePersonList.useAllList(useDebounce(param, 500))
-  const [selectedRowKeys, setSelectedRowKeys] = useState([])
-  const [loading, setLoading] = useState<boolean>(false)
-  const [personList, setPersonList] = useState<any>([])
-  const [value, setValue] = React.useState<any>(undefined);
+    name: "",
+  });
 
-  const onChange = (e: any) => {
-    setObj({ ...obj, leader: e.target.value })
-    setValue(e.target.value);
-  };
+  const { data, isLoading } = usePersonList.useAllList(useDebounce(param, 500));
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   useEffect(() => {
-    if (isSuccess) {
-      setValue(data?.data[0].id)
-      setObj({ ...obj, leader: data?.data[0].id })
-    }
-  }, [isSuccess])
-
-  useEffect(() => {
-    setObj({
-      ...obj,
-      personList: obj?.personList,
-      leader: obj?.leader
-    })
-    setValue(obj?.leader)
-    const personList = obj?.personList?.map((key: { [key: string]: unknown }) => key.id)
-    setSelectedRowKeys(personList)
-  }, [ModalOpen])
-
-  const start = () => {
-    const list = personList
-    setLoading(true)
-    setTimeout(() => {
-      // setSelectedRowKeys([])
-      setPersonList(list)
-      sessionStorage.setItem("personList", JSON.stringify(personList))
-      setObj({
-        ...obj,
-        personList
-      })
-      setLoading(false)
-      setState("3")
-    }, 1000)
-  }
+    // @ts-ignore
+    setSelectedRowKeys([187]);
+    sessionStorage.setItem("personList", JSON.stringify([{ personId: 187 }]));
+  }, []);
 
   const onSelectChange = (keys: any, value: any) => {
-    value.forEach((key: any) => {
-      key["personId"] = key["id"]
-    })
-    setPersonList(value)
-    setSelectedRowKeys(keys);
-  };
+    const personList = value.map((key: any) => {
+      return {
+        personId: key.id,
+      };
+    });
+    sessionStorage.setItem("personList", JSON.stringify(personList));
 
-  const hasSelected = selectedRowKeys?.length > 0;
+    setSelectedRowKeys(keys);
+
+    console.log(keys);
+  };
 
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
-    getCheckboxProps: (record: any) => ({
-      disabled: record.id === value,
-    })
-  }
+    preserveSelectedRowKeys: true,
+  };
+
+  const handleTableChange = (p: any) => {
+    setParam({ ...param, index: p.current, size: p.pageSize });
+  };
 
   return (
     <>
-      {
-        isLoading ? (
-          <Spin />
-        ) : (
-          <>
-            <div style={{ marginBottom: 16 }}>
-              <Form layout={"inline"}>
-                <Form.Item>
-                  <Input
-                    placeholder={"姓名"}
-                    value={param.name}
-                    onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })}
-                  />
-                </Form.Item>
-
-                <Form.Item>
-                  <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-                    确定
-                  </Button>
-                </Form.Item>
-              </Form>
-              <span style={{ marginLeft: 8 }}>
-                {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
-              </span>
-            </div>
-            <Table columns={[
+      {isLoading ? (
+        <Spin />
+      ) : (
+        <>
+          <div style={{ marginBottom: 16 }}>
+            <Form layout={"inline"}>
+              <Form.Item>
+                <Input
+                  placeholder={"姓名"}
+                  value={param.name}
+                  onChange={(evt) =>
+                    setParam({ ...param, name: evt.target.value, index: 1 })
+                  }
+                />
+              </Form.Item>
+            </Form>
+          </div>
+          <Table
+            columns={[
               {
                 title: "姓名",
-                dataIndex: "name"
+                dataIndex: "name",
               },
               {
                 title: "卡号",
-                dataIndex: "number"
+                dataIndex: "number",
               },
-              {
-                title: "组长",
-                render: (item: any) => (
-                  <Radio.Group
-                    onChange={onChange}
-                    value={value}
-                  >
-                    <Radio value={item.id}></Radio>
-                  </Radio.Group>
-                )
-              }
+              // {
+              //   title: "组长",
+              //   render: (item: any) => (
+              //     <Radio.Group onChange={onChange} value={value}>
+              //       <Radio value={item.id}></Radio>
+              //     </Radio.Group>
+              //   ),
+              // },
             ]}
-              rowKey={(item: any) => item.id}
-              dataSource={data?.data}
-              rowSelection={rowSelection}
-            />
-          </>
-        )
-      }
+            onChange={handleTableChange}
+            pagination={{
+              total: data?.count,
+              current: param.index,
+              pageSize: param.size,
+              hideOnSinglePage: true,
+            }}
+            rowKey={(item: any) => item.id}
+            dataSource={data?.data}
+            rowSelection={rowSelection}
+          />
+        </>
+      )}
     </>
-  )
-}
-
-/* 添加工具 */
-const EditableContext = React.createContext<FormInstance<any> | null>(null);
-const EditableRow: React.FC<any> = ({ index, ...props }) => {
-  const [form] = Form.useForm();
-  return (
-    <Form form={form} component={false}>
-      <EditableContext.Provider value={form}>
-        <tr {...props} />
-      </EditableContext.Provider>
-    </Form>
   );
 };
 
-const EditableCell: React.FC<any> = ({
-  title,
-  editable,
-  children,
-  dataIndex,
-  record,
-  handleSave,
-  ...restProps
-}) => {
-  const [editing, setEditing] = useState(false);
-  const inputRef = useRef<Input>(null);
-  const form = useContext(EditableContext)!;
-  
-  useEffect(() => {
-    if (editing) {
-      inputRef.current!.focus();
-    }
-  }, [editing]);
+/* 添加工具 */
 
-  const toggleEdit = () => {
-    setEditing(!editing);
-    form.setFieldsValue({ [dataIndex]: record[dataIndex] });
-  };
-
-  const save = async () => {
-    try {
-      const values = await form.validateFields();
-      toggleEdit();
-      handleSave({ ...record, ...values });
-    } catch (errInfo) {
-      console.log('Save failed:', errInfo);
-    }
-  };
-
-  let childNode = children;
-
-  if (editable && record.count > 0) {
-    childNode = editing ? (
-      <Form.Item
-        style={{ margin: 0 }}
-        name={dataIndex}
-        rules={[
-          {
-            required: true,
-            message: "请输入数量"
-          },
-          {
-            pattern: new RegExp(/^[1-9]\d*$/),
-            message: "数量不能为负"
-          }
-        ]}
-      >
-        <Input type={"number"} ref={inputRef} onPressEnter={save} onBlur={save} />
-      </Form.Item>
-    ) : (
-      <div className="editable-cell-value-wrap" style={{ paddingRight: 24 }} onClick={toggleEdit}>
-        {children}
-      </div>
-    );
-  }
-  return <td {...restProps}>{childNode}</td>;
-};
-
-const Tool = ({ setState, setObj, obj }: any) => {
+const Tool = () => {
   const columns = [
     {
       title: "工具",
-      dataIndex: "name"
+      dataIndex: "name",
     },
     {
-      title: "数量",
+      title: "工具数量",
       dataIndex: "count",
-      editable: true,
-      disabled: true,
-    }
-  ]
+    },
+    {
+      title: "需要的工具数量",
+      render: (item: any) => (
+        <>
+          <InputNumber
+            width={120}
+            max={item.count}
+            onChange={(e: any) => {
+              // @ts-ignore
+              setSelectedRowKeys([...selectedRowKeys, item.id]);
+              item.newCount = e;
+            }}
+          />
+        </>
+      ),
+    },
+  ];
 
   const [param, setParam] = useState({
     index: 1,
     size: 10,
     name: "",
-    type: 1
-  })
+    type: 1,
+  });
 
-  const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
-  const { ModalOpen } = useAddToolModal()
-  const [dataSource, setDataSource] = useState<any>([])
+  const { data, isLoading } = useListBy(useDebounce(param, 500));
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState([])
-  const [loading, setLoading] = useState<boolean>(false)
-  const [groupToolList, setGroupToolList] = useState<any>([])
-
-  useEffect(() => {
-    setObj({
-      ...obj,
-      groupToolList: obj?.groupToolList,
-    })
-    const groupToolList = obj?.groupToolList?.map((key: { [key: string]: unknown }) => key.toolId)
-    setSelectedRowKeys(groupToolList)
-  }, [ModalOpen])
-
-  const start = () => {
-    const list = groupToolList
-    /* list.forEach((key: any) => {
-      key["groupToolList"] = true
-    }) */
-    setLoading(true)
-    setTimeout(() => {
-      // setSelectedRowKeys([])
-      setGroupToolList(list)
-      sessionStorage.setItem("groupToolList", JSON.stringify(groupToolList))
-      setObj({
-        ...obj,
-        groupToolList
-      })
-      setLoading(false)
-      setState("4")
-    }, 1000)
-  }
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const onSelectChange = (keys: any, value: any) => {
-    value.forEach((key: any) => {
-      key["num"] = key["count"]
-      key["toolId"] = key["id"]
-    })
-    setGroupToolList(value)
-
+    const toolList = value.map((item: any) => {
+      return {
+        num: item.count,
+        toolId: item.id,
+      };
+    });
     setSelectedRowKeys(keys);
   };
-
-  const hasSelected = selectedRowKeys?.length > 0;
 
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
-    getCheckboxProps: (record: any) => ({
-      disabled: record.groupToolList === true || record.count === 0,
-    })
-  }
+    preserveSelectedRowKeys: true,
+    // getCheckboxProps: (record: any) => ({
+    //   disabled: record.count === 0,
+    // }),
+  };
 
   const handleTableChange = (p: any) => {
-    setParam({ ...param, index: p.current, size: p.pageSize })
-  };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setDataSource([...data.data])
-    }
-  }, [isSuccess, data?.data])
-
-  const handleSave = (row: any) => {
-    const newData = [...dataSource];
-    // @ts-ignore
-    const index = newData.findIndex(item => row.key === item.key);
-    const item = newData[index];
-    // @ts-ignore
-    newData.splice(index, 1, {
-      // @ts-ignore
-      ...item,
-      ...row,
-    });
-    // @ts-ignore
-    setDataSource([...newData]);
-  };
-
-  const newColumns = columns.map(col => {
-    if (!col.editable) {
-      return col;
-    }
-
-    return {
-      ...col,
-      onCell: (record: any) => ({
-        record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave
-      }),
-    };
-  });
-
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell,
-    },
+    setParam({ ...param, index: p.current, size: p.pageSize });
   };
 
   return (
@@ -353,37 +187,31 @@ const Tool = ({ setState, setObj, obj }: any) => {
             <Input
               placeholder={"工具"}
               value={param.name}
-              onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })}
+              onChange={(evt) =>
+                setParam({ ...param, name: evt.target.value, index: 1 })
+              }
             />
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-              确定
-            </Button>
-          </Form.Item>
-          <Form.Item>
-            <span style={{color: 'red'}}>(注意：请勾选数量大于 0 的工具)</span>
-          </Form.Item>
         </Form>
-        <span style={{ marginLeft: 8 }}>
-          {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
-        </span>
       </div>
       <Table
         loading={isLoading}
-        components={components}
-        rowClassName={() => 'editable-row'}
         bordered
-        dataSource={dataSource}
-        columns={newColumns as any}
+        dataSource={data?.data}
+        columns={columns}
         rowKey={(item: any) => item.id}
         rowSelection={rowSelection}
         onChange={handleTableChange}
+        pagination={{
+          total: data?.count,
+          current: param.index,
+          pageSize: param.size,
+          hideOnSinglePage: true,
+        }}
       />
     </div>
   );
-
-}
+};
 
 /* 添加物料 */
 
@@ -391,64 +219,69 @@ const Mater = ({ obj, setObj }: any) => {
   const columns = [
     {
       title: "物料",
-      dataIndex: "name"
+      dataIndex: "name",
     },
     {
       title: "数量",
       dataIndex: "count",
       editable: true,
-      disabled: true
-    }
-  ]
+      disabled: true,
+    },
+  ];
 
   const [param, setParam] = useState({
     index: 1,
     size: 10,
     name: "",
-    type: 2
-  })
+    type: 2,
+  });
 
-  const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500))
-  const { ModalOpen } = useAddToolModal()
-  const [dataSource, setDataSource] = useState<any>([])
+  const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500));
+  const { ModalOpen } = useAddToolModal();
+  const [dataSource, setDataSource] = useState<any>([]);
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState([])
-  const [loading, setLoading] = useState<boolean>(false)
-  const [groupMaterialList, setGroupMaterialList] = useState<any>([])
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [groupMaterialList, setGroupMaterialList] = useState<any>([]);
 
   useEffect(() => {
     setObj({
       ...obj,
       groupMaterialList: obj?.groupMaterialList,
-    })
-    const groupMaterialList = obj?.groupMaterialList?.map((key: { [key: string]: unknown }) => key.materialId)
-    setSelectedRowKeys(groupMaterialList)
-  }, [ModalOpen])
+    });
+    const groupMaterialList = obj?.groupMaterialList?.map(
+      (key: { [key: string]: unknown }) => key.materialId
+    );
+    setSelectedRowKeys(groupMaterialList);
+  }, [ModalOpen]);
 
   const start = () => {
-    const list = groupMaterialList
+    const list = groupMaterialList;
     /* list.forEach((key: any) => {
       key["groupMaterialList"] = true
     }) */
-    setLoading(true)
+    setLoading(true);
     setTimeout(() => {
       // setSelectedRowKeys([])
-      setGroupMaterialList(list)
-      sessionStorage.setItem("groupMaterialList", JSON.stringify(groupMaterialList))
+      setGroupMaterialList(list);
+      sessionStorage.setItem(
+        "groupMaterialList",
+        JSON.stringify(groupMaterialList)
+      );
       setObj({
         ...obj,
-        groupMaterialList
-      })
-      setLoading(false)
-    }, 1000)
-  }
+        groupMaterialList,
+      });
+      setLoading(false);
+    }, 1000);
+  };
 
   const onSelectChange = (keys: any, value: any) => {
     value.forEach((key: any) => {
-      key["num"] = key["count"]
-      key["materialId"] = key["id"]
-    })
-    setGroupMaterialList(value)
+      key["num"] = key["count"];
+      key["materialId"] = key["id"];
+    });
+    setGroupMaterialList(value);
     setSelectedRowKeys(keys);
   };
 
@@ -459,23 +292,23 @@ const Mater = ({ obj, setObj }: any) => {
     onChange: onSelectChange,
     getCheckboxProps: (record: any) => ({
       disabled: record.groupMaterialList === true || record.count === 0,
-    })
-  }
+    }),
+  };
 
   const handleTableChange = (p: any) => {
-    setParam({ ...param, index: p.current, size: p.pageSize })
+    setParam({ ...param, index: p.current, size: p.pageSize });
   };
 
   useEffect(() => {
     if (isSuccess) {
-      setDataSource([...data.data])
+      setDataSource([...data.data]);
     }
-  }, [isSuccess, data?.data])
+  }, [isSuccess, data?.data]);
 
   const handleSave = (row: any) => {
     const newData = [...dataSource];
     // @ts-ignore
-    const index = newData.findIndex(item => row.key === item.key);
+    const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
     // @ts-ignore
     newData.splice(index, 1, {
@@ -487,7 +320,7 @@ const Mater = ({ obj, setObj }: any) => {
     setDataSource([...newData]);
   };
 
-  const newColumns = columns.map(col => {
+  const newColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
@@ -499,17 +332,10 @@ const Mater = ({ obj, setObj }: any) => {
         editable: col.editable,
         dataIndex: col.dataIndex,
         title: col.title,
-        handleSave
+        handleSave,
       }),
     };
   });
-
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell,
-    },
-  };
 
   return (
     <div>
@@ -519,48 +345,54 @@ const Mater = ({ obj, setObj }: any) => {
             <Input
               placeholder={"物料"}
               value={param.name}
-              onChange={(evt) => setParam({ ...param, name: evt.target.value, index: 1 })}
+              onChange={(evt) =>
+                setParam({ ...param, name: evt.target.value, index: 1 })
+              }
             />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+            <Button
+              type="primary"
+              onClick={start}
+              disabled={!hasSelected}
+              loading={loading}
+            >
               确定
             </Button>
           </Form.Item>
           <Form.Item>
-            <span style={{color: 'red'}}>(注意：请勾选数量大于 0 物料)</span>
+            <span style={{ color: "red" }}>(注意：请勾选数量大于 0 物料)</span>
           </Form.Item>
         </Form>
         <span style={{ marginLeft: 8 }}>
-          {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ''}
+          {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ""}
         </span>
       </div>
       <Table
         loading={isLoading}
-        components={components}
-        rowClassName={() => 'editable-row'}
+        rowClassName={() => "editable-row"}
         bordered
         dataSource={dataSource}
         columns={newColumns as any}
         rowKey={(item: any) => item.id}
         rowSelection={rowSelection}
         onChange={handleTableChange}
+        pagination={{
+          total: data?.count,
+          current: param.index,
+          pageSize: param.size,
+          hideOnSinglePage: true,
+        }}
       />
     </div>
   );
-
-}
+};
 
 export const AddToolModal = ({ groupIndex }: { groupIndex: number }) => {
-  const [form] = Form.useForm()
-  const [state, setState] = useState("2")
-  const { ModalOpen, close } = useAddToolModal()
-  const { groupList, setGroupList } = usePlanContext()
-  /* const [param, setParam] = useState({
-    groupName: "",
-    leader: "",
-    remark: ""
-  }) */
+  const [form] = Form.useForm();
+  const [state, setState] = useState("2");
+  const { ModalOpen, close } = useAddToolModal();
+  const { groupList, setGroupList } = usePlanContext();
 
   const [obj, setObj] = useState<any>({
     groupName: "",
@@ -568,59 +400,57 @@ export const AddToolModal = ({ groupIndex }: { groupIndex: number }) => {
     remark: "",
     personList: [],
     groupToolList: [],
-    groupMaterialList: []
-  })
+    groupMaterialList: [],
+  });
 
   const bootData = () => {
-    let data = null
-    const newData = sessionStorage.getItem("group")
+    let data = null;
+    const newData = sessionStorage.getItem("group");
     if (newData) {
-      data = JSON.parse(newData)
+      data = JSON.parse(newData);
     }
-    return data
-  }
+    return data;
+  };
 
   useEffect(() => {
     try {
-      const data = bootData()
-      form.setFieldsValue(data)
+      const data = bootData();
+      form.setFieldsValue(data);
       setObj({
         ...obj,
         leader: data.leader,
         personList: data.personList,
         groupToolList: data.groupToolList,
-        groupMaterialList: data.groupMaterialList
-      })
-    } catch (error) {
-
-    }
-  }, [ModalOpen, form])
+        groupMaterialList: data.groupMaterialList,
+      });
+    } catch (error) {}
+  }, [ModalOpen, form]);
 
   const closeModal = () => {
-    form.resetFields()
+    form.resetFields();
     /* sessionStorage.removeItem("personList")
     sessionStorage.removeItem("groupToolList")
     sessionStorage.removeItem("groupMaterialList") */
-    sessionStorage.removeItem("group")
-    setObj(undefined)
-    close()
-  }
+    sessionStorage.removeItem("group");
+    setObj(undefined);
+    close();
+  };
 
   const onChange = (key: string) => {
-    setState(key)
-  }
+    setState(key);
+  };
 
   const onFinish = () => {
     if (bootData()) {
-      let newObj = groupList
-      newObj.splice(groupIndex, 1, obj)
-      setGroupList(newObj)
+      let newObj = groupList;
+      newObj.splice(groupIndex, 1, obj);
+      setGroupList(newObj);
     } else {
-      setGroupList([...groupList, obj])
+      setGroupList([...groupList, obj]);
     }
 
-    closeModal()
-  }
+    closeModal();
+  };
 
   const onOk = () => {
     form.submit();
@@ -634,38 +464,29 @@ export const AddToolModal = ({ groupIndex }: { groupIndex: number }) => {
       onCancel={closeModal}
       destroyOnClose={true}
       footer={[
-        <Button key="submit" type="primary" onClick={onOk} >提交</Button>
+        <Button key="submit" type="primary" onClick={onOk}>
+          提交
+        </Button>,
       ]}
     >
-      <Form style={{ display: "flex", justifyContent: "space-between" }} form={form} onFinish={onFinish}>
+      <Form
+        style={{ display: "flex", justifyContent: "space-between" }}
+        form={form}
+        onFinish={onFinish}
+      >
         <Form.Item
           label={"小组名称"}
           name={"groupName"}
           rules={rules}
           style={{ flex: 1, padding: "0 1rem" }}
         >
-          <Input placeholder={"请输入小组名称"} onChange={(evt) => setObj({ ...obj, groupName: evt.target.value })} />
+          <Input
+            placeholder={"请输入小组名称"}
+            onChange={(evt) => setObj({ ...obj, groupName: evt.target.value })}
+          />
         </Form.Item>
 
-        {/* <Form.Item
-          label="组长"
-          name="leader"
-          rules={rules}
-          style={{ flex: 1, padding: "0 1rem" }}
-        >
-          <Select
-            style={{ width: "100%" }}
-            showSearch
-            placeholder={"请选择小组组长"}
-            filterOption={(input, option: any) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            onChange={(value) => setObj({ ...obj, leader: value })}
-          >
-            {personList?.data.map((item: any, index: number) => <Select.Option value={item.id} disabled={groupList.find((key: any) => key.leader === item.id)}
-              key={index}>{item.name}</Select.Option>)}
-          </Select>
-        </Form.Item> */}
+        <PersonSelect width={120} rul name="leader" label="小组组长" />
 
         <Form.Item
           label={"备注"}
@@ -677,10 +498,10 @@ export const AddToolModal = ({ groupIndex }: { groupIndex: number }) => {
       </Form>
       <Tabs activeKey={state} onChange={onChange}>
         <TabPane tab="作业组员" key="2">
-          <PersonList setState={setState} setObj={setObj} obj={obj} />
+          <PersonList />
         </TabPane>
         <TabPane tab="作业工具" key="3">
-          <Tool setState={setState} setObj={setObj} obj={obj} />
+          <Tool />
           {/* <EditableTable /> */}
         </TabPane>
         <TabPane tab="作业物料" key="4">
@@ -729,5 +550,5 @@ export const AddToolModal = ({ groupIndex }: { groupIndex: number }) => {
         </TabPane> */}
       </Tabs>
     </Modal>
-  )
-}
+  );
+};
