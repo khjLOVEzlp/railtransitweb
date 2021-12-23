@@ -176,7 +176,7 @@ export const WorkPersonModal = ({
       dataIndex: "personName",
     },
     {
-      title: "签到时间",
+      title: "创建时间",
       dataIndex: "createTime",
     },
   ];

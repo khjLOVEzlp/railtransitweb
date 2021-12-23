@@ -117,22 +117,26 @@ export const PlanType = () => {
               dataIndex: "type",
               key: "type",
               className: "hb",
+              ellipsis: true,
             },
             {
               title: "时间",
               dataIndex: "createTime",
               key: "createTime",
               className: "hb",
+              ellipsis: true,
             },
             {
               title: "备注",
               dataIndex: "remark",
               key: "remark",
               className: "hb",
+              ellipsis: true,
             },
             {
               title: "操作",
               key: "id",
+              ellipsis: true,
               align: "center",
               className: "hb",
               render: (item) => (
@@ -150,7 +154,9 @@ export const PlanType = () => {
                     cancelText="否"
                   >
                     {isButton(menuList, "删除") && (
-                      <Button type={"link"} danger>删除</Button>
+                      <Button type={"link"} danger>
+                        删除
+                      </Button>
                     )}
                   </Popconfirm>
                 </>
@@ -161,7 +167,7 @@ export const PlanType = () => {
             total: data?.count,
             current: param.index,
             pageSize: param.size,
-            hideOnSinglePage: true
+            hideOnSinglePage: true,
           }}
           onChange={handleTableChange}
           dataSource={data?.data}

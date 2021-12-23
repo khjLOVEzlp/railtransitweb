@@ -10,13 +10,12 @@ import {
   Image,
   Tag,
   List,
-  Empty,
-  Descriptions,
   Button,
   Divider,
   Form,
   Input,
   Select,
+  Tooltip,
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { useEffect, useState } from "react";
@@ -25,6 +24,7 @@ import { useHistoryModal } from "../util";
 import userIcon from "assets/n/main-jihua-addicon3.png";
 import { Type } from "api/home/alarm-statistics";
 import { usePlanType } from "api/work-plan/work-type";
+import { PersonSelect } from "components/PersonSelect";
 const { TabPane } = Tabs;
 const baseUrl = process.env["REACT_APP_API_URL"];
 
@@ -62,6 +62,11 @@ export const ModalForm = () => {
 
   const props = {
     defaultFileList: isSuccess && planHistory.data.documentList,
+    showUploadList: {
+      showDownloadIcon: true,
+      downloadIcon: 'download ',
+      showRemoveIcon: false,
+    },
   };
 
   const status = (id: number) => {
@@ -117,7 +122,7 @@ export const ModalForm = () => {
                 <Input disabled />
               </Form.Item>
 
-              <Form.Item label="请战点" name="pleaseName">
+              <Form.Item label="请站点" name="pleaseName">
                 <Input disabled />
               </Form.Item>
             </Space>
@@ -164,10 +169,10 @@ export const ModalForm = () => {
 
             <Space style={{ display: "flex" }}>
               <Form.Item label="是否提醒" name="isWarn">
-              <Select>
-                <Select.Option value={"0"}>是</Select.Option>
-                <Select.Option value={"1"}>否</Select.Option>
-              </Select>
+                <Select disabled>
+                  <Select.Option value={0}>是</Select.Option>
+                  <Select.Option value={1}>否</Select.Option>
+                </Select>
               </Form.Item>
 
               <Form.Item label="作业人数" name="workPerson">
@@ -180,13 +185,34 @@ export const ModalForm = () => {
             </Space>
 
             <Space style={{ display: "flex" }}>
-              <Form.Item label="备注" name="remark">
+              <PersonSelect label="安全员" name="safePerson" disabled />
+
+              <Form.Item label="安全员职责" name="safeDuty">
                 <Input disabled />
               </Form.Item>
 
+              <Form.Item label="施工负责人职责" name="leaderDuty">
+                <Input disabled />
+              </Form.Item>
+            </Space>
+
+            <Space style={{ display: "flex" }}>
+              <Form.Item label="防疫专员职责" name="preventionDuty">
+                <Input disabled />
+              </Form.Item>
+
+              <PersonSelect label="防疫专员" name="preventionPerson" disabled />
+
+              <Form.Item label="备注" name="remark">
+                <Input disabled />
+              </Form.Item>
+            </Space>
+
+            <Space style={{ display: "flex" }}>
               <Form.Item label="文档">
                 <Upload {...props} style={{ width: "100%" }}></Upload>
               </Form.Item>
+              <div></div>
               <div></div>
             </Space>
           </Form>
@@ -199,12 +225,18 @@ export const ModalForm = () => {
                     size="small"
                     title={item.groupName}
                     className="CardClass"
+                    headStyle={{ color: "#1890ff" }}
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
                   >
                     {item.personList.map((personKey: any) => (
                       <p
                         style={{
                           display: "flex",
-                          justifyContent: "space-around",
+                          alignItems: "center",
                         }}
                       >
                         <img src={userIcon} alt="" />
@@ -217,29 +249,67 @@ export const ModalForm = () => {
                     size="small"
                     title="计划需要的物料"
                     className="CardClass"
+                    extra={<span>数量</span>}
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
                   >
                     {item.planMaterialList.map((jhwl: any) => (
                       <p
                         style={{
                           display: "flex",
-                          justifyContent: "space-around",
+                          justifyContent: "space-between",
                         }}
                       >
-                        <span>{jhwl.name}</span>
+                        <span
+                          style={{
+                            width: "40%",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <Tooltip placement="topLeft" title={jhwl.name}>
+                            {jhwl.name}
+                          </Tooltip>
+                        </span>
                         <span>{jhwl.num}</span>
                       </p>
                     ))}
                   </Card>
 
-                  <Card size="small" title="已归还的工具" className="CardClass">
+                  <Card
+                    size="small"
+                    title="已归还的工具"
+                    className="CardClass"
+                    extra={<span>数量</span>}
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
+                  >
                     {item.groupToolList.map((ghgj: any) => (
                       <p
                         style={{
                           display: "flex",
-                          justifyContent: "space-around",
+                          justifyContent: "space-between",
                         }}
                       >
-                        <span>{ghgj.name}</span>
+                        <span
+                          style={{
+                            width: "40%",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <Tooltip placement="topLeft" title={ghgj.name}>
+                            {ghgj.name}
+                          </Tooltip>
+                        </span>
                         <span>{ghgj.num}</span>
                       </p>
                     ))}
@@ -249,35 +319,93 @@ export const ModalForm = () => {
                     size="small"
                     title="归还的无标签物料/工具"
                     className="CardClass"
+                    extra={<span>数量</span>}
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
                   >
                     {item.groupMaterialList.map((ghwbqgj: any) => (
                       <p
                         style={{
                           display: "flex",
-                          justifyContent: "space-around",
+                          justifyContent: "space-between",
                         }}
                       >
-                        <span>{ghwbqgj.name}</span>
+                        <span
+                          style={{
+                            width: "40%",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <Tooltip placement="topLeft" title={ghwbqgj.name}>
+                            {ghwbqgj.name}
+                          </Tooltip>
+                        </span>
                         <span>{ghwbqgj.num}</span>
                       </p>
                     ))}
                   </Card>
 
-                  <Card size="small" title="遗留物品查看" className="CardClass">
+                  <Card
+                    size="small"
+                    title="遗留物品查看"
+                    className="CardClass"
+                    extra={<span>地址</span>}
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
+                  >
                     {item.legacyToolList.map((ylwpck: any) => (
                       <p
                         style={{
                           display: "flex",
-                          justifyContent: "space-around",
+                          justifyContent: "space-between",
                         }}
                       >
-                        <span>{ylwpck.name}</span>
-                        <span>{ylwpck.address}</span>
+                        <span
+                          style={{
+                            width: "40%",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <Tooltip placement="topLeft" title={ylwpck.name}>
+                            {ylwpck.name}
+                          </Tooltip>
+                        </span>
+                        <span
+                          style={{
+                            width: "40%",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <Tooltip placement="topLeft" title={ylwpck.address}>
+                            {ylwpck.address}
+                          </Tooltip>
+                        </span>
                       </p>
                     ))}
                   </Card>
 
-                  <Card size="small" title="归还图片" className="CardClass">
+                  <Card
+                    size="small"
+                    title="归还图片"
+                    className="CardClass"
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
+                  >
                     {item.photoList.length > 0 ? (
                       <Button
                         type="link"
@@ -289,7 +417,7 @@ export const ModalForm = () => {
                           });
                         }}
                       >
-                        查看
+                        图片
                       </Button>
                     ) : (
                       <div></div>
@@ -300,15 +428,31 @@ export const ModalForm = () => {
                     size="small"
                     title="出清的工具材料"
                     className="CardClass"
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
                   >
                     {item.clearingToolList.map((cqgjcl: any) => (
                       <p
                         style={{
                           display: "flex",
-                          justifyContent: "space-around",
+                          justifyContent: "space-between",
                         }}
                       >
-                        <span>{cqgjcl.toolName}</span>
+                        <span
+                          style={{
+                            width: "40%",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <Tooltip placement="topLeft" title={cqgjcl.toolName}>
+                            {cqgjcl.toolName}
+                          </Tooltip>
+                        </span>
                         <Button
                           type="link"
                           onClick={() =>
@@ -321,7 +465,16 @@ export const ModalForm = () => {
                     ))}
                   </Card>
 
-                  <Card size="small" title="领用图片" className="CardClass">
+                  <Card
+                    size="small"
+                    title="领用图片"
+                    className="CardClass"
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
+                  >
                     {item.receivePhoto.length > 0 ? (
                       <Button
                         type="link"
@@ -333,14 +486,23 @@ export const ModalForm = () => {
                           });
                         }}
                       >
-                        查看
+                        图片
                       </Button>
                     ) : (
                       <div></div>
                     )}
                   </Card>
 
-                  <Card size="small" title="小组照片" className="CardClass">
+                  <Card
+                    size="small"
+                    title="小组照片"
+                    className="CardClass"
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
+                  >
                     {item.photos.length > 0 ? (
                       <Button
                         type="link"
@@ -352,12 +514,15 @@ export const ModalForm = () => {
                           });
                         }}
                       >
-                        查看
+                        图片
                       </Button>
                     ) : (
                       <div></div>
                     )}
                   </Card>
+                  <div></div>
+                  <div></div>
+                  <div></div>
                 </GroupList>
               ))}
             </TabPane>
@@ -572,7 +737,14 @@ const LineTitle = styled.h1`
 
 const GroupList = styled.div`
   display: flex;
-  padding: 5px;
+  // padding: 5px;
   border: 1px solid #eee;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  > * {
+    width: 22%;
+    margin: 20px 0;
+  }
 `;

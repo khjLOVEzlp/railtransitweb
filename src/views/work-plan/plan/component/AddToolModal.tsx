@@ -33,8 +33,8 @@ const PersonList = () => {
 
   useEffect(() => {
     // @ts-ignore
-    setSelectedRowKeys([187]);
-    sessionStorage.setItem("personList", JSON.stringify([{ personId: 187 }]));
+    /* setSelectedRowKeys([187]);
+    sessionStorage.setItem("personList", JSON.stringify([{ personId: 187 }])); */
   }, []);
 
   const onSelectChange = (keys: any, value: any) => {
@@ -46,8 +46,6 @@ const PersonList = () => {
     sessionStorage.setItem("personList", JSON.stringify(personList));
 
     setSelectedRowKeys(keys);
-
-    console.log(keys);
   };
 
   const rowSelection = {
@@ -159,10 +157,13 @@ const Tool = () => {
   const onSelectChange = (keys: any, value: any) => {
     const toolList = value.map((item: any) => {
       return {
-        num: item.count,
+        num: item.newCount,
         toolId: item.id,
       };
     });
+
+    sessionStorage.setItem("toolList", JSON.stringify(toolList));
+
     setSelectedRowKeys(keys);
   };
 
@@ -170,9 +171,9 @@ const Tool = () => {
     selectedRowKeys,
     onChange: onSelectChange,
     preserveSelectedRowKeys: true,
-    // getCheckboxProps: (record: any) => ({
-    //   disabled: record.count === 0,
-    // }),
+    getCheckboxProps: (record: any) => ({
+      disabled: record.count === 0,
+    }),
   };
 
   const handleTableChange = (p: any) => {
@@ -215,17 +216,31 @@ const Tool = () => {
 
 /* 添加物料 */
 
-const Mater = ({ obj, setObj }: any) => {
+const Mater = () => {
   const columns = [
     {
       title: "物料",
       dataIndex: "name",
     },
     {
-      title: "数量",
+      title: "物料数量",
       dataIndex: "count",
-      editable: true,
-      disabled: true,
+    },
+    {
+      title: "需要的物料数量",
+      render: (item: any) => (
+        <>
+          <InputNumber
+            width={120}
+            max={item.count}
+            onChange={(e: any) => {
+              // @ts-ignore
+              setSelectedRowKeys([...selectedRowKeys, item.id]);
+              item.newCount = e;
+            }}
+          />
+        </>
+      ),
     },
   ];
 
@@ -236,60 +251,26 @@ const Mater = ({ obj, setObj }: any) => {
     type: 2,
   });
 
-  const { data, isLoading, isSuccess } = useListBy(useDebounce(param, 500));
-  const { ModalOpen } = useAddToolModal();
-  const [dataSource, setDataSource] = useState<any>([]);
-
+  const { data, isLoading } = useListBy(useDebounce(param, 500));
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [groupMaterialList, setGroupMaterialList] = useState<any>([]);
-
-  useEffect(() => {
-    setObj({
-      ...obj,
-      groupMaterialList: obj?.groupMaterialList,
-    });
-    const groupMaterialList = obj?.groupMaterialList?.map(
-      (key: { [key: string]: unknown }) => key.materialId
-    );
-    setSelectedRowKeys(groupMaterialList);
-  }, [ModalOpen]);
-
-  const start = () => {
-    const list = groupMaterialList;
-    /* list.forEach((key: any) => {
-      key["groupMaterialList"] = true
-    }) */
-    setLoading(true);
-    setTimeout(() => {
-      // setSelectedRowKeys([])
-      setGroupMaterialList(list);
-      sessionStorage.setItem(
-        "groupMaterialList",
-        JSON.stringify(groupMaterialList)
-      );
-      setObj({
-        ...obj,
-        groupMaterialList,
-      });
-      setLoading(false);
-    }, 1000);
-  };
 
   const onSelectChange = (keys: any, value: any) => {
-    value.forEach((key: any) => {
-      key["num"] = key["count"];
-      key["materialId"] = key["id"];
+    const materList = value.map((key: any) => {
+      return {
+        num: key.newCount,
+        materialId: key.id,
+      };
     });
-    setGroupMaterialList(value);
+
+    sessionStorage.setItem("materList", JSON.stringify(materList));
+
     setSelectedRowKeys(keys);
   };
-
-  const hasSelected = selectedRowKeys?.length > 0;
 
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
+    preserveSelectedRowKeys: true,
     getCheckboxProps: (record: any) => ({
       disabled: record.groupMaterialList === true || record.count === 0,
     }),
@@ -298,44 +279,6 @@ const Mater = ({ obj, setObj }: any) => {
   const handleTableChange = (p: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize });
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setDataSource([...data.data]);
-    }
-  }, [isSuccess, data?.data]);
-
-  const handleSave = (row: any) => {
-    const newData = [...dataSource];
-    // @ts-ignore
-    const index = newData.findIndex((item) => row.key === item.key);
-    const item = newData[index];
-    // @ts-ignore
-    newData.splice(index, 1, {
-      // @ts-ignore
-      ...item,
-      ...row,
-    });
-    // @ts-ignore
-    setDataSource([...newData]);
-  };
-
-  const newColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-
-    return {
-      ...col,
-      onCell: (record: any) => ({
-        record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave,
-      }),
-    };
-  });
 
   return (
     <div>
@@ -350,30 +293,14 @@ const Mater = ({ obj, setObj }: any) => {
               }
             />
           </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              onClick={start}
-              disabled={!hasSelected}
-              loading={loading}
-            >
-              确定
-            </Button>
-          </Form.Item>
-          <Form.Item>
-            <span style={{ color: "red" }}>(注意：请勾选数量大于 0 物料)</span>
-          </Form.Item>
         </Form>
-        <span style={{ marginLeft: 8 }}>
-          {hasSelected ? `已选择 ${selectedRowKeys.length} 条` : ""}
-        </span>
       </div>
       <Table
         loading={isLoading}
         rowClassName={() => "editable-row"}
         bordered
-        dataSource={dataSource}
-        columns={newColumns as any}
+        dataSource={data?.data}
+        columns={columns}
         rowKey={(item: any) => item.id}
         rowSelection={rowSelection}
         onChange={handleTableChange}
@@ -440,15 +367,24 @@ export const AddToolModal = ({ groupIndex }: { groupIndex: number }) => {
     setState(key);
   };
 
-  const onFinish = () => {
-    if (bootData()) {
-      let newObj = groupList;
-      newObj.splice(groupIndex, 1, obj);
-      setGroupList(newObj);
-    } else {
-      setGroupList([...groupList, obj]);
-    }
+  // const onFinish = () => {
+  //   if (bootData()) {
+  //     let newObj = groupList;
+  //     newObj.splice(groupIndex, 1, obj);
+  //     setGroupList(newObj);
+  //   } else {
+  //     setGroupList([...groupList, obj]);
+  //   }
+  //   closeModal();
+  // };
 
+  const onFinish = (value: any) => {
+    const personList = JSON.parse(sessionStorage.getItem("personList") || "[]")
+    const groupToolList = JSON.parse(sessionStorage.getItem("toolList") || "[]")
+    const groupMaterialList = JSON.parse(sessionStorage.getItem("materList") || "[]")
+    const newGroupList = [{ ...value, personList, groupToolList, groupMaterialList }];
+
+    setGroupList([...groupList, ...newGroupList])
     closeModal();
   };
 
@@ -502,52 +438,10 @@ export const AddToolModal = ({ groupIndex }: { groupIndex: number }) => {
         </TabPane>
         <TabPane tab="作业工具" key="3">
           <Tool />
-          {/* <EditableTable /> */}
         </TabPane>
         <TabPane tab="作业物料" key="4">
-          <Mater setState={setState} setObj={setObj} obj={obj} />
+          <Mater />
         </TabPane>
-
-        {/* <TabPane tab="人物详情" key="1">
-          <List>
-            {
-              obj?.personList && obj?.personList.length > 0 ? <div style={flex}>作业组员：</div> : undefined
-            }
-
-            {
-              obj?.personList ? obj?.personList.map((key: any) => (
-                <List.Item>
-                  {key.name}
-                </List.Item>
-              )) : ""
-            }
-
-            {
-              obj?.groupToolList && obj?.groupToolList.length > 0 ? <div style={flex}>作业工具：</div> : undefined
-            }
-            {
-              obj?.groupToolList ? obj?.groupToolList.map((key: any) => (
-                <List.Item>
-                  <span>{key.name}</span>
-                  <span>{key.count}</span>
-                </List.Item>
-              )) : ""
-            }
-
-            {
-              obj?.groupMaterialList && obj?.groupMaterialList.length > 0 ? <div style={flex}>作业物料：</div> : undefined
-            }
-
-            {
-              obj?.groupMaterialList ? obj?.groupMaterialList.map((key: any) => (
-                <List.Item>
-                  <span>{key.name}</span>
-                  <span>{key.count}</span>
-                </List.Item>
-              )) : ""
-            }
-          </List>
-        </TabPane> */}
       </Tabs>
     </Modal>
   );

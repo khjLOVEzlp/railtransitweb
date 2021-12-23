@@ -16,7 +16,7 @@ import yilou from "assets/alert/遗漏.png";
 import yiqing from "assets/alert/疫情.png";
 const { Option } = Select;
 
-const getType = (type: number) => {
+export const getType = (type: number) => {
   switch (type) {
     case 1:
       return {
@@ -110,7 +110,7 @@ const stateList = [
     value: "4",
   },
   {
-    name: "疫请",
+    name: "疫情",
     value: "5",
   },
   {
@@ -320,6 +320,10 @@ export const Alarm = () => {
         content,
       ]);
     }
+    if (value === "8") {
+      setAlarmType([content, warnTime, type]);
+    }
+
     if (value === "11") {
       setAlarmType([workName, type, warnTime, content]);
     }
@@ -370,6 +374,9 @@ export const Alarm = () => {
         warnTime,
         content,
       ]);
+    }
+    if (String(value) === "8") {
+      setAlarmType([content, warnTime, type]);
     }
     if (String(value) === "11") {
       setAlarmType([workName, type, warnTime, content]);

@@ -66,36 +66,42 @@ export const WorkManage = () => {
               dataIndex: "name",
               key: "name",
               className: "hb",
+              ellipsis: true,
             },
             {
               title: "计划执行时间",
               dataIndex: "beginTime",
               key: "beginTime",
               className: "hb",
+              ellipsis: true,
             },
             {
               title: "负责人",
               dataIndex: "leaderName",
               key: "leaderName",
               className: "hb",
+              ellipsis: true,
             },
             {
               title: "线路",
               key: "lineName",
               dataIndex: "lineName",
               className: "hb",
+              ellipsis: true,
             },
             {
               title: "备注",
               dataIndex: "remark",
               key: "remark",
               className: "hb",
+              ellipsis: true,
             },
             {
               title: "操作",
               key: "id",
               align: "center",
               className: "hb",
+              ellipsis: true,
               render: (item) => (
                 <>
                   <Button type={"link"} onClick={() => startEdit(item.id)}>
@@ -109,7 +115,7 @@ export const WorkManage = () => {
             total: data?.count,
             current: param.index,
             pageSize: param.size,
-            hideOnSinglePage: true
+            hideOnSinglePage: true,
           }}
           onChange={handleTableChange}
           dataSource={data?.data}

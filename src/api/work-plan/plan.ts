@@ -79,7 +79,9 @@ export const usePlanWorkDetail = (id?: number) => {
 /* 根据线路id获取站点 */
 export const useSite = (id?: number) => {
   const client = useHttp()
-  return useQuery(['plan', id], () => client(`linePlatform/allList?lineId=${id}`, { method: "POST" }))
+  return useQuery(['plan', id], () => client(`linePlatform/allList?lineId=${id}`, { method: "POST" }), {
+    enabled: Boolean(id)
+  })
 }
 
 /* 发布计划 */

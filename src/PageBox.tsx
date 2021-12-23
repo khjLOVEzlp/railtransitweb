@@ -146,7 +146,7 @@ export const PageBox = () => {
               )}
             </div>
 
-            <div className="placeholder" style={{margin: "0 400px"}}></div>
+            <div className="placeholder" style={{ margin: "0 400px" }}></div>
 
             <div className="right">
               {menu?.find((item: any) => item.name === "库存管理") ? (
@@ -266,8 +266,9 @@ const User = () => {
         message.success("修改成功，请重新登陆");
         setVisible(false);
         setTimeout(() => {
-          sessionStorage.clear()
-          navigate("/login")
+          sessionStorage.clear();
+          logout();
+          navigate("/login");
         }, 3000);
       })
       .catch((error) => {

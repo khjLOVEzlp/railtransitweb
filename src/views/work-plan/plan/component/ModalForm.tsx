@@ -154,7 +154,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
         message.error(`${info.file.name} 上传失败`);
       }
     },
-    defaultFileList: isSuccess && editingPlanWork?.data.documentList,
+    defaultFileList: editingPlanWork?.data?.documentList,
   };
 
   const onOk = () => {
@@ -221,7 +221,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
                   <Input />
                 </Form.Item>
 
-                <Form.Item label="作业班别" name="departmentId" rules={rules}>
+                <Form.Item label="作业部门" name="departmentId" rules={rules}>
                   <TreeSelect
                     getPopupContainer={(triggerNode) =>
                       triggerNode.parentElement

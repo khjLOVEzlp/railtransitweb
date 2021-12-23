@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useAuth } from "../context/auth-context";
 import { message } from "antd";
+import { logout } from "auth-provider";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -34,7 +35,9 @@ export const http = async (
       if (response.status === 401) {
         message.error("权限不足，请重新登陆")
         // await setTimeout(() => auth.logout(), 3000)
-        return Promise.reject({ message: "请重新登录" });
+        return Promise.reject({ message: "请重新登录" }).then(() => {
+          logout()
+        })
       }
 
       if (response.status === 404) {

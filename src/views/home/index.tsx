@@ -77,17 +77,17 @@ export const Home = () => {
             </div>
 
             <div className="main">
-              <Title>
-                <p>计划统计</p>{" "}
+            <Title>
+                <p>作业统计</p>{" "}
               </Title>
-              <PlanWorkPage show={show} />
+              <PlanType show={show} />
             </div>
 
             <div>
-              <Title>
-                <p>作业统计</p>{" "}
+            <Title>
+                <p>计划统计</p>{" "}
               </Title>
-              <PlanType />
+              <PlanWorkPage show={show} />
             </div>
           </Left>
         ) : (
@@ -178,8 +178,9 @@ const Left = styled.div`
   flex-direction: column;
   background: #00225c;
   > * {
-    flex: 1;
-    height: 100%;
+    // flex: 1;
+    // height: 100%;
+    height: 33.33%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;

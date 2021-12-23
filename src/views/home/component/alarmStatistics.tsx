@@ -9,6 +9,7 @@ import {
   useAlarmPagination,
   useAlarmStatistics,
 } from "api/home/alarm-statistics";
+import { getType } from "views/alarm";
 
 const DemoPie = ({ show }: { show: boolean }) => {
   const { data: alarmStatistics } = useAlarmStatistics();
@@ -103,6 +104,78 @@ const DemoPie = ({ show }: { show: boolean }) => {
 export default DemoPie;
 
 const OpenModal = () => {
+  const workName = {
+    title: "作业名称",
+    dataIndex: "workName",
+    key: "workName",
+    ellipsis: true,
+    className: "hb",
+  };
+
+  const type = {
+    title: "告警类型",
+    key: "type",
+    render: (item: any) => <>{getType(item.type)?.name}</>,
+    ellipsis: true,
+    className: "hb",
+  };
+
+  const toolName = {
+    title: "工具名称",
+    dataIndex: "toolName",
+    key: "toolName",
+    ellipsis: true,
+    className: "hb",
+  };
+
+  const groupName = {
+    title: "小组名称",
+    dataIndex: "groupName",
+    key: "groupName",
+    ellipsis: true,
+    className: "hb",
+  };
+
+  const relieveTime = {
+    title: "解除时间",
+    dataIndex: "relieveTime",
+    key: "relieveTime",
+    ellipsis: true,
+    className: "hb",
+  };
+
+  const labelNum = {
+    title: "设备标签",
+    dataIndex: "labelNum",
+    key: "labelNum",
+    ellipsis: true,
+    className: "hb",
+  };
+
+  const personName = {
+    title: "人员",
+    dataIndex: "personName",
+    key: "personName",
+    ellipsis: true,
+    className: "hb",
+  };
+
+  const warnTime = {
+    title: "告警时间",
+    dataIndex: "warnTime",
+    key: "warnTime",
+    ellipsis: true,
+    className: "hb",
+  };
+
+  const content = {
+    title: "告警内容",
+    dataIndex: "content",
+    key: "content",
+    ellipsis: true,
+    className: "hb",
+  };
+
   const { alarmId } = useHomeContext();
   const { ModalOpen, close } = useAlarmModal();
   const [param, setParam] = useState({
@@ -111,52 +184,67 @@ const OpenModal = () => {
     type: "",
   });
 
+  const [alarmType, setAlarmType] = useState<any>([]);
+
   const { data: Alarm, isLoading } = useAlarmPagination(
     useDebounce({ ...param, type: alarmId }, 500)
   );
 
-  const columns = [
-    {
-      title: "作业名称",
-      dataIndex: "workName",
-    },
-    {
-      title: "工具名称",
-      dataIndex: "toolName",
-    },
-    {
-      title: "小组名称",
-      dataIndex: "groupName",
-    },
-    {
-      title: "创建时间",
-      dataIndex: "warnTime",
-    },
-    {
-      title: "解除时间",
-      dataIndex: "relieveTime",
-    },
-    {
-      title: "标签编号",
-      dataIndex: "labelNum",
-    },
-    {
-      title: "人员",
-      dataIndex: "personName",
-    },
-    {
-      title: "告警时间",
-      dataIndex: "createTime",
-    },
-    {
-      title: "告警内容",
-      dataIndex: "content",
-    },
-  ];
-
   const handleTableChange = (p: any, filters: any, sorter: any) => {
     setParam({ ...param, index: p.current, size: p.pageSize });
   };
+
+  useEffect(() => {
+    switch (alarmId) {
+      case 2:
+        setAlarmType([workName, type, groupName, warnTime, content]);
+        break;
+
+      case 3:
+        setAlarmType([workName, type, groupName, warnTime, content]);
+        break;
+
+      case 4:
+        setAlarmType([workName, type, groupName, warnTime, content]);
+        break;
+
+      case 5:
+        setAlarmType([workName, type, personName, warnTime, content]);
+        break;
+
+      case 6:
+        setAlarmType([workName, type, personName, warnTime, content]);
+        break;
+
+      case 7:
+        setAlarmType([
+          workName,
+          type,
+          toolName,
+          groupName,
+          relieveTime,
+          labelNum,
+          warnTime,
+          content,
+        ]);
+        break;
+
+      case 8:
+        setAlarmType([content, warnTime, type]);
+        break;
+
+      case 11:
+        setAlarmType([workName, type, warnTime, content]);
+        break;
+
+      case 12:
+        setAlarmType([workName, type, groupName, warnTime, content]);
+        break;
+
+      default:
+        break;
+    }
+  }, [alarmId]);
 
   return (
     <Modal
@@ -168,7 +256,7 @@ const OpenModal = () => {
       width={1600}
     >
       <Table
-        columns={columns}
+        columns={alarmType}
         dataSource={Alarm?.data}
         pagination={{
           total: Alarm?.count,

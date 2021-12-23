@@ -20,8 +20,8 @@ const PlanWorkPage = ({ show }: { show: boolean }) => {
     tooltip: {},
     animation: false,
     grid: {
-      top: "25%",
-      bottom: "10%", //也可设置left和right设置距离来控制图表的大小
+      top: "15%",
+      bottom: "20%", //也可设置left和right设置距离来控制图表的大小
     },
     xAxis: {
       data: xLabel,

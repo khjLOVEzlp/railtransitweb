@@ -49,7 +49,7 @@ export const ShareModalForm = ({ status }: { status: number | undefined }) => {
     });
   };
 
-  const disible = status === 3
+  const disible = status === 3 || editingPlanWork?.data["已发布"].length === 0
 
   return (
     <Modal

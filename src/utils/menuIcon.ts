@@ -137,6 +137,10 @@ export const menuIcon = (menuList: any) => {
         item["icon"] = DatabaseOutlined
         break;
 
+        case "app":
+        item["icon"] = ArrowUpOutlined
+        break;
+
       case "materialType":
         item["icon"] = ToolOutlined
         break;

@@ -10,6 +10,7 @@ import { MenuRender } from './child/menu'
 import { Department } from "./child/department";
 import { DataDictionary } from "./child/dataDictionary";
 import { Line } from "./child/line";
+import { AppUpdate } from "./child/app";
 import { useAuth } from "context/auth-context";
 import { SiderMenu } from "components/SiderMenu";
 import { menuIcon } from "utils/menuIcon";
@@ -71,6 +72,7 @@ export const System = () => {
               <Route path={"/department"} element={<Department />} />
               <Route path={"/dataDictionary"} element={<DataDictionary />} />
               <Route path={"/line"} element={<Line />} />
+              <Route path={"/app"} element={<AppUpdate />} />
               <Navigate to={window.location.pathname + "/" + menuList[0].url} replace={true} />
             </Routes>
           </ModalProvider>

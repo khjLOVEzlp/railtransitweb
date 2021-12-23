@@ -68,10 +68,6 @@ export const ModalForm = ({ param, setParam }: Props) => {
     },
   ])
 
-  /* const onCheck = (checkedKeys: any) => {
-    form.setFieldsValue({ menuList: checkedKeys })
-  }; */
-
   const onCheck = (checkedKeysValue: any, e: any) => {
     if (!editingRole) {
       const data = [...e.halfCheckedKeys, ...checkedKeysValue]
