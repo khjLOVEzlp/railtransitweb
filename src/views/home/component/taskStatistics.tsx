@@ -87,7 +87,7 @@ const PlanWorkPage = ({ show }: { show: boolean }) => {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               {
                 offset: 0,
-                color: "#07ecd9",
+                color: "#1B81FF",
               },
               {
                 offset: 1,
@@ -104,7 +104,7 @@ const PlanWorkPage = ({ show }: { show: boolean }) => {
           position: "top",
           distance: 10,
           fontSize: 16,
-          color: "#01fff4",
+          color: "#62C4E9",
         },
       },
       {

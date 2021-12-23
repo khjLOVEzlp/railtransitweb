@@ -7,44 +7,51 @@ import { useLine } from "api/home/subway";
 
 export const Subway = () => {
   const { data: lineList, isSuccess, isLoading } = useLine();
-  // const { data: subwayList, isSuccess:success } = useSubwayList()
 
   const client = useHttp();
   if (isSuccess) {
-    // @ts-ignore
-    let newData: any = subwaylist.filter((v) =>
-      lineList.data.find((vi: { [key: string]: unknown }) => vi.name === v.name)
+    // 根据接口返回路线展示对应路线
+    const newData = subwaylist.filter((item) =>
+      lineList.data.find((key: any) => item.name === key.name)
     );
 
-    newData.forEach((item: any, index: number) => {
-      if (lineList.data.find((v: any) => v.name === item.name)) {
-        item.stations.forEach((key: any, i: number) => {
-          if (
-            lineList.data[index]["platformList"].find(
-              (vi: any) => vi.name === key["name"]
-            )
-          ) {
-            key["subwayId"] = lineList.data[index]["platformList"].find(
-              (vi: any) => vi.name === key["name"]
-            ).id;
-          }
+    // 给每条路线下面的站点加上subwayId
+    const platformSubwayId = newData.map((item: any, index) => {
+      lineList.data.find((key: any) => item.name === key.name) &&
+        item.stations.forEach((v: any) => {
+          v["subwayId"] = lineList.data
+            .find((a: any) => a.name === item.name)
+            ["platformList"].find((vi: any) => vi.name === v.name)?.id;
         });
-      }
+      return item;
     });
 
-    newData.forEach((item: any, index: number) => {
+    // 给线路添加鼠标移上展示的数据
+    platformSubwayId.forEach((item: any, index: number) => {
       item.tooltip.formatter = `{b}
-      <br />人数：${lineList?.data[index].personCount || "0"}
-      <br />班别数：${lineList?.data[index].classCount || "0"}
-      <br />仓库数：${lineList?.data[index].warehouseCount || "0"}
-      <br />站台数：${lineList?.data[index].platformCount || "0"}
+      <br />人数：${
+        lineList.data.find((key: any) => key.name === item.name).personCount ||
+        "0"
+      }
+      <br />班别数：${
+        lineList.data.find((key: any) => key.name === item.name).classCount ||
+        "0"
+      }
+      <br />仓库数：${
+        lineList.data.find((key: any) => key.name === item.name)
+          .warehouseCount || "0"
+      }
+      <br />站台数：${
+        lineList.data.find((key: any) => key.name === item.name)
+          .platformCount || "0"
+      }
       <br />`;
       item.tooltip.alwaysShowContent = true;
     });
 
     var newlist: any = [];
 
-    newData.forEach((v: { [key: string]: [] }) => {
+    platformSubwayId.forEach((v: { [key: string]: [] }) => {
       newlist = [
         ...newlist,
         {
@@ -181,21 +188,21 @@ export const Subway = () => {
     myEcharts.setOption(option);
 
     myEcharts.on("mouseover", (params: any) => {
-      if (params.data.subwayId) {
-        client(`linePlatform/getInfo/${params.data.subwayId}`).then(
-          async (res) => {
-            const data = await res.data;
-            params.data.tooltip.formatter = `{b}<br />班别：${
-              data[0]?.departmentName || "无"
-            }<br />区间：${data[0]?.roadName || "无"}<br />材料数量：${
-              data[0]?.count || "0"
-            }`;
-          }
-        );
-      } else if (params.data.tooltip) {
-        params.data.tooltip.formatter = `{b}<br />班别：无<br />区间：无<br />材料数量：0`;
-      } else {
-        return false;
+      if (params.data.symbol) {
+        if (params.data.subwayId) {
+          client(`linePlatform/getInfo/${params.data.subwayId}`).then(
+            async (res) => {
+              const data = await res.data;
+              params.data.tooltip.formatter = `{b}<br />班别：${
+                data[0]?.departmentName || "无"
+              }<br />区间：${data[0]?.roadName || "无"}<br />材料数量：${
+                data[0]?.count || "0"
+              }`;
+            }
+          );
+        } else {
+          params.data.tooltip.formatter = `{b}<br />班别：无<br />区间：无<br />材料数量：0`;
+        }
       }
     });
 
@@ -214,33 +221,7 @@ export const Subway = () => {
   return (
     <>
       {isLoading && <FullPageLoading />}
-
       <div id="subway" style={{ height: "100%", width: "100%" }} ref={refs} />
-
-      {/* <Modal
-        width={300}
-        footer={false}
-        visible={visible}
-        onCancel={onClose}
-      >
-        {
-          isLoading ? (
-            <Spin />
-          ) : (
-            <div>
-              {
-                lineStatistics?.data.map((item: any) => (
-                  <div>
-                    <p>班别：{item.departmentName}</p>
-                    <p>区间：{item.roadName}</p>
-                    <p>材料数量：{item.count}</p>
-                  </div>
-                ))
-              }
-            </div>
-          )
-        }
-      </Modal> */}
     </>
   );
 };

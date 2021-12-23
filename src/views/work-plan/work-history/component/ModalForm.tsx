@@ -453,14 +453,6 @@ export const ModalForm = () => {
                             {cqgjcl.toolName}
                           </Tooltip>
                         </span>
-                        <Button
-                          type="link"
-                          onClick={() =>
-                            setPic({ ...pic, id: cqgjcl.pic, show: true })
-                          }
-                        >
-                          图片
-                        </Button>
                       </p>
                     ))}
                   </Card>
@@ -520,7 +512,34 @@ export const ModalForm = () => {
                       <div></div>
                     )}
                   </Card>
-                  <div></div>
+
+                  <Card
+                    size="small"
+                    title="出清的拍照"
+                    className="CardClass"
+                    bodyStyle={{
+                      minHeight: "200px",
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    }}
+                  >
+                    {item.clearingPhoto.length > 0 ? (
+                      <Button
+                        type="link"
+                        onClick={() => {
+                          setVisible({
+                            ...visible,
+                            show: true,
+                            photoList: item.clearingPhoto,
+                          });
+                        }}
+                      >
+                        图片
+                      </Button>
+                    ) : (
+                      <div></div>
+                    )}
+                  </Card>
                   <div></div>
                   <div></div>
                 </GroupList>
