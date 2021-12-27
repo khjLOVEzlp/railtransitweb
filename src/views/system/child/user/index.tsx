@@ -91,7 +91,7 @@ export const User = () => {
       });
   };
 
-  const onSelectChange = (keys: any, value: any) => {
+  const onSelectChange = (keys: any) => {
     setSelectedRowKeys(keys);
   };
 

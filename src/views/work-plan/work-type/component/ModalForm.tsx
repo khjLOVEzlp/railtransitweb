@@ -27,20 +27,15 @@ const Tool = () => {
     },
     {
       title: "工具数量",
-      dataIndex: "count",
-    },
-    {
-      title: "需要的工具数量",
       render: (item: any) => (
-        <>
-          <InputNumber
-            width={120}
-            min={0}
-            onChange={(e: any) => {
-              item.newCount = e;
-            }}
-          />
-        </>
+        <InputNumber
+          defaultValue={item.count}
+          width={120}
+          min={0}
+          onChange={(e: any) => {
+            item.count = e;
+          }}
+        />
       ),
     },
   ];
@@ -58,13 +53,13 @@ const Tool = () => {
   useEffect(() => {
     const toolList = JSON.parse(sessionStorage.getItem("toolList") || "[]");
     const ids = toolList.map((item: any) => item.toolId);
-    setSelectedRowKeys(ids)
+    setSelectedRowKeys(ids);
   }, [data]);
 
   const onSelectChange = (keys: any, value: any) => {
     const toolList = value.map((item: any) => {
       return {
-        num: item.newCount,
+        num: item.count,
         toolId: item.id,
       };
     });
@@ -130,17 +125,14 @@ const Mater = () => {
     },
     {
       title: "物料数量",
-      dataIndex: "count",
-    },
-    {
-      title: "需要的物料数量",
       render: (item: any) => (
         <>
           <InputNumber
+            defaultValue={item.count}
             width={120}
             min={0}
             onChange={(e: any) => {
-              item.newCount = e;
+              item.count = e;
             }}
           />
         </>
@@ -158,16 +150,16 @@ const Mater = () => {
   const { data, isLoading } = useListBy(useDebounce(param, 500));
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  const materialList = JSON.parse(
-    sessionStorage.getItem("materialList") || "[]"
-  );
-
-  setSelectedRowKeys(materialList.map((item: any) => item.materialId));
+  useEffect(() => {
+    const material = JSON.parse(sessionStorage.getItem("materialList") || "[]");
+    const ids = material.map((item: any) => item.materialId);
+    setSelectedRowKeys(ids);
+  }, [data]);
 
   const onSelectChange = (keys: any, value: any) => {
     const materialList = value.map((key: any) => {
       return {
-        num: key.newCount,
+        num: key.count,
         materialId: key.id,
       };
     });

@@ -31,10 +31,14 @@ const PersonList = () => {
   const { data, isLoading } = usePersonList.useAllList(useDebounce(param, 500));
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
+  const groupPersonList = JSON.parse(
+    sessionStorage.getItem("group") || "{}"
+  ).groupPersonList;
+
   useEffect(() => {
-    // @ts-ignore
-    /* setSelectedRowKeys([187]);
-    sessionStorage.setItem("personList", JSON.stringify([{ personId: 187 }])); */
+    if (groupPersonList) {
+      setSelectedRowKeys(groupPersonList.map((item: any) => item.personId));
+    }
   }, []);
 
   const onSelectChange = (keys: any, value: any) => {
@@ -114,7 +118,6 @@ const PersonList = () => {
 };
 
 /* 添加工具 */
-
 const Tool = () => {
   const columns = [
     {
@@ -133,8 +136,6 @@ const Tool = () => {
             width={120}
             max={item.count}
             onChange={(e: any) => {
-              // @ts-ignore
-              setSelectedRowKeys([...selectedRowKeys, item.id]);
               item.newCount = e;
             }}
           />
@@ -153,6 +154,16 @@ const Tool = () => {
   const { data, isLoading } = useListBy(useDebounce(param, 500));
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  const toolListDetail = JSON.parse(
+    sessionStorage.getItem("group") || "{}"
+  ).groupToolList;
+
+  useEffect(() => {
+    if (toolListDetail) {
+      setSelectedRowKeys(toolListDetail.map((item: any) => item.toolId));
+    }
+  }, []);
 
   const onSelectChange = (keys: any, value: any) => {
     const toolList = value.map((item: any) => {
@@ -215,7 +226,6 @@ const Tool = () => {
 };
 
 /* 添加物料 */
-
 const Mater = () => {
   const columns = [
     {
@@ -379,12 +389,18 @@ export const AddToolModal = ({ groupIndex }: { groupIndex: number }) => {
   // };
 
   const onFinish = (value: any) => {
-    const personList = JSON.parse(sessionStorage.getItem("personList") || "[]")
-    const groupToolList = JSON.parse(sessionStorage.getItem("toolList") || "[]")
-    const groupMaterialList = JSON.parse(sessionStorage.getItem("materList") || "[]")
-    const newGroupList = [{ ...value, personList, groupToolList, groupMaterialList }];
+    const personList = JSON.parse(sessionStorage.getItem("personList") || "[]");
+    const groupToolList = JSON.parse(
+      sessionStorage.getItem("toolList") || "[]"
+    );
+    const groupMaterialList = JSON.parse(
+      sessionStorage.getItem("materList") || "[]"
+    );
+    const newGroupList = [
+      { ...value, personList, groupToolList, groupMaterialList },
+    ];
 
-    setGroupList([...groupList, ...newGroupList])
+    setGroupList([...groupList, ...newGroupList]);
     closeModal();
   };
 

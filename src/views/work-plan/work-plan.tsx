@@ -9,6 +9,7 @@ import { SiderMenu } from "components/SiderMenu";
 import { menuIcon } from "utils/menuIcon";
 import { PlanWork } from "./plan";
 import { WorkManage } from "./work-history";
+import { TabsView } from "components/TabsView";
 const { Content } = Layout;
 
 const PlanContext = createContext<{
@@ -38,6 +39,7 @@ export const Plan = () => {
         <Content style={{ marginLeft: '0.5rem', display: "flex", flexDirection: "column", height: "100%" }}>
           <PlanContext.Provider value={{ groupList, setGroupList, visible, setVisible, editId, setEditId, detailVisible, setDetailVisible }}>
             {/* <Outlet /> */}
+            {/* <TabsView tabList={menuList} /> */}
             <Routes>
               <Route path={"/planWork"} element={<PlanWork />} />
               <Route path={"/workManage"} element={<WorkManage />} />

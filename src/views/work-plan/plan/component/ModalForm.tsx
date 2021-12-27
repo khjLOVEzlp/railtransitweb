@@ -28,8 +28,6 @@ import { PersonSelect } from "components/PersonSelect";
 import ic from "assets/n/main-jihua-addicon1.png";
 import group from "assets/n/main-jihua-addicon6.png";
 import remark from "assets/n/main-jihua-addicon5.png";
-import bott from "assets/n/main-jihua-addicon3j2.png";
-import to from "assets/n/main-jihua-addicon3j.png";
 
 import styled from "@emotion/styled";
 import { useLine } from "api/home/subway";
@@ -50,7 +48,6 @@ type Props = {
 
 // 新增修改
 export const ModalForm = ({ param, setParam }: Props) => {
-  const [show, setShow] = useState(true);
   const { groupList, setGroupList } = usePlanContext();
   const [groupIndex, setGroupIndex] = useState<any>();
   const [form] = Form.useForm();
@@ -74,7 +71,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
   const { mutateAsync, isLoading: mutateLoading } = useMutateProject();
 
   const closeModal = () => {
-    setId(undefined)
+    setId(undefined);
     setGroupList([]);
     form.resetFields();
     close();
@@ -86,7 +83,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
     mutateAsync({
       ...editingPlanWork?.data,
       ...value,
-      documentList:document,
+      documentList: document,
       groupList: groupList,
       dateTime: moment(dateTime).format("YYYY-MM-DD"),
       beginTime: moment(beginTime).format("YYYY-MM-DD HH:mm:ss"),
@@ -117,7 +114,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
     if (editingPlanWork) {
       document = editingPlanWork?.data.documentList.map(
         (key: any) => key.documentId + ""
-      )
+      );
       setId(editingPlanWork?.data.lineId);
       setGroupList(editingPlanWork?.data.groupList);
       form.setFieldsValue({
@@ -193,13 +190,7 @@ export const ModalForm = ({ param, setParam }: Props) => {
           <img src={ic} alt="" />
           <span>计划基本信息</span>
         </div>
-        <div className="right">
-          {show ? (
-            <img src={bott} alt="" onClick={() => setShow(!show)} />
-          ) : (
-            <img src={to} alt="" onClick={() => setShow(!show)} />
-          )}
-        </div>
+        <div className="right"></div>
       </LineTitle>
       <Divider />
       {isLoading ? (
@@ -214,161 +205,138 @@ export const ModalForm = ({ param, setParam }: Props) => {
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 14 }}
         >
-          {show ? (
-            <>
-              <Space style={{ display: "flex" }}>
-                <Form.Item label="计划名称" name="name" rules={rules}>
-                  <Input />
-                </Form.Item>
+          <Space style={{ display: "flex" }}>
+            <Form.Item label="计划名称" name="name" rules={rules}>
+              <Input />
+            </Form.Item>
 
-                <Form.Item label="作业部门" name="departmentId" rules={rules}>
-                  <TreeSelect
-                    getPopupContainer={(triggerNode) =>
-                      triggerNode.parentElement
-                    }
-                    showSearch
-                    style={{ width: "100%" }}
-                    treeData={departmentList?.data}
-                  />
-                </Form.Item>
+            <Form.Item label="作业部门" name="departmentId" rules={rules}>
+              <TreeSelect
+                getPopupContainer={(triggerNode) => triggerNode.parentElement}
+                showSearch
+                style={{ width: "100%" }}
+                treeData={departmentList?.data}
+              />
+            </Form.Item>
 
-                <PersonSelect
-                  label="施工负责人"
-                  name="leaderPerson"
-                  rul={true}
-                />
-              </Space>
+            <PersonSelect label="施工负责人" name="leaderPerson" rul={true} />
+          </Space>
 
-              <Space style={{ display: "flex" }}>
-                <Form.Item label="线路" name="lineId" rules={rules}>
-                  <Select
-                    style={{ width: "100%" }}
-                    showSearch
-                    getPopupContainer={(triggerNode) =>
-                      triggerNode.parentElement
-                    }
-                    filterOption={(input, option: any) =>
-                      option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                    onChange={onGenderChange}
-                  >
-                    {lineLIst?.data.map((item: any, index: number) => (
-                      <Option value={item.id} key={index}>
-                        {item.name}
-                      </Option>
-                    ))}
-                  </Select>
-                </Form.Item>
+          <Space style={{ display: "flex" }}>
+            <Form.Item label="线路" name="lineId" rules={rules}>
+              <Select
+                style={{ width: "100%" }}
+                showSearch
+                getPopupContainer={(triggerNode) => triggerNode.parentElement}
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+                onChange={onGenderChange}
+              >
+                {lineLIst?.data.map((item: any, index: number) => (
+                  <Option value={item.id} key={index}>
+                    {item.name}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
 
-                <Form.Item label="作业区域" name="workAddr" rules={rules}>
-                  <Input />
-                </Form.Item>
+            <Form.Item label="作业区域" name="workAddr" rules={rules}>
+              <Input />
+            </Form.Item>
 
-                <Form.Item label="请站点" name="pleaseStand" rules={rules}>
-                  <Select
-                    getPopupContainer={(triggerNode) =>
-                      triggerNode.parentElement
-                    }
-                    style={{ width: "100%" }}
-                    showSearch
-                    filterOption={(input, option: any) =>
-                      option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                  >
-                    {allList?.data.map((item: any, index: number) => (
-                      <Option value={item.id} key={index}>
-                        {item.name}
-                      </Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-              </Space>
+            <Form.Item label="请站点" name="pleaseStand" rules={rules}>
+              <Select
+                getPopupContainer={(triggerNode) => triggerNode.parentElement}
+                style={{ width: "100%" }}
+                showSearch
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                {allList?.data.map((item: any, index: number) => (
+                  <Option value={item.id} key={index}>
+                    {item.name}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Space>
 
-              <Space style={{ display: "flex" }}>
-                <Form.Item label="销站点" name="pinStand" rules={rules}>
-                  <Select
-                    style={{ width: "100%" }}
-                    showSearch
-                    getPopupContainer={(triggerNode) =>
-                      triggerNode.parentElement
-                    }
-                    filterOption={(input, option: any) =>
-                      option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                  >
-                    {allList?.data.map((item: any, index: number) => (
-                      <Option value={item.id} key={index}>
-                        {item.name}
-                      </Option>
-                    ))}
-                  </Select>
-                </Form.Item>
+          <Space style={{ display: "flex" }}>
+            <Form.Item label="销站点" name="pinStand" rules={rules}>
+              <Select
+                style={{ width: "100%" }}
+                showSearch
+                getPopupContainer={(triggerNode) => triggerNode.parentElement}
+                filterOption={(input, option: any) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                {allList?.data.map((item: any, index: number) => (
+                  <Option value={item.id} key={index}>
+                    {item.name}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
 
-                <Form.Item label="作业类型" name="typeList" rules={rules}>
-                  <Select
-                    style={{ width: "100%" }}
-                    allowClear
-                    mode="multiple"
-                    getPopupContainer={(triggerNode) =>
-                      triggerNode.parentElement
-                    }
-                  >
-                    {planTypeList?.data.map((item: any, index: number) => (
-                      <Option value={item.id} key={index}>
-                        {item.type}
-                      </Option>
-                    ))}
-                  </Select>
-                </Form.Item>
+            <Form.Item label="作业类型" name="typeList" rules={rules}>
+              <Select
+                style={{ width: "100%" }}
+                allowClear
+                mode="multiple"
+                getPopupContainer={(triggerNode) => triggerNode.parentElement}
+              >
+                {planTypeList?.data.map((item: any, index: number) => (
+                  <Option value={item.id} key={index}>
+                    {item.type}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
 
-                <Form.Item
-                  label="开始时间"
-                  name="beginTime"
-                  rules={rules}
-                  style={{ width: "100%" }}
-                >
-                  <DatePicker
-                    getPopupContainer={(triggerNode) => triggerNode}
-                    style={{ width: "100%" }}
-                    showTime
-                    locale={locale}
-                    format={"YYYY-MM-DD HH:mm:ss"}
-                    placeholder="开始时间"
-                  />
-                </Form.Item>
-              </Space>
+            <Form.Item
+              label="开始时间"
+              name="beginTime"
+              rules={rules}
+              style={{ width: "100%" }}
+            >
+              <DatePicker
+                getPopupContainer={(triggerNode) => triggerNode}
+                style={{ width: "100%" }}
+                showTime
+                locale={locale}
+                format={"YYYY-MM-DD HH:mm:ss"}
+                placeholder="开始时间"
+              />
+            </Form.Item>
+          </Space>
 
-              <Space style={{ display: "flex" }}>
-                <Form.Item
-                  label="结束时间"
-                  name="endTime"
-                  rules={rules}
-                  style={{ width: "100%" }}
-                >
-                  <DatePicker
-                    getPopupContainer={(triggerNode) => triggerNode}
-                    style={{ width: "100%" }}
-                    showTime
-                    locale={locale}
-                    format={"YYYY-MM-DD HH:mm:ss"}
-                    placeholder="结束时间"
-                  />
-                </Form.Item>
+          <Space style={{ display: "flex" }}>
+            <Form.Item
+              label="结束时间"
+              name="endTime"
+              rules={rules}
+              style={{ width: "100%" }}
+            >
+              <DatePicker
+                getPopupContainer={(triggerNode) => triggerNode}
+                style={{ width: "100%" }}
+                showTime
+                locale={locale}
+                format={"YYYY-MM-DD HH:mm:ss"}
+                placeholder="结束时间"
+              />
+            </Form.Item>
 
-                <div></div>
+            <div></div>
 
-                <div></div>
-              </Space>
-            </>
-          ) : (
-            <></>
-          )}
+            <div></div>
+          </Space>
 
           <LineTitle>
             <div className="icon">
@@ -410,7 +378,17 @@ export const ModalForm = ({ param, setParam }: Props) => {
                       </Button>
                       <Button
                         style={{ marginLeft: "1rem" }}
-                        onClick={() => deleteGroup(index)}
+                        onClick={() => {
+                          Modal.confirm({
+                            title: `是否要删除当前小组`,
+                            content: "点击确定删除",
+                            okText: "确定",
+                            cancelText: "取消",
+                            onOk() {
+                              deleteGroup(index);
+                            },
+                          });
+                        }}
                       >
                         删除
                       </Button>
