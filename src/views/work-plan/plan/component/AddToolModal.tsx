@@ -48,7 +48,6 @@ const PersonList = () => {
       };
     });
     sessionStorage.setItem("personList", JSON.stringify(personList));
-
     setSelectedRowKeys(keys);
   };
 
@@ -91,14 +90,6 @@ const PersonList = () => {
                 title: "卡号",
                 dataIndex: "number",
               },
-              // {
-              //   title: "组长",
-              //   render: (item: any) => (
-              //     <Radio.Group onChange={onChange} value={value}>
-              //       <Radio value={item.id}></Radio>
-              //     </Radio.Group>
-              //   ),
-              // },
             ]}
             onChange={handleTableChange}
             pagination={{
@@ -135,6 +126,7 @@ const Tool = () => {
           <InputNumber
             width={120}
             max={item.count}
+            min={0}
             onChange={(e: any) => {
               item.newCount = e;
             }}
@@ -243,6 +235,7 @@ const Mater = () => {
           <InputNumber
             width={120}
             max={item.count}
+            min={0}
             onChange={(e: any) => {
               // @ts-ignore
               setSelectedRowKeys([...selectedRowKeys, item.id]);
@@ -282,7 +275,7 @@ const Mater = () => {
     onChange: onSelectChange,
     preserveSelectedRowKeys: true,
     getCheckboxProps: (record: any) => ({
-      disabled: record.groupMaterialList === true || record.count === 0,
+      disabled: record.count === 0,
     }),
   };
 

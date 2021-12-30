@@ -10,3 +10,9 @@ export const useLine = () => {
       return data
     })
   }
+
+  // 查询对应城市的地铁路线站点
+  export const useSubwayList = () => {
+    const client = useHttp()
+    return useQuery(['subwayList'], async () => client(`subway/list`, { method: "POST" }))
+  }

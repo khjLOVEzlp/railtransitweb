@@ -3,13 +3,6 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { cleanObject } from 'utils';
 import { useHttp } from 'utils/http';
 
-/* 查询地铁线路站点 */
-
-export const useSubwayList = () => {
-  const client = useHttp()
-  return useQuery(['subwayList'], async () => client(`subway/list`, { method: "POST" }))
-}
-
 /*
 分页查询
  */

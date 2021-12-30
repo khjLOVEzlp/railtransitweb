@@ -1,4 +1,5 @@
-export const subwaylist = [
+// 广州线路
+export const guangzhouSubwayList = [
   {
     name: "地铁1号线",
     tooltip: {
@@ -4053,7 +4054,8 @@ export const subwaylist = [
   },
 ]
 
-export const newArr = [
+// 上海线路
+export const shanghaiSubwayList = [
   {
     "name": "地铁1号线",
     "tooltip": {
@@ -4547,64 +4549,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1943,
-          -982
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#e8787a",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1929,
-          -1014
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#e8787a",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "一大会址·黄陂南路",
         "value": [
           1890,
@@ -4666,35 +4610,6 @@ export const newArr = [
         "name": "常熟路",
         "value": [
           1763,
-          -1021
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#e8787a",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1749,
           -1021
         ],
         "fixed": true,
@@ -5534,64 +5449,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2303,
-          -1216
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#009900",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2338,
-          -1229
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#009900",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "龙阳路",
         "value": [
           2449,
@@ -5712,35 +5569,6 @@ export const newArr = [
         "value": [
           2708,
           -1229
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#009900",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2736,
-          -1235
         ],
         "fixed": true,
         "symbol": "circle",
@@ -6434,35 +6262,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1943,
-          -764
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#F9E103",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "宝山路",
         "value": [
           1892,
@@ -6554,35 +6353,6 @@ export const newArr = [
         "value": [
           1603,
           -764
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#F9E103",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1564,
-          -774
         ],
         "fixed": true,
         "symbol": "circle",
@@ -6757,35 +6527,6 @@ export const newArr = [
         "value": [
           1546,
           -1105
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#F9E103",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1546,
-          -1166
         ],
         "fixed": true,
         "symbol": "circle",
@@ -7073,35 +6814,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1569,
-          -779
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "曹杨路",
         "value": [
           1554,
@@ -7334,64 +7046,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1689,
-          -1233
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1722,
-          -1240
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "东安路",
         "value": [
           1763,
@@ -7595,93 +7249,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2206,
-          -1158
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2219,
-          -1141
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2222,
-          -1119
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "浦电路(4号线)",
         "value": [
           2222,
@@ -7827,64 +7394,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2222,
-          -775
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2208,
-          -743
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "临平路",
         "value": [
           2164,
@@ -7918,64 +7427,6 @@ export const newArr = [
         "value": [
           2120,
           -738
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2057,
-          -736
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#660066",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2023,
-          -771
         ],
         "fixed": true,
         "symbol": "circle",
@@ -8089,64 +7540,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1341,
-          -1910
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#CC00CC",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1325,
-          -1930
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#CC00CC",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "金平路",
         "value": [
           1293,
@@ -8180,93 +7573,6 @@ export const newArr = [
         "value": [
           1233,
           -2017
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#CC00CC",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1213,
-          -2035
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#CC00CC",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1191,
-          -2049
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#CC00CC",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1160,
-          -2055
         ],
         "fixed": true,
         "symbol": "circle",
@@ -8699,35 +8005,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1351,
-          -2278
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#CC00CC",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "环城东路",
         "value": [
           1394,
@@ -8761,35 +8038,6 @@ export const newArr = [
         "value": [
           1459,
           -2304
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#CC00CC",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1520,
-          -2319
         ],
         "fixed": true,
         "symbol": "circle",
@@ -9106,35 +8354,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2621,
-          -616
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#FF3265",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "巨峰路",
         "value": [
           2608,
@@ -9425,64 +8644,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2173,
-          -1070
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#FF3265",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2169,
-          -1078
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#FF3265",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "浦电路(6号线)",
         "value": [
           2167,
@@ -9599,35 +8760,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2167,
-          -1364
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#FF3265",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "高科西路",
         "value": [
           2132,
@@ -9686,35 +8818,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2033,
-          -1496
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#FF3265",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "高青路",
         "value": [
           2033,
@@ -9748,35 +8851,6 @@ export const newArr = [
         "value": [
           2033,
           -1604
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#FF3265",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2026,
-          -1633
         ],
         "fixed": true,
         "symbol": "circle",
@@ -10586,64 +9660,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1774,
-          -1379
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#FF7F00",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1810,
-          -1394
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#FF7F00",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "后滩",
         "value": [
           1833,
@@ -11254,93 +10270,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2185,
-          -604
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#4f90cb",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2163,
-          -618
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#4f90cb",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2133,
-          -623
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#4f90cb",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "虹口足球场",
         "value": [
           2086,
@@ -11374,35 +10303,6 @@ export const newArr = [
         "value": [
           1999,
           -622
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#4f90cb",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1954,
-          -630
         ],
         "fixed": true,
         "symbol": "circle",
@@ -11490,93 +10390,6 @@ export const newArr = [
         "value": [
           1943,
           -926
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#4f90cb",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1978,
-          -963
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#4f90cb",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1986,
-          -975
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#4f90cb",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1990,
-          -988
         ],
         "fixed": true,
         "symbol": "circle",
@@ -11780,64 +10593,6 @@ export const newArr = [
         "value": [
           1989,
           -1440
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#4f90cb",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1989,
-          -1477
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#4f90cb",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1935,
-          -1477
         ],
         "fixed": true,
         "symbol": "circle",
@@ -12154,68 +10909,10 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1779,
-          -2003
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#9ba0ad",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "三鲁公路",
         "value": [
           1842,
           -2020
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#9ba0ad",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1923,
-          -2030
         ],
         "fixed": true,
         "symbol": "circle",
@@ -12651,35 +11348,6 @@ export const newArr = [
         "name": "杨高中路",
         "value": [
           2301,
-          -1053
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#95d3db",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2251,
           -1053
         ],
         "fixed": true,
@@ -13170,35 +11838,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1068,
-          -1105
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#95d3db",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "九亭",
         "value": [
           1024,
@@ -13636,35 +12275,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2548,
-          -219
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "高桥",
         "value": [
           2548,
@@ -13755,35 +12365,6 @@ export const newArr = [
         "name": "国帆路",
         "value": [
           2314,
-          -117
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2241,
           -117
         ],
         "fixed": true,
@@ -14042,35 +12623,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2241,
-          -618
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "邮电新村",
         "value": [
           2199,
@@ -14133,35 +12685,6 @@ export const newArr = [
         "value": [
           2072,
           -786
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2051,
-          -808
         ],
         "fixed": true,
         "symbol": "circle",
@@ -14274,93 +12797,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2051,
-          -1032
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2044,
-          -1044
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2033,
-          -1050
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "老西门",
         "value": [
           1989,
@@ -14393,35 +12829,6 @@ export const newArr = [
         "name": "一大会址·新天地",
         "value": [
           1893,
-          -1050
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1828,
           -1050
         ],
         "fixed": true,
@@ -14855,35 +13262,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2548,
-          -219
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "高桥",
         "value": [
           2548,
@@ -14974,35 +13352,6 @@ export const newArr = [
         "name": "国帆路",
         "value": [
           2314,
-          -117
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2241,
           -117
         ],
         "fixed": true,
@@ -15261,35 +13610,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2241,
-          -618
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "邮电新村",
         "value": [
           2199,
@@ -15352,35 +13672,6 @@ export const newArr = [
         "value": [
           2072,
           -786
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2051,
-          -808
         ],
         "fixed": true,
         "symbol": "circle",
@@ -15493,93 +13784,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2051,
-          -1032
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2044,
-          -1044
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2033,
-          -1050
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "老西门",
         "value": [
           1989,
@@ -15612,35 +13816,6 @@ export const newArr = [
         "name": "一大会址·新天地",
         "value": [
           1893,
-          -1050
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#C9A7D5",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1828,
           -1050
         ],
         "fixed": true,
@@ -16103,68 +14278,10 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2476,
-          -1748
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#800000",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "秀沿路",
         "value": [
           2476,
           -1722
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#800000",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2476,
-          -1696
         ],
         "fixed": true,
         "symbol": "circle",
@@ -16335,67 +14452,9 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1875,
-          -1696
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#800000",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "东方体育中心",
         "value": [
           1764,
-          -1648
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#800000",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1666,
           -1648
         ],
         "fixed": true,
@@ -17177,68 +15236,10 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2476,
-          -1748
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#800000",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "秀沿路",
         "value": [
           2476,
           -1722
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#800000",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2476,
-          -1696
         ],
         "fixed": true,
         "symbol": "circle",
@@ -17409,67 +15410,9 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1875,
-          -1696
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#800000",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "东方体育中心",
         "value": [
           1764,
-          -1648
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#800000",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1666,
           -1648
         ],
         "fixed": true,
@@ -18802,35 +16745,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1810,
-          -845
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#0C785E",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "南京西路",
         "value": [
           1810,
@@ -18922,35 +16836,6 @@ export const newArr = [
         "value": [
           1867,
           -1240
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#0C785E",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1867,
-          -1339
         ],
         "fixed": true,
         "symbol": "circle",
@@ -19644,68 +17529,10 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1911,
-          -1440
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#E796C1",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "长清路",
         "value": [
           1911,
           -1397
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#E796C1",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1911,
-          -1365
         ],
         "fixed": true,
         "symbol": "circle",
@@ -20341,35 +18168,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1495,
-          -362
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#b9a583",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "锦秋路",
         "value": [
           1495,
@@ -20490,35 +18288,6 @@ export const newArr = [
         "value": [
           1495,
           -624
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#b9a583",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1495,
-          -652
         ],
         "fixed": true,
         "symbol": "circle",
@@ -20834,35 +18603,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1403,
-          -1030
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#b9a583",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "桂林路",
         "value": [
           1472,
@@ -21095,67 +18835,9 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          1509,
-          -1820
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#b9a583",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "景西路",
         "value": [
           1469,
-          -1820
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#b9a583",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          1430,
           -1820
         ],
         "fixed": true,
@@ -21531,35 +19213,6 @@ export const newArr = [
         }
       },
       {
-        "name": "",
-        "value": [
-          2433,
-          -2030
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#77C8C7",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
         "name": "新场",
         "value": [
           2473,
@@ -21651,35 +19304,6 @@ export const newArr = [
         "value": [
           2639,
           -2113
-        ],
-        "fixed": true,
-        "symbol": "circle",
-        "symbolSize": [
-          10,
-          10
-        ],
-        "label": {
-          "color": "#000",
-          "position": "top",
-          "fontSize": 11
-        },
-        "category": 1,
-        "itemStyle": {
-          "normal": {
-            "color": "#fff",
-            "borderColor": "#77C8C7",
-            "borderWidth": 2
-          }
-        },
-        "tooltip": {
-          "formatter": "{b}"
-        }
-      },
-      {
-        "name": "",
-        "value": [
-          2638,
-          -2141
         ],
         "fixed": true,
         "symbol": "circle",
@@ -22464,13 +20088,2512 @@ export const newArr = [
   }
 ]
 
-newArr.forEach((item) => {
-  item.stations.forEach((key) => {
-    key.tooltip = { formatter: "{b}" }
-  })
-})
+// 广州站点
+export const guangzhouLine = [
+  {
+    source: '西塱',
+    target: '坑口',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '坑口',
+    target: '花地湾',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '花地湾',
+    target: '芳村',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '芳村',
+    target: '黄沙',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '黄沙',
+    target: '长寿路',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '长寿路',
+    target: '陈家祠',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '陈家祠',
+    target: '西门口',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '西门口',
+    target: '公园前',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '公园前',
+    target: '农讲所',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '农讲所',
+    target: '烈士陵园',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '烈士陵园',
+    target: '东山口',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '东山口',
+    target: '杨箕',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '杨箕',
+    target: '体育西路',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '体育西路',
+    target: '体育中心',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
+  {
+    source: '体育中心',
+    target: '广州东站',
+    lineStyle: {
+      normal: {
+        color: '#F9E103',
+      },
+    },
+  },
 
-export const shanhaiLine = [
+  {
+    source: '嘉禾望岗',
+    target: '黄边',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '黄边',
+    target: '江夏',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '江夏',
+    target: '萧岗',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '萧岗',
+    target: '白云文化广场',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '白云文化广场',
+    target: '白云公园',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '白云公园',
+    target: '飞翔公园',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '飞翔公园',
+    target: '三元里',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '三元里',
+    target: '广州火车站',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '广州火车站',
+    target: '越秀公园',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '越秀公园',
+    target: '纪念堂',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '纪念堂',
+    target: '公园前',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '公园前',
+    target: '海珠广场',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '海珠广场',
+    target: '市二宫',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '市二宫',
+    target: '江南西',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '江南西',
+    target: '昌岗',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '昌岗',
+    target: '江泰路',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '江泰路',
+    target: '东晓南',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '东晓南',
+    target: '南洲',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '南洲',
+    target: '洛溪',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '洛溪',
+    target: '南浦',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '南浦',
+    target: '会江',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '会江',
+    target: '石壁',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+  {
+    source: '石壁',
+    target: '广州南站',
+    lineStyle: {
+      normal: {
+        color: '#4f90cb',
+      },
+    },
+  },
+
+  {
+    source: '天河客运站',
+    target: '五山',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '五山',
+    target: '华师',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '华师',
+    target: '岗顶',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '岗顶',
+    target: '石牌桥',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '石牌桥',
+    target: '体育西路',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '体育西路',
+    target: '珠江新城',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '珠江新城',
+    target: '广州塔',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '广州塔',
+    target: '客村',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '客村',
+    target: '大塘',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '大塘',
+    target: '沥滘',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '沥滘',
+    target: '厦滘',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '厦滘',
+    target: '大石',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '大石',
+    target: '汉溪长隆',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '汉溪长隆',
+    target: '市桥',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '市桥',
+    target: '番禺广场',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+
+  {
+    source: '体育西路',
+    target: '林和西',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '林和西',
+    target: '广州东站',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '广州东站',
+    target: '燕塘',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '燕塘',
+    target: '梅花园',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '梅花园',
+    target: '京溪南方医院',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '京溪南方医院',
+    target: '同和',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '同和',
+    target: '永泰',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '永泰',
+    target: '白云大道北',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '白云大道北',
+    target: '嘉禾望岗',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '嘉禾望岗',
+    target: '龙归',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '龙归',
+    target: '人和',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '人和',
+    target: '高增',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '高增',
+    target: '机场南(1号航站楼)',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+  {
+    source: '机场南(1号航站楼)',
+    target: '机场北(2号航站楼)',
+    lineStyle: {
+      normal: {
+        color: '#EA6632',
+      },
+    },
+  },
+
+  {
+    source: '黄村',
+    target: '车陂',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '车陂',
+    target: '车陂南',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '车陂南',
+    target: '万胜围',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '万胜围',
+    target: '官洲',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '官洲',
+    target: '大学城北',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '大学城北',
+    target: '大学城南',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '大学城南',
+    target: '新造',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '新造',
+    target: '石碁',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '石碁',
+    target: '海傍',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '海傍',
+    target: '低涌',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '低涌',
+    target: '东涌',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '东涌',
+    target: '庆盛',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '庆盛',
+    target: '黄阁汽车城',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '黄阁汽车城',
+    target: '黄阁',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '黄阁',
+    target: '蕉门',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '蕉门',
+    target: '金洲',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '金洲',
+    target: '飞沙角',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '飞沙角',
+    target: '广隆',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '广隆',
+    target: '大涌',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '大涌',
+    target: '塘坑',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '塘坑',
+    target: '南横',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+  {
+    source: '南横',
+    target: '南沙客运港',
+    lineStyle: {
+      normal: {
+        color: '#009900',
+      },
+    },
+  },
+
+  {
+    source: '滘口',
+    target: '坦尾',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '坦尾',
+    target: '中山八',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '中山八',
+    target: '西场',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '西场',
+    target: '西村',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '西村',
+    target: '广州火车站',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '广州火车站',
+    target: '小北',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '小北',
+    target: '淘金',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '淘金',
+    target: '区庄',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '区庄',
+    target: '动物园',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '动物园',
+    target: '杨箕',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '杨箕',
+    target: '五羊邨',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '五羊邨',
+    target: '珠江新城',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '珠江新城',
+    target: '猎德',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '猎德',
+    target: '潭村',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '潭村',
+    target: '员村',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '员村',
+    target: '科韵路',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '科韵路',
+    target: '车陂南',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '车陂南',
+    target: '东圃',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '东圃',
+    target: '三溪',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '三溪',
+    target: '鱼珠',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '鱼珠',
+    target: '大沙地',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '大沙地',
+    target: '大沙东',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+  {
+    source: '大沙东',
+    target: '文冲',
+    lineStyle: {
+      normal: {
+        color: '#FF0000',
+      },
+    },
+  },
+
+  {
+    source: '香雪',
+    target: '萝岗',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '萝岗',
+    target: '苏元',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '苏元',
+    target: '暹岗',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '暹岗',
+    target: '金峰',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '金峰',
+    target: '黄陂',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '黄陂',
+    target: '高塘石',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '高塘石',
+    target: '柯木塱',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '柯木塱',
+    target: '龙洞',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '龙洞',
+    target: '植物园',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '植物园',
+    target: '长湴',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '长湴',
+    target: '天河客运站',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '天河客运站',
+    target: '燕塘',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '燕塘',
+    target: '天平架',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '天平架',
+    target: '沙河顶',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '沙河顶',
+    target: '黄花岗',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '黄花岗',
+    target: '区庄',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '区庄',
+    target: '东山口',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '东山口',
+    target: '东湖',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '东湖',
+    target: '团一大广场',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '团一大广场',
+    target: '北京路',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '北京路',
+    target: '海珠广场',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '海珠广场',
+    target: '一德路',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '一德路',
+    target: '文化公园',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '文化公园',
+    target: '黄沙',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '黄沙',
+    target: '如意坊',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '如意坊',
+    target: '坦尾',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '坦尾',
+    target: '河沙',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '河沙',
+    target: '沙贝',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '沙贝',
+    target: '横沙',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+  {
+    source: '横沙',
+    target: '浔峰岗',
+    lineStyle: {
+      normal: {
+        color: '#8B1F5C',
+      },
+    },
+  },
+
+  {
+    source: '广州南站',
+    target: '石壁',
+    lineStyle: {
+      normal: {
+        color: '#3FA37E',
+      },
+    },
+  },
+  {
+    source: '石壁',
+    target: '谢村',
+    lineStyle: {
+      normal: {
+        color: '#3FA37E',
+      },
+    },
+  },
+  {
+    source: '谢村',
+    target: '钟村',
+    lineStyle: {
+      normal: {
+        color: '#3FA37E',
+      },
+    },
+  },
+  {
+    source: '钟村',
+    target: '汉溪长隆',
+    lineStyle: {
+      normal: {
+        color: '#3FA37E',
+      },
+    },
+  },
+  {
+    source: '汉溪长隆',
+    target: '南村万博',
+    lineStyle: {
+      normal: {
+        color: '#3FA37E',
+      },
+    },
+  },
+  {
+    source: '南村万博',
+    target: '员岗',
+    lineStyle: {
+      normal: {
+        color: '#3FA37E',
+      },
+    },
+  },
+  {
+    source: '员岗',
+    target: '板桥',
+    lineStyle: {
+      normal: {
+        color: '#3FA37E',
+      },
+    },
+  },
+  {
+    source: '板桥',
+    target: '大学城南',
+    lineStyle: {
+      normal: {
+        color: '#3FA37E',
+      },
+    },
+  },
+
+  {
+    source: '滘心',
+    target: '亭岗',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '亭岗',
+    target: '石井',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '石井',
+    target: '小坪',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '小坪',
+    target: '石潭',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '石潭',
+    target: '聚龙',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '聚龙',
+    target: '上步',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '上步',
+    target: '同德',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '同德',
+    target: '鹅掌坦',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '鹅掌坦',
+    target: '西村',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '西村',
+    target: '陈家祠',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '陈家祠',
+    target: '华林寺',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '华林寺',
+    target: '文化公园',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '文化公园',
+    target: '同福西',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '同福西',
+    target: '凤凰新村',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '凤凰新村',
+    target: '沙园',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '沙园',
+    target: '宝岗大道',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '宝岗大道',
+    target: '昌岗',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '昌岗',
+    target: '晓港',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '晓港',
+    target: '中大',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '中大',
+    target: '鹭江',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '鹭江',
+    target: '客村',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '客村',
+    target: '赤岗',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '赤岗',
+    target: '磨碟沙',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '磨碟沙',
+    target: '新港东',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '新港东',
+    target: '琶洲',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+  {
+    source: '琶洲',
+    target: '万胜围',
+    lineStyle: {
+      normal: {
+        color: '#00A1CC',
+      },
+    },
+  },
+
+  {
+    source: '高增',
+    target: '清塘',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+  {
+    source: '清塘',
+    target: '清布',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+  {
+    source: '清布',
+    target: '莲塘',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+  {
+    source: '莲塘',
+    target: '马鞍山公园',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+  {
+    source: '马鞍山公园',
+    target: '花都广场',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+  {
+    source: '花都广场',
+    target: '花果山公园',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+  {
+    source: '花果山公园',
+    target: '花城路',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+  {
+    source: '花城路',
+    target: '广州北站',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+  {
+    source: '广州北站',
+    target: '花都汽车城',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+  {
+    source: '花都汽车城',
+    target: '飞鹅岭',
+    lineStyle: {
+      normal: {
+        color: '#99c857',
+      },
+    },
+  },
+
+  {
+    source: '鱼珠',
+    target: '裕丰围',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+  {
+    source: '裕丰围',
+    target: '双岗',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+  {
+    source: '双岗',
+    target: '南海神庙',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+  {
+    source: '南海神庙',
+    target: '夏园',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+  {
+    source: '夏园',
+    target: '南岗',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+  {
+    source: '南岗',
+    target: '沙村',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+  {
+    source: '沙村',
+    target: '白江',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+  {
+    source: '白江',
+    target: '新塘',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+  {
+    source: '新塘',
+    target: '官湖',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+  {
+    source: '官湖',
+    target: '新沙',
+    lineStyle: {
+      normal: {
+        color: '#a7b942',
+      },
+    },
+  },
+
+  {
+    source: '嘉禾望岗',
+    target: '白云东平',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '白云东平',
+    target: '夏良',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '夏良',
+    target: '太和',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '太和',
+    target: '竹料',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '竹料',
+    target: '钟落潭',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '钟落潭',
+    target: '马沥',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '马沥',
+    target: '新和',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '新和',
+    target: '太平',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '太平',
+    target: '神岗',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '神岗',
+    target: '赤草',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '赤草',
+    target: '从化客运站',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '从化客运站',
+    target: '东风',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+
+  {
+    source: '员村',
+    target: '天河公园',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '天河公园',
+    target: '棠东',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '棠东',
+    target: '黄村',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '黄村',
+    target: '大观南路',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '大观南路',
+    target: '天河智慧城',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '天河智慧城',
+    target: '神舟路',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '神舟路',
+    target: '科学城',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '科学城',
+    target: '苏元',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '苏元',
+    target: '水西',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '水西',
+    target: '长平',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '长平',
+    target: '金坑',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '金坑',
+    target: '镇龙西',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '镇龙西',
+    target: '镇龙',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '镇龙',
+    target: '中新',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '中新',
+    target: '坑贝',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '坑贝',
+    target: '凤岗',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '凤岗',
+    target: '朱村',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '朱村',
+    target: '山田',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '山田',
+    target: '钟岗',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+  {
+    source: '钟岗',
+    target: '增城广场',
+    lineStyle: {
+      normal: {
+        color: '#203082',
+      },
+    },
+  },
+
+  {
+    source: '沥滘',
+    target: '南洲',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '南洲',
+    target: '石溪',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '石溪',
+    target: '燕岗',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '燕岗',
+    target: '沙园',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '沙园',
+    target: '沙涌',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '沙涌',
+    target: '鹤洞',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '鹤洞',
+    target: '西塱',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '西塱',
+    target: '菊树',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '菊树',
+    target: '龙溪',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '龙溪',
+    target: '金融高新区',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '金融高新区',
+    target: '千灯湖',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '千灯湖',
+    target: '礌岗',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '礌岗',
+    target: '南桂路',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '南桂路',
+    target: '桂城',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '桂城',
+    target: '朝安',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '朝安',
+    target: '普君北路',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '普君北路',
+    target: '祖庙',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '祖庙',
+    target: '同济路',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '同济路',
+    target: '季华园',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '季华园',
+    target: '魁奇路',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '魁奇路',
+    target: '澜石',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '澜石',
+    target: '世纪莲',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '世纪莲',
+    target: '东平',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+  {
+    source: '东平',
+    target: '新城东',
+    lineStyle: {
+      normal: {
+        color: '#c9e887',
+      },
+    },
+  },
+
+  {
+    source: '林和西',
+    target: '体育中心南',
+    lineStyle: {
+      normal: {
+        color: '#00a1cb',
+      },
+    },
+  },
+  {
+    source: '体育中心南',
+    target: '天河南',
+    lineStyle: {
+      normal: {
+        color: '#00a1cb',
+      },
+    },
+  },
+  {
+    source: '天河南',
+    target: '黄埔大道',
+    lineStyle: {
+      normal: {
+        color: '#00a1cb',
+      },
+    },
+  },
+  {
+    source: '黄埔大道',
+    target: '妇儿中心',
+    lineStyle: {
+      normal: {
+        color: '#00a1cb',
+      },
+    },
+  },
+  {
+    source: '妇儿中心',
+    target: '花城大道',
+    lineStyle: {
+      normal: {
+        color: '#00a1cb',
+      },
+    },
+  },
+  {
+    source: '花城大道',
+    target: '大剧院',
+    lineStyle: {
+      normal: {
+        color: '#00a1cb',
+      },
+    },
+  },
+  {
+    source: '大剧院',
+    target: '海心沙',
+    lineStyle: {
+      normal: {
+        color: '#00a1cb',
+      },
+    },
+  },
+  {
+    source: '海心沙',
+    target: '广州塔',
+    lineStyle: {
+      normal: {
+        color: '#00a1cb',
+      },
+    },
+  },
+
+  {
+    source: '新和',
+    target: '红卫',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '红卫',
+    target: '新南',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '新南',
+    target: '枫下',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '枫下',
+    target: '知识城',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '知识城',
+    target: '何棠下',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '何棠下',
+    target: '旺村',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '旺村',
+    target: '汤村',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '汤村',
+    target: '镇龙北',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+  {
+    source: '镇龙北',
+    target: '镇龙',
+    lineStyle: {
+      normal: {
+        color: '#721920',
+      },
+    },
+  },
+
+  {
+    source: '冼村',
+    target: '磨碟沙',
+    lineStyle: {
+      normal: {
+        color: '#0056B4',
+      },
+    },
+  },
+  {
+    source: '磨碟沙',
+    target: '龙潭',
+    lineStyle: {
+      normal: {
+        color: '#0056B4',
+      },
+    },
+  },
+  {
+    source: '龙潭',
+    target: '沙溪',
+    lineStyle: {
+      normal: {
+        color: '#0056B4',
+      },
+    },
+  },
+  {
+    source: '沙溪',
+    target: '南村万博',
+    lineStyle: {
+      normal: {
+        color: '#0056B4',
+      },
+    },
+  },
+  {
+    source: '南村万博',
+    target: '番禺广场',
+    lineStyle: {
+      normal: {
+        color: '#0056B4',
+      },
+    },
+  },
+  {
+    source: '番禺广场',
+    target: '横沥',
+    lineStyle: {
+      normal: {
+        color: '#0056B4',
+      },
+    },
+  },
+  {
+    source: '横沥',
+    target: '万顷沙',
+    lineStyle: {
+      normal: {
+        color: '#0056B4',
+      },
+    },
+  },
+];
+
+// 上海站点
+export const shanghaiLine = [
   {
     "source": "富锦路",
     "target": "友谊西路",
@@ -22607,6 +22730,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "人民广场",
+    "target": "一大会址·黄陂南路",
+    "lineStyle": {
+      "normal": {
+        "color": "#e8787a"
+      }
+    }
+  },
+  {
     "source": "一大会址·黄陂南路",
     "target": "陕西南路",
     "lineStyle": {
@@ -22618,6 +22750,15 @@ export const shanhaiLine = [
   {
     "source": "陕西南路",
     "target": "常熟路",
+    "lineStyle": {
+      "normal": {
+        "color": "#e8787a"
+      }
+    }
+  },
+  {
+    "source": "常熟路",
+    "target": "衡山路",
     "lineStyle": {
       "normal": {
         "color": "#e8787a"
@@ -22690,15 +22831,6 @@ export const shanhaiLine = [
   {
     "source": "外环路",
     "target": "莘庄",
-    "lineStyle": {
-      "normal": {
-        "color": "#e8787a"
-      }
-    }
-  },
-  {
-    "source": "莘庄",
-    "target": "徐泾东",
     "lineStyle": {
       "normal": {
         "color": "#e8787a"
@@ -22859,6 +22991,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "世纪公园",
+    "target": "龙阳路",
+    "lineStyle": {
+      "normal": {
+        "color": "#009900"
+      }
+    }
+  },
+  {
     "source": "龙阳路",
     "target": "张江高科",
     "lineStyle": {
@@ -22888,6 +23029,15 @@ export const shanhaiLine = [
   {
     "source": "广兰路",
     "target": "唐镇",
+    "lineStyle": {
+      "normal": {
+        "color": "#009900"
+      }
+    }
+  },
+  {
+    "source": "唐镇",
+    "target": "创新中路",
     "lineStyle": {
       "normal": {
         "color": "#009900"
@@ -22942,15 +23092,6 @@ export const shanhaiLine = [
   {
     "source": "海天三路",
     "target": "浦东国际机场",
-    "lineStyle": {
-      "normal": {
-        "color": "#009900"
-      }
-    }
-  },
-  {
-    "source": "浦东国际机场",
-    "target": "江杨北路",
     "lineStyle": {
       "normal": {
         "color": "#009900"
@@ -23084,6 +23225,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "东宝兴路",
+    "target": "宝山路",
+    "lineStyle": {
+      "normal": {
+        "color": "#F9E103"
+      }
+    }
+  },
+  {
     "source": "宝山路",
     "target": "上海火车站",
     "lineStyle": {
@@ -23104,6 +23254,15 @@ export const shanhaiLine = [
   {
     "source": "中潭路",
     "target": "镇坪路",
+    "lineStyle": {
+      "normal": {
+        "color": "#F9E103"
+      }
+    }
+  },
+  {
+    "source": "镇坪路",
+    "target": "曹杨路",
     "lineStyle": {
       "normal": {
         "color": "#F9E103"
@@ -23156,6 +23315,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "宜山路",
+    "target": "漕溪路",
+    "lineStyle": {
+      "normal": {
+        "color": "#F9E103"
+      }
+    }
+  },
+  {
     "source": "漕溪路",
     "target": "龙漕路",
     "lineStyle": {
@@ -23183,15 +23351,6 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "上海南站",
-    "target": "宝山路",
-    "lineStyle": {
-      "normal": {
-        "color": "#F9E103"
-      }
-    }
-  },
-  {
     "source": "宝山路",
     "target": "上海火车站",
     "lineStyle": {
@@ -23212,6 +23371,15 @@ export const shanhaiLine = [
   {
     "source": "中潭路",
     "target": "镇坪路",
+    "lineStyle": {
+      "normal": {
+        "color": "#660066"
+      }
+    }
+  },
+  {
+    "source": "镇坪路",
+    "target": "曹杨路",
     "lineStyle": {
       "normal": {
         "color": "#660066"
@@ -23282,6 +23450,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "上海体育场",
+    "target": "东安路",
+    "lineStyle": {
+      "normal": {
+        "color": "#660066"
+      }
+    }
+  },
+  {
     "source": "东安路",
     "target": "大木桥路",
     "lineStyle": {
@@ -23336,7 +23513,16 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "浦电路(4号线)",
+    "source": "蓝村路",
+    "target": "浦电路",
+    "lineStyle": {
+      "normal": {
+        "color": "#660066"
+      }
+    }
+  },
+  {
+    "source": "浦电路",
     "target": "世纪大道",
     "lineStyle": {
       "normal": {
@@ -23372,6 +23558,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "大连路",
+    "target": "临平路",
+    "lineStyle": {
+      "normal": {
+        "color": "#660066"
+      }
+    }
+  },
+  {
     "source": "临平路",
     "target": "海伦路",
     "lineStyle": {
@@ -23381,11 +23576,20 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "宝山路",
-    "target": "东川路",
+    "source": "海伦路",
+    "target": "宝山路",
     "lineStyle": {
       "normal": {
         "color": "#660066"
+      }
+    }
+  },
+  {
+    "source": "东川路",
+    "target": "金平路",
+    "lineStyle": {
+      "normal": {
+        "color": "#CC00CC"
       }
     }
   },
@@ -23399,8 +23603,8 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "文井路",
-    "target": "闵行开发区",
+    "source": "华宁路",
+    "target": "文井路",
     "lineStyle": {
       "normal": {
         "color": "#CC00CC"
@@ -23408,8 +23612,8 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "闵行开发区",
-    "target": "莘庄",
+    "source": "文井路",
+    "target": "闵行开发区",
     "lineStyle": {
       "normal": {
         "color": "#CC00CC"
@@ -23543,15 +23747,6 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "奉贤新城",
-    "target": "港城路",
-    "lineStyle": {
-      "normal": {
-        "color": "#CC00CC"
-      }
-    }
-  },
-  {
     "source": "港城路",
     "target": "外高桥保税区北",
     "lineStyle": {
@@ -23599,6 +23794,15 @@ export const shanhaiLine = [
   {
     "source": "五洲大道",
     "target": "东靖路",
+    "lineStyle": {
+      "normal": {
+        "color": "#FF3265"
+      }
+    }
+  },
+  {
+    "source": "东靖路",
+    "target": "巨峰路",
     "lineStyle": {
       "normal": {
         "color": "#FF3265"
@@ -23687,7 +23891,16 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "浦电路(6号线)",
+    "source": "世纪大道",
+    "target": "浦电路⑥",
+    "lineStyle": {
+      "normal": {
+        "color": "#FF3265"
+      }
+    }
+  },
+  {
+    "source": "浦电路⑥",
     "target": "蓝村路",
     "lineStyle": {
       "normal": {
@@ -23714,6 +23927,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "临沂新村",
+    "target": "高科西路",
+    "lineStyle": {
+      "normal": {
+        "color": "#FF3265"
+      }
+    }
+  },
+  {
     "source": "高科西路",
     "target": "东明路",
     "lineStyle": {
@@ -23723,8 +23945,26 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "东明路",
+    "target": "高青路",
+    "lineStyle": {
+      "normal": {
+        "color": "#FF3265"
+      }
+    }
+  },
+  {
     "source": "高青路",
     "target": "华夏西路",
+    "lineStyle": {
+      "normal": {
+        "color": "#FF3265"
+      }
+    }
+  },
+  {
+    "source": "华夏西路",
+    "target": "上南路",
     "lineStyle": {
       "normal": {
         "color": "#FF3265"
@@ -23743,15 +23983,6 @@ export const shanhaiLine = [
   {
     "source": "灵岩南路",
     "target": "东方体育中心",
-    "lineStyle": {
-      "normal": {
-        "color": "#FF3265"
-      }
-    }
-  },
-  {
-    "source": "东方体育中心",
-    "target": "美兰湖",
     "lineStyle": {
       "normal": {
         "color": "#FF3265"
@@ -23957,6 +24188,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "龙华中路",
+    "target": "后滩",
+    "lineStyle": {
+      "normal": {
+        "color": "#FF7F00"
+      }
+    }
+  },
+  {
     "source": "后滩",
     "target": "长清路",
     "lineStyle": {
@@ -24031,15 +24271,6 @@ export const shanhaiLine = [
   {
     "source": "龙阳路",
     "target": "花木路",
-    "lineStyle": {
-      "normal": {
-        "color": "#FF7F00"
-      }
-    }
-  },
-  {
-    "source": "花木路",
-    "target": "市光路",
     "lineStyle": {
       "normal": {
         "color": "#FF7F00"
@@ -24128,8 +24359,26 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "曲阳路",
+    "target": "虹口足球场",
+    "lineStyle": {
+      "normal": {
+        "color": "#4f90cb"
+      }
+    }
+  },
+  {
     "source": "虹口足球场",
     "target": "西藏北路",
+    "lineStyle": {
+      "normal": {
+        "color": "#4f90cb"
+      }
+    }
+  },
+  {
+    "source": "西藏北路",
+    "target": "中兴路",
     "lineStyle": {
       "normal": {
         "color": "#4f90cb"
@@ -24148,6 +24397,15 @@ export const shanhaiLine = [
   {
     "source": "曲阜路",
     "target": "人民广场",
+    "lineStyle": {
+      "normal": {
+        "color": "#4f90cb"
+      }
+    }
+  },
+  {
+    "source": "人民广场",
+    "target": "大世界",
     "lineStyle": {
       "normal": {
         "color": "#4f90cb"
@@ -24202,6 +24460,15 @@ export const shanhaiLine = [
   {
     "source": "耀华路",
     "target": "成山路",
+    "lineStyle": {
+      "normal": {
+        "color": "#4f90cb"
+      }
+    }
+  },
+  {
+    "source": "成山路",
+    "target": "杨思",
     "lineStyle": {
       "normal": {
         "color": "#4f90cb"
@@ -24273,10 +24540,19 @@ export const shanhaiLine = [
   },
   {
     "source": "沈杜公路",
-    "target": "沈杜公路",
+    "target": "三鲁公路",
     "lineStyle": {
       "normal": {
-        "color": "#4f90cb"
+        "color": "#9ba0ad"
+      }
+    }
+  },
+  {
+    "source": "三鲁公路",
+    "target": "闵瑞路",
+    "lineStyle": {
+      "normal": {
+        "color": "#9ba0ad"
       }
     }
   },
@@ -24301,15 +24577,6 @@ export const shanhaiLine = [
   {
     "source": "东城一路",
     "target": "汇臻路",
-    "lineStyle": {
-      "normal": {
-        "color": "#9ba0ad"
-      }
-    }
-  },
-  {
-    "source": "汇臻路",
-    "target": "曹路",
     "lineStyle": {
       "normal": {
         "color": "#9ba0ad"
@@ -24623,15 +24890,6 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "松江南站",
-    "target": "龙阳路",
-    "lineStyle": {
-      "normal": {
-        "color": "#95d3db"
-      }
-    }
-  },
-  {
     "source": "龙阳路",
     "target": "浦东国际机场",
     "lineStyle": {
@@ -24641,17 +24899,17 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "浦东国际机场",
-    "target": "基隆路",
+    "source": "基隆路",
+    "target": "港城路",
     "lineStyle": {
       "normal": {
-        "color": "#B3B3B3"
+        "color": "#C9A7D5"
       }
     }
   },
   {
-    "source": "基隆路",
-    "target": "港城路",
+    "source": "港城路",
+    "target": "高桥",
     "lineStyle": {
       "normal": {
         "color": "#C9A7D5"
@@ -24679,6 +24937,15 @@ export const shanhaiLine = [
   {
     "source": "双江路",
     "target": "国帆路",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
+    "source": "国帆路",
+    "target": "新江湾城",
     "lineStyle": {
       "normal": {
         "color": "#C9A7D5"
@@ -24749,6 +25016,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "四平路",
+    "target": "邮电新村",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
     "source": "邮电新村",
     "target": "海伦路",
     "lineStyle": {
@@ -24760,6 +25036,15 @@ export const shanhaiLine = [
   {
     "source": "海伦路",
     "target": "四川北路",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
+    "source": "四川北路",
+    "target": "天潼路",
     "lineStyle": {
       "normal": {
         "color": "#C9A7D5"
@@ -24785,8 +25070,26 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "豫园",
+    "target": "老西门",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
     "source": "老西门",
     "target": "一大会址·新天地",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
+    "source": "一大会址·新天地",
+    "target": "陕西南路",
     "lineStyle": {
       "normal": {
         "color": "#C9A7D5"
@@ -24884,8 +25187,8 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "航中路",
-    "target": "基隆路",
+    "source": "基隆路",
+    "target": "港城路",
     "lineStyle": {
       "normal": {
         "color": "#C9A7D5"
@@ -24893,8 +25196,8 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "基隆路",
-    "target": "港城路",
+    "source": "港城路",
+    "target": "高桥",
     "lineStyle": {
       "normal": {
         "color": "#C9A7D5"
@@ -24922,6 +25225,15 @@ export const shanhaiLine = [
   {
     "source": "双江路",
     "target": "国帆路",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
+    "source": "国帆路",
+    "target": "新江湾城",
     "lineStyle": {
       "normal": {
         "color": "#C9A7D5"
@@ -24992,6 +25304,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "四平路",
+    "target": "邮电新村",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
     "source": "邮电新村",
     "target": "海伦路",
     "lineStyle": {
@@ -25003,6 +25324,15 @@ export const shanhaiLine = [
   {
     "source": "海伦路",
     "target": "四川北路",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
+    "source": "四川北路",
+    "target": "天潼路",
     "lineStyle": {
       "normal": {
         "color": "#C9A7D5"
@@ -25028,8 +25358,26 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "豫园",
+    "target": "老西门",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
     "source": "老西门",
     "target": "一大会址·新天地",
+    "lineStyle": {
+      "normal": {
+        "color": "#C9A7D5"
+      }
+    }
+  },
+  {
+    "source": "一大会址·新天地",
+    "target": "陕西南路",
     "lineStyle": {
       "normal": {
         "color": "#C9A7D5"
@@ -25136,17 +25484,26 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "虹桥火车站",
-    "target": "迪士尼",
+    "source": "迪士尼",
+    "target": "康新公路",
     "lineStyle": {
       "normal": {
-        "color": "#C9A7D5"
+        "color": "#800000"
       }
     }
   },
   {
-    "source": "迪士尼",
-    "target": "康新公路",
+    "source": "康新公路",
+    "target": "秀沿路",
+    "lineStyle": {
+      "normal": {
+        "color": "#800000"
+      }
+    }
+  },
+  {
+    "source": "秀沿路",
+    "target": "罗山路",
     "lineStyle": {
       "normal": {
         "color": "#800000"
@@ -25183,6 +25540,24 @@ export const shanhaiLine = [
   {
     "source": "三林东",
     "target": "三林",
+    "lineStyle": {
+      "normal": {
+        "color": "#800000"
+      }
+    }
+  },
+  {
+    "source": "三林",
+    "target": "东方体育中心",
+    "lineStyle": {
+      "normal": {
+        "color": "#800000"
+      }
+    }
+  },
+  {
+    "source": "东方体育中心",
+    "target": "龙耀路",
     "lineStyle": {
       "normal": {
         "color": "#800000"
@@ -25388,8 +25763,8 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "嘉定北",
-    "target": "迪士尼",
+    "source": "迪士尼",
+    "target": "康新公路",
     "lineStyle": {
       "normal": {
         "color": "#800000"
@@ -25397,8 +25772,17 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "迪士尼",
-    "target": "康新公路",
+    "source": "康新公路",
+    "target": "秀沿路",
+    "lineStyle": {
+      "normal": {
+        "color": "#800000"
+      }
+    }
+  },
+  {
+    "source": "秀沿路",
+    "target": "罗山路",
     "lineStyle": {
       "normal": {
         "color": "#800000"
@@ -25435,6 +25819,24 @@ export const shanhaiLine = [
   {
     "source": "三林东",
     "target": "三林",
+    "lineStyle": {
+      "normal": {
+        "color": "#800000"
+      }
+    }
+  },
+  {
+    "source": "三林",
+    "target": "东方体育中心",
+    "lineStyle": {
+      "normal": {
+        "color": "#800000"
+      }
+    }
+  },
+  {
+    "source": "东方体育中心",
+    "target": "龙耀路",
     "lineStyle": {
       "normal": {
         "color": "#800000"
@@ -25676,15 +26078,6 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "花桥",
-    "target": "金海路",
-    "lineStyle": {
-      "normal": {
-        "color": "#800000"
-      }
-    }
-  },
-  {
     "source": "金海路",
     "target": "申江路",
     "lineStyle": {
@@ -25829,6 +26222,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "汉中路",
+    "target": "南京西路",
+    "lineStyle": {
+      "normal": {
+        "color": "#0C785E"
+      }
+    }
+  },
+  {
     "source": "南京西路",
     "target": "陕西南路",
     "lineStyle": {
@@ -25849,6 +26251,15 @@ export const shanhaiLine = [
   {
     "source": "嘉善路",
     "target": "大木桥路",
+    "lineStyle": {
+      "normal": {
+        "color": "#0C785E"
+      }
+    }
+  },
+  {
+    "source": "大木桥路",
+    "target": "龙华中路",
     "lineStyle": {
       "normal": {
         "color": "#0C785E"
@@ -25946,15 +26357,6 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "七莘路",
-    "target": "张江路",
-    "lineStyle": {
-      "normal": {
-        "color": "#0C785E"
-      }
-    }
-  },
-  {
     "source": "张江路",
     "target": "学林路",
     "lineStyle": {
@@ -26038,6 +26440,24 @@ export const shanhaiLine = [
   {
     "source": "东明路",
     "target": "成山路",
+    "lineStyle": {
+      "normal": {
+        "color": "#E796C1"
+      }
+    }
+  },
+  {
+    "source": "成山路",
+    "target": "长清路",
+    "lineStyle": {
+      "normal": {
+        "color": "#E796C1"
+      }
+    }
+  },
+  {
+    "source": "长清路",
+    "target": "世博大道",
     "lineStyle": {
       "normal": {
         "color": "#E796C1"
@@ -26207,11 +26627,11 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "金运路",
-    "target": "顾村公园",
+    "source": "顾村公园",
+    "target": "锦秋路",
     "lineStyle": {
       "normal": {
-        "color": "#E796C1"
+        "color": "#b9a583"
       }
     }
   },
@@ -26245,6 +26665,15 @@ export const shanhaiLine = [
   {
     "source": "祁安路",
     "target": "古浪路",
+    "lineStyle": {
+      "normal": {
+        "color": "#b9a583"
+      }
+    }
+  },
+  {
+    "source": "古浪路",
+    "target": "武威东路",
     "lineStyle": {
       "normal": {
         "color": "#b9a583"
@@ -26333,6 +26762,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "吴中路",
+    "target": "桂林路",
+    "lineStyle": {
+      "normal": {
+        "color": "#b9a583"
+      }
+    }
+  },
+  {
     "source": "桂林路",
     "target": "桂林公园",
     "lineStyle": {
@@ -26396,6 +26834,24 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "虹梅南路",
+    "target": "景西路",
+    "lineStyle": {
+      "normal": {
+        "color": "#b9a583"
+      }
+    }
+  },
+  {
+    "source": "景西路",
+    "target": "曙建路",
+    "lineStyle": {
+      "normal": {
+        "color": "#b9a583"
+      }
+    }
+  },
+  {
     "source": "曙建路",
     "target": "双柏路",
     "lineStyle": {
@@ -26425,15 +26881,6 @@ export const shanhaiLine = [
   {
     "source": "永德路",
     "target": "紫竹高新区",
-    "lineStyle": {
-      "normal": {
-        "color": "#b9a583"
-      }
-    }
-  },
-  {
-    "source": "紫竹高新区",
-    "target": "龙阳路",
     "lineStyle": {
       "normal": {
         "color": "#b9a583"
@@ -26486,6 +26933,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "航头东",
+    "target": "新场",
+    "lineStyle": {
+      "normal": {
+        "color": "#77C8C7"
+      }
+    }
+  },
+  {
     "source": "新场",
     "target": "野生动物园",
     "lineStyle": {
@@ -26513,6 +26969,15 @@ export const shanhaiLine = [
     }
   },
   {
+    "source": "惠南东",
+    "target": "书院",
+    "lineStyle": {
+      "normal": {
+        "color": "#77C8C7"
+      }
+    }
+  },
+  {
     "source": "书院",
     "target": "临港大道",
     "lineStyle": {
@@ -26524,15 +26989,6 @@ export const shanhaiLine = [
   {
     "source": "临港大道",
     "target": "滴水湖",
-    "lineStyle": {
-      "normal": {
-        "color": "#77C8C7"
-      }
-    }
-  },
-  {
-    "source": "滴水湖",
-    "target": "虹桥火车站",
     "lineStyle": {
       "normal": {
         "color": "#77C8C7"
@@ -26648,15 +27104,6 @@ export const shanhaiLine = [
     }
   },
   {
-    "source": "东方绿舟",
-    "target": "御桥",
-    "lineStyle": {
-      "normal": {
-        "color": "#c07774"
-      }
-    }
-  },
-  {
     "source": "御桥",
     "target": "康桥",
     "lineStyle": {
@@ -26721,2427 +27168,2427 @@ export const shanhaiLine = [
   }
 ]
 
-export const guangzhouLine = 
-[
-  {
-    source: "西塱",
-    target: "坑口",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "坑口",
-    target: "花地湾",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "花地湾",
-    target: "芳村",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "芳村",
-    target: "黄沙",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "黄沙",
-    target: "长寿路",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "长寿路",
-    target: "陈家祠",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "陈家祠",
-    target: "西门口",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "西门口",
-    target: "公园前",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "公园前",
-    target: "农讲所",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "农讲所",
-    target: "烈士陵园",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "烈士陵园",
-    target: "东山口",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "东山口",
-    target: "杨箕",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "杨箕",
-    target: "体育西路",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "体育西路",
-    target: "体育中心",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "体育中心",
-    target: "广州东站",
-    lineStyle: {
-      normal: {
-        color: "#F9E103",
-      },
-    },
-  },
-  {
-    source: "嘉禾望岗",
-    target: "黄边",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "黄边",
-    target: "江夏",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "江夏",
-    target: "萧岗",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "萧岗",
-    target: "白云文化广场",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "白云文化广场",
-    target: "白云公园",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "白云公园",
-    target: "飞翔公园",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "飞翔公园",
-    target: "三元里",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "三元里",
-    target: "广州火车站",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "广州火车站",
-    target: "越秀公园",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "越秀公园",
-    target: "纪念堂",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "纪念堂",
-    target: "公园前",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "公园前",
-    target: "海珠广场",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "海珠广场",
-    target: "市二宫",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "市二宫",
-    target: "江南西",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "江南西",
-    target: "昌岗",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "昌岗",
-    target: "江泰路",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "江泰路",
-    target: "东晓南",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "东晓南",
-    target: "南洲",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "南洲",
-    target: "洛溪",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "洛溪",
-    target: "南浦",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "南浦",
-    target: "会江",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "会江",
-    target: "石壁",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "石壁",
-    target: "广州南站",
-    lineStyle: {
-      normal: {
-        color: "#4f90cb",
-      },
-    },
-  },
-  {
-    source: "天河客运站",
-    target: "五山",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "五山",
-    target: "华师",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "华师",
-    target: "岗顶",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "岗顶",
-    target: "石牌桥",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "石牌桥",
-    target: "体育西路",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "体育西路",
-    target: "珠江新城",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "珠江新城",
-    target: "广州塔",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "广州塔",
-    target: "客村",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "客村",
-    target: "大塘",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "大塘",
-    target: "沥滘",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "沥滘",
-    target: "厦滘",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "厦滘",
-    target: "大石",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "大石",
-    target: "汉溪长隆",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "汉溪长隆",
-    target: "市桥",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "市桥",
-    target: "番禺广场",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "体育西路",
-    target: "林和西",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "林和西",
-    target: "广州东站",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "广州东站",
-    target: "燕塘",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "燕塘",
-    target: "梅花园",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "梅花园",
-    target: "京溪南方医院",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "京溪南方医院",
-    target: "同和",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "同和",
-    target: "永泰",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "永泰",
-    target: "白云大道北",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "白云大道北",
-    target: "嘉禾望岗",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "嘉禾望岗",
-    target: "龙归",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "龙归",
-    target: "人和",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "人和",
-    target: "高增",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "高增",
-    target: "机场南(1号航站楼)",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "机场南(1号航站楼)",
-    target: "机场北(2号航站楼)",
-    lineStyle: {
-      normal: {
-        color: "#EA6632",
-      },
-    },
-  },
-  {
-    source: "黄村",
-    target: "车陂",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "车陂",
-    target: "车陂南",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "车陂南",
-    target: "万胜围",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "万胜围",
-    target: "官洲",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "官洲",
-    target: "大学城北",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "大学城北",
-    target: "大学城南",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "大学城南",
-    target: "新造",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "新造",
-    target: "石碁",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "石碁",
-    target: "海傍",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "海傍",
-    target: "低涌",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "低涌",
-    target: "东涌",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "东涌",
-    target: "庆盛",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "庆盛",
-    target: "黄阁汽车城",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "黄阁汽车城",
-    target: "黄阁",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "黄阁",
-    target: "蕉门",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "蕉门",
-    target: "金洲",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "金洲",
-    target: "飞沙角",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "飞沙角",
-    target: "广隆",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "广隆",
-    target: "大涌",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "大涌",
-    target: "塘坑",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "塘坑",
-    target: "南横",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "南横",
-    target: "南沙客运港",
-    lineStyle: {
-      normal: {
-        color: "#009900",
-      },
-    },
-  },
-  {
-    source: "滘口",
-    target: "坦尾",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "坦尾",
-    target: "中山八",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "中山八",
-    target: "西场",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "西场",
-    target: "西村",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "西村",
-    target: "广州火车站",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "广州火车站",
-    target: "小北",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "小北",
-    target: "淘金",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "淘金",
-    target: "区庄",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "区庄",
-    target: "动物园",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "动物园",
-    target: "杨箕",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "杨箕",
-    target: "五羊邨",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "五羊邨",
-    target: "珠江新城",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "珠江新城",
-    target: "猎德",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "猎德",
-    target: "潭村",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "潭村",
-    target: "员村",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "员村",
-    target: "科韵路",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "科韵路",
-    target: "车陂南",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "车陂南",
-    target: "东圃",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "东圃",
-    target: "三溪",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "三溪",
-    target: "鱼珠",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "鱼珠",
-    target: "大沙地",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "大沙地",
-    target: "大沙东",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "大沙东",
-    target: "文冲",
-    lineStyle: {
-      normal: {
-        color: "#FF0000",
-      },
-    },
-  },
-  {
-    source: "香雪",
-    target: "萝岗",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "萝岗",
-    target: "苏元",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "苏元",
-    target: "暹岗",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "暹岗",
-    target: "金峰",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "金峰",
-    target: "黄陂",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "黄陂",
-    target: "高塘石",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "高塘石",
-    target: "柯木塱",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "柯木塱",
-    target: "龙洞",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "龙洞",
-    target: "植物园",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "植物园",
-    target: "长湴",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "长湴",
-    target: "天河客运站",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "天河客运站",
-    target: "燕塘",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "燕塘",
-    target: "天平架",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "天平架",
-    target: "沙河顶",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "沙河顶",
-    target: "黄花岗",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "黄花岗",
-    target: "区庄",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "区庄",
-    target: "东山口",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "东山口",
-    target: "东湖",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "东湖",
-    target: "团一大广场",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "团一大广场",
-    target: "北京路",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "北京路",
-    target: "海珠广场",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "海珠广场",
-    target: "一德路",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "一德路",
-    target: "文化公园",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "文化公园",
-    target: "黄沙",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "黄沙",
-    target: "如意坊",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "如意坊",
-    target: "坦尾",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "坦尾",
-    target: "河沙",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "河沙",
-    target: "沙贝",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "沙贝",
-    target: "横沙",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "横沙",
-    target: "浔峰岗",
-    lineStyle: {
-      normal: {
-        color: "#8B1F5C",
-      },
-    },
-  },
-  {
-    source: "广州南站",
-    target: "石壁",
-    lineStyle: {
-      normal: {
-        color: "#3FA37E",
-      },
-    },
-  },
-  {
-    source: "石壁",
-    target: "谢村",
-    lineStyle: {
-      normal: {
-        color: "#3FA37E",
-      },
-    },
-  },
-  {
-    source: "谢村",
-    target: "钟村",
-    lineStyle: {
-      normal: {
-        color: "#3FA37E",
-      },
-    },
-  },
-  {
-    source: "钟村",
-    target: "汉溪长隆",
-    lineStyle: {
-      normal: {
-        color: "#3FA37E",
-      },
-    },
-  },
-  {
-    source: "汉溪长隆",
-    target: "南村万博",
-    lineStyle: {
-      normal: {
-        color: "#3FA37E",
-      },
-    },
-  },
-  {
-    source: "南村万博",
-    target: "员岗",
-    lineStyle: {
-      normal: {
-        color: "#3FA37E",
-      },
-    },
-  },
-  {
-    source: "员岗",
-    target: "板桥",
-    lineStyle: {
-      normal: {
-        color: "#3FA37E",
-      },
-    },
-  },
-  {
-    source: "板桥",
-    target: "大学城南",
-    lineStyle: {
-      normal: {
-        color: "#3FA37E",
-      },
-    },
-  },
-  {
-    source: "滘心",
-    target: "亭岗",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "亭岗",
-    target: "石井",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "石井",
-    target: "小坪",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "小坪",
-    target: "石潭",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "石潭",
-    target: "聚龙",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "聚龙",
-    target: "上步",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "上步",
-    target: "同德",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "同德",
-    target: "鹅掌坦",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "鹅掌坦",
-    target: "西村",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "西村",
-    target: "陈家祠",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "陈家祠",
-    target: "华林寺",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "华林寺",
-    target: "文化公园",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "文化公园",
-    target: "同福西",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "同福西",
-    target: "凤凰新村",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "凤凰新村",
-    target: "沙园",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "沙园",
-    target: "宝岗大道",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "宝岗大道",
-    target: "昌岗",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "昌岗",
-    target: "晓港",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "晓港",
-    target: "中大",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "中大",
-    target: "鹭江",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "鹭江",
-    target: "客村",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "客村",
-    target: "赤岗",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "赤岗",
-    target: "磨碟沙",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "磨碟沙",
-    target: "新港东",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "新港东",
-    target: "琶洲",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "琶洲",
-    target: "万胜围",
-    lineStyle: {
-      normal: {
-        color: "#00A1CC",
-      },
-    },
-  },
-  {
-    source: "高增",
-    target: "清塘",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "清塘",
-    target: "清布",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "清布",
-    target: "莲塘",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "莲塘",
-    target: "马鞍山公园",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "马鞍山公园",
-    target: "花都广场",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "花都广场",
-    target: "花果山公园",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "花果山公园",
-    target: "花城路",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "花城路",
-    target: "广州北站",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "广州北站",
-    target: "花都汽车城",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "花都汽车城",
-    target: "飞鹅岭",
-    lineStyle: {
-      normal: {
-        color: "#99c857",
-      },
-    },
-  },
-  {
-    source: "鱼珠",
-    target: "裕丰围",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "裕丰围",
-    target: "双岗",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "双岗",
-    target: "南海神庙",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "南海神庙",
-    target: "夏园",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "夏园",
-    target: "南岗",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "南岗",
-    target: "沙村",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "沙村",
-    target: "白江",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "白江",
-    target: "新塘",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "新塘",
-    target: "官湖",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "官湖",
-    target: "新沙",
-    lineStyle: {
-      normal: {
-        color: "#a7b942",
-      },
-    },
-  },
-  {
-    source: "嘉禾望岗",
-    target: "白云东平",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "白云东平",
-    target: "夏良",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "夏良",
-    target: "太和",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "太和",
-    target: "竹料",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "竹料",
-    target: "钟落潭",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "钟落潭",
-    target: "马沥",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "马沥",
-    target: "新和",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "新和",
-    target: "太平",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "太平",
-    target: "神岗",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "神岗",
-    target: "赤草",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "赤草",
-    target: "从化客运站",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "从化客运站",
-    target: "东风",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "员村",
-    target: "天河公园",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "天河公园",
-    target: "棠东",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "棠东",
-    target: "黄村",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "黄村",
-    target: "大观南路",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "大观南路",
-    target: "天河智慧城",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "天河智慧城",
-    target: "神舟路",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "神舟路",
-    target: "科学城",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "科学城",
-    target: "苏元",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "苏元",
-    target: "水西",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "水西",
-    target: "长平",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "长平",
-    target: "金坑",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "金坑",
-    target: "镇龙西",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "镇龙西",
-    target: "镇龙",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "镇龙",
-    target: "中新",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "中新",
-    target: "坑贝",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "坑贝",
-    target: "凤岗",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "凤岗",
-    target: "朱村",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "朱村",
-    target: "山田",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "山田",
-    target: "钟岗",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "钟岗",
-    target: "增城广场",
-    lineStyle: {
-      normal: {
-        color: "#203082",
-      },
-    },
-  },
-  {
-    source: "沥滘",
-    target: "南洲",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "南洲",
-    target: "石溪",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "石溪",
-    target: "燕岗",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "燕岗",
-    target: "沙园",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "沙园",
-    target: "沙涌",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "沙涌",
-    target: "鹤洞",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "鹤洞",
-    target: "西塱",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "西塱",
-    target: "菊树",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "菊树",
-    target: "龙溪",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "龙溪",
-    target: "金融高新区",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "金融高新区",
-    target: "千灯湖",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "千灯湖",
-    target: "礌岗",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "礌岗",
-    target: "南桂路",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "南桂路",
-    target: "桂城",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "桂城",
-    target: "朝安",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "朝安",
-    target: "普君北路",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "普君北路",
-    target: "祖庙",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "祖庙",
-    target: "同济路",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "同济路",
-    target: "季华园",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "季华园",
-    target: "魁奇路",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "魁奇路",
-    target: "澜石",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "澜石",
-    target: "世纪莲",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "世纪莲",
-    target: "东平",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "东平",
-    target: "新城东",
-    lineStyle: {
-      normal: {
-        color: "#c9e887",
-      },
-    },
-  },
-  {
-    source: "林和西",
-    target: "体育中心南",
-    lineStyle: {
-      normal: {
-        color: "#00a1cb",
-      },
-    },
-  },
-  {
-    source: "体育中心南",
-    target: "天河南",
-    lineStyle: {
-      normal: {
-        color: "#00a1cb",
-      },
-    },
-  },
-  {
-    source: "天河南",
-    target: "黄埔大道",
-    lineStyle: {
-      normal: {
-        color: "#00a1cb",
-      },
-    },
-  },
-  {
-    source: "黄埔大道",
-    target: "妇儿中心",
-    lineStyle: {
-      normal: {
-        color: "#00a1cb",
-      },
-    },
-  },
-  {
-    source: "妇儿中心",
-    target: "花城大道",
-    lineStyle: {
-      normal: {
-        color: "#00a1cb",
-      },
-    },
-  },
-  {
-    source: "花城大道",
-    target: "大剧院",
-    lineStyle: {
-      normal: {
-        color: "#00a1cb",
-      },
-    },
-  },
-  {
-    source: "大剧院",
-    target: "海心沙",
-    lineStyle: {
-      normal: {
-        color: "#00a1cb",
-      },
-    },
-  },
-  {
-    source: "海心沙",
-    target: "广州塔",
-    lineStyle: {
-      normal: {
-        color: "#00a1cb",
-      },
-    },
-  },
-  {
-    source: "新和",
-    target: "红卫",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "红卫",
-    target: "新南",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "新南",
-    target: "枫下",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "枫下",
-    target: "知识城",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "知识城",
-    target: "何棠下",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "何棠下",
-    target: "旺村",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "旺村",
-    target: "汤村",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "汤村",
-    target: "镇龙北",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-  {
-    source: "镇龙北",
-    target: "镇龙",
-    lineStyle: {
-      normal: {
-        color: "#721920",
-      },
-    },
-  },
-]
+// export const guangzhouLine = 
+// [
+//   {
+//     source: "西塱",
+//     target: "坑口",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "坑口",
+//     target: "花地湾",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "花地湾",
+//     target: "芳村",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "芳村",
+//     target: "黄沙",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄沙",
+//     target: "长寿路",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "长寿路",
+//     target: "陈家祠",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "陈家祠",
+//     target: "西门口",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "西门口",
+//     target: "公园前",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "公园前",
+//     target: "农讲所",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "农讲所",
+//     target: "烈士陵园",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "烈士陵园",
+//     target: "东山口",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "东山口",
+//     target: "杨箕",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "杨箕",
+//     target: "体育西路",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "体育西路",
+//     target: "体育中心",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "体育中心",
+//     target: "广州东站",
+//     lineStyle: {
+//       normal: {
+//         color: "#F9E103",
+//       },
+//     },
+//   },
+//   {
+//     source: "嘉禾望岗",
+//     target: "黄边",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄边",
+//     target: "江夏",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "江夏",
+//     target: "萧岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "萧岗",
+//     target: "白云文化广场",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "白云文化广场",
+//     target: "白云公园",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "白云公园",
+//     target: "飞翔公园",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "飞翔公园",
+//     target: "三元里",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "三元里",
+//     target: "广州火车站",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "广州火车站",
+//     target: "越秀公园",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "越秀公园",
+//     target: "纪念堂",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "纪念堂",
+//     target: "公园前",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "公园前",
+//     target: "海珠广场",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "海珠广场",
+//     target: "市二宫",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "市二宫",
+//     target: "江南西",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "江南西",
+//     target: "昌岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "昌岗",
+//     target: "江泰路",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "江泰路",
+//     target: "东晓南",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "东晓南",
+//     target: "南洲",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "南洲",
+//     target: "洛溪",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "洛溪",
+//     target: "南浦",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "南浦",
+//     target: "会江",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "会江",
+//     target: "石壁",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "石壁",
+//     target: "广州南站",
+//     lineStyle: {
+//       normal: {
+//         color: "#4f90cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "天河客运站",
+//     target: "五山",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "五山",
+//     target: "华师",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "华师",
+//     target: "岗顶",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "岗顶",
+//     target: "石牌桥",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "石牌桥",
+//     target: "体育西路",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "体育西路",
+//     target: "珠江新城",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "珠江新城",
+//     target: "广州塔",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "广州塔",
+//     target: "客村",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "客村",
+//     target: "大塘",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "大塘",
+//     target: "沥滘",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "沥滘",
+//     target: "厦滘",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "厦滘",
+//     target: "大石",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "大石",
+//     target: "汉溪长隆",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "汉溪长隆",
+//     target: "市桥",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "市桥",
+//     target: "番禺广场",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "体育西路",
+//     target: "林和西",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "林和西",
+//     target: "广州东站",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "广州东站",
+//     target: "燕塘",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "燕塘",
+//     target: "梅花园",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "梅花园",
+//     target: "京溪南方医院",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "京溪南方医院",
+//     target: "同和",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "同和",
+//     target: "永泰",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "永泰",
+//     target: "白云大道北",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "白云大道北",
+//     target: "嘉禾望岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "嘉禾望岗",
+//     target: "龙归",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "龙归",
+//     target: "人和",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "人和",
+//     target: "高增",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "高增",
+//     target: "机场南(1号航站楼)",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "机场南(1号航站楼)",
+//     target: "机场北(2号航站楼)",
+//     lineStyle: {
+//       normal: {
+//         color: "#EA6632",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄村",
+//     target: "车陂",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "车陂",
+//     target: "车陂南",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "车陂南",
+//     target: "万胜围",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "万胜围",
+//     target: "官洲",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "官洲",
+//     target: "大学城北",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "大学城北",
+//     target: "大学城南",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "大学城南",
+//     target: "新造",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "新造",
+//     target: "石碁",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "石碁",
+//     target: "海傍",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "海傍",
+//     target: "低涌",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "低涌",
+//     target: "东涌",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "东涌",
+//     target: "庆盛",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "庆盛",
+//     target: "黄阁汽车城",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄阁汽车城",
+//     target: "黄阁",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄阁",
+//     target: "蕉门",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "蕉门",
+//     target: "金洲",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "金洲",
+//     target: "飞沙角",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "飞沙角",
+//     target: "广隆",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "广隆",
+//     target: "大涌",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "大涌",
+//     target: "塘坑",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "塘坑",
+//     target: "南横",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "南横",
+//     target: "南沙客运港",
+//     lineStyle: {
+//       normal: {
+//         color: "#009900",
+//       },
+//     },
+//   },
+//   {
+//     source: "滘口",
+//     target: "坦尾",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "坦尾",
+//     target: "中山八",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "中山八",
+//     target: "西场",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "西场",
+//     target: "西村",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "西村",
+//     target: "广州火车站",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "广州火车站",
+//     target: "小北",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "小北",
+//     target: "淘金",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "淘金",
+//     target: "区庄",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "区庄",
+//     target: "动物园",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "动物园",
+//     target: "杨箕",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "杨箕",
+//     target: "五羊邨",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "五羊邨",
+//     target: "珠江新城",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "珠江新城",
+//     target: "猎德",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "猎德",
+//     target: "潭村",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "潭村",
+//     target: "员村",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "员村",
+//     target: "科韵路",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "科韵路",
+//     target: "车陂南",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "车陂南",
+//     target: "东圃",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "东圃",
+//     target: "三溪",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "三溪",
+//     target: "鱼珠",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "鱼珠",
+//     target: "大沙地",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "大沙地",
+//     target: "大沙东",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "大沙东",
+//     target: "文冲",
+//     lineStyle: {
+//       normal: {
+//         color: "#FF0000",
+//       },
+//     },
+//   },
+//   {
+//     source: "香雪",
+//     target: "萝岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "萝岗",
+//     target: "苏元",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "苏元",
+//     target: "暹岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "暹岗",
+//     target: "金峰",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "金峰",
+//     target: "黄陂",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄陂",
+//     target: "高塘石",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "高塘石",
+//     target: "柯木塱",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "柯木塱",
+//     target: "龙洞",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "龙洞",
+//     target: "植物园",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "植物园",
+//     target: "长湴",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "长湴",
+//     target: "天河客运站",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "天河客运站",
+//     target: "燕塘",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "燕塘",
+//     target: "天平架",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "天平架",
+//     target: "沙河顶",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "沙河顶",
+//     target: "黄花岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄花岗",
+//     target: "区庄",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "区庄",
+//     target: "东山口",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "东山口",
+//     target: "东湖",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "东湖",
+//     target: "团一大广场",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "团一大广场",
+//     target: "北京路",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "北京路",
+//     target: "海珠广场",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "海珠广场",
+//     target: "一德路",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "一德路",
+//     target: "文化公园",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "文化公园",
+//     target: "黄沙",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄沙",
+//     target: "如意坊",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "如意坊",
+//     target: "坦尾",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "坦尾",
+//     target: "河沙",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "河沙",
+//     target: "沙贝",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "沙贝",
+//     target: "横沙",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "横沙",
+//     target: "浔峰岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#8B1F5C",
+//       },
+//     },
+//   },
+//   {
+//     source: "广州南站",
+//     target: "石壁",
+//     lineStyle: {
+//       normal: {
+//         color: "#3FA37E",
+//       },
+//     },
+//   },
+//   {
+//     source: "石壁",
+//     target: "谢村",
+//     lineStyle: {
+//       normal: {
+//         color: "#3FA37E",
+//       },
+//     },
+//   },
+//   {
+//     source: "谢村",
+//     target: "钟村",
+//     lineStyle: {
+//       normal: {
+//         color: "#3FA37E",
+//       },
+//     },
+//   },
+//   {
+//     source: "钟村",
+//     target: "汉溪长隆",
+//     lineStyle: {
+//       normal: {
+//         color: "#3FA37E",
+//       },
+//     },
+//   },
+//   {
+//     source: "汉溪长隆",
+//     target: "南村万博",
+//     lineStyle: {
+//       normal: {
+//         color: "#3FA37E",
+//       },
+//     },
+//   },
+//   {
+//     source: "南村万博",
+//     target: "员岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#3FA37E",
+//       },
+//     },
+//   },
+//   {
+//     source: "员岗",
+//     target: "板桥",
+//     lineStyle: {
+//       normal: {
+//         color: "#3FA37E",
+//       },
+//     },
+//   },
+//   {
+//     source: "板桥",
+//     target: "大学城南",
+//     lineStyle: {
+//       normal: {
+//         color: "#3FA37E",
+//       },
+//     },
+//   },
+//   {
+//     source: "滘心",
+//     target: "亭岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "亭岗",
+//     target: "石井",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "石井",
+//     target: "小坪",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "小坪",
+//     target: "石潭",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "石潭",
+//     target: "聚龙",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "聚龙",
+//     target: "上步",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "上步",
+//     target: "同德",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "同德",
+//     target: "鹅掌坦",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "鹅掌坦",
+//     target: "西村",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "西村",
+//     target: "陈家祠",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "陈家祠",
+//     target: "华林寺",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "华林寺",
+//     target: "文化公园",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "文化公园",
+//     target: "同福西",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "同福西",
+//     target: "凤凰新村",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "凤凰新村",
+//     target: "沙园",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "沙园",
+//     target: "宝岗大道",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "宝岗大道",
+//     target: "昌岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "昌岗",
+//     target: "晓港",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "晓港",
+//     target: "中大",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "中大",
+//     target: "鹭江",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "鹭江",
+//     target: "客村",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "客村",
+//     target: "赤岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "赤岗",
+//     target: "磨碟沙",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "磨碟沙",
+//     target: "新港东",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "新港东",
+//     target: "琶洲",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "琶洲",
+//     target: "万胜围",
+//     lineStyle: {
+//       normal: {
+//         color: "#00A1CC",
+//       },
+//     },
+//   },
+//   {
+//     source: "高增",
+//     target: "清塘",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "清塘",
+//     target: "清布",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "清布",
+//     target: "莲塘",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "莲塘",
+//     target: "马鞍山公园",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "马鞍山公园",
+//     target: "花都广场",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "花都广场",
+//     target: "花果山公园",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "花果山公园",
+//     target: "花城路",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "花城路",
+//     target: "广州北站",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "广州北站",
+//     target: "花都汽车城",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "花都汽车城",
+//     target: "飞鹅岭",
+//     lineStyle: {
+//       normal: {
+//         color: "#99c857",
+//       },
+//     },
+//   },
+//   {
+//     source: "鱼珠",
+//     target: "裕丰围",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "裕丰围",
+//     target: "双岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "双岗",
+//     target: "南海神庙",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "南海神庙",
+//     target: "夏园",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "夏园",
+//     target: "南岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "南岗",
+//     target: "沙村",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "沙村",
+//     target: "白江",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "白江",
+//     target: "新塘",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "新塘",
+//     target: "官湖",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "官湖",
+//     target: "新沙",
+//     lineStyle: {
+//       normal: {
+//         color: "#a7b942",
+//       },
+//     },
+//   },
+//   {
+//     source: "嘉禾望岗",
+//     target: "白云东平",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "白云东平",
+//     target: "夏良",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "夏良",
+//     target: "太和",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "太和",
+//     target: "竹料",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "竹料",
+//     target: "钟落潭",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "钟落潭",
+//     target: "马沥",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "马沥",
+//     target: "新和",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "新和",
+//     target: "太平",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "太平",
+//     target: "神岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "神岗",
+//     target: "赤草",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "赤草",
+//     target: "从化客运站",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "从化客运站",
+//     target: "东风",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "员村",
+//     target: "天河公园",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "天河公园",
+//     target: "棠东",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "棠东",
+//     target: "黄村",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄村",
+//     target: "大观南路",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "大观南路",
+//     target: "天河智慧城",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "天河智慧城",
+//     target: "神舟路",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "神舟路",
+//     target: "科学城",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "科学城",
+//     target: "苏元",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "苏元",
+//     target: "水西",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "水西",
+//     target: "长平",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "长平",
+//     target: "金坑",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "金坑",
+//     target: "镇龙西",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "镇龙西",
+//     target: "镇龙",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "镇龙",
+//     target: "中新",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "中新",
+//     target: "坑贝",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "坑贝",
+//     target: "凤岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "凤岗",
+//     target: "朱村",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "朱村",
+//     target: "山田",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "山田",
+//     target: "钟岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "钟岗",
+//     target: "增城广场",
+//     lineStyle: {
+//       normal: {
+//         color: "#203082",
+//       },
+//     },
+//   },
+//   {
+//     source: "沥滘",
+//     target: "南洲",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "南洲",
+//     target: "石溪",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "石溪",
+//     target: "燕岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "燕岗",
+//     target: "沙园",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "沙园",
+//     target: "沙涌",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "沙涌",
+//     target: "鹤洞",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "鹤洞",
+//     target: "西塱",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "西塱",
+//     target: "菊树",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "菊树",
+//     target: "龙溪",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "龙溪",
+//     target: "金融高新区",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "金融高新区",
+//     target: "千灯湖",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "千灯湖",
+//     target: "礌岗",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "礌岗",
+//     target: "南桂路",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "南桂路",
+//     target: "桂城",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "桂城",
+//     target: "朝安",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "朝安",
+//     target: "普君北路",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "普君北路",
+//     target: "祖庙",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "祖庙",
+//     target: "同济路",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "同济路",
+//     target: "季华园",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "季华园",
+//     target: "魁奇路",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "魁奇路",
+//     target: "澜石",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "澜石",
+//     target: "世纪莲",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "世纪莲",
+//     target: "东平",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "东平",
+//     target: "新城东",
+//     lineStyle: {
+//       normal: {
+//         color: "#c9e887",
+//       },
+//     },
+//   },
+//   {
+//     source: "林和西",
+//     target: "体育中心南",
+//     lineStyle: {
+//       normal: {
+//         color: "#00a1cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "体育中心南",
+//     target: "天河南",
+//     lineStyle: {
+//       normal: {
+//         color: "#00a1cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "天河南",
+//     target: "黄埔大道",
+//     lineStyle: {
+//       normal: {
+//         color: "#00a1cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "黄埔大道",
+//     target: "妇儿中心",
+//     lineStyle: {
+//       normal: {
+//         color: "#00a1cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "妇儿中心",
+//     target: "花城大道",
+//     lineStyle: {
+//       normal: {
+//         color: "#00a1cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "花城大道",
+//     target: "大剧院",
+//     lineStyle: {
+//       normal: {
+//         color: "#00a1cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "大剧院",
+//     target: "海心沙",
+//     lineStyle: {
+//       normal: {
+//         color: "#00a1cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "海心沙",
+//     target: "广州塔",
+//     lineStyle: {
+//       normal: {
+//         color: "#00a1cb",
+//       },
+//     },
+//   },
+//   {
+//     source: "新和",
+//     target: "红卫",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "红卫",
+//     target: "新南",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "新南",
+//     target: "枫下",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "枫下",
+//     target: "知识城",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "知识城",
+//     target: "何棠下",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "何棠下",
+//     target: "旺村",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "旺村",
+//     target: "汤村",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "汤村",
+//     target: "镇龙北",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+//   {
+//     source: "镇龙北",
+//     target: "镇龙",
+//     lineStyle: {
+//       normal: {
+//         color: "#721920",
+//       },
+//     },
+//   },
+// ]

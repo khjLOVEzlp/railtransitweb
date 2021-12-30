@@ -50,12 +50,6 @@ const Tool = () => {
   const { data, isLoading } = useListBy(useDebounce(param, 500));
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  useEffect(() => {
-    const toolList = JSON.parse(sessionStorage.getItem("toolList") || "[]");
-    const ids = toolList.map((item: any) => item.toolId);
-    setSelectedRowKeys(ids);
-  }, [data]);
-
   const onSelectChange = (keys: any, value: any) => {
     const toolList = value.map((item: any) => {
       return {
@@ -74,7 +68,7 @@ const Tool = () => {
     onChange: onSelectChange,
     preserveSelectedRowKeys: true,
     getCheckboxProps: (record: any) => ({
-      disabled: record.count === 0,
+      // disabled: record.count === 0,
     }),
   };
 
@@ -150,11 +144,11 @@ const Mater = () => {
   const { data, isLoading } = useListBy(useDebounce(param, 500));
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  useEffect(() => {
-    const material = JSON.parse(sessionStorage.getItem("materialList") || "[]");
-    const ids = material.map((item: any) => item.materialId);
-    setSelectedRowKeys(ids);
-  }, [data]);
+  // useEffect(() => {
+  //   const material = JSON.parse(sessionStorage.getItem("materialList") || "[]");
+  //   const ids = material.map((item: any) => item.materialId);
+  //   setSelectedRowKeys(ids);
+  // }, [data]);
 
   const onSelectChange = (keys: any, value: any) => {
     const materialList = value.map((key: any) => {
@@ -174,7 +168,7 @@ const Mater = () => {
     onChange: onSelectChange,
     preserveSelectedRowKeys: true,
     getCheckboxProps: (record: any) => ({
-      disabled: record.count === 0,
+      // disabled: record.count === 0,
     }),
   };
 
@@ -199,7 +193,6 @@ const Mater = () => {
       </div>
       <Table
         loading={isLoading}
-        rowClassName={() => "editable-row"}
         bordered
         dataSource={data?.data}
         columns={columns}

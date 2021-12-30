@@ -15,7 +15,6 @@ export const cleanObject = (object?: { [key: string]: unknown }) => {
   return result;
 };
 
-
 export const getType = (type: number) => {
   switch (type) {
     case 1:

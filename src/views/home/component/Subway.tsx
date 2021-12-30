@@ -1,22 +1,25 @@
 import { useEffect, useRef } from "react";
 import * as echarts from "echarts";
-import { subwaylist, guangzhouLine } from "./index";
+import { shanghaiLine, shanghaiSubwayList } from "./index";
 import { useHttp } from "utils/http";
 import { FullPageLoading } from "components/FullPageLoading";
-import { useLine } from "api/home/subway";
+import { useLine, useSubwayList } from "api/home/subway";
 
 export const Subway = () => {
   const { data: lineList, isSuccess, isLoading } = useLine();
+  const {data, isSuccess: success} = useSubwayList()
+
+  console.log();
 
   const client = useHttp();
-  if (isSuccess) {
+  if (isSuccess && success) {
     // 根据接口返回路线展示对应路线
-    const newData = subwaylist.filter((item) =>
+    const newData = data.data[0].filter((item: any) =>
       lineList.data.find((key: any) => item.name === key.name)
     );
 
     // 给每条路线下面的站点加上subwayId
-    const platformSubwayId = newData.map((item: any, index) => {
+    const platformSubwayId = newData.map((item: any) => {
       lineList.data.find((key: any) => item.name === key.name) &&
         item.stations.forEach((v: any) => {
           v["subwayId"] = lineList.data
@@ -161,7 +164,7 @@ export const Subway = () => {
           },
         },
         data: str,
-        links: guangzhouLine,
+        links: data?.data[1],
         lineStyle: {
           normal: {
             opacity: 0.6, //线条透明度
