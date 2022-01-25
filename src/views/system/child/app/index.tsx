@@ -1,5 +1,5 @@
 import { Button, message, Table } from "antd";
-import { Footer, Header, Main, SearchForm } from "components/Styled";
+import { Header, Main, SearchForm } from "components/Styled";
 import { useAuth } from "context/auth-context";
 import { useState } from "react";
 import { isButton } from "utils";
@@ -14,7 +14,7 @@ export const AppUpdate = () => {
       (item: { [item: string]: unknown }) => item.name === "APP更新"
     ).childMenu;
 
-  const [param, setParam] = useState({
+  const [param] = useState({
     pageNum: 1,
     pageSize: 10,
   });
@@ -108,7 +108,6 @@ export const AppUpdate = () => {
           columns={columns}
           dataSource={data?.data?.list}
           loading={isLoading}
-          //   onChange={handleTableChange}
           pagination={{
             total: data?.count,
             current: param.pageNum,
@@ -116,7 +115,6 @@ export const AppUpdate = () => {
             hideOnSinglePage: true,
           }}
           rowKey={(item) => item.id}
-          //   rowSelection={rowSelection}
           size="small"
         />
       </Main>

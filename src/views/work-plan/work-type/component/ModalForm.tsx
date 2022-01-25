@@ -17,9 +17,11 @@ import { useEffect, useState } from "react";
 import { useListBy } from "views/warehouse/child/materialType/request";
 import { useDebounce } from "hook/useDebounce";
 import { useAdd, useMod } from "api/work-plan/work-type";
+import { useTaskTypeContext } from "..";
 const { TabPane } = Tabs;
 
-const Tool = () => {
+const Tool = ({toolKeys, setToolKeys}: any) => {
+  const {setToolList} = useTaskTypeContext()
   const columns = [
     {
       title: "工具",
@@ -48,23 +50,22 @@ const Tool = () => {
   });
 
   const { data, isLoading } = useListBy(useDebounce(param, 500));
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const onSelectChange = (keys: any, value: any) => {
-    const toolList = value.map((item: any) => {
+    const newToolList = value.map((item: any) => {
       return {
         num: item.count,
         toolId: item.id,
       };
-    });
+    })
 
-    sessionStorage.setItem("toolList", JSON.stringify(toolList));
-
-    setSelectedRowKeys(keys);
+    setToolKeys(keys);
+    
+    setToolList(newToolList)
   };
 
   const rowSelection = {
-    selectedRowKeys,
+    selectedRowKeys: toolKeys,
     onChange: onSelectChange,
     preserveSelectedRowKeys: true,
     getCheckboxProps: (record: any) => ({
@@ -111,7 +112,8 @@ const Tool = () => {
 };
 
 /* 物料 */
-const Mater = () => {
+const Mater = ({materKeys, setMaterKeys}: any) => {
+  const {setMaterialList} = useTaskTypeContext()
   const columns = [
     {
       title: "物料",
@@ -142,29 +144,21 @@ const Mater = () => {
   });
 
   const { data, isLoading } = useListBy(useDebounce(param, 500));
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
-  // useEffect(() => {
-  //   const material = JSON.parse(sessionStorage.getItem("materialList") || "[]");
-  //   const ids = material.map((item: any) => item.materialId);
-  //   setSelectedRowKeys(ids);
-  // }, [data]);
 
   const onSelectChange = (keys: any, value: any) => {
-    const materialList = value.map((key: any) => {
+    const newMaterialList = value.map((key: any) => {
       return {
         num: key.count,
         materialId: key.id,
       };
     });
 
-    sessionStorage.setItem("materialList", JSON.stringify(materialList));
-
-    setSelectedRowKeys(keys);
+    setMaterKeys(keys);
+    setMaterialList([...newMaterialList])
   };
 
   const rowSelection = {
-    selectedRowKeys,
+    selectedRowKeys: materKeys,
     onChange: onSelectChange,
     preserveSelectedRowKeys: true,
     getCheckboxProps: (record: any) => ({
@@ -212,6 +206,9 @@ const Mater = () => {
 
 export const ModalForm = ({ param, setParam }: any) => {
   const [form] = Form.useForm();
+  const [toolKeys, setToolKeys] = useState([])
+  const [materKeys, setMaterKeys] = useState([])
+  const {toolList, setToolList, materialList, setMaterialList} = useTaskTypeContext()
   const { ModalOpen, close, isLoading, editingPlanType, editId } =
     usePlanTypeModal();
   const title = editingPlanType ? "修改" : "新增";
@@ -229,31 +226,23 @@ export const ModalForm = ({ param, setParam }: any) => {
   useEffect(() => {
     if (editingPlanType) {
       form.setFieldsValue(editingPlanType?.data);
-      console.log(editingPlanType);
-      sessionStorage.setItem(
-        "toolList",
-        JSON.stringify(editingPlanType?.data.toolList)
-      );
-      sessionStorage.setItem(
-        "materialList",
-        JSON.stringify(editingPlanType?.data.materialList)
-      );
+      setToolKeys(editingPlanType?.data.toolList.map((item: any) => item.toolId))
+      setMaterKeys(editingPlanType?.data.materialList.map((item: any) => item.materialId))
+      setToolList(editingPlanType?.data.toolList.map((item: any) => ({toolId: item.toolId, num: item.num})))
+      setMaterialList(editingPlanType?.data.materialList.map((item: any) => ({materialId: item.materialId, num: item.num})))
     }
   }, [form, editingPlanType]);
 
   const closeModal = () => {
     form.resetFields();
-    sessionStorage.removeItem("toolList");
-    sessionStorage.removeItem("materialList");
+    setToolKeys([])
+    setMaterKeys([])
+    setMaterialList([])
+    setToolList([])
     close();
   };
 
   const onFinish = (value: any) => {
-    const toolList = JSON.parse(sessionStorage.getItem("toolList") || "[]");
-    const materialList = JSON.parse(
-      sessionStorage.getItem("materialList") || "[]"
-    );
-
     mutateAsync({
       ...editingPlanType?.data,
       ...value,
@@ -315,10 +304,10 @@ export const ModalForm = ({ param, setParam }: any) => {
       )}
       <Tabs defaultActiveKey="1">
         <TabPane tab="工具" key="1">
-          <Tool />
+          <Tool toolKeys={toolKeys} setToolKeys={setToolKeys} />
         </TabPane>
         <TabPane tab="物料" key="2">
-          <Mater />
+          <Mater materKeys={materKeys} setMaterKeys={setMaterKeys} />
         </TabPane>
       </Tabs>
     </Modal>

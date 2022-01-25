@@ -195,6 +195,8 @@ const OpenModal = () => {
   };
 
   useEffect(() => {
+    console.log(alarmId);
+
     switch (alarmId) {
       case 2:
         setAlarmType([workName, type, groupName, warnTime, content]);
@@ -230,6 +232,10 @@ const OpenModal = () => {
         break;
 
       case 8:
+        setAlarmType([content, warnTime, type]);
+        break;
+
+      case 10:
         setAlarmType([content, warnTime, type]);
         break;
 

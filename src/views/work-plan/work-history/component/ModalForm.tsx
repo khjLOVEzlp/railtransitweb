@@ -16,6 +16,7 @@ import {
   Input,
   Select,
   Tooltip,
+  Carousel,
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { useEffect, useState } from "react";
@@ -25,6 +26,7 @@ import userIcon from "assets/n/main-jihua-addicon3.png";
 import { Type } from "api/home/alarm-statistics";
 import { usePlanType } from "api/work-plan/work-type";
 import { PersonSelect } from "components/PersonSelect";
+const { TextArea } = Input;
 const { TabPane } = Tabs;
 const baseUrl = process.env["REACT_APP_API_URL"];
 
@@ -38,19 +40,26 @@ export const ModalForm = () => {
   useEffect(() => {
     if (isSuccess) {
       const type = planHistory.data.typeList.map((item: any) => item.typeId);
-      form.setFieldsValue({ ...planHistory.data, typeList: type });
+      form.setFieldsValue({
+        ...planHistory.data,
+        typeList: type,
+        safePerson:
+          planHistory.data.safePerson === 0
+            ? undefined
+            : planHistory.data.safePerson,
+      });
     }
   }, [isSuccess]);
 
-  const [pic, setPic] = useState({
-    id: "",
-    show: false,
-  });
+  // const [pic, setPic] = useState({
+  //   id: "",
+  //   show: false,
+  // });
 
-  const [visible, setVisible] = useState({
-    show: false,
-    photoList: [],
-  });
+  // const [visible, setVisible] = useState({
+  //   show: false,
+  //   photoList: [],
+  // });
 
   const [bodyStyle] = useState({
     width: "100%",
@@ -64,7 +73,7 @@ export const ModalForm = () => {
     defaultFileList: isSuccess && planHistory.data.documentList,
     showUploadList: {
       showDownloadIcon: true,
-      downloadIcon: 'download ',
+      downloadIcon: "download ",
       showRemoveIcon: false,
     },
   };
@@ -180,7 +189,7 @@ export const ModalForm = () => {
               </Form.Item>
 
               <Form.Item label="作业内容" name="workContent">
-                <Input disabled />
+                <TextArea rows={1} disabled />
               </Form.Item>
             </Space>
 
@@ -188,23 +197,23 @@ export const ModalForm = () => {
               <PersonSelect label="安全员" name="safePerson" disabled />
 
               <Form.Item label="安全员职责" name="safeDuty">
-                <Input disabled />
+                <TextArea rows={1} disabled />
               </Form.Item>
 
               <Form.Item label="施工负责人职责" name="leaderDuty">
-                <Input disabled />
+                <TextArea rows={1} disabled />
               </Form.Item>
             </Space>
 
             <Space style={{ display: "flex" }}>
               <Form.Item label="防疫专员职责" name="preventionDuty">
-                <Input disabled />
+                <TextArea rows={1} disabled />
               </Form.Item>
 
               <PersonSelect label="防疫专员" name="preventionPerson" disabled />
 
               <Form.Item label="备注" name="remark">
-                <Input disabled />
+                <TextArea rows={1} disabled />
               </Form.Item>
             </Space>
 
@@ -407,18 +416,25 @@ export const ModalForm = () => {
                     }}
                   >
                     {item.photoList.length > 0 ? (
-                      <Button
-                        type="link"
-                        onClick={() => {
-                          setVisible({
-                            ...visible,
-                            show: true,
-                            photoList: item.photoList,
-                          });
-                        }}
-                      >
-                        图片
-                      </Button>
+                      <Carousel effect="fade" autoplay>
+                        {item.photoList.map((key: any, index: number) => (
+                          <div key={index}>
+                            <h3
+                              style={{
+                                height: "160px",
+                                color: "#fff",
+                                lineHeight: "160px",
+                              }}
+                            >
+                              <Image
+                                width={"100%"}
+                                height={"100%"}
+                                src={`${baseUrl}file/perview/${key}`}
+                              />
+                            </h3>
+                          </div>
+                        ))}
+                      </Carousel>
                     ) : (
                       <div></div>
                     )}
@@ -468,18 +484,25 @@ export const ModalForm = () => {
                     }}
                   >
                     {item.receivePhoto.length > 0 ? (
-                      <Button
-                        type="link"
-                        onClick={() => {
-                          setVisible({
-                            ...visible,
-                            show: true,
-                            photoList: item.receivePhoto,
-                          });
-                        }}
-                      >
-                        图片
-                      </Button>
+                      <Carousel effect="fade" autoplay>
+                        {item.receivePhoto.map((key: any, index: number) => (
+                          <div key={index}>
+                            <h3
+                              style={{
+                                height: "160px",
+                                color: "#fff",
+                                lineHeight: "160px",
+                              }}
+                            >
+                              <Image
+                                width={"100%"}
+                                height={"100%"}
+                                src={`${baseUrl}file/perview/${key}`}
+                              />
+                            </h3>
+                          </div>
+                        ))}
+                      </Carousel>
                     ) : (
                       <div></div>
                     )}
@@ -496,67 +519,54 @@ export const ModalForm = () => {
                     }}
                   >
                     {item.photos.length > 0 ? (
-                      <Button
-                        type="link"
-                        onClick={() => {
-                          setVisible({
-                            ...visible,
-                            show: true,
-                            photoList: item.photos,
-                          });
-                        }}
-                      >
-                        图片
-                      </Button>
+                      <Carousel effect="fade" autoplay>
+                        {item.photos.map((key: any, index: number) => (
+                          <div key={index}>
+                            <h3
+                              style={{
+                                height: "160px",
+                                color: "#fff",
+                                lineHeight: "160px",
+                              }}
+                            >
+                              <Image
+                                width={"100%"}
+                                height={"100%"}
+                                src={`${baseUrl}file/perview/${key}`}
+                              />
+                            </h3>
+                          </div>
+                        ))}
+                      </Carousel>
                     ) : (
                       <div></div>
                     )}
                   </Card>
 
-                  <Card
-                    size="small"
-                    title="出清的拍照"
-                    className="CardClass"
-                    bodyStyle={{
-                      minHeight: "200px",
-                      maxHeight: "200px",
-                      overflowY: "auto",
-                    }}
-                  >
-                    {item.clearingPhoto.length > 0 ? (
-                      <Button
-                        type="link"
-                        onClick={() => {
-                          setVisible({
-                            ...visible,
-                            show: true,
-                            photoList: item.clearingPhoto,
-                          });
-                        }}
-                      >
-                        图片
-                      </Button>
-                    ) : (
-                      <div></div>
-                    )}
-                  </Card>
                   <div></div>
-                  <div></div>
+                  {/* <div></div> */}
                 </GroupList>
               ))}
             </TabPane>
 
             <TabPane tab="签到人员" key="2">
               <Table
-                pagination={false}
+                pagination={{
+                  hideOnSinglePage: true,
+                }}
                 columns={[
                   {
                     title: "签到人员",
                     dataIndex: "personName",
                   },
                   {
-                    title: "签到时间",
+                    title: "创建时间",
                     dataIndex: "createTime",
+                  },
+                  {
+                    title: "是否到岗",
+                    render: (item: any) =>
+                      item.isWork === 0 ? "到岗" : "未到岗",
                   },
                 ]}
                 dataSource={planHistory?.data.registrationList}
@@ -567,7 +577,6 @@ export const ModalForm = () => {
 
             <TabPane tab="告警记录" key="3">
               <Table
-                pagination={false}
                 columns={[
                   {
                     title: "告警类型",
@@ -587,6 +596,9 @@ export const ModalForm = () => {
                   },
                 ]}
                 dataSource={planHistory?.data.warnList}
+                pagination={{
+                  hideOnSinglePage: true,
+                }}
                 rowKey={(item: any) => item.id}
                 locale={noData}
               />
@@ -710,7 +722,7 @@ export const ModalForm = () => {
         </>
       )}
 
-      <Modal
+      {/* <Modal
         width={1200}
         visible={visible.show}
         footer={false}
@@ -725,9 +737,9 @@ export const ModalForm = () => {
             />
           ))}
         </Image.PreviewGroup>
-      </Modal>
+      </Modal> */}
 
-      <Modal
+      {/* <Modal
         width={500}
         visible={pic.show}
         footer={false}
@@ -738,7 +750,7 @@ export const ModalForm = () => {
           height={"100%"}
           src={`${baseUrl}file/perview/${pic.id}`}
         />
-      </Modal>
+      </Modal> */}
     </Modal>
   );
 };
@@ -763,7 +775,7 @@ const GroupList = styled.div`
   flex-wrap: wrap;
   margin-bottom: 20px;
   > * {
-    width: 22%;
+    width: 18%;
     margin: 20px 0;
   }
 `;

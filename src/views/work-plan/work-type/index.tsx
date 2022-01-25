@@ -3,14 +3,27 @@ import { ModalForm } from "./component/ModalForm";
 import { useDebounce } from "hook/useDebounce";
 import { usePlanTypeModal } from "./util";
 import { Search } from "utils/typings";
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { noData } from "utils/verification";
 import { Footer, Header, Main, SearchForm } from "components/Styled";
 import { useAuth } from "context/auth-context";
 import { isButton } from "utils";
 import { useDel, useInit } from "api/work-plan/work-type";
 
+const TaskTypeContext = createContext<
+  | {
+      toolList: any;
+      setToolList: (toolList: any) => void;
+      materialList: any;
+      setMaterialList: (materialList: any) => void;
+    }
+  | undefined
+>(undefined);
+
 export const PlanType = () => {
+  const [toolList, setToolList] = useState([]);
+  const [materialList, setMaterialList] = useState([]);
+
   const [param, setParam] = useState({
     index: 1,
     size: 10,
@@ -83,7 +96,9 @@ export const PlanType = () => {
   };
 
   return (
-    <>
+    <TaskTypeContext.Provider
+      value={{ toolList, setToolList, materialList, setMaterialList }}
+    >
       <Header>
         <div className="left"></div>
         <div className="right">作业类型</div>
@@ -187,6 +202,14 @@ export const PlanType = () => {
         </Footer>
       )}
       <ModalForm param={param} setParam={setParam} />
-    </>
+    </TaskTypeContext.Provider>
   );
+};
+
+export const useTaskTypeContext = () => {
+  const context = useContext(TaskTypeContext);
+  if (!context) {
+    throw new Error("useTaskTypeContext必须在PlanType组件中使用");
+  }
+  return context;
 };

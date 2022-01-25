@@ -111,7 +111,8 @@ export const ModalForm = ({ param, setParam }: Props) => {
             <Form.Item
               label="流量卡号码"
               name="phone"
-              rules={[{ required: true, len: 11, message: "请输入11位卡号" }]}
+              // rules={[{ required: true, len: 11, message: "请输入11位卡号" }]}
+              rules={rules}
             >
               <Input type={"number"} />
             </Form.Item>

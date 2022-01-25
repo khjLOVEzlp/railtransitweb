@@ -2,9 +2,14 @@ import styled from "@emotion/styled";
 
 export const layout = { height: "100%", borderRadius: "14px" };
 export const paddingLayout = { padding: "15px" };
-export const sider = { height: "100%", paddingTop: "5rem", background: '#00225C' };
-export const menuStyle = {background: '#00225C'};
-export const menuItem = { display: "flex", alignItems: "center", };
+// export const sider = {
+//   height: "100%",
+//   position: "relative",
+//   zIndex: 3,
+//   background: "#00225C",
+// };
+export const menuStyle = { background: "#00225C" };
+export const menuItem = { display: "flex", alignItems: "center" };
 export const navLink = { fontSize: "1.5rem", marginLeft: "0.5rem" };
 export const content = { marginLeft: "1rem" };
 
@@ -27,6 +32,9 @@ export const Header = styled.div`
 `;
 
 export const Main = styled.div`
+  position: relative;
+  z-index: 1;
+  vertical-align: top;
   flex: 10;
   background: #fff;
   border-radius: 1rem;
@@ -52,7 +60,7 @@ export const Footer = styled.div`
 `;
 
 export const SearchForm = styled.div`
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
 `;

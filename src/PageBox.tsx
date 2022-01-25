@@ -4,6 +4,7 @@ import { useHttp } from "./utils/http";
 import logo from "./assets/login/login_logo.png";
 import bg from "./assets/home/home-topbg.png";
 import on from "./assets/home/home-topbg-btn.png";
+// import title from "./assets/home/WechatIMG3.png";
 import title from "./assets/home/智慧轨行区数字化维养安全管控系统.png";
 import notice from "./assets/home/Email.png";
 import userimg from "./assets/home/User.png";
@@ -280,6 +281,26 @@ const User = () => {
     setVisible(true);
   };
 
+  const onClick = ({ key }: any) => {
+    if (key === "user") {
+      startEdit(user?.userId);
+    }
+
+    if (key === "mod") {
+      showModal();
+    }
+
+    if (key === "logout") {
+      logout().then(() => {
+        navigate("/login");
+      });
+    }
+
+    if (key === "help") {
+      OnHelpModal();
+    }
+  };
+
   return (
     <div
       className="userRight"
@@ -297,32 +318,18 @@ const User = () => {
       <OperModal />
       <Dropdown
         overlay={
-          <Menu>
+          <Menu onClick={onClick}>
             <Menu.Item key={"user"}>
-              <Button onClick={() => startEdit(user?.userId)} type={"link"}>
-                用户信息
-              </Button>
+              <Button type={"link"}>用户信息</Button>
             </Menu.Item>
             <Menu.Item key={"mod"}>
-              <Button onClick={showModal} type={"link"}>
-                修改密码
-              </Button>
+              <Button type={"link"}>修改密码</Button>
             </Menu.Item>
             <Menu.Item key={"logout"}>
-              <Button
-                onClick={() => {
-                  logout();
-                  navigate("/login");
-                }}
-                type={"link"}
-              >
-                登出
-              </Button>
+              <Button type={"link"}>登出</Button>
             </Menu.Item>
             <Menu.Item key={"help"}>
-              <Button onClick={OnHelpModal} type={"link"}>
-                关于、帮助
-              </Button>
+              <Button type={"link"}>关于、帮助</Button>
             </Menu.Item>
           </Menu>
         }
@@ -330,7 +337,7 @@ const User = () => {
         <Button
           style={{
             color: "#FFF",
-            fontSize: "2rem",
+            fontSize: "1.6rem",
             fontWeight: "bold",
             lineHeight: "100%",
           }}
@@ -373,12 +380,14 @@ const Container = styled.div`
 `;
 
 const HeaderStyle = styled.header`
-  height: 55px;
+  position: relative;
+  z-index: 2;
+  height: 50px;
   display: flex;
   align-items: center;
   padding: 0 1rem;
   justify-content: space-between;
-  background: url(${bg}) center center no-repeat #00225c;
+  background: url(${bg}) center center no-repeat;
   p {
     margin: 0 auto;
     width: 460px;
@@ -439,6 +448,8 @@ const Nav = styled.div`
 `;
 
 const ContentStyle = styled.main`
-  height: calc(100vh - 55px);
+  height: calc(100vh - 50px + 10px);
+  margin-top: -10px;
+  position: relative;
   box-sizing: border-box;
 `;

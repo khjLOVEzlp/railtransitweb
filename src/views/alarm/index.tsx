@@ -378,6 +378,9 @@ export const Alarm = () => {
     if (String(value) === "8") {
       setAlarmType([content, warnTime, type]);
     }
+    if (String(value) === "10") {
+      setAlarmType([content, warnTime, type]);
+    }
     if (String(value) === "11") {
       setAlarmType([workName, type, warnTime, content]);
     }

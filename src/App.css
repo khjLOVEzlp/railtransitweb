@@ -324,3 +324,8 @@ th.ant-table-selection-column {
   height: 50px!important;
   padding: 0!important;
 }
+.editable-row .ant-form-item-explain {
+  position: absolute;
+  top: 100%;
+  font-size: 12px;
+}

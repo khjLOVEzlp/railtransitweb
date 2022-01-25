@@ -101,8 +101,7 @@ export const Subway = () => {
     backgroundColor: "white",
     xAxis: {
       show: false,
-      min: 0,
-      max: 2500,
+      
       // type: "value",
       //开启x轴坐标
       axisPointer: {
@@ -111,8 +110,7 @@ export const Subway = () => {
     },
     yAxis: {
       show: false,
-      min: -2500,
-      max: 0,
+      
       //   type: "value",
       //开启y轴坐标
       axisPointer: {

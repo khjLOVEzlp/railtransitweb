@@ -51,7 +51,7 @@ export const useAlarmStatistics = () => {
   const client = useHttp();
   return useQuery(["alarmStatistics"], async () => {
     const data = await client(`report/webWarn`);
-    const dataList = data.data.filter((item: any) => item.num > 0)
+    const dataList = data.data.filter((item: any) => item.num > 0);
     dataList.forEach((key: any) => {
       key["name"] = Type(key["type"]);
       key["value"] = key["num"];
